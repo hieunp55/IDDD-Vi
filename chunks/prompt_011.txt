@@ -1,0 +1,513 @@
+Bạn là chuyên gia dịch thuật kỹ thuật Anh → Việt, chuyên tài liệu kỹ thuật/công nghệ, có kinh nghiệm dịch như biên dịch viên bản ngữ chuyên nghiệp. Nhiệm vụ: dịch TOÀN BỘ nội dung Markdown dưới đây sang tiếng Việt, không bỏ sót bất kỳ phần nào. Đây là MỘT PHẦN (chunk) của một tài liệu lớn hơn, hãy dịch độc lập đoạn này, không thêm lời mở đầu/kết luận về việc đây chỉ là một phần.
+
+QUY TẮC BẮT BUỘC — VI PHẠM LÀ SAI:
+
+1. XÁC ĐỊNH LOẠI TÀI LIỆU TRƯỚC KHI DỊCH
+   - Tự phân tích nội dung để xác định loại tài liệu (kỹ thuật/lập trình, tài chính, bảo hiểm, pháp lý, marketing, học thuật, vận hành, sản phẩm...).
+   - Chọn văn phong và thuật ngữ CHUẨN NGÀNH tương ứng trong tiếng Việt, nhất quán xuyên suốt.
+
+2. VĂN PHONG — MƯỢT NHƯ NGƯỜI DỊCH, KHÔNG GIẢM CHÍNH XÁC
+   - Dịch mượt, tự nhiên, đúng ngữ pháp tiếng Việt — như biên dịch viên bản ngữ dịch tay, KHÔNG dịch máy móc kiểu word-by-word.
+   - Được phép đảo cấu trúc câu, tách/gộp câu cho tự nhiên, miễn giữ nguyên 100% ý nghĩa, thông tin, logic, số liệu gốc.
+   - Khi "mượt mà" và "chính xác" xung đột → LUÔN ưu tiên chính xác.
+
+3. DỊCH ĐẦY ĐỦ 100%
+   - Không tóm tắt, không rút gọn, không lược bỏ đoạn/câu/mục/bullet nào.
+   - Số lượng heading, đoạn văn, bảng, code block ở output PHẢI khớp 1:1 với input.
+   - Đoạn dài dịch hết, không cắt ngắn.
+
+4. GIỮ NGUYÊN THUẬT NGỮ TIẾNG ANH
+   - Thuật ngữ chuyên ngành (tên công nghệ, framework, pattern, tên hàm/biến, acronym...) giữ nguyên tiếng Anh, không dịch, không phiên âm.
+   - Ngay sau lần xuất hiện ĐẦU TIÊN của mỗi thuật ngữ, thêm chú thích ngắn trong ngoặc giải thích nghĩa bằng tiếng Việt.
+   - Các lần xuất hiện sau KHÔNG cần chú thích lại.
+
+5. GIỮ NGUYÊN FORMAT — RẤT QUAN TRỌNG
+   - VỀ ẢNH (làm trước khi dịch): ĐẾM chính xác số lượng thẻ ảnh dạng ![...](...) trong đoạn gốc bên dưới. Output PHẢI có ĐÚNG số lượng thẻ ảnh đó, không được thiếu một cái nào — kể cả ảnh không có caption, không rõ ngữ cảnh, hay trông như ảnh trang trí/lặp lại. Copy nguyên URL 100%, không sửa, không rút gọn, không thay bằng mô tả text.
+   - Giữ cấp độ heading (#, ##, ###...), giữ đúng số lượng heading.
+   - Giữ cấu trúc bảng (số cột, số hàng, alignment, header row).
+   - Giữ code block (```lang ... ```) — KHÔNG dịch code; comment được dịch tại chỗ; **được phép reformat code, tự động xuống dòng/indent chuẩn, không giữ nguyên code 1 dòng; không đổi logic/cú pháp**.
+   - Giữ blockquote, callout/note/warning (>, [!NOTE], [!WARNING]...).
+   - Giữ list, nested list, checkbox (- [ ]).
+   - Giữ nguyên link thường ([text](url)) — chỉ dịch phần text hiển thị, TUYỆT ĐỐI giữ nguyên URL.
+   - TRƯỚC KHI TRẢ KẾT QUẢ: tự đếm lại số heading, số ảnh, số dòng ``` giữa bản gốc và bản dịch của bạn, nếu lệch phải sửa lại cho khớp.
+
+6. GIẢI THÍCH ẨN DỤ / KHÁI NIỆM KHÓ
+   - Với ẩn dụ, thành ngữ, khái niệm trừu tượng khó hiểu với người Việt, thêm khối giải thích riêng ngay sau đoạn đó:
+     > 💡 **Giải thích thêm:** [giải thích dễ hiểu, đủ chuyên sâu, có ví dụ thực tế]
+     > Nguồn tham khảo: [link cụ thể để kiểm chứng]
+   - CHỈ đưa link nếu chắc chắn tồn tại và đúng nội dung — không bịa link.
+   - Không tìm được nguồn tin cậy → ghi rõ: "(Không có nguồn trích dẫn xác thực — cần tự kiểm chứng thêm)".
+
+7. CHỐNG HALLUCINATION (BẮT BUỘC)
+   - Không tự thêm thông tin/số liệu/ví dụ/kết luận KHÔNG có trong bản gốc — trừ phần giải thích ẩn dụ ở mục 6 (phải gắn nhãn rõ là phần bổ sung).
+   - Câu gốc mơ hồ → dịch sát nghĩa nhất, nếu không chắc ghi chú: "[CẦN KIỂM CHỨNG: câu gốc mơ hồ]".
+   - Không tự sửa/thêm/bớt logic kỹ thuật gốc. Không bịa trích dẫn/số liệu/link vô căn cứ.
+   - Không tự tóm tắt các đoạn dài thành ý chính rồi diễn giải lại — phải dịch từng câu.
+
+8. OUTPUT
+   - Trả về DUY NHẤT nội dung Markdown đã dịch, đặt trong 1 code block (```markdown ... ```).
+   - Không thêm lời dẫn/lời chào/giải thích ngoài code block.
+   - Không đổi tiêu đề gốc trừ khi cần dịch tiêu đề.
+
+--- NỘI DUNG GỐC CẦN DỊCH (một phần của tài liệu) ---
+
+- AJ:    'Would you like some information in exchange for a drink?'
+
+LB:    'Sorry, J. We only accept cache here.'
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000160_b25b49625e45e2b7d14d2a32881bb7415c4b6a2d50e4cd403896c0b6080872b5.png)
+
+One good thing about Data Fabrics is that they support domain models in a natural way, nearly eliminating any impedance mismatch. In fact, their distributed caches easily accommodate the persistence of domain objects in general and act as Aggregate Stores specifically. 13 Simply stated, an Aggregate stored in a Fabric's map-based cache 14 is the value part of a key-value pair. The key is formed from the globally unique identity of the Aggregate, and the Aggregate state itself is serialized to some binary or textual representation serving as the value:
+
+```
+String key = product.productId().id(); byte[] value = Serializer.serialize(product); // region (GemFire) or cache (Coherence) region.put(key, value);
+```
+
+Thus,  a  positive  consequence  of  using  a  Data  Fabric  with  features  closely aligned with the technical aspects of a domain model is the possibility of shortened development cycles. 15
+
+The examples provided in this section demonstrate how a Data Fabric can host a domain model in cache and enable system functionalities at distributed scale. In doing so, we'll explore ways to support the CQRS architecture pattern and Event-Driven Architecture using Long-Running Processes.
+
+## Data Replication
+
+Thinking of an in-memory data cache, we may immediately consider the real possibility of losing all or part of our system's state if the cache fails in some way. It's a real concern, but far from troublesome when redundancy is built into the Fabric.
+
+13.  Martin Fowler has recently promoted the term Aggregate Store , although the concept has existed for some time.
+
+14.  In GemFire this is called a region, but it's the same concept that Coherence calls a cache. I use cache for consistency.
+
+15.  Some NoSQL stores likewise act as natural 'Aggregate Stores,' simplifying technical aspects of implementing DDD.
+
+Consider the memory cache provided by a Fabric when using a cache-perAggregate strategy. In that case the Repository of a given Aggregate type is backed by a dedicated cache. A cache supporting only a single node would be quite vulnerable to failures at a single point. However, a Fabric providing multinode caches with replication would be quite reliable. You can choose the level of redundancy based on the probability of the number of nodes that may fail at any given time, which becomes very narrow as more nodes are included. You also have the latitude to trade redundancy for performance since, of course, performance can be impacted by the number of node replications required for an Aggregate to be fully committed.
+
+Here's an example of how cache (or region, again depending on the concrete Fabric) redundancy may work. One node acts as the primary cache/region, and any number of others are secondary . If a primary store fails, a fail-over occurs and one of the secondaries becomes the new primary. When the former primary recovers, all data stored on the new primary gets replicated to the recovered node and it becomes a secondary.
+
+An additional advantage of fail-over nodes is that they ensure guaranteed delivery of events published from the Fabric. Thus, updates to Aggregates and any Fabric events published as a result are never lost. Obviously, cache redundancy and replication are essential features for storing business-critical domain model objects.
+
+## Event-Driven Fabrics and Domain Events
+
+A primary feature of a Fabric is the support of an Event-Driven style, with guaranteed delivery. Most Fabrics have built-in eventing of a technical nature, that is, the automatic notification of events that inform about cache-level and entry-level occurrences. Those should not be confused with Domain Events. For example, a cache-level event informs of happenings such as cache reinitialization, and an entry-level event informs about occurrences such as entry creation and updates.
+
+Still, with a Fabric supporting an open architecture there should be a way to support publishing Domain Events directly out of Aggregates. Your Domain Events may have to subclass a specific framework event type, such as EntryEvent (for example, GemFire), but that's a small price to pay for the power they afford.
+
+How might you actually use Domain Events in a Fabric? As discussed in Domain  Events  (8) ,  your  Aggregates  would  use  a  simple DomainEventPublisher component. In the cache of a Fabric this publisher may simply put the published Events into a specific cache/region. Cached Events would then be delivered to subscribers (listeners), either synchronously or asynchronously. So as not to waste precious memory in this dedicated Event cache/region, as each Event  is  fully  acknowledged  by  all  subscribers,  its  entry  would  be  removed from the map. Of course, each Event is only fully acknowledged once it has been published by one or more subscribers to a message queue or bus and/or used to freshen a CQRS query model.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000161_5d4a3099a7c6d1544b963ac05f8ae06d43c13db9ce7a28f187967894f4ff845e.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000162_c2662666f1892bf86d2ae00e39d2bcb5eaadeb487b37c00424d7d52339ba0363.png)
+
+Since Domain Event subscribers may also use the Events to carry out the synchronization of other dependent Aggregates, eventual consistency is guaranteed by means of the architecture.
+
+## Continuous Queries
+
+Some Fabrics support a kind of event notification known as Continuous Query. This enables a client to register a query with the Fabric that will ensure that the client receives notification of changes in the cache that satisfy the query. One use of the Continuous Query is by user interface components, which enables these to listen for changes that could impact the current view.
+
+Do you  see  what's  coming?  CQRS  has  a  strong  fit  with  the  Continuous Query  feature,  assuming  that  the  query  model  is  maintained  in  the  Fabric. Rather than requiring the view to chase after view table updates, the notifications delivered as registered Continuous Queries are resolved, allowing the views to update just in time. Here's an example of a client registering for GemFire Continuous Query events:
+
+```
+CqAttributesFactory factory = new CqAttributesFactory(); CqListener listener = new BacklogItemWatchListener(); factory.addCqListener(listener); String continuousQueryName = "BacklogItemWatcher"; String query = "select * from /queryModelBacklogItem qmbli " + "where qmbli.status = 'Committed'"; CqQuery backlogItemWatcher = queryService.newCq( continuousQueryName, query, factory.create());
+```
+
+The Data Fabric will now deliver CQRS query model updates based on Aggregate modifications to the client callback object provided by the CqListener , along with metadata that was added, updated, or destroyed when the matching criteria are met.
+
+## Distributed Processing
+
+A powerful use of a Data Fabric is to distribute processing across the Fabric's replicated caches and return the aggregated results to the client. This enables the Fabric to fulfill Event-Driven, distributed parallel processing, perhaps using Long-Running Processes.
+
+To illustrate this feature, we'll have to mention some concrete approaches in GemFire and Coherence. Your Process executive could be implemented as a GemFire Function or a Coherence Entry Processor. Both can serve as Command [Gamma et al.] handlers that execute in parallel across distributed, replicated cache. (You might instead choose to think of this concept as a Domain Service, but what it does may not be domain-centric.) For consistency let's call this feature a Function. A Function can optionally accept a filter to constrain the execution against matching Aggregate instances.
+
+Let's look at a sample Function that implements a Long-Running Process for the previously presented Phone Number Count Process. This Process will be executed in parallel across the replicated cache using a GemFire Function:
+
+```
+public class PhoneNumberCountSaga extends FunctionAdapter { @Override public void execute(FunctionContext context) { Cache cache = CacheFactory.getAnyInstance(); QueryService queryService = cache.getQueryService(); String phoneNumberFilterQuery = (String) context.getArguments(); ... // Pseudo code // - Execute Function to obtain MatchedPhoneNumbersCounted. //   - Send answer to the aggregator by invoking the //     aggregator.sendResult(MatchedPhoneNumbersCounted). // - Execute Function to obtain AllPhoneNumbersCounted. //   - Send answer to the aggregator by invoking the //     aggregator.sendResult(AllPhoneNumbersCounted). // - The aggregator automatically accumulates the answers //   from each distributed Function call and returns the //   single aggregated answer to the client. } }
+```
+
+Here is sample code for a client that will execute a Long-Running Process in parallel against distributed replicated cache:
+
+```
+PhoneNumberCountProcess phoneNumberCountProcess = new PhoneNumberCountProcess();
+```
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000163_9c36e3a97cc3a50024a7243898f9f9392bfbdd6ec166ecbc220f2fa7c3b0b214.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000164_000d2d4541e993a0a84cd1baafed8288e84e0d087999af4aa960a241eefe2107.png)
+
+```
+String phoneNumberFilterQuery = "select phoneNumber from /phoneNumberRegion pnr " + "where pnr.areaCode = '303'"; Execution execution = FunctionService.onRegion(phoneNumberRegion) .withFilter(0) .withArgs(phoneNumberFilterQuery) .withCollector(new PhoneNumberCountResultCollector()); PhoneNumberCountResultCollector resultCollector = execution.execute(phoneNumberCountProcess); List allPhoneNumberCountResults = (List) resultsCollector.getResult();
+```
+
+Of course, the process could be much more complex or far simpler than this one. This also demonstrates that a Process is not of necessity an Event-Driven concept, but one that can work with other concurrent, distributed processing approaches. For a full discussion of Fabric-based distributed and parallel processing, see [GemFire Functions].
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000165_b6c4234b4b3bf9ca85dcee3c132cf5c2a90cbf9a8c2422f6400660d99883be28.png)
+
+## Wrap-Up
+
+We've reviewed several architectural styles and architecture patterns that can be used with DDD. This is not an exhaustive list because there are just too many possibilities, which emphasizes the versatility of DDD. For example, we haven't considered how to apply DDD when Map-Reduce is at play. That's a topic for a future discussion.
+
+-  We've  discussed  the  traditional  Layers  Architecture  and  how  it  can  be improved on by using the Dependency Inversion Principle.
+-  You've  learned  about  the  strengths  of  the  possibly  timeless  Hexagonal  Architecture,  which  provides  an  overarching  style  for  application architectures.
+-  We've  emphasized  how  DDD  should  be  used  in  an  SOA  environment, with REST, and using a Data Fabric or a Grid-Based Distributed Cache.
+
+-  You got an overview of CQRS and how it can simplify some aspects of the application.
+-  We've  taken  a  look  at  the  various  aspects  of  how  Event-Driven  works, including Pipes and Filters, Long-Running Processes, and even a glimpse at Event Sourcing.
+
+We next move on to a series of chapters on DDD tactical modeling. Those chapters will help you see the finer-grained modeling options at your disposal, and how to best put them to work.
+
+This page intentionally left blank
+
+## Chapter 5
+
+## Entities
+
+I'm Chevy Chase . . . and you're not. -Chevy Chase
+
+There is a tendency for developers to focus on data rather than the domain. This can happen with those new to DDD, because of the prevailing approaches to  software  development  that  place  importance  on  the  database.  Instead  of designing domain concepts with rich behaviors, we might think primarily about the attributes (columns) and associations (foreign keys) of the data. Doing so reflects the data model into object counterparts, which leads to almost every concept in our 'domain model' being coded as an Entity abounding with getter and setter methods. It's easy to find tools that will generate all that for us. Although there may be nothing wrong with property accessors, that's not the only behavior DDD Entities should have.
+
+It's  a  trap  that  was  sprung  on  SaaSOvation  developers.  Learn  from  their lessons in Entity design.
+
+## Road Map to This Chapter
+
+-  Consider why Entities have their proper place when we need to model unique things.
+-  See how unique identities may be generated for Entities.
+-  Look in on a design session as a team captures its Ubiquitous Language (1) in Entity design.
+-  Learn how you can express Entity roles and responsibilities.
+-  See examples of how Entities can be validated and how to persist them to storage.
+
+## Why We Use Entities
+
+We design a domain concept as an Entity when we care about its individuality,  when  distinguishing  it  from  all  other  objects  in  a  system  is  a  mandatory constraint. An Entity is a unique thing and is capable of being changed continuously over a long period of time. Changes may be so extensive that the object might seem much different from what it once was. Yet, it is the same object by identity.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000166_cd94ad58c7261f1e53b6375bcb0ceba093a83873750f2d3b913cd467b16ac5c8.png)
+
+As the object changes, we may be interested in tracking when, how, and by whom changes were made. Or we might be satisfied that its current form implies enough about its previous state transitions that explicit change tracking is unnecessary. Even if we don't decide to track every detail of its change history, we could still reason on and discuss the sequences of valid changes that could occur to these objects over their entire lifetime. It is the unique identity and mutability characteristics that set Entities apart from Value Objects (6) .
+
+There  are  times  when  an  Entity  is  not  the  appropriate  modeling  tool  to reach for. Misappropriated use happens far more often than many are aware. Often a concept should be modeled as a Value. If this is a disagreeable notion, it might be that DDD doesn't fit your business needs. It is quite possible that a CRUD-based system would be more fitting. If so, that decision should save your project both time and money. The problem is that pursuing CRUD-based alternatives doesn't always save those precious resources.
+
+Businesses regularly put too much effort into developing glorified database table editors. Without the correct tool selection, CRUD-based solutions treated elaborately are too expensive. When CRUD makes sense, languages and frameworks such as Groovy and Grails, Ruby on Rails, and the like make the most sense. If the choice is correct, it should save time and money.
+
+## Cowboy Logic
+
+- AJ:    'What kinda CRUD did I just land in?'
+- LB:    'That's a cow pie, J!'
+- AJ:    'I know what pie is. You got your apple pie and your cherry pie. This ain't no pie.'
+- LB:    'Like they say, 'Never kick a cow pie on a hot day.' It's a good thing you didn't kick it.'
+
+On the other hand, if we apply CRUD to the wrong systems-more complex ones  that  deserve  the  precision  of  DDD-we  may  regret  it.  When  complexity grows, we experience the limitation of poor tool selection. CRUD systems can't produce a refined business model by only capturing data.
+
+If DDD is a justifiable investment in the business's bottom line, we use Entities as intended.
+
+When an object is distinguished by its identity, rather than its attributes, make this primary to its definition in the model. Keep the class definition simple and focused on life cycle continuity and identity. Define a means of distinguishing each object regardless of its form or history. . . . The model must define what it means to be the same thing. [Evans, p. 92]
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000167_99352665b200b50d5211491a841c488b9096885f945c4a749a76a9b23e5303da.png)
+
+This  chapter  teaches  how  to  place  the  proper  emphasis  on  Entities  and shows you various Entity design techniques.
+
+## Unique Identity
+
+In the early stages of designing an Entity, we purposely focus only on those primary attributes and behaviors that are central to its unique identity, as well as those useful for querying it, and we purposely ignore all other attributes and behaviors until we settle on the primary ones.
+
+Rather  than  focusing  on  the  attributes  or  even  the  behavior,  strip  the  Entity object's definition down to the most intrinsic characteristics, particularly those that  identify  it  or  are  commonly  used  to  find  or  match  it.  Add  only  behavior that is essential to the concept and attributes that are required by that behavior. [Evans,  p. 93]
+
+So that's what we'll do first. Having a range of available options for implementing identity is really important, as are those for ensuring that the uniqueness is preserved throughout time.
+
+An Entity's  unique  identity  may  or  may  not  also  be  practical  for  finding or matching. Using the unique identity for matching usually depends on how human-readable it is.  For  example,  if  the  application  makes  searching  for  a person's name available to users, it is very unlikely that the name is used as the Person Entity unique identity. People very frequently have nonunique names. On the other hand, if the application makes searching for a company's tax ID possible, the tax ID may well be the primary unique identifier for the Company Entity. Governments issue unique tax identities.
+
+Value Objects can serve as holders of unique identity. They are immutable, which ensures identity stability, and any behavior specific to the kind of identity  is  centralized.  Having  a  focal  point  for  identity  behavior,  however  simple, keeps the know-how from leaking into other parts of the model and into clients.
+
+Consider  some  common  identity  creation  strategies,  from  the  apparently simplest and most basic to those with increasing complexity:
+
+-  The  user  provides  one  or  more  original  unique  values  as  input  to  the application. The application must ensure that they are unique.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000168_d665ef5835a3397b6ac7f51e51587c05b76df0ca57a39ec1d530e97642ce9300.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000169_bb0537aec83db24add96306db598cb68efebb495a092e56ac00b3fc9aed3b871.png)
+
+-  The application internally generates an identity using an algorithm that ensures uniqueness. We can get a library or framework to do this for us, but it can be done by the application.
+-  The application relies on a persistence store, such as a database, to generate a unique identity.
+-  Another Bounded Context (2) (system or application) has already determined the unique identity. It is input or selected by the user from a set of choices.
+
+Let's  consider  the  individual  strategies,  along  with  particular  challenges related  to  each.  There  are  almost  always  side  effects  when  considering  the range  of  technical  solutions.  One  such  side  effect  occurs  when  we  use  relational  databases  for  object  persistence,  which  leak  into  our  domain  models. We round out identity creation concerns by addressing the impact of the timing of identity generation, the relational database's referential identity on domain objects, and how object-relational mapping (ORM) plays into this situation. We'll also consider some practical guidance on keeping unique identities stable.
+
+## User Provides Identity
+
+It appears to be a straightforward approach to have a user manually enter the details of unique identity. The user types a recognizable value or symbol into an input field or selects from a set of available characteristics, and the Entity is created. True, it is a simple enough approach. But there can be complications.
+
+One complication is relying on users to produce quality identities. The identity  may  be  unique  but  incorrect.  Most  times  identities  must  be  immutable, so users shouldn't change them. This is not always the case, and there may be advantages to enabling users to correct identity values. Here's an example. If we use the titles of Forum and Discussion as unique identities, what would happen if the user spelled the title incorrectly, or later decided that the title was not as fitting as it could have been, as shown in Figure 5.1? What's the cost of change? Although user-provided identity may seem like a well-budgeted approach, it may not be. Can users be relied upon to produce both unique and correct, long-lasting identities?
+
+Preventing this problem starts with design discussions. Teams need to consider  fail-proof  approaches  to  enable  users  to  define  unique  identity.  Workflow-based identity approval is not conducive to high-throughput domains but works best when human-readable identity is a must. If it takes extra time and effort to create and approve an identity that will be used pervasively throughout the business for years to come, and supporting a workflow is possible, adding a few extra cycles to ensure the quality of the identity is a good investment.
+
+Figure 5.1 The forum title is misspelled and the discussion title is less than desirable.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000170_9aaf076f861bd37ccd2003bb59b6183afe8fb423ead49fd950f48081cc74ef70.png)
+
+We always have the option to include user-entered values as Entity properties available for matching, but not to use them for unique identity. Simple properties  are  more  easily  modified  as  part  of  the  normal  operational  state of the Entity that changes over time. In that case we will need to use another means to obtain unique identity.
+
+## Application Generates Identity
+
+There are highly reliable ways to autogenerate unique identities, although care must be taken when the application is clustered or otherwise distributed across multiple computing nodes. There are identity creation patterns that can, to a much greater degree of certainty, produce a completely unique identity. The universally unique identifier (UUID), or globally unique identifier (GUID), is one such approach. A common variation follows, where the result of each step is concatenated into a single textual representation:
+
+1. Time in milliseconds on the computing node
+2. IP address of the computing code
+3. Object identity of the factory object instance within the virtual machine (Java)
+4. Random  number  generated  by  the  same  generator  within  the  virtual machine (Java)
+
+This produces a 128-bit unique value. It is most often expressed as a 32-byte or 36-byte hexadecimal encoded text string. The text format is 36 bytes when you  use  the  common  hyphen  segment  separators  in  the  format f36ab21c67dc-5274-c642-1de2f4d5e72a . Without the hyphens it is 32 bytes. Either way, the identity is big and is not considered human-readable.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000171_c02b608d52908894e5f11b73641e86cad899e90d8a99d2ccfae552bcaca32235.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000172_4bd2baffd66d2551633e4fe41afe97c36107affd28f0c80420ee30a181f22d7a.png)
+
+In the Java world, this formula has been replaced by a standard UUID generator available since Java 1.5. It's provided by class java.util.UUID .  This implementation  supports  four  different  generator  algorithms  based  on  the Leach-Salz variant. Using the Java standard API, we can easily generate a pseudo-random unique identity:
+
+```
+String rawId = java.util.UUID.randomUUID().toString();
+```
+
+It uses type 4, employing a cryptographically strong pseudo-random-number generator, which is based on the java.security.SecureRandom generator. Type  3  employs  a  name  encryption  approach,  which  uses java.security .MessageDigest . We can get a name-based UUID like this:
+
+```
+String rawId = java.util.UUID.nameUUIDFromBytes(
+```
+
+```
+"Some text".getBytes()).toString();
+```
+
+We can also blend the pseudo-random-number generation with encryption:
+
+```
+SecureRandom randomGenerator = new SecureRandom(); int randomNumber = randomGenerator.nextInt(); String randomDigits = new Integer(randomNumber).toString(); MessageDigest encryptor = MessageDigest.getInstance("SHA-1");
+```
+
+```
+byte[] rawIdBytes = encryptor.digest(randomDigits.getBytes());
+```
+
+Now we are left only with the task of converting the rawIdBytes array to a hexadecimal text representation. We could get that conversion for free. After generating the random number and converting it to a String ,  we pass that text to the UUID nameUUIDFromBytes() Factory [Gamma et al.] method.
+
+There are other identity  generation  facilities,  such  as java.rmi.server .UID and java.rmi.dgc.VMID , but these seem inferior to java.util.UUID and are not discussed here.
+
+UUID is a relatively fast identity to generate, requiring no interaction with the outside, such as a persistence mechanism. Even if a specific kind of Entity is created many times per second, the UUID generator can keep up the pace. For higher-performance  domains  we  can  cache  any  number  of  UUID  instances, refilling the cache in the background. If cached UUID instances are lost due to server restart, there are no gaps in identities because they are all based on random, manufactured values. Refilling the cache on server restart has no negative consequences of abandoned values.
+
+With such a large identity, its use could in rare cases be rendered impractical  because of the memory overhead. In such cases an 8-byte long identity generated  by  the  persistence  mechanism  would  improve  matters.  A  smaller, 4-byte integer, with two billion or so unique values, may even suffice. These approaches are discussed next.
+
+Considering the following, understandably we don't normally want to display a UUID on our user interface views:
+
+```
+f36ab21c-67dc-5274-c642-1de2f4d5e72a
+```
+
+A  full  UUID  is  usually  appropriate  when  it  can  be  hidden  from  users  and human-readable reference techniques can be used. For example, we can design hypermedia resources with URIs that can be e-mailed or sent around using other user-to-user messaging. The text relationship part of the link can be used to disguise the mysterious-looking UUID, just as the text in &lt;a&gt;text&lt;/a&gt; disguises technical links in HTML.
+
+Depending on the level of trust you have in the uniqueness of individual segments of the hexadecimal text UUID, you may decide to use just one or a few segments of the whole. The shortened identities are more trustworthy when used only as the local  identity of  Entities  within  the Aggregate (10) boundary. Local identity means that Entities held inside an Aggregate need only have uniqueness among other Entities held inside the same Aggregate. On the other hand, the Entity serving as an Aggregate Root requires global unique identity.
+
+Our own identity generator could use one or more specific UUID segments. Consider a contrived example: APM-P-08-14-2012-F36AB21C . This 25-character identity represents a Product ( P ) from the Agile Project Management Context ( APM ) that was created on August 14, 2012. The extra text F36AB21C is the first segment of a generated UUID, which uniquely sets it apart from other Product Entities created on the same day. It has the benefit of human readability with a high probability for global uniqueness. Users aren't the only ones to benefit. When identities such as this one are passed between Bounded Contexts, developers immediately know where they originated. For SaaSOvation this approach could be practical since Aggregates are further segregated by tenancy.
+
+Maintaining  this  kind  of  identity  in  a String would  probably  not  be  a good choice. A custom identity Value Object would work better:
+
+```
+String rawId = "APM-P-08-14-2012-F36AB21C"; // would be generated ProductId productId = new ProductId(rawId); ... Date productCreationDate =  productId.creationDate();
+```
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000173_16549b78b377a22a6191f79f0703d810960d15083b636dcf62323a1d2c38d09d.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000174_5b61f1b00459bbd21318c9bb3e4cc206699cb0e7efb7af1bdac57c0dbdd94fec.png)
+
+A client can ask for identity details, such as the date the product was created, and it's conveniently provided. Clients need not understand the raw identity format. Now the Product Aggregate Root can expose its creation date without indicating to clients how it is obtained:
+
+```
+public class Product extends Entity { private ProductId productId; ... public Date creationDate() { return this.productId().creationDate(); } ... }
+```
+
+You may find identity generation in third-party libraries and frameworks. The  Apache  Commons  project  has  a  Commons  Id  (sandbox)  component, which supplies five different identity generators.
+
+Some persistence stores, such as NoSQL Riak and MongoDB, can generate identities for you. Normally to save a value in Riak, you use HTTP PUT , which takes a key:
+
+```
+PUT /riak/bucket/key [object serialization]
+```
+
+You may instead use POST without providing a key, forcing Riak to generate a unique identity. Still, we do need to think about early versus late identity generation, as discussed later in this chapter.
+
+What will serve as a Factory for your application-generated identities? For Aggregate Root identity generation, I like to use its Repository (12) :
+
+```
+public class HibernateProductRepository implements ProductRepository  { ... public ProductId nextIdentity() { return new ProductId( java.util.UUID.randomUUID().toString().toUpperCase()); } ... }
+```
+
+This seems like a natural location for identity generation.
+
+## Persistence Mechanism Generates Identity
+
+Delegating the generation of unique identity to a persistence mechanism has some unique advantages. If we call on the database for a sequence or incrementing value, it will always be unique.
+
+Depending  on  the  range  needed,  the  database  can  generate  a  unique 2-byte,  4-byte,  or  8-byte  value.  In  Java,  a  2-byte  short  integer  would  allow for  up  to  32,767  unique  identities;  a  4-byte  normal  integer  would  afford 2,147,483,647 unique values; and an 8-byte long integer would provide up to 9,223,372,036,854,775,807 distinct identities. Even zero-filled text representations of these ranges are narrow, at five, ten, and 19 characters respectively. These can also be employed to create composite identities.
+
+One possible downside is performance. It can take significantly longer to go to the database to get each value than to generate identities in the application. Much depends on database load and application demand. One way around this is to cache sequence/increment values in the application, such as in a Repository.  This  can  work  well,  but  we  generally  count  on  losing  a  good  number of unused values when server nodes must be restarted. If the gaps caused by lost cache are unacceptable, or if you have planned for only a relatively small number of values (2-byte short integer), caching preallocated values may not be a practical or necessary option. It may be possible to harvest and recover lost identities, but that may be more trouble than it is worth.
+
+Preallocation and caching are not an issue if the model can suffice with late identity generation. Here's how it's done with Hibernate and an Oracle sequence:
+
+```
+<id name="id" type="long" column="product_id"> <generator class="sequence"> <param name="sequence">product_seq</param> </generator> </id>
+```
+
+Here's an example of the same approach, but using a MySQL auto-increment column:
+
+```
+<id name="id" type="long" column="product_id"> <generator class="native"/> </id>
+```
+
+This does perform well, and it is quite easy to configure in a Hibernate mapping definition. The problem could be the timing of generation, which is discussed a bit later. The remainder of this subsection covers the early identity generation requirement.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000175_75fd8026263adc91d2b698c321dfcb1fb2ac87dbbf2d3789473042cb869a28f6.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000176_250a2b2b4bd31103e6678f2bc4e4e34c6fd62d702a3bdbb73a497977e02a517c.png)
+
+## Order May Matter
+
+Sometimes  it  matters  when  the  identity  generation  and  assignment  occur  for  an Entity.
+
+Early identity generation and assignment happen before the Entity is persisted. Late identity generation and assignment happen when the Entity is persisted.
+
+Here a Repository supports early generation, serving the next available Oracle sequence using a query:
+
+```
+public ProductId nextIdentity() { Long rawProductId = (Long) this.session() .createSQLQuery( "select product_seq.nextval as product_id from dual") .addScalar("product_id", Hibernate.LONG) .uniqueResult(); return new ProductId(rawProductId); }
+```
+
+Since Oracle returns sequence values that Hibernate maps as BigDecimal instances,  we  must  inform  Hibernate  that  we  want  the product\_id result converted to a Long .
+
+What  do  we  do  about  databases,  such  as  MySQL,  that  don't  support sequences? MySQL  supports auto-incrementing columns. Normally the auto-increment does not occur until a row is newly inserted. Still, there is a way to make a MySQL auto-increment work like an Oracle sequence:
+
+```
+mysql> CREATE TABLE product_seq (nextval INT NOT NULL); Query OK, 0 rows affected (0.14 sec) mysql> INSERT INTO product_seq VALUES (0); Query OK, 1 row affected (0.03 sec) mysql> UPDATE product_seq SET nextval=LAST_INSERT_ID(nextval + 1); Query OK, 1 row affected (0.03 sec) Rows matched: 1  Changed: 1  Warnings: 0 mysql> SELECT LAST_INSERT_ID(); +------------------+ | LAST_INSERT_ID() | +------------------+ |                1 | +------------------+ 1 row in set (0.06 sec)
+```
+
+```
+mysql> SELECT * FROM product_seq; +---------+ | nextval | +---------+ |       1 | +---------+ 1 row in set (0.00 sec)
+```
+
+We've created a table in a MySQL database named product\_seq . Next, we  insert  a  single  row  into  the  table,  initializing  its  one  and  only  column, nextval , to 0 . Those first two steps establish the sequence emulator for the Product Entity. The next two statements demonstrate a single sequence value generation. We update the one and only row by incrementing the nextval column by 1 . The update statement uses a MySQL function, LAST\_INSERT\_ ID() , to increment the column's INT value. The expression parameter is first executed, then the result is assigned to the nextval column. The result of the expression parameter nextval  +  1 remains stable in the LAST\_INSERT\_ ID() function, such that when the subsequence SELECT LAST\_INSERT\_ID() statement is evaluated, the value of nextval that results from that exact execution is returned in the result set. Last, as a test, we can SELECT * FROM product\_seq to  prove  that  the  current  value  of nextval is  the  same returned with the function result.
+
+Hibernate 3.2.3 uses org.hibernate.id.enhanced.SequenceStyleGenerator to facilitate portable sequences, but that supports only late identity generation (when the Entity is inserted). To support early sequence generation in  a  Repository  we  will  have  to  create  a  custom  Hibernate  or  JDBC  query. Here  is  a  reimplementation  of  the ProductRepository method nextIdentity() for MySQL:
+
+```
+public ProductId nextIdentity() { long rawId = -1L; try { PreparedStatement ps = this.connection().prepareStatement( "update product_seq " + "set next_val=LAST_INSERT_ID(next_val + 1)"); ResultSet rs = ps.executeQuery(); try { rs.next(); rawId = rs.getLong(1); } finally { try { rs.close();
+```
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000177_1886d9ba13e21827658e9f15eaee2932b766067d0eb878a103e4e02eab2a2d90.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000178_94098a344b12e6c3890dfd190702d46bbeab8d9708a9bb6589dd71f714c20654.png)
+
+```
+} catch(Throwable t) { // ignore } } } catch (Throwable t) { throw new IllegalStateException( "Cannot generate next identity", t); } return new ProductId(rawId); }
+```
+
+Using JDBC, there is no need to execute a second query on the database to get the results of function LAST\_INSERT\_ID() . The update query does it all. We get the long value from the ResultSet , using it to create the ProductId .
+
+The last trick is to get a JDBC connection from Hibernate. This can be a bit of a pain, but it's possible:
+
+```
+private Connection connection() { SessionFactoryImplementor sfi = (SessionFactoryImplementor)sessionFactory; ConnectionProvider cp = sfi.getConnectionProvider(); return cp.getConnection(); }
+```
+
+Without  a Connection object  we  can't  get  a ResultSet by  executing a PreparedStatement .  Without  that  it's  not  possible  to  use  a  portable sequence.
+
+Using  portable  sequences  from  Oracle,  MySQL,  and  other  databases,  we have the means to generate more compact, guaranteed unique identities that support pre-insert creation.
+
+## Another Bounded Context Assigns Identity
+
+When another Bounded Context assigns identity, we need to integrate to find, match, and assign each identity. DDD integrations are explained in Context Maps (3) and Integrating Bounded Contexts (13) .
+
+Making an exact match is the most desirable. Users need to provide one or more attributes, such as an account number, username, e-mail address, or other unique symbol, to pinpoint the intended result.
+
+Often, matching involves fuzzy input, resulting in multiple search results, along  with  some  human  user  selection.  Figure  5.2  illustrates  this.  The  user enters  the  'like  search'  (wildcard)  criterion  for  the  sought-after  Entity.  We access the API of the external Bounded Context, which resolves the search to zero, one, or multiple similarly described objects. The user then selects the specific result from among the multiple options. The identity of the selected choice is used as the local identity. Some additional state (properties) from the foreign Entity may also be copied into the local Entity.
+
+Figure 5.2 The search results from matching an external system to find an identity. The selection user interface may or may not display the identity. This example does display it.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000179_0b2bf6fb7c4c2e268b7a52921e8e24f46654ba647f484c49ad9fa1768ea960ab.png)
+
+This  has  synchronization  implications.  What  happens  if  externally  referenced objects transition in ways that affect local Entities? How will we know that the associated object changed? This problem can be solved using an EventDriven Architecture (4) with Domain Events (8) . Our local Bounded Context subscribes to Domain Events published by external systems. When a relevant notification is received, our local system transitions its own Aggregate Entities to  reflect  the  state  of  those  in  external  systems.  Sometimes  synchronization must be initiated by the local Bounded Context with changes being pushed to the originating external system.
+
+This is rarely easy to do, but it leads to more autonomous systems. When autonomy is achieved, it can actually narrow searches to local objects. This is not a matter of caching foreign objects locally. Rather, it involves translating foreign concepts into those of the local Bounded Context, as explained in Context Mapping (3) .
+
+This is the most complex of identity creation strategies. The maintenance of the local Entity is dependent not only on transitions caused by local domain behaviors but possibly also on those that occur in one or more external systems. Use this approach as conservatively as possible.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000180_8c58557b258afbe52714989c8a6f0188a16bc9c43be01b34015e2568f2faebfe.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000181_4094bb2fb0e11d4174d38b6519daccaea88682a59b69a71add920f1d0a2b507a.png)
+
+## When the Timing of Identity Generation Matters
+
+Identity generation can occur either early, as part of the object's construction, or late, as part of its persistence. Sometimes it's important to time identity generation early, and other times not. If it matters, we need to understand what's involved.
+
+Consider possibly the simplest case, that we can tolerate the late allocation of identity when a new Entity is persisted, that is, a new row is inserted in the database. This is demonstrated in the diagram in Figure 5.3. The client just instantiates a new Product and adds it to the ProductRepository . When the Product instance is newly created, the client doesn't need its identity. And it's a good thing, too, because the identity won't exist then. It's only after the instance is persisted that the identity is available.
+
+Why might timing matter? Consider a scenario where the client subscribes to outgoing Domain Events. An Event occurs when a new Product instantiation completes. The client saves the published Event to an Event Store (8) . Eventually those stored Events are published as notifications that reach subscribers outside the Bounded Context. Using the approach of Figure 5.3, the Domain Event is received before the client has the opportunity to add the new Product to  the ProductRepository .  Thus, the Domain Event would not contain the valid identity of the new Product .  For the Domain Event to be correctly initialized, the identity generation must be completed early. Figure 5.4 demonstrates that approach. The client queries for the next identity from the ProductRepository , passing it to the Product constructor.
+
+Figure 5.3 The simplest way to allocate a unique identity is to have the data store generate it the first time the object is persisted.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000182_509a7440c296f0593aa85d5fd52dd316673f81838e5f474b5bc9bf024e2bdce2.png)
+
+Figure 5.4 Here unique identity is queried from the Repository and assigned during instantiation. The complexities of identity generation are hidden behind the Repository implementation.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000183_962a18d37ed703410fcdc1e9532df9977933c18e61cf92c2fc401b8f5273bc20.png)
+
+There is another problem that can occur when identity generation is delayed until  the  Entity  is  persisted.  It  occurs  when  two  or  more  new  Entities  must be added to a java.util.Set ,  but their identity has not yet been assigned, making them equal to the other new ones (for example, null , or 0 , or -1 ). If the Entity's equals() method compares identities, those newly added to the Set will appear to be the same object. Only the first object added will be contained, and all others will be excluded. This causes a dubious bug whose root cause is at first difficult to understand and fix.
+
+To avoid this bug we must do one of two things. Either we change the design to allocate and assign identity early, or we refactor the equals() method to compare attributes other than the domain identity. If choosing the equals() method approach, it must be implemented as if the Entity is a Value Object. In that case, the same object's hashCode() method must harmonize with the equals() method:
+
+```
+public class User extends Entity  { ... @Override public boolean equals(Object anObject) { boolean equalObjects = false; if (anObject != null && this.getClass() == anObject.getClass()) { User typedObject = (User) anObject; equalObjects = this.tenantId().equals(typedObject.tenantId()) &&
+```
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000184_8c2ea5c27239a876cd3c66a0ad3f6c0252fe264d6a218d6d507eaf0f8bef1f1e.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000185_3e66cd0b6cee43eaab3c95389733f8928d785e30b5445681d54f1e5da7acb1ec.png)
+
+```
+this.username().equals(typedObject.username())); } return equalObjects; } @Override public int hashCode() { int hashCode = + (151513 * 229) + this.tenantId().hashCode() + this.username().hashCode(); return hashCode; } ... }
+```
+
+In the case of a multitenancy environment, the TenantId instance is also considered  part  of  unique  identity.  No  two User objects  under  different Tenant subscribers must be considered equal.
+
+More to the point, when faced with this add-toSet situation, I prefer early allocation and assignment to the Value equality test approach. It is more desirable for Entities to have equals() and hashCode() methods that are based on the object's unique identity rather than other attributes.
+
+## Surrogate Identity
+
+Some ORM tools, such as Hibernate, want to deal with object identity on their own terms. Hibernate prefers  the  database's  native  type,  such  as  a  numeric sequence, as the primary identity of each Entity. If the domain requires another kind of identity, it causes an undesirable conflict for Hibernate. To cure this, we need to use two identities. One of the identities is designed for the domain model and adheres to the requirements of the domain. The other is for Hibernate and is known as a surrogate identity.
+
+Creating a surrogate identity is straightforward. Create an attribute on the Entity to hold the type of the surrogate. Generally a long or int does it. Also create a column in the database entity table to hold the unique identity, and place a primary key constraint on it. Then include in the Entity's Hibernate mapping definition an &lt;id&gt; element. Remember, in this case it has nothing to do with the domain-specific identity. It is being created only for the sake of the ORM, Hibernate.
+
+It's best to hide the surrogate attribute from the outside world. Because the surrogate  is  not  part  of  the  domain  model,  visibility  constitutes  persistence leakage. Although some leakage may be unavoidable, we can take some steps to tuck it away from model developers and clients.
+
+One safeguard employs a Layer Supertype [Fowler, P of EAA]:
+
+```
+public abstract class IdentifiedDomainObject implements Serializable  { private long id = -1; public IdentifiedDomainObject() { super(); } protected long id() { return this.id; } protected void setId(long anId) { this.id = anId; } }
+```
+
+This  Layer  Supertype  is IdentifiedDomainObject ,  an  abstract  base class  that  hides  the  surrogate  primary  key  from  the  view  of  clients  using protected accessor methods. Clients will never have to wonder if the methods are for their use since they are not visible outside the Module (9) of  the Entity  that  extends  the  base  class.  We  could  even  declare private scope. Hibernate has no problems using method or field reflection with any level of visibility, public to private .  Additional Layer Supertypes may add value, such as for supporting optimistic concurrency, as seen in Aggregates (10) .
+
+We need to map the surrogate id attribute to the database column through the Hibernate definition. Here class User has its id attribute mapped to the database table column named id :
+
+```
+<hibernate-mapping default-cascade="all"> <class name="com.saasovation.identityaccess.domain.model.identity.User" table="tbl_user" lazy="true"> <id name="id" type="long" column="id" unsaved-value="-1">
+```
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000186_3ddccc27a91779bdc6ae8caac63628a3880c4ae664ba9cf3cf4263726fcde58c.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000187_0e3202f19d45f1f9afcdda9ef914331ec91682d985cf5ef2df05b0b466bc56c1.png)
+
+```
+<generator class="native"/> </id> ... </class> </hibernate-mapping>
+```
+
+Here is the MySQL table definition to store the User objects:
+
+```
+CREATE TABLE `tbl_user` ( `id` int(11) NOT NULL auto_increment, `enablement_enabled` tinyint(1) NOT NULL, `enablement_end_date` datetime, `enablement_start_date` datetime, `password` varchar(32) NOT NULL, `tenant_id_id` varchar(36) NOT NULL, `username` varchar(25) NOT NULL, KEY `k_tenant_id_id` (`tenant_id_id`), UNIQUE KEY `k_tenant_id_username` (`tenant_id_id`,`username`), PRIMARY KEY (`id`) ) ENGINE=InnoDB;
+```
+
+The first column, id ,  is  the  surrogate identity. The last column statement in the definition declares id as the table's primary key. We can distinguish the surrogate and the domain's identity. There are two columns, tenant\_id\_id and username ,  that provide unique identity for the domain. They are combined to form one unique key named k\_tenant\_id\_username .
+
+There is no need for the domain identity to play the role of database primary key. We allow the surrogate id to  serve  as  the  database  primary  key, which keeps Hibernate happy.

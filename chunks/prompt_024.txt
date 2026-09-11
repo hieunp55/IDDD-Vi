@@ -1,0 +1,425 @@
+Bạn là chuyên gia dịch thuật kỹ thuật Anh → Việt, chuyên tài liệu kỹ thuật/công nghệ, có kinh nghiệm dịch như biên dịch viên bản ngữ chuyên nghiệp. Nhiệm vụ: dịch TOÀN BỘ nội dung Markdown dưới đây sang tiếng Việt, không bỏ sót bất kỳ phần nào. Đây là MỘT PHẦN (chunk) của một tài liệu lớn hơn, hãy dịch độc lập đoạn này, không thêm lời mở đầu/kết luận về việc đây chỉ là một phần.
+
+QUY TẮC BẮT BUỘC — VI PHẠM LÀ SAI:
+
+1. XÁC ĐỊNH LOẠI TÀI LIỆU TRƯỚC KHI DỊCH
+   - Tự phân tích nội dung để xác định loại tài liệu (kỹ thuật/lập trình, tài chính, bảo hiểm, pháp lý, marketing, học thuật, vận hành, sản phẩm...).
+   - Chọn văn phong và thuật ngữ CHUẨN NGÀNH tương ứng trong tiếng Việt, nhất quán xuyên suốt.
+
+2. VĂN PHONG — MƯỢT NHƯ NGƯỜI DỊCH, KHÔNG GIẢM CHÍNH XÁC
+   - Dịch mượt, tự nhiên, đúng ngữ pháp tiếng Việt — như biên dịch viên bản ngữ dịch tay, KHÔNG dịch máy móc kiểu word-by-word.
+   - Được phép đảo cấu trúc câu, tách/gộp câu cho tự nhiên, miễn giữ nguyên 100% ý nghĩa, thông tin, logic, số liệu gốc.
+   - Khi "mượt mà" và "chính xác" xung đột → LUÔN ưu tiên chính xác.
+
+3. DỊCH ĐẦY ĐỦ 100%
+   - Không tóm tắt, không rút gọn, không lược bỏ đoạn/câu/mục/bullet nào.
+   - Số lượng heading, đoạn văn, bảng, code block ở output PHẢI khớp 1:1 với input.
+   - Đoạn dài dịch hết, không cắt ngắn.
+
+4. GIỮ NGUYÊN THUẬT NGỮ TIẾNG ANH
+   - Thuật ngữ chuyên ngành (tên công nghệ, framework, pattern, tên hàm/biến, acronym...) giữ nguyên tiếng Anh, không dịch, không phiên âm.
+   - Ngay sau lần xuất hiện ĐẦU TIÊN của mỗi thuật ngữ, thêm chú thích ngắn trong ngoặc giải thích nghĩa bằng tiếng Việt.
+   - Các lần xuất hiện sau KHÔNG cần chú thích lại.
+
+5. GIỮ NGUYÊN FORMAT — RẤT QUAN TRỌNG
+   - VỀ ẢNH (làm trước khi dịch): ĐẾM chính xác số lượng thẻ ảnh dạng ![...](...) trong đoạn gốc bên dưới. Output PHẢI có ĐÚNG số lượng thẻ ảnh đó, không được thiếu một cái nào — kể cả ảnh không có caption, không rõ ngữ cảnh, hay trông như ảnh trang trí/lặp lại. Copy nguyên URL 100%, không sửa, không rút gọn, không thay bằng mô tả text.
+   - Giữ cấp độ heading (#, ##, ###...), giữ đúng số lượng heading.
+   - Giữ cấu trúc bảng (số cột, số hàng, alignment, header row).
+   - Giữ code block (```lang ... ```) — KHÔNG dịch code; comment được dịch tại chỗ; **được phép reformat code, tự động xuống dòng/indent chuẩn, không giữ nguyên code 1 dòng; không đổi logic/cú pháp**.
+   - Giữ blockquote, callout/note/warning (>, [!NOTE], [!WARNING]...).
+   - Giữ list, nested list, checkbox (- [ ]).
+   - Giữ nguyên link thường ([text](url)) — chỉ dịch phần text hiển thị, TUYỆT ĐỐI giữ nguyên URL.
+   - TRƯỚC KHI TRẢ KẾT QUẢ: tự đếm lại số heading, số ảnh, số dòng ``` giữa bản gốc và bản dịch của bạn, nếu lệch phải sửa lại cho khớp.
+
+6. GIẢI THÍCH ẨN DỤ / KHÁI NIỆM KHÓ
+   - Với ẩn dụ, thành ngữ, khái niệm trừu tượng khó hiểu với người Việt, thêm khối giải thích riêng ngay sau đoạn đó:
+     > 💡 **Giải thích thêm:** [giải thích dễ hiểu, đủ chuyên sâu, có ví dụ thực tế]
+     > Nguồn tham khảo: [link cụ thể để kiểm chứng]
+   - CHỈ đưa link nếu chắc chắn tồn tại và đúng nội dung — không bịa link.
+   - Không tìm được nguồn tin cậy → ghi rõ: "(Không có nguồn trích dẫn xác thực — cần tự kiểm chứng thêm)".
+
+7. CHỐNG HALLUCINATION (BẮT BUỘC)
+   - Không tự thêm thông tin/số liệu/ví dụ/kết luận KHÔNG có trong bản gốc — trừ phần giải thích ẩn dụ ở mục 6 (phải gắn nhãn rõ là phần bổ sung).
+   - Câu gốc mơ hồ → dịch sát nghĩa nhất, nếu không chắc ghi chú: "[CẦN KIỂM CHỨNG: câu gốc mơ hồ]".
+   - Không tự sửa/thêm/bớt logic kỹ thuật gốc. Không bịa trích dẫn/số liệu/link vô căn cứ.
+   - Không tự tóm tắt các đoạn dài thành ý chính rồi diễn giải lại — phải dịch từng câu.
+
+8. OUTPUT
+   - Trả về DUY NHẤT nội dung Markdown đã dịch, đặt trong 1 code block (```markdown ... ```).
+   - Không thêm lời dẫn/lời chào/giải thích ngoài code block.
+   - Không đổi tiêu đề gốc trừ khi cần dịch tiêu đề.
+
+--- NỘI DUNG GỐC CẦN DỊCH (một phần của tài liệu) ---
+
+Here's interface CollaboratorService ,  which forms the simple operations of the Anticorruption Layer:
+
+```
+public interface CollaboratorService  { public Author authorFrom(Tenant aTenant, String anIdentity); public Creator creatorFrom(Tenant aTenant, String anIdentity); public Moderator moderatorFrom(Tenant aTenant, String anIdentity); public Owner ownerFrom(Tenant aTenant, String anIdentity); public Participant participantFrom( Tenant aTenant, String anIdentity); }
+```
+
+From the viewpoint of the clients of CollaboratorService ,  the  interface completely abstracts away the complexity of the remote system access and subsequent  translations  from  the  Published  Language  to  objects  that  adhere  to the local Ubiquitous Language. In this particular case we do use a Separated Interface [Fowler, P of EAA] and an implementation class because the implementation is technical and should not reside in the Domain Layer.
+
+All  of  these Factories  (11) are  very  similar  to  each  other.  They  all  create a  subclass  of  the  abstract Collaborator Value  type,  but  only  if  the  user within aTenant and having anIdentity plays the security role within one of the five types: Author , Creator , Moderator , Owner , and Participant . Since they are so similar, let's look at just one of the method implementations, authorFrom() :
+
+```
+package com.saasovation.collaboration.infrastructure.services; import com.saasovation.collaboration.domain.model.collaborator.Author; ... public class TranslatingCollaboratorService implements CollaboratorService  { ... @Override public Author authorFrom(Tenant aTenant, String anIdentity) { Author author =
+```
+
+## INTEGRATION USING RESTFUL RESOURCES
+
+```
+this.userInRoleAdapter .toCollaborator( aTenant, anIdentity, "Author", Author.class); return author; } ... }
+```
+
+First note that TranslatingCollaboratorService is in a Module (9) of the Infrastructure. We create the Separated Interface in the inner hexagon as part of the domain model. Yet, the implementation is technical and is housed at  the  outside  of  the  Hexagonal  architecture,  where  the  Ports  and  Adapters reside.
+
+As part of the technical implementation, generally an Anticorruption Layer will have a specialized Adapter [Gamma et al.] and a translator. Looking again at Figure 13.1, you can see that our specific Adapter is UserInRoleAdapter , and the translator is the CollaboratorTranslator . The specialized UserInRoleAdapter of this Anticorruption Layer is responsible for reaching out to the remote system, requesting the necessary user-in-role resource:
+
+```
+package com.saasovation.collaboration.infrastructure.services; import org.jboss.resteasy.client.ClientRequest; import org.jboss.resteasy.client.ClientResponse; ... public class UserInRoleAdapter { ... public <T extends Collaborator> T toCollaborator( Tenant aTenant, String anIdentity, String aRoleName, Class<T> aCollaboratorClass) { T collaborator = null; try { ClientRequest request = this.buildRequest(aTenant, anIdentity, aRoleName); ClientResponse<String> response = request.get(String.class); if (response.getStatus() == 200) { collaborator = new CollaboratorTranslator()
+```
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000517_9e3619a449c0f694ea7110c63a6edd307e04dcb8baa07d6e9adbc1a4a75e362b.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000518_554d2e43cacf0d75f8db46f943906478a14545a12aef8e016fb6fc5239d37c8c.png)
+
+## Chapter 13 INTEGRATING BOUNDED CONTEXTS
+
+```
+.toCollaboratorFromRepresentation( response.getEntity(), aCollaboratorClass); } else if (response.getStatus() != 204) { throw new IllegalStateException( "There was a problem requesting the user: " + anIdentity + " in role: " + aRoleName + " with resulting status: " + response.getStatus()); } } catch (Throwable t) { throw new IllegalStateException( "Failed because: " + t.getMessage(), t); } return collaborator; } ... }
+```
+
+If the response to the GET request is successful (status 200), it means that the UserInRoleAdapter has received a user-in-role resource, which can now be translated into our Collaborator subclass:
+
+```
+package com.saasovation.collaboration.infrastructure.services; import java.lang.reflect.Constructor; import com.saasovation.common.media.RepresentationReader; ... public class CollaboratorTranslator { public CollaboratorTranslator() { super(); } public <T extends Collaborator> T toCollaboratorFromRepresentation( String aUserInRoleRepresentation, Class<T> aCollaboratorClass) throws Exception { RepresentationReader reader = new RepresentationReader(aUserInRoleRepresentation); String username = reader.stringValue("username"); String firstName = reader.stringValue("firstName"); String lastName = reader.stringValue("lastName"); String emailAddress = reader.stringValue("emailAddress");
+```
+
+## INTEGRATION USING RESTFUL RESOURCES
+
+```
+T collaborator = this.newCollaborator( username, firstName, lastName, emailAddress, aCollaboratorClass); return collaborator; } private <T extends Collaborator> T newCollaborator( String aUsername, String aFirstName, String aLastName, String aEmailAddress, Class<T> aCollaboratorClass) throws Exception { Constructor<T> ctor = aCollaboratorClass.getConstructor( String.class, String.class, String.class); T collaborator = ctor.newInstance( aUsername, (aFirstName + " " + aLastName).trim(), aEmailAddress); return collaborator; } }
+```
+
+This  translator  takes  a  user-in-role  representation  text String and  the Class to  be  used  to  create  the Collaborator subclass  instance.  First  the RepresentationReader -quite similar to the NotificationReader introduced previously-is used to read four attributes out of the JSON representation. Again, we can confidently and reliably do this because the SaaSOvation custom media type forms a binding contract between producers and consumers. After the translator has the necessary String values, it uses them to instantiate the Collaborator Value Object and, in the case of this example, an Author :
+
+```
+package com.saasovation.collaboration.domain.model.collaborator; public final class Author extends Collaborator  {
+```
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000519_f865d9271ca5689467937b8180871f28593a409b05dcdf996bc8c015748989e9.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000520_a2b9df4c473cda7bd11e4c88ab64bd42de4e58a82d9ac32149f890659f744e79.png)
+
+## Chapter 13 INTEGRATING BOUNDED CONTEXTS
+
+```
+public Author( String anIdentity, String aName, String anEmailAddress) { super(anIdentity, aName, anEmailAddress); } ... }
+```
+
+There is no effort made to keep Collaborator Value instances synchronized  with  the Identity  and  Access  Context .  They  are  immutable  and  can only be fully replaced, not modified. Here's how an Author is obtained by an Application Service and then given to a Forum to start a new Discussion :
+
+```
+package com.saasovation.collaboration.application; ... public class ForumService ... { ... @Transactional public Discussion startDiscussion( String aTenantId, String aForumId, String anAuthorId, String aSubject) { Tenant tenant = new Tenant(aTenantId); ForumId forumId = new ForumId(aForumId); Forum forum = this.forum(tenant, forumId); if (forum == null) { throw new IllegalStateException("Forum does not exist."); } Author author = this.collaboratorService.authorFrom( tenant, anAuthorId); Discussion newDiscussion = forum.startDiscussion( this.forumNavigationService(), author, aSubject); this.discussionRepository.add(newDiscussion); return newDiscussion; } ... }
+```
+
+If  a Collaborator name or e-mail address changes in the Identity  and Access Context , such changes won't be automatically updated in the Collaboration Context . Those kinds of changes rarely occur, so the team made the decision to keep this particular design simple and not attempt to synchronize changes in the remote Context with objects in their local Context. We will see, however, that the Agile Project Management Context has different design goals.
+
+There  are  other  ways  to  implement  an  Anticorruption  Layer,  such  as  by means  of  a Repository  (12) .  However,  since  Repositories  are  typically  used to persist and reconstitute Aggregates, creating Value Objects by that means seems misplaced. If our goal is to produce an Aggregate from an Anticorruption Layer, a Repository may be a more natural source.
+
+## Integration Using Messaging
+
+A message-based approach to integration can allow any one system to achieve a higher degree of autonomy from systems it depends on. As long as the messaging infrastructure remains operational, messages can be sent and delivered even when any one system is unavailable.
+
+One of the ways that DDD can be leveraged to make systems autonomous is through the use of Domain Events. When something of significance happens in one system, it produces an Event about it. There will tend to be several or even many such Events that occur in each system, and you will create a unique kind of Event as a means to record each. As Events occur, they are published to interested parties by means of a messaging mechanism. That's just a big-picture review. In case you bypassed the details of this topic in earlier chapters, you may be better off getting some background from Architecture (4) , Domain Events (8) , and Aggregates (10) before continuing here.
+
+## Staying Informed about Product Owners and Team Members
+
+The Agile  Project  Management  Context needs  to  manage  a  pool  of  Scrum product owners and team members for each tenant that subscribes to the service. At any time a product owner can create a new product and then assign team members to the team. How can the Scrum project management application know who plays each of these roles? The answer is that it won't go it alone.
+
+Actually,  the Agile  Project  Management  Context is  going  to  allow  those roles to be managed by the Identity and Access Context , a natural and fitting choice.  In  that  system  each  tenant  that  subscribes  to  the  Scrum  service  will have two Role instances created: ScrumProductOwner and ScrumTeamMember . Each User who needs to play one of those roles will be assigned to it. Here's the Application Service method in the Identity and Access Context that manages the task of assigning a User to a Role :
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000521_8e5737ca953eb32b39ca2b7c46e394a818cfe28f4bfb8a9e8da414f119f4f61d.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000522_b7dc3dfd3d3d9c997ee07bbcb7ad4ec4451157289af1fa27189cc695fe5f4700.png)
+
+```
+package com.saasovation.identityaccess.application; ... public class AccessService ... { ... @Transactional public void assignUserToRole(AssignUserToRoleCommand aCommand) { TenantId tenantId = new TenantId(aCommand.getTenantId()); User user = this.userRepository .userWithUsername( tenantId, aCommand.getUsername()); if (user != null) { Role role = this.roleRepository .roleNamed( tenantId, aCommand.getRoleName()); if (role != null) { role.assignUser(user); } } } ... }
+```
+
+Great, but how does this help the Agile Project Management Context know who is in the role of a ScrumTeamMember or ScrumProductOwner ? Here's how. When method assignUser() of the Role completes, its last responsibility is to publish an Event:
+
+```
+package com.saasovation.identityaccess.domain.model.access; ... public class Role extends Entity { ... public void assignUser(User aUser) {
+```
+
+```
+if (aUser == null) { throw new NullPointerException("User must not be null."); } if (!this.tenantId().equals(aUser.tenantId())) { throw new IllegalArgumentException( "Wrong tenant for this user."); } this.group().addUser(aUser); DomainEventPublisher .instance() .publish(new UserAssignedToRole( this.tenantId(), this.name(), aUser.username(), aUser.person().name().firstName(), aUser.person().name().lastName(), aUser.person().emailAddress())); } ... }
+```
+
+Event UserAssignedToRole ,  enriched  with User name  and  e-mail address properties, is eventually delivered to all interested parties. When the Agile Project Management Context receives the Event, it will use it to ensure that a new TeamMember or ProductOwner is established in its model. This is not a terribly difficult use case. Yet, there are more details to manage than may at first meet the eye. Let's break these down.
+
+As it turns out, there are some highly reusable aspects to listening for notifications from RabbitMQ. We already have a simple object-oriented library that helps make the RabbitMQ Java client easier to use. Now we're going to add one more simple class to make becoming an exchange queue consumer really simple:
+
+```
+package com.saasovation.common.port.adapter.messaging.rabbitmq; ... public abstract class ExchangeListener { private MessageConsumer messageConsumer; private Queue queue; public ExchangeListener() { super(); this.attachToQueue();
+```
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000523_8f88c6060c25a9c59d63274a1a290fc89ee54ccd910a268666c62cb84efdfd13.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000524_eb13b9a2f295ea7ab12309eb3f47541e3650760c881d3675c9dfddb0133d7aa8.png)
+
+## Chapter 13 INTEGRATING BOUNDED CONTEXTS
+
+```
+this.registerConsumer(); } protected abstract String exchangeName(); protected abstract void filteredDispatch( String aType, String aTextMessage); protected abstract String[] listensToEvents(); protected String queueName() { return this.getClass().getSimpleName(); } private void attachToQueue() { Exchange exchange = Exchange.fanOutInstance( ConnectionSettings.instance(), this.exchangeName(), true); this.queue = Queue.individualExchangeSubscriberInstance( exchange, this.exchangeName() + "." + this.queueName()); } private Queue queue() { return this.queue; } private void registerConsumer() { this.messageConsumer = MessageConsumer.instance(this.queue(), false); this.messageConsumer.receiveOnly( this.listensToEvents(), new MessageListener(MessageListener.Type.TEXT) { @Override public void handleMessage( String aType, String aMessageId, Date aTimestamp, String aTextMessage, long aDeliveryTag, boolean isRedelivery) throws Exception { filteredDispatch(aType, aTextMessage); } }); } }
+```
+
+The ExchangeListener is  an  abstract  base  class  that  concrete  listener subclasses reuse. A concrete subclass need add only a little bit of code in addition to extending the abstract base class. First, it just ensures that the default  base  class  constructor  is  invoked,  which  always  happens  anyway. Then all that's left is to implement three abstract methods, two of which are very  simple  to  implement: exchangeName() , filteredDispatch() ,  and listensToEvents() .
+
+To implement exchangeName() all that is needed is to return the String name of the exchange for which the concrete listener consumes notifications. To implement the abstract method listensToEvents() you must answer a String[] of notification types that you want to receive. Many listeners will consume only  one  type  of  notification  and  so  would  answer  an  array  with only one element. The one remaining method, filteredDispatch() , is the most complex of the three because it is responsible for the heavy lifting of handling received messages. To see how it works, let's take a look at the listener of Event-carrying notifications for UserAssignedToRole :
+
+```
+package com.saasovation.agilepm.infrastructure.messaging; ... public class TeamMemberEnablerListener extends ExchangeListener { @Autowired private TeamService teamService; public TeamMemberEnablerListener() { super(); } @Override protected String exchangeName() { return Exchanges.IDENTITY_ACCESS_EXCHANGE_NAME; } @Override protected void filteredDispatch( String aType, String aTextMessage) { NotificationReader reader = new NotificationReader(aTextMessage); String roleName = reader.eventStringValue("roleName"); if (!roleName.equals("ScrumProductOwner") && !roleName.equals("ScrumTeamMember")) { return; }
+```
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000525_06ce568e29b354572ed1ccb65dcc75c4265c771f733769f0876ca2892deadee5.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000526_5b59cdc89173b0b13f3f8046b1a13ac3f2f9777bacaf308d52ac86ee6710c33d.png)
+
+```
+String emailAddress = reader.eventStringValue("emailAddress"); String firstName = reader.eventStringValue("firstName"); String lastName = reader.eventStringValue("lastName"); String tenantId = reader.eventStringValue("tenantId.id"); String username = reader.eventStringValue("username"); Date occurredOn = reader.occurredOn(); if (roleName.equals("ScrumProductOwner")) { this.teamService.enableProductOwner( new EnableProductOwnerCommand( tenantId, username, firstName, lastName, emailAddress, occurredOn)); } else { this.teamService.enableTeamMember( new EnableTeamMemberCommand( tenantId, username, firstName, lastName, emailAddress, occurredOn)); } } @Override protected String[] listensToEvents() { return new String[] { "com.saasovation.identityaccess.domain.model. Φ access.UserAssignedToRole" }; } }
+```
+
+The ExchangeListener default constructor is properly invoked, exchangeName() answers  the  name  of  the  exchange  published  to  by  the Identity  and  Access  Context ,  and  method listensToEvents() answers a  one-element  array  with  the  fully  qualified  class  name  of  Event UserAssignedToRole .  Note that publishers and subscribers should consider the use of fully qualified class names, which includes the Module name and the class name. This removes all possible collision or ambiguity that could exist with same or similarly named Events from different Bounded Contexts.
+
+Again, it is filteredDispatch() that contains the bulk of the behavior. The method is named as it is because it can further filter the notification before it  dispatches to the Application Service API. In this case it does filter before dispatching,  by  ignoring  all  notifications  of  type UserAssignedToRole that are not conveying Events about the roles named ScrumProduct  Owner and ScrumTeamMember .  On  the  other  hand,  if  the  roles  are  the  ones  we are  interested  in  receiving  Events  about,  we  get  the UserAssignedToRole details out of the notification and dispatch to the Application Service named TeamService . Each of the Service methods enableProductOwner() and enableTeamMember() takes  a  command object, either EnableProductOwnerCommand or EnableTeamMemberCommand , respectively.
+
+At first it might seem that a member would just be created as a result of one of these Events. However, since it is possible that each User could be assigned to  one  of  these Roles ,  and  then  later  unassigned,  and  then  reassigned,  it's possible that the member represented by the User in the received notification already exists. Here's how the TeamService deals with that situation:
+
+```
+package com.saasovation.agilepm.application; ... public class TeamService ... { @Autowired private ProductOwnerRepository productOwnerRepository; @Autowired private TeamMemberRepository teamMemberRepository; ... @Transactional public void enableProductOwner( EnableProductOwnerCommand aCommand) { TenantId tenantId = new TenantId(aCommand.getTenantId()); ProductOwner productOwner = this.productOwnerRepository.productOwnerOfIdentity( tenantId, aCommand.getUsername()); if (productOwner != null) { productOwner.enable(aCommand.getOccurredOn()); } else { productOwner = new ProductOwner( tenantId, aCommand.getUsername(), aCommand.getFirstName(), aCommand.getLastName(), aCommand.getEmailAddress(), aCommand.getOccurredOn());
+```
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000527_6826e8a9aed28f3336bf5000742eb95baca92aa10a3e2e05997101ba72ffaa42.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000528_994a28f9aef145326b7da96b9d063a3f91eb014a698acfc79d76888610b66eb7.png)
+
+```
+this.productOwnerRepository.add(productOwner); } } }
+```
+
+For  example,  Service  method enableProductOwner() deals  with  the possibility that the specific ProductOwner already exists. If it does exist, we assume that it may need to be enabled again, so we dispatch to the corresponding command operation. If the ProductOwner does not yet exist, we instantiate a new Aggregate and add it to its Repository. Actually, we deal with the TeamMember in the same way, so enableTeamMember() is implemented in the same way.
+
+## Can You Handle the Responsibility?
+
+This all seems fine and good. It appears simple enough. We have ProductOwner and TeamMember Aggregate  types,  and  we've  designed  them  so that  each  holds  some information about the backing User from  the  foreign Bounded  Context.  But  did  you  realize  how  much  responsibility  we've  just assumed by designing these Aggregates that way?
+
+Recall  that  in  the Collaboration  Context the  team  decided  to  just  create immutable  Value  Objects  that  hold  similar  information  (see  'Implementing the  REST  Client  Using  an  Anticorruption  Layer').  Because  the  Values  are immutable, the team will never have to worry about keeping the shared information up-to-date. Of course, the downside to that advantage is that if some of  the  shared  information  is  updated,  the Collaboration Context will  never update the related objects that it created in the past. So the Agile Project Management team went for the opposite trade-off.
+
+Now, however, there are a few challenges to keeping the Aggregates up-todate. Why? Can't we just listen for additional Event-carrying notifications that reflect changes to the User instances that correspond to our ProductOwner and TeamMember instances? Yes, indeed, we can and must do so. But the fact that we are using a messaging infrastructure makes this just a bit more challenging than might be obvious.
+
+For example, what would happen if in the Identity and Access Context a manager  mistakenly  unassigns  Joe  Johnson  from  the ScrumTeamMember role? Well, we receive an Event-carrying notification that indicates that fact, so we use the TeamService to  disable the TeamMember corresponding to Joe Johnson. Wait. Seconds later the manager realizes that she has unassigned the wrong user from the ScrumTeamMember role, and that she should have unassigned Joe Jones instead. So she quickly assigns Joe Johnson back to the role  and  unassigns Joe Jones. Next, the Agile Project Management Context receives the corresponding notifications, and everyone is happy (except maybe Joe Jones). Or, is everything actually OK?
+
+We could be making a bad assumption about this use case. We are assuming that we receive the notifications in the order in which they actually occurred in the Identity and Access Context . Yet, things might not always work out so well. What would happen if, for whatever reason, the notifications about Joe Johnson were received in this order, UserAssignedToRole and then UserUnassignedFromRole ? What will happen is that the TeamMember corresponding to Joe Johnson will be stuck in a disabled state, and at best someone will  have  to  patch  the  data  in  the  Agile  PM  database,  or  the  manager  will have to play some tricks to get the right Joe reenabled. This can happen, and ironically, it seems to always happen when we overlook the fact that it could happen. So, how do we prevent this?
+
+Let's take a closer look at the command objects that we pass as parameters to the TeamService APIs. For example, consider the commands EnableTeamMemberCommand and DisableTeamMemberCommand . Each of these requires a Date object, namely, occurredOn , to be provided. In fact, all of our  command objects are designed this way. We will use the occurredOn values to ensure that our ProductOwner and TeamMember Aggregates deal with the command operations in a time-aware way. Thinking back to the use case that could have caused us trouble before, let's see what would happen if we dealt  with  the  possibility  of  the UserUnassignedFromRole arriving  after UserAssignedToRole , even though they occurred in the opposite order:
+
+```
+package com.saasovation.agilepm.application; ... public class TeamService ... { ... @Transactional public void disableTeamMember(DisableTeamMemberCommand aCommand) { TenantId tenantId = new TenantId(aCommand.getTenantId()); TeamMember teamMember = this.teamMemberRepository.teamMemberOfIdentity( tenantId, aCommand.getUsername()); if (teamMember != null) { teamMember.disable(aCommand.getOccurredOn()); } } }
+```
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000529_ef82fcd88f9aa2be1af402658a4566b5e984d99d967618bf28fba6edbd278326.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000530_daa365a0add029c87cce405becf50e44669feef372a97bd74a354bbd1100808c.png)
+
+Note that when we dispatch to the TeamMember disable() command method, we are required to pass an occurredOn value from the command object.  The TeamMember will  use  this  internally  to  make  certain  that  disabling takes place only if it should:
+
+```
+package com.saasovation.agilepm.domain.model.team; ... public abstract class Member extends Entity  { ... private MemberChangeTracker changeTracker; ... public void disable(Date asOfDate) { if (this.changeTracker().canToggleEnabling(asOfDate)) { this.setEnabled(false); this.setChangeTracker( this.changeTracker().enablingOn(asOfDate)); } } public void enable(Date asOfDate) { if (this.changeTracker().canToggleEnabling(asOfDate)) { this.setEnabled(true); this.setChangeTracker( this.changeTracker().enablingOn(asOfDate)); } } ... }
+```
+
+Note that this Aggregate behavior is provided by a common abstract base class, Member . Both the disable() and the enable() methods are designed to  query  a changeTracker to  determine  whether  the  requested  operation can  be  carried  out  according  to  the asOfDate parameter  (the  command's occurredOn value). The MemberChangeTracker Value Object maintains the occurrence of the most recent related operation and uses that to answer the query:
+
+```
+package com.saasovation.agilepm.domain.model.team; ... public final class MemberChangeTracker implements Serializable  { private Date emailAddressChangedOn; private Date enablingOn; private Date nameChangedOn; ... public boolean canToggleEnabling(Date asOfDate) { return this.enablingOn().before(asOfDate); } ...
+```
+
+```
+public MemberChangeTracker enablingOn(Date asOfDate) { return new MemberChangeTracker( asOfDate, this.nameChangedOn(), this.emailAddressChangedOn()); } ... }
+```
+
+If the operation is permitted and carried out, a replacement MemberChangeTracker instance  is  obtained  by  using  the  corresponding enablingOn() method. Since we can expect PersonNameChanged and PersonContactInformationChanged changes  to  possibly  arrive  out  of  order,  the  same kinds of facilities are available with emailAddressChangedOn and nameChangedOn .  In  fact,  there  is  one  additional  check  for  the  case  of  e-mail address  changes.  It's  possible  that PersonContactInformationChanged Events are indicating a change of telephone number or postal address rather than a less common e-mail address change:
+
+```
+package com.saasovation.agilepm.domain.model.team; ... public abstract class Member extends Entity  { ... public void changeEmailAddress( String anEmailAddress, Date asOfDate) { if (this.changeTracker().canChangeEmailAddress(asOfDate) && !this.emailAddress().equals(anEmailAddress)) { this.setEmailAddress(anEmailAddress); this.setChangeTracker( this.changeTracker().emailAddressChangedOn(asOfDate)); } } ... }
+```
+
+Here we check to see if in fact the e-mail address has changed. If it has not, we don't want to track it as changed. If we did so, an out-of-order Event of the same type that did in fact carry a changed e-mail address would be ignored.
+
+The MemberChangeTracker also  serves  to  make Member subclass command operations idempotent, such that when the same notification is delivered multiple times by the messaging infrastructure, redundant deliveries are ignored.
+
+We  might  argue  that  introducing  the MemberChangeTracker in  the Aggregate design is a mistake. We might conclude that this has nothing to do with the Ubiquitous Language of Scrum-based teams. That is true. However, we never expose the MemberChangeTracker outside the Aggregate boundary. It is an implementation detail, and clients will never know it exists. The only detail that clients are aware of is that they must supply the occurredOn value for when the corresponding fact of a modification took place. What is more, this is exactly the kind of implementation detail that Pat Helland calls for as he describes how partner relationships are managed in his treatment of scalable, distributed systems that are eventually consistent. In that paper [Helland], specifically see section 5, 'Activities: Coping with Messy Messages.'
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000531_7f11e54a6fd149f93974afb84b9bf002be3d0147ceb4f994347e1e5997a27558.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000532_56f8c025af31ee629e325b8b2eee41ba39806079b13cec6cbb0d4a87f11bd3a7.png)
+
+Now, back to dealing with our new responsibilities . . .
+
+Although this is a very basic example of maintaining changes to duplicate information originating in a foreign Bounded Context, it is not a trivial responsibility to take on, at least not if you are using a messaging mechanism that could deliver messages out of order and more than once. 1 Further, when we realize all of the possible operations in the Identity and Access Context that could have some kind of impact on just the few attributes that we maintain in Member , it can be a wake-up call:
+
+- PersonContactInformationChanged
+- PersonNameChanged
+- UserAssignedToRole
+- UserUnassignedFromRole
+
+And then we realize that there are a few other Events that could be just as important to react to:
+
+- UserEnablementChanged
+- TenantActivated
+- TenantDeactivated
+
+These facts emphasize that, if at all possible, it is best to minimize or even completely eliminate information duplication across Bounded Contexts. It may not  be  possible  to  entirely  avoid  the  duplication  of  information.  SLAs  may make it impractical to retrieve remote data every time it is needed. That's one of the motivations the team had to hold the personal name of the User and the user's e-mail address locally. However, having the goal to reduce the amount of foreign information we take responsibility for will make our jobs much easier. It's integrating with a minimalist's mindset.
+
+1.  This could be a case where using the RESTful approach to notification consumption  could  be  a  distinct  advantage  since  the  notifications  are  guaranteed  to  be delivered in the same order in which they were appended to the Event Store (4, Appendix A) . The notifications, from first to last, can be consumed over and over again for different reasons with the same order guarantees each time.
+
+Of course, there is no way to avoid duplication of tenant and user identity, and identity duplication across Bounded Contexts is necessary in general. That is one of the primary ways that Bounded Contexts can integrate at all. Besides, identity is safe to share because it is immutable. We can even use Aggregate disabling and soft deletions to ensure that referenced objects never disappear, as we do, for example, with Tenant , User , ProductOwner , and TeamMember .
+
+This  call  to  attention  doesn't  mean  that  Domain  Events  should  not  be enriched with information-conveying properties. Certainly, Events must provide enough information to inform consumers of the kinds of steps that they must take in response to past facts.  Still,  it  is  possible  for  Event  data  to  be used to perform calculations and derive state in consuming foreign Bounded Contexts while not actually holding on to and assuming the responsibility for keeping it synchronized with its official state located in the system of record.
+
+## Long-Running Processes, and Avoiding Responsibility
+
+If  we likened what we described in the previous section to being a responsible adult, we might compare this section to an attempt to return to our teenage years. You know, adults have to assume all kinds of responsibility. Parents have to buy cars, insure them, pay to put gasoline in the tank, and spend their money to repair them. As teens we just want to use our parents' car, but not pay for any of its expenses. There's no way teenagers are going to make a car payment for their parents, fill the tank with gasoline, pay for a mechanic, or cover the cost of insurance. They just allow their parents to take care of that horrible R -word stuff so they can have all the fun.
+
+What we are doing in this section is having fun with Long-Running Processes (4) , but making sure we refuse to accept any of the painful responsibilities  required when we duplicate information from other Bounded Contexts. We will just let the system of record deal with its own information after we've had all the fun making that foreign Bounded Context create and maintain data for us.
+
+In Context Maps (3) we were presented with the Create a Product use case:
+
+Precondition: The collaboration feature is enabled (option was purchased).
+
+1.  The user provides Product descriptive information.
+2.  The user indicates a desire for a team discussion.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000533_a715d92a3c54be29f137fe32d88e09476e99465ac801e126f497e737c278d6ce.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000534_7320670893408e8b18fefc4434f8736339a3398f011a38c7803a5883e2a22cc2.png)
+
+3.  The user requests that the defined Product be created.
+4.  The system creates the Product with a Forum and Discussion.
+
+Here's where the fun begins, and where we kick responsibility across the network.
+
+In Context Maps (3) the team proposed using a RESTful approach to integration between these two Bounded Contexts. However, the team finally settled on a message-based solution instead.
+
+Also, one of the first things that you may notice is that the proposed concept originally added to the Ubiquitous Language as Discussion (in Chapter 3) has been refined. The Agile Project Management team saw the need to differentiate between the types of discussions, so there are now two different types: ProductDiscussion and BacklogItemDiscussion .  (In  this  section  we are  concerned  only  with ProductDiscussion .)  Both  Value  Objects  have the same basic state and behavior, but the distinction adds type safety to help developers avoid attaching the wrong discussions to Product and BacklogItem . For all practical purposes, they are the same. Each of these two discussion types just holds its availability and, if a discussion was established, the identity  of  the  actual Discussion Aggregate instance in the Collaboration Context .
+
+It is worth stating that the original proposal in the Agile Project Management Context to name one Value Object the same as the Aggregate in the Collaboration Context was not an error in judgment. Thus, to be completely clear, the  Value  Object's  name was not changed from Discussion to ProductDiscussion in order to distinguish it from the Aggregate in the Collaboration  Context .  From the standpoint of Context Mapping it would have been perfectly  fine  to  leave  the  Value  Object's  name  as  it  was,  because  the  Context is what distinguished the two objects. The decision to create two distinct Value types in the Agile Project Management Context was made only from the requirements of the isolated local model.
+
+To dive in, let's first take a look at the Application Service (API) that is used to create a Product :
+
+```
+package com.saasovation.agilepm.application; ... public class ProductService ... { @Autowired private ProductRepository productRepository; @Autowired private ProductOwnerRepository productOwnerRepository; ...
+```
+
+```
+@Transactional public String newProductWithDiscussion( NewProductCommand aCommand) { return this.newProductWith( aCommand.getTenantId(), aCommand.getProductOwnerId(), aCommand.getName(), aCommand.getDescription(), this.requestDiscussionIfAvailable()); } ... }
+```
+
+There are actually two ways to create a new Product .  The first method, not  shown  here,  creates  a Product without  a Discussion ,  while  the  one seen here does attempt to cause a ProductDiscussion to eventually be created and attached to the Product . The two internal methods, newProductWith() and requestDiscussionIfAvailable() , are not shown here. The latter  method  is  used  to  check  whether  or  not  the  CollabOvation  add-on  is enabled. If it is, the availability state REQUESTED is returned; otherwise, the state return value is ADD\_ON\_NOT\_ENABLED .  Method newProductWith() invokes the Product constructor, so let's look at the constructor next:
+
+```
+package com.saasovation.agilepm.domain.model.product; ... public class Product extends ConcurrencySafeEntity  { ... public Product( TenantId aTenantId, ProductId aProductId, ProductOwnerId aProductOwnerId, String aName, String aDescription, DiscussionAvailability aDiscussionAvailability) { this(); this.setTenantId(aTenantId); this.setProductId(aProductId); this.setProductOwnerId(aProductOwnerId); this.setName(aName); this.setDescription(aDescription); this.setDiscussion( ProductDiscussion.fromAvailability( aDiscussionAvailability));
+```
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000535_7f8b2ca436011af05f26868a0b283b30b28a0aaa3864aebb8acc96e6e28fcfea.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000536_01c4b4223f698c0f99d7d666b32ac205f0e21b292d8c3edf03252a1a6bc00681.png)
+
+## Chapter 13 INTEGRATING BOUNDED CONTEXTS
+
+```
+DomainEventPublisher .instance() .publish(new ProductCreated( this.tenantId(), this.productId(), this.productOwnerId(), this.name(), this.description(), this.discussion().availability().isRequested())); } ... }
+```
+
+The  client  is  required  to  pass  a DiscussionAvailability ,  which may  convey  one  of  the  following  states: ADD\_ON\_NOT\_ENABLED , NOT\_ REQUESTED ,  or REQUESTED .  The READY state  is  reserved  as  a  completion state.  Either  of  the  first  two  states  results  in  the  creation  of  a ProductDiscussion with  that  exact  state,  which  means  there  won't  be  an  associated discussion, at least not as a result of construction. Given a request with the third state, REQUESTED ,  the ProductDiscussion will be created with a PENDING\_SETUP state. Here's the ProductDiscussion Factory Method used by the Product constructor:
+
+```
+package com.saasovation.agilepm.domain.model.product; ... public final class ProductDiscussion implements Serializable { ... public static ProductDiscussion fromAvailability( DiscussionAvailability anAvailability) { if (anAvailability.isReady()) { throw new IllegalArgumentException( "Cannot be created ready."); } DiscussionDescriptor descriptor = new DiscussionDescriptor( DiscussionDescriptor.UNDEFINED_ID); return new ProductDiscussion(descriptor, anAvailability); } ... }
+```
+
+As long as the request is not for the READY state, which would be a problem, we get a ProductDiscussion with one of the three other states and an undefined descriptor. If the state is REQUESTED , a Long-Running Process will manage the creation of the collaborative discussion and its subsequent initiation with the Product .  How? Recall that the last thing the Product constructor does is publish the ProductCreated Event:
+
+```
+package com.saasovation.agilepm.domain.model.product; ... public Product(...) { ... DomainEventPublisher .instance() .publish(new ProductCreated( this.tenantId(), this.productId(), this.productOwnerId(), this.name(), this.description(), this.discussion().availability().isRequested())); } ... }
+```
+
+If the state of the discussion availability is REQUESTED , the last parameter to the Event constructor will be true, which is exactly what is needed to start the Long-Running Process.
+
+Think  back  to Domain Events (8) ;  every  single  Event  instance,  including those of type ProductCreated , is appended to an Event Store for the specific Bounded Context in which the Event occurred. All newly appended Events are then forwarded from the Event Store to interested parties by means of a messaging mechanism. In the case of SaaSOvation, the teams have decided to use RabbitMQ for that purpose. We need to create a simple Long-Running Process to manage the creation of the discussion and then attach it to the Product .
+
+Before moving on to the details of the Long-Running Process, let's consider one more possible way that a discussion is requested. What if when a given Product instance is first created, either a discussion is not requested, or the collaboration add-on is only enabled? Later on the product owner decides to add a discussion, and the add-on is now available. The product owner can now use this command method on the Product :
+
+```
+package com.saasovation.agilepm.domain.model.product; ... public class Product extends ConcurrencySafeEntity  { ... public void requestDiscussion( DiscussionAvailability aDiscussionAvailability) {
+```
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000537_ce65e5145ba7493d78b7075f785000f46ed5b7532db7656090e624ab4dafca0d.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000538_c04c376f856c3ce2429edde3df4152f2409ebad88bcaf2c2f9a1a0a30977c8b1.png)
+
+```
+if (!this.discussion().availability().isReady()) { this.setDiscussion( ProductDiscussion.fromAvailability( aDiscussionAvailability)); DomainEventPublisher .instance() .publish(new ProductDiscussionRequested( this.tenantId(), this.productId(), this.productOwnerId(), this.name(), this.description(), this.discussion().availability().isRequested())); } } ... }
+```
+
+Method requestDiscussion() takes the familiar DiscussionAvailability parameter, because the client must prove to the Product that the collaboration add-on is enabled. Of course, the client could cheat here and always pass REQUESTED , but that would just end up in a dead-end bug if the add-on is actually not available. Here, too, if the state of the discussion availability is REQUESTED , the last parameter to the Event constructor will be true, which is exactly what is needed to start the Long-Running Process:
+
+```
+package com.saasovation.agilepm.domain.model.product; ... public class ProductDiscussionRequested implements DomainEvent { ... public ProductDiscussionRequested( TenantId aTenantId, ProductId aProductId, ProductOwnerId aProductOwnerId, String aName, String aDescription, boolean isRequestingDiscussion) { ... } ... }
+```
+
+This Event has exactly the same properties as ProductCreated , which will allow both Event types to be handled by the same listener.
+
+We might ask whether publishing this Event makes any sense if the availability state is not REQUESTED .  It  does  make sense, because whether or not the request can be fulfilled, the request was still made, unless it is currently in READY state. It is the responsibility of listeners to determine whether or not to actually do something in response to the Event. Perhaps receiving this Event with isRequestingDiscussion set to false indicates a problem, or setup of the add-on is in progress but still not done. Therefore, some intervention may be necessary. The process may need to send an e-mail to the administrator group, for example.
+
+The classes used to manage the Long-Running Process on the Agile Project  Management Context side  are  similar  to  those  used  to  manage  the  creation and maintenance of the ProductOwner and TeamMember Aggregates (see the previous section). Each of the listeners presented here is wired using Spring such that it is instantiated as the Spring application context is created for this Bounded Context. The first listener registers itself to receive two kinds of notifications on the AGILEPM\_EXCHANGE\_NAME , ProductCreated , and ProductDiscussionRequested :
+
+```
+package com.saasovation.agilepm.infrastructure.messaging; ... public class ProductDiscussionRequestedListener extends ExchangeListener { ... @Override protected String exchangeName() { return Exchanges.AGILEPM_EXCHANGE_NAME; } ... @Override protected String[] listensToEvents() { return new String[] { "com.saasovation.agilepm.domain.model Φ .product.ProductCreated", "com.saasovation.agilepm.domain.model Φ .product.ProductDiscussionRequested" }; } ... }
+```
+
+The COLLABORATION\_EXCHANGE\_NAME is  the  interest  of  the  second listener, and specifically for notification DiscussionStarted :
+
+```
+package com.saasovation.agilepm.infrastructure.messaging; ... public class DiscussionStartedListener extends ExchangeListener { ...
+```
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000539_6a1a4b6ec38f5b794173079ae64541bae49d7d1b68c48d707fa0e5878a497763.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000540_19c597b835e176d636227ff7365d4a0bd02804e0c4026e14dec3d6dd104b2745.png)
+
+## Chapter 13 INTEGRATING BOUNDED CONTEXTS
+
+```
+@Override protected String exchangeName() { return Exchanges.COLLABORATION_EXCHANGE_NAME; } ... @Override protected String[] listensToEvents() { return new String[] { "com.saasovation.collaboration.domain.model. Φ forum.DiscussionStarted" }; } ... }
+```
+
+You can probably see where this is going. If either ProductCreated or ProductDiscussionRequested is received by the first listener, it will dispatch  a  command to  the Collaboration  Context to  have  a  new Forum and Discussion created on behalf of the Product . When that request is fulfilled by the components in the Collaboration Context , the DiscussionStarted notification  is  published  and,  once  received,  the  corresponding  discussion identity  will  be  initiated  on  the Product .  That's  the  long  and  short  of  this Long-Running Process. Here is how the filteredDispatch() works in the first listener:
+
+```
+package com.saasovation.agilepm.infrastructure.messaging; ... public class ProductDiscussionRequestedListener extends ExchangeListener { private static final String COMMAND = "com.saasovation.collaboration.discussion. Φ CreateExclusiveDiscussion"; ... @Override protected void filteredDispatch( String aType, String aTextMessage) { NotificationReader reader = new NotificationReader(aTextMessage); if (!reader.eventBooleanValue("requestingDiscussion")) { return; } Properties parameters = this.parametersFrom(reader); PropertiesSerializer serializer = PropertiesSerializer.instance(); String serialization = serializer.serialize(parameters); String commandId = this.commandIdFrom(parameters);
+```
+
+```
+this.messageProducer() .send( serialization, MessageParameters .durableTextParameters( COMMAND, commandId, new Date())) .close(); } ... }
+```
+
+In the case of either Event type, ProductCreated or ProductDiscussionRequested , if the requestingDiscussion attribute is false,  we  ignore  the  Event.  Otherwise,  we  build  up  a CreateExclusiveDiscussion command from the Event's state and send the command to the message exchange of the Collaboration Context .
+
+This is a good time to pause and reflect on how this process is designed. Should the Agile Project Management Context really  set  up  a  listener  to  an Event published by a local Aggregate? Would it be better to create a listener for the ProductCreated Event in the Collaboration Context instead? If we did so, we could simply have the listener in the Collaboration Context manage the creation of the exclusive Forum and Discussion , and it would eliminate a bit of code from the Agile Project Management Context . To determine which is the better approach requires the consideration of a few factors.
+
+Does it make sense that an upstream Bounded Context listens for Events published from a downstream Context? Or, in an Event-Driven Architecture (4) , are systems really upstream and downstream to each other? Need they be cast in that mold? Possibly the more important factor to consider is whether it would be correct for a ProductCreated Event to be interpreted in the Collaboration Context as  indicating that an exclusive Forum and Discussion should be created. In fact, does ProductCreated actually have any meaning at all to the Collaboration Context ? How many other Contexts may eventually desire similar automatic support for this very feature given their own unique Event types? Is it best to place such a burden to support any number of foreign Events as creation commands on the Collaboration Context ? Yet, there is another factor to consider, which requires us to more carefully manage the success of Long-Running Processes. This topic, discussed just a bit later, may help to settle why we've approached it in this particular way.
+
+Now, back to the example . . . Once received in the Collaboration Context ,  the  command  is  adapted  to  pass  to  the ForumService ,  which  is  an Application Service. Note that this API has not yet been designed to use command parameters but rather takes individual attribute parameters:
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000541_142a5a93476594cb7b0d17bd99a8a0ac3426cac02449e2c99ce1e191a5eaf374.png)

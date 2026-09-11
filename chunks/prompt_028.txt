@@ -1,0 +1,681 @@
+Bạn là chuyên gia dịch thuật kỹ thuật Anh → Việt, chuyên tài liệu kỹ thuật/công nghệ, có kinh nghiệm dịch như biên dịch viên bản ngữ chuyên nghiệp. Nhiệm vụ: dịch TOÀN BỘ nội dung Markdown dưới đây sang tiếng Việt, không bỏ sót bất kỳ phần nào. Đây là MỘT PHẦN (chunk) của một tài liệu lớn hơn, hãy dịch độc lập đoạn này, không thêm lời mở đầu/kết luận về việc đây chỉ là một phần.
+
+QUY TẮC BẮT BUỘC — VI PHẠM LÀ SAI:
+
+1. XÁC ĐỊNH LOẠI TÀI LIỆU TRƯỚC KHI DỊCH
+   - Tự phân tích nội dung để xác định loại tài liệu (kỹ thuật/lập trình, tài chính, bảo hiểm, pháp lý, marketing, học thuật, vận hành, sản phẩm...).
+   - Chọn văn phong và thuật ngữ CHUẨN NGÀNH tương ứng trong tiếng Việt, nhất quán xuyên suốt.
+
+2. VĂN PHONG — MƯỢT NHƯ NGƯỜI DỊCH, KHÔNG GIẢM CHÍNH XÁC
+   - Dịch mượt, tự nhiên, đúng ngữ pháp tiếng Việt — như biên dịch viên bản ngữ dịch tay, KHÔNG dịch máy móc kiểu word-by-word.
+   - Được phép đảo cấu trúc câu, tách/gộp câu cho tự nhiên, miễn giữ nguyên 100% ý nghĩa, thông tin, logic, số liệu gốc.
+   - Khi "mượt mà" và "chính xác" xung đột → LUÔN ưu tiên chính xác.
+
+3. DỊCH ĐẦY ĐỦ 100%
+   - Không tóm tắt, không rút gọn, không lược bỏ đoạn/câu/mục/bullet nào.
+   - Số lượng heading, đoạn văn, bảng, code block ở output PHẢI khớp 1:1 với input.
+   - Đoạn dài dịch hết, không cắt ngắn.
+
+4. GIỮ NGUYÊN THUẬT NGỮ TIẾNG ANH
+   - Thuật ngữ chuyên ngành (tên công nghệ, framework, pattern, tên hàm/biến, acronym...) giữ nguyên tiếng Anh, không dịch, không phiên âm.
+   - Ngay sau lần xuất hiện ĐẦU TIÊN của mỗi thuật ngữ, thêm chú thích ngắn trong ngoặc giải thích nghĩa bằng tiếng Việt.
+   - Các lần xuất hiện sau KHÔNG cần chú thích lại.
+
+5. GIỮ NGUYÊN FORMAT — RẤT QUAN TRỌNG
+   - VỀ ẢNH (làm trước khi dịch): ĐẾM chính xác số lượng thẻ ảnh dạng ![...](...) trong đoạn gốc bên dưới. Output PHẢI có ĐÚNG số lượng thẻ ảnh đó, không được thiếu một cái nào — kể cả ảnh không có caption, không rõ ngữ cảnh, hay trông như ảnh trang trí/lặp lại. Copy nguyên URL 100%, không sửa, không rút gọn, không thay bằng mô tả text.
+   - Giữ cấp độ heading (#, ##, ###...), giữ đúng số lượng heading.
+   - Giữ cấu trúc bảng (số cột, số hàng, alignment, header row).
+   - Giữ code block (```lang ... ```) — KHÔNG dịch code; comment được dịch tại chỗ; **được phép reformat code, tự động xuống dòng/indent chuẩn, không giữ nguyên code 1 dòng; không đổi logic/cú pháp**.
+   - Giữ blockquote, callout/note/warning (>, [!NOTE], [!WARNING]...).
+   - Giữ list, nested list, checkbox (- [ ]).
+   - Giữ nguyên link thường ([text](url)) — chỉ dịch phần text hiển thị, TUYỆT ĐỐI giữ nguyên URL.
+   - TRƯỚC KHI TRẢ KẾT QUẢ: tự đếm lại số heading, số ảnh, số dòng ``` giữa bản gốc và bản dịch của bạn, nếu lệch phải sửa lại cho khớp.
+
+6. GIẢI THÍCH ẨN DỤ / KHÁI NIỆM KHÓ
+   - Với ẩn dụ, thành ngữ, khái niệm trừu tượng khó hiểu với người Việt, thêm khối giải thích riêng ngay sau đoạn đó:
+     > 💡 **Giải thích thêm:** [giải thích dễ hiểu, đủ chuyên sâu, có ví dụ thực tế]
+     > Nguồn tham khảo: [link cụ thể để kiểm chứng]
+   - CHỈ đưa link nếu chắc chắn tồn tại và đúng nội dung — không bịa link.
+   - Không tìm được nguồn tin cậy → ghi rõ: "(Không có nguồn trích dẫn xác thực — cần tự kiểm chứng thêm)".
+
+7. CHỐNG HALLUCINATION (BẮT BUỘC)
+   - Không tự thêm thông tin/số liệu/ví dụ/kết luận KHÔNG có trong bản gốc — trừ phần giải thích ẩn dụ ở mục 6 (phải gắn nhãn rõ là phần bổ sung).
+   - Câu gốc mơ hồ → dịch sát nghĩa nhất, nếu không chắc ghi chú: "[CẦN KIỂM CHỨNG: câu gốc mơ hồ]".
+   - Không tự sửa/thêm/bớt logic kỹ thuật gốc. Không bịa trích dẫn/số liệu/link vô căn cứ.
+   - Không tự tóm tắt các đoạn dài thành ý chính rồi diễn giải lại — phải dịch từng câu.
+
+8. OUTPUT
+   - Trả về DUY NHẤT nội dung Markdown đã dịch, đặt trong 1 code block (```markdown ... ```).
+   - Không thêm lời dẫn/lời chào/giải thích ngoài code block.
+   - Không đổi tiêu đề gốc trừ khi cần dịch tiêu đề.
+
+--- NỘI DUNG GỐC CẦN DỊCH (một phần của tài liệu) ---
+
+While developing Aggregates with traditional persistence (for example, relational database without the use of Event Sourcing), development friction from introducing a new Entity into the system or enriching an existing one can be noticeable. We need to create new tables and define new mapping schemata and Repository methods. If our tendency is to resist such development overhead, it can cause us to grow Aggregates as we concentrate more state structure and behaviors on each. It can be much easier to add onto an existing Aggregate rather than to create a new one.
+
+However, our bias can shift if Aggregates are more easily designed anew, and I assert that this is true when Event Sourcing is in use. In my experience, Aggregates designed using A+ES tend to be smaller, which is one of the primary Aggregate Rules of Thumb.
+
+For example, for a company providing software as a service, a real-world customer might be represented with distinct Aggregates focusing on different behavioral aspects:
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000638_a41bb89d670873b41e7094443b58af01a462a7f6aceafff80e633cf861495dd8.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000639_b6320297582b352995194736747f8dd1708909cd65003b9c08ab66af47e0f1d8.png)
+
+- Customer:505 hosts behaviors for billing, invoicing, and general account management.
+- Security-Account:505 maintains multiple users with access permissions for each.
+- Consumer:505 tracks actual service consumption.
+
+Each of these Aggregate types may be implemented in a different Bounded Context, each Bounded Context using different technologies and architectural approaches. For example, the Consumer aspect might need to provide high scalability and deal with consuming thousands of messages for customers each second. Assuming that is so, such an Event Stream should be hosted in autoscaling cloud fabric. Other aspects might be less demanding, allowing them to be hosted in a less demanding environment.
+
+Of  course,  Aggregates  should  never  be  designed  to  be  arbitrarily  small. We always want to design Aggregates to protect true business invariants, and doing so may cause any given Aggregate to be composed of multiple Entities and a number of Value Objects. Yet, the ease of using A+ES provides us with greater opportunity to strive for simple and efficient designs. This is an advantage that should be embraced whenever possible.
+
+In fact, sometimes it can be helpful to start domain modeling by defining the core of your Ubiquitous Language by defining the primary incoming Commands and outgoing Events, as well as the behaviors that are performed. Only at a later stage would we actually group some concepts as Aggregates, based on similarity,  relevance,  and  business  rules.  Such  an  approach-even  if  it  is just a temporary development spike used as a part of a domain modeling exercise-can lead to a deeper understanding of our core business concepts.
+
+## Read Model Projections
+
+One of the common concerns of the A+ES design approach is how to query the Aggregates by their properties. Event Sourcing does not provide a simple way to answer a question such as 'What is the total amount of all customer orders within the last month?' We would actually need to load every Customer instance, enumerate all of the Order instances within the last month for each one, and calculate their total, which would be extremely inefficient.
+
+This  is  where Read Model Projections can  help.  Read  Model  Projections can be realized through a simple set of Domain Event subscribers that are used to  generate  and  update  a  persistent  Read  Model.  In  other  words,  they project Events to a persistent Read Model. When Event subscribers receive new Events, they calculate some query results and store them in the Read Model for later consumption.
+
+In  a  nutshell,  a  Projection  is  very  similar  to  an  Aggregate  instance.  As Events are received and handled, we use the data from them to build the Projection's state. Read Model Projections are persisted after each update and can be accessed by many readers, both inside and outside the Bounded Context.
+
+## Projection Samples Are Available
+
+More information about using Projections, including source code for various persistence scenarios and automatic rebuilding of Read Models, is available in the sample project: http://lokad.github.com/lokad-cqrs/.
+
+This is how we could define a Projection to capture all transactions for each Customer :
+
+```
+public class CustomerTransactionsProjection { IDocumentWriter<CustomerId, CustomerTransactions> _store; public CustomerTransactionsProjection( IDocumentWriter<CustomerId, CustomerTransactions> store) { _store = store; } public void When(CustomerCreated e) { _store.Add(e.Id, new CustomerTransactions()); } public void When(CustomerChargeAdded e) { _store.UpdateOrThrow(e.Id, v => v.AddTx(e.ChargeName, -e.Charge, e.NewBalance, e.TimeUtc)); } public void When(CustomerPaymentAdded e) { _store.UpdateOrThrow(e.Id, v => v.AddTx(e.PaymentName, e.Payment, e.NewBalance, e.TimeUtc)); } }
+```
+
+This Projection class is similar to an Application Service designed for A+ES that uses lambdas. However, our Projection reacts to Events rather than Commands and updates documents using IDocumentWriter , rather than updating Aggregate instances.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000640_1365b7b0b7075d536b21fc8ab77670e944da48b03dc9e9d93a0386e6f332d4e3.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000641_9d297339e70d73a9d68337522d9fd199b005ddb002fffc236404ab24613d03d7.png)
+
+The underlying Read Model is actually just a simple Data Transfer Object (DTO) [Fowler] that can be serialized and persisted to some underlying storage by means of an IDocumentWriter :
+
+```
+[Serializable] public class CustomerTransactions { public IList<CustomerTransaction> Transactions = new List<CustomerTransaction>(); public void AddTx( string name, CurrencyAmount change, CurrencyAmount balance, DateTime timeUtc) { Transactions.Add(new CustomerTransaction() { Name = name, Balance = balance, Change = change, TimeUtc = timeUtc }); } } [Serializable] public class CustomerTransaction { public CurrencyAmount Change; public CurrencyAmount Balance; public string Name; public DateTime TimeUtc; }
+```
+
+It  is  common  practice  to  persist  Read  Models  in  a  document  database, although other options can be used. We may cache Read Models in memory (for example, memcached instance), push them as documents into a contentdelivery network, or persist them in relational database tables.
+
+In addition to scalability, one of the major advantages of Projections is that they are completely disposable. They can be added, modified, or completely replaced  at  any  time  during  the  application's  lifetime.  To  replace  the  whole Read Model, discard all existing Read Model data and generate new data by running your entire Event Stream through your Projection classes. This process can be automated. It's even possible to prevent any downtime while effecting full Read Model replacement.
+
+## Use with Aggregate Design
+
+Such  Read  Model  Projections  are  frequently  used  to  expose  information  to various  clients  (such  as  desktop  and  Web  user  interfaces),  but  they  are  also quite  useful  for  sharing  information  between  Bounded  Contexts  and  their Aggregates. Consider the scenario where an Invoice Aggregate needs some Customer information  (for  example,  name,  billing  address,  and  tax  ID)  in order to calculate and prepare a proper Invoice . We can capture this information  in  an  easy-to-consume  form  via CustomerBillingProjection , which will create and maintain an exclusive instance of CustomerBillingView .  This  Read Model is available to the Invoice Aggregate through the Domain Service named IProvideCustomerBillingInformation . Under the covers this Domain Service just queries the document store for the appropriate instance of the CustomerBillingView .
+
+Projections also enable us to share information between Aggregate instances in a loosely coupled and more maintainable way. If at any point in time we need to change information returned by IProvideCustomerBillingView , we can do so without modifying the Customer Aggregate. We only need to change the Projection implementation and rebuild the Read Models by replaying all Events.
+
+## Events Enrichment
+
+One of the more common problems with A+ES designs comes from their dual purpose. Events are used both for Aggregate persistence and to communicate domain-level happenings around the enterprise by means of Event publishing.
+
+For example, consider the following: A project management system allows customers to create new projects and archive completed projects. Imagine that we publish a ProjectArchived Event each time a user archives a project. This Domain Event could have this design:
+
+```
+public class ProjectArchived { public ProjectId Id { get; set; } public UserId ChangeAuthorId { get; set; } public DateTime ArchivedUtc { get; set; } public string OptionalComment { get; set; } }
+```
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000642_c63b6b969620845ba2a97b13bd32a36897d78098d3c481e1a568e479d49d9cc7.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000643_03e0a97de841a4bb5d486a436efb1038a7b4defa594b887563ecb6e72d97070b.png)
+
+Figure A.16 Multiple Domain Events are consumed by a Projection and used to build up a view of a Read Model.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000644_f28b2fa883eb0f361467c8b6308f1abee66713dafaa27d807da92c1908d07ed6.png)
+
+This information is rich enough to be used to reconstitute an archived Project using A+ES. However, designed in this way, our Event could be rather problematic for publishers to consume.
+
+Why? Consider the Projection for the ArchivedProjectsPerCustomer view, as illustrated in Figure A.16. It subscribes to Events and maintains a list of archived projects per customer. In order to get the job done, this Projection will need the latest information about things like
+
+-  Project names
+-  Names of customers
+-  Assignments of projects to customers
+-  Project archival Events
+
+We can simplify this  Projection  significantly  by  enriching  our ProjectArchived Event with additional data members to push relevant information. The  additional  data  members  would  not  be  essential  for  reconstituting  the state of the corresponding Aggregate but would noticeably simplify our Event consumers. Consider this alternative Event contract:
+
+```
+public class ProjectArchived { public ProjectId Id { get; set; } public string ProjectName { get; set; } public UserId ChangeAuthorId { get; set; } public DateTime ArchivedUtc { get; set; }
+```
+
+```
+public string OptionalComment { get; set; } public CustomerId Customer { get; set; } public string CustomerName { get; set; } }
+```
+
+Given  this  newly  enriched  Event,  our ArchivedProjectsPerCustomerView generated by the Projection can be simplified as seen in Figure A.17.
+
+A Domain Event rule of thumb says to design them with enough information to satisfy 80 percent of subscribers, even though doing so would require Events to have more information than needed by a good number of subscribers. Remembering that we want to ensure that view Projection processors have a rich set of Event data, we usually include
+
+-  Entity identifiers, which are the Event owners/masters, such as CustomerId is to Customer
+-  Names and other properties that are generally used for display purposes, such as ProjectName , CustomerName , and the like
+
+These are recommendations, not rules. They usually work well for enterprises  that  have  a  lot  of  different  Bounded  Contexts.  Monolithic  Bounded Contexts benefit less from these suggestions, since they tend to maintain secondary lookup tables and Entity maps. Of course, you are in the best position to know which properties should be included in your Events. Sometimes it's obvious just which properties belong in a given Event type, and for those refactoring is seldom required.
+
+Figure A.17 Domain Events such as ProjectArchived can be consumed by Projection processors that generate view- and report-specific Read Models.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000645_f2245c46135b90b225e08955b9b0a6da45060c5377fadcb04457e30b8e88fa41.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000646_9ba04f28f3cf9811ffee6c4158814dbed75c341b70814fcaa986a649629b2aec.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000647_618c7536faf3e224885cdabb1ddccf1e99c00b39a727c16ad3fc51887a333e47.png)
+
+## Supporting Tools and Patterns
+
+Developing, building, deploying, and maintaining systems using A+ES require a set of patterns that can differ somewhat from those of traditional systems. This section presents some patterns, tools, and practices that have proven quite useful when using A+ES.
+
+## Event Serializers
+
+It's wise to choose a serializer that favors versioning and renaming Events. This is  especially true early on in an A+ES project as the domain model tends to evolve rapidly. Consider this Event, which is declared using a .NET implementation of Protocol Buffers 1 annotations:
+
+```
+[DataContract] public class ProjectClosed { [DataMember(Order=1)] public long ProjectId { get; set; } [DataMember(Order=2)] public DateTime Closed { get; set; } }
+```
+
+Now,  if  we  were  to  serialize ProjectClosed using DataContractSerializer or JsonSerializer rather than Protocol Buffers, any renamed members could easily break dependent consumers. For example, assume you rename the Closed property ClosedUtc . Unless you take special care to map the renamed property in a consuming Bounded Context, you'd produce a confusing error or produce buggy data:
+
+```
+[DataContract] public class ProjectClosed { [DataMember] public long ProjectId { get; set; } [DataMember(Name="Closed"] public DateTime ClosedUtc { get; set; } }
+```
+
+Protocol Buffers accommodates evolving serialization situations because it tracks contract members by integral tags, not names. As can be seen in the following  code,  clients  may  successfully  use  either Close or CloseUtc as the property name. It serializes objects extremely quickly and produces a very compact binary representation. Using Protocol Buffers, we can rename Event properties without worrying about backward compatibility, reducing development friction in an evolving domain model.
+
+1.  Protocol Buffers was originated by Google. Others have created .NET implementations.
+
+```
+[DataContract] public class ProjectClosed { [DataMember(Order=1)] public long ProjectId { get; set; } [DataMember(Order=2)] public DateTime ClosedUtc { get; set; } }
+```
+
+Some additional  cross-platform  serialization  tools  include  Apache  Thrift, Avro, and MessagePack, giving a variety of worthy options.
+
+## Event Immutability
+
+Event Streams are considered to be immutable by nature. In order to keep the development model consistent  with  this  concept  (and  avoid  undesirable  side effects), Event contracts should be implemented as immutable. To do that with C# on .NET, we mark fields as read-only and set values only via the constructor. Given the previous ProjectClosed Event, we can make it an immutable implementation:
+
+```
+[DataContract] public class ProjectClosed { [DataMember(Order=1)] public long ProjectId { get; private set } [DataMember(Order=2)] public DateTime ClosedUtc { get; private set; } public ProjectClosed(long projectId, DateTime closedUtc) { ProjectId  = projectId; ClosedUtc = closedUtc; } }
+```
+
+## Value Objects
+
+As  discussed  thoroughly  in Value  Objects  (6) ,  this  is  a  pattern  that  can greatly simplify development and the evolution of rich domain models. Using Value Objects, we compose cohesive primitive types into an explicitly named immutable type. For instance, instead of declaring the identity of a project as a long , we would model an explicit ProjectId :
+
+```
+public struct ProjectId { public ProjectId(long id) { Id = id
+```
+
+```
+public readonly long Id { get; private set; } }
+```
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000648_2dc72a73392d2bb3f0c0e4c2c9d42d84fc449f347519991f0c3a999596146b57.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000649_c78ba36c119882e952f2b99172c8a80bfb668bd06f38ecdc9ea8b12c800ae2ad.png)
+
+```
+public override ToString() { return string.Format("Project-{0}", Id); } }
+```
+
+We still use a long type to hold the actual identity number, but we use the ProjectId type  to  distinguish  it  from  all  others.  Value  types  are  certainly not limited to unique identities. Other appropriate Value types include money objects  (especially  in  multicurrency  systems),  addresses,  e-mails,  measurements, and so on.
+
+In addition to enrichment and expressiveness of Event and Command contracts,  domain  Value  Objects  bring  more  practical  benefits  to  A+ES  implementations, like static type checking and IDE support. Consider the following scenario, where a developer can accidentally misplace parameters of a simple Event constructor by passing them in the wrong order:
+
+```
+long customerId = ...; long projectId = ...; var event = new ProjectAssignedToCustomer(customerId, projectId);
+```
+
+This  is  an  error  that  would  not  be  caught  by  the  compiler  but  might  be found  only  through  much  debugging  and  frustration.  However,  if  you  use Value Objects as identifiers, the compiler (and thus the IDE editor) would catch the error in passing the CustomerId first and the ProjectId second:
+
+```
+CustomerId customerId = ...; ProjectId projectId = ...; var event = new ProjectAssignedToCustomer(customerId, projectId);
+```
+
+Benefits  become  even  more  apparent  when  you  have  flat  contract  classes with a large number of fields. For instance, consider this Event (simplified from the actual production version):
+
+```
+public class CustomerInvoiceWritten { public InvoiceId Id { get; private set; } public DateTime CreatedUtc { get; private set; } public CurrencyType Currency { get; private set; } public InvoiceLine[] Lines { get; private set; } public decimal SubTotal { get; private set; } public CustomerId Customer { get; private set; } public string CustomerName { get; private set; } public string CustomerBillingAddress { get; private set; }
+```
+
+```
+public float OptionalVatRatio { get; private set; } public string OptionalVatName { get; private set; } public decimal VatTax { get; private set; } public decimal Total { get; private set; } }
+```
+
+As you can imagine, dealing with a class having so many properties 2 can be a bit complicated. We can refactor this large Event to be more explicit and readable by refining its model according to existing domain concepts:
+
+```
+public class CustomerInvoiceWritten { public InvoiceId Id { get; private set; } public InvoiceHeader Header { get; private set; } public InvoiceLine[] Lines { get; private set; } public InvoiceFooter Footer { get; private set; } }
+```
+
+The InvoiceHeader and InvoiceFooter constitute cohesive properties:
+
+```
+public class InvoiceHeader { public DateTime CreatedUtc { get; private set; } public CustomerId Customer { get; private set; } public string CustomerName { get; private set; } public string CustomerBillingAddress { get; private set; } } public class InvoiceFooter { public CurrencyAmount SubTotal { get; private set; } public VatInformation OptionalVat { get; private set; } public CurrencyAmount VarAmount { get; private set; } public CurrencyAmount Total { get; private set; } }
+```
+
+We replaced the separate CurrencyType Currency and decimal SubTotal properties with a CurrencyAmount Value Object. An added benefit is that this class could be enhanced with sanity check logic that prevents operations between amounts expressed in different currencies and other inappropriate operations. The same goes for joining VAT information into a separate Value Object that is then composed on the InvoiceFooter , along with the other invoice totals.
+
+Wherever possible we should strive to employ Value Objects, whether for Command objects, Events, or Aggregate parts.
+
+2.  Empirical  data  proves  an  appropriate  rule  of  thumb:  There  should  be  no  more than five to seven property members per class.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000650_2f247caa7445b1814eff353ed0b64437149eee46d8daa44392a7c8bbba7f6bba.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000651_860ac12ddc9695003b832d9341d99019bccb992ebb9f945b6495b5cef6a5e6d4.png)
+
+Obviously, using Value Objects in Commands and/or Events would require deploying them together, or even creating a Shared Kernel (3) . However, some deeply  complex  domains  might  require  designing  some  Value  Objects  with extremely involved business logic. In such cases, placing such Value Objects in a Shared Kernel merely for type-safe deserialization would likely result in a brittle design. It could help to distinguish between simple shared classes used to deserialize Command and Event data in a type-safe way from the more complex ones required by the Core Domain (2) . That would mean creating two sets of Value Object classes, those used exclusively by the Core Domain and those that are deployed with Command and Event classes. The data held by the two is converted from one to the other as needed.
+
+Depending on your taste, duplicating classes may seem more complex than necessary,  leading  you  down  the  path  of  creating  accidental  complexity  in your systems. If that's your opinion, it may be worth considering a different approach. One alternative is  to  standardize  serialized  Events  as  a Published Language (3) .  As  explained  in Integrating  Bounded  Contexts  (13) ,  you  may choose  to  consume  Event  notifications  using  a  dynamic  typing  approach. Doing so would eliminate the need for Event and Value Object types being deployed to the consuming subscribers. As with all approaches, this one has trade-offs that must be weighed.
+
+## Contract Generation
+
+Maintaining hundreds of Event (and Command) contracts manually is both tedious and error prone. It's usually more efficient to express their definitions in some compact domain-specific language (DSL) that can be used for simple code generation, by building correct classes at build time. There are several ways to formulate a DSL syntax, and we might consider the Protocol Buffer .proto format or a similar one to be the way to go. For example, you may find this approach useful:
+
+CustomerInvoiceWritten!(InvoiceId Id, InvoiceHeader header, InvoiceLine[] lines, InvoiceFooter footer)
+
+A simple code generator can use the parsed DSL to generate code for each source line. Note one example here, where the CustomerInvoiceWritten is generated from the preceding DSL:
+
+```
+[DataContract] public sealed class CustomerInvoiceWritten : IDomainEvent { [DataMember(Order=1) public InvoiceId Id { get; private set; } [DataMember(Order=2) public InvoiceHeader Header { get; private set; } [DataMember(Order=3) public InvoiceLine[] Lines { get; private set; } [DataMember(Order=4) public InvoiceFooter Footer { get; private set; } public CustomerInvoiceWriter( InvoiceId id, InvoiceHeader header, InvoiceLine[] lines, InvoiceFooter footer) { Id = id; Header = header; Lines = lines; Footer = footer; } // required by serializer ProjectClosed() { Lines = new InvoiceLine[0]; } }
+```
+
+This has the following practical benefits:
+
+-  It  reduces  development  friction  by  enabling  faster  domain  modeling iterations.
+-  It reduces the probability of human errors common with manual labor.
+-  The compact representation allows us to keep all Event definitions on a single screen, providing a big-picture view for improved insight. This can even serve as a terse glossary to the Ubiquitous Language.
+-  We  can  version  and  distribute  Event  contracts  as  compact  definitions instead  of  requiring  source  or  binary  code.  This  might  even  serve  to enhance collaboration between various teams.
+
+The same can be applied to Command contracts as well. The open source implementation of a DSL-based code generation tool along with examples is available within the sample project.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000652_849b8fdc64dccce41ad7d043d22b7d8c5dcf275918a11d6f14a455ce783ba55c.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000653_4234db078317150de0b9c580c0f9d7335f9c06de96bd78c46a68c1232611740f.png)
+
+## Unit Testing and Specifications
+
+Consider an added benefit of using Event Sourcing as we create unit tests. We can easily specify our tests in the form Given-When-Expect , as follows:
+
+1. Given Events in the past
+2. When Aggregate method is called
+3. Expect the following Events or an exception
+
+Here's how it works. Past Events are used to set up the state of an Aggregate at the beginning of the unit test. We then execute the Aggregate method being tested, supplying test arguments and mock implementations of Domain Services as needed. Finally, we assert the expected results by comparing Events produced by an Aggregate with expected Events.
+
+This  approach  allows  us  to  capture  and  verify  behaviors  associated  with each Aggregate. At the same time, we stay decoupled from the internals of the Aggregate state. This helps to reduce test fragility because development teams can change and optimize each Aggregate implementation in any way, as long as the behavioral contracts are fulfilled as confirmed by the unit tests.
+
+It is possible to take this approach one step further by expressing the When clause directly using a Command, which is passed to the appropriate Application Service hosting the Aggregate under test. This allows us to express the unit test as a specification expressed completely in the terms of our Ubiquitous Language, either through code or by creating a DSL.
+
+With just a little bit of code, such specifications can be automatically printed out as human-readable use cases that domain experts can comprehend. These use case definitions can help project teams communicate better over domains with complex behaviors, which enhances their modeling efforts.
+
+Here's a simple specification defined by a text document:
+
+```
+[Passed] Use case 'Add Customer Payment - Unlock On Payment'.
+```
+
+```
+Given: 1. Created customer 7 Eur 'Northwind' with key c67b30 ... 2. Customer locked When: Add 'unlock' payment 10 EUR via unlock Expectations: [ok] Tx 1: payment 10 EUR 'unlock' (none) [ok] Customer unlocked
+```
+
+If this approach interests you, performing a Web search for 'Event Sourcing Specifications' will result in detailed guidance.
+
+## Event Sourcing in Functional Languages
+
+The implementation patterns outlined previously focused on an object-oriented approach, which is a good fit for programming languages such as Java and C#. However, Event Sourcing is inherently functional in nature. Thus, it can be successfully implemented with functional languages such as F# and Clojure. Doing so could potentially lead to more concise code that performs optimally.
+
+Here are some peculiarities of switching from an object-oriented to a functional approach for Aggregate implementations:
+
+-  We must switch from using a mutable object-oriented Aggregate state object to designing a simple immutable state record with a collection of mutating functions. The mutating functions simply take a state record and Event arguments, returning a new state record as the result. This is quite like the design of an immutable Value Object, where its Side-Effect-Free Functions only produce new Values based on its own state and function arguments. Such functions take the form Func&lt;State, Event, State&gt; .
+-  The current Aggregate state can be defined as a left fold of all past Events that are passed to the mutating functions.
+-  Aggregate  methods  can  also  be  transformed  into  a  collection  of  stateless functions, which take Command parameters, Domain Services, and a  state.  Such  functions  return  zero  or  more  Events  and  take  the  form Func&lt;TArg1, TArg2..., State, Event[]&gt; .
+-  An Event Store can be perceived and communicated as a functional database , because it persists the arguments to functions that mutate Aggregate state. Supporting snapshots in a functional Event Store is familiar to functional programmers under the name memoization .
+
+A development spike that captures core business concepts by means of A+ES in  a  functional  programming  language  can  accelerate  our  domain  modeling efforts. What is more, it forces us to shift our domain exploration focus away from  Aggregate  structure  toward  a  strict  reflection  of  our  domain's  Ubiquitous  Language expressed by its behaviors. Anything that can help us give more emphasis to the Core Domain and less to technology will likely drive out more value for the business and help it achieve an even greater competitive advantage.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000654_a4c499d1fb3c0225991851444f0350d6ec11ff1645c2b28f22386b5313ec52d9.png)
+
+This page intentionally left blank
+
+## Bibliography
+
+[Appleton, LoD] Appleton, Brad. n.d. 'Introducing Demeter and Its Laws.' www.bradapp.com/docs/demeter-intro.html.
+
+[Bentley] Bentley, Jon. 2000. Programming Pearls, Second Edition. Boston, MA: Addison-Wesley.
+
+http://cs.bell-labs.com/cm/cs/pearls/bote.html.
+
+[Brandolini] Brandolini, Alberto. 2009. 'Strategic Domain-Driven Design with Context Mapping.'
+
+www.infoq.com/articles/ddd-contextmapping.
+
+[Buschmann et al.] Buschmann, Frank, et al. 1996. Pattern-Oriented Software Architecture, Volume 1: A System of Patterns . New York: Wiley.
+
+[Cockburn] Cockburn, Alastair. 2012. 'Hexagonal Architecture.'
+
+http://alistair.cockburn.us/Hexagonal+architecture.
+
+[Crupi et al.] Crupi, John, et al. n.d. 'Core J2EE Patterns.'
+
+http://corej2eepatterns.com/Patterns2ndEd/DataAccessObject.htm.
+
+[Cunningham, Checks] Cunningham, Ward. 1994. 'The CHECKS Pattern Language of Information Integrity.'
+
+http://c2.com/ppr/checks.html.
+
+[Cunningham, Whole Value] Cunningham, Ward. 1994. '1. Whole Value.' http://c2.com/ppr/checks.html#1.
+
+[Cunningham, Whole Value aka Value Object] Cunningham, Ward. 2005. 'Whole Value.'
+
+http://fit.c2.com/wiki.cgi?WholeValue.
+
+[Dahan, CQRS] Dahan, Udi. 2009. 'Clarified CQRS.'
+
+www.udidahan.com/2009/12/09/clarified-cqrs/.
+
+[Dahan, Roles] Dahan, Udi. 2009. 'Making Roles Explicit.' www.infoq.com/presentations/Making-Roles-Explicit-Udi-Dahan.
+
+[Deutsch] Deutsch, Peter. 2012. 'Fallacies of Distributed Computing.' http://en.wikipedia.org/wiki/Fallacies\_of\_Distributed\_Computing.
+
+[Dolphin] Object Arts. 2000. 'Dolphin Smalltalk; Twisting the Triad.' www.object-arts.com/downloads/papers/TwistingTheTriad.PDF.
+
+[Erl] Erl, Thomas. 2012. 'SOA Principles: An Introduction to the ServiceOriented Paradigm.'
+
+http://serviceorientation.com/index.php/serviceorientation/index.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000655_44bcba716db59404b9452a911fb1bed4a8b47a3c32dd572eaa3ba6fbb575a0ad.png)
+
+[Evans] Evans, Eric. 2004. Domain-Driven Design: Tackling the Complexity in the Heart of Software. Boston, MA: Addison-Wesley.
+
+[Evans, Ref] Evans, Eric. 2012. 'Domain-Driven Design Reference.' http://domainlanguage.com/ddd/patterns/DDD\_Reference\_2011-01-31.pdf.
+
+[Evans &amp; Fowler, Spec] Evans, Eric, and Martin Fowler. 2012. 'Specifications.' http://martinfowler.com/apsupp/spec.pdf.
+
+[Fairbanks] Fairbanks, George. 2011. Just Enough Software Architecture . Marshall &amp; Brainerd.
+
+[Fowler, Anemic] Fowler, Martin. 2003. 'AnemicDomainModel.' http://martinfowler.com/bliki/AnemicDomainModel.html.
+
+[Fowler, CQS] Fowler, Martin. 2005. 'CommandQuerySeparation.' http://martinfowler.com/bliki/CommandQuerySeparation.html.
+
+[Fowler, DI] Fowler, Martin. 2004. 'Inversion of Control Containers and the Dependency Injection Pattern.'
+
+http://martinfowler.com/articles/injection.html.
+
+[Fowler, P of EAA] Fowler, Martin. 2003. Patterns of Enterprise Application Architecture . Boston, MA: Addison-Wesley.
+
+[[Fowler, PM] Fowler, Martin. 2004. 'Presentation Model.'](http://martinfowler.com/eaaDev/PresentationModel.html)
+
+http://martinfowler.com/eaaDev/PresentationModel.html.
+
+[Fowler, Self Encap] Fowler, Martin. 2012. 'SelfEncapsulation.' http://martinfowler.com/bliki/SelfEncapsulation.html.
+
+[Fowler, SOA] Fowler, Martin. 2005. 'ServiceOrientedAmbiguity.' http://martinfowler.com/bliki/ServiceOrientedAmbiguity.html.
+
+[Freeman et al.] Freeman, Eric, Elisabeth Robson, Bert Bates, and Kathy Sierra. 2004. Head First Design Patterns . Sebastopol, CA: O'Reilly Media.
+
+[Gamma et al.] Gamma, Erich, Richard Helm, Ralph Johnson, and John Vlissides. 1994. Design Patterns . Reading, MA: Addison-Wesley.
+
+[Garcia-Molina &amp; Salem] Garcia-Molina, Hector, and Kenneth Salem. 1987. 'Sagas.' ACM, Department of Computer Science, Princeton University, Prince  ton, NJ.
+
+www.amundsen.com/downloads/sagas.pdf.
+
+[[GemFire Functions] 2012. VMware vFabric 5 Documentation Center. http://pubs.vmware.com/vfabric5/index.jsp?topic=/com.vmware.vfabric .gemfire.6.6/developing/function\_exec/chapter\_overview.html.](http://pubs.vmware.com/vfabric5/index.jsp?topic=/com.vmware.vfabric.gemfire.6.6/developing/function_exec/chapter_overview.html)
+
+[Gson] 2012. A Java JSON library hosted on Google Code. http://code.google.com/p/google-gson/.
+
+[Helland] Helland, Pat. 2007. 'Life beyond Distributed Transactions: An Apostate's Opinion.' Third Biennial Conference on Innovative DataSystems Research (CIDR), January 7-10, Asilomar, CA.
+
+www.ics.uci.edu/~cs223/papers/cidr07p15.pdf.
+
+[Hohpe &amp; Woolf] Hohpe, Gregor, and Bobby Woolf. 2004. Enterprise Integration Patterns: Designing, Building, and Deploying Messaging Systems . Boston, MA: Addison-Wesley.
+
+[Inductive UI] 2001. Microsoft Inductive User Interface Guidelines. http://msdn.microsoft.com/en-us/library/ms997506.aspx.
+
+[Jezequel et al.] Jezequel, Jean-Marc, Michael Train, and Christine Mingins. 2000. Design Patterns and Contract. Reading, MA: Addison-Wesley.
+
+[Keith &amp; Stafford] Keith, Michael, and Randy Stafford. 2008. 'Exposing the ORM Cache.' ACM , May 1.
+
+http://queue.acm.org/detail.cfm?id=1394141.
+
+[Liskov] Liskov, Barbara. 1987. Conference Keynote: 'Data Abstraction and Hierarchy.' http://en.wikipedia.org/wiki/Liskov\_substitution\_principle. 'The Liskov Substitution Principle.'
+
+www.objectmentor.com/resources/articles/lsp.pdf.
+
+[Martin, DIP] Martin, Robert. 1996. 'The Dependency Inversion Principle.' www.objectmentor.com/resources/articles/dip.pdf.
+
+[Martin, SRP] Martin, Robert. 2012. 'SRP: The Single Responsibility Principle.' www.objectmentor.com/resources/articles/srp.pdf.
+
+[[MassTransit] Patterson, Chris. 2008. 'Managing Long-Lived Transactions with MassTransit.Saga.'](http://lostechies.com/chrispatterson/2008/08/29/managing-long-lived-transactions-with-masstransit-saga/)
+
+http://lostechies.com/chrispatterson/2008/08/29/managing-long-livedtransactions-with-masstransit-saga/.
+
+[[MSDN Assemblies] 2012.](http://msdn.microsoft.com/en-us/library/51ket42z%28v=vs.71%29.aspx)
+
+http://msdn.microsoft.com/en-us/library/51ket42z%28v=vs.71%29.aspx.
+
+[Nilsson] Nilsson, Jimmy. 2006. Applying Domain-Driven Design and Patterns: With Examples in C# and .NET. Boston, MA: Addison-Wesley.
+
+[Nijof, CQRS] Nijof, Mark. 2009. 'CQRS à la Greg Young.' http://cre8ivethought.com/blog/2009/11/12/cqrs--la-greg-young.
+
+[[NServiceBus] 2012.](http://www.nservicebus.com/)
+
+www.nservicebus.com/.
+
+[Öberg] Öberg, Rickard. 2012. 'What Is Qi4j™?' http://qi4j.org/.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000656_d1a45bebf52125d042db60a906b5c7582d1dcaf27d88eb93c8b389f46d524437.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000657_a78bb5b47de16f21577abcd59c759edd7137786af64974b026fe11d1f0fe0f8a.png)
+
+[Parastatidis et al., RiP] Webber, Jim, Savas Parastatidis, and Ian Robinson. 2011. REST in Practice . Sebastopol, CA: O'Reilly Media.
+
+[[PragProg, TDA] The Pragmatic Programmer. 'Tell, Don't Ask.'](http://pragprog.com/articles/tell-dont-ask)
+
+http://pragprog.com/articles/tell-dont-ask.
+
+[Quartz] 2012. Terracotta Quartz Scheduler. http://terracotta.org/products/quartz-scheduler.
+
+[Seovi þ ] Seovi þ , Aleksandar, Mark Falco, and Patrick Peralta. 2010. Oracle Coherence 3.5: Creating Internet-Scale Applications Using Oracle's High-Performance Data Grid . Birmingham, England: Packt Publishing.
+
+[[SOA Manifesto] 2009. SOA Manifesto.](http://www.soa-manifesto.org/)
+
+www.soa-manifesto.org/.
+
+[[Sutherland] Sutherland, Jeff. 2010. 'Story Points: Why Are They Better than Hours?'](http://scrum.jeffsutherland.com/2010/04/story-points-why-are-they-better-than.html)
+
+http://scrum.jeffsutherland.com/2010/04/story-points-why-are-they-betterthan.html.
+
+[Tilkov, Manifesto] Tilkov, Stefan. 2009. 'Comments on the SOA Manifesto.' www.innoq.com/blog/st/2009/10/comments\_on\_the\_soa\_manifesto.html.
+
+[Tilkov, RESTful Doubts] Tilkov, Stefan. 2012. 'Addressing Doubts about REST.' www.infoq.com/articles/tilkov-rest-doubts.
+
+[Vernon, DDR] Vernon, Vaughn. n.d. 'Architecture and Domain-Driven Design.' http://vaughnvernon.co/?page\_id=38.
+
+[Vernon, DPO] Vernon, Vaughn. n.d. 'Architecture and Domain-Driven Design.' http://vaughnvernon.co/?page\_id=40.
+
+[Vernon, RESTful DDD] Vernon, Vaughn. 2010. 'RESTful SOA or DomainDriven Design-A Compromise?' QCon SF 2010. www.infoq.com/presentations/RESTful-SOA-DDD.
+
+[[Webber, REST &amp; DDD] Webber, Jim. 'REST and DDD.'](http://skillsmatter.com/podcast/design-architecture/rest-and-ddd)
+
+http://skillsmatter.com/podcast/design-architecture/rest-and-ddd.
+
+[Wiegers] Wiegers, Karl E. 2012. 'First Things First: Prioritizing Requirements.'
+
+www.processimpact.com/articles/prioritizing.html.
+
+[Wikipedia, CQS] 2012. 'Command-Query Separation.' http://en.wikipedia.org/wiki/Command-query\_separation.
+
+[[Wikipedia, EDA] 2012. 'Event-Driven Architecture.'](http://en.wikipedia.org/wiki/Event-driven_architecture)
+
+http://en.wikipedia.org/wiki/Event-driven\_architecture.
+
+[Young, ES] Young, Greg. 2010. 'Why Use Event Sourcing?' http://codebetter.com/gregyoung/2010/02/20/why-use-event-sourcing/.
+
+## Index
+
+## A
+
+| Abstract classes, in modules, 338 Abstract Factory pattern, 389 Abstraction, Dependency Inversion Principle and, 123 Access management, identity and, 91-92 ACID databases, 521 ACL. See Anticorruption Layer (ACL) Active Record, in Transaction Scripts, 441 ActiveMQ, as messaging middleware, 303 Actor Model, 295 Adapters. See also Hexagonal Architecture Domain Services use for integration, 280 handling client output types, 529-530 Hexagonal Architecture and, 126-127 Presentation Model as, 519 for REST client implementation, 465-466 Aggregate Root query interface, 516 Aggregate Stores distributed caches of Data Fabrics as, 164 persistence-oriented repositories and, 418 Aggregate-Oriented Databases, 418 Aggregates. See also A+ES (Aggregates and Event Sourcing) Application Services and, 120-121 avoiding dependency Injection, 387 behavioral focus of, 569-570 Context Maps and, 90 cost estimates of memory overhead, 372-373 creating and publishing Events, 287 decision process in designing, 379-380 designing, 573 designing based on usage scenarios, 375-376 Domain Events with Aggregate characteristics, 294-295 Event Sourcing and, 160-162, 539 eventual consistency, 364-367, 376-378 executives and trackers merged in, 156 factories on Aggregate Root, 391-392 global transactions as reason to break design rules, 369 implementing, 380   | information hiding (Law of Demeter and Tell, Don't Ask), 382-384 invariant determination in creating clusters, 353-355 lack of technical mechanisms as reason to break design rules, 368-369 local identity of Entities and, 177 mediators publishing internal state of, 514-515 memory consumption and, 374-375 model navigation and, 362-363 motivations for Factory use, 389 as object collections, 203 optimistic concurrency, 385-387 organizing into large clusters, 349-351 organizing into smaller units, 351-353 overview of, 347-348 placing in repository, 401 query performance as reason to break design rules, 369-370 querying repositories and, 138 references between, 359-362 removing from repository, 409 rendering Data Transfer Objects, 513-514 rendering Domain Payload Objects, 515-516 rendering properties of multiple instances, 512-513 rethinking design, 370-372 review, 388 Root Entity and, 380-382 scalability and distribution of, 363-364 in Scrum Core Domain, 348-349 single-aggregate-instance-in-single- transaction rule of thumb, 302 size of Bounded Contexts and, 68 small Aggregate design, 355-358 snapshots of, 559-561 as Standard Type, 237 state of, 516-517 storing in Data Fabrics, 164 synchronizing instances in local Bounded Context, 287   |
+|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000658_9800c9ebb19ee7dd1c5c09ae76d0abbcadd88cb22700ebabee728c038eac96dd.png)
+
+Aggregates ( continued ) tactical modeling tools, 29 results of asking whose job it is, 378-379 usage scenarios applied to designing, 373-374 use cases and, 358-359 user interface convenience as reason to break design rules, 367-368 Value Objects preferred over Entities when possible, 382 Aggregates and Event Sourcing (A+ES) advantages of, 539-540 Aggregate design, 573 BLOB persistence, 568-569 Command Handlers, 549-553 concurrency control, 554-558 contract generation and maintenance, 580-581 drawbacks of, 540 event enrichment, 573-575 event immutability, 577 event serializers, 576-577 event sourcing in functional languages, 583 focusing Aggregates on different behavioral aspects, 569-570 implementing event stores, 561-565 inside Application Services, 541-549 lambda syntax, 553-554 overview of, 539 performance issues, 558-561 Read Model Projections, 570-572 relational persistence, 565-567 structural freedom with, 558 tools and patterns supporting, 576 unit tests and specifications, 582-583 Value Objects and, 577-580 Agile Manifesto, 82 Agile modeling benefits of DDD, 28 design and, 55 Agile Project Management (APM), 177 Agile Project Management Context calculation process from, 277 Context Maps and, 104 as Core Domain, 98 integrating with Collaboration Context, 107-110 integrating with Identity and Access Context, 104-107 modeling Domain Event from, 288-289 modules, 340-343 overview of, 82-84
+
+ProjectOvation as example of, 92 Value Objects and, 239 Ajax Push (Comet), 147 Akka, as messaging middleware, 303 Anemia, 14-16 Anemia-induced memory loss, 16-20 Anemic Domain Model avoiding, 426 causes of, 14-15 determining health of Domain Model and, 13 DTOs mimicking, 532 overuse of services resulting in, 268 overview of, 13 presence of anemia everywhere, 15-16 what anemia does to your model, 16-17 Anticorruption Layer (ACL) Bounded Context relationships, 93-94 built-in, 532 defined, 101 implementing, 469 implementing REST clients and, 463-469 synchronizing team members with identities and roles, 340-341 APIs (application programming interfaces) creating products, 482-483 integration basics and, 450-451 opening services and, 510 APM (Agile Project Management), 177. See also Agile Project Management Context Application Layer composing multiple Bounded Contexts and, 531-532 creating and naming modules of nonmodel components, 343-344 DIP (Dependency Inversion Principle) and, 124 in Layers Architecture, 119-121 managing transactions in, 433-434 Application programming interfaces. See APIs (application programming interfaces) Application Services, 68 controlling access and use of Aggregates, 541-549 decoupling service output, 528-530 delegation of, 461-462 Domain Services compared with, 267 enterprise component containers, 534-537 example, 522-528 Hexagonal Architecture and, 126-128
+
+infrastructure and, 509, 532-534
+
+in Layers Architecture, 120-121
+
+message handler, 293
+
+overview of, 521
+
+passing commands to, 550
+
+performing business operations, 545
+
+reasons for not wanting business logic in,
+
+279-280
+
+registering subscribers to Domain Events, 300-302
+
+transactional service in multipleAggregate design, 352-353
+
+Applications
+
+Bounded Contexts and, 66-68 composing multiple Bounded Contexts,
+
+531-532
+
+dealing with multiple, disparate clients, 517-518
+
+defined, 510
+
+enterprise component containers, 534-537
+
+generating identity of Entities, 175-178
+
+infrastructure and, 532-534
+
+mediators, 514-515
+
+overview of, 509-511
+
+rendering Aggregates, 515-516
+
+rendering domain objects, 512-513
+
+rendering DTOs, 513-514
+
+rendition adapters and user edit handling, 518-521
+
+representing state of Aggregate instances, 516-517
+
+review, 534-537
+
+task management for, 549
+
+use case optimal repository queries, 517
+
+user interface, 512
+
+Architects, benefits of DDD to, 5-6
+
+## Architecture
+
+Application Services and, 521
+
+benefits of Aggregates, 540
+
+Bounded Contexts and architectural issues, 68
+
+Context Maps for, 90
+
+CQRS. See CQRS (Command-Query Responsibility Segregation)
+
+creating and naming modules of nonmodel components, 343-344
+
+data fabric and grid-based distributed computing. See Data fabrics
+
+decision process (in fictitious interview), 115-119
+
+DIP (Dependency Inversion Principle) and, 123-125
+
+event driven. See EDA (event-driven architecture)
+
+Layers Architecture pattern, 119-123 overview of, 113-114
+
+Ports and Adapters. See Hexagonal Architecture
+
+REST. See REST (Representational State Transfer)
+
+review, 168-169
+
+SOA (Service-Oriented Architecture), 130-133
+
+Archived logs
+
+finding notification, 315 publishing NotificationLog what they are, 313
+
+, 319-323
+
+Assertions, design-by-contract approach and, 208
+
+Assessment view, for understanding problem space, 57
+
+Attributes, validating Entities, 208-211
+
+Audit logs, 308
+
+Authentication
+
+deciding where to place technical components, 272-275
+
+example of where to use a Domain Service, 269-271
+
+testing authentication service, 281-284 of users, 198
+
+Autonomous services and systems, Domain Events and, 305-306
+
+## B
+
+Behaviors
+
+essential Entity behaviors, 196-200 focusing Aggregates on different behavioral aspects, 569-570
+
+modeling Domain Events, 291-293 naming object behaviors, 31-32 patching classes with specialized behaviors, 225-226
+
+repositories and, 430-432
+
+Big Ball of Mud
+
+Bounded Contexts, 93-94
+
+collaboration issues and, 76
+
+failure from not using strategic design, 55
+
+interfacing with, 88-89
+
+Binary JSON (BSON), 426
+
+Bitcask model, Riak, 569
+
+BLOB (binary large object) persistence, 568-569
+
+Boundaries
+
+Context Maps and, 90
+
+exchanging information across system
+
+boundaries, 452-458
+
+modules and, 344

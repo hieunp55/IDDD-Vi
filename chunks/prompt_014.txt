@@ -1,0 +1,375 @@
+Bạn là chuyên gia dịch thuật kỹ thuật Anh → Việt, chuyên tài liệu kỹ thuật/công nghệ, có kinh nghiệm dịch như biên dịch viên bản ngữ chuyên nghiệp. Nhiệm vụ: dịch TOÀN BỘ nội dung Markdown dưới đây sang tiếng Việt, không bỏ sót bất kỳ phần nào. Đây là MỘT PHẦN (chunk) của một tài liệu lớn hơn, hãy dịch độc lập đoạn này, không thêm lời mở đầu/kết luận về việc đây chỉ là một phần.
+
+QUY TẮC BẮT BUỘC — VI PHẠM LÀ SAI:
+
+1. XÁC ĐỊNH LOẠI TÀI LIỆU TRƯỚC KHI DỊCH
+   - Tự phân tích nội dung để xác định loại tài liệu (kỹ thuật/lập trình, tài chính, bảo hiểm, pháp lý, marketing, học thuật, vận hành, sản phẩm...).
+   - Chọn văn phong và thuật ngữ CHUẨN NGÀNH tương ứng trong tiếng Việt, nhất quán xuyên suốt.
+
+2. VĂN PHONG — MƯỢT NHƯ NGƯỜI DỊCH, KHÔNG GIẢM CHÍNH XÁC
+   - Dịch mượt, tự nhiên, đúng ngữ pháp tiếng Việt — như biên dịch viên bản ngữ dịch tay, KHÔNG dịch máy móc kiểu word-by-word.
+   - Được phép đảo cấu trúc câu, tách/gộp câu cho tự nhiên, miễn giữ nguyên 100% ý nghĩa, thông tin, logic, số liệu gốc.
+   - Khi "mượt mà" và "chính xác" xung đột → LUÔN ưu tiên chính xác.
+
+3. DỊCH ĐẦY ĐỦ 100%
+   - Không tóm tắt, không rút gọn, không lược bỏ đoạn/câu/mục/bullet nào.
+   - Số lượng heading, đoạn văn, bảng, code block ở output PHẢI khớp 1:1 với input.
+   - Đoạn dài dịch hết, không cắt ngắn.
+
+4. GIỮ NGUYÊN THUẬT NGỮ TIẾNG ANH
+   - Thuật ngữ chuyên ngành (tên công nghệ, framework, pattern, tên hàm/biến, acronym...) giữ nguyên tiếng Anh, không dịch, không phiên âm.
+   - Ngay sau lần xuất hiện ĐẦU TIÊN của mỗi thuật ngữ, thêm chú thích ngắn trong ngoặc giải thích nghĩa bằng tiếng Việt.
+   - Các lần xuất hiện sau KHÔNG cần chú thích lại.
+
+5. GIỮ NGUYÊN FORMAT — RẤT QUAN TRỌNG
+   - VỀ ẢNH (làm trước khi dịch): ĐẾM chính xác số lượng thẻ ảnh dạng ![...](...) trong đoạn gốc bên dưới. Output PHẢI có ĐÚNG số lượng thẻ ảnh đó, không được thiếu một cái nào — kể cả ảnh không có caption, không rõ ngữ cảnh, hay trông như ảnh trang trí/lặp lại. Copy nguyên URL 100%, không sửa, không rút gọn, không thay bằng mô tả text.
+   - Giữ cấp độ heading (#, ##, ###...), giữ đúng số lượng heading.
+   - Giữ cấu trúc bảng (số cột, số hàng, alignment, header row).
+   - Giữ code block (```lang ... ```) — KHÔNG dịch code; comment được dịch tại chỗ; **được phép reformat code, tự động xuống dòng/indent chuẩn, không giữ nguyên code 1 dòng; không đổi logic/cú pháp**.
+   - Giữ blockquote, callout/note/warning (>, [!NOTE], [!WARNING]...).
+   - Giữ list, nested list, checkbox (- [ ]).
+   - Giữ nguyên link thường ([text](url)) — chỉ dịch phần text hiển thị, TUYỆT ĐỐI giữ nguyên URL.
+   - TRƯỚC KHI TRẢ KẾT QUẢ: tự đếm lại số heading, số ảnh, số dòng ``` giữa bản gốc và bản dịch của bạn, nếu lệch phải sửa lại cho khớp.
+
+6. GIẢI THÍCH ẨN DỤ / KHÁI NIỆM KHÓ
+   - Với ẩn dụ, thành ngữ, khái niệm trừu tượng khó hiểu với người Việt, thêm khối giải thích riêng ngay sau đoạn đó:
+     > 💡 **Giải thích thêm:** [giải thích dễ hiểu, đủ chuyên sâu, có ví dụ thực tế]
+     > Nguồn tham khảo: [link cụ thể để kiểm chứng]
+   - CHỈ đưa link nếu chắc chắn tồn tại và đúng nội dung — không bịa link.
+   - Không tìm được nguồn tin cậy → ghi rõ: "(Không có nguồn trích dẫn xác thực — cần tự kiểm chứng thêm)".
+
+7. CHỐNG HALLUCINATION (BẮT BUỘC)
+   - Không tự thêm thông tin/số liệu/ví dụ/kết luận KHÔNG có trong bản gốc — trừ phần giải thích ẩn dụ ở mục 6 (phải gắn nhãn rõ là phần bổ sung).
+   - Câu gốc mơ hồ → dịch sát nghĩa nhất, nếu không chắc ghi chú: "[CẦN KIỂM CHỨNG: câu gốc mơ hồ]".
+   - Không tự sửa/thêm/bớt logic kỹ thuật gốc. Không bịa trích dẫn/số liệu/link vô căn cứ.
+   - Không tự tóm tắt các đoạn dài thành ý chính rồi diễn giải lại — phải dịch từng câu.
+
+8. OUTPUT
+   - Trả về DUY NHẤT nội dung Markdown đã dịch, đặt trong 1 code block (```markdown ... ```).
+   - Không thêm lời dẫn/lời chào/giải thích ngoài code block.
+   - Không đổi tiêu đề gốc trừ khi cần dịch tiêu đề.
+
+--- NỘI DUNG GỐC CẦN DỊCH (một phần của tài liệu) ---
+
+Moderator , among the Collaborator subclasses shown in Figure 6.2, is modeled as a Value Object. Instances are statically created and associated with a Forum Aggregate, the important point being the minimized impact that multiple Aggregates in the upstream Identity and Access Context , possessing many attributes, have on the Collaboration Context . With just a few attributes of its own, a Moderator models an essential concept of the Ubiquitous Language spoken in the Collaboration Context . Furthermore, class Moderator contains no single attribute from the Role Aggregate. Rather, the class name itself captures the Moderator role played by a user. By choice, the Moderator is a statically created Value instance, and there is no goal to keep it synchronized with the remote Context of origin. This carefully chosen quality-of-  service contract lifts a potentially heavy burden off the consuming Context.
+
+Of course, there are times when an object in a downstream Context must be eventually consistent with the partial state of one or more Aggregates in a remote Context. In that case we'd design an Aggregate in the downstream consuming Context, because Entities are used to maintain a thread of continuity of  change.  But  we  should  strive  to  avoid  this  modeling  choice  where  possible. When you can, choose Value Objects to model integrations. This advice is applicable in many cases when consuming remote Standard Types .
+
+Figure 6.2 The Collaborator class hierarchy of Value Objects. Only a few User attributes are retained from the upstream Context, with class names making roles explicit.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000242_135adaa14e34cf34fc2e92829b576f777ee78938339b78dc4e5834bee3104607.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000243_ab9fe3ac36204f699ab9d1001cd9ebff5916eb4812e4d3a2f2a33bf45963e133.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000244_ec3a5fa9f293d8dec8c0262ea1b2e825ecdfef17fff5d1d89302f2c348e3ff69.png)
+
+## Standard Types Expressed as Values
+
+In  many  systems  and  applications  there  is  a  need  for  what  I  call Standard Types . Standard Types are descriptive objects that indicate the types of things. There is the thing (Entity) or description (Value) itself, and there are also the Standard Types to distinguish them from other types of the same thing. I am unaware of an industry standard name for this concept, but I have also heard it called a type code and a lookup . The name type code doesn't say much. And a lookup is a lookup of what? I prefer the name Standard Types because it is more descriptive. To make this concept clearer, consider a few uses. In some cases these are modeled as Power Types .
+
+Your  Ubiquitous  Language  defines  a PhoneNumber (Value),  which  also requires you to describe the type of each one. 'Is the phone number a home, mobile, work, or other type of number?' asks your domain expert. Should different types of phone numbers be modeled as a class hierarchy? Having a separate class for each type makes it more difficult for clients to distinguish among them. Here you'd likely desire to use a Standard Type to describe the type of phone, either Home , Mobile , Work ,  or Other .  These  descriptions represent the Standard Types of phones.
+
+As  I  previously  discussed,  in  a  financial  domain  there  is  the  possibility of  having  a Currency (Value)  type  to  constrain  a MonetaryValue to  an amount within a specific world currency. In this case the Standard Type would provide a Value for each of the world's currencies: AUD, CAD, CNY, EUR, GBP, JPY, USD, and so on. Using a Standard Type here helps you avoid bogus currencies. Although the incorrect currency could be assigned to the MonetaryValue , a nonexistent currency could not be. If using a string attribute, you could place the model into an invalid state. Consider the misspelled doolars and the problems it would cause.
+
+You might be working in the pharmaceutical field and designing for medications that have various kinds of administration routes. A specific medication (Entity) has a long life cycle and change is managed over time-it is conceptualized, researched, developed, tested, manufactured, improved, and finally discontinued. You may or may not decide to manage the life cycle stages using Standard Types. These life cycle shifts may justifiably be managed in a few different Bounded Contexts. On the other hand, the directed patient administration route of each medication can be classified by Standard Type descriptions, such as IV, Oral, or Topical.
+
+Depending on the level of standardization, these types may be maintained at the application level only, or be escalated in importance to shared corporate databases, or be available through national or international standards bodies.
+
+The level of standardization can sometimes influence the way Standard Types are retrieved and used inside a model.
+
+We may think of these as Entities because they have a life of their own in a dedicated, native Bounded Context. Regardless of how they are created and maintained by any kind of standards body, if possible we should strive to treat them as Values in our consuming Context. This works well because they measure and describe the types of things, and measures and descriptions are best modeled as Values. Further, one instance of {IV}, for example, is just the same as  any  other  instance  of  {IV}.  They  are  clearly  interchangeable,  which  also means that they are replaceable and can employ Value equality. Thus, if there is no need to maintain a continuity of change over the life cycle of descriptive types in your Bounded Context, model them as Values.
+
+For the sake of maintenance it is common for Standard Types to natively reside in a separate Context from the models that consume them. There they are Entities and have a persistent life cycle with attributes such as identity , name , and description . There may be other attributes as well, but the ones mentioned are the most common to use in a consuming Context. We often use just one. This is in adherence to the goal to integrate with minimalism.
+
+As a very simple example, consider a Standard Type that models a member of a group for which two types exist. There may be members that are users and members that are themselves groups (nested groups). This Java enum represents one way to support a Standard Type:
+
+```
+package com.saasovation.identityaccess.domain.model.identity; public enum GroupMemberType { GROUP { public boolean isGroup() { return true; } }, USER { public boolean isUser() { return true; } }; public boolean isGroup() { return false; } public boolean isUser() { return false; } }
+```
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000245_0304db097907f8889611c813ca4b13a525d05ae30c34fbf88d2b09031397ad5d.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000246_6a8aeb6e1091a7b30f479b6703a8221851e93d6104f9c0925985320da681978b.png)
+
+A GroupMember Value  instance  is  instantiated  with  a  specific GroupMemberType .  To  demonstrate,  when  a User or  a Group is  assigned  to  a Group ,  the  assigned  Aggregate  is  asked  to  render  a GroupMember corresponding to itself. Here is the toGroupMember() method implementation of class User :
+
+```
+protected GroupMember toGroupMember() { GroupMember groupMember = new GroupMember( this.tenantId(), this.username(), GroupMemberType.USER); // enum standard type return groupMember; }
+```
+
+Use of a Java enum is a very simple way to support a Standard Type. The enum provides a well-defined finite number of Values (in this case two), it is very lightweight, and it has by convention Side-Effect-Free Behavior. But where is the Value's textual description? There are two possible answers. Often there is no need to provide a description of the type, just its name. Why? Textual descriptions are generally valid only in the User Interface Layer (14) and can be supplied by matching the type name to a view-centric property. Many times the viewcentric property must be localized (as in multilanguage computing), making this inappropriate to support in the model. Often the name of the Standard Type alone is the best attribute to use in the model. The second answer is that there are limited descriptions built right into the enum state names GROUP and USER . You may render the descriptive names using the toString() behavior of each type. But if necessary, descriptive text of each type may be modeled as well.
+
+This sample Java enum Standard Type is also, in essence, an elegant and clutter-free State [Gamma et al.] object. At the bottom of the enum declaration there are two methods that implement the default behavior for all States, isGroup() and isUser() . By default, both of these methods answer false , which is the proper basic behavior. In each of the State definitions, however, the methods are overridden to answer true as applicable for their specific State. When the state of the Standard Type is the GROUP , the isGroup() method is overridden to produce a true outcome. When the state of the Standard Type is the USER , the isUser() method is overridden to produce a true outcome. The state changes by replacing the current enum value with a different one.
+
+This enum demonstrates some very basic behavior. The State pattern implementation can be more sophisticated as needed by the domain, adding more standard behaviors that are overridden and specialized by each State. As it is, this is an example of a Value type whose states are constrained to a well-defined set of constants. An important one is the BacklogItemStatusType , which  provides PLANNED , SCHEDULED , COMMITTED , DONE ,  and REMOVED states. I use this Standard Type approach throughout the three sample Bounded Contexts. I think it keeps them as simple as possible.
+
+## State Pattern Considered Harmful?
+
+Some consider the State pattern to be less than desirable. A common complaint is the need to create an abstract implementation of each of the behaviors supported by the type (the two methods at the bottom of GroupMemberType ) and then to override those behaviors when the given State must provide a specialized implementation. In Java this typically requires a separate class (usually in a separate file) for the abstract type and also for each State. Like it or not, that is the way of the State pattern.
+
+I agree that when separate State classes must be developed-one for each unique state plus an abstract type-it can become an unwieldy mess. The distinct behaviors in  each  class,  perhaps  mixed  with  some  default  behavior  from  the  abstract  class, can lead to tight coupling of subclasses and lack of readability between types. This burden is especially taxing if you have a large number of States. However, I think that the use of a Java enum is a very simple and possibly the more optimal way to use the State pattern to produce a set of Standard Types. I think you get the best of both approaches. You get a very simple Standard Type and a way to interrogate the standard for its current State. This keeps behavior cohesive to the type. Limiting the State behavior makes for practical use.
+
+But it's still possible that you don't like even this simple implementation of State, and to each his or her own.
+
+If  you  decide  that  you  dislike  the  use  of  Java  enums  to  support  Standard Types, you can always use a unique Value instance for each type. However, if your concern is primarily that you don't like the idea of using the State pattern, you can easily use an enum for elegant Standard Type support without thinking of it as the State pattern. After all, I may be the first person to have put the enum-as-State thought into your mind. That being said, there are alternatives to implementing Standard Types other than the enum and Value approaches.
+
+As one alternative, you can use an Aggregate as a Standard Type with one instance of the Aggregate per type. Think twice before you run with this. Standard  types  should  generally  not  be  maintained  inside  the  Bounded  Context that consumes them. Widely used Standard Types should normally be maintained in a separate Context with very carefully planned updates to consumers. Instead, you could choose to expose Standard Type Aggregates as immutable in consumer Contexts. But ask yourself if an immutable Entity is by definition really an Entity. If you think not, you should consider modeling it as a shared immutable Value Object instead.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000247_a20d3af92c177f7e2a09ea8d2fd08fb2338f1d39be3e04d20da22d56be8ef567.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000248_3bbc330703b1ab772ed61cf71814cbe8d2e0ec868f691edb4485a5ba88769042.png)
+
+A shared immutable Value Object can be obtained from a hidden persistence store. This is a viable choice if obtained from a Standard Type Service (7) or Factory  (11) .  If  employed,  you  should  probably  have  one  Service  or  Factory provider for each set of Standard Types (one for phone number types, another for postal address types, one for currency types), as depicted in Figure 6.3. In both cases the concrete implementations of a Service or Factory would access the persistence store to obtain the shared Values as needed, but clients would never know that the Values are stored in a standards database. Using either a Service or a Factory to provide the types also enables you to put a number of viable caching strategies to work easily and safely because the Values are readonly from the store and immutable in the system.
+
+In the end, I think it is best to be biased toward enum for Standard Types whether or not you actually think of it as a State. If you have many possible Standard Type instances in a single category, consider code generation to produce the enum. A code generation approach could read through all existing Standard Types in their respective persistence store (system of record) and create a unique type/state per row, for example.
+
+If  you  decide  to  use  classical  Value  Objects  as  Standard  Types,  you  may find  it  useful  to  introduce  a  Service  or  Factory  to  statically  create  instances as  needed.  This  would  have  similar  motivations  as  discussed  previously  but would be different in its implementation from those producing shared Values. In this case your Service or Factory would provide statically created immutable Value instances of each individual Standard Type. Any changes to the underlying  Standard  Type  database  entities  in  the  system  of  record  would  not  be automatically  reflected  in  the  preexisting  statically  created  representation instances. If you desired to keep such statically created Value instances synchronized with the system of record, you'd need to provide a custom solution to search for and update their state in your model. This could negate the potential usefulness of this approach. 4 Thus, you might from design inception determine that all such statically created Standard Type Values will never be updated in the consuming Bounded Context. All competing forces must be weighed.
+
+Figure 6.3 A Domain Service can be used to provide Standard Types. In this case the Service goes out to the database to read the state of a requested CurrencyType .
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000249_b03ac73335b984f96922d50bb5a492b2a2856df64d4bb2cf95de891bb7697307.png)
+
+## Testing Value Objects
+
+To emphasize test-first, I first present sample tests before I provide the Value Object implementation. These tests drive the domain model's design by providing examples of how a client will use each object.
+
+Employing  this  style,  we  are  not  as  interested  in  addressing  the  various aspects of unit testing, thoroughly proving that the model is completely bulletproof in every way. Rather, at this point in time there is more interest in demonstrating how various objects in the domain model will be used by clients and what those clients can expect when they use them. It is essential to assume the client's perspective when designing the model in order to capture the essential concepts. Otherwise, we could be modeling from our own perspective instead of from the business's.
+
+## Best Sample Code
+
+Here's one way of thinking about this style of test: If we were writing a user's manual for the model, we would provide these tests as the most appropriate code samples for how clients should use this specific domain object.
+
+This is not to say that unit tests should not be developed. All additional tests that address team standards should and must be written. However, there are different motivations for each type of test. Unit tests and behavioral tests have their place, as do the following modeling tests.
+
+The Value Object selected is a good all-around representation taken from the latest Core Domain (2) , the Agile Project Management Context.
+
+4.  This would be a good time to model an Aggregate in an upstream Context also as an Aggregate in the downstream Context. They wouldn't be the same class or necessarily contain all the same attributes, but modeling the downstream concept as an Aggregate would allow for eventual consistency and single point updates.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000250_46cfbf8f47960c971bbe7e887423b1e650fb0772f114066b3c6733fa3f4a4905.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000251_4a18c9aa6fbfb1d06a31b2bccbb423059e7c0fe2d9fad30f2418fafabafa4869.png)
+
+In this Bounded Context business domain experts speak of  the  'business  priority  of  backlog  items.'  To  fulfill  this part of the Ubiquitous Language we model the concept as a BusinessPriority .  It  provides  calculated  output suitable for supporting the business analysis of the value of developing each product backlog item [Wiegers]. The outputs are cost percentage, or the cost of developing a specific backlog item as compared to the cost of developing all others; total value, which is the total value gained by developing a specific backlog item; and value percent-
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000252_0441b5b8050dc196d3f3e6fc5de4cfb8c00975ba517e848967dc2dbc6d692bb7.png)
+
+age, as in the value of developing a specific backlog item compared to the value of developing any other; and priority, which is the calculated priority the business should consider giving this backlog item when compared against all others.
+
+These tests actually emerged over multiple brief refactoring iterations of stepwise refinements, although they are presented here as a finished set:
+
+```
+package com.saasovation.agilepm.domain.model.product; import com.saasovation.agilepm.domain.model.DomainTest; import java.text.NumberFormat; public class BusinessPriorityTest extends DomainTest { public BusinessPriorityTest() { super(); } ... private NumberFormat oneDecimal() { return this.decimal(1); } private NumberFormat twoDecimals() { return this.decimal(2); } private NumberFormat decimal(int aNumberOfDecimals) { NumberFormat fmt = NumberFormat.getInstance(); fmt.setMinimumFractionDigits(aNumberOfDecimals); fmt.setMaximumFractionDigits(aNumberOfDecimals); return fmt; } }
+```
+
+The class has some fixture helpers. Since the team needed to test the accuracy of various calculations, they coded methods to provide NumberFormat instances for fractional values that had either one or two places to the right of the decimal point. You'll see next why these are useful:
+
+```
+public void testCostPercentageCalculation() throws Exception { BusinessPriority businessPriority = new BusinessPriority( new BusinessPriorityRatings(2, 4, 1, 1)); BusinessPriority businessPriorityCopy = new BusinessPriority(businessPriority); assertEquals(businessPriority, businessPriorityCopy); BusinessPriorityTotals totals = new BusinessPriorityTotals(53, 49, 53 + 49, 37, 33); float cost = businessPriority.costPercentage(totals); assertEquals(this.oneDecimal().format(cost), "2.7"); assertEquals(businessPriority, businessPriorityCopy); }
+```
+
+The team came up with a good idea to test for immutability. Each test first created an instance of BusinessPriority and  then  made an equivalent copy of it using the copy constructor. The first assertion in the test ensured that the copy constructor produced a copy equal to the original.
+
+Next, they designed the test to create BusinessPriorityTotals and assigned it  to  the totals method  variable.  With totals they  were  able  to  use  the costPercentage() query  method  and  assign  the  results  to cost .  They  then  asserted that  the  value  returned  was 2.7 ,  which  was  the  manually  calculated  correct  outcome. Finally, they asserted that the behavior of method costPercentage() was truly side-effect free, which would be the case if businessPriority still had Value equality with businessPriorityCopy .  From this test they gained a good idea of how to calculate cost percentages and what their outcome would be like.
+
+Next, they needed to test the priority, the total value, and the value percentage calculations, using the same basic plan of attack:
+
+```
+public void testPriorityCalculation() throws Exception { BusinessPriority businessPriority = new BusinessPriority( new BusinessPriorityRatings(2, 4, 1, 1)); BusinessPriority businessPriorityCopy = new BusinessPriority(businessPriority);
+```
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000253_aad1f479aafe499fa6c6e7d5e67f01b67ad51fca95e1a2fb0961eecdead7863e.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000254_735b5bedd14202d8150b3010d14b27e711da17bf17e4b0f985815af7fb6b9d5c.png)
+
+## Chapter 6 VALUE OBJECTS
+
+```
+assertEquals(businessPriorityCopy, businessPriority); BusinessPriorityTotals totals = new BusinessPriorityTotals(53, 49, 53 + 49, 37, 33); float calculatedPriority = businessPriority.priority(totals); assertEquals("1.03", this.twoDecimals().format(calculatedPriority)); assertEquals(businessPriority, businessPriorityCopy); } public void testTotalValueCalculation() throws Exception { BusinessPriority businessPriority = new BusinessPriority( new BusinessPriorityRatings(2, 4, 1, 1)); BusinessPriority businessPriorityCopy = new BusinessPriority(businessPriority); assertEquals(businessPriority, businessPriorityCopy); float totalValue = businessPriority.totalValue(); assertEquals("6.0", this.oneDecimal().format(totalValue)); assertEquals(businessPriority, businessPriorityCopy); } public void testValuePercentageCalculation() throws Exception { BusinessPriority businessPriority = new BusinessPriority( new BusinessPriorityRatings(2, 4, 1, 1)); BusinessPriority businessPriorityCopy = new BusinessPriority(businessPriority); assertEquals(businessPriority, businessPriorityCopy); BusinessPriorityTotals totals = new BusinessPriorityTotals(53, 49, 53 + 49, 37, 33); float valuePercentage = businessPriority.valuePercentage(totals); assertEquals("5.9", this.oneDecimal().format(valuePercentage)); assertEquals(businessPriorityCopy, businessPriority); }
+```
+
+## Tests Should Have Domain Meaning
+
+Your model tests should have meaning to your domain experts.
+
+Nontechnical domain experts-given a bit of help-reading these example-based tests were able to understand just how BusinessPriority was used, the kinds of outcomes it produced, that its behavior was guaranteed to be side-effect free, and that it adhered to the concepts and intent of the Ubiquitous Language.
+
+Importantly,  the  state  of  the  Value  Object  was  guaranteed  immutable  for  every usage. Clients could produce results from the priority calculations of any number of product backlog items, sort them, compare them, and adjust the BusinessPriorityRatings of each item as needed.
+
+## Implementation
+
+I  like  this BusinessPriority example  because  it  demonstrates  all  of  the Value characteristics and more. Besides showing how to design for immutability, conceptual wholeness, replaceability, Value equality, and Side-Effect-Free Behavior,  it  also  demonstrates  how  you  can  use  a  Value  type  as  a Strategy [Gamma et al.] (aka Policy ).
+
+As  each  test  method  was  developed,  the  team  understood more  about  how  a  client  would  use  a BusinessPriority , enabling them to implement it to behave as the tests asserted it should. Here is the basic class definition along with constructors that the team coded:
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000255_bd35ed753190c8be40cfc22ad26b788bdbbf9b55b0c83a8a78b3c703fd9e9430.png)
+
+```
+public final class BusinessPriority implements Serializable  { private static final long serialVersionUID = 1L; private BusinessPriorityRatings ratings; public BusinessPriority(BusinessPriorityRatings aRatings) { super(); this.setRatings(aRatings); } public BusinessPriority(BusinessPriority aBusinessPriority) { this(aBusinessPriority.ratings()); }
+```
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000256_ace7b74e169d939d9047c1c81b5c59b1f8233110971375fa7bcef58265575753.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000257_f5e7b3c1b61ddcc280cc4b1d85e6ce6067f07d6f076e5bab9140eb0e206208a9.png)
+
+The team decided to declare their Value types Serializable . There are times when a Value instance needs to be serialized, such as when it is communicated to a remote system, and may be useful for some persistence strategies.
+
+This BusinessPriority itself  was  designed  to  hold  a  Value  property  named ratings of  type BusinessPriorityRatings (not  shown  here).  The ratings property described the business value and expense trade-off of either implementing, or not implementing, a given product backlog item. The BusinessPriorityRatings type  provided  the BusinessPriority with benefit , cost , penalty , and risk ratings, which enabled a range of calculations to be performed.
+
+Usually I support at least two constructors for each of my Value Objects. The  first  constructor  takes  the  full  complement  of  parameters  necessary  to derive and/or set state attributes. This primary constructor first initializes its default state. The basic attribute initialization is performed first by invoking private setters. I recommend the use of self-delegation and demonstrate its use here with private setters.
+
+## Keeping Values Immutable
+
+Only the primary constructor(s) use self-delegation to set properties/attributes. No other  methods  shall  self-delegate  to  setter  methods.  Since  all  setter  methods  in  a Value Object are always private scope, there is no opportunity for attributes to be exposed to mutation by consumers. These are two important factors in maintaining the immutability of Values.
+
+The second constructor is used to copy an existing Value to create a new one, or what is called a copy constructor .  This  constructor performs what's known as a shallow copy as it self-delegates to its primary constructor, passing as parameters each of the corresponding attributes of the Value being copied. We could perform a deep copy or clone where  all  contained  attributes  and properties are themselves copied to produce a completely unique object, but still equal to the value of the one copied. However, this many times proves to be both complex and unnecessary when dealing with Values. If a deep copy is ever needed, it can be added. But when dealing with immutable Values, it is never a problem to share attributes/properties between instances.
+
+This  second  constructor,  the  copy  constructor,  is  important  for  unit tests. When we test a Value Object, we want to include verification that it is immutable. As demonstrated earlier, when the unit test begins, create the new test  Value  Object  instance  and  a  copy  of  it  using  the  copy  constructor,  and assert  that  the  two  instances  are  equal.  Next,  test  the  Value  instance  SideEffect-Free Behavior. If all test goal assertions pass, the final assertion is that the tested and the copied instances are still equal.
+
+## Next, we implement the Strategy/Policy part of the Value type:
+
+```
+public float costPercentage(BusinessPriorityTotals aTotals) { return (float) 100 * this.ratings().cost() / aTotals.totalCost(); } public float priority(BusinessPriorityTotals aTotals) { return this.valuePercentage(aTotals) / (this.costPercentage(aTotals) + this.riskPercentage(aTotals)); } public float riskPercentage(BusinessPriorityTotals aTotals) { return (float) 100 * this.ratings().risk() / aTotals.totalRisk(); } public float totalValue() { return this.ratings().benefit() + this.ratings().penalty(); } public float valuePercentage(BusinessPriorityTotals aTotals) { return (float) 100 * this.totalValue() / aTotals.totalValue(); } public BusinessPriorityRatings ratings() { return this.ratings; }
+```
+
+Some of the calculation behavior requires a parameter of type BusinessPriorityTotals .  This  Value  provides  a  description  of  the  cost-risk  totals across all product backlog items. Totals are necessary when calculating percentages and the overall business priority compared to all other backlog items. None of these behaviors modifies its own instance state. We assert this externally in tests by comparing the copied state with the current state following the execution of each behavior.
+
+There currently is no Separated Interface [Fowler, P of EAA] for the Strategy because there is at present only one implementation. No doubt in time that will change, and customers of the Agile PM SaaS product will be given other business priority calculation options, each with its own Strategy implementation.
+
+The  method  names  of  the  Side-Effect-Free  Functions  are  important. Although these methods all return Values (because they are CQS query methods), they purposely avoid the use of the get -prefix JavaBean naming convention. This simple but effective approach to object design keeps the Value Object faithful  to  the  Ubiquitous  Language.  The  use  of getValuePercentage() is  a  technical  computer  statement,  but valuePercentage() is  a  fluent human-readable language expression.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000258_2283d74f9ea51abcc4dab0e529aaddee03899a578a47ffe7fa2a06f3965d3715.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000259_4a85423f605a809b7366dfeda368ef3bede354df0454846b9980a193583ad296.png)
+
+## Where Did My Fluent Java Go?
+
+I  think that the JavaBean specification has had a negative impact on object design,  one  that  doesn't  promote  the  principles  of  Domain-Driven  Design or  good  object  design  in  general.  Consider  the  Java  API  that  existed  prior to  the  JavaBean specification.  Take java.lang.String ,  for  one  example. There are but a few query methods on the class String that are prefixed by get . Most of the query methods are named more fluently, such as charAt() , compareTo() , concat() , contains() , endsWith() , indexOf() , length() , replace() , startsWith() , substring() ,  and  the  like.  There's  no  JavaBean  code  smell  there!  Of  course,  this  example  alone  doesn't  prove  my point. Nonetheless, it is true that Java APIs since the JavaBean specification have been greatly influenced and lack fluency in expression. A fluent, human-  readable language expression is a very worthwhile style to embrace.
+
+If you are concerned about tooling that depends on the JavaBean specification, there are solutions. For example, Hibernate provides support for fieldlevel access (object attributes). Thus, as far as Hibernate is concerned, your methods can be named as desired without a negative impact on persistence.
+
+With  other  tools  there  could  be  a  downside  to  designing  with  expressive interfaces, however. If you desire to use the standard Java EL or OGNL, for instance, you won't be able to render such types directly. You would have to use another means, such as a Data Transfer Object [Fowler, P of EAA] with getters, to transfer Value Object properties to the user interface. Since DTO is a commonly used pattern, albeit often technically unnecessary, some may find this of little consequence. If DTO is not an option for you, there are others.  Consider the Presentation Model as  discussed in Application (14) . Since your Presentation Model can serve as an Adapter [Gamma et al.], it can surface getters for use by views that use EL, for example. Yet, if all else fails, you may need to grudgingly design your domain objects with getters.
+
+If  you  reach  that  conclusion,  you  should  still  not  design  Value  Objects with full  JavaBean capabilities that would allow their state to be initialized through public setters. That would violate their essential Value immutability characteristic.
+
+The next set of methods includes the standard object overrides equals() , hashCode() , and toString() :
+
+```
+@Override public boolean equals(Object anObject) { boolean equalObjects = false; if (anObject != null && this.getClass() == anObject.getClass()) { BusinessPriority typedObject = (BusinessPriority) anObject; equalObjects = this.ratings().equals(typedObject.ratings()); } return equalObjects; } @Override public int hashCode() { int hashCodeValue = + (169065 * 179) + this.ratings().hashCode(); return hashCodeValue; } @Override public String toString() { return "BusinessPriority" + " ratings = " + this.ratings(); }
+```
+
+The equals() method fulfills the Value Object requirement to check for Value equality, one of the five Value characteristics. Here we always eliminate null parameters from equality. The class of the parameter must be the same as the class  of  the  Value.  If  they  are  the  same,  each  of  the  properties/attributes  is compared in both Values. If each one is affirmed as equal to its corresponding property/attribute, the Whole Values are considered equal.
+
+Per Java standards, hashCode() has the same contract as equals() in that all Values that are equal also produce equal hash code values.
+
+There is  nothing  special  about toString() .  It  creates  a  human-readable representation of the Value instance state. You may design the representation format as needed.
+
+There are a few remaining methods to review:
+
+```
+protected BusinessPriority() { super(); } private void setRatings(BusinessPriorityRatings aRatings) { if (aRatings == null) {
+```
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000260_6f2ac0863d2d6136f41a6639acf565907a16742a83cab397e8301015c9b57890.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000261_938a779c42faaa5fc5a2c8936db040a92f1ec06f0fa41cc85462016253cb6bd0.png)
+
+```
+throw new IllegalArgumentException( "The ratings are required."); } this.ratings = aRatings; } }
+```
+
+The zero-argument constructor is provided for the sake of framework tools that  require  it,  such  as  Hibernate.  Since  the  zero-argument  constructor  is always hidden, there is no danger of model clients creating invalid instances. Hibernate functions perfectly well with hidden constructors and accessors. This constructor enables Hibernate and other tools to create instances of the type as they are being reconstituted from, for example, the persistence store. Tools use the zero-argument constructor to create an initially hollow instance and then call each property/attribute setter to hydrate the object. Optionally you can tell Hibernate to bypass setter methods and directly set attributes, as is the case with this model since it doesn't provide a complete JavaBean interface. Just to reiterate, model clients use the public constructors, never the hidden one.
+
+Finally, the class definition ends with the property setter for ratings . One of  the  strengths  of  self-encapsulation/delegation  is  seen  in  this  method.  An accessor method-getter or setter-need not be limited to setting an instance field. It can also perform important Assertions [Evans], a key element to successful software development in general and DDD models specifically.
+
+The Assertion for valid parameters is called a guard , because it guards the method from being subjected to obviously invalid data. Guards can and should be  used  in  any  method  when  wrong  parameters  would  cause  more  serious problems later if correctness were otherwise taken for granted. Here the setter asserts that the parameter aRatings is  not  null,  and  if  it  happens  to  be,  it throws an IllegalArgumentException . True, the setter is logically used only once in the Value's lifetime. Still, the Assertion is a well-placed guard. You will see the advantages of self-delegation demonstrated elsewhere, too. Specifically, Entities (5) explains the technique thoroughly as part of a discussion of validation.
+
+## Persisting Value Objects
+
+There are a variety of ways to persist Value Object instances to a persistent store.  In  a  general  sense  it  involves  serializing  the  object  to  some  text  or binary  format  and  saving  it  to  disk.  However,  since  we  are  not  concerned with persisting individual Value instances on their own, I won't be focusing on general-purpose persistence.  Rather,  we  are  more  interested  in  persisting Values along with the state of the Aggregate instances that contain them. The following approaches assume that a parent Entity ultimately holds references to  the  Value  instances  that  get  persisted.  All  of  the  following  examples  are based on the assumption that an Aggregate is being added to or read from its Repository (12) ,  and  its  contained  Values  are  persisted  and  reconstituted behind the scenes along with the Entity-such as the Aggregate Root-that contains them.
+
+Object-relational mapping (ORM, such as Hibernate) persistence is popular and widely used. However, using an ORM to map every class to a table and every attribute to a column adds complexity, which may be unwarranted. Rising  in  popularity  is  the  use  of  NoSQL  databases  and  key-value  stores because of their ability to provide high-performance, scalable, fault-tolerant, and highly available enterprise storage. To boot, key-value stores can greatly simplify Aggregate persistence. In this chapter I stick with ORM-based persistence.  Because  NoSQL,  key-value  stores  persist  Aggregates  exceptionally well, I give attention to that style in Repositories (12) .
+
+But before we jump into Value ORM persistence examples, there's a vital modeling commitment that must be well understood and diligently followed. So to start off, let's tackle what can happen when data modeling (as opposed to domain modeling) has an inappropriate influence on your domain model, and what can be done to reject this wrong and harmful influence.
+
+## Reject Undue Influence of Data Model Leakage
+
+Probably most times that a Value Object is persisted to a data store (for example, using an ORM tool along with a relational database) it is stored in a denormalized fashion; that is, its attributes are stored in the same database table row as its parent Entity object. This makes the storage and retrieval of Values clean and optimized and prevents any persistence store leakage into the model. It's both a pleasure and a relief when Values can be persisted this way.
+
+There are times, however, when a Value Object in the model will of necessity  be  stored  as  an  Entity  with  respect  to  a  relational  persistence  store.  In other words, when persisted, an instance of a specific Value Object type will occupy its own row in a relational database table that exists specifically for its type, and it will have its own database primary key column. This happens, for example, when supporting a collection of Value Object instances with ORM. In such cases the Value type persistent data is modeled as a database entity.
+
+Is this an indication that the domain model object should reflect the design of the data model and be an Entity rather than a Value? No. When you face the consequences of this impedance mismatch, it is important to maintain a domain model perspective rather than a persistence perspective. To keep your perspective on the domain model you can ask yourself these questions:
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000262_b2414d293177091a8f848981a22a472fca674629a493391fb5701f709d8563f7.png)
+
+1. Is the concept I am modeling a thing in the domain or does it measure, quantify, or describe a thing as one of its properties?
+2. If  modeled  correctly  to  describe  an  element  of  the  domain,  must  this model concept possess all  or  most  of  the  value  characteristics  outlined previously?
+3. Am  I  considering  the  use  of  an  Entity  in  the  model  only  because  the underlying data model must store the domain model object as an entity?
+4. Am I using an Entity because the domain model requires unique identity, I care about individual instances, and I must manage a continuity of change over the object's life cycle?
+
+If  your  answers  are  'Describes,  Yes,  Yes,  and  No,'  you  should  use  a  Value Object. Model the persistence store in the way necessary to deal with the storage of the object, but don't let that influence the way your team conceptualizes the Value property in the domain model.
+
+## The Data Model Should Be Subordinate
+
+Design your data model for the sake of your domain model, not your domain model for the sake of your data model.
+
+If at all possible, always design your data model for the sake of your domain model, not your domain model for the sake of your data model. If you do the former, you will maintain a domain model perspective. If you do the latter, you will maintain a persistence perspective and your domain model will tend to serve merely as a projection of your data model. As you discipline your mind to  think  in  terms  of  the  domain  model-DDD-think-rather  than  the  data model, you will avoid the negative consequences of data model leakage. See Entities (5) for more discussion of DDD-think.
+
+Of course, there are times when database referential integrity matters (such as for foreign keys). Absolutely, you want key columns to be properly indexed. Sure,  there  certainly  is  the  need  to  support  business  intelligence  reporting tools that operate against your business data. You can enable all these facets in appropriate and necessary places. Most conclude that reporting and business intelligence should not operate against your production data and should instead have a dedicated, specially designed data model. Following this more strategic  mentality  frees  you  to  design  your  domain  model's  backing  data model to best support your DDD efforts.
+
+Whatever technical facets your data model uses, its entities, primary keys, referential  integrity,  and  indexes  simply  must  not  drive  the  way  you  model domain objects. DDD is not about structuring data in a normalized fashion. It is about modeling the Ubiquitous Language in a consistent Bounded Context. I encourage you to adhere to DDD, not to data structure. As you do so, you should wisely take every possible step to hide all vestiges of data model leakage (which will occur to at least a minimal degree when using an ORM) from your domain model and its clients. This is something I discuss in the next section.
+
+## ORM and Single Value Objects
+
+Persisting a single Value Object instance to a database is usually very straightforward. Here my focus is on the use of Hibernate with the MySQL relational database. The basic idea is to store each of the attributes of the Value in separate columns of the row where its parent Entity is stored. Said another way, a single Value Object is denormalized into its parent Entity's row. There are advantages to employing convention for column naming to clearly identify and standardize the way serialized objects are named. I present a persisted Value Object naming convention here.
+
+When using Hibernate to persist a single instance of a Value Object, use the component mapping element. The component element is employed because it  enables  the  Value  to  be  mapped  directly  into  the  parent  Entity  table  row in  a  denormalized  fashion.  This  is  an  optimal  serialization  technique  that still  enables Values to be included in SQL queries. Here is the section of the Hibernate mapping document that describes the mapping of the BusinessPriority Value Object held by its parent Entity, class BacklogItem :
+
+```
+<component name="businessPriority" class="com.saasovation.agilepm.domain.model.product. Φ BusinessPriority"> <component name="ratings" class="com.saasovation.agilepm.domain.model.product. Φ BusinessPriorityRatings"> <property name="benefit" column="business_priority_ratings_benefit" type="int" update="true" insert="true" lazy="false" /> <property name="cost" column="business_priority_ratings_cost"
+```
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000263_6f5a92af5ddb99d5162510c774085bb6e2120f82a19b444d80998d90885c2c12.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000264_749f5ca0e92f7eb39e6c504ed59569d4213420dd1ceccf348f704731ff9aecda.png)
+
+```
+type="int" update="true" insert="true" lazy="false" /> <property name="penalty" column="business_priority_ratings_penalty" type="int" update="true" insert="true" lazy="false" /> <property name="risk" column="business_priority_ratings_risk" type="int" update="true" insert="true" lazy="false" /> </component> </component>
+```
+
+This  is  a  good  example  because  it  demonstrates  a  simple  Value  Object mapping,  but  one  that  contains  a  child  Value  Object  instance.  Recall  that BusinessPriority has a single ratings Value property and no additional attributes.  Thus,  in  the  mapping  description  the  outer component element has a nested component element. This is used to denormalize the single contained ratings Value property of type BusinessPriorityRatings . Since the BusinessPriority has no attributes of its own, there are none mapped in  the  outer component .  Instead  we  immediately  nest  the  mapping  of  its ratings Value property. In the end, we actually store only the four integer attributes  of  the BusinessPriorityRatings instance  into  four  separate columns of table tbl\_backlog\_item . So we map two component element Value Objects, one that has no attributes of its own and an inner Value that has four attributes.
+
+Note the use of standard column naming of each of the Hibernate property elements. The naming convention is based on the navigation path from the ultimate parent Value down to the individual attributes. For example, consider the navigation path from the BusinessPriority down to the benefit attribute of the ValueCostRiskRatings instance. Logically it is
+
+```
+businessPriority.ratings.benefit
+```
+
+To represent this navigation path as a single relational column name I use the following:
+
+business\_priority\_ratings\_benefit
+
+Of course, you can use another representative name if you like. Perhaps you prefer one that mixes camel case with underscores:
+
+businessPriority\_ratings\_benefit
+
+To your mind this sample notation may better express the navigation. I have standardized  on  all  underscores  since  it  leans  more  toward  traditional  SQL column names rather than object names. The corresponding MySQL database table definition includes the following columns:
+
+```
+CREATE TABLE `tbl_backlog_item` ( ... `business_priority_ratings_benefit` int NOT NULL, `business_priority_ratings_cost` int NOT NULL, `business_priority_ratings_penalty` int NOT NULL, `business_priority_ratings_risk` int NOT NULL, ... ) ENGINE=InnoDB;
+```
+
+Together,  the  Hibernate  mapping  and  relational  database  table  definition provide both an optimal and queryable persistent object. Because Value attributes are denormalized into their parent Entity's table row, there is no need for the database to use joins to retrieve even a deeply nested Value instance. When you specify an HQL query, Hibernate is able to easily map from the object expression of an object attribute into an optimal SQL query expression using a column, where
+
+```
+businessPriority.ratings.benefit becomes business_priority_ratings_benefit
+```
+
+Hence,  although  there  is  a  clear  impedance  mismatch  between  objects  and relational databases, we have realized one of the more functional and optimal mappings possible.
+
+## ORM and Many Values Serialized into a Single Column
+
+There  are  unique  challenges  associated  with  mapping  a  collection  of  many Value Objects into a relational database using an ORM. To be clear, by collection  I  mean  a List or Set that  is  held  by  an  Entity  and  contains  zero, one, or more Value instances. The challenges are not insurmountable, but the object-relational impedance mismatch becomes glaringly obvious here.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000265_dac50871ad69e8af7e8af8b3e31cadb73497acbfc05ceadf865833b8300714d8.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000266_d03acfdb385e3d7d7784d0fcfa8f1facea37b62bd3c19e894505616b72a30b6c.png)

@@ -1,0 +1,462 @@
+Bạn là chuyên gia dịch thuật kỹ thuật Anh → Việt, chuyên tài liệu kỹ thuật/công nghệ, có kinh nghiệm dịch như biên dịch viên bản ngữ chuyên nghiệp. Nhiệm vụ: dịch TOÀN BỘ nội dung Markdown dưới đây sang tiếng Việt, không bỏ sót bất kỳ phần nào. Đây là MỘT PHẦN (chunk) của một tài liệu lớn hơn, hãy dịch độc lập đoạn này, không thêm lời mở đầu/kết luận về việc đây chỉ là một phần.
+
+QUY TẮC BẮT BUỘC — VI PHẠM LÀ SAI:
+
+1. XÁC ĐỊNH LOẠI TÀI LIỆU TRƯỚC KHI DỊCH
+   - Tự phân tích nội dung để xác định loại tài liệu (kỹ thuật/lập trình, tài chính, bảo hiểm, pháp lý, marketing, học thuật, vận hành, sản phẩm...).
+   - Chọn văn phong và thuật ngữ CHUẨN NGÀNH tương ứng trong tiếng Việt, nhất quán xuyên suốt.
+
+2. VĂN PHONG — MƯỢT NHƯ NGƯỜI DỊCH, KHÔNG GIẢM CHÍNH XÁC
+   - Dịch mượt, tự nhiên, đúng ngữ pháp tiếng Việt — như biên dịch viên bản ngữ dịch tay, KHÔNG dịch máy móc kiểu word-by-word.
+   - Được phép đảo cấu trúc câu, tách/gộp câu cho tự nhiên, miễn giữ nguyên 100% ý nghĩa, thông tin, logic, số liệu gốc.
+   - Khi "mượt mà" và "chính xác" xung đột → LUÔN ưu tiên chính xác.
+
+3. DỊCH ĐẦY ĐỦ 100%
+   - Không tóm tắt, không rút gọn, không lược bỏ đoạn/câu/mục/bullet nào.
+   - Số lượng heading, đoạn văn, bảng, code block ở output PHẢI khớp 1:1 với input.
+   - Đoạn dài dịch hết, không cắt ngắn.
+
+4. GIỮ NGUYÊN THUẬT NGỮ TIẾNG ANH
+   - Thuật ngữ chuyên ngành (tên công nghệ, framework, pattern, tên hàm/biến, acronym...) giữ nguyên tiếng Anh, không dịch, không phiên âm.
+   - Ngay sau lần xuất hiện ĐẦU TIÊN của mỗi thuật ngữ, thêm chú thích ngắn trong ngoặc giải thích nghĩa bằng tiếng Việt.
+   - Các lần xuất hiện sau KHÔNG cần chú thích lại.
+
+5. GIỮ NGUYÊN FORMAT — RẤT QUAN TRỌNG
+   - VỀ ẢNH (làm trước khi dịch): ĐẾM chính xác số lượng thẻ ảnh dạng ![...](...) trong đoạn gốc bên dưới. Output PHẢI có ĐÚNG số lượng thẻ ảnh đó, không được thiếu một cái nào — kể cả ảnh không có caption, không rõ ngữ cảnh, hay trông như ảnh trang trí/lặp lại. Copy nguyên URL 100%, không sửa, không rút gọn, không thay bằng mô tả text.
+   - Giữ cấp độ heading (#, ##, ###...), giữ đúng số lượng heading.
+   - Giữ cấu trúc bảng (số cột, số hàng, alignment, header row).
+   - Giữ code block (```lang ... ```) — KHÔNG dịch code; comment được dịch tại chỗ; **được phép reformat code, tự động xuống dòng/indent chuẩn, không giữ nguyên code 1 dòng; không đổi logic/cú pháp**.
+   - Giữ blockquote, callout/note/warning (>, [!NOTE], [!WARNING]...).
+   - Giữ list, nested list, checkbox (- [ ]).
+   - Giữ nguyên link thường ([text](url)) — chỉ dịch phần text hiển thị, TUYỆT ĐỐI giữ nguyên URL.
+   - TRƯỚC KHI TRẢ KẾT QUẢ: tự đếm lại số heading, số ảnh, số dòng ``` giữa bản gốc và bản dịch của bạn, nếu lệch phải sửa lại cho khớp.
+
+6. GIẢI THÍCH ẨN DỤ / KHÁI NIỆM KHÓ
+   - Với ẩn dụ, thành ngữ, khái niệm trừu tượng khó hiểu với người Việt, thêm khối giải thích riêng ngay sau đoạn đó:
+     > 💡 **Giải thích thêm:** [giải thích dễ hiểu, đủ chuyên sâu, có ví dụ thực tế]
+     > Nguồn tham khảo: [link cụ thể để kiểm chứng]
+   - CHỈ đưa link nếu chắc chắn tồn tại và đúng nội dung — không bịa link.
+   - Không tìm được nguồn tin cậy → ghi rõ: "(Không có nguồn trích dẫn xác thực — cần tự kiểm chứng thêm)".
+
+7. CHỐNG HALLUCINATION (BẮT BUỘC)
+   - Không tự thêm thông tin/số liệu/ví dụ/kết luận KHÔNG có trong bản gốc — trừ phần giải thích ẩn dụ ở mục 6 (phải gắn nhãn rõ là phần bổ sung).
+   - Câu gốc mơ hồ → dịch sát nghĩa nhất, nếu không chắc ghi chú: "[CẦN KIỂM CHỨNG: câu gốc mơ hồ]".
+   - Không tự sửa/thêm/bớt logic kỹ thuật gốc. Không bịa trích dẫn/số liệu/link vô căn cứ.
+   - Không tự tóm tắt các đoạn dài thành ý chính rồi diễn giải lại — phải dịch từng câu.
+
+8. OUTPUT
+   - Trả về DUY NHẤT nội dung Markdown đã dịch, đặt trong 1 code block (```markdown ... ```).
+   - Không thêm lời dẫn/lời chào/giải thích ngoài code block.
+   - Không đổi tiêu đề gốc trừ khi cần dịch tiêu đề.
+
+--- NỘI DUNG GỐC CẦN DỊCH (một phần của tài liệu) ---
+
+The Calendar instantiates  a  new  Aggregate,  namely, CalendarEntry . The new instance is returned to the client following the Event CalendarEntryScheduled being published. (The details of the Event published are not significant to this discussion.) You may note the lack of guards at the top of this method. It is unnecessary to guard the Factory Method itself since the constructors of each of the Value parameters and the CalendarEntry constructor, as well as the setter methods that the constructor self-delegates to, provide all the needed guards. (See Entities (5) for more details on self-delegation and guards.) If you'd like to be doubly cautious, you could add guards here as well.
+
+The team designed the method name to adhere to the Ubiquitous  Language.  Domain  experts,  along  with  the rest of the team, discussed the following scenario:
+
+Calendars schedule calendar entries.
+
+If our design were to support only a public constructor on CalendarEntry , it would reduce the expressiveness of the model and we would not be able to explicitly model that part of the Language of the domain. Using this design requires the full Aggregate constructor to be hidden from clients. We declare the constructor with protected scope, which forces clients to make use of the scheduleCalendarEntry() Factory Method on Calendar :
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000441_e20911c0804f01adf87dff3ef77b3d5defee61e1348f15c1b9c35b0c897546b4.png)
+
+```
+public class CalendarEntry extends Entity  { ... protected CalendarEntry( Tenant aTenant, CalendarId aCalendarId, CalendarEntryId aCalendarEntryId, Owner anOwner, String aSubject, String aDescription, TimeSpan aTimeSpan, Alarm anAlarm, Repetition aRepetition, String aLocation, Set<Invitee> anInvitees) { ... } ... }
+```
+
+While having the upside of careful construction, the lowered usage burden on clients, and an expressive model, using the Calendar Factory Method does have the downside of a bit more performance overhead. As is the case with any such Aggregate Factory Method, the Calendar will  have  to  be  acquired  from  its  persistence store before it can be used to create the CalendarEntry . This extra hit may be well worth it, but as the traffic in this Bounded Context increases, the team will have to weigh the consequences carefully.
+
+Germane to the benefits of using Factories is that two of the CalendarEntry constructor parameters are not passed in by clients. Given that there are 11 required constructor parameters, this design unburdens clients, requiring them to supply only nine. Most of the nine required parameters are fairly easily created by clients. (Admittedly the Set of Invitee instances is more involved, but that's not the fault of the Factory Method. The team should think in terms of designing a facility to more conveniently provide this Set , which may be pointing toward the creation of a dedicated Factory.)
+
+Still,  the Tenant and  associated CalendarId are  strictly  provided  only  by  the Factory  Method.  This  is  where  we  guarantee  that CalendarEntry instances  are created only for the correct Tenant and in association with the correct Calendar .
+
+Let's now consider one more example from the Collaboration Context .
+
+## Creating Discussion Instances
+
+Look at the Factory Method on Forum . It has the same motivation and very similar implementation as the one on Calendar , so there is no need to dive into great detail on it. Yet, there is an additional advantage of using the Factory Method here, as the team demonstrates.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000442_abd792d011686ccbcb09024e2151f1b6e5e047e7d7d6da9f725698de573b0a1c.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000443_a47bb1a29c7a5258b6c0ec0eec5bd9aadb0fedaaec6377c8ad81a224031be8bd.png)
+
+Consider the Language-specific startDiscussion() Factory Method on Forum :
+
+```
+package com.saasovation.collaboration.domain.model.forum; public class Forum extends Entity  { ... public Discussion startDiscussion( DiscussionId aDiscussionId, Author anAuthor, String aSubject) { if (this.isClosed()) { throw new IllegalStateException("Forum is closed."); } Discussion discussion = new Discussion( this.tenant(), this.forumId(), aDiscussionId, anAuthor, aSubject); DomainEventPublisher .instance() .publish(new DiscussionStarted(...)); return discussion; } ... }
+```
+
+Besides creating a Discussion ,  this  Factory  Method  also  guards  against  creating  one  if  the Forum is  closed.  The Forum supplies  the Tenant and  associated ForumId .  Thus,  only  three  of  five  parameters  required  to  instantiate  a  new Discussion must be supplied by the client.
+
+This Factory Method also expresses the Ubiquitous Language of the Collaboration Context .  The  team  used Forum 's startDiscussion() to  design  in  just  what  the domain experts said it should do:
+
+Authors start discussions on forums.
+
+This allows the client to be just this simple:
+
+```
+Discussion discussion = agilePmForum.startDiscussion( this.discussionRepository.nextIdentity(), new Author("jdoe", "John Doe", "jdoe@saasovation.com"), "Dealing with Aggregate Concurrency Issues");
+```
+
+assertNotNull(discussion); ... this.discussionRepository.add(discussion);
+
+Simple, indeed, which is always a goal of a domain modeler.
+
+This Factory Method pattern can repeat as often as necessary. I think it has been duly demonstrated how effectively Factory Methods on Aggregates can be used to express the Language in Context, reduce the burden on clients when creating new Aggregate instances, and ensure instantiations with correct state.
+
+## Factory on Service
+
+Since much of how I use Services as Factories is related to Integrating Bounded Contexts (13) , I leave the bulk of the discussion to that chapter. In that chapter my focus is more on integrating with Anti-Corruption Layer (3) , Published Language (3) , and Open Host Service (3) . Here I want to emphasize the Factory itself and how a Service can be designed as one.
+
+The team now provides another example from the Collaboration Context . It's a Factory in the form of CollaboratorService ,  producing Collaborator instances  from  tenant  and user identity:
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000444_93f5c875d6583d2ce9917c0e95f209f59f539df36d4e438974d9ed80d4ef80d6.png)
+
+```
+package com.saasovation.collaboration.domain.model.collaborator; import com.saasovation.collaboration.domain.model.tenant.Tenant; public interface CollaboratorService  { public Author authorFrom(Tenant aTenant, String anIdentity); public Creator creatorFrom(Tenant aTenant, String anIdentity); public Moderator moderatorFrom(Tenant aTenant, String anIdentity); public Owner ownerFrom(Tenant aTenant, String anIdentity);
+```
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000445_698ea59a34095cf245c7e800321bf39a7de6d460c20b64c7c3890481ce16697c.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000446_5f9abdf557dafda7bd7547cbcae90c27b7ea4fa6492c1198d34de9099d35961a.png)
+
+```
+public Participant participantFrom( Tenant aTenant, String anIdentity); }
+```
+
+This Service provides object translation from the Identity and Access Context to the Collaboration Context .  As shown in Bounded Contexts (2) ,  the  CollabOvation team doesn't speak of users when discussing collaboration. It is more to the point that  humans in  the  collaborative  media  domain  are  authors,  creators,  moderators, owners, and participants. To accomplish this, the team will need to interact with the Identity and Access Context behind a Service and transform user and role objects from that model into corresponding collaborator objects of their own model's Context.
+
+Since  new  objects  that  are  derived  from  the  abstract  base Collaborator are created by the Service, it actually functions as a Factory. Taking a look at one of the interface method implementations reveals some of the detail involved:
+
+```
+package com.saasovation.collaboration.infrastructure.services; public class UserRoleToCollaboratorService implements CollaboratorService { public UserRoleToCollaboratorService() { super(); } @Override public Author authorFrom(Tenant aTenant, String anIdentity) { return (Author) UserInRoleAdapter .newInstance() .toCollaborator( aTenant, anIdentity, "Author", Author.class); } ... }
+```
+
+Because it is a technical implementation, the class is housed in a Module (9) in the Infrastructure Layer.
+
+The implementation hitches to the UserInRoleAdapter to morph a Tenant and an identity-the user's username-into an instance of class Author . This Adapter [Gamma et al.] interacts with the Open Host Service of the Identity and Access Context to  confirm  that  the  given  user  is  in  the  role  named  Author.  If  that  is  true,  the Adapter delegates to class CollaboratorTranslator to  translate  the  Published Language integration response to an instance of class Author in  the  local  model. The Author ,  as  well  as  the  other Collaborator subclasses,  is  a  simple  Value Object:
+
+```
+package com.saasovation.collaboration.domain.model.collaborator;
+```
+
+```
+public class Author extends Collaborator  { ... }
+```
+
+Other than constructors, equals() , hashCode() , and toString() , each of the subclasses receives all state and behavior from Collaborator :
+
+```
+package com.saasovation.collaboration.domain.model.collaborator; public abstract class Collaborator implements Serializable  { private String emailAddress; private String identity; private String name; public Collaborator( String anIdentity, String aName, String anEmailAddress) { super(); this.setEmailAddress(anEmailAddress); this.setIdentity(anIdentity); this.setName(aName); } ... }
+```
+
+The Collaboration  Context uses  the username as  the Collaborator identity attribute.  The emailAddress and name are  simple String instances. In this model the team has chosen to keep each of these concepts as simple as possible. The user's name, for example, is kept as the full name in text. We've managed to separate the life cycles and conceptual terminologies from the two Bounded Contexts by means of a Service-Based Factory.
+
+There is a measure of complexity in UserInRoleAdapter and Collaborator  - Translator . In a nutshell the UserInRoleAdapter is responsible only for communicating with the foreign Context. The Collaborator Translator is  responsible  only  for  translation  that  results  in  creation.  See Integrating Bounded Contexts (13) for details.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000447_deb9acc0c0c1986b8fe6fb538526a37403256821a141e77bc76cab74177d5178.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000448_c3db6fa3ee46c007e76dbc2d6990a1cd63604edbd8b7b079c238fe6c28d927db.png)
+
+## Wrap-Up
+
+We examined the reasons for using Factories in DDD and how they often fit into the model.
+
+-  You  now  understand  why  the  use  of  Factories  can  produce  expressive models that more closely adhere to the Ubiquitous Language in context.
+-  You've  seen  two  different  Factory  Methods  implemented  as  Aggregate behaviors.
+-  This helped you learn how to use Factory Methods to create Aggregate instances of other types, all while ensuring the correct production and use of sensitive data.
+-  You also learned how Domain Services can be designed as Factories, even interacting with other Bounded Contexts and translating foreign objects to local types.
+
+Next, we'll take a look at how Repositories can be designed for two primary styles of persistence, along with other implementation choices that must be considered.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000449_881f4be078c88636ccf75d6188bb37bf260a529a9e182bae5152961d266c9f28.png)
+
+## Chapter 12
+
+## Repositories
+
+Your eyes are the same color as my storage unit. -Overheard at a redneck bar
+
+A repository commonly refers to a storage location, usually considered a place of safety or preservation of the items stored in it. When you store something in a repository and later return to retrieve it, you expect that it will be in the same state as it was in when you put it there. At some point you may choose to remove the stored item from the repository.
+
+This basic set of principles applies to a DDD Repository . Placing an Aggregate (10) instance in its corresponding Repository, and later using that Repository  to  retrieve  the  same  instance,  yields  the  expected  whole  object.  If  you alter a preexisting Aggregate instance that you retrieve from the Repository, its changes will be persisted. If you remove the instance from the Repository, you will be unable to retrieve it from that point forward.
+
+For each type of object that needs global access, create an object that can provide the illusion of an in-memory collection of all objects of that type. Set up access through  a  well-known  global  interface.  Provide  methods  to  add  and  remove objects. . . . Provide methods that select objects based on some criteria and return fully instantiated objects or collections of objects whose attribute values meet the criteria. . . . Provide repositories only for aggregates. . . . [Evans, p. 151]
+
+These  collection-like  objects  are  all  about  persistence.  Every  persistent Aggregate type will have a Repository. Generally speaking, there is a one-toone relationship between an Aggregate type and a Repository. However, sometimes when two or more Aggregate types share an object hierarchy, the types may share a single Repository. Both of these approaches are discussed in this chapter.
+
+## Road Map to This Chapter
+
+-  Learn about the two different kinds of Repositories and why to use one or the other.
+-  See how to implement Repositories for Hibernate, TopLink, Coherence, and MongoDB.
+
+continues
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000450_de0f697474ee6cce68ff4560c2f3ac954be4c803161e825d45953d5a9d2f72aa.png)
+
+-  Understand why you might need additional behavior on a Repository's interface. Consider how transactions play into the use of Repositories.
+-  Become  familiar  with  the  challenges  of  designing  Repositories  for  type hierarchies.
+-  Look  at  some  fundamental  differences  between  Repositories  and Data Access Objects [Crupi et al.].
+-  Consider some ways to test Repositories and how to test using Repositories.
+
+Strictly speaking, only Aggregates have Repositories. If you are not using Aggregates in a given Bounded Context (2) , the Repository pattern may be less useful. If you are retrieving and using Entities (5) directly in an ad hoc fashion rather than crafting Aggregate transactional boundaries, you may prefer to avoid Repositories. However, those less concerned with the tenets of DDD, only  using  some  of  its  patterns  in  a  technical  way,  may  prefer  Repositories over Data Access Objects. Still others will think that direct use of a persistence mechanism's Session or Unit of Work [P of EAA] makes more sense. This is not to suggest that you should avoid the use of Aggregates. In fact, the opposite is true. Still, it is an option that some will employ.
+
+In my estimation there are two kinds of Repository designs, a collectionoriented design  and  a persistence-oriented design.  There  are  circumstances under which a collection-oriented design will work for you, and circumstances when it is best to use a persistence-oriented design. I first discuss when to use and  how  to  create  a  collection-oriented  Repository  and  follow  that  with  a treatment of persistence-oriented ones.
+
+## Collection-Oriented Repositories
+
+We can consider a collection-oriented design a traditional approach because it adheres to the basic ideas presented in the original DDD pattern. These very closely mimic a collection, simulating at least some of its standard interface. Here you design a Repository interface that does not hint in any way that there is an underlying persistence mechanism, avoiding any notion of saving or persisting data to a store.
+
+Because  this  design  approach  requires  some  specific  capabilities  of  the underlying persistence mechanism, it's possible that it won't work for you. If your persistence mechanism prevents or hampers your ability to design with a collection  perspective,  see  the  following  subsection.  I  address  the  conditions under which I think collection-oriented design works best. To do so I need to establish some foundational background.
+
+Consider how a standard collection works. In Java, C#, or most any other object-oriented language, objects are added to a collection, and they remain in the collection until they are removed. There is no need to do anything special to get the collection to recognize changes to the objects that it contains, other than to ask the collection to hand you a reference to a specific object and then ask that object to do something to itself, which modifies its own state. The same object is still held by the collection, and now the state of that contained object is different from what it was prior to the modification.
+
+Let's  look  at  this  a  bit  closer  by  stepping  through  a  few  examples.  Using java.util.Collection as  an  example,  here,  in  part,  is  the  standard interface:
+
+```
+package java.util; public interface Collection ... { public boolean add(Object o); public boolean addAll(Collection c); public boolean remove(Object o); public boolean removeAll(Collection c); ... }
+```
+
+If  we want to add an object to a collection, we use add() .  If  we  want to remove  the  same  object,  we  pass  its  reference  to remove() .  The  following test  assumes  a  newly  instantiated  collection  of  some  kind  that  can  contain Calendar instances:
+
+```
+assertTrue(calendarCollection.add(calendar)); assertEquals(1, calendarCollection.size()); assertTrue(calendarCollection.remove(calendar)); assertEquals(0, calendarCollection.size());
+```
+
+Simple  enough.  One  special  kind  of  collection, java.util.Set ,  and  its implementing java.util.HashSet ,  provides  the  kind  of  collection  that  a Repository mimics. Every object added to a Set must be unique. If you attempt to add an object already contained by the Set , it will not be added because it is already contained. Thus, you never need to add the same object twice, as if adding it again somehow saves changes that you have asked the object to make to itself. The following test assertions prove that adding the same object more than once has no effect, positive or negative:
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000451_f6a365de93ecc053d6d0e8946c0306ef63d958851245d85f463bbb283bca7495.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000452_8b248cb111f086a9ee01c0292660dde7d5794723dbfa6a8e5df1d9f366c8d515.png)
+
+```
+Set<Calendar> calendarSet = new HashSet<Calendar>();
+```
+
+```
+assertTrue(calendarSet.add(calendar)); assertEquals(1, calendarSet.size()); assertFalse(calendarSet.add(calendar)); assertEquals(1, calendarSet.size());
+```
+
+All  of  these  assertions  succeed  because,  although  the  same Calendar instance is added twice, the second attempt to add the object does not change the state of the Set . The same goes for a Repository designed using a collection orientation. If we add the Aggregate instance calendar to a CalendarRepository designed with a collection orientation, adding calendar a second time is benign. Each Aggregate has a globally unique identity that is associated with the Root Entity (5, 10) . It is this unique identity that allows the Set -like Repository to prevent adding the same Aggregate instances more than once.
+
+It is important to understand the kind of collection-a Set -that a Repository should mimic. Whatever the backing implementation with a specific persistence  mechanism,  you  must  not  allow  instances  of  the  same  object  to  be added twice.
+
+Another key takeaway is that you don't need to 're-save' modified objects already held by the Repository. Consider again how you'd go about modifying an  object  that  is  held  by  a  collection.  It's  really  simple,  actually.  You'd  just retrieve from the collection the reference to the object you desire to modify, and then ask the object to execute some state-transitioning behavior by invoking a command method.
+
+## Take-aways for Collection-Oriented Repositories
+
+A Repository should mimic a Set collection. Whatever the backing implementation with a specific persistence mechanism, you must not allow instances of the same object to be added twice. Also, when retrieving objects from a Repository and modifying them, you don't need to 're-save' them to the Repository.
+
+To  illustrate,  say  we  extend  (subclass)  a  standard java.util.HashSet and create a method on the new type that allows us to find a specific object instance by unique identity. We'll give the extending class a name that identifies it as a Repository, but it's just an in-memory HashSet :
+
+```
+public class CalendarRepository extends HashSet { private Set<CalendarId, Calendar> calendars;
+```
+
+## COLLECTION-ORIENTED REPOSITORIES
+
+```
+public CalendarRepository() { this.calendars = new HashSet<CalendarId, Calendar>(); } public void add(Calendar aCalendar) { this.calendars.add(aCalendar.calendarId(), aCalendar); } public Calendar findCalendar(CalendarId aCalendarId) { return this.calendars.get(aCalendarId); } }
+```
+
+We don't normally subclass HashSet in  order to create a typical Repository. Here we do so just for the sake of example. So, back to the example. Now we can add a Calendar instance  to  the  specialized Set and  later  find  the instance and ask it to modify itself:
+
+```
+CalendarId calendarId = new CalendarId(...); Calendar calendar = new Calendar(calendarId, "Project Calendar", ...); CalendarRepository calendarRepository = new CalendarRepository(); calendarRepository.add(calendar); // later ... Calendar calendarToRename = calendarRepository.findCalendar(calendarId); calendarToRename.rename("CollabOvation Project Calendar"); // even later still ... Calendar calendarThatWasRenamed = calendarRepository.findCalendar(calendarId); assertEquals("CollabOvation Project Calendar", calendarThatWasRenamed.name());
+```
+
+Note that the instance of Calendar , referenced by calendarTo  Rename , is modified by asking it to rename itself. Much later, after the rename is performed, the name is still what it was changed to. This was accomplished without asking the HashSet subclass CalendarRepository to save changes to the Calendar instance, which wouldn't make any sense. CalendarRepository doesn't have a save() method because there is no need for one. There is no reason to save changes to the Calendar instance that calendarToRename references,  because  the  collection  still  holds  a  reference  to  the  object  being modified, and the modifications are made directly on that object.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000453_0477e8766f27eeea35c1e91cce7dcc48b034bc1b0b69b8c1ed0c9d808ef339e9.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000454_143fd8b34576924506264826107efd54789b1474c601db7f645e0efc1d5a299e.png)
+
+The bottom line, then, is that a traditional collection-oriented Repository truly mimics a collection in that no parts of the persistence mechanisms are surfaced to the client by its public interface. Therefore, it is our goal to design and implement such a collection-oriented Repository with the characteristics demonstrated by a HashSet , but with a persistent data store instead.
+
+As you can imagine, this requires some specific capabilities of the backing persistence mechanism. The persistence mechanism must in some way support the  ability  to  implicitly  track  changes  made  to  each  persistent  object  that  it manages. This may be accomplished in various ways, including the following two:
+
+1. Implicit  Copy-on-Read [Keith  &amp;  Stafford]:  The  persistence  mechanism implicitly copies each persistent object on read when it is reconstituted from the data store and compares its private copy to the client's copy on commit. Stepping through this, when you ask the persistence mechanism to read an object from the data store, it does so and immediately makes a copy of the entire object (minus any lazy-loaded parts, which also may be loaded and copied later). When a transaction created through the persistence mechanism is committed, the persistence mechanism checks for modifications on the copied objects it has loaded (or reattached to) by comparing them. All objects with detected changes are flushed to the data store.
+2. Implicit  Copy-on-Write [Keith  &amp;  Stafford]:  The  persistence  mechanism manages  all  loaded  persistent  objects  through  a  proxy.  As  each  object is loaded from the data store, a thin proxy is created and handed to the client.  Clients  unknowingly invoke behavior on the proxy object, which reflects  the  behavior  onto  the  real  object.  When  the  proxy  first  receives a method invocation, it makes a copy of the managed object. The proxy tracks changes made to the state of the managed object and marks it dirty. When a transaction created through the persistence mechanism is committed, it checks for dirty objects and all such are flushed to the data store.
+
+The  advantages  and  differences  between  these  approaches  may  vary,  and  if your system stands to suffer the negative consequences of choosing one over the other, you should measure them carefully. Of course, you can decide to go with your favorite rather than doing your homework, but that may not be the safest decision.
+
+Still,  the  overall  advantage to either of these approaches is that persistent object  changes  are  tracked  implicitly,  requiring  no  explicit  client  knowledge or  intervention  to  make  changes  known  to  the  persistence  mechanism.  The bottom line here is that using a persistence mechanism like this, such as Hibernate, allows you to employ a traditional, collection-oriented Repository.
+
+That said, it is possible even if you have the latitude to use such an implicit-copying change-tracking persistence mechanism, such as Hibernate, that it may be undesirable or inappropriate to use. If your requirements demand a very  high-performance  domain  with  many,  many  objects  in  memory  at  any given time, this sort of mechanism is going to add gratuitous overhead, in both memory and execution. You will have to consider and decide carefully whether or not this works for you. Certainly there are many domains in which Hibernate does work. So don't take my call to attention as an attempt to declare a taboo. The use of any tool should be with full awareness of trade-offs.
+
+## Cowboy Logic
+
+LB:    'When my dog got a case of worms, the veterinarian prescribed some repositories.'
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000455_e8145a59ef1cf67de7034260a9cdd713317f9cd892d3433ecaf26bb0124b2125.png)
+
+This  could  lead  you  to  consider  the  use  of  a  more  optimally  performing object-relational mapping tool that can support a collection-oriented Repository. One such tool is Oracle's TopLink, and its nearest relative, EclipseLink. TopLink  provides  a  Unit  of  Work,  which  is  not  entirely  unlike  Hibernate's Session. However, TopLink's Unit of Work does not make an implicit copyon-read. Instead, it makes an Explicit Copy-before-Write [Keith &amp; Stafford]. Here the term explicit means that the client must inform the Unit of Work that changes are about to take place. This gives the Unit of Work the opportunity to clone the given domain object in preparation for modifications (what it calls edits , discussed later in this chapter). The key point is that TopLink consumes memory only when it must.
+
+## Hibernate Implementation
+
+There are two primary steps to creating either orientation of a Repository. You need to define a public interface and at least one implementation.
+
+Specifically in the case of a collection-oriented design, in the first step you define an interface that mimics a collection. The second step provides an implementation that addresses the use of the backing primary storage mechanism, such as Hibernate. The interface, like a collection, will often have common methods such as are found in the following example:
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000456_e987bf3d894cc6474618aef7572620aa191b763df90cd5a0b1d35812bf43f203.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000457_0fe1d5595a373329dac73f84a9905fc88e7b195182ff73a2697d83ee3fa33c1e.png)
+
+```
+package com.saasovation.collaboration.domain.model.calendar; public interface CalendarEntryRepository  { public void add(CalendarEntry aCalendarEntry); public void addAll( Collection<CalendarEntry> aCalendarEntryCollection); public void remove(CalendarEntry aCalendarEntry); public void removeAll( Collection<CalendarEntry> aCalendarEntryCollection); ... }
+```
+
+Place the interface definition in the same Module (9) as the Aggregate type that it  stores.  In  this  case  interface CalendarEntryRepository is  placed in the same Module (Java package) as CalendarEntry . The implementation class goes in a separate package, as discussed later.
+
+Interface CalendarEntryRepository has  methods that are very much like those provided by collections, such as the standard java.util.Collection . One  new CalendarEntry may  be  added  to  this  Repository  using add() . Multiple  new  instances  may  be  added  using addAll() .  Once  the  instances have  been  added,  they  will  be  persisted  to  some  sort  of  data  store  and  be retrievable by unique identity from that point forward. The antithesis of those methods is remove() and removeAll() , allowing for the removal of one or multiple instances from the collection.
+
+I personally don't like these methods to answer Boolean results as do fullfledged collections. That's because in some cases answering true to an addtype  operation  does  not  guarantee  success.  The true results  may  still  be subject to a transaction commit on the data store. Thus, void may be the more accurate return type in the case of a Repository.
+
+There  may  be  cases  where  adding  and/or  removing  multiple  Aggregate instances in one transaction isn't appropriate. When that is true of a given case in your domain, don't include methods addAll() and removeAll() . However, these methods are provided only for convenience. A client can always use a loop to invoke add() or remove() multiple times when iterating over a collection on its own. So eliminating the addAll() and removeAll() methods is only symbolic of a policy that can't actually be enforced by design, unless you also build in a means to detect adding and removing multiple objects in a  single  transaction.  Doing  so  would  likely  require  such  a  Repository  to  be instantiated  for  every  transaction,  which  is  a  potentially  costly  proposal.  I won't discuss this further.
+
+It is possible that instances of some Aggregate types must never be removed through  normal  application  use  cases.  It  may  be  necessary  to  retrain  the instance long after it is no longer usable in the application, possibly for referential and/or historical purposes. Referentially it may actually be very difficult or impossible to remove some objects. From a business perspective it may be unwise, ill advised, or even illegal to remove some objects. In those cases you may decide to simply mark the Aggregate instance disabled , unusable ,  or, in some other domain-specific way, logically removed . If so, you may determine not to include any removal methods on the Repository public interface, or you may decide to implement the removal methods to set the unusable state of the Aggregate instance. You may instead prevent full object removal through code reviews, where clients are carefully inspected to ensure that no such uses of removal behavior exist. It's a decision to ponder, but you may find it easier to disallow removal altogether. After all, any methods on public interfaces are generally  considered  available  for  use.  If  removal  is  publicly  available  when logically  disallowed,  you  probably  want  to  consider  implementing  logical rather than physical removal.
+
+Another important part of the Repository interface is the definition of finder methods:
+
+```
+public interface CalendarEntryRepository  { ... public CalendarEntry calendarEntryOfId( Tenant aTenant, CalendarEntryId aCalendarEntryId); public Collection<CalendarEntry> calendarEntriesOfCalendar( Tenant aTenant, CalendarId aCalendarId); public Collection<CalendarEntry> overlappingCalendarEntries( Tenant aTenant, CalendarId aCalendarId, TimeSpan aTimeSpan); }
+```
+
+The first method definition, calendarEntryOfId() , allows you to retrieve a specific instance of the CalendarEntry Aggregate by unique identity. This type uses an explicit identity type, namely, CalendarEntryId .  The second method definition, calendarEntriesOfCalendar() , allows you to retrieve a collection of all CalendarEntry instances for a specific Calendar by its unique identity.  Finally,  the  third  finder  method  definition, overlappingCalendarEntries() , provides a collection of all CalendarEntry instances for a specific Calendar over a specific TimeSpan . In particular, this method supports retrieving what is scheduled over a particular contiguous period of dates and times.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000458_b32d158b210d7f3a3e685f8928329ddb7e49e063a229dfaff64d450d419d9b79.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000459_fe6ec392070984d965591c220c3c58f34a5d839a3e1bfd0c2819d01d0fa98193.png)
+
+Finally, you may be wondering how a CalendarEntry is assigned its globally unique identity. This also can be conveniently provided by the Repository:
+
+```
+public interface CalendarEntryRepository  { public CalendarEntryId nextIdentity(); ... }
+```
+
+Any code responsible for instantiating new CalendarEntry instances uses nextIdentity() to get a new instance of CalendarEntryId :
+
+```
+CalendarEntry calendarEntry = new CalendarEntry(tenant, calendarId, calendarEntryRepository.nextIdentity(), owner, subject, description, timeSpan, alarm, repetition, location, invitees);
+```
+
+See Entities (5) for an exhaustive discussion of identity creation techniques, the  use  of  domain-specific  and  surrogate  identities,  and  the  importance  of properly timing the assignment of identity.
+
+Let's now look at the implementation class for this traditional Repository. There are a few options for selecting the Module in which to place the class. Some like to use a Module (Java package) directly under the Aggregate and Repository Module. In this case that would mean
+
+```
+package com.saasovation.collaboration.domain.model.calendar.impl; public class HibernateCalendarEntryRepository implements CalendarEntryRepository  { ... }
+```
+
+Placing the class here allows you to manage the implementation in the Domain Layer, but in a special package for implementations. That way you keep the domain  concepts  cleanly  separated  from  those  that  directly  deal  with  persistence. This style of declaring interfaces in a richly named package, and their implementations  in  a  sub-package  named impl directly  under  it,  is  widely practiced in Java projects. However, in the case of the Collaboration Context the team has chosen to locate all technical implementation classes in the Infrastructure Layer:
+
+```
+package com.saasovation.collaboration.infrastructure.persistence; public class HibernateCalendarEntryRepository implements CalendarEntryRepository  { ... }
+```
+
+This uses the Dependency Inversion Principle (4) ,  or DIP ,  for  layering  infrastructure concerns. The Infrastructure Layer is logically above all others, making references unidirectional and downward to the Domain Layer.
+
+Class HibernateCalendarEntryRepository is  a  registered  Spring bean. It has a zero-argument constructor and has another infrastructure bean object dependency injected:
+
+```
+import com.saasovation.collaboration.infrastructure .persistence.SpringHibernateSessionProvider; public class HibernateCalendarEntryRepository implements CalendarEntryRepository  { public HibernateCalendarEntryRepository() { super(); } ... private SpringHibernateSessionProvider sessionProvider; public void setSessionProvider( SpringHibernateSessionProvider aSessionProvider) { this.sessionProvider = aSessionProvider; } private org.hibernate.Session session() { return this.sessionProvider.session(); } }
+```
+
+Class SpringHibernateSessionProvider is also housed in the Infrastructure Layer in the com.saasovation.collaboration.infrastructure.persistence Module  and  is  injected  into  each  Hibernate-based Repository.  Each  method  that  uses  Hibernate's Session object  self-invokes method session() to  get  it.  Method session() uses  the  dependency-injected sessionProvider instance to get the thread-bound Session instance (seen later in this chapter).
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000460_d4fd90a144d6791dd46ca35fbacaa4f13d71b9f6e940a06408270292165e1047.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000461_fae62a7e5d356f41afa7bc1276dfc05d9a2d55c5ddfd97a1a20d56aa57d376a3.png)
+
+Methods add() , addAll() , remove() ,  and removeAll() are  implemented as follows:
+
+```
+package com.saasovation.collaboration.infrastructure.persistence; public class HibernateCalendarEntryRepository implements CalendarEntryRepository  { ... @Override public void add(CalendarEntry aCalendarEntry) { try { this.session().saveOrUpdate(aCalendarEntry); } catch (ConstraintViolationException e) { throw new IllegalStateException( "CalendarEntry is not unique.", e); } } @Override public void addAll( Collection<CalendarEntry> aCalendarEntryCollection) { try { for (CalendarEntry instance : aCalendarEntryCollection) { this.session().saveOrUpdate(instance); } } catch (ConstraintViolationException e) { throw new IllegalStateException( "CalendarEntry is not unique.", e); } } @Override public void remove(CalendarEntry aCalendarEntry) { this.session().delete(aCalendarEntry); } @Override public void removeAll( Collection<CalendarEntry> aCalendarEntryCollection) { for (CalendarEntry instance : aCalendarEntryCollection) { this.session().delete(instance); } } ... }
+```
+
+These  methods  have  rather  simplistic  implementations.  Each  method  selfinvokes session() to get its Hibernate Session instance (as just previously explained).
+
+Perhaps  curiously,  methods add() and addAll() use  the Session 's method saveOrUpdate() . This is further support for Set -like adds. If a client happens to add the same CalendarEntry more than once, the saveOrUpdate() behavior makes it appear as a benign no-op. In fact, since Hibernate version 3 any form of update is a no-op since, as previously noted, updates are tracked implicitly by object state modifications. Therefore, unless the objects added by these two methods are entirely new, the behavior does nothing.
+
+Adding  can  cause  a ConstraintViolationException .  Rather  than allowing Hibernate exceptions to trickle out to clients, those exceptions are caught and wrapped by the more client-friendly IllegalStateException . We could also declare domain-specific exceptions and throw those. That is a choice for each project team. The main point is that since we are going to the trouble of abstracting away the implementation details of the underlying persistence framework, we want to insulate clients from all such details, including exceptions.
+
+Methods remove() and removeAll() are  quite  simple. They only need to use the Session delete() to facilitate removal from the underlying data store. There is one additional detail regarding the removal of Aggregates that use one-to-one mappings, which is true in one case in the Identity and Access Context . Because you cannot cascade changes on such relationships, you will need to explicitly delete objects on both sides of the association:
+
+```
+package com.saasovation.identityaccess.infrastructure.persistence; public class HibernateUserRepository implements UserRepository  { ... @Override public void remove(User aUser) { this.session().delete(aUser.person()); this.session().delete(aUser); } @Override public void removeAll(Collection<User> aUserCollection) { for (User instance : aUserCollection) { this.session().delete(instance.person()); this.session().delete(instance); } } ... }
+```
+
+The inner Person object must first be deleted, and then the User Aggregate Root. If you do not delete the inner Person object, it will be orphaned in its corresponding database table. In general this is a good reason to avoid one-to-one associations  and  instead  use  a  constrained  singular  many-to-one unidirectional association. However, I chose to implement the one-to-one bidirectional association purposely in order to demonstrate what working with the more troublesome mappings involves.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000462_91a914f985cc01370a4981f8fd5855e1181314e7ff1bd1a4a67d4cba0fded06f.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000463_d4b067cc08e19b3052d2ffe5d9c466dc570ff919fb60bff755236b9507140ae2.png)
+
+Note that there are different preferred approaches for dealing with such situations. Some may choose to depend on ORM life cycle events to cause part object cascading deletes. I have purposely avoided such approaches because I am a strong opponent of Aggregate-managed persistence, and I strongly advocate Repository-only persistence. The arguments are passionate and never-ending, ad nauseam. You should make an informed choice, but understand that DDD experts avoid Aggregate-managed persistence as a rule of thumb.
+
+Now  back  to HibernateCalendarEntryRepository and  its  finder method implementations:
+
+```
+public class HibernateCalendarEntryRepository implements CalendarEntryRepository { ... @Override @SuppressWarnings("unchecked") public Collection<CalendarEntry> overlappingCalendarEntries( Tenant aTenant, CalendarId aCalendarId, TimeSpan aTimeSpan) { Query query = this.session().createQuery( "from CalendarEntry as _obj_ " + "where _obj_.tenant = :tenant and " + "_obj_.calendarId = :calendarId and " + "((_obj_.repetition.timeSpan.begins between " + ":tsb and :tse) or " + " (_obj_.repetition.timeSpan.ends between " + ":tsb and :tse))"); query.setParameter("tenant", aTenant); query.setParameter("calendarId", aCalendarId); query.setParameter("tsb", aTimeSpan.begins(), Hibernate.DATE); query.setParameter("tse", aTimeSpan.ends(), Hibernate.DATE); return (Collection<CalendarEntry>) query.list(); } @Override public CalendarEntry calendarEntryOfId( Tenant aTenant, CalendarEntryId aCalendarEntryId) { Query query = this.session().createQuery( "from CalendarEntry as _obj_ " + "where _obj_.tenant = ? and _obj_.calendarEntryId = ?");
+```
+
+```
+query.setParameter(0, aTenant); query.setParameter(1, aCalendarEntryId); return (CalendarEntry) query.uniqueResult(); } @Override @SuppressWarnings("unchecked") public Collection<CalendarEntry> calendarEntriesOfCalendar( Tenant aTenant, CalendarId aCalendarId) { Query query = this.session().createQuery( "from CalendarEntry as _obj_ " + "where _obj_.tenant = ? and _obj_.calendarId = ?"); query.setParameter(0, aTenant); query.setParameter(1, aCalendarId); return (Collection<CalendarEntry>) query.list(); } ... }
+```
+
+Each of the three finders creates a Query through its Session . As is common with Hibernate queries, the team uses HQL to describe the criteria and then loads up the parameter objects. The query is then run, asking for either a singular, unique result or a list collection of objects. The more sophisticated of the thread queries is that of overlappingCalendarEntries() , in which case we must find all CalendarEntry instances that overlap a specific date and time range, or TimeSpan .
+
+Last we look at the implementation of method nextIdentity() :
+
+```
+public class HibernateCalendarEntryRepository implements CalendarEntryRepository  { ... public CalendarEntryId nextIdentity() { return new CalendarEntryId( UUID.randomUUID().toString().toUpperCase()); } ... }
+```
+
+This  particular  implementation  does  not  use  the  persistence  mechanism  or data  store  to  generate  a  unique  identity.  Rather,  the  relatively  fast  and  very reliable UUID generator is used.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000464_35f800c2d8dd7696df0bccb436c38a49c10c16132adc973a63a20211693b7175.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000465_fa7832da024de91c37cfac355750883683217bfc86bf0f54e23cbbe26f1b2041.png)
+
+## Considerations for a TopLink Implementation
+
+TopLink has both a Session and a Unit of Work. This differs somewhat from Hibernate in that Hibernate's Session is also a Unit of Work. 1 Let's look at a perspective on the use of Unit of Work as separate from Session, and then ease into how to use them in a Repository implementation.
+
+Without the benefit of a Repository abstraction, you'd use TopLink in this way:
+
+```
+Calendar calendar = session.readObject(...); UnitOfWork unitOfWork = session.acquireUnitOfWork(); Calendar calendarToRename = unitOfWork.registerObject(calendar); calendarToRename.rename("CollabOvation Project Calendar"); unitOfWork.commit();
+```
+
+The UnitOfWork provides a much more efficient use of memory and processing  power  since  you  must  explicitly  inform  the UnitOfWork that  you intend to modify the object. It is not until that time that a clone, or editing copy, of your Aggregate is made. As shown previously, method registerObject() answers a clone of the original Calendar instance. It is this clone object, referenced by calendarToRename , that must be edited/modified. As you cause modifications on the object, TopLink is able to track the changes that occur. When method commit() on UnitOfWork is invoked, all modified objects are committed to the database. 2
+
+Adding  new  objects  to  a  TopLink  Repository  can  be  facilitated  easily enough:
+
+```
+... public void add(Calendar aCalendar) { this.unitOfWork().registerNewObject(aCalendar); } ...
+```
+
+1.  I am not measuring TopLink's value in terms of Hibernate. In fact, TopLink has a very long history of success, which was established long before Oracle picked up the product as a result of the WebGain debacle and subsequent 'fire sale.' Top is an acronym for 'The Object People,' which was the original company behind the tool that is approaching two decades of proven success. Here I am merely contrasting the way the two tools work.
+
+2.  This assumes that the Unit of Work is not nested inside a parent. If it is nested inside  a  parent  Unit  of  Work,  changes  from  the  committed  Unit  of  Work  are merged with its parent. Ultimately the outermost is committed to the database.
+
+The  use  of registerNewObject() stipulates  that aCalendar is  a  new instance. This would enforce failure if add() was invoked with aCalendar that is actually preexisting. We could also use the vanilla registerObject() here, which would be similar to using Hibernate's saveOrUpdate() method (discussed earlier). Either way we satisfy the need for a workable collectionoriented interface.
+
+But we still need a way to acquire a clone when we have to modify a preexisting Aggregate. The trick is to find a convenient way to register such an Aggregate instance with a UnitOfWork . So far our discussion hasn't provided a Repository interface to do that because we've been trying to mimic a Set and avoid any inference to persistence in the interface. Still, we could accomplish  this  in  a  way  that  doesn't  necessarily  influence  a  persistence  frame  of mind. Consider using one of two approaches:
+
+```
+public Calendar editingCopy(Calendar aCalendar); // or public void useEditingMode();
+```
+
+With the first approach editingCopy() would acquire a UnitOfWork , register the given Calendar instance, get its clone, and answer it:
+
+```
+... public Calendar editingCopy(Calendar aCalendar) { return (Calendar) this.unitOfWork().registerObject(aCalendar); } ...
+```
+
+This reflects the underlying registerObject() way of doing things. Understandably  this  may  not  be  desirable,  but  it  is  a  clean  approach  and  doesn't reflect a persistence frame of mind.
+
+The  second  approach  is  to  place  the  Repository  into  editing  mode  with useEditingMode() .  After  this  is  done,  all  subsequent  finder  methods  will automatically  register  all  objects  they  query  with  a  backing UnitOfWork and answer the clones. It does more or less lock the Repository into use for Aggregate  modifications.  That  is,  nonetheless,  how  Repositories  tend  to  be used,  either  read-only  or  read  for  modification.  It  also  reflects  the  use  of  a Repository for Aggregates that have well-crafted boundaries that reflect a bias toward transactional success.
+
+There  may  be  other  ways  to  design  a  collection-oriented  repository  for TopLink, but this provides a few options worth considering.

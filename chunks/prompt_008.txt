@@ -1,0 +1,482 @@
+Bạn là chuyên gia dịch thuật kỹ thuật Anh → Việt, chuyên tài liệu kỹ thuật/công nghệ, có kinh nghiệm dịch như biên dịch viên bản ngữ chuyên nghiệp. Nhiệm vụ: dịch TOÀN BỘ nội dung Markdown dưới đây sang tiếng Việt, không bỏ sót bất kỳ phần nào. Đây là MỘT PHẦN (chunk) của một tài liệu lớn hơn, hãy dịch độc lập đoạn này, không thêm lời mở đầu/kết luận về việc đây chỉ là một phần.
+
+QUY TẮC BẮT BUỘC — VI PHẠM LÀ SAI:
+
+1. XÁC ĐỊNH LOẠI TÀI LIỆU TRƯỚC KHI DỊCH
+   - Tự phân tích nội dung để xác định loại tài liệu (kỹ thuật/lập trình, tài chính, bảo hiểm, pháp lý, marketing, học thuật, vận hành, sản phẩm...).
+   - Chọn văn phong và thuật ngữ CHUẨN NGÀNH tương ứng trong tiếng Việt, nhất quán xuyên suốt.
+
+2. VĂN PHONG — MƯỢT NHƯ NGƯỜI DỊCH, KHÔNG GIẢM CHÍNH XÁC
+   - Dịch mượt, tự nhiên, đúng ngữ pháp tiếng Việt — như biên dịch viên bản ngữ dịch tay, KHÔNG dịch máy móc kiểu word-by-word.
+   - Được phép đảo cấu trúc câu, tách/gộp câu cho tự nhiên, miễn giữ nguyên 100% ý nghĩa, thông tin, logic, số liệu gốc.
+   - Khi "mượt mà" và "chính xác" xung đột → LUÔN ưu tiên chính xác.
+
+3. DỊCH ĐẦY ĐỦ 100%
+   - Không tóm tắt, không rút gọn, không lược bỏ đoạn/câu/mục/bullet nào.
+   - Số lượng heading, đoạn văn, bảng, code block ở output PHẢI khớp 1:1 với input.
+   - Đoạn dài dịch hết, không cắt ngắn.
+
+4. GIỮ NGUYÊN THUẬT NGỮ TIẾNG ANH
+   - Thuật ngữ chuyên ngành (tên công nghệ, framework, pattern, tên hàm/biến, acronym...) giữ nguyên tiếng Anh, không dịch, không phiên âm.
+   - Ngay sau lần xuất hiện ĐẦU TIÊN của mỗi thuật ngữ, thêm chú thích ngắn trong ngoặc giải thích nghĩa bằng tiếng Việt.
+   - Các lần xuất hiện sau KHÔNG cần chú thích lại.
+
+5. GIỮ NGUYÊN FORMAT — RẤT QUAN TRỌNG
+   - VỀ ẢNH (làm trước khi dịch): ĐẾM chính xác số lượng thẻ ảnh dạng ![...](...) trong đoạn gốc bên dưới. Output PHẢI có ĐÚNG số lượng thẻ ảnh đó, không được thiếu một cái nào — kể cả ảnh không có caption, không rõ ngữ cảnh, hay trông như ảnh trang trí/lặp lại. Copy nguyên URL 100%, không sửa, không rút gọn, không thay bằng mô tả text.
+   - Giữ cấp độ heading (#, ##, ###...), giữ đúng số lượng heading.
+   - Giữ cấu trúc bảng (số cột, số hàng, alignment, header row).
+   - Giữ code block (```lang ... ```) — KHÔNG dịch code; comment được dịch tại chỗ; **được phép reformat code, tự động xuống dòng/indent chuẩn, không giữ nguyên code 1 dòng; không đổi logic/cú pháp**.
+   - Giữ blockquote, callout/note/warning (>, [!NOTE], [!WARNING]...).
+   - Giữ list, nested list, checkbox (- [ ]).
+   - Giữ nguyên link thường ([text](url)) — chỉ dịch phần text hiển thị, TUYỆT ĐỐI giữ nguyên URL.
+   - TRƯỚC KHI TRẢ KẾT QUẢ: tự đếm lại số heading, số ảnh, số dòng ``` giữa bản gốc và bản dịch của bạn, nếu lệch phải sửa lại cho khớp.
+
+6. GIẢI THÍCH ẨN DỤ / KHÁI NIỆM KHÓ
+   - Với ẩn dụ, thành ngữ, khái niệm trừu tượng khó hiểu với người Việt, thêm khối giải thích riêng ngay sau đoạn đó:
+     > 💡 **Giải thích thêm:** [giải thích dễ hiểu, đủ chuyên sâu, có ví dụ thực tế]
+     > Nguồn tham khảo: [link cụ thể để kiểm chứng]
+   - CHỈ đưa link nếu chắc chắn tồn tại và đúng nội dung — không bịa link.
+   - Không tìm được nguồn tin cậy → ghi rõ: "(Không có nguồn trích dẫn xác thực — cần tự kiểm chứng thêm)".
+
+7. CHỐNG HALLUCINATION (BẮT BUỘC)
+   - Không tự thêm thông tin/số liệu/ví dụ/kết luận KHÔNG có trong bản gốc — trừ phần giải thích ẩn dụ ở mục 6 (phải gắn nhãn rõ là phần bổ sung).
+   - Câu gốc mơ hồ → dịch sát nghĩa nhất, nếu không chắc ghi chú: "[CẦN KIỂM CHỨNG: câu gốc mơ hồ]".
+   - Không tự sửa/thêm/bớt logic kỹ thuật gốc. Không bịa trích dẫn/số liệu/link vô căn cứ.
+   - Không tự tóm tắt các đoạn dài thành ý chính rồi diễn giải lại — phải dịch từng câu.
+
+8. OUTPUT
+   - Trả về DUY NHẤT nội dung Markdown đã dịch, đặt trong 1 code block (```markdown ... ```).
+   - Không thêm lời dẫn/lời chào/giải thích ngoài code block.
+   - Không đổi tiêu đề gốc trừ khi cần dịch tiêu đề.
+
+--- NỘI DUNG GỐC CẦN DỊCH (một phần của tài liệu) ---
+
+Let's take a minor step back in time. Since the Collaboration Context was the first Core Domain, let's peer inside it. First we introduce the zooming technique with the simpler integrations, then progress to the more advanced ones.
+
+## Collaboration Context
+
+Now, back to the experience of the Collaboration team . . .
+
+The Collaboration Context was the first model and system-the first Core Domain-and its workings are now well understood. The integrations employed here are easier yet less robust in terms of reliability and autonomy. Creating a zoomed Context Map is done with relative ease.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000081_16199bc37a90797f5a635a78f3d3363aaddf323a405920cdd3e5b42fafec963f.png)
+
+As a client of the REST-based services published by the Identity and Access Context , the Collaboration Context takes a traditional RPC-like approach to reaching resources. This Context doesn't permanently record any data from the Identity and Access Context that  it  can  subsequently  reference  for  local reuse. Rather, it reaches out to the remote system to request information every single time it needs it. This Context is obviously highly dependent on remote services, not autonomous. This is a fact that SaaSOvation is willing to live with for now. Integration with a Generic Subdomain was completely unexpected. To meet their demanding delivery schedule the team couldn't invest time in a more elaborate autonomous design. At the time the up-front ease-of-design perk could not be passed up. After the rollout of ProjectOvation and the experience with autonomy gained there, similar techniques may be employed for CollabOvation.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000082_01e66e3acfde39eee28b998735e189c2067120b94834901386a08e40f878e8ce.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000083_3ab52c7cba3fa7a8cbd68da71ad95e5e83e78c5ca93d1f0c11ffcf43e035bf96.png)
+
+The boundary objects in the zoomed Map captured in Figure 3.6 request a resource synchronously. When the remote model's representation is received, the boundary objects grab the content of interest out of the representation and translate it, creating the appropriate Value Object instance. A Translation Map to turn the representation into a Value Object is shown in Figure 3.7. Here a User in the Role of Moderator in the Identity and Access Context is translated as a Moderator Value Object in the Collaboration Context.
+
+Figure 3.6 A zoom in on the Anticorruption Layer and Open Host Service of the integration between the Collaboration Context and the Identity and Access Context
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000084_7f5d8c808b8cf15432613136a51951ed589c5f5eb76d549a59726814cb215233.png)
+
+Figure 3.7 A logical Translation Map that shows how a representational state (XML in this case) is mapped to a Value Object in the local model.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000085_9b739c792152222c96ab8148660b90fbedbd09c78c26c77c9e9d95d08eaa5e4d.png)
+
+## Whiteboard Time
+
+Create a Translation Map of one of the interesting aspects of integration found in your project's Bounded Context.
+
+What if you find the translations overly complex, requiring a lot of data copying and synchronization, making your translated object look a lot like the one from the other model? Perhaps you are using too much from the foreign Bounded Context, adopting too much from that model, and thus causing confusing conflict in your own model.
+
+Unfortunately, if the synchronous request fails because the remote system is unavailable, the entire local execution must fail. The user will be informed of the problem and asked to try again later.
+
+Systems integrations commonly rely on RPC. At a high level RPC appears to be very much like a regular programming procedure call. Libraries and tools make it attractive and easy to use. Unlike calling a procedure that resides in your own process space, however, a remote call has a higher potential for performance-degrading latency or outright failure. Network and remote system load can delay RPC completion. When the RPC target system is unavailable, a user's request to your system will not complete successfully.
+
+While REST-based resource usage isn't really RPC, it still has similar characteristics. Although complete system failure is relatively rare, this is a potentially  annoying  limitation.  The  team  looks  forward  to  improving  on  this situation as soon as possible.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000086_d91ebfe0645ea86d30a7c6fd6e096b5bb4ef5521147ff5232590e9eb544947ef.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000087_0f3415cc1c1714a7bec6b651e85b3af02d138ee1293e8212edf46e5c3bccf499.png)
+
+## Agile Project Management Context
+
+Since the Agile Project Management Context is  the  new  Core Domain, let's pay particularly close attention to it. Let's zoom in on it and its connections to other models.
+
+To achieve a greater degree of autonomy than RPC affords, the Agile Project Management Context team will need to carefully constrain its use. Out-ofband, or asynchronous, event processing is therefore strategically favored.
+
+A  greater  degree  of  autonomy  can  be  achieved  when  dependent  state  is already in place in our local system. Some may think of this as a cache of whole dependent objects, but that's not usually the case when using DDD. Instead we create local domain objects translated from the foreign model, maintaining only the minimal amount of state needed by the local model. To get the state in the first place we may need to make limited, well-placed RPC calls, or similar requests  for  REST-based  resources.  But  any  necessary  synchronization  with remote model changes can often best be achieved through message-oriented notifications published by remote systems. The notifications might be sent on a service bus or a message queue, or be published via REST.
+
+## Think Minimalistic
+
+The synchronized state is the limited, minimal attributes of the remote models that are needed by the local model. It's not only to limit our need to synchronize data, it's also a matter of modeling concepts properly.
+
+It pays to limit our use of remote state, even when considering the design of  the  local  modeling  elements  themselves.  We  don't  want,  for  example,  a ProductOwner and a TeamMember to in reality reflect a UserOwner and a UserMember because they take on so many characteristics of the remote User object that a hybridization happens unwittingly.
+
+## Integration with the Identity and Access Context
+
+Looking at the zoomed Map in Figure 3.8, we see that the resource URIs provide notifications about significant Domain Events that have occurred in the Identity and Access Context . These are made available through the NotificationResource provider, which publishes a RESTful resource. Notification resources are groups of published Domain Events. Every Event ever published is always available for consumption in order of occurrence, but each client is responsible for preventing duplicate consumption.
+
+A custom media type indicates that two resources can be requested:
+
+application/vnd.saasovation.idovation+json
+
+//iam/notifications
+
+//iam/notifications/{notificationId}
+
+Figure 3.8 A zoom in on the Anticorruption Layer and Open Host Service of the integration between the Agile Project Management Context and the Identity and Access Context
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000088_d4be8e79a6fa569ab42996c2f28282d82ab2ef52e15bc2a56e1d605a72d1daed.png)
+
+The first resource URI enables clients to get (literally HTTP GET ) the current notification  log  (a  fixed  set  of  individual  notifications).  Per  the  documented custom media type,
+
+application/vnd.saasovation.idovation+json
+
+the URI is considered minted and stable because it never changes. No matter what the current notification log consists of, this URI provides it. The current log is a set of the most recent events that have occurred in the Identity and Access model. The second resource URI enables clients to get and navigate a chain of all previous event-based notifications that have been archived. Why do we need a current log and any number of distinct archived notification logs? See Domain Events (8) and Integrating Bounded Contexts (13) for details on how feed-based notifications work.
+
+Actually at this point the ProjectOvation team is not committed to using REST in all cases. For example, they are currently negotiating with the CollabOvation  team  over  whether  to  use  a  messaging  infrastructure  instead.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000089_a8d26a05f2d2bc628ea24c053528e8a3b814e5582d4c9e82ba5ba9526c62fe53.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000090_e149e8269e955cf50f43413a1ef54b07a64b8f9c3b9b5a8515bf9fe501ef8a3a.png)
+
+Under consideration is the use of RabbitMQ. Nonetheless, at this time their integrations with the Identity and Access Context will be REST-based.
+
+For now let's leave most of the technology details out of the picture and consider the role of each of the objects interacting in the zoomed Map. Here's an explanation of the integration steps visually demonstrated in the sequence diagram found in Figure 3.9:
+
+- MemberService is  a  Domain Service that is responsible for providing ProductOwner and TeamMember objects  to  its  local  model.  It  is  the interface  of  the  basic  Anticorruption  Layer.  Specifically, maintainMembers() is used periodically to check for new notifications from the Identity and Access Context . This method is not invoked by normal clients of the model. When a recurring timer interval fires, the notified component uses the MemberService by invoking method maintain  Members() . Figure 3.9 shows the timer recipient as MemberSynchronizer ,  which delegates to MemberService .
+-  The MemberService delegates  to IdentityAccessNotificationAdapter , which plays the role of the Adapter between the Domain Service and the remote system's Open Host Service. The Adapter acts as a client to the remote system. The interaction with the remote NotificationResource is not shown.
+-  Once the Adapter has received the response from the remote Open Host Service, it delegates to the MemberTranslator to translate the Published Language media into concepts of the local system. If the local Member instance  already  exists,  the  translation  updates  the  existing  domain object.  This  is  indicated  by  the MemberService self-delegation  to  its internal updateMember() . The Member subclasses are ProductOwner and TeamMember , which reflect the local contextual concepts.
+
+Figure 3.9 A view of the inner workings of the Agile Project Management Context and Identity and Access Anticorruption Layer
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000091_b4493904ee096207e88a28bd88b93686475fe21ffff71a193381cf9fc30f1333.png)
+
+We should not focus on the technologies or integration products involved. Rather,  by  cleanly  separating  Bounded  Contexts,  we  are  able  to  keep  each Context pure, while applying data from other Contexts to express concepts in our own.
+
+The diagrams and supporting text exemplify how we might create Context Map documents. It  need  not  be  extensive  but  should  provide  enough  background and explanation to bring a new project member up to speed. However, create a document only if it is helpful to the team.
+
+Integration with the Collaboration Context Next, let's consider how the Agile Project Management Context interacts with the Collaboration Context . Here, too, we strive for autonomy, but this raises the bar, posing some interesting challenges to accomplish the goal of system independence.
+
+ProjectOvation  has  add-on  features  that  are  supplied  by  CollabOvation. Some include project-based forum discussions and shared calendar scheduling. Users won't directly interact with CollabOvation. ProjectOvation must determine whether the options are available to a given tenant and, if so, on its own facilitate resource creation in CollabOvation.
+
+Consider a section of this Create a Product use case:
+
+Precondition: The collaboration feature is enabled (option was purchased).
+
+1.  The user provides Product descriptive information.
+2.  The user indicates a desire for a team discussion.
+3.  The user requests that the defined Product be created.
+4.  The system creates the Product with a Forum and Discussion.
+
+A Forum and a Discussion must be created in the Collaboration Context on behalf of the Product. In contrast, this is unlike the Identity and Access Context where a tenant has already been provisioned and users, groups, and roles have been defined, and notifications about those events are available. In that case the objects are preexisting. In this case the Agile Project Management Context needs objects that don't exist yet and won't exist until it requests them. That's a potential obstacle to autonomy because we depend on the availability  of  the Collaboration  Context in  order  to  create  resources  remotely. With desired autonomy, this raises an interesting challenge.
+
+## Why Is Discussion Used in Both Contexts?
+
+This is an interesting situation because it's one where the name of the concept, Discussion, is the same in both Bounded Contexts, but they are different types, different objects, and thus have different state and different behavior.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000092_199ca21c5e687641fda97b800dcc917ff54834563db0b5a1c54c384c9e2a3176.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000093_096f296c186f753ae93a7dc733fd07332958add5f389f5aac7c8cd3d585779f3.png)
+
+In the Collaboration Context a Discussion is an Aggregate and it manages a set of Posts-implicit children that are themselves Aggregates. In the Agile PM Context the Discussion is a Value Object and only holds a reference to the actual Discussion with Posts in the foreign Context. Note, however, that in Chapter 13 when the team implements the integrations, they discover that they should strongly type the different kinds of Discussions in the Agile PM Context .
+
+We  need  to  leverage  eventual  consistency  using Domain  Events  (8) and an Event-Driven Architecture (4) .  There's nothing that says that only remote systems  can  consume  notifications  produced  by  our  local  system.  When  a ProductInitiated Domain Event is published by our model, it is handled by our own system. The local handler requests the Forum and Discussion to be created remotely. This could be done via RPC or messaging, depending on what CollabOvation supports. If using RPC and the remote collaboration system were not available at that time, the local handler would simply keep trying on a periodic basis until it finally met with success. If messaging is supported instead of RPC, the local handler would send a message to the collaboration system.  In  turn,  collaboration  would  respond  with  its  own  message  when resource creation completes. When the Event handler back in ProjectOvation received this notification, it would update the Product with an identity reference to its newly created discussion.
+
+What happens if the product owner or team members try to use the discussion prior to its existence? Is the unavailable discussion considered a bug in the model? Will it cause the system to exhibit an unreliable condition? Consider the fact that any given subscriber may not have paid to use the collaboration add-on in the first place. That's a nontechnical reason to design in resource unavailability. Working around eventual consistency is in no way a kludge. It's just another valid state that should be modeled.
+
+An  elegant  way  to  handle  all  of  the  possible  unavailability  scenarios  is to  make them explicit. Consider this Standard Type implemented as a State [Gamma et al.], as described in Value Objects (6) :
+
+```
+public enum DiscussionAvailability { ADD_ON_NOT_ENABLED, NOT_REQUESTED, REQUESTED, READY; } public final class Discussion implements Serializable { private DiscussionAvailability availability; private DiscussionDescriptor descriptor; ... } public class Product extends Entity { ...
+```
+
+```
+private Discussion discussion; ... }
+```
+
+Using this  design,  a Discussion Value  Object  is  protected  from  misuse because the State defined by DiscussionAvailability protects it. When someone attempts to  participate  in  a  discussion  about  the Product ,  it  can safely hand off its discussion State. If not READY ,  the  participant will be shown one of three messages:
+
+To use team collaboration you need to purchase the add-on option.
+
+The product owner didn't request the creation of a product discussion.
+
+The discussion setup has not yet completed; check back soon.
+
+If the Discussion availability is READY , we allow full team member participation.
+
+Interestingly, as implied by the first of the unavailable state messages, the possibility  exists  that  the  business  chooses  to  make  collaboration  options selectable even though they have not yet been purchased. Leaving collaboration UI options enabled could be an effective marketing tickler to encourage follow-on purchase. Who better to nag management to purchase an add-on option than those who are daily reminded that they could be using it, but cannot? Clearly, technical benefits are not the only ones realized by the use of the availability State.
+
+At this time the team isn't certain what its actual integration with collaboration will be. For the sake of Customer-Supplier discussions, they've produced the diagram in Figure 3.10. The Agile Project Management Context may use a second Anticorruption Layer to manage integration between itself and the Collaboration Context. It  would be like the one it uses for the Identity and Access Context . The diagram shows the primary boundary objects, which are similar to their counterparts used for identity and access management integration.  Actually  there  is  not  one  single CollaborationAdapter .  It  is  just  a placeholder for the several needed, but unknown at this time.
+
+Shown inside the local Context are DiscussionService and SchedulingService . These represent the Domain Services that could be used to manage discussions and calendar entries in the collaboration system. The actual mechanisms  will  be  determined  by  Customer-Supplier  negotiations  between the teams, which are implemented in Integrating Bounded Contexts (13) .
+
+The  team  can  understand  part  of  their  model  now.  What  happens,  for example, when a discussion has been created and the result is communicated to  the  local  Context?  The  asynchronous  component-either  RPC  client  or message handler-tells the Product to attachDiscussion() ,  passing it a new Discussion Value instance. All local Aggregates with pending remote resource interests will be cared for in this fashion.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000094_d8e360f94fdf150686ebdd35fb34767265318dde0773d0dd336266cb025b7aeb.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000095_1332e1b5f33f31b1c8588a8a1aa99945e7d2a72ecb645171c4fcf0e635f870aa.png)
+
+Figure 3.10 A zoom in on an Anticorruption Layer and Open Host Service of the possible integration components between Agile Project Management Context and Collaboration Context
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000096_319392cf0160f8840a14e98a62e6e713bec753188f3b5fba8c9a604a2e9b6aed.png)
+
+This examination has gone into some useful detail on Context Maps. We need to exercise restraint, however, as we can quickly reach the point of diminishing  returns.  Perhaps  we  could  have  included Modules (9) ,  but  those  have been placed in their  own  dedicated  chapter.  Include  any  relevant,  high-level elements that will lead to vital team communication. On the other hand, push back when detail seems ceremonious.
+
+Produce Context Maps that you can post on the wall. You can upload them to a team wiki as long as it's not just the project's attic where nobody ever goes. Keep discussions about the project flowing back to your Map to stimulate useful refinements.
+
+## Wrap-Up
+
+That was definitely a productive session with Context Mapping.
+
+-  We've discussed what Context Maps are, what help they provide to your team, and how you can create them with ease.
+-  You took a detailed look into SaaSOvation's three Bounded Contexts and their supporting Context Maps.
+-  Using mapping, you zoomed in on the integrations between each of the Contexts.
+-  You examined the boundary objects supporting Anticorruption Layer and their interactions.
+-  You saw how to produce a Translation Map showing the local mapping between REST-based resources and the corresponding object in the consuming domain model.
+
+Not every project will need the level of detail demonstrated here. Others may require more. The trick is to balance the need to understand with practicality and not pile too much detail into this level. Remember that we are likely not going to keep a very detailed graphical Map up-to-date far into the project. We'll benefit most from what can be posted on a wall, enabling team members to point at them during discussions. If we reject ceremony and embrace simplicity and agility, we'll produce useful Context Maps that help us move forward rather than bog down the project.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000097_763821da2dc668f93e792c38b9e2f181e31501452a0d9e3833f3d1b92d5e65d6.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000098_dcdf334bcab59567ceb638822604c11adc7c51eb46179add29b50554284f96b5.png)
+
+This page intentionally left blank
+
+## Chapter 4
+
+## Architecture
+
+Architecture should speak of its time and place, but yearn for timelessness.
+
+-Frank Gehry
+
+One of the big advantages of DDD is that it doesn't require the use of any specific architecture. Since our carefully crafted Core Domain (2) resides at the heart of a Bounded Context (2) , it enables one or more architectural influences to  play  a  role  in  the  entire  application  or  system. 1 Some architectural influences surround the domain model and have a broad overall effect, while others address specific demands. The goal is to use just the right choices and combinations of architecture and architecture patterns.
+
+The  real  demands  for  specific  software  qualities  should  drive  the  use  of architectural  styles  and  patterns.  The  ones  chosen  must  be  proven  to  meet or  exceed  required  qualities.  Avoiding  architectural  style  and  pattern  overuse is just as important as using the right ones. Allowing real, genuine quality demands to drive what we do with architecture is a beneficial risk-driven approach [Fairbanks]. That way we use architecture only to mitigate the risk of failure, not to increase our risk of failure by using an architectural style or pattern that cannot be justified. Thus, we must be able to justify every architectural influence in use, or we eliminate it from our system.
+
+Our ability to justify the selection of any architectural styles and patterns is  limited to the available functional requirements, such as use cases or user stories, and even scenarios specific to the domain model. In other words, you cannot determine the necessary software qualities without functional requirements. Lacking these kinds of inputs, we actually cannot make sound architectural choices, which implies that employing a use-case-driven architecture approach to software development is still applicable today.
+
+1.  This chapter is about architectural styles, application architectures, and architecture patterns. A style describes how to implement a specific architecture, while an architecture pattern explains how to address a specific concern within an architecture but is broader than a design pattern. I suggest you not get too hung up on the differences, but just understand that DDD can reside at the heart of a lot of surrounding architectural influences.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000099_d2719ff7e77ddc31a7d0ed285d455cdec2f11b8f92de6693338813cac1587761.png)
+
+## Road Map to This Chapter
+
+-  Listen in on a retrospective interview with SaaSOvation's CIO.
+-  Learn how the trusty Layers Architecture has been improved on by DIP and Hexagonal .
+-  See how Hexagonal can support Service-Oriented and REST.
+-  Gain  perspective  on Data  Fabric or Grid-Based  Distributed  Cache and Event-Driven styles.
+-  Consider how a newer architecture pattern called CQRS helps with DDD.
+-  Learn from the architectures employed by the SaaSOvation teams.
+
+## Architecture Isn't a Coolness Factor
+
+The following architectural styles and patterns are not a grab bag of cool tools we should apply everywhere possible. Instead, use them only where applicable, where they mitigate a specific risk that would otherwise increase the potential for project or system failure.
+
+[Evans] focused on the Layers Architecture.  That  being  so,  SaaSOvation  first concluded that DDD could only be effective using that well-known pattern. It took the teams some time to understand that DDD  is  considerably  more  adaptable than that, even though Layers was most popular at the time [Evans] was written.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000100_71b5d40adb3d20ae593f4990a35395268a6e4f74e28391858b3ba73f52a5ee3d.png)
+
+The  principles  of  a  Layers  Architecture  can  still  be  used  to  govern  good decision making. We don't need to stop there, however, as we'll consider some of  the  more  modern  architectures  and  patterns  that  can  be  leveraged  where needed. This will prove the versatility and broad applicability of DDD.
+
+For sure, SaaSOvation did not need every architectural influence all at once, but its teams needed to choose wisely from the options available to them.
+
+## Interviewing the Successful CIO
+
+To give a bit of a perspective on why each of the architectural influences discussed  in  the  chapter  might  be  used,  we're  going  to  leap  a  decade  into  the future and talk to SaaSOvation's CIO. While the company's beginnings were humble,  architectural  decision  helped  it  succeed  each  step  of  the  way.  Let's tune in to the program TechMoney , with Anchor Maria Finance-Ilmundo . . .
+
+Maria : Tonight, my exclusive interview is with Mitchell Williams, CIO of the enormously successful SaaSOvation. We're continuing our 'Know Your Architectural  $tyles'  series.  Tonight's  focus  is  on  how  selecting  the  right architecture  can  bring  enduring  success.  Welcome  to  the  show,  Mitchell, and thanks for joining us.
+
+Mitchell : I'm glad to be here again, Maria. It's always a pleasure.
+
+Maria :  Can you take us through some of the early architectural decisions you went with, and why?
+
+Mitchell : Of course. Believe it or not, we actually started off planning our projects  around  desktop  deployment.  Our  team  designed  for  the  desktop application to persist to a central database. They chose the Layers Architecture for this approach.
+
+Maria : Did that make sense?
+
+Mitchell : Well, we believe it did, especially since we were only dealing with a single application tier plus the central database. It would have served us well for a simple client-server style.
+
+Maria : But the tables soon turned, didn't they?
+
+Mitchell :  They  certainly  did.  We  actually  joined  forces  with  a  business partner  and  decided  to  move  forward  with  an  SaaS  subscription  model. We sought some significant funding to support our efforts and landed it. We  determined  that  our  agile  project  management  application  would  go on the back burner for a while until we first developed a suite of collaboration tools. This had a twofold benefit. First, we'd enter the accelerating collaboration market, but then we'd also have a natural feature add-on for the project management application. You know, collaborating on software development project deliverables.
+
+Maria : Interesting. It all sounds quite grassroots. Where did these decisions lead you?
+
+Mitchell : As the software complexity increased, we needed to manage quality  by  introducing  unit  and  feature  testing  tools.  To  do  that,  we  kind  of turned Layers on its ear by introducing the Dependency Inversion Principle, or DIP. It was important since the team could easily test by stubbing out the UI and Infrastructure Layers and concentrate on testing the Application and Domain. In fact, we could develop the UI in isolation and delay decisions on persistence technology for some time. And it actually wasn't a big leap away from Layers. The team had a high comfort level.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000101_9a9846241849e24560f62ddcbe898144d1708713956b9ef84ac3762d82aebf5f.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000102_08d810112272525510218b39c53795f5b45b05489f0cf79b8387a3c31233ecfb.png)
+
+Maria : Wow, swapping out the UI and persistence! That seems risky. How tough was it?
+
+Mitchell : Well, actually not so much. As it turns out, the fact that we were using the Domain-Driven Design tactical patterns didn't hurt us at all. Since we used the Aggregate pattern and Repositories, we could develop against in-memory persistence behind the Repository interfaces and swap in a persistence mechanism after we had time to consider our options.
+
+Maria
+
+: Dude.
+
+Mitchell
+
+: Totally.
+
+Maria
+
+: And?
+
+Mitchell : Bang. Things were off and running. We delivered CollabOvation and ProjectOvation, with successive profitable quarters.
+
+Maria : Ka-ching.
+
+Mitchell : Got that right. We then decided that we wanted to support mobile devices in addition to desktop browsers since mobile exploded and it got all over us. For that we'd use REST. Subscribers started asking for things like federated identity and security, as well as sophisticated project and time resource management tools. And then new investors wanted to see reports on their preferred business intelligence dash.
+
+Maria :  Amazing.  So  mobile  wasn't  the  only  thing  exploding.  Let  me  get your take on dealing with all that.
+
+Mitchell :  The  team  decided  that  migrating  to  a  Hexagonal  Architecture was an appropriate choice to handle all these additions. They found that the Ports and Adapters approach gave them the ability to add new kinds of clients almost ad hoc. The same went for new output Port types, like innovative new persistence mechanisms, such as NoSQL, and messaging capabilities. And that all spelled c-l-o-u-d.
+
+Maria : So you had confidence in those modifications?
+
+Mitchell : Absolutely.
+
+Maria : Huge. If you don't buckle under all that, it probably means you made great choices that leveraged your ability to go even further.
+
+Mitchell : Exactly. By now we were adding new tenants by many hundreds every month. We actually added a service to migrate existing data from legacy corporate collaboration tools into our cloud. The team decided that an SOA focus allowed them to aggregate this data nicely using Mule's Collection Aggregator. It could sit on the service boundary while still using the Hexagonal Architecture.
+
+Maria : Ah, so you didn't introduce SOA because it sounded cool. You used it when it made sense. Perfect. We haven't seen good decision making like that throughout the industry.
+
+Mitchell :  Yes,  Maria, and that's really the approach we took all along. It was our blueprint for success. For example, in time we added TrackOvation, our defect tracking software, which integrated with ProjectOvation. And as ProjectOvation features grew, the UI became more and more sophisticated. The Product Owner's dashboard of all Scrum products and defects in their systems updated with each application command and corresponding event. Since  Product  Owners  across  subscribing  tenants  had  different  preferred views, it made the dashboards even more complex. And, naturally, we also had to support the mobile devices. The team considered the merits of including a CQRS architecture pattern.
+
+Maria : CQRS? Come on, Mitch, that's pretty heady. Was that one of those uncertainties that we don't know how it plays out? What about walking off the plank there?
+
+Mitchell :  No,  not  really.  Once  the  team  had  a  valid  reason  to  use  CQRS to ease the friction between the command and query universes, it was full steam ahead, and they never looked back.
+
+Maria :  Exactly.  Wasn't that about the time that your subscribers starting asking for features that required distributed processing?
+
+Mitchell :  Yes;  if  we  didn't  get  this  one  right  we'd  soon  be  drowning  in complexity. Some features required running through a series of distributed processes before delivering an answer. The ProjectOvation team would not make the user wait for these potentially long-running tasks and risk timeouts. They introduced a fully Event-Driven Architecture, employing a classic Pipes and Filters pattern to manage these.
+
+Maria : But that wasn't the end of your journey down Complexity Lane, was it? How tough was that?
+
+Mitchell :  LOL.  No,  no.  Never  would  that  happen,  it  seemed.  However, when you have a smart team, it makes Complexity Lane like a stroll in the park. In actuality, the Event-Driven Architecture simplified many areas of the expanding suite of systems.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000103_c017e61e56fdeca9a8720a002f6c0b97b680f64936e8c8a787c8436097d361f6.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000104_fba362b48617f9b573c1fbf4d9f2cdb576e035255a139d26df3d2dd13039f517.png)
+
+Maria : True, that. Go on. That was an obvious opportunity. We're getting to my favorite part of the story. You know . . . [eyes twinkle $$$]
+
+Mitchell : Our architecture allowed us to scale so rapidly and manage change so well that RoaringCloud acquired SaaSOvation for, well . . . that's all a matter of public record.
+
+Maria : I'd say, and very public. At $50 per common share that was around $3 billion worth of public record.
+
+Mitchell : Good memory for financial facts! And that was serious incentive to get the integration right. They brought a vast number of new subscribers, and the user base actually started to stress the ProjectOvation infrastructure. It was now time to distribute and parallelize the Pipes and Filters. That called for adding in long-running processes, sometimes called Sagas.
+
+Maria : Nice. Can you categorically say that that was fun?
+
+Mitchell : Fun indeed, but necessary even more so.
+
+Maria : And it seems that the fun would never end. Probably one of the least expected and even shocking chapters in your long success story came next.
+
+Mitchell :  You  know  it.  Now  that  RoaringCloud  had  a  monopoly  in  the marketplace due to the plethora of subscription applications and millions of users, the government took notice and began regulating the industry. A new law was passed to require RoaringCloud to track every change to a project. Actually, the best way to handle this compliance situation as a natural part of the domain model was to use Event Sourcing.
+
+Maria : Man, you were poised. That's crazy. I mean, really, really crazy.
+
+Mitchell : That's a crazy good problem to have, really.
+
+Maria : What's so amazing to me is that through all these years, the core of your applications was based on DDD software models. Yet, obviously DDD didn't hurt you. You seemed to not experience hardships because of it.
+
+Mitchell :  In  fact  it  was  quite  the  opposite.  We  firmly  believe  that  it  was because we chose DDD early, and took the time to understand it thoroughly, that the business situations we could not escape-and didn't want to-were handled in stride.
+
+Maria :  Well,  as  I  like  to  say,  'Ka-ching!'  Thanks  again,  Mitchell.  We've learned  how  selecting  the  right  architecture  can  bring  enduring  success, right here on 'Know Your Architectural $tyles.'
+
+Mitchell : My pleasure, Maria. Thanks for inviting me.
+
+That was a bit quirky, but helpful. It demonstrates how the architectural influences discussed in the following sections can be used with DDD, and how to introduce each at just the right time.
+
+## Layers
+
+The Layers Architecture [Buschmann et al.] pattern is considered by many to be the granddaddy of all. It supports N-tier systems and is, thus, commonly used in Web, enterprise, and desktop applications. Here we rigorously separate the various concerns of our application or system into well-defined layers.
+
+Isolate the expression of the domain model and the business logic, and eliminate any dependency on infrastructure, user interface, or even application logic that is not business logic. Partition a complex program into layers. Develop a design within  each  layer  that  is  cohesive  and  that  depends  only  on  the  layers  below. [Evans, Ref, p. 16]
+
+Figure 4.1 shows the layers common to a DDD application that uses a traditional Layers Architecture. Here the isolated Core Domain resides in one layer
+
+Figure 4.1 The traditional Layers Architecture in which DDD is applied
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000105_d4993e7f4c02f4dc75ba7e3319f12c93ae739649230c1ccb4ebf6983c9559df6.png)
+
+119
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000106_6f24723144776bc4ee1888739d75631f851eddad8ed6b04c03f554e20bf06c36.png)
+
+in  the  architecture.  Above  it  are  the User Interface and Application Layers . Below it is the Infrastructure Layer .
+
+An essential rule of this architecture is that each layer may couple only to itself and below. There are distinctions within the style. A Strict Layers Architecture is one that allows coupling only to the layer directly below. A Relaxed Layers Architecture , however, allows any higher-level layer to couple to any layer below it. Since both the User Interface and the Application Services often need to employ infrastructure, many, if not most, systems are based on Relaxed Layers .
+
+Lower layers may actually loosely couple to higher layers, but this is only by means of a mechanism such as Observer or Mediator [Gamma et al.]; there is never a direct reference from lower to higher. Using Mediator , for example, the higher layer would implement an interface defined by the lower layer, then pass the implementing object as an argument to the lower layer. The lower layer uses the implementing object with no knowledge of where it resides architecturally.
+
+The  User  Interface  is  to  contain  only  code  that  addresses  user  view  and request concerns. It must not contain domain/business logic. Some may conclude that since validation is required by the User Interface, it must contain business logic. The kinds of validation found in the User Interface are not the kinds that belong in the domain model (only). As discussed in Entities (5) , we still want to limit coarse-grained validations that express deep business knowledge only to the model.
+
+If the User Interface components use objects from the domain model, it is generally limited to rendering its data on the glass. If using this approach, a Presentation Model (14) can be used to prevent the view itself from knowing about domain objects.
+
+Since a user may be either a human or other systems, sometimes this layer will provide the means to remotely invoke the services of an API in the form of an Open Host Service (13).
+
+Components in the User Interface are direct clients of the Application Layer. Application  Services  (14) reside  in  the  Application  Layer.  These  are  different from Domain Services (7) and  are  thus  devoid  of  domain logic. They may control persistence transactions and security. They may also be in charge of  sending  Event-based  notifications  to  other  systems  and/or  for  composing e-mail messages to be sent to users. The Application Services in this layer are the direct clients of the domain model, though themselves possessing no business logic. They remain very lightweight, coordinating operations performed against domain objects, such as Aggregates (10) . They are the primary means of expressing use cases or user stories on the model. Hence, a common function of an Application Service is to accept parameters from the User Interface, use a Repository (12) to obtain an Aggregate instance, and then execute some command operation on it:
+
+```
+@Transactional public void commitBacklogItemToSprint( String aTenantId, String aBacklogItemId, String aSprintId) { TenantId tenantId = new TenantId(aTenantId); BacklogItem backlogItem = backlogItemRepository.backlogItemOfId( tenantId, new BacklogItemId(aBacklogItemId)); Sprint sprint = sprintRepository.sprintOfId( tenantId, new SprintId(aSprintId)); backlogItem.commitTo(sprint); }
+```
+
+If our Application Services become much more complex than this, it is probably an indication that domain logic is leaking into the Application Services, and that the model is becoming anemic. So it's a best practice to keep these model clients very thin. When a new Aggregate must be created, an Application Service would use a Factory (11) or the Aggregate's constructor to instantiate it and then use the corresponding Repository to persist it. An Application Service  may  also  use  a  Domain  Service  to  fulfill  some  domain-specific  task designed as a stateless operation.
+
+When  the  domain  model  is  designed  to  publish Domain  Events  (8) , the Application Layer may register subscribers to any number of Events. Doing so enables the Events to be stored, forwarded, and otherwise dealt with as one of the application's duties. This frees the domain model to be aware of only its own core concerns and enables the Domain Event Publisher (8) to remain lightweight and liberated from messaging infrastructure dependencies.
+
+Since the domain model possessing all business logic is discussed at great length  in  the  other  chapters,  it  is  not  repeated  here.  Nonetheless,  there  are some challenges associated with the domain and the use of traditional Layers. Using Layers may require the Domain Layer to make some limited use of Infrastructure. I'm not saying that core domain objects would do this, as we should absolutely avoid that altogether. However, adhering to the definition of Layers may require implementations of some interfaces in the Domain Layer that depend on technologies provided by Infrastructure.
+
+For example, Repository interfaces require implementations that use components, such as persistence mechanisms, housed in Infrastructure. What if we just implemented the Repository interfaces in Infrastructure? Since the Infrastructure Layer  is  below  the  Domain  Layer,  the  references  from  Infrastructure upward to Domain would violate the rules of Layers Architecture. Still, avoiding that does not mean that the primary domain objects would couple to Infrastructure. To avoid that we might use implementation Modules (9) to hide technical classes:
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000107_36916302071c845c2445380beb39142b050ad2dab5fe960590ab8fc6559cca59.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000108_432cd48632c23c9bc9f731097cf2df77d2e3f0eea9a666cfb82d143a2eb81b6a.png)
+
+com.saasovation.agilepm.domain.model.product.impl
+
+As indicated in Modules (9) , MongoProductRepository could be housed in that package. This is not the only way to address this challenge, however. We might decide instead to implement such interfaces in the Application Layer, which would uphold the rules of Layers. Figure 4.2 provides a glimpse of this approach. But doing that may seem a bit distasteful.
+
+There  is  a  better  way,  as  discussed  in  the  section  entitled  'Dependency Inversion Principle.'
+
+In  a  traditional  Layers  Architecture  the  Infrastructure  is  at  the  bottom. Things like persistence and messaging mechanisms reside there. Messages may include those sent by enterprise messaging middleware systems or more basic e-mails (SMTP) or text messages (SMS). Think of all the technical components and frameworks that provide low-level services for the application. Those are usually considered to be part of Infrastructure. The higher-level Layers couple to the lower-level components to reuse the technical facilities provided. That being the case, again we want to reject any notion of coupling core domain model objects to Infrastructure.
+
+Figure 4.2 The Application Layer could house some technical implementations of interfaces defined by the Domain Layer.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000109_89f86183e2edbee8be75e17e114b84eb7976d16e384f7e627bf78e5c6b5ca772.png)
+
+The SaaSOvation teams noted that having the Infrastructure Layer  at  the  bottom  posed  some  disadvantages.  For  one  it made implementing technical aspects required by the Domain Layer kind of bitter-tasting since the rules of Layers had to be violated. And actually their code was difficult to test. How could they overcome this disadvantage?
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000110_8bca670e7b19e0afa80f53d7176eccb3d85719d39eeb63f4e671074e62a9cf03.png)
+
+Could  we  whip  up  something  a  bit  sweeter  if  we  adjusted  the  order  of Layers?
+
+## Dependency Inversion Principle
+
+There is a way to improve on the traditional Layers Architecture by adjusting the  way  dependencies  work.  The  Dependency  Inversion  Principle  (DIP)  was postulated by Robert C. Martin and described in [Martin, DIP]. The formal definition states:
+
+High-level modules should not depend on low-level modules. Both should depend on abstractions.
+
+Abstractions  should  not  depend  upon  details.  Details  should  depend  upon abstractions.
+
+The  essence  of  this  definition  is  communicating  that  a  component  that provides low-level services (Infrastructure, for this discussion) should depend on  interfaces  defined  by  high-level  components  (for  this  discussion,  User Interface, Application, and Domain). While there are several ways to express an architecture that uses DIP, we could boil it down to the structure shown in Figure 4.3.
+
+## Does DIP Really Support All Those Layers?
+
+Some would conclude that DIP has only two layers, one at the top and one at the bottom. The one at the top would implement interface abstractions defined in the layer at the bottom. Adjusting Figure 4.3 to fit this, the Infrastructure Layer would be the one at the top, and the User Interface Layer, Application Layer, and Domain Layer would constitute one at the bottom. You may or may not prefer this view of a DIP architecture. Don't worry; the Hexagonal [Cockburn] or Ports and Adapters Architecture is where this is all headed.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000111_ed814c4bf33e89aaafff6bb3bcb338610f70bec95942ced0a2f0d533571f5c17.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000112_8dd2e36f56da9f8afde774331e39836c674224a06ffd96e8ae6a345ce28c3a1e.png)
+
+Figure 4.3 The possible Layers when the Dependency Inversion Principle is used. We move the Infrastructure Layer above all others, enabling it to implement interfaces for all Layers below.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000113_bf0ddf7c657784885e307c03bb5d0ace4272d4937dadfd0fa55e4cfa7e7ead7a.png)
+
+From the  architecture  of  Figure  4.3,  we  would  have  a  Repository  implemented in Infrastructure for an interface defined in Domain:
+
+```
+package com.saasovation.agilepm.infrastructure.persistence; import com.saasovation.agilepm.domain.model.product.*; public class HibernateBacklogItemRepository implements BacklogItemRepository  { ... @Override @SuppressWarnings("unchecked") public Collection<BacklogItem> allBacklogItemsComittedTo( Tenant aTenant, SprintId aSprintId) { Query query = this.session().createQuery( "from -BacklogItem as _obj_ " + "where _obj_.tenant = ? and _obj_.sprintId = ?"); query.setParameter(0, aTenant); query.setParameter(1, aSprintId); return (Collection<BacklogItem>) query.list(); } ... }
+```

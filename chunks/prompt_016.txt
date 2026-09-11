@@ -1,0 +1,474 @@
+Bạn là chuyên gia dịch thuật kỹ thuật Anh → Việt, chuyên tài liệu kỹ thuật/công nghệ, có kinh nghiệm dịch như biên dịch viên bản ngữ chuyên nghiệp. Nhiệm vụ: dịch TOÀN BỘ nội dung Markdown dưới đây sang tiếng Việt, không bỏ sót bất kỳ phần nào. Đây là MỘT PHẦN (chunk) của một tài liệu lớn hơn, hãy dịch độc lập đoạn này, không thêm lời mở đầu/kết luận về việc đây chỉ là một phần.
+
+QUY TẮC BẮT BUỘC — VI PHẠM LÀ SAI:
+
+1. XÁC ĐỊNH LOẠI TÀI LIỆU TRƯỚC KHI DỊCH
+   - Tự phân tích nội dung để xác định loại tài liệu (kỹ thuật/lập trình, tài chính, bảo hiểm, pháp lý, marketing, học thuật, vận hành, sản phẩm...).
+   - Chọn văn phong và thuật ngữ CHUẨN NGÀNH tương ứng trong tiếng Việt, nhất quán xuyên suốt.
+
+2. VĂN PHONG — MƯỢT NHƯ NGƯỜI DỊCH, KHÔNG GIẢM CHÍNH XÁC
+   - Dịch mượt, tự nhiên, đúng ngữ pháp tiếng Việt — như biên dịch viên bản ngữ dịch tay, KHÔNG dịch máy móc kiểu word-by-word.
+   - Được phép đảo cấu trúc câu, tách/gộp câu cho tự nhiên, miễn giữ nguyên 100% ý nghĩa, thông tin, logic, số liệu gốc.
+   - Khi "mượt mà" và "chính xác" xung đột → LUÔN ưu tiên chính xác.
+
+3. DỊCH ĐẦY ĐỦ 100%
+   - Không tóm tắt, không rút gọn, không lược bỏ đoạn/câu/mục/bullet nào.
+   - Số lượng heading, đoạn văn, bảng, code block ở output PHẢI khớp 1:1 với input.
+   - Đoạn dài dịch hết, không cắt ngắn.
+
+4. GIỮ NGUYÊN THUẬT NGỮ TIẾNG ANH
+   - Thuật ngữ chuyên ngành (tên công nghệ, framework, pattern, tên hàm/biến, acronym...) giữ nguyên tiếng Anh, không dịch, không phiên âm.
+   - Ngay sau lần xuất hiện ĐẦU TIÊN của mỗi thuật ngữ, thêm chú thích ngắn trong ngoặc giải thích nghĩa bằng tiếng Việt.
+   - Các lần xuất hiện sau KHÔNG cần chú thích lại.
+
+5. GIỮ NGUYÊN FORMAT — RẤT QUAN TRỌNG
+   - VỀ ẢNH (làm trước khi dịch): ĐẾM chính xác số lượng thẻ ảnh dạng ![...](...) trong đoạn gốc bên dưới. Output PHẢI có ĐÚNG số lượng thẻ ảnh đó, không được thiếu một cái nào — kể cả ảnh không có caption, không rõ ngữ cảnh, hay trông như ảnh trang trí/lặp lại. Copy nguyên URL 100%, không sửa, không rút gọn, không thay bằng mô tả text.
+   - Giữ cấp độ heading (#, ##, ###...), giữ đúng số lượng heading.
+   - Giữ cấu trúc bảng (số cột, số hàng, alignment, header row).
+   - Giữ code block (```lang ... ```) — KHÔNG dịch code; comment được dịch tại chỗ; **được phép reformat code, tự động xuống dòng/indent chuẩn, không giữ nguyên code 1 dòng; không đổi logic/cú pháp**.
+   - Giữ blockquote, callout/note/warning (>, [!NOTE], [!WARNING]...).
+   - Giữ list, nested list, checkbox (- [ ]).
+   - Giữ nguyên link thường ([text](url)) — chỉ dịch phần text hiển thị, TUYỆT ĐỐI giữ nguyên URL.
+   - TRƯỚC KHI TRẢ KẾT QUẢ: tự đếm lại số heading, số ảnh, số dòng ``` giữa bản gốc và bản dịch của bạn, nếu lệch phải sửa lại cho khớp.
+
+6. GIẢI THÍCH ẨN DỤ / KHÁI NIỆM KHÓ
+   - Với ẩn dụ, thành ngữ, khái niệm trừu tượng khó hiểu với người Việt, thêm khối giải thích riêng ngay sau đoạn đó:
+     > 💡 **Giải thích thêm:** [giải thích dễ hiểu, đủ chuyên sâu, có ví dụ thực tế]
+     > Nguồn tham khảo: [link cụ thể để kiểm chứng]
+   - CHỈ đưa link nếu chắc chắn tồn tại và đúng nội dung — không bịa link.
+   - Không tìm được nguồn tin cậy → ghi rõ: "(Không có nguồn trích dẫn xác thực — cần tự kiểm chứng thêm)".
+
+7. CHỐNG HALLUCINATION (BẮT BUỘC)
+   - Không tự thêm thông tin/số liệu/ví dụ/kết luận KHÔNG có trong bản gốc — trừ phần giải thích ẩn dụ ở mục 6 (phải gắn nhãn rõ là phần bổ sung).
+   - Câu gốc mơ hồ → dịch sát nghĩa nhất, nếu không chắc ghi chú: "[CẦN KIỂM CHỨNG: câu gốc mơ hồ]".
+   - Không tự sửa/thêm/bớt logic kỹ thuật gốc. Không bịa trích dẫn/số liệu/link vô căn cứ.
+   - Không tự tóm tắt các đoạn dài thành ý chính rồi diễn giải lại — phải dịch từng câu.
+
+8. OUTPUT
+   - Trả về DUY NHẤT nội dung Markdown đã dịch, đặt trong 1 code block (```markdown ... ```).
+   - Không thêm lời dẫn/lời chào/giải thích ngoài code block.
+   - Không đổi tiêu đề gốc trừ khi cần dịch tiêu đề.
+
+--- NỘI DUNG GỐC CẦN DỊCH (một phần của tài liệu) ---
+
+With all outstanding items for a given product, we iterate over them and total each of the ratings of their BusinessPriority . The totals that result from iteratively  calculating  are  used  to  instantiate  a  new BusinessPriorityTotals ,  which  is  returned  to  the  client.  There  is  no  need  for  a  Service calculation  process  to  be  complex,  though  it  could  be  a  necessity.  This  one happens to be rather simple.
+
+Note from this example that you would absolutely not want this logic to reside in an Application Service. Even if you consider the summing calculation in the for loop to be trivial, it is still business logic. But there's another reason:
+
+```
+BusinessPriorityTotals businessPriorityTotals = new BusinessPriorityTotals( totalBenefit, totalPenalty,
+```
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000295_44cac771d4321797eed28b1139ae74acba7a2b8b1cee068eff909797c7a5835d.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000296_f2f4e5cecb5eca5f10867d33a291e2e8104b3b3c96948780e1880d7626e4755e.png)
+
+```
+totalBenefit + totalPenalty, totalCost, totalRisk);
+```
+
+As the BusinessPriorityTotals is instantiated, its totalValue attribute is derived from summing the totalBenefit and totalPenalty . This logic is domain specific and must not leak into the Application Layer. We could argue that the BusinessPriorityTotals constructor should itself arrange for this to be derived from the two passed-in parameters. While that might be a way to improve the model, doing so wouldn't be a justification for moving the remaining calculations into an Application Service.
+
+Although we don't house this business logic in an Application Service, an Application Service does serve as the client to the Domain Service:
+
+```
+public class ProductService ... { ... private BusinessPriorityTotals productBusinessPriority( String aTenantId, String aProductId) { BusinessPriorityTotals productBusinessPriority = DomainRegistry .businessPriorityCalculator() .businessPriorityTotals( new TenantId(aTenantId), new ProductId(aProductId)); return productBusinessPriority; } }
+```
+
+In this case a private method in the Application Service is responsible for requesting the total business priority for the product. Here the method may be supplying just one part of the payload returned to the client of ProductService , such as the user interface.
+
+## Transformation Services
+
+The  more  technical  Domain  Service  implementations  that  definitely  live  in Infrastructure are often those used for integration. For that reason I have delegated such examples to Integrating Bounded Contexts (13) . There you'll see the Service interfaces, implementation classes, and also Adapters [Gamma et al.] and translators used by the implementations.
+
+## Using a Mini-Layer of Domain Services
+
+Sometimes it  may  be  desirable  to  create  a  'mini-layer'  of  Domain  Services above  the  rest  of  your  domain  model  Entities  and  Value  Objects.  As  I  previously  indicated,  this  will  often  lead  down  the  precarious  path  of  Anemic Domain Model, which should be considered an anti-pattern.
+
+Yet, there are some systems where designing in the mini-layer of Domain Services makes more sense than in others and will not lead to Anemic Domain Model. It depends on the characteristics of the domain model, and in the case of the Identity and Access Context this is actually quite helpful.
+
+If  you  were  to  experience  working  in  such  a  domain  and  you  did  decide to produce a mini-layer of Domain Services, remember that such are always different  from  Application  Services  in  the  Application  Layer.  Address  transactions  and  security  as  application  concerns  in  Application  Services,  not  in Domain Services.
+
+## Testing Services
+
+We want to test our Services to make sure we gain a client perspective on how we should model. We want our domain-focused tests to reflect the way the model should be used, while at this point ignoring some of the finer software correctness focus.
+
+## Isn't It a Bit Late to Test?
+
+I have normally introduced tests before implementations. I did show some test-first code snippets earlier when analyzing the need for a Service. It's just that I found it more natural to discuss the implementation a bit earlier in this chapter, that's all. However, this does show that test-first isn't an absolute necessity, although it may limit a proper modeling focus.
+
+These tests demonstrate how to properly use AuthenticationService , and we first test against the successful authentication scenario:
+
+```
+public class AuthenticationServiceTest extends IdentityTest { public void testAuthenticationSuccess() throws Exception { User user = this.getUserFixture(); DomainRegistry .userRepository() .add(user);
+```
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000297_457ae7e640b9b99aa017da56207a4c63fcc8a56ba7326f9c69c421e974748249.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000298_4ad6166238006aabe5202cf55a69ec170dca2a4007b5f1a6def9132b9d8f3f7e.png)
+
+```
+UserDescriptor userDescriptor = DomainRegistry .authenticationService() .authenticate( user.tenantId(), user.username(), FIXTURE_PASSWORD); assertNotNull(userDescriptor); assertEquals(user.tenantId(), userDescriptor.tenantId()); assertEquals(user.username(), userDescriptor.username()); assertEquals(user.person().emailAddress(), userDescriptor.emailAddress()); } ...
+```
+
+This example shows how the AuthenticationService would be used by an Application Service client. It's a happy path where that client would successfully authenticate a user by passing expected parameters.
+
+Note that the Repository could be the full implementation, an in-memory variety, or mocked. It works fine to test with the full implementation if it is fast enough, as long as the test ends with a rollback of the transaction, preventing the buildup of extraneous instances across tests. The kind of Repository implementation used for testing is your choice.
+
+Next, we demonstrate a scenario under which authentication fails:
+
+```
+public void testAuthenticationTenantFailure() throws Exception { User user = this.getUserFixture(); DomainRegistry .userRepository() .add(user); TenantId bogusTenantId = DomainRegistry.tenantRepository().nextIdentity(); UserDescriptor userDescriptor = DomainRegistry .authenticationService() .authenticate( bogusTenantId, // bogus user.username(), FIXTURE_PASSWORD); assertNull(userDescriptor); }
+```
+
+This authentication test fails because we purposely pass in a TenantId that is different from the one in which the User was created. Then there is the invalid username condition to demonstrate:
+
+```
+public void testAuthenticationUsernameFailure() throws Exception { User user = this.getUserFixture(); DomainRegistry .userRepository() .add(user); UserDescriptor userDescriptor = DomainRegistry .authenticationService() .authenticate( user.tenantId(), "bogususername", user.password()); assertNull(userDescriptor); }
+```
+
+This authentication test scenario fails because we pass in a wrong username. There's one last failure scenario demonstrated in these tests:
+
+```
+public void testAuthenticationPasswordFailure() throws Exception { User user = this.getUserFixture(); DomainRegistry .userRepository() .add(user); UserDescriptor userDescriptor = DomainRegistry .authenticationService() .authenticate( user.tenantId(), user.username(), "passw0rd"); assertNull(userDescriptor); } }
+```
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000299_1b101a0479ae3fea3924b17e0763fd5c7963fc59f1d153ac42c46ecf9809dc05.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000300_01b9985beec547c8ec23cd8e0209d691e5df19c82ffd6f40ec9da4d2beec6c0a.png)
+
+This  test  provides  the  wrong  password,  which  causes  it  to  fail.  In  all  cases when  demonstrating  failure  scenarios  the UserDescriptor is  returned  as null . This is a detail that clients should take note of, as it indicates what they should expect when the user is not authenticated. It also indicates that failing authentication is not an exceptional error, just a normal possibility of this domain. Otherwise, if failing authentication were considered exceptional, we'd make the Service throw an AuthenticationFailedException .
+
+There are actually a few tests missing. I will leave it to you to test domain scenarios that include when a Tenant is not active and a User that is disabled. After that, you can create tests for the BusinessPriorityCalculator .
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000301_9dda28262153b1955567b5408cb28a5615abde6c626337004497b6a09d255c32.png)
+
+## Wrap-Up
+
+In this chapter we discussed what a Domain Service is and what it is not, and we analyzed when we should use a Service rather than an operation on an Entity or Value Object. There was more:
+
+-  You learned that recognizing a legitimate need for a Service is necessary to avoid overusing Services.
+-  You  were  reminded  that  overuse  of  Domain  Services  leads  to  Anemic Domain Model, an anti-pattern.
+-  You  saw  the  specific  steps  of  general  practice  when  implementing  a Service.
+-  You considered the pluses and minuses of using a Separated Interface.
+-  You reviewed a sample calculation process from the Agile Project Management Context .
+-  Finally,  you  considered  how  to  provide  exemplary  tests  to  demonstrate how to use the Services our models provide.
+
+Next, we are going to consider one of the newer DDD tactical modeling tools to appear on the scene. It's the powerful Domain Event building block pattern.
+
+## Chapter 8
+
+## Domain Events
+
+History is the version of past events that people
+
+have decided to agree upon.
+
+-Napoleon Bonaparte
+
+Use a Domain Event to capture an occurrence of something that happened in the domain. This is an extremely powerful modeling tool. Once you get the hang of using Domain Events, you will be addicted and wonder how you survived without them until now. To get started with them, all you have to do is find agreement on what your Events actually are.
+
+## Road Map to This Chapter
+
+-  Discover what Domain Events are, and when and why you should consider using them.
+-  Learn how Events are modeled as objects, and when they must be uniquely identified.
+-  Examine a lightweight Publish-Subscribe [Gamma et al.] pattern and how it fits with notifying clients.
+-  See which components publish Events and which ones are the subscribers.
+-  Consider why you'd want to develop an Event Store, how it can be done, and how one is used.
+-  Learn from SaaSOvation how Events are published to autonomous systems in different ways.
+
+## The When and Why of Domain Events
+
+Referencing  [Evans],  you  will  find  no  formal  definition  for  Domain  Events. The pattern was introduced in detail sometime after the book was published. To begin a discussion about implementing Events in the Domain (2) , consider the contemporary definition:
+
+Something happened that domain experts care about.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000302_408553df1886616960677931e15e4f6b4d8c29ea7b16b28f2ff218aa521cfe4b.png)
+
+Model information about activity in the domain as a series of discrete events. Represent each event as a domain object. . . . A domain event is a full-fledged part of the domain model, a representation of something that happened in the domain. [Evans, Ref, p. 20]
+
+How can we determine if something that happens in the domain is important to the domain experts? As we have discussions with them, we must listen carefully for clues. Consider a few key phrases to listen for when domain experts talk:
+
+-  'When . . .'
+-   'If that happens . . .'
+-   'Inform me if . . .' and 'Notify me if . . .'
+-   'An occurrence of . . .'
+
+Of course, with the 'Inform me if . . .' and 'Notify me if . . .' expressions it's not the notification that constitutes an Event. It's just a statement of the fact that someone in the domain wants to be notified as  a  result of an important occurrence, and that likely means the need to model an explicit Event. In addition, domain experts might say things such as 'If that happens, it isn't important, but if this happens, it is important.' (Replace that and this with something meaningful in your domain.) Depending on your organizational culture, there could be other triggering phrases.
+
+## Cowboy Logic
+
+AJ:    'In the event that I want my horse, I just yell, 'Here, Trigger!' and he comes runnin'. Of course, it never hurts to let him know I'm carryin' a cube of sugar.'
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000303_26c332a76a614679971a2c2675288649bdd479c732440953476fcef2e9c52526.png)
+
+There  will  probably  be  times  when  the  spoken  language  of  the  experts doesn't  lead  to  a  clear  reason  to  model  an  Event,  yet  the  business  situation may still call for it. Domain experts may or may not be aware of these kinds of requirements, and they could become known only as a result of cross-team discussions. This tends to happen when Events must be broadcast to external services, where the systems in your enterprise have been decoupled and occurrences throughout the domain must be communicated across Bounded Contexts (2) . Events like this get published, and subscribers are notified. As such Events are handled by subscribers, they may have far-reaching impact on local and remote Bounded Contexts.
+
+## Domain Experts and Events
+
+Although domain experts may not initially be aware of the need for every kind of Event, they should understand the reasons for them as they are included in discussions  about  specific  Events.  Once  there  is  clear  consensus,  new  Events  become  a formal part of the Ubiquitous Language (1) .
+
+When Events are delivered to interested parties, in either local or foreign systems, they are generally used to facilitate eventual consistency. This is purposeful and by design. It can eliminate the need for two-phase commits (global transactions) and support of the rules of Aggregates (10) . One rule of Aggregates states that  only  a  single  instance  should  be  modified  in  a  single  transaction,  and  all other dependent changes must occur in separate transactions. So other Aggregate instances in the local Bounded Context may be synchronized using this approach. We  also  bring  remote  dependencies  into  a  consistent  state  with  latency.  The decoupling helps provide a highly scalable and peak-performing set of cooperating services. It also allows us to achieve loose coupling between systems.
+
+Figure 8.1 shows how Events may originate, how they can be stored and forwarded, and where they may be used. Events may be consumed by the local, and foreign, Bounded Contexts.
+
+Figure 8.1 Aggregates create Events and publish them. Subscribers may store Events and then forward them to remote subscribers, or just forward them without storing. Immediate forwarding requires XA (two-phase commit) unless messaging middleware shares the model's data store.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000304_92adbef44ec5e466e174225c3907ece6830a4357abd9162743455f0964f7f619.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000305_ea443ff303707d0cc0e2f3529c14d0938bef936c77ac7ce481a8b4fbf68422c0.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000306_ce424a29adfa43de0572b51feef985247cd90d0a6d0252ffcf0648bd5c8dd0ef.png)
+
+Also, think of times when your systems normally perform batch processing. Perhaps during off-peak hours (possibly nighttime) your systems process daily maintenance of some kind, deleting obsolete objects, creating ones that are needed to support newly formed business situations, bringing some objects into agreement with others, and even notifying certain users that important things have happened. Often performing such batch processes requires you to execute  some  complex  queries  in  order  to  determine  the  business  situations that  require  attention.  The  calculations  and  procedures  to  address  them  are costly, and synchronizing all the changes requires large transactions. What if those pesky batch processes could be made redundant?
+
+Now think of the actual occurrences that took place throughout the previous day that led to the need to play catch-up later. If each of those discrete occurrences were captured by a single Event, and published to listeners in your own system, would that simplify things? Indeed, it would eliminate the complex queries because you would know exactly what occurred and when, providing the context of what needs to happen as a result . You would just do it as you receive notification of each Event. The processing currently dealt with in I/O and processor-intensive batches would be spread out into short spurts throughout the day, and your business situations would be in harmony much more quickly, ready for users to take the next steps.
+
+Does every Aggregate command result in an Event? Just as important as recognizing the need for an Event is knowing when to disregard extraneous happenings in the domain that experts or the business as a whole don't care about. Still, depending on the technical implementation aspects of the model or the goals of collaborating systems, it is possible that Events will be more prolific than domain experts directly require. Such is the case when using Event Sourcing (4, Appendix A) .
+
+I leave some of this to Integrating Bounded Contexts (13) , but we'll consider the essential modeling tools here.
+
+## Modeling Events
+
+Let's  take  a  requirement  from  the Agile  Project  Management  Context .  The domain experts indicated the need for an Event in this way (italics added for emphasis):
+
+Allow each backlog item to be committed to a sprint. It may  be  committed  only  if  it  is  already  scheduled  for release.  If  it  is  already  committed  to  a  different  sprint, it  must  be  uncommitted  first. When the backlog item is committed, notify the sprint and other interested parties.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000307_29c52eecb3916289686460b82c727a0ffcfaaaff7d3c1f995d72d1c597b684b0.png)
+
+When modeling Events, name them and their properties according to the Ubiquitous  Language  in  the  Bounded  Context  where  they  originate.  If  an Event is  the  result  of  executing  a  command  operation  on  an  Aggregate,  the name is usually derived from the command that was executed. The command is the cause of the Event, and hence the Event's name is rightly stated in terms of the command having occurred in the past. Per the example scenario, when we commit a backlog item to a sprint, we publish an Event that explicitly models what happened in the domain:
+
+Command operation:
+
+Event outcome:
+
+BacklogItem#commitTo(Sprint aSprint)
+
+BacklogItemCommitted
+
+The Event name states what occurred (past tense) in the Aggregate after the requested operation succeeded: 'The backlog item was committed.' The team could have modeled the name a bit more verbosely, such as BacklogItemCommittedToSprint ,  and  that  would  work.  However,  in  the  Ubiquitous Language of Scrum, a backlog item is never committed to anything besides a sprint. In other words, backlog items are scheduled for release, not committed to a release. There would be no doubt that this Event was published as a result of using the commitTo() operation. Thus, the Event is sufficiently named as it is, and the more compact name is easier to read. If your team likes a more verbose name in a specific case, however, use it.
+
+When publishing  Events  from  Aggregates,  it  is  important  that  the  Event name  reflect  the  past  nature  of  the  occurrence.  It  is  not  occurring  now.  It occurred previously. The best name to choose is the one that reflects that fact.
+
+After the right name is found, what properties should it have? For one, we need a timestamp that indicates when the Event occurred. In Java we could represent it as a java.util.Date :
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000308_e35f39c89a05944bc84ef98a43e6a38fb2699ce40f7129a7fa204740c2048da2.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000309_6bdcc7577ad8dddf5c6e4aaae00fab42c723ec9f94f26fc0e8a949b271d15227.png)
+
+```
+package com.saasovation.agilepm.domain.model.product; public class BacklogItemCommitted implements DomainEvent { private Date occurredOn; ... }
+```
+
+The minimal interface DomainEvent , implemented by all Events, ensures support  of  an occurredOn() accessor.  It  enforces  a  basic  contract  for  all Events:
+
+```
+package com.saasovation.agilepm.domain.model; import java.util.Date; public interface DomainEvent { public Date occurredOn(); }
+```
+
+Besides  this,  the  team  determines  what  other  properties  are  necessary  to represent  a  meaningful  occurrence  of  what  happened.  Consider  including whatever would be necessary to trigger the Event again. This normally includes the identity of the Aggregate instance on which it took place, or any Aggregate instances involved. Using this guidance, we might create properties of any parameters that caused the Event, if discussion proves they are useful. It's also possible that some resulting Aggregate state transition values could be helpful to subscribers.
+
+Here's what analysis of BacklogItemCommitted led to:
+
+```
+package com.saasovation.agilepm.domain.model.product; public class BacklogItemCommitted implements DomainEvent { private Date occurredOn; private BacklogItemId backlogItemId; private SprintId committedToSprintId; private TenantId tenantId; ... }
+```
+
+The team decided that the identity of the BacklogItem and that  of  the Sprint were  essential.  It  was  the BacklogItem that  the  Event  occurred  on,  and  the Sprint that  it  occurred with. But more was involved in this decision. The requirement that  drove  out  the  need  for  this  Event  indicated  specifically that the Sprint must be notified that a certain BacklogItem was committed to it.  Thus,  an  Event  subscriber  in  the  same Bounded Context must eventually inform the Sprint ,  and  it can do so only if BacklogItemCommitted has the SprintId .
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000310_e5757b288894bfb85d1e66bac677a9c15ce862f667c88c4f72e32bfcdb282520.png)
+
+Additionally, in the multitenancy environment, recording the TenantId is always necessary, even though it was not passed as a command parameter. It is needed for both the local and foreign Bounded Contexts. Locally the team would need the TenantId to query the BacklogItem and the Sprint from their respective Repositories (12) . Likewise, any foreign, remote systems that listen for a broadcast of this Event would need to know which TenantId it applies to.
+
+How do we model the behavioral operations supplied by Events? These are generally very simple because an Event is usually designed as immutable. First and foremost, the Event's interface has the express purpose to convey the properties that reflect its cause. Most Events will have a constructor that permits only  full  state  initialization,  along  with  a  complement  of  read  accessors  for each of its properties.
+
+Based on that, here's what the ProjectOvation team did:
+
+```
+package com.saasovation.agilepm.domain.model.product; public class BacklogItemCommitted implements DomainEvent { ... public BacklogItemCommitted( TenantId aTenantId, BacklogItemId aBacklogItemId, SprintId aCommittedToSprintId) { super(); this.setOccurredOn(new Date()); this.setBacklogItemId(aBacklogItemId); this.setCommittedToSprintId(aCommittedToSprintId); this.setTenantId(aTenantId); } @Override public Date occurredOn() { return this.occurredOn;
+```
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000311_0dc1d935324a038deb7c75d64a29ce164ed0fb5b03baee8b0d0a48852a8feec3.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000312_3d15c3b73417ff76d08d73abe01a06a6645e71b0ffc6ba0c2339a6637fd68bb2.png)
+
+## Chapter 8 DOMAIN EVENTS
+
+```
+} public BacklogItemId backlogItemId() { return this.backlogItemId; } public SprintId committedToSprintId() { return this.committedToSprintId; } public TenantId tenantId() { return this.tenant; } ... }
+```
+
+With this Event published, a subscriber in the local Bounded Context can use it to notify the Sprint that a certain BacklogItem was recently committed to it:
+
+```
+MessageConsumer.instance(messageSource, false) .receiveOnly( new String[] { "BacklogItemCommitted" }, new MessageListener(Type.TEXT) { @Override public void handleMessage( String aType, String aMessageId, Date aTimestamp, String aTextMessage, long aDeliveryTag, boolean isRedelivery) throws Exception { // first de-duplicate message by aMessageId ... // get tenantId, sprintId, and backlogItemId from JSON ... Sprint sprint = sprintRepository.sprintOfId(tenantId, sprintId); BacklogItem backlogItem = backlogItemRepository.backlogItemOfId( tenantId, backlogItemId); sprint.commit(backlogItem); } });
+```
+
+Per the system requirements, after handling the specific "BacklogItemCommitted" message, the Sprint is consistent with the BacklogItem that was recently committed to it. How the subscriber receives this Event is discussed later in this chapter.
+
+The team realized that there might be  a  bit  of  a  problem  here.  How  is  the Sprint updating transaction managed? We  could  have  the  message  handler do  that,  but  either  way  the  code  found in  the  handler  needs  some  refactoring. It  would be best for it to delegate to an
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000313_2718662afb1ef4afc32db4cea0956b56e32226812e1e5af23a64f43dad226081.png)
+
+Application Service (14) to harmonize with the Hexagonal Architecture (4) . Doing so would allow the Application Service to manage the transaction, which is a natural application concern. In that case the handler would now look like this:
+
+```
+MessageConsumer.instance(messageSource, false) .receiveOnly( new String[] { "BacklogItemCommitted" }, new MessageListener(Type.TEXT) { @Override public void handleMessage( String aType, String aMessageId, Date aTimestamp, String aTextMessage, long aDeliveryTag, boolean isRedelivery) throws Exception { // get tenantId, sprintId, and backlogItemId from JSON String tenantId = ... String sprintId = ... String  backlogItemId = ... ApplicationServiceRegistry .sprintService() .commitBacklogItem( tenantId, sprintId, backlogItemId); } });
+```
+
+In  this  example  Event  de-duplication  is  unnecessary  because  committing a BacklogItem to  a Sprint is  an  idempotent  operation.  If  the  specific BacklogItem is  already  committed  to  the Sprint ,  the  current  request  to commit it again is ignored.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000314_ba748acfc381b9e0c1b64fc885208964e593a1569921c7cb5d92060b33e96402.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000315_7b3ad5e504d97f15c8b942abcd665f53bfb4d9c03f33adb6a0a37fffb33b50f2.png)
+
+It may be necessary to provide additional state and behavior if subscribers require more than the indication of the Event's cause. This could be conveyed by enriched state (more properties) or operations that derive richer state. Subscribers thus avoid querying back on the Aggregate from which the Event was published, which could be needlessly difficult or expensive. Event enrichment may be more common when using Event Sourcing because an Event used for persistence may need additional state when also published out of the Bounded Context. Examples of Event enrichment are provided in Appendix A.
+
+## Whiteboard Time
+
+-  List the kinds of Events that already occur in your domain but that aren't being captured.
+-  Make note of how making them an explicit part of your model would improve your design.
+
+It might be easiest to identify Aggregates that have dependencies on the state of other Aggregates, where eventual consistency is necessary.
+
+To derive richer state using operations, make sure that any additional Event behaviors are Side-Effect Free , as discussed in Value Objects (6) , protecting the object's immutability.
+
+## With Aggregate Characteristics
+
+Sometimes Events are designed to be created by direct request from clients. This is done in response to some occurrence that is not the direct result of executing behavior on an instance of an Aggregate in the model. Possibly a user of the system initiates some action that is considered an Event in its own right. When that happens, the Event can be modeled as an Aggregate and retained in its own Repository. Since it represents some past occurrence, its Repository would not permit its removal.
+
+When Events are modeled in this way, like Aggregates they become part of the model's structure. Thus, they are not just a record of some past occurrence, although they are that also.
+
+The Event is still designed as immutable, but it may be assigned a generated unique identity. It is possible, however, that the identity can be supported by a number of the Event's properties. Even if unique identity could be determined by a set of properties, it may be best to assign a generated unique identity as discussed in Entities (5) . This would allow the Event to undergo various design changes over time without risking its uniqueness among all others.
+
+When an Event is modeled in this fashion, it can be published via messaging infrastructure at the same time as it is added to its Repository. The client could call on a Domain Service (7) to create the Event, add it to its Repository, and then publish it over a messaging infrastructure. With this approach, both the Repository and the messaging infrastructure must be backed by the same persistence instance (data source), or a global transaction (aka XA and two-phase commit) would be necessary to guarantee that both commit successfully.
+
+After the messaging infrastructure successfully saves the new Event message to its persistence store, it would then asynchronously send it on to any queue listener, topic/exchange subscribers, or actor if using the Actor Model. 1 If the messaging  infrastructure  uses  a  persistence  store  that  is  separate  from  that used by the model, and if it does not support global transactions, your Domain Service would have to see that it is first saved in the Event Store, which in this case would also act as a queue for out-of-band publishing. Each Event in the Store would be processed by a forwarding component that would send it out over the messaging infrastructure. This technique is discussed in detail later in this chapter.
+
+## Identity
+
+Let's clarify the reasons for assigning unique identity. At times it may be necessary to distinguish Events one from another, but the need may be rare. In the Bounded Context where the Event is caused, created, and published, there will tend to be little reason to compare one Event to another, if ever. But what if, for some reason, Events must be compared? And what if an Event is designed as an Aggregate?
+
+It may be enough to allow Event identity to be represented by its properties, as is the case with Value Objects. The Event's name/type along with the identities of the Aggregate(s) involved in the cause, as well as a timestamp of when the Event occurred, may be enough to distinguish it from others.
+
+In cases where an Event is modeled as an Aggregate, or in other cases when Events  must  be  compared  and  their  combined  properties  do  not  distinguish them, we may assign an Event a formal unique identity. But there may be other reasons to assign unique identity.
+
+1.  See Erlang's and Scala's Actor Model of concurrency. In particular, Akka is worth considering if using Scala or Java.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000316_36919591dffe6f80b50e8f12a5c6a93a9cf43989effa899b0a13978100b5dfce.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000317_0e400839f9aa8d8dec6e6e559cd2afdff19913083d20abc511aca16a83c8ebbd.png)
+
+Unique  identity  may  be  necessary  when  Events  are  published  outside  the local Bounded Context where they occur, when messaging infrastructure forwards  them  along.  In  some  situations  individual  messages  can  be  delivered more than once. This would happen if the message sender crashes before the messaging infrastructure confirms that the message was sent.
+
+Whatever may cause a message's redelivery, the solution is to get the remote subscribers to detect duplicate message delivery and ignore messages already received. To help with this, some messaging infrastructures provide a unique message  identity  as  part  of  the  header/envelope  around  its  body,  making it  unnecessary  for  the  model  to  generate  one.  Even  if  the  messaging  system doesn't itself automatically provide a unique identity for all messages, publishers can assign one either to the Event itself or to the message. In either case, remote subscribers can use the unique identity to manage de-duplication when messages are delivered more than once.
+
+Is  there  a  need  for equals() and hashCode() implementations?  These would most often be necessary only if the local Bounded Context used them. Events  sent  via  messaging  infrastructure  are  sometimes  not  reconstituted  as their native typed objects when received by subscribers but are consumed as, for example, XML, JSON, or key-value maps. On the other hand, when an Event is designed as an Aggregate and saved to its own Repository, the Event type should provide both of these standard methods.
+
+## Publishing Events from the Domain Model
+
+Avoid exposing the domain model to any kind of middleware messaging infrastructure. Those kinds of components live only in the infrastructure. And while the domain model might at times use such infrastructure indirectly, it would never explicitly couple to it. We'll use an approach that completely avoids the use of infrastructure.
+
+One of the simplest and most effective ways to publish Domain Events without coupling to components outside the domain model is to create a lightweight Observer [Gamma  et  al.].  For  the  sake  of  naming  I  use  Publish-  Subscribe, which is acknowledged by [Gamma et al.] as another name for the same pattern. The examples in that pattern and my use of it are lightweight because there is no network involved in subscribing to Events and publishing them. All registered subscribers execute in the same process space with the publisher and run on the same thread. When an Event is published, each subscriber is notified synchronously, one by one. This also implies that all subscribers are running within the same transaction, perhaps controlled by an Application Service that is the direct client of the domain model.
+
+Considering the two halves of Publish-Subscribe separately helps to explain them in a DDD context.
+
+## Publisher
+
+Perhaps the most common use of Domain Events is when an Aggregate creates  an  Event  and  publishes  it.  The  publisher  resides  in  a Module (9) of  the model, but it doesn't model some aspect of the domain. Rather, it provides a simple service to Aggregates that need to notify subscribers of Events. The following is a DomainEventPublisher ,  which adheres to this definition. An abstract view of how the DomainEventPublisher is used can be found in Figure 8.2.
+
+```
+package com.saasovation.agilepm.domain.model; import java.util.ArrayList; import java.util.List; public class DomainEventPublisher { @SuppressWarnings("unchecked") private static final ThreadLocal<List> subscribers = new ThreadLocal<List>(); private static final ThreadLocal<Boolean> publishing = new ThreadLocal<Boolean>() { protected Boolean initialValue() { return Boolean.FALSE; } }; public static DomainEventPublisher instance() { return new DomainEventPublisher(); } public DomainEventPublisher() { super(); } @SuppressWarnings("unchecked") public <T> void publish(final T aDomainEvent) { if (publishing.get()) { return; } try { publishing.set(Boolean.TRUE); List<DomainEventSubscriber<T>> registeredSubscribers = subscribers.get();
+```
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000318_f02214f7e152fac0e7f907197f0b3c9edb423c0ed6bc38ce4c6fc58c000638ed.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000319_4ce5f747b74a6c706a87943e4c84a11615ef718f02693a45109e41669ee7f425.png)
+
+```
+if (registeredSubscribers != null) { Class<?> eventType = aDomainEvent.getClass(); for (DomainEventSubscriber<T> subscriber : registeredSubscribers) { Class<?> subscribedTo = subscriber.subscribedToEventType(); if (subscribedTo == eventType || subscribedTo == DomainEvent.class) { subscriber.handleEvent(aDomainEvent); } } } } finally { publishing.set(Boolean.FALSE); } } public DomainEventPublisher reset() { if (!publishing.get()) { subscribers.set(null); } return this; } @SuppressWarnings("unchecked") public <T> void subscribe(DomainEventSubscriber<T> aSubscriber) { if (publishing.get()) { return; } List<DomainEventSubscriber<T>> registeredSubscribers = subscribers.get(); if (registeredSubscribers == null) { registeredSubscribers = new ArrayList<DomainEventSubscriber<T>>(); subscribers.set(registeredSubscribers); } registeredSubscribers.add(aSubscriber); } }
+```
+
+Since every incoming request from users of the system is handled on a separate dedicated thread, we divide subscribers by thread. So the two ThreadLocal variables, subscribers and publishing , are allocated per thread. When  interested  parties  use  the subscribe() operation  to  register  themselves, the subscriber object reference is added to the thread-bound List . Any number of subscribers may be registered per thread.
+
+Depending  on  the  application  server,  threads  may  be  pooled  and  reused request  by  request.  We  don't  want  subscribers  registered  on  the  thread  for a  previous  request  to  remain  registered  for  the  next  request  that  reuses  the thread. When a new user request is received by the system, it should use the reset() operation to clear any previous subscribers. This ensures that subscribers will be limited only to those registered from that point forward. On the presentation tier ('User Interface' in Figure 8.2), for example, we might intercept  each  request  using  a  filter.  The  intercepting  component  would  in some way cause a reset() :
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000320_64f02c76aaf054b990599f13408e7953ea1a987c5c70e0d39f561d3b78da3d5c.png)
+
+Figure 8.2 An abstract view of the sequence interactions between the lightweight Observer, User Interface (14) , Application Services, and the Domain Model (1)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000321_9a734be4d53889025de39d556015991208af3cc37b4fe6a26fa79d4a4ea8c790.png)
+
+```
+// in a Web filter component when user request is received DomainEventPublisher.instance().reset(); ... // later in an Application Service during same request DomainEventPublisher.instance().subscribe(subscriber);
+```
+
+Following the execution of this code-by two separate components, as seen in Figure 8.2-there will be just one registered subscriber for the thread. From the implementation of method subscribe() you can see that subscribers may be registered only when the publisher is not in the process of publishing. This prevents problems such as concurrent modification exceptions on the List .
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000322_8dc5b947f3b6084aa4e4dd8180a9464e4a1e87a2528de8a7c6b4f22864175fb5.png)
+
+This problem is manifest if subscribers call back on the publisher to add new subscribers in response to a handled Event.
+
+Next,  note  how  an  Aggregate  publishes  an  Event.  Continuing  with  the running example, when BacklogItem 's commitTo() executes  successfully, BacklogItemCommitted is published:
+
+```
+public class BacklogItem extends ConcurrencySafeEntity { ... public void commitTo(Sprint aSprint) { ... DomainEventPublisher .instance() .publish(new BacklogItemCommitted( this.tenantId(), this.backlogItemId(), this.sprintId())); } ... }
+```
+
+When publish() is  executed  on DomainEventPublisher ,  it  iterates through  all  registered  subscribers.  Invoking subscribedToEventType() on each subscriber allows it to filter out all subscribers not subscribed to the specific Event type. Subscribers answering DomainEvent.class to this filter query will receive all Events. All qualified subscribers are sent the published Event  by  way  of  their handleEvent() method.  After  all  subscribers  have been either filtered or notified, the publisher completes.
+
+As with subscribe() , publish() does not allow nested requests to publish  Events.  The thread-bound Boolean named publishing is  checked  and must be false for publish() to iterate and dispatch.
+
+How is Event publishing extended to reach remote Bounded Contexts, supporting autonomous services? We'll get to that soon, but let's look closer at local subscribers.
+
+## Subscribers
+
+What  components  register  subscribers  to  Domain  Events?  Generally  speaking, Application  Services  (14) ,  and  sometimes  Domain  Services,  will.  The subscriber may be any component that is running on the same thread as the Aggregate that publishes the Event, and that can subscribe prior to the Event being  published.  This  means  that  the  subscriber  is  registered  in  the  method execution path that uses the domain model.
+
+## Cowboy Logic
+
+- LB:    'I want a subscription to the The Fence Post so I can find even more corny things to say in this book.'
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000323_00e04e9401efcb502cf154f6eac47c1f8134c2ea1304126aab962b2f9e97d9a1.png)
+
+Since Application Services are the direct client of the domain model when using Hexagonal Architecture, they are in an ideal position to register a subscriber  with  the  publisher  before  they  execute  Event-generating  behavior  on Aggregates. Here's one example of an Application Service that subscribes:
+
+```
+public class BacklogItemApplicationService ... { public void commitBacklogItem( Tenant aTenant, BacklogItemId aBacklogItemId, SprintId aSprintId) { DomainEventSubscriber subscriber = new DomainEventSubscriber<BacklogItemCommitted>() { @Override public void handleEvent(BacklogItemCommitted aDomainEvent) { // handle event here ... } @Override public Class<BacklogItemCommitted> subscribedToEventType() { return BacklogItemCommitted.class; } } DomainEventPublisher.instance().subscribe(subscriber); BacklogItem backlogItem = backlogItemRepository .backlogItemOfId(aTenant, aBacklogItemId); Sprint sprint = sprintRepository.sprintOfId(aTenant, aSprintId); backlogItem.commitTo(sprint); } }
+```
+
+In this (contrived) example, BacklogItemApplicationService is an  Application  Service,  with  a  service  method commitBacklogItem() . The  method  instantiates  an  instance  of  an  anonymous DomainEventSubscriber .  The  Application  Service  task  coordinator  then  registers  the subscriber  with  the DomainEventPublisher .  Finally,  the  service  method uses  Repositories  to  get  instances  of BacklogItem and Sprint and  executes  the  backlog  item's commitTo() behavior.  When  completed,  method commitTo() publishes an Event of type BacklogItemCommitted .
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000324_76297fc9a25f0e5bc4ba1bbf08bd6d5e04bfb8d3ee9fcbf5dd29f33433b47038.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000325_1cc2e735a0ed605d6d886bdd1746c54f7bc99f15d96dee9713a385f2f0f796c5.png)
+
+What the subscriber does with the Event is not shown in this example. It could send an e-mail about the fact that a BacklogItemCommitted , if that made any sense. It might store the Event in an Event Store. It could forward the Event via a messaging infrastructure. Usually in these last two cases-saving to an Event Store and forwarding using messaging infrastructure-we wouldn't make a use-case-specific Application Service to handle the Event in this way. Instead we'd design a single subscriber component to do that. An example of a single-responsibility component that saves to an Event Store is found in the section 'Event Store.'
+
+## Be Careful about What the Event Handler Does
+
+Remember,  the  Application  Service  controls  the  transaction.  Don't  use  the  Event notification to modify a second Aggregate instance. That breaks a rule of thumb to modify one Aggregate instance per transaction.
+
+One thing the subscriber should not do is get another Aggregate instance and execute modifying command behavior on it. This would violate the modify-single-aggregate-instance-in-single-transaction rule of thumb, as discussed in Aggregates  (10) .  As  [Evans]  indicates,  the  consistency  of  all  Aggregate instances other than the one used in the single transaction must be enforced by asynchronous means.
+
+Forwarding the Event via a messaging infrastructure would allow asynchronous delivery to out-of-band subscribers. Each of those asynchronous subscribers could arrange to modify an additional Aggregate instance in one or more separate transactions. The additional Aggregate instances could be in the same Bounded Context or in others. Publishing the Event outward to any number Bounded Contexts of other Subdomains (2) emphasizes the word Domain in the term Domain Event . In other words, Events are a domain-wide concept, not just a concept in a single Bounded Context. The contract of Event publishing should have the potential to be at least as broad as the enterprise, or even broader. Yet, wide broadcast does not forbid delivery of Events by consumers in the same Bounded Context. Refer back to Figure 8.1.
+
+Sometimes it is necessary for Domain Services to register subscribers. The motivation for doing so would be similar to the reasons that Application Services do, but in this case there would be domain-specific reasons to listen for Events.
+
+## Spreading the News to Remote Bounded Contexts
+
+There are several possible ways for remote Bounded Contexts to become aware of Events that occur in your Bounded Context. The primary idea is that some form  of  messaging  takes  place,  and  an  enterprise  messaging  mechanism  is needed. To be clear, the mechanism being spoken of here goes well beyond the simple, lightweight Publish-Subscribe components just discussed. Here we are discussing what takes over where the lightweight mechanism leaves off.
+
+There  are  numerous  such  messaging  components  available,  and  they  are generally classed as middleware. From the open source ActiveMQ, RabbitMQ, Akka,  NServiceBus,  and  MassTransit,  to  the  various  commercially  licensed products,  there  are  plenty  of  options.  We  might  also  home-grow  a  form  of messaging based on REST resources, where autonomous systems are the interested parties that reach out to the publishing system, requesting all Event notifications that they have not previously consumed. All of these fall under the umbrella of Publish-Subscribe [Gamma et al.], with varying degrees of advantage or disadvantage. Much depends on the budget, taste, functional requirements, and nonfunctional qualities sought by the teams involved.
+
+The  use  of  any  such  messaging  mechanism  between  Bounded  Contexts requires  that  we  adopt  a  commitment  to  eventual  consistency.  It  can't  be fought. The changes in one model that influence changes in one or more other models will not be fully consistent for some elapsed period of time. What is more, depending on the traffic to individual systems and the effects they have on others, it may be that the systems as a whole may never be fully consistent at any one instant in time.
+
+## Messaging Infrastructure Consistency
+
+With all the chatter about eventual consistency, it might surprise you that at least two mechanisms in a messaging solution must always be consistent with each other: the persistence store used by the domain model, and the persistence store  backing  the  messaging  infrastructure  used  to  forward  the  Events  published by the model. This is required to ensure that when the model's changes are persisted, Event delivery is also guaranteed, and that if an Event is delivered through messaging, it indicates a true situation reflected by the model that published it. If either of these is out of lockstep with the other, it will lead to incorrect states in one or more interdependent models.
+
+How is model and Event persistence consistency accomplished? There are three basic ways:
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000326_2e57ff9363e5d08853d7c0f016a40178b43d17ab28adc133260a4a668a1817be.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000327_e36f250563416c85d1d55fa1ed45b0164dec5dfb64228e957a7754dc0200b783.png)

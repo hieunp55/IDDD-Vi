@@ -1,0 +1,448 @@
+Bạn là chuyên gia dịch thuật kỹ thuật Anh → Việt, chuyên tài liệu kỹ thuật/công nghệ, có kinh nghiệm dịch như biên dịch viên bản ngữ chuyên nghiệp. Nhiệm vụ: dịch TOÀN BỘ nội dung Markdown dưới đây sang tiếng Việt, không bỏ sót bất kỳ phần nào. Đây là MỘT PHẦN (chunk) của một tài liệu lớn hơn, hãy dịch độc lập đoạn này, không thêm lời mở đầu/kết luận về việc đây chỉ là một phần.
+
+QUY TẮC BẮT BUỘC — VI PHẠM LÀ SAI:
+
+1. XÁC ĐỊNH LOẠI TÀI LIỆU TRƯỚC KHI DỊCH
+   - Tự phân tích nội dung để xác định loại tài liệu (kỹ thuật/lập trình, tài chính, bảo hiểm, pháp lý, marketing, học thuật, vận hành, sản phẩm...).
+   - Chọn văn phong và thuật ngữ CHUẨN NGÀNH tương ứng trong tiếng Việt, nhất quán xuyên suốt.
+
+2. VĂN PHONG — MƯỢT NHƯ NGƯỜI DỊCH, KHÔNG GIẢM CHÍNH XÁC
+   - Dịch mượt, tự nhiên, đúng ngữ pháp tiếng Việt — như biên dịch viên bản ngữ dịch tay, KHÔNG dịch máy móc kiểu word-by-word.
+   - Được phép đảo cấu trúc câu, tách/gộp câu cho tự nhiên, miễn giữ nguyên 100% ý nghĩa, thông tin, logic, số liệu gốc.
+   - Khi "mượt mà" và "chính xác" xung đột → LUÔN ưu tiên chính xác.
+
+3. DỊCH ĐẦY ĐỦ 100%
+   - Không tóm tắt, không rút gọn, không lược bỏ đoạn/câu/mục/bullet nào.
+   - Số lượng heading, đoạn văn, bảng, code block ở output PHẢI khớp 1:1 với input.
+   - Đoạn dài dịch hết, không cắt ngắn.
+
+4. GIỮ NGUYÊN THUẬT NGỮ TIẾNG ANH
+   - Thuật ngữ chuyên ngành (tên công nghệ, framework, pattern, tên hàm/biến, acronym...) giữ nguyên tiếng Anh, không dịch, không phiên âm.
+   - Ngay sau lần xuất hiện ĐẦU TIÊN của mỗi thuật ngữ, thêm chú thích ngắn trong ngoặc giải thích nghĩa bằng tiếng Việt.
+   - Các lần xuất hiện sau KHÔNG cần chú thích lại.
+
+5. GIỮ NGUYÊN FORMAT — RẤT QUAN TRỌNG
+   - VỀ ẢNH (làm trước khi dịch): ĐẾM chính xác số lượng thẻ ảnh dạng ![...](...) trong đoạn gốc bên dưới. Output PHẢI có ĐÚNG số lượng thẻ ảnh đó, không được thiếu một cái nào — kể cả ảnh không có caption, không rõ ngữ cảnh, hay trông như ảnh trang trí/lặp lại. Copy nguyên URL 100%, không sửa, không rút gọn, không thay bằng mô tả text.
+   - Giữ cấp độ heading (#, ##, ###...), giữ đúng số lượng heading.
+   - Giữ cấu trúc bảng (số cột, số hàng, alignment, header row).
+   - Giữ code block (```lang ... ```) — KHÔNG dịch code; comment được dịch tại chỗ; **được phép reformat code, tự động xuống dòng/indent chuẩn, không giữ nguyên code 1 dòng; không đổi logic/cú pháp**.
+   - Giữ blockquote, callout/note/warning (>, [!NOTE], [!WARNING]...).
+   - Giữ list, nested list, checkbox (- [ ]).
+   - Giữ nguyên link thường ([text](url)) — chỉ dịch phần text hiển thị, TUYỆT ĐỐI giữ nguyên URL.
+   - TRƯỚC KHI TRẢ KẾT QUẢ: tự đếm lại số heading, số ảnh, số dòng ``` giữa bản gốc và bản dịch của bạn, nếu lệch phải sửa lại cho khớp.
+
+6. GIẢI THÍCH ẨN DỤ / KHÁI NIỆM KHÓ
+   - Với ẩn dụ, thành ngữ, khái niệm trừu tượng khó hiểu với người Việt, thêm khối giải thích riêng ngay sau đoạn đó:
+     > 💡 **Giải thích thêm:** [giải thích dễ hiểu, đủ chuyên sâu, có ví dụ thực tế]
+     > Nguồn tham khảo: [link cụ thể để kiểm chứng]
+   - CHỈ đưa link nếu chắc chắn tồn tại và đúng nội dung — không bịa link.
+   - Không tìm được nguồn tin cậy → ghi rõ: "(Không có nguồn trích dẫn xác thực — cần tự kiểm chứng thêm)".
+
+7. CHỐNG HALLUCINATION (BẮT BUỘC)
+   - Không tự thêm thông tin/số liệu/ví dụ/kết luận KHÔNG có trong bản gốc — trừ phần giải thích ẩn dụ ở mục 6 (phải gắn nhãn rõ là phần bổ sung).
+   - Câu gốc mơ hồ → dịch sát nghĩa nhất, nếu không chắc ghi chú: "[CẦN KIỂM CHỨNG: câu gốc mơ hồ]".
+   - Không tự sửa/thêm/bớt logic kỹ thuật gốc. Không bịa trích dẫn/số liệu/link vô căn cứ.
+   - Không tự tóm tắt các đoạn dài thành ý chính rồi diễn giải lại — phải dịch từng câu.
+
+8. OUTPUT
+   - Trả về DUY NHẤT nội dung Markdown đã dịch, đặt trong 1 code block (```markdown ... ```).
+   - Không thêm lời dẫn/lời chào/giải thích ngoài code block.
+   - Không đổi tiêu đề gốc trừ khi cần dịch tiêu đề.
+
+--- NỘI DUNG GỐC CẦN DỊCH (một phần của tài liệu) ---
+
+There  is  an  approach  that  provides  a  possible  improvement  when  DTOs  are unnecessary.  This  one  gathers  multiple  whole  Aggregate  instances  for  view rendition into a single Domain Payload Object [Vernon, DPO]. DPO has motivations similar to DTO but takes advantage of the single virtual machine application  architecture.  It  is  designed  to  contain  references  to  whole  Aggregate instances, not individual attributes. Clusters of Aggregate instances can be transferred between logical tiers or layers by a simple Payload container object. The Application Service (see 'Application Services') uses Repositories to retrieve the necessary Aggregate instances and then instantiates the DPO to hold references to  each.  The  presentation  components  ask  the  DPO  object  for  the  Aggregate instance references, and then ask the Aggregates for viewable attributes.
+
+## Cowboy Logic
+
+LB:    'If you haven't fallen off a horse, you haven't been ridin' long enough.'
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000568_e554bb9492e6172ff1754b9d956e7d8e3c141cd75225f55cf239a1dab5d3ef8a.png)
+
+This  approach  has  the  advantage  of  simplifying  the  design  of  objects  to move clusters of data between logical tiers. The DPOs tend to be much easier to design and have a smaller memory footprint. Since the Aggregate instances must be read into memory anyway, we leverage that they already exist.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000569_8229e711e138d11dfcd96cbc6495e73989967b1773e4eb18cf123dcce250356f.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000570_c6252b95e2433b70dad6753fe9d2613987ed486e6b97527107680f1af4bddd0c.png)
+
+There are a few potential negative consequences to consider. Because of the similarity to DTOs, this approach also requires Aggregates to provide a means to read their state. To avoid tightly coupling the user interface to the model, the same Mediator, Double-Dispatch, or Aggregate Root query interface, suggested previously for use by DTO Assemblers, may be employed here as well.
+
+There's still another situation to deal with. Since the DPO holds references to whole Aggregate instances, any lazy-loaded objects/collections are not yet resolved. There is no reason to access all needed Aggregate properties to create the  Domain Payload Object. Since even read-only transactions are generally committed when the Application Service method ends, any presentation component that references unresolved lazy-loaded objects will cause an exception. 3
+
+To fix up necessary lazy loads we might choose an eager loading strategy, or we can use a Domain Dependency Resolver [Vernon, DDR]. This is a form of Strategy [Gamma et al.], usually employing one Strategy per use case flow. Each Strategy forces access of all Aggregate lazy-loaded properties consumed by the specific use case flow. The forced access occurs before the Application Service  commits  the  transaction  and  returns  the  Domain  Payload  Object  to its client. The Strategy may be hard-coded to manually access the lazy-loaded properties, or it may employ a simple expression language that describes how to introspectively and reflectively navigate through the Aggregate instances. The reflection-based navigation crawler has the advantage that it can be made to work on hidden attributes. Still, you may be happier customizing your queries to eagerly fetch objects that are normally lazy loaded, if the option is available.
+
+## State Representations of Aggregate Instances
+
+If your application provides REST-based resources as discussed in REST (4) , these will need to produce state representations of domain objects for clients. It is very important to create representations that are based on use case, not on Aggregate instances. This has very similar motivations as DTOs, which also are tuned for use cases. However, it may be more accurate to think of a set of RESTful resources as a separate model in their own right-a View Model or Presentation Model [Fowler, PM]. Resist the temptation to produce representations that are a one-to-one reflection of your domain model Aggregate states, possibly with links to navigate to deeper state. Otherwise your clients will have to understand your domain model as well as the Aggregates themselves. Clients will have to be fully aware of subtleties in behaviors and state transitions, and you will lose all benefits of abstraction.
+
+3.  Some  like  to  use  Open  Session  In  View  (OSIV)  to  control  transactions  at  the request-response  level,  high  in  the  user  interface.  For  various  reason  I  consider OSIV harmful, but YMMV ('Your Mileage May Vary').
+
+## Use Case Optimal Repository Queries
+
+Rather than reading multiple whole Aggregate instances of various types and then programmatically composing them into a single container (DTO or DPO), you might instead use what is called a use case optimal query . This is where you design your Repository with finder query methods that compose a custom object as a superset of one or more Aggregate instances. The query dynamically places the results into a Value Object (6) specifically designed to address the needs of the use case. You design a Value Object, not a DTO, because the query is domain specific, not application specific (as are DTOs). The custom use case optimal Value Object is then consumed directly by the view renderer.
+
+The  use  case  optimal  query  approach  has  motivations  similar  to CQRS (4) .  However, the use case optimal query uses a Repository against the unified domain model persistence store rather than a raw database (such as SQL) query against a separate query/read store. To understand the trade-offs of this approach  versus  CQRS,  see  the  related  discussion  under Repositories  (12) . Still, once you start to go down this use case optimal query path, you are so close to CQRS that it may be worth going that route instead.
+
+## Dealing with Multiple, Disparate Clients
+
+What will you do if your application must support multiple, disparate clients? This may include an RIA, a graphical thick client, REST-based services, and messaging too. You probably also consider various test drivers as being different client types. Discussed in more detail a bit later, you may design your Application Services to accept Data Transformer ,  where each client specifies the Data Transformer type. The Application Service would double-dispatch on the Data Transformer parameter, which would produce the required data format. Here's how the user interface side might look for a REST-based client:
+
+```
+... CalendarWeekData calendarWeekData = calendarAppService .calendarWeek(date, new CalendarWeekXMLDataTransformer()); Response response = Response.ok(calendarWeekData.value()) .cacheControl(this.cacheControlFor(30)).build(); return response;
+```
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000571_f099e576693bd497e7c98d2be192e526a74be5abf81ac5316f7a94022ad95bee.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000572_51cbeb5c0690c3f296e8af32bd772400cf4f4d85355a242926e9c42eee456820.png)
+
+Method calendarWeek() of the CalendarApplicationService accepts a Date within a given week and an implementation of interface CalendarWeekDataTransformer . The  chosen  implementer  is class CalendarWeekXMLDataTransformer ,  which  creates  an  XML  document  as  a  state representation of the CalendarWeekData . Method value() on CalendarWeekData answers the preferred type of the given data format, which in this case is an XML document String .
+
+Admittedly the example could benefit from having the Data Transformer instance dependency injected . It's hard-coded here to make the example easier to understand.
+
+Among the possible implementers of CalendarWeekDataTransformer could be, for example:
+
+- CalendarWeekCSVDataTransformer
+- CalendarWeekDPODataTransformer
+- CalendarWeekDTODataTransformer
+- CalendarWeekJSONDataTransformer
+- CalendarWeekTextDataTransformer
+- CalendarWeekXMLDataTransformer
+
+There is another possible approach to abstracting application output types to disparate clients that I discuss later under 'Application Services.'
+
+## Rendition Adapters and Handling User Edits
+
+When you get to the point where you have your domain data and it needs to be viewed and edited by a user, there are patterns that can help you separate responsibilities. Again, there are simply too many frameworks out there and too many ways to deal with them to recommend a surefire way to deal with all of them. With some user interface frameworks you must adhere to the specific patterns that are supported. Sometimes those are good, and sometimes not so good. With others you have a bit more flexibility.
+
+In whatever way your domain data is provided from Application Servicesthrough  DTOs,  DPOs,  or  state  representations-and  whatever  presentation framework you use, you may be able to benefit from Presentation Model. 4 Its goal  is  to  separate  responsibilities  between  presentation  and  view.  While  it could be made to work with Web 1.0 applications, I think its strengths tend to be in favor of Web 2.0 RIA, or those with desktop clients, as described in the second and third categories listed earlier.
+
+4.  See also Model-View-Presenter [Dolphin], which [Fowler, PM] calls Supervising Controller and Passive View .
+
+Using this pattern, we want to make views passive in that they only manage display of data and user interface controls and do little else. There are two possible ways of view rendering:
+
+1. Views render themselves based on the Presentation Model. I think this is a more natural way and eliminates coupling from the Presentation Model to the view.
+2. Views are rendered by the Presentation Model. This way has test advantages but requires the Presentation Model to couple to the view.
+
+The Presentation Model acts as an Adapter [Gamma et al.]. It masks the details  of  the  domain  model  by  providing  properties  and  behaviors  that  are designed in terms of the needs of the view. This means that there is more than a  thin  veneer  around  attributes  on  domain  objects  or  DTOs.  It  means  that decisions are made in the Adapter based on the state of the model as it applies to the view. For example, enabling a specific control on the view may not have a direct relationship to any one property of the domain model but can still be derived from one or more such. Rather than requiring the domain model to specifically support the necessary view properties, it is the responsibility of the Presentation Model to derive the view-specific indicators and properties from the state of the domain model.
+
+A further, yet perhaps subtle, benefit of using a Presentation Model is that it  can adapt Aggregates that don't support a JavaBean interface of getters to user interface frameworks that require getters. Many, if not all, of the Javabased  Web  frameworks  require  objects  to  provide  public  getters,  such  as getSummary() and getStory() , while the domain model design favors fluent, domain-specific expressions that closely reflect the Ubiquitous Language (1) . The difference may be as simple as summary() and story() but produces a  user  interface  framework impedance mismatch. Yet, a Presentation Model can be used to easily adapt summary() to getSummary() and story() to getStory() , eliminating tension between model and view:
+
+```
+public class BacklogItemPresentationModel extends AbstractPresentationModel { private BacklogItem backlogItem; public BacklogItemPresentationModel(BacklogItem aBacklogItem) { super(); this.backlogItem = backlogItem; }
+```
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000573_a6883d379f29a1e6ed6ad7ca8ffc8415c3359a55a0a85dc126fa0892167b7d1c.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000574_b1e481bda89b70c21cc7d5d70f1a543c9ad34af9a669659d6561147db4feaab3.png)
+
+```
+public String getSummary() { return this.backlogItem.summary(); } public String getStory() { return this.backlogItem.story(); } ... }
+```
+
+Of course, a Presentation Model can adapt between any number of the previously discussed approaches, including the use of a DTO or DPO, or using a Mediator through which Aggregate internal state is published.
+
+Additionally, edits  performed by the user are tracked by the Presentation Model. This is not a case of placing overloaded responsibilities on the Presentation Model, since it is meant to adapt in both directions, model to view and view to model.
+
+One important point to keep in mind is that a Presentation Model is not a heavy-lifting Facade [Gamma et al.]  around  the  Application  Services  or  the domain model. Granted, once users have completed a task with the user interface, they will usually invoke an 'apply' or 'cancel' type of action, or preferably an explicit command. This will require the Presentation Model to reflect the  user's  action  to  the  application,  which  in  essence  represents  a  minimal Facade around an Application Service:
+
+```
+public class BacklogItemPresentationModel extends AbstractPresentationModel { private BacklogItem backlogItem; private BacklogItemEditTracker editTracker; // following is injected private BacklogItemApplicationService backlogItemAppService; public BacklogItemPresentationModel(BacklogItem aBacklogItem) { super(); this.backlogItem = backlogItem; this.editTracker = new BacklogItemEditTracker(aBacklogItem); } ... public void changeSummaryWithType() { this.backlogItemAppService .changeSummaryWithType( this.editTracker.summary(), this.editTracker.type()); } ... }
+```
+
+The  user  clicks  a  command  button  on  the  view  that  causes changeSummaryWithType() to  be  invoked.  It  is  the  responsibility  of BacklogItemPresentationModel to interact with an Application Service to apply the edits that occurred on editTracker .  There is no other bystander waiting  to  take  the  user's  edits  and  do  something  with  them.  So  we  might  say that the Presentation Model is a minimal Facade to the Application Services on behalf  of  the  view,  but  just  because changeSummaryWithType() is  a higher-level interface that makes BacklogItemApplicationService easier  to  use.  However,  we  would  not  want  to  see  several  lines  of  code  in  the Presentation Model class manage detailed use of the Application Service, or worse yet, to itself act as the Application Service to the domain model. That would go well beyond the responsibility of the Presentation Model. Instead, we want to see a simple delegation to the more complex and heavy-lifting Facade, BacklogItemApplicationService .
+
+This  is  a  powerful  approach  to  coordinating  the  domain  model  and  UI. It may even receive your vote for the most versatile UI management pattern. Using any of the view management techniques, however, we still often interact with an Application Services API.
+
+## Application Services
+
+In some cases your user interface will aggregate multiple Bounded Contexts (2) using independent Presentation Model components, all composed on a single view. Whether your user interface renders a single model or composes multiple models, it will likely interact with Application Services, so let's consider those now.
+
+The Application  Services  are  the  direct  clients  of  the  domain  model.  For options  on  the  logical  location  of  Application  Service,  see Architecture  (4) . These  are  responsible  for  task  coordination  of  use  case  flows,  one  service method  per  flow.  When  using  an  ACID  database,  the  Application  Services also control transactions, ensuring that model state transitions are atomically persisted. I discuss transaction control here briefly, but see Repositories (12) for a broader perspective. Security is also commonly cared for by Application Services.
+
+It is a mistake to consider Application Services to be the same as Domain Services  (7) .  They  are  not.  The  contrast  should  be  stark,  which  is  clearly demonstrated in the next section. We should strive to push all business domain logic into the domain model, whether that be in Aggregates, Value Objects, or Domain Services. Keep Application Services thin, using them only to coordinate tasks on the model.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000575_40fca54897b0d8e39137eb49764c4d5483f0d12096396ff9265964d81237082d.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000576_089dd30025463200d53e4de44fbcfe29daeb9db78ce68584342399eac2fc40ca.png)
+
+## Sample Application Service
+
+Let's take a look at the partial sample interface and implementation class for an Application Service. This is the service that provides use case task management for tenants of the Identity and Access Context . It is just a sample and not meant to be taken as the final say. Trade-offs will be apparent.
+
+First consider the basic interface:
+
+```
+package com.saasovation.identityaccess.application; public interface TenantIdentityService { public void activateTenant(TenantId aTenantId); public void deactivateTenant(TenantId aTenantId); public String offerLimitedRegistrationInvitation( TenantId aTenantId, Date aStartsOnDate, Date anUntilDate); public String offerOpenEndedRegistrationInvitation( TenantId aTenantId); public Tenant provisionTenant( String aTenantName, String aTenantDescription, boolean isActive, FullName anAdministratorName, EmailAddress anEmailAddress, PostalAddress aPostalAddress, Telephone aPrimaryTelephone, Telephone aSecondaryTelephone, String aTimeZone); public Tenant tenant(TenantId aTenantId); ... }
+```
+
+These six Application Service methods are used to create or provision a tenant, to activate and deactivate an existing one, to offer limited and open-ended registration invitations to future users, and to query for a specific tenant.
+
+Some types from the domain model are used in these method signatures. That will require the user interface to be aware of these types and depend on them.  Sometimes  the  Application  Services  are  designed  to  completely  shield the  user  interface  from  all  such  domain  knowledge.  Doing  so,  the  Application Service method signatures use only primitive types ( int , long , double ), Strings , and possibly DTOs. As an alternative to these approaches, however, a better approach may be to design Command [Gamma et al.] objects instead. There is not necessarily a right or wrong way. It mostly depends on your tastes and goals. This book presents each of these styles in various examples.
+
+Consider the trade-offs. If you eliminate types from the model, you avoid dependency and coupling, but you lose out on strong type checking and basic validations (guards) that you get for free from Value Object types. If you don't expose domain objects as return types, you will need to provide DTOs. If you provide DTOs, there may be accidental complexity in your solution from the extra overhead of the additional types. Then there is also the aforementioned memory overhead in high-traffic  applications  that  is  caused  by  the  possibly unnecessary DTOs constantly being created and garbage collected.
+
+Of  course,  if  you  expose  domain  objects  to  disparate  clients,  each  client type will need to deal with them separately. Again, coupling is higher and with more client types this becomes a bigger issue. Given that, at least a few of these methods could be better designed to deal with return types. As discussed previously, we might instead use Data Transformers:
+
+```
+package com.saasovation.identityaccess.application; public interface TenantIdentityService { ... public TenantData provisionTenant( String aTenantName, String aTenantDescription, boolean isActive, FullName anAdministratorName, EmailAddress anEmailAddress, PostalAddress aPostalAddress, Telephone aPrimaryTelephone, Telephone aSecondaryTelephone, String aTimeZone, TenantDataTransformer aDataTransformer); public TenantData tenant( TenantId aTenantId, TenantDataTransformer aDataTransformer); ... }
+```
+
+For now I will stick with exposing domain objects to the client and assume that we have only one user interface that is Web based. It will help to simplify the examples. Later I'll go back to the Data Transformers approach.
+
+Consider how the Application Service interface is  implemented.  Taking  a look at a few of the more trivial methods to implement it helps highlight some basic points. Note that there may be no advantage to having a Separated Interface [Fowler, P of EAA]. Here is an example where we will just define the interface with the implementation class:
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000577_11c810bc211d4a241c43fccea074ac44e00e4ac78068875ef243af5cabc58cb9.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000578_3db29ffd7c23835326eef2548124d0b1fd6d07e798d703a076e4aada5446c431.png)
+
+```
+package com.saasovation.identityaccess.application; public class TenantIdentityService { @Transactional public void activateTenant(TenantId aTenantId) { this.nonNullTenant(aTenantId).activate(); } @Transactional public void deactivateTenant(TenantId aTenantId) { this.nonNullTenant(aTenantId).deactivate(); } ... @Transactional(readOnly=true) public Tenant tenant(TenantId aTenantId) { Tenant tenant = this .tenantRepository() .tenantOfId(aTenantId); return tenant; } private Tenant nonNullTenant(TenantId aTenantId) { Tenant tenant = this.tenant(aTenantId); if (tenant == null) { throw new IllegalArgumentException( "Tenant does not exist."); } return tenant; } }
+```
+
+A  client  requests  to  deactivate  an  existing Tenant using deactivateTenant() .  To interact with the actual Tenant object we need to retrieve it from  its  Repository  using  its TenantId .  Here  we  have  created  an  internal helper method named nonNullTenant() , which itself delegates to tenant() . The helper exists to guard against nonexistent Tenant instances and is used by all service methods that need to get an existing Tenant .
+
+Methods activateTenant() and deactivateTenant() are  marked write transactional by a Spring Transactional annotation.  Method tenant() is marked read-only transactional. In all three cases, when a client obtains  this  bean  through  its  Spring  context  and  invokes  a  service  method, a  transaction  is  started.  When  the  method  completes  by  normal  return,  the transaction  is  committed.  Depending  on  configuration,  exceptions  thrown within the scope of the method will cause the transaction to roll back.
+
+But how would we prevent the misuse of these methods, say, by a malicious intruder?  When  we  are  talking  about  deactivating  or  reactivating  a  tenant, it's  an  operation  that  should  actually  be  permitted  only  by  an  SaaS  Ovation employee  authorized  user.  The  same  goes  for  provisioning  a  new  tenant subscriber.
+
+What if we were to leverage something like Spring Security? We could use another annotation, PreAuthorize :
+
+```
+public class TenantIdentityService { @Transactional @PreAuthorize("hasRole('SubscriberRepresentative')") public void activateTenant(TenantId aTenantId) { this.nonNullTenant(aTenantId).activate(); } @Transactional @PreAuthorize("hasRole('SubscriberRepresentative')") public void deactivateTenant(TenantId aTenantId) { this.nonNullTenant(aTenantId).deactivate(); } ... @Transactional @PreAuthorize("hasRole('SubscriberRepresentative')") public Tenant provisionTenant( String aTenantName, String aTenantDescription, boolean isActive, FullName anAdministratorName, EmailAddress anEmailAddress, PostalAddress aPostalAddress, Telephone aPrimaryTelephone, Telephone aSecondaryTelephone, String aTimeZone) { return this .tenantProvisioningService
+```
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000579_1d2da959d8e1bf0b77039b9871c97e37dcde932eb9872b3f6971f46ccdd88f4c.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000580_36b4382d95c31e4ee2889abe95320a5efc384af13ae7975c27400904efc97ae2.png)
+
+```
+.provisionTenant( aTenantName, aTenantDescription, isActive, anAdministratorName, anEmailAddress, aPostalAddress, aPrimaryTelephone, aSecondaryTelephone, aTimeZone); } ...
+```
+
+}
+
+This  is  declarative  method-level  security  and  prevents  unauthorized  users from accessing  Application  Services.  Of  course,  the  user  interface  would  be designed to hide any navigation access to such facilities if the user were not authorized. That wouldn't stop a malicious attacker, however, but the security declaration will.
+
+This declarative method security is different from what IdOvation is providing. SaaSOvation employees would log in to IdOvation differently from tenant users. Particularly those with the special role SubscriberRepresentative would be permitted to execute these sensitive methods, and no subscriber user would ever be permitted to. This, of course, would require integration between IdOvation and Spring Security.
+
+Now, when we look at the implementation of provisionTenant() , we see that it delegates to a Domain Service. This highlights the difference between the two kinds of services, especially when we peek inside the domain TenantProvisioningService . There is significant domain  logic inside this Domain Service, but very little in the Application Service. Consider what the Domain Service does (although I don't present the code here):
+
+1. Instantiates a new Tenant Aggregate and adds it to its Repository.
+2. Assigns a new administrator for the new Tenant .  This  includes provisioning the Administrator role for the new Tenant and publishing Event TenantAdministratorRegistered .
+3. Publishes the Event TenantProvisioned .
+
+If the Application Service were to do more than step 1, we would be seriously leaking domain logic out of the model. Since there are two additional steps that are not the responsibility of the Application Service, we instead place all three inside the Domain Service. Using the Domain Service, we place this
+
+'significant process . . . in the domain' [Evans]. 5 We also properly follow the definition  of  Application  Service  by  managing  the  transaction,  security,  and the task of delegating this significant tenant provisioning process to the model.
+
+But consider for a moment the noise caused by the provisionTenant() parameter list. There is a total of nine parameters, and that's probably at least a few too many. We can prevent this situation by designing simple Command [Gamma et al.] objects instead: 'Encapsulate a request as an object, thereby letting you parameterize clients with different requests, queue or log requests, and support undoable operations.' In other words, we might think of a Command object as a serialized method invocation, and in our case we are interested  in  everything  a  Command  can  help  with  except  for  undo  operations. This is how simple a Command class is to design:
+
+```
+public class ProvisionTenantCommand { private String tenantName; private String tenantDescription; private boolean isActive; private String administratorFirstName; private String administratorLastName; private String emailAddress; private String primaryTelephone; private String secondaryTelephone; private String addressStreetAddress; private String addressCity; private String addressStateProvince; private String addressPostalCode; private String addressCountryCode; private String timeZone; public ProvisionTenantCommand(...) { ... } public ProvisionTenantCommand() { super(); } public String getTenantName() { return tenantName; } public void setTenantName(String tenantName) { this.tenantName = tenantName; } ... }
+```
+
+5.  See Chapter 7.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000581_2c777950f1aa3f0c68a7305ece829a6a525fc0f6efe10025e8ba26d7ba1333ff.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000582_9d77ba2482ffd0f1bba8bbf929a0d8efa9065c406b0f1bfd692e5546cfd44dc4.png)
+
+The ProvisionTenantCommand doesn't  use  model  objects,  just  basic types. It has a multi-argument constructor and also a zero-argument constructor. Along with the zero-argument constructor, having public setters allows the Command to be populated by UI form-field-to-object mappers (for example, assuming a JavaBean, or .NET CLR properties). You might think of the Command as a DTO, but it is truly more than that. Since the Command object is named for the operation that is to be carried out, it is more explicit. The Command instance may be passed to an Application Service method:
+
+```
+public class TenantIdentityService { ... @Transactional public String provisionTenant(ProvisionTenantCommand aCommand) { ... return tenant.tenantId().id(); } ... }
+```
+
+Besides this approach of dispatching to an Application Service API method, as the pattern states we could instead or in addition to send Commands to a queue to be dispatched to a Command Handler. Consider a Command Handler to be semantically equivalent to an Application Service method, but temporally decoupled. As discussed in Appendix A, this enables greater throughput and scalability of Command handling.
+
+## Decoupled Service Output
+
+A couple of times earlier I discussed the use of Data Transformers as a way to accommodate disparate client types with the specific data type they require. That approach uses Transformers to produce the data in a specific type that implements an abstract interface that all related types share. Again, from the client's perspective it might look like this:
+
+```
+TenantData tenantData = tenantIdentityService.provisionTenant( ..., myTenantDataTransformer); TenantPresentationModel tenantPresentationModel = new TenantPresentationModel(tenantData.value());
+```
+
+The Application Services are designed as an API, with input and output. The reason for passing in a Data Transformer is to produce the specific output type needed by the client.
+
+What if we took an entirely different course and made the rule that Application Services are always declared void and, thus, never return data to clients? How would that work? The answer lies  in  a  mentality  that  the Hexagonal Architecture  (4) promotes,  the  use  of  the Ports  and  Adapters style.  In  this instance we would use a single standard output Port with any number of adapters,  one  for  each  client  type.  Doing  so  would  yield  a provision Tenant() Application Service method like this one:
+
+```
+public class TenantIdentityService { ... @Transactional @PreAuthorize("hasRole('SubscriberRepresentative')") public void provisionTenant( String aTenantName, String aTenantDescription, boolean isActive, FullName anAdministratorName, EmailAddress anEmailAddress, PostalAddress aPostalAddress, Telephone aPrimaryTelephone, Telephone aSecondaryTelephone, String aTimeZone) { Tenant tenant = this .tenantProvisioningService .provisionTenant( aTenantName, aTenantDescription, isActive, anAdministratorName, anEmailAddress, aPostalAddress, aPrimaryTelephone, aSecondaryTelephone, aTimeZone); this.tenantIdentityOutputPort().write(tenant); } ... }
+```
+
+The output Port here is a specific named Port at the edge of the application. Using Spring, it would be a bean injected into the service. The only thing that provisionTenant() needs to know is that it must write() to the Port the Tenant instance it gets from the Domain Service. This Port would have any number of readers, which register themselves ahead of using the Application Service. When a write() occurs, each of the registered readers is signaled to read the output as its input. At that point the readers may transform the output using the established mechanism, such as a Data Transformer.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000583_6a541b0353c8a1f050501a8bc6ce87f4bab59933db71c25fb31d5bdef4c4c5ad.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000584_6c85145667f90dabc83278c0a89c2501800eb29072136ebab0c81f8b9b220128.png)
+
+This isn't just a fancy artifice to add complexity to your architecture. The strength  is  the  same  as  with  any  Ports  and  Adapters  architecture,  whether for  a  software  system  or  a  hardware  device.  Each  component  only  needs  to understand the input it reads, its own behavior, and the Port to which it writes output.
+
+Writing to a Port is roughly the same thing that an Aggregate pure command method does when it produces no return value, but it does publish a Domain Event (8) .  In  the  case  of  the  Aggregate the Domain Event Publisher (8) is  an Aggregate output Port. Further, if we solve querying the state of an Aggregate by using a Double-Dispatch on a Mediator, it is similar to using Ports and Adapters.
+
+One downside of the Ports and Adapters approach is that it may make it more difficult to name Application Service methods that perform queries. Consider method tenant() from the sample service. That name now seems inappropriate because it no longer answers the Tenant that it queries. The name provisionTenant() still works for the provisioning API because it actually becomes a pure command method, no longer returning a value. But we might want to think of  a  better  name  for tenant() .  The  following  may  improve things a bit:
+
+```
+... @Override @Transactional(readOnly=true) public void findTenant(TenantId aTenantId) { Tenant tenant = this .tenantRepository .tenantOfId(aTenantId); this.tenantIdentityOutputPort().write(tenant); } ... }
+```
+
+The  name findTenant() might  work  because  finding  doesn't  necessarily imply the need to answer a result. Whatever name is chosen, the situation confirms that each architectural decision we make leads to positive and negative consequences.
+
+## Composing Multiple Bounded Contexts
+
+The examples I have provided don't address the possibility that a single user interface may need to compose two or more domain models. In my examples, concepts  from  upstream  models  are  integrated  into  downstream  models  by translating them into terms of the downstream model.
+
+That's different from the need to compose multiple models into one unified presentation, as seen in Figure 14.3. The foreign models, in this example, are Products Context , Discussions Context , and Reviews Context . The user interface should not be aware that it is composing multiple models. When a similar situation occurs in your application, you should give thought to how Module (9) structure and naming support your needs, and how Application Services can smooth out the probable disconnect between different models.
+
+One solution uses multiple Application Layers, which is unlike that shown in Figure 14.3. With multiple Application Layers you would need to supply independent user interface components with each, where the user interface components would have some affinity to a specific underlying domain model. This is basically the portal-portlet style. Still, it could be more difficult to get the disparate Application Layers and independent user interface components to harmonize along use case flows, which is what the user interface is concerned with.
+
+Since the Application Layer manages use cases, it may be easiest to create a single Application Layer as the actual source of model composition, which is the approach shown in Figure 14.3. Services in that single layer are devoid of business domain logic. It will only serve to aggregate objects from each model into cohesive ones that the user interface needs. Likely in this case you would
+
+Figure 14.3 There are times when a UI must compose multiple models. Here three models are composed using a single Application Layer.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000585_c97652607ef3d8c79cdc089afe9f0c2081066e88b961b34bfef509b95d510b34.png)
+
+531
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000586_121b39b3bc3d2713bb6029f4a9749aa3da1200b628648c4924e3c4e5ad2f12cc.png)
+
+name Modules in the User Interface and Application Layers according to the purpose of the composition, a named context:
+
+```
+com.consumerhive.productreviews.presentation com.consumerhive.productreviews.application
+```
+
+Consumer Hive provides consumer product reviews and discussions. It has separated the Products Context from the Discussions Context and Reviews Context . Yet, the presentation and application Modules reflect the unification under one user interface. Likely it gets its product catalog from one or more external sources, whereas the discussions and reviews are its Core Domain.
+
+And speaking of Core Domain . . . Strangely enough, what do you detect here? Isn't this Application Layer really serving as a new domain model with a built-in Anticorruption Layer (3) ? Yes, it is basically a new bargain-basement Bounded Context. Here the Application Services manage a merger of various DTOs, which mimic a sort of Anemic Domain Model (1) . It is a bit of a Transaction Script (1) approach that models the Core Domain.
+
+If you were to decide that Consumer Hive's three-model composition is crying  for  a  new Domain Model (1) that  is  a  unified  object  model  in  a  single Bounded Context, you might name the Modules of the new model as follows:
+
+```
+com.consumerhive.productreviews.domain.model.product com.consumerhive.productreviews.domain.model.discussion com.consumerhive.productreviews.domain.model.review
+```
+
+In the end you will have to decide how to model this situation. Will you decide to use strategic design and even tactical design to create a new model? At a minimum, this situation begs the question: Where do we draw the line between composing multiple Bounded Contexts into a single user interface, and creating a new, clean Bounded Context with a unified domain model? Each case must be considered carefully. A less significant system would have other influences and priorities. Still, we must not treat such decisions arbitrarily. Consideration should be given to the criteria provided in Bounded Contexts. In the end the best approach is the one that benefits the business the most.
+
+## Infrastructure
+
+The job of the infrastructure is to provide technical capabilities for other parts of  your  application.  While  avoiding  a  discussion  about Layers  (4) ,  it  is  still useful  to  maintain  a  Dependency  Inversion  Principle  mentality.  So  wherever your infrastructure lives architecturally, it works out very well if its components depend on the interfaces from the user interface, Application Services, and domain model that require special technical capabilities. That way, when an Application Service looks up a Repository, it will be dependent only on the interface from the domain model, but using the implementation from the infrastructure. Figure 14.4 provides the UML static structure diagram to illustrate how that works.
+
+Figure 14.4 The Application Service depends on the Repository interface from the domain model but uses the implementation class from infrastructure. The packages encapsulate broad responsibilities.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000587_8178be62f88d7f60e8ca7f404ca4b79c7c75a100f9f2d254251cfd489da6a785.png)
+
+The lookup may be implicit through Dependency Injection [Fowler, DI] or using a Service Factory . The final section of this chapter, 'Enterprise Component Containers,' discusses these options. Repeating a portion of the Application Service used as a running example, you can see again here how the Service Factory is used to look up the Repository:
+
+```
+package com.saasovation.identityaccess.application;
+```
+
+```
+public class TenantIdentityService { ... @Override @Transactional(readOnly=true) public Tenant tenant(TenantId aTenantId) { Tenant tenant = DomainRegistry .tenantRepository() .tenantOfId(aTenantId);
+```
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000588_ffe6c9773b73f2add2edb82305a5572f54d33fa79bed14ce518f876a1b8a446b.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000589_5078b7c8e273d7df483d194bda1a538df44ea0102a80d16ae8620bf6c7dc3983.png)
+
+```
+return tenant; } ... }
+```
+
+This  Application  Service  could  have  instead  injected  the  Repository,  or  we could have set up the inbound dependencies by way of constructor parameters.
+
+Implementations of Repositories are kept in the infrastructure because they deal with storage, which is not a responsibility that the model should take on. You would use the infrastructure to implement interfaces that require use of messaging, such as message queues and e-mail. If there are special user interface components that feature generated graphical charts, maps, and the like, these would also be implemented in the infrastructure.
+
+## Enterprise Component Containers
+
+These  days,  enterprise  application  servers  are  a  commodity.  There  seems  to be little  innovation in the servers themselves and in the component containers  that  run  inside  them.  We  can  use  Enterprise  JavaBeans  (EJB)  as Session Facades [Crupi et al.] or simple JavaBeans hosted by inversion-of-control containers, such as Spring, to facilitate the use of Application Services. There are arguments about which is better, but there has also been a lot of convergence among the frameworks. In fact, a peek inside some JEE servers reveals that some are implemented using Spring.
+
+## Is It WebLogic or Spring?
+
+If you were to view a stack trace from the Oracle WebLogic Server, you'd likely see references to classes from Spring Framework. They aren't part of your application's deployment. In this case you are using only standard JEE with EJB Session Beans. The Spring classes you are seeing are part of WebLogic's EJB container implementation. Is this a case of 'if you can't beat them, join them'?
+
+I have chosen to implement the three sample Bounded Contexts I have provided using Spring Framework. Yet, these examples would easily carry over to other enterprise container platforms. So there's nothing lost if you don't use Spring on your projects, and you should still feel quite comfortable reading through the examples. There are minimal logical differences among the various containers.
+
+In Repositories (12) is seen the Spring configuration used to wire up transactional  support  for  Application  Services  that  is  used  for  persisting  domain objects. Here let's look at other parts of the Spring configuration. Two files of interest are
+
+```
+config/spring/applicationContext-application.xml config/spring/applicationContext-domain.xml
+```
+
+As the filenames indicate, Application Services and domain model components are wired in these. Consider a few from the application wiring:
+
+```
+<beans ...> <aop:aspectj-autoproxy/> <tx:annotation-driven transaction-manager="transactionManager"/> ... <bean id="applicationServiceRegistry" class="com.saasovation.identityaccess.application Φ .ApplicationServiceRegistry" autowire="byName"> </bean> ... <bean id="tenantIdentityService" class="com.saasovation.identityaccess.application Φ .TenantIdentityService" autowire="byName"> </bean> ... </beans>
+```
+
+The bean tenantIdentityService is the one reviewed earlier. This bean can be wired into other Spring beans, such as in the user interface. If you prefer a Service Factory rather than injecting bean instances into others, we can use the other bean in the configuration, applicationServiceRegistry . This bean provides lookup access to all Application Services. You'd use it like this:
+
+```
+... ApplicationServiceRegistry .tenantIdentityService() .deactivateTenant(tenantId);
+```
+
+We  can  do  so  because  it  is  itself  injected  with  the  Spring ApplicationContext when the bean is newly created.
+
+The same kind of registry bean is provided for access to components of the domain model, such as Repositories and Domain Services. Here is the Registry, Repository, and Domain Service bean configuration for the domain model:
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000590_870e36d1131aa2e69f054735df693c29fc79378ad16571ce6f5dfa0d51ba649f.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000591_c0791247533eb60d1078b0027fe801dd04493c8678035771e1e686f92d12c45f.png)
+
+```
+<beans ...> ... <bean id="authenticationService" class="com.saasovation.identityaccess.infrastructure Φ .services.DefaultEncryptionAuthenticationService" autowire="byName"> </bean> <bean id="domainRegistry" class="com.saasovation.identityaccess.domain.model Φ .DomainRegistry" autowire="byName"> </bean> <bean id="encryptionService" class="com.saasovation.identityaccess.infrastructure Φ .services.MessageDigestEncryptionService" autowire="byName"> </bean> <bean id="groupRepository" class="com.saasovation.identityaccess.infrastructure Φ .persistence.HibernateGroupRepository" autowire="byName"> </bean> <bean id="roleRepository" class="com.saasovation.identityaccess.infrastructure Φ .persistence.HibernateRoleRepository" autowire="byName"> </bean> <bean id="tenantProvisioningService" class="com.saasovation.identityaccess.domain.model Φ .identity.TenantProvisioningService" autowire="byName"> </bean> <bean id="tenantRepository" class="com.saasovation.identityaccess.infrastructure Φ .persistence.HibernateTenantRepository" autowire="byName"> </bean>
+```
+
+```
+<bean id="userRepository" class="com.saasovation.identityaccess.infrastructure Φ .persistence.HibernateUserRepository" autowire="byName"> </bean> </beans>
+```
+
+Using the DomainRegistry , we can access any of these Spring registered beans. All of the beans are also available for dependency injection into other Spring beans. Thus, the Application Services could choose to use the Service Factory or Dependency Injection. See Services (7) for a more in-depth discussion  of  using  these  two  approaches  versus  a  constructor-based  dependency setup.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000592_0d9f6ec47c8ff53e2f858123a8efe6c992bf27c96898845ef00a82c2b0f2c31e.png)
+
+## Wrap-Up
+
+In this chapter we've looked into how the application works outside the domain model.
+
+-  You've considered several techniques for rendering the model's data into user interfaces.
+-  You saw ways of accepting user input that is applied to the domain model.
+-  You've  learned  a  variety  of  options  for  transferring  model  data,  even when there are possibly many different kinds of user interface types.
+-  You have looked into Application Services and what they are responsible for.
+-  You  were  introduced  to  an  option  for  decoupling  output  from  specific client types.
+-  You've learned ways to use the infrastructure to keep technical implementations out of the domain model.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000593_96181ade65db01f8f753a8f22462aa64173e9a807024c804cb44db87e704a3f3.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000594_9d733b2da579f3f9a927812ddd1bba5242f52f4c5134cc27886ac79a2ce95077.png)
+
+-  You  considered  how,  using  DIP,  to  make  clients  of  every  aspect  of  the application  depend  on  abstractions  rather  than  implementation  details, which promotes loose coupling.
+-  Finally, you saw how commodity application servers and enterprise component containers can give legs to your applications.
+
+You should now be on solid footing to implement DDD from the carefully crafted domain model through to the components of the entire application.
+
+## Appendix A
+
+## Aggregates and Event Sourcing: A+ES
+
+## Contributed by Rinat Abdullin
+
+The concept of Event Sourcing has been used for decades but has more recently been popularized by Greg Young by applying it to DDD [Young, ES].
+
+Event Sourcing can be used to represent the entire state of an Aggregate (10) as a sequence of Events (8) that have occurred since it was created. The Events are used to rebuild the state of the Aggregate by replaying them in the same order in which they occurred. The premise is that this approach simplifies persistence and allows capturing concepts with complex behavioral properties.
+
+The set  of  Events  representing  the  state  of  each  Aggregate  is  captured  in an append-only Event Stream. This Aggregate state is further mutated by successive operations that append new Events to the end of the Event Stream, as illustrated in Figure A.1. (In this appendix Events are shown as light gray rectangles to make them stand out from other concepts.)
+
+The  Event  Stream  of  each  Aggregate  is  usually  persisted  in Event  Stores (8) , where they are uniquely distinguished, usually by the identity of the root Entity (5) . How to build an Event Store specifically for use with Event Sourcing is addressed in more detail later in the appendix.
+
+From here forward, let's refer to this approach of using Event Sourcing to maintain the state of Aggregates and persist them as A+ES .
+
+Some of the primary benefits of A+ES are:
+
+-  Event Sourcing guarantees that the reason for each change to an Aggregate  instance  will  not  be  lost.  When  using  the  traditional  approach  of
+
+Figure A.1 An Event Stream with Domain Events in order of occurrence
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000595_bccd4b99bab0f4e986bfc210f14faf8c3a511752400f32c016a0e1444ae3fa9c.png)

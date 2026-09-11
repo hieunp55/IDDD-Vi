@@ -1,0 +1,448 @@
+Bạn là chuyên gia dịch thuật kỹ thuật Anh → Việt, chuyên tài liệu kỹ thuật/công nghệ, có kinh nghiệm dịch như biên dịch viên bản ngữ chuyên nghiệp. Nhiệm vụ: dịch TOÀN BỘ nội dung Markdown dưới đây sang tiếng Việt, không bỏ sót bất kỳ phần nào. Đây là MỘT PHẦN (chunk) của một tài liệu lớn hơn, hãy dịch độc lập đoạn này, không thêm lời mở đầu/kết luận về việc đây chỉ là một phần.
+
+QUY TẮC BẮT BUỘC — VI PHẠM LÀ SAI:
+
+1. XÁC ĐỊNH LOẠI TÀI LIỆU TRƯỚC KHI DỊCH
+   - Tự phân tích nội dung để xác định loại tài liệu (kỹ thuật/lập trình, tài chính, bảo hiểm, pháp lý, marketing, học thuật, vận hành, sản phẩm...).
+   - Chọn văn phong và thuật ngữ CHUẨN NGÀNH tương ứng trong tiếng Việt, nhất quán xuyên suốt.
+
+2. VĂN PHONG — MƯỢT NHƯ NGƯỜI DỊCH, KHÔNG GIẢM CHÍNH XÁC
+   - Dịch mượt, tự nhiên, đúng ngữ pháp tiếng Việt — như biên dịch viên bản ngữ dịch tay, KHÔNG dịch máy móc kiểu word-by-word.
+   - Được phép đảo cấu trúc câu, tách/gộp câu cho tự nhiên, miễn giữ nguyên 100% ý nghĩa, thông tin, logic, số liệu gốc.
+   - Khi "mượt mà" và "chính xác" xung đột → LUÔN ưu tiên chính xác.
+
+3. DỊCH ĐẦY ĐỦ 100%
+   - Không tóm tắt, không rút gọn, không lược bỏ đoạn/câu/mục/bullet nào.
+   - Số lượng heading, đoạn văn, bảng, code block ở output PHẢI khớp 1:1 với input.
+   - Đoạn dài dịch hết, không cắt ngắn.
+
+4. GIỮ NGUYÊN THUẬT NGỮ TIẾNG ANH
+   - Thuật ngữ chuyên ngành (tên công nghệ, framework, pattern, tên hàm/biến, acronym...) giữ nguyên tiếng Anh, không dịch, không phiên âm.
+   - Ngay sau lần xuất hiện ĐẦU TIÊN của mỗi thuật ngữ, thêm chú thích ngắn trong ngoặc giải thích nghĩa bằng tiếng Việt.
+   - Các lần xuất hiện sau KHÔNG cần chú thích lại.
+
+5. GIỮ NGUYÊN FORMAT — RẤT QUAN TRỌNG
+   - VỀ ẢNH (làm trước khi dịch): ĐẾM chính xác số lượng thẻ ảnh dạng ![...](...) trong đoạn gốc bên dưới. Output PHẢI có ĐÚNG số lượng thẻ ảnh đó, không được thiếu một cái nào — kể cả ảnh không có caption, không rõ ngữ cảnh, hay trông như ảnh trang trí/lặp lại. Copy nguyên URL 100%, không sửa, không rút gọn, không thay bằng mô tả text.
+   - Giữ cấp độ heading (#, ##, ###...), giữ đúng số lượng heading.
+   - Giữ cấu trúc bảng (số cột, số hàng, alignment, header row).
+   - Giữ code block (```lang ... ```) — KHÔNG dịch code; comment được dịch tại chỗ; **được phép reformat code, tự động xuống dòng/indent chuẩn, không giữ nguyên code 1 dòng; không đổi logic/cú pháp**.
+   - Giữ blockquote, callout/note/warning (>, [!NOTE], [!WARNING]...).
+   - Giữ list, nested list, checkbox (- [ ]).
+   - Giữ nguyên link thường ([text](url)) — chỉ dịch phần text hiển thị, TUYỆT ĐỐI giữ nguyên URL.
+   - TRƯỚC KHI TRẢ KẾT QUẢ: tự đếm lại số heading, số ảnh, số dòng ``` giữa bản gốc và bản dịch của bạn, nếu lệch phải sửa lại cho khớp.
+
+6. GIẢI THÍCH ẨN DỤ / KHÁI NIỆM KHÓ
+   - Với ẩn dụ, thành ngữ, khái niệm trừu tượng khó hiểu với người Việt, thêm khối giải thích riêng ngay sau đoạn đó:
+     > 💡 **Giải thích thêm:** [giải thích dễ hiểu, đủ chuyên sâu, có ví dụ thực tế]
+     > Nguồn tham khảo: [link cụ thể để kiểm chứng]
+   - CHỈ đưa link nếu chắc chắn tồn tại và đúng nội dung — không bịa link.
+   - Không tìm được nguồn tin cậy → ghi rõ: "(Không có nguồn trích dẫn xác thực — cần tự kiểm chứng thêm)".
+
+7. CHỐNG HALLUCINATION (BẮT BUỘC)
+   - Không tự thêm thông tin/số liệu/ví dụ/kết luận KHÔNG có trong bản gốc — trừ phần giải thích ẩn dụ ở mục 6 (phải gắn nhãn rõ là phần bổ sung).
+   - Câu gốc mơ hồ → dịch sát nghĩa nhất, nếu không chắc ghi chú: "[CẦN KIỂM CHỨNG: câu gốc mơ hồ]".
+   - Không tự sửa/thêm/bớt logic kỹ thuật gốc. Không bịa trích dẫn/số liệu/link vô căn cứ.
+   - Không tự tóm tắt các đoạn dài thành ý chính rồi diễn giải lại — phải dịch từng câu.
+
+8. OUTPUT
+   - Trả về DUY NHẤT nội dung Markdown đã dịch, đặt trong 1 code block (```markdown ... ```).
+   - Không thêm lời dẫn/lời chào/giải thích ngoài code block.
+   - Không đổi tiêu đề gốc trừ khi cần dịch tiêu đề.
+
+--- NỘI DUNG GỐC CẦN DỊCH (một phần của tài liệu) ---
+
+| Interfaces for Hibernate repository, 407-408 Intention Revealing Interface, 197 reusable, 338 Separated Interface. See Separated Interface user interfaces. See User Interface Intermediate formats, for information exchange, 452 Invariants in Aggregate design, 371 consistency and, 359 determining true invariants when determining Aggregate clusters, 353-355 Entities and, 205 Inversion-of-control containers, Spring, 434-437 Iterative modeling, benefits of DDD, 28 Iterative refinement, of Context Maps, 97-98   | low latency trading systems, 540 tolerances for Domain Events, 306-307 Law of Demeter, 382-384 Layer Supertype managing surrogate identities and optimistic concurrency versioning, 380 many Values backed by database entity, 255-260 surrogate identities and, 187-188 Layers, 511 Layers Architecture Application Layer, 119-121   |
+|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Layer                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |                                                                                                                                                                                                                                                                                                                                       |
+|                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                | architectural styles and, 511                                                                                                                                                                                                                                                                                                         |
+|                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                | client-server styles and, 115                                                                                                                                                                                                                                                                                                         |
+|                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                | creating modules, 343-344                                                                                                                                                                                                                                                                                                             |
+|                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                | DIP (Dependency Inversion Principle)                                                                                                                                                                                                                                                                                                  |
+|                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                | and, 123-125                                                                                                                                                                                                                                                                                                                          |
+|                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                | Domain Layer, 121-122                                                                                                                                                                                                                                                                                                                 |
+|                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                | Infrastructure Layer, 122-123                                                                                                                                                                                                                                                                                                         |
+|                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                | naming modules, 338                                                                                                                                                                                                                                                                                                                   |
+|                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                | overview of, 119                                                                                                                                                                                                                                                                                                                      |
+| J                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              | strict and relaxed, 120 User Interface Layer, 119                                                                                                                                                                                                                                                                                     |
+|                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                | loading                                                                                                                                                                                                                                                                                                                               |
+| Java collections in, 403-404                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   | Lazy Disconnected Domain Model and, 362                                                                                                                                                                                                                                                                                               |
+| enum support for Standard Types, 235-238                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       | Domain Payload Objects and, 516                                                                                                                                                                                                                                                                                                       |
+| Java 8 Jigsaw modules, 336                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     | performance issues due to, 375                                                                                                                                                                                                                                                                                                        |
+|                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                | Learning curve, for DDD,                                                                                                                                                                                                                                                                                                              |
+| MBean standard, 328 naming implementation classes, 275-276                                                                                                                                                                                                                                                                                                                                                                                                                                                                     | 2 Legacy systems, integration with, 159                                                                                                                                                                                                                                                                                               |
+| packages, 333, 336-337                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         | Linguistic boundaries                                                                                                                                                                                                                                                                                                                 |
+| UUID generator, 176                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            | Bounded Context and,                                                                                                                                                                                                                                                                                                                  |
+|                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                | 48 Context Maps and, 96                                                                                                                                                                                                                                                                                                               |
+| JavaBeans, 15-16, 245-246 JDBC, auto-incrementing sequences, 182                                                                                                                                                                                                                                                                                                                                                                                                                                                               | Linguistics, as driver in DDD, 71                                                                                                                                                                                                                                                                                                     |
+| Jigsaw modules, Java 7, 336                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    | Liskov Substitution Principle (LSP), 438-439                                                                                                                                                                                                                                                                                          |
+| JMS, publishing Events to messaging                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            | Load balancing, 550-551                                                                                                                                                                                                                                                                                                               |
+| infrastructure, 547                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            | Logs                                                                                                                                                                                                                                                                                                                                  |
+| Join table, many Values backed by, 260                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         | HTTP GET method and, 313-315                                                                                                                                                                                                                                                                                                          |
+| JSON                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           | patching in, 552-553                                                                                                                                                                                                                                                                                                                  |
+| binary JSON format in MongoDB, 426                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             | Long-running processes                                                                                                                                                                                                                                                                                                                |
+| client integrators and, 462-463                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                | avoiding responsibility, 481-493                                                                                                                                                                                                                                                                                                      |
+| format for information exchange, 452                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           | designing, 155                                                                                                                                                                                                                                                                                                                        |
+| published language and, 100                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    | example of use of EDA, 118                                                                                                                                                                                                                                                                                                            |
+| K                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              | executives and trackers and, 156-159 overview of, 153                                                                                                                                                                                                                                                                                 |
+| King, Gavin, 262                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               | stepping through,                                                                                                                                                                                                                                                                                                                     |
+|                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                | 154-156                                                                                                                                                                                                                                                                                                                               |
+| Knowledge                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      | Lookups. See Standard Types LSP (Liskov Substitution Principle),                                                                                                                                                                                                                                                                      |
+| centralizing, 7-8                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              | 438-439                                                                                                                                                                                                                                                                                                                               |
+| Principle of least knowledge, 383                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              | M                                                                                                                                                                                                                                                                                                                                     |
+|                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                | Managers, benefits of DDD                                                                                                                                                                                                                                                                                                             |
+| L                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              | to, 6                                                                                                                                                                                                                                                                                                                                 |
+| Lambda syntax, 553-554 Latency                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 | Martin, Robert C., 123 MassTransit, messaging middleware,                                                                                                                                                                                                                                                                             |
+|                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                | 303                                                                                                                                                                                                                                                                                                                                   |
+| long-running processes (sagas) and, 159                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        | MBean standard, Java, 328                                                                                                                                                                                                                                                                                                             |
+
+Meaningful Whole pattern, 223
+
+Measurement characteristic, of Value Objects, 221
+
+Media types in use, 453-458, 462, 467
+
+Media types, resource URIs and, 104-105
+
+Mediator pattern
+
+Domain Payload Objects and, 516 for handling client output types, 530 loose coupling in Layers Architecture, 120 Presentation Model using, 520 publishing internal state of Aggregates,
+
+514-515
+
+Memoization, 583
+
+Memory consumption, Aggregate design and, 374-375
+
+Message-based approach, to Integrating Bounded Contexts
+
+long-running processes (sagas) and avoiding responsibility, 481-493
+
+overview of, 469
+
+responsibilities and, 476-481
+
+staying informed about product owners and team members, 469-476
+
+when messaging or system is unavailable, 507-508
+
+Message-oriented middleware (MoM) published notifications, 317-318
+
+SOA services and, 267
+
+Messaging
+
+Command Handlers and, 143 dealing with multiple, disparate clients, 517
+
+Event messages, 295
+
+infrastructure consistency and, 303-304
+
+in Infrastructure Layer, 122
+
+integration basics, 450
+
+message handlers, 550
+
+publishing Events to messaging infrastructure, 547
+
+Meyer, Bertrand, 139, 208, 229
+
+Midlevel developer, benefits of DDD to, 4-5
+
+Mini-layer of Domain Services, 281
+
+Mission statements, Ubiquitous Language in, 27
+
+Models/modeling
+
+Actor Model, 295
+
+Aggregate models, 348
+
+collaboration model, 53-55
+
+continuous modeling as benefit of DDD, 28
+
+CQRS command model and, 144-145
+
+CQRS query model and, 145-146
+
+Data Model Leakage, 249-251
+
+Domain Event behaviors, 291-293
+
+Domain Events, 288-289
+
+Domain Model. See Domain model
+
+Domain Services, 272-275
+
+identities and, 194
+
+navigation and, 362-363
+
+Presentation Model. See Presentation
+
+Model
+
+pull vs. push models, 312 tactical modeling, 29, 75 tactical modeling vs. strategic modeling,
+
+34
+
+Transaction Script approach to, 532 understanding invariants in consistency boundaries, 353-355
+
+Unified Modeling Language. See UML (Unified Modeling Language)
+
+upstream models influencing downstream, 99-100
+
+Model-View-Presenter (Dolphin), 518 Modules
+
+Agile Project Management Context and, 110, 340-343
+
+application support in, 510 avoiding miniature Bounded Contexts, 70 composing multiple Bounded Contexts, 531
+
+contextual boundaries and, 344
+
+designing with, 333-336
+
+drawing Context Maps and, 90
+
+hiding technical classes in, 122
+
+housing technical implementations in
+
+Infrastructure Layer, 273
+
+naming conventions, 336-339
+
+of non-model components, 343-344
+
+overview of, 333
+
+publisher in, 297
+
+review, 344
+
+separating Subdomain from Core Domain, 48
+
+size of Bounded Contexts and, 68
+
+Subdomains as ERP modules, 57
+
+Table module in Transaction Scripts, 441
+
+MoM (Message-oriented middleware) published notifications, 317-318
+
+SOA services and, 267
+
+MongoDB
+
+concurrency and, 385-386
+
+implementing persistence-oriented repository, 425-430
+
+persistence-oriented repositories and,
+
+418-420
+
+MSMQ, 547
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000671_7f5df3ce9f36cb2e71fe33eaa384f2d5767625e79a33d3f1a6a6d57f45f2f7fc.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000672_a1844ee8023c9373e75a8c88353f98ee7e2fe1badc09e024ff29db22a7d1ecf1.png)
+
+## INDEX
+
+| Multichannel publishing, 325 Mutability Values, 221                                                                                                                                                                    |
+|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Mutate() , 552                                                                                                                                                                                                         |
+| MySQL                                                                                                                                                                                                                  |
+| auto-incrementing sequences, 180-182 BLOB persistence, 568-569 relational persistence, 565-567 serialization of many Values into single                                                                                |
+| O Object oriented languages, 403                                                                                                                                                                                       |
+| column, 254-255                                                                                                                                                                                                        |
+| Value Object persistence, 251-253                                                                                                                                                                                      |
+| N                                                                                                                                                                                                                      |
+| Namespaces, C#, 333, 336-337                                                                                                                                                                                           |
+| Naming conventions Bounded Context model,                                                                                                                                                                              |
+| 337-339 Domain Events, 289 modules, 336-337                                                                                                                                                                            |
+| .NET, implementation of Protocol Buffers, 576-577 or junior developer, benefits of                                                                                                                                     |
+| to, 4 databases, 249, 418                                                                                                                                                                                              |
+| Newbie DDD NoSQL                                                                                                                                                                                                       |
+| Notifications event-carrying, 473-476 published using messaging middleware,                                                                                                                                            |
+| 317-318                                                                                                                                                                                                                |
+| publishing as RESTful resources, 312-317 publishing message-based notifications,                                                                                                                                       |
+| 324-329 publishing the NotificationLog ,                                                                                                                                                                               |
+| 319-323 as RESTful resource, 453-457                                                                                                                                                                                   |
+| 303                                                                                                                                                                                                                    |
+| NServiceBus,                                                                                                                                                                                                           |
+| Object schizophrenia, 202-203 Object-relational mapping. See                                                                                                                                                           |
+| relational mapping)                                                                                                                                                                                                    |
+| ORM (object- Objects                                                                                                                                                                                                   |
+| domain objects with multiple roles,                                                                                                                                                                                    |
+| 200-205 rendering domain objects, 512-513                                                                                                                                                                              |
+| validating object compositions,                                                                                                                                                                                        |
+| validating whole Entities, 211-215                                                                                                                                                                                     |
+| Value Objects. See Value Objects                                                                                                                                                                                       |
+| pattern                                                                                                                                                                                                                |
+| data synchronization and, 147 loose coupling in Layers Architecture, 120 multiparty activities, 364 publishing Domain Events with, 296 OHS. See Open Host Service (OHS) Onion architecture. See Hexagonal Architecture |
+| 215-216 Observer                                                                                                                                                                                                       |
+
+Open Host Service (OHS)
+
+Bounded Context relationships, 93-94
+
+Context Maps and, 460
+
+defined, 100
+
+Layers Architecture pattern and, 120
+
+service-oriented components in Bounded Context, 67
+
+Open Session In View (OSIV), 516
+
+Optimistic concurrency
+
+Hibernate providing, 350
+
+Layer Supertype and, 380
+
+usage scenarios applied to Aggregate design, 373-374
+
+version attribute and, 385-387
+
+Oracle
+
+auto-incrementing sequences, 179-180 Coherence. See Coherence TopLink. See TopLink
+
+Organizational patterns, 92-94
+
+Organizational relationships, Context Maps and, 91-92
+
+ORM (object-relational mapping)
+
+enum-as-state objects, 261-263
+
+Event Sourcing contrasted with, 162
+
+Hibernate tool and. See Hibernate
+
+many Values backed by database entity, 255-260
+
+many Values backed by join table, 260 persistence and, 249
+
+serialization of many Values into single column, 253-255
+
+single Value Objects, 251-253
+
+OSGi bundles, 336
+
+OSIV (Open Session In View), 516
+
+## P
+
+Packages, Java, 333, 336-337
+
+Parallel processing, 159
+
+Partner activities (Helland), 156
+
+Partnerships
+
+Bounded Context relationships, 92
+
+reference by identity forming, 364
+
+Passwords encrypting, 269-271 testing authentication service, 281-284
+
+Performance issues, Aggregates and Event Sourcing (A+ES) and, 558-561
+
+Permissions, centralizing in Identity and Access Context, 80-81
+
+Persistence
+
+Aggregates and Event Sourcing (A+ES) and, 558
+
+BLOB persistence, 568-569
+
+in Infrastructure Layer, 122
+
+Read Model Projections, 570-572 relational persistence, 565-567 repositories and, 401
+
+of Value Objects, 248-249
+
+Persistence mechanisms
+
+for dealing with concurrency, 350 generating identity of Entities, 179-182 using single transaction to manage consistency, 354
+
+Persistence stores
+
+collection-oriented repositories and, 406-407
+
+generating identity of Entities, 178 messaging infrastructure consistency and, 304
+
+Value Objects and, 248-250
+
+Persistence-oriented repositories Coherence implementation of, 420-425 MongoDB in implementation of, 425-430 overview of, 418-420
+
+Pipes and Filters
+
+basic characteristics of, 150-151
+
+EDA and, 118
+
+how it works, 149-150
+
+long-running processes (sagas) and, 153-159
+
+message-based systems and, 149 messaging approach, 151-152
+
+PL. See Published Language (PL)
+
+Polling models, 312
+
+Ports and Adapters architecture. See Hexagonal Architecture
+
+POST method, HTTP, 135, 458
+
+Power Types, modeling Standard Types as, 233
+
+Presentation Model
+
+Layers Architecture pattern and, 120 rendition adapters and user edit handling, 518-521
+
+state representation of domain objects, 516 Primitive types, Application Services and,
+
+522-523
+
+Principle of least knowledge, 383
+
+Priorities, business, 230-231
+
+Problem space assessing for Context Map, 96-97 of domains, 56-58
+
+Process state machines, 493-503
+
+Processes, long-running. See Long-running processes
+
+Product owners
+
+responsibilities and, 476-481
+
+staying informed about, 469-476
+
+Project relationships, Context Maps and,
+
+91-92
+
+## Properties
+
+Domain Events, 290-291
+
+Entities, 208-211
+
+Value Objects, 224-225
+
+Protocol Buffers, 452, 576-577
+
+Published Language (PL)

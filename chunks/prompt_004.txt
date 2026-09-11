@@ -1,0 +1,435 @@
+Bạn là chuyên gia dịch thuật kỹ thuật Anh → Việt, chuyên tài liệu kỹ thuật/công nghệ, có kinh nghiệm dịch như biên dịch viên bản ngữ chuyên nghiệp. Nhiệm vụ: dịch TOÀN BỘ nội dung Markdown dưới đây sang tiếng Việt, không bỏ sót bất kỳ phần nào. Đây là MỘT PHẦN (chunk) của một tài liệu lớn hơn, hãy dịch độc lập đoạn này, không thêm lời mở đầu/kết luận về việc đây chỉ là một phần.
+
+QUY TẮC BẮT BUỘC — VI PHẠM LÀ SAI:
+
+1. XÁC ĐỊNH LOẠI TÀI LIỆU TRƯỚC KHI DỊCH
+   - Tự phân tích nội dung để xác định loại tài liệu (kỹ thuật/lập trình, tài chính, bảo hiểm, pháp lý, marketing, học thuật, vận hành, sản phẩm...).
+   - Chọn văn phong và thuật ngữ CHUẨN NGÀNH tương ứng trong tiếng Việt, nhất quán xuyên suốt.
+
+2. VĂN PHONG — MƯỢT NHƯ NGƯỜI DỊCH, KHÔNG GIẢM CHÍNH XÁC
+   - Dịch mượt, tự nhiên, đúng ngữ pháp tiếng Việt — như biên dịch viên bản ngữ dịch tay, KHÔNG dịch máy móc kiểu word-by-word.
+   - Được phép đảo cấu trúc câu, tách/gộp câu cho tự nhiên, miễn giữ nguyên 100% ý nghĩa, thông tin, logic, số liệu gốc.
+   - Khi "mượt mà" và "chính xác" xung đột → LUÔN ưu tiên chính xác.
+
+3. DỊCH ĐẦY ĐỦ 100%
+   - Không tóm tắt, không rút gọn, không lược bỏ đoạn/câu/mục/bullet nào.
+   - Số lượng heading, đoạn văn, bảng, code block ở output PHẢI khớp 1:1 với input.
+   - Đoạn dài dịch hết, không cắt ngắn.
+
+4. GIỮ NGUYÊN THUẬT NGỮ TIẾNG ANH
+   - Thuật ngữ chuyên ngành (tên công nghệ, framework, pattern, tên hàm/biến, acronym...) giữ nguyên tiếng Anh, không dịch, không phiên âm.
+   - Ngay sau lần xuất hiện ĐẦU TIÊN của mỗi thuật ngữ, thêm chú thích ngắn trong ngoặc giải thích nghĩa bằng tiếng Việt.
+   - Các lần xuất hiện sau KHÔNG cần chú thích lại.
+
+5. GIỮ NGUYÊN FORMAT — RẤT QUAN TRỌNG
+   - VỀ ẢNH (làm trước khi dịch): ĐẾM chính xác số lượng thẻ ảnh dạng ![...](...) trong đoạn gốc bên dưới. Output PHẢI có ĐÚNG số lượng thẻ ảnh đó, không được thiếu một cái nào — kể cả ảnh không có caption, không rõ ngữ cảnh, hay trông như ảnh trang trí/lặp lại. Copy nguyên URL 100%, không sửa, không rút gọn, không thay bằng mô tả text.
+   - Giữ cấp độ heading (#, ##, ###...), giữ đúng số lượng heading.
+   - Giữ cấu trúc bảng (số cột, số hàng, alignment, header row).
+   - Giữ code block (```lang ... ```) — KHÔNG dịch code; comment được dịch tại chỗ; **được phép reformat code, tự động xuống dòng/indent chuẩn, không giữ nguyên code 1 dòng; không đổi logic/cú pháp**.
+   - Giữ blockquote, callout/note/warning (>, [!NOTE], [!WARNING]...).
+   - Giữ list, nested list, checkbox (- [ ]).
+   - Giữ nguyên link thường ([text](url)) — chỉ dịch phần text hiển thị, TUYỆT ĐỐI giữ nguyên URL.
+   - TRƯỚC KHI TRẢ KẾT QUẢ: tự đếm lại số heading, số ảnh, số dòng ``` giữa bản gốc và bản dịch của bạn, nếu lệch phải sửa lại cho khớp.
+
+6. GIẢI THÍCH ẨN DỤ / KHÁI NIỆM KHÓ
+   - Với ẩn dụ, thành ngữ, khái niệm trừu tượng khó hiểu với người Việt, thêm khối giải thích riêng ngay sau đoạn đó:
+     > 💡 **Giải thích thêm:** [giải thích dễ hiểu, đủ chuyên sâu, có ví dụ thực tế]
+     > Nguồn tham khảo: [link cụ thể để kiểm chứng]
+   - CHỈ đưa link nếu chắc chắn tồn tại và đúng nội dung — không bịa link.
+   - Không tìm được nguồn tin cậy → ghi rõ: "(Không có nguồn trích dẫn xác thực — cần tự kiểm chứng thêm)".
+
+7. CHỐNG HALLUCINATION (BẮT BUỘC)
+   - Không tự thêm thông tin/số liệu/ví dụ/kết luận KHÔNG có trong bản gốc — trừ phần giải thích ẩn dụ ở mục 6 (phải gắn nhãn rõ là phần bổ sung).
+   - Câu gốc mơ hồ → dịch sát nghĩa nhất, nếu không chắc ghi chú: "[CẦN KIỂM CHỨNG: câu gốc mơ hồ]".
+   - Không tự sửa/thêm/bớt logic kỹ thuật gốc. Không bịa trích dẫn/số liệu/link vô căn cứ.
+   - Không tự tóm tắt các đoạn dài thành ý chính rồi diễn giải lại — phải dịch từng câu.
+
+8. OUTPUT
+   - Trả về DUY NHẤT nội dung Markdown đã dịch, đặt trong 1 code block (```markdown ... ```).
+   - Không thêm lời dẫn/lời chào/giải thích ngoài code block.
+   - Không đổi tiêu đề gốc trừ khi cần dịch tiêu đề.
+
+--- NỘI DUNG GỐC CẦN DỊCH (một phần của tài liệu) ---
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000010_c0d2c752716d17d5e540f8314abbababa3439f7a12729c69aa3db5e549c9a58e.png)
+
+Most, if not all, of the Web frameworks also function solely on the JavaBean standard. If you want your Java objects to be able to populate your Web pages, the  Java  objects  had  better  support  the  JavaBean  specification.  If  you  want your HTML forms to populate a Java object when submitted to the server side, your Java form object had better support the JavaBean specification.
+
+Just  about  every  framework  on  the  market  today  requires,  and  therefore promotes, the use of public properties on simple objects. Most developers can't help but be influenced by all the anemic classes all over their enterprises. Admit it. You've been bitten by it, haven't you? As a result, we have a situation that might be best labeled anemia everywhere .
+
+## Look at What Anemia Does to Your Model
+
+All right, so let's say we can agree that this is both true and vexing to us. What does anemia everywhere have to do with memory loss ? When you are reading through the client code of an Anemic Domain Model (for example, the impostor Application Service (4, 14) ,  à  la  Transaction  Script),  what do we usually see? Here's a rudimentary example:
+
+```
+@Transactional public void saveCustomer( String customerId, String customerFirstName, String customerLastName, String streetAddress1, String streetAddress2, String city, String stateOrProvince, String postalCode, String country, String homePhone, String mobilePhone, String primaryEmailAddress, String secondaryEmailAddress) { Customer customer = customerDao.readCustomer(customerId); if (customer == null) { customer = new Customer(); customer.setCustomerId(customerId); } customer.setCustomerFirstName(customerFirstName); customer.setCustomerLastName(customerLastName); customer.setStreetAddress1(streetAddress1); customer.setStreetAddress2(streetAddress2); customer.setCity(city); customer.setStateOrProvince(stateOrProvince); customer.setPostalCode(postalCode); customer.setCountry(country); customer.setHomePhone(homePhone); customer.setMobilePhone(mobilePhone);
+```
+
+```
+customer.setPrimaryEmailAddress(primaryEmailAddress); customer.setSecondaryEmailAddress (secondaryEmailAddress); customerDao.saveCustomer(customer); }
+```
+
+## Example Purposely Kept Simple
+
+Admittedly, this example is not from a very interesting domain, but it does help us examine a less-than-ideal design and determine how we can refactor it to a much better one. Let's be clear that this exercise is not leading us to a cooler way to save data.  It's  about  crafting  a  software  model  that  adds  value  to  your  business,  even though this example may not seem valuable.
+
+What did this  code  just  do?  Actually  it's  pretty  versatile  code.  It  saves  a Customer no matter whether it is new or preexisting. It saves a Customer no matter whether the last name changed or the person moved to a new home. It  saves  a Customer no  matter  whether  the  person  got  a  new  home  phone number or discontinued home phone service, or whether he or she got a mobile phone for the first time, or both. It even saves a Customer who switched from using Juno to using Gmail instead, or who changed jobs and now has a new work e-mail address. Wow, this is an awesome method!
+
+Or  is  it?  Actually,  we  have  no  idea  under  what  business  situations  this saveCustomer() method  is  used-not  exactly,  anyway.  Why  was  this method created in the first place? Does anyone remember its original intent, and all the motivations for changing it to support a wide variety of business goals? Those memories were quite likely lost only a few weeks or months after the method was created and then modified. And it gets even worse. You don't believe me? Look at the next version of this same method:
+
+```
+@Transactional public void saveCustomer( String customerId, String customerFirstName, String customerLastName, String streetAddress1, String streetAddress2, String city, String stateOrProvince, String postalCode, String country, String homePhone, String mobilePhone, String primaryEmailAddress, String secondaryEmailAddress) { Customer customer = customerDao.readCustomer(customerId); if (customer == null) { customer = new Customer(); customer.setCustomerId(customerId); }
+```
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000011_3c278de4902b4c455f72af13e274d5a21452e69ef8eb37ec0d8528a9be4e07c0.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000012_71c1d3da411602291a52df6a625bf692a358f41178cd87dfae5034535d2d53e3.png)
+
+```
+if (customerFirstName != null) { customer.setCustomerFirstName(customerFirstName); } if (customerLastName != null) { customer.setCustomerLastName(customerLastName); } if (streetAddress1 != null) { customer.setStreetAddress1(streetAddress1); } if (streetAddress2 != null) { customer.setStreetAddress2(streetAddress2); } if (city != null) { customer.setCity(city); } if (stateOrProvince != null) { customer.setStateOrProvince(stateOrProvince); } if (postalCode != null) { customer.setPostalCode(postalCode); } if (country != null) { customer.setCountry(country); } if (homePhone != null) { customer.setHomePhone(homePhone); } if (mobilePhone != null) { customer.setMobilePhone(mobilePhone); } if (primaryEmailAddress != null) { customer.setPrimaryEmailAddress(primaryEmailAddress); } if (secondaryEmailAddress != null) { customer.setSecondaryEmailAddress (secondaryEmailAddress); } customerDao.saveCustomer(customer); }
+```
+
+I have to note here that this example isn't as bad as it gets. Many times the data-mapping code becomes quite complex, and a lot of business  logic  gets tucked away in it. I'm sparing you the worst in this example, but you've probably seen it for yourself.
+
+Now each of the parameters other than the customerId is  optional. We can now use this method to save a Customer under at least a dozen business situations, and more! But is that really a good thing? How could we actually test this method to ensure that it doesn't save a Customer under the wrong situations?
+
+Without going into extensive detail, this method could function incorrectly in more ways than it could correctly. Perhaps there are database constraints that prevent a completely invalid state from being persisted, but now you have to look at the database to be sure. Almost certainly it will take you some time to  mentally  map  between  Java  attributes  and  column  names.  Once  you've figured  out  that  part,  you  find  that  the  database  constraints  are  missing  or incomplete.
+
+You could look at the possibly many clients (not counting those added after the user interface was completed to manage automatic remote clients) and compare source revisions to gain some insight into why it is implemented the way it is right now. As you search for answers, you learn that nobody can explain why this one method works the way it does, or how many correct uses there are. It could take several hours or days to understand it on your own.
+
+## Cowboy Logic
+
+AJ:    'That fella's so confused, he doesn't know if he's sackin' potatoes or rollerskatin' in a buffalo herd.'
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000013_786fa6f326d99b8a32c9a6e8ecc9df8b20f846af9191214071d9e0725e42c86a.png)
+
+Domain experts can't help here because they would have to be programmers to understand the code. Even if a domain expert or two knew enough about programming or could at least read the code, they would probably be at least equally at a loss as a developer regarding all that code is meant to support. With all these concerns in mind, do we dare change this code in any way, and if so, how?
+
+There are at least three big problems here:
+
+1. There is little intention revealed by the saveCustomer() interface.
+2. The implementation of saveCustomer() itself adds hidden complexity.
+3. The Customer 'domain object' isn't really an object at all. It's really just a dumb data holder.
+
+Let's call this unenviable situation anemia-induced memory loss . It happens all the time on projects that produce this kind of implicit, completely subjective code 'design.'
+
+## Hold On a Minute!
+
+At  this  point  some  of  you  may  be  thinking,  'Our  designs  never  really  leave  the whiteboard. We just draw some structure, and once agreement on that is reached, we are set free to implement. Scary.'
+
+If so, try not to distinguish design from implementation. Remember that when practicing DDD, the design is the code and the code is the design . In other words, whiteboard diagrams aren't the design, just a way to discuss the challenges of the model.
+
+Stay tuned, as you'll learn how to take ideas off the whiteboard and make them work for you.
+
+By now you should be worried about this kind of code and how you can create a better design. The good news is that you can succeed in producing an explicit, carefully crafted design in your code.
+
+## How to Do DDD
+
+Let's back away from heavy implementation discussions for a moment to consider one of the most empowering features of DDD, the Ubiquitous Language. It's  one of the two primary pillars of DDD's strengths, the second being the Bounded Context (2) , and one cannot properly stand without the other.
+
+## Terms in a Context
+
+For now think of a Bounded Context as a conceptual boundary around a whole application or finite system. The reason for this boundary is to highlight that every use of a given domain term, phrase, or sentence-the Ubiquitous Language-inside the boundary has a specific contextual meaning. Any use of the term outside that boundary could, and probably does, mean something different. Chapter 2 explains Bounded Context in depth.
+
+## Ubiquitous Language
+
+The Ubiquitous Language is a shared team language. It's shared by domain experts  and  developers  alike.  In  fact,  it's  shared  by  everyone  on  the  project team. No matter your role on the team, since you are on the team you use the Ubiquitous Language of the project.
+
+## So, You Think You Know What a Ubiquitous Language Is
+
+Obviously it's the language of the business.
+
+Well, no.
+
+Surely it must be adopting industry standard terminology.
+
+No, not really.
+
+Clearly it's the lingo used by the domain experts.
+
+Sorry, but no.
+
+The  Ubiquitous  Language  is  a  shared  language  developed  by  the  team-a  team composed of both domain experts and software developers.
+
+That's it. Now you've got it!
+
+Naturally,  the  domain  experts  have  a  heavy  influence  on  the  Language  because they know that part of the business best and may be influenced by industry standards. However, the Language is more centered on how the business itself thinks and operates . Also, many times two or more domain experts disagree on concepts and terms, and they are actually wrong about some because they haven't thought of every case before. So, as the experts and developers work together to craft a model of the domain, they use discussion with both consensus and compromise to achieve the very best Language for the project . The team never compromises on the quality of the Language, just on the best concepts, terms, and meanings. Initial consensus is not the end, however. The Language grows and changes over time as tiny and large breakthroughs are achieved, much like any other living language.
+
+This  is  no  gimmick  to  get  developers  to  be  on  the  same  page  as  domain experts. It's not just a bunch of business jargon being forced on developers. It's a real language that is created by the whole team-domain experts, developers, business analysts, everyone involved in producing the system. The Language may start out with terms that are the natural lingo of the domain experts, but it isn't limited to that because the Language must grow over time. Suffice it to say that when multiple domain experts are involved in creating the Language, they often disagree ever so slightly on the terms and meanings of what they thought were already ubiquitous.
+
+In Table 1.4, we not only model the administration of flu vaccines in code, but the team must also speak the Language openly. When the team discusses this aspect of the model, they literally speak phrases such as 'Nurses administer flu vaccines to patients in standard doses.'
+
+There will be some haggling and wrangling over the Language that exists in the minds of experts and what evolves from there. It's all part of the natural progression of developing the best Language that will matter a lot for a long time. This happens through open discussion, looking at existing documents, business tribal knowledge that finally surfaces, as well as referencing standards, dictionaries, and thesauruses. There's also a point reached where we come to terms with the fact that some words and phrases just don't aptly fit the business context as well as we once thought, and we realize that others fit it much better.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000014_866f008a76eae10f692121a036485d95c6ea0b5a148745fdab840e2dc46bb5a9.png)
+
+## Chapter 1 GETTING STARTED WITH DDD
+
+Table 1.4 Analyzing the Best Model for the Business
+
+| Which is better for the business? Though the second and third statements are similar, how should the code be designed?   | Which is better for the business? Though the second and third statements are similar, how should the code be designed?   |
+|--------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------|
+| Possible Viewpoints                                                                                                      | Resulting Code                                                                                                           |
+| 'Who cares? Just code it up.' Um, not even close.                                                                        | patient.setShotType(ShotTypes.TYPE_FLU); patient.setDose(dose); patient.setNurse(nurse);                                 |
+| 'We give flu shots to patients.' Better, but misses some important concepts.                                             | patient.giveFluShot();                                                                                                   |
+| 'Nurses administer flu vaccines to patients in standard doses.'                                                          | Vaccine vaccine = vaccines.standardAdultFluDose();                                                                       |
+| This seems like what we'd like to run with at this time, at least until we learn more.                                   | nurse.administerFluVaccine(patient, vaccine);                                                                            |
+
+So how do you capture this all-important Ubiquitous Language? Here are some ways that work as experimentation leads to advancement:
+
+-  Draw pictures of the physical and conceptual domain and label them with names and actions. These drawings are mostly informal but may contain some aspects of formal software modeling. Even if your team does some formal modeling with Unified Modeling Language (UML), you want to avoid any kind of ceremony that will bog down discussions and stifle the creativity of the ultimate Language being sought.
+-  Create a glossary of terms with simple definitions. List alternative terms, including the ones that show promise and the ones that didn't work, and why.  As  you  include  definitions,  you  cannot  help  but  develop  reusable phrases for the Language because you are forced to write in the Language of the domain.
+-  If  you  don't  like  the  idea  of  a  glossary,  still  capture  some  kind  of  documentation  that  includes  the  informal  drawings  of  important  software concepts. Again, the goal here is to force additional Language terms and phrases to surface.
+-  Since only one or a few team members may capture the glossary or other written  documents, circle  back  with  the  rest  of  the  team  to  review  the
+
+resulting phrases. You won't always, if ever, agree on all the captured linguistics, so be agile and ready to edit heavily.
+
+Those are some ideal first steps to coining a Ubiquitous Language that fits your specific domain. However, this is absolutely not the model that you are developing. It's only the genesis of the Ubiquitous Language that will very soon be expressed in your system's source code. We are talking Java, or C#, or Scala, or  some  other  programming  language  of  choice.  These  drawings  and  documents also don't address that the Ubiquitous Language will continue to expand and morph over time. The artifacts that originally led us down an inspiring path to developing a useful Ubiquitous Language that was just right for our specialized domain will very likely be rendered obsolete over time. That's why in the end it is team speech and the model in the code that are the most enduring and the only guaranteed current denotations of the Ubiquitous Language.
+
+Since team speech and the code will be the lasting expression of the Ubiquitous Language, be prepared to abandon the drawings, glossary, and other documentation that will be difficult to keep up-to-date with the spoken Ubiquitous Language and source code as they are rapidly enhanced. This is not a requirement of using DDD, but it is pragmatic because it becomes impractical to keep all the documentation in sync with the system.
+
+With this knowledge we can redesign the saveCustomer() example. What if we chose to make Customer reflect each of the possible business goals that it must support?
+
+```
+public interface Customer { public void changePersonalName( String firstName, String lastName); public void postalAddress(PostalAddress postalAddress); public void relocateTo(PostalAddress changedPostalAddress); public void changeHomeTelephone(Telephone telephone); public void disconnectHomeTelephone(); public void changeMobileTelephone(Telephone telephone); public void disconnectMobileTelephone(); public void primaryEmailAddress(EmailAddress emailAddress); public void secondaryEmailAddress(EmailAddress emailAddress); }
+```
+
+We can argue that this is not the best model for a Customer ,  but  when implementing DDD, questioning the design is expected. As a team we are free to haggle over what is the best model and settle only after we've discovered the Ubiquitous Language that is agreed upon. Still, the preceding interface does explicitly  reflect  the  various  business  goals  that  a Customer must  support, even if the Language could be improved by refinements again and again.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000015_636775222ca866c62771c013764587b432b15c9d35a2eb110442f569f661f7a4.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000016_900e8ffff69e83e4802055cff6028296bcb519a7d30b4e3ee09e2b66343ec90b.png)
+
+It's important to understand too that the Application Service would also be refactored to reflect the explicit intentions of the business goals at hand. Each Application Service method would be modified to deal with a single use case flow or user story:
+
+```
+@Transactional public void changeCustomerPersonalName( String customerId, String customerFirstName, String customerLastName) { Customer customer = customerRepository.customerOfId(customerId); if (customer == null) { throw new IllegalStateException("Customer does not exist."); } customer.changePersonalName(customerFirstName, customerLastName); }
+```
+
+This  is  different  from  the  original  example  because  in  that  code  a  single method was used to deal with many different use case flows or user stories. In the new example we have limited a single Application Service method to deal with changing the personal name of the Customer , and nothing more. Thus, when using DDD, it is our job to refine Application Services accordingly. This implies  that  the  user  interface  likewise  reflects  a  narrower  user  goal,  which may have previously been true. Now, however, this specific Application Service method doesn't require its client to pass ten nulls following the first- and lastname parameters.
+
+Doesn't this new design put your mind at ease? You can read the code and easily comprehend it. You can also test it and confirm that it does exactly what it is meant to do, and that it doesn't do anything that it shouldn't.
+
+Thus, the Ubiquitous Language is a team pattern used to capture the concepts and terms of a specific core business domain in the software model itself. The  software  model  incorporates  the  nouns,  adjectives,  verbs,  and  richer expressions formally formulated and spoken by the close-knit team. Both the software and the tests that verify the model's adherence to the tenets of the domain  capture  and  adhere  to  this  Language,  the  same  one  spoken  by  the team.
+
+## Ubiquitous, but Not Universal
+
+Some  further  clarification  about  the  reach  of  a  Ubiquitous  Language  is  in order. There are a few basic concepts that we need to keep carefully in mind:
+
+- Ubiquitous means  'pervasive,' or 'found  everywhere,'  as spoken among the team and expressed by the single domain model that the team develops.
+-  The use of the word ubiquitous is not an attempt to describe some kind of enterprise-wide,  company-wide,  or  worldwide,  universal  domain language.
+-  There is one Ubiquitous Language per Bounded Context.
+-  Bounded  Contexts  are  relatively  small,  smaller  than  we  might  at  first imagine. A Bounded Context is large enough only to capture the complete Ubiquitous Language of the isolated business domain, and no larger.
+-  The Language is ubiquitous only within the team that is working on the project that develops in an isolated Bounded Context.
+-  On  a  single  project  that  develops  a  single  Bounded  Context,  there  are always one or more additional isolated Bounded Contexts with which it integrates using Context Maps (3) .  Each  of  the  multiple  Bounded Contexts that integrate has its own Ubiquitous Language, even though some terms of each may overlap.
+-  If you try to apply a single Ubiquitous Language to an entire enterprise, or worse, universally among many enterprises, you will fail.
+
+When you begin a new project in which you are properly using DDD, identify  the  isolated  Bounded  Context  that  is  being  developed.  This  places  an explicit boundary around your domain model. Discuss, research, conceptualize, develop, and speak the Ubiquitous Language of the isolated domain model within the explicit Bounded Context. Reject all concepts that are not part of the agreed-upon Ubiquitous Language of your isolated Context.
+
+## The Business Value of Using DDD
+
+If your experience is anything like mine, you know that software developers can  no  longer  pursue  technologies  and  techniques  just  because  they  sound cool or intriguing. We must justify everything that we do. I think that has not always been true, but it is a good thing it is true now. I think the best justification for using any technology or technique is to provide value to the business. If we can establish real, tangible business value, why would the business ever refuse to use what we recommend?
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000017_f2956e4617c6a17e1a8ff5b1106e36db2a4b299b10c256bae52df0117a685a09.png)
+
+The business case is strengthened especially if we can demonstrate that the business values are higher with our recommended approach than with other options.
+
+## Isn't Business Value Most Important?
+
+Sure, and perhaps I should have put this subheading 'The Business Value of Using DDD' earlier in the book. But it's done, now. This subheading could actually be 'How You Can Sell DDD to Your Boss.' Until you are mostly convinced that there is a real chance that you can actually implement DDD in your company, this book is  just  hypothetical.  And  I  don't  want  you  to  read  this  book  as  just  a  theoretical exercise. Read it as a concrete reality for your company. Then you can become more excited about how your company can really benefit. So read on.
+
+Let's consider the very realistic business value of employing DDD. Be sure to share this openly with your management, domain experts, and technical team members. The value and benefits are summarized here, then I will elaborate. I start off with the less technical benefits.
+
+1. The organization gains a useful model of its domain.
+2. A  refined,  precise  definition  and  understanding  of  the  business  is developed.
+3. Domain experts contribute to software design.
+4. A better user experience is gained.
+5. Clean boundaries are placed around pure models.
+6. Enterprise architecture is better organized.
+7. Agile, iterative, continuous modeling is used.
+8. New tools, both strategic and tactical, are employed.
+
+## 1. The Organization Gains a Useful Model of Its Domain
+
+The emphasis of DDD is to invest our efforts in what matters most to the business. We don't over-model. We focus on the Core Domain. Other models exist to support the Core Domain and are important, too. Yet the supporting models may not be given the priority and effort of the Core Domain.
+
+When our focus is on what distinguishes our business from all others, our mission is well understood and we have the parameters we need to keep on track. We will deliver exactly what is needed to achieve competitive advantage.
+
+## 2.   A Refined, Precise Definition and Understanding of the Business Is Developed
+
+The business may actually come to understand itself and its mission better than before. I have heard others state that the Ubiquitous Language developed for the business's Core Domain has found its way into marketing materials. Certainly it should be incorporated in vision documents and mission statements.
+
+As the model is refined over time, the business develops a deep understanding that can serve as an analysis tool. Details surface out of the minds of your domain experts as you are challenged by one another and shaped by technical team partners. These details can help your business analyze the value of the current and future direction, both strategic and tactical.
+
+## 3. Domain Experts Contribute to Software Design
+
+There is business value when the organization grows a deeper understanding of the core business. Domain experts don't always agree on concepts and terminology. Sometimes the differences are fostered by different experiences from outside before joining the organization. Sometimes it happens because of the divergent paths taken by each expert within the same organization. Yet when brought together to a DDD effort, the domain experts gain consensus among themselves. This fortifies the effort and the organization as a whole.
+
+Developers now share a common Language as a unified team along with domain experts. They benefit further from the knowledge transfer from the domain experts they work with. As developers inevitably move on, either to a new Core Domain or out of the organization, training and handoffs are easier.  The  chances  of  developing  'tribal  knowledge,'  where  only  a  select  few understand the model, are reduced. The experts, remaining developers, and new ones continue to share a common knowledge that is available to anyone in the organization who requires it. This advantage exists because there remains an express goal to adhere to the Language of the domain.
+
+## 4. A Better User Experience Is Gained
+
+Often the end user experience can be tuned to better reflect the model of the domain. Domain-Driven is formally 'baked in,' influencing human use of the software.
+
+When software leaves too much to the understanding of its users, users must be trained to make a great number of decisions. In essence the users are only transferring  the  understanding  in  their  minds  into  data  that  they  enter  into forms. The data is then saved to a data store. If users don't understand exactly what is needed, the results are incorrect. Often this leads to guesswork with related lowered productivity until users can figure out the software.
+
+When the user experience is designed to follow the contours of the underlying expert model, users are led to correct conclusions. The software actually trains the users, which reduces the training overhead to the business. Quicker to productivity with less training-that's business value.
+
+We next move into more technically driven benefits to the business.
+
+## 5. Clean Boundaries Are Placed around Pure Models
+
+The technical team is discouraged from doing what might appeal more to their programming and algorithmic interests by aligning expectations with business advantage. Purity in direction allows for focus on the potency of the solution, with  efforts  directed  to  where  they  matter  the  most.  Achieving  this  is  very closely connected to understanding the Bounded Context of the project.
+
+## 6. Enterprise Architecture Is Better Organized
+
+When Bounded Contexts are well  understood  and  carefully  partitioned,  all teams  in  the  enterprise  develop  an  acute  understanding  of  where  and  why integrations are necessary. The boundaries are explicit, and the relationships between them are as well. The teams that have models that intersect by usage dependency employ Context Maps to establish formal relationships and ways to integrate. This can actually lead to a very thorough understanding of the entire enterprise architecture.
+
+## 7. Agile, Iterative, Continuous Modeling Is Used
+
+The word design can evoke negative thoughts in the minds of business management. However, DDD is not a heavyweight, high-ceremony design and development  process.  DDD  is  not  about  drawing  diagrams.  It  is  about  carefully refining the mental model of domain experts into a useful model for the business. It is not about creating a real-world model, as in trying to mimic reality.
+
+The team's efforts follow an agile approach, which is iterative and incremental. Any agile process that the team feels comfortable with can be used successfully in a DDD project. The model that is produced is the working software. It is refined continuously until it is no longer needed by the business.
+
+## 8. New Tools, Both Strategic and Tactical, Are Employed
+
+A Bounded Context gives the team a modeling boundary in which to create a  solution  to  a  specific  business  problem  domain.  Inside  a  single  Bounded Context is a Ubiquitous Language formulated by the team. It is spoken among the team and in the software model. Disparate teams, sometimes each responsible for a given Bounded Context, use Context Maps to strategically segregate Bounded Contexts and understand their integrations. Within a single modeling boundary the team may employ any number of useful tactical modeling tools: Aggregates (10) , Entities (5) , Value Objects (6) , Services (7) , Domain Events (8) , and others.
+
+## The Challenges of Applying DDD
+
+As you implement DDD, you will encounter challenges. So has everyone else who has succeeded at it. What are the common challenges and how do we justify using DDD as we face them? I will discuss the more common ones:
+
+-  Allowing for the time and effort required to create a Ubiquitous Language
+-  Involving domain experts at the outset and continuously with the project
+-  Changing the way developers think about solutions in their domain
+
+One of the  greatest  challenges  in  using  DDD  can  be  the  time  and  effort required  to  think  about  the  business  domain,  research  concepts  and  terminology, and converse with domain experts in order to discover, capture, and enhance the Ubiquitous Language rather than coding in techno-babble. If you want to  apply  DDD  completely,  with  the  greatest  value  to  the  business,  it's going to require more thought and effort, and it's going to take more time. That's the way it is, period.
+
+It can also be a challenge to solicit the necessary involvement from domain experts.  No  matter  how  difficult  it  is,  make  sure  you  do.  If  you  don't  get commitment from at least one real expert, you are not going to uncover deep knowledge of the domain. When you do get the domain experts' involvement, the onus falls back on the developers. Developers must converse with and listen carefully to the true experts, molding their spoken language into software that reflects their mental model of the domain.
+
+If the domain you are working in is truly distinguishing to your business, domain experts have the edge-knowledge locked up in their heads, and you need to draw it out. I've been on projects where the real domain experts are hardly around. Sometimes they travel a lot and it can be weeks between onehour meetings with them. In a small business it can be the CEO or one of the vice presidents, and they have lots of other things to do that may seem more important.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000018_c4d5b5773b72f0464e1dd1a3ff7eb7f02484977e570e399eb6f8c48f4952c997.png)
+
+## Cowboy Logic
+
+AJ:    'If you can't rope the big steer, you're gonna go hungry.'
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000019_889851cbc7ee1d9dc83436ec8a7967fccadcd8d55d557b7fc02e31b5b6c5ba57.png)
+
+Getting domain expert involvement may require creativity . . .
+
+## How to Involve Domain Experts in Your Project
+
+Coffee. Use that Ubiquitous Language:
+
+'Hi, Sally, I got you a tall half-skinny half-one-percent extra-hot split-quad-shot latte with whip. Do you have a few minutes to talk about . . . ?'
+
+Learn to use the Ubiquitous Language of C-Level management: '. . . profits . . . revenues . . . competitive edge . . . market domination.' Seriously.
+
+Hockey tickets.
+
+Most developers have had to change the way they think in order to properly apply DDD. We developers are technical thinkers. Technical solutions come easy  for  us.  It's  not  that  thinking  technically  is  bad.  It's  just  that  there  are times when thinking less technically is better. If it's been our habit to practice software  development  only  in  technical  ways  for  years,  perhaps  now  would be a good time to consider a new way of thinking. Developing the Ubiquitous Language of your domain is the best place to start.
+
+## Cowboy Logic
+
+- LB:    'That fella's boots are too small. If he don't find himself another pair, his toes are gonna hurt.'
+
+AJ:    'Yep. If you don't listen, you're gonna have to feel.'
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000020_40301a2b66724d246cb4fc9004d6c2ec4f8053d59b4ae0e2b027257f5db45650.png)
+
+There's another level of thought that is required with DDD that goes beyond concept naming. When we model a domain through software, we are required to give careful thought to which model objects do what. It's about designing the behaviors of objects . Yes, we want the behaviors to be named properly to convey the essence of the Ubiquitous Language. But what an object does by means of a specific behavior must be considered. This is a level of effort that goes beyond creating attributes on a class and exposing getters and setters publicly to clients of the model.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000021_880031603539554eef580407cfb23b870fa0ec2a7beee4bbbcf6f6e3d148fafe.png)
+
+Let's now look at a more interesting domain, one that is more challenging than the rudimentary one previously considered. I purposely repeat my previous guidance here to reinforce the ideas.
+
+Again, what happens if we simply provide data accessors to our model? To reemphasize, if we only expose the data accessors for our model objects, the results will look much like a data model. Consider the following two examples and decide for yourself which of the two requires more thorough design thought, and which produces the greater benefit to its clients. The requirement is in a Scrum model, where we need to commit a backlog item to a sprint. You probably do this all the time, so it's most likely a familiar domain.
+
+The first example, as is commonly done today, uses attribute accessors:
+
+```
+public class BacklogItem extends Entity { private SprintId sprintId; private BacklogItemStatusType status; ... public void setSprintId(SprintId sprintId) { this.sprintId = sprintId; } public void setStatus(BacklogItemStatusType status) { this.status = status; } ... }
+```
+
+## As for the client of this model:
+
+```
+// client commits the backlog item to a sprint // by setting its sprintId and status backlogItem.setSprintId(sprintId); backlogItem.setStatus(BacklogItemStatusType.COMMITTED);
+```
+
+The second example uses a domain object behavior that expresses the Ubiquitous Language of the domain:
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000022_8cdbbd53557b51c621631e3767211d995769e1fd0f24ba3a584038dab3cd6c1e.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000023_0419b355ecddc49d3bd5201f0db34656b7710722b281496279f0e20a4def5de9.png)
+
+```
+public class BacklogItem extends Entity { private SprintId sprintId; private BacklogItemStatusType status; ... public void commitTo(Sprint aSprint) { if (!this.isScheduledForRelease()) { throw new IllegalStateException( "Must be scheduled for release to commit to sprint."); } if (this.isCommittedToSprint()) { if (!aSprint.sprintId().equals(this.sprintId())) { this.uncommitFromSprint(); } } this.elevateStatusWith(BacklogItemStatus.COMMITTED); this.setSprintId(aSprint.sprintId()); DomainEventPublisher .instance() .publish(new BacklogItemCommitted( this.tenant(), this.backlogItemId(), this.sprintId())); } ... }
+```
+
+The client of this explicit model seems to operate on safer ground:
+
+```
+// client commits the backlog item to a sprint // by using a domain-specific behavior backlogItem.commitTo(sprint);
+```
+
+The first example uses a very data-centric approach. The onus is entirely on the client to know how to correctly commit the backlog item to a sprint. The model, which is not really a domain model, doesn't help at all. What if the client mistakenly changes only the sprintId but not the status , or the opposite? Or what if in the future another attribute must be set? The client code must be analyzed for correct mapping of data values to the proper attributes on the BacklogItem .
+
+This  approach  also  exposes  the  shape  of  the BacklogItem object  and clearly focuses attention on its data attributes and not on its behaviors. Even if you argue that setSprintId() and setStatus() are behaviors, the case in point is that these 'behaviors' have no real business domain value. These 'behaviors' do not explicitly indicate the intentions of the scenarios that the domain software is supposed to model, that of committing a backlog item to a sprint. They do cause cognitive overload when the client developer tries to mentally select from among the BacklogItem attributes  needed  to  commit a  backlog  item  to  a  sprint.  There  could  be  many  because  it's  a  data-centric model.
+
+Now consider the second example. Instead of exposing the data attributes to clients, it exposes a behavior that explicitly and clearly indicates that a client may commit a backlog item to a sprint. Experts in this particular domain discuss the following requirement of the model:
+
+Allow each backlog item to be committed to a sprint. It may be committed only if  it  is  already  scheduled  for  release.  If  it  is  already  committed  to  a  different sprint, it must be uncommitted first. When the commit completes, notify interested parties.
+
+Thus, the method in the second example captures the Ubiquitous Language of the model in context, that is, the Bounded Context in which the BacklogItem type is isolated. And as we analyze this scenario, we discover that the first solution is incomplete and contains bugs.
+
+With the second implementation clients don't need to know what is required to perform the commit, whether simple or complex. The implementation of this method has as much or as little logic as necessary. We easily added a guard to protect against committing a backlog item that is not yet scheduled for release. True, you can also place guards inside the setters of the first implementation, but the setter now becomes responsible for understanding the full context of the object's state rather than just the requirements for sprintId and status .
+
+There's another subtle difference here, too. Note that if the backlog item is already committed to another sprint, it will first be uncommitted from the current sprint. This is an important detail, because when a backlog item is uncommitted from a sprint, a Domain Event is to be published to clients:
+
+Allow each backlog item to be uncommitted from a sprint. When the backlog item is uncommitted, notify interested parties.
+
+The publication of the uncommitted notification is obtained for free just by using the domain behavior uncommitFrom() . Method commitTo() doesn't even need to know that it notifies. All it needs to know is that it must uncommit from any current sprint before committing to a new sprint. Additionally, the commitTo() domain  behavior  also  notifies  interested  parties  with  an Event as its  final  step.  Without  placing  this  rich  behavior  in BacklogItem we would have to publish Events from the client. That would certainly leak domain logic from the model. Bad.
+
+Clearly, more thought is needed to create the BacklogItem of the second example than that of the first. Yet the thought needed is not so much greater, and the benefits are so much higher. The more we learn to design in this way, the easier it becomes. In the end, there is certainly more required thought, more effort, more collaboration and orchestration of team efforts, but not so much that DDD becomes heavy. New thought is well worth the effort.
+
+## Whiteboard Time
+
+-  Using the specific domain you currently work in, think of the common terms and actions of the model.
+-  Write the terms on the board.
+-  Next,  write  phrases  that  should  be  used  by  your  team  when  you  talk about the project.
+-  Discuss them with a real domain expert to see how they could be refined (remember to bring the coffee).
+
+## Justification for Domain Modeling
+
+Tactical modeling is generally more complex than strategic modeling . Thus, if you intend to develop a domain model using the DDD tactical patterns (Aggregates, Services, Value Objects, Events, and so forth), doing so will require more careful thought and greater investment. Since this is so, how does an organization justify tactical domain modeling? What criteria can be used to qualify a given project for the extra investment needed to properly apply DDD from top to bottom?
+
+Picture  yourself  leading  an  expedition  through  unfamiliar  territory.  You would  want  to  understand  the  surrounding  landmasses  and  borders.  Your team would study maps, maybe even draw their own, and determine their strategic approach. You would consider aspects of the terrain and how it could be used to your advantage. No matter how much planning is done, some facets of such an endeavor are going to be really difficult.
+
+If your strategy indicated that you'd have to scale a vertical rock face, you'd need some fitting tactical tools and maneuvers for that ascent. Standing at the bottom and looking up, you might see some indication of specific challenges and perilous areas. Yet, you wouldn't see every detail until you were on the rock face. You might need to drive pitons into slick rock, but you could use various-size cams to wedge into natural cracks. To latch on to these climbing protections, you'd bring along your carabiners. You would try to take as straight a  path  as  possible  but  would  have  to  make  specific  determinations point by point. Sometimes you might even have to backtrack and reroute depending on what the rock dictated. Many people think of climbing as a dangerous thrill sport, but those who actually climb will tell you it's safer than driving a car or flying an airplane. Clearly, for that to be true, climbers need to understand the tools and techniques and how to judge the rock.
+
+If developing a given Subdomain (2) requires such a difficult, even precarious, ascent, we'd bring the DDD tactical patterns along for the climb. A business initiative that matches the criteria of the Core Domain should not quickly dismiss the use of the tactical patterns. The Core Domain is an unknown and complex area. The team is best protected against a disastrous mid-asset fall if using the right tactics.
+
+Here's some practical guidance. I begin with the high-level ones and progress to more details:
+
+-  If a Bounded Context is being developed as the Core Domain, it is strategically vital to the success of the business. The core model is not well understood and will require lots of experimentation and refactoring. It likely  deserves  commitment to longevity with continuous enhancement. It  may  not  always  be  your  Core  Domain.  Nonetheless,  if  the  Bounded Context is complex, innovative, and needs to endure for a long time as it undergoes change, strongly consider the use of the tactical patterns as an investment in the future of your business. This assumes that your Core Domain deserves the best developer resources with a high skill level.
+-  A domain that may become a Generic Subdomain (2) or Supporting Subdomain to its consumers may actually be a Core Domain to your business. You don't always judge a domain from the viewpoint of its ultimate consumers. If you are developing a Bounded Context as your chief business initiative, it is your Core Domain regardless of how it is viewed by customers outside your business. Strongly consider the use of the tactical patterns.
+-  If you are developing a Supporting Subdomain that, for various reasons, cannot be acquired as a third-party Generic Subdomain, it is possible that the tactical patterns would benefit your efforts. In this case consider the skill  level  of  the  team  and  whether  or  not  the  model  is  new  and  innovative. It is innovative if it adds specific business value, captures special knowledge, and is not just technically intriguing. If the team is capable of
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000024_a48e7c376662fa9dec3d868aec30b130f221b552ed730e27702c4174d326b05d.png)
+
+properly applying tactical design, and the Supporting Subdomain is innovative and must endure for years in the future, this is a good opportunity to invest in your software using tactical design. However, this does not make this model the Core Domain since in the eyes of the business it is merely Supporting.
+
+These  guidelines  may  be  somewhat  confining  if  your  business  employs  a good number of developers with vast experience in and a very high comfort level with domain modeling. Where experience is very high, and the engineers themselves believe the tactical patterns would be the best choice, it makes sense to  trust  their  opinion.  Honest  developers,  no  matter  how  experienced,  will indicate in a specific case that developing a domain model is, or is not, the best choice.
+
+The type of business domain itself is not automatically the determining factor for choosing a development approach. Your team should consider important questions to help you make the final determination. Consider the following short list of more detailed decision parameters, which is more or less aligned with and expands on the preceding higher-level guidelines:
+
+-  Are domain experts available and are you committed to forming a team around them?
+-  Although the specific business domain is somewhat simple now, will it grow in complexity over time? There is risk in using Transaction Script 1 for  complex  applications.  If  you  use  Transaction  Script  now,  will  the potential for refactoring to a behavioral domain model later on be practical if/when the Context becomes complex?
+-  Will the use of the DDD tactical patterns make it easier and more practical  to  integrate  with  other  Bounded Contexts, whether third-party or custom developed?
+-  Will development really be simpler and require less code if you use Transaction Script? (Experience with both approaches proves that many times Transaction  Script  requires  as  much  or  more  code.  This  is  probably because the complexity of the domain and the innovation of the model were  not  well  understood  during  project  planning.  Underestimating domain complexity and the innovation involved happens often.)
+-  Do the critical path and timeline allow for any overhead required for tactical investment?
+
+1.  Here I am generalizing terms. In this list I use Transaction Script to represent several non-domain-model approaches.

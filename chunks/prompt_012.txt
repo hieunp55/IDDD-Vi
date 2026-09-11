@@ -1,0 +1,456 @@
+Bạn là chuyên gia dịch thuật kỹ thuật Anh → Việt, chuyên tài liệu kỹ thuật/công nghệ, có kinh nghiệm dịch như biên dịch viên bản ngữ chuyên nghiệp. Nhiệm vụ: dịch TOÀN BỘ nội dung Markdown dưới đây sang tiếng Việt, không bỏ sót bất kỳ phần nào. Đây là MỘT PHẦN (chunk) của một tài liệu lớn hơn, hãy dịch độc lập đoạn này, không thêm lời mở đầu/kết luận về việc đây chỉ là một phần.
+
+QUY TẮC BẮT BUỘC — VI PHẠM LÀ SAI:
+
+1. XÁC ĐỊNH LOẠI TÀI LIỆU TRƯỚC KHI DỊCH
+   - Tự phân tích nội dung để xác định loại tài liệu (kỹ thuật/lập trình, tài chính, bảo hiểm, pháp lý, marketing, học thuật, vận hành, sản phẩm...).
+   - Chọn văn phong và thuật ngữ CHUẨN NGÀNH tương ứng trong tiếng Việt, nhất quán xuyên suốt.
+
+2. VĂN PHONG — MƯỢT NHƯ NGƯỜI DỊCH, KHÔNG GIẢM CHÍNH XÁC
+   - Dịch mượt, tự nhiên, đúng ngữ pháp tiếng Việt — như biên dịch viên bản ngữ dịch tay, KHÔNG dịch máy móc kiểu word-by-word.
+   - Được phép đảo cấu trúc câu, tách/gộp câu cho tự nhiên, miễn giữ nguyên 100% ý nghĩa, thông tin, logic, số liệu gốc.
+   - Khi "mượt mà" và "chính xác" xung đột → LUÔN ưu tiên chính xác.
+
+3. DỊCH ĐẦY ĐỦ 100%
+   - Không tóm tắt, không rút gọn, không lược bỏ đoạn/câu/mục/bullet nào.
+   - Số lượng heading, đoạn văn, bảng, code block ở output PHẢI khớp 1:1 với input.
+   - Đoạn dài dịch hết, không cắt ngắn.
+
+4. GIỮ NGUYÊN THUẬT NGỮ TIẾNG ANH
+   - Thuật ngữ chuyên ngành (tên công nghệ, framework, pattern, tên hàm/biến, acronym...) giữ nguyên tiếng Anh, không dịch, không phiên âm.
+   - Ngay sau lần xuất hiện ĐẦU TIÊN của mỗi thuật ngữ, thêm chú thích ngắn trong ngoặc giải thích nghĩa bằng tiếng Việt.
+   - Các lần xuất hiện sau KHÔNG cần chú thích lại.
+
+5. GIỮ NGUYÊN FORMAT — RẤT QUAN TRỌNG
+   - VỀ ẢNH (làm trước khi dịch): ĐẾM chính xác số lượng thẻ ảnh dạng ![...](...) trong đoạn gốc bên dưới. Output PHẢI có ĐÚNG số lượng thẻ ảnh đó, không được thiếu một cái nào — kể cả ảnh không có caption, không rõ ngữ cảnh, hay trông như ảnh trang trí/lặp lại. Copy nguyên URL 100%, không sửa, không rút gọn, không thay bằng mô tả text.
+   - Giữ cấp độ heading (#, ##, ###...), giữ đúng số lượng heading.
+   - Giữ cấu trúc bảng (số cột, số hàng, alignment, header row).
+   - Giữ code block (```lang ... ```) — KHÔNG dịch code; comment được dịch tại chỗ; **được phép reformat code, tự động xuống dòng/indent chuẩn, không giữ nguyên code 1 dòng; không đổi logic/cú pháp**.
+   - Giữ blockquote, callout/note/warning (>, [!NOTE], [!WARNING]...).
+   - Giữ list, nested list, checkbox (- [ ]).
+   - Giữ nguyên link thường ([text](url)) — chỉ dịch phần text hiển thị, TUYỆT ĐỐI giữ nguyên URL.
+   - TRƯỚC KHI TRẢ KẾT QUẢ: tự đếm lại số heading, số ảnh, số dòng ``` giữa bản gốc và bản dịch của bạn, nếu lệch phải sửa lại cho khớp.
+
+6. GIẢI THÍCH ẨN DỤ / KHÁI NIỆM KHÓ
+   - Với ẩn dụ, thành ngữ, khái niệm trừu tượng khó hiểu với người Việt, thêm khối giải thích riêng ngay sau đoạn đó:
+     > 💡 **Giải thích thêm:** [giải thích dễ hiểu, đủ chuyên sâu, có ví dụ thực tế]
+     > Nguồn tham khảo: [link cụ thể để kiểm chứng]
+   - CHỈ đưa link nếu chắc chắn tồn tại và đúng nội dung — không bịa link.
+   - Không tìm được nguồn tin cậy → ghi rõ: "(Không có nguồn trích dẫn xác thực — cần tự kiểm chứng thêm)".
+
+7. CHỐNG HALLUCINATION (BẮT BUỘC)
+   - Không tự thêm thông tin/số liệu/ví dụ/kết luận KHÔNG có trong bản gốc — trừ phần giải thích ẩn dụ ở mục 6 (phải gắn nhãn rõ là phần bổ sung).
+   - Câu gốc mơ hồ → dịch sát nghĩa nhất, nếu không chắc ghi chú: "[CẦN KIỂM CHỨNG: câu gốc mơ hồ]".
+   - Không tự sửa/thêm/bớt logic kỹ thuật gốc. Không bịa trích dẫn/số liệu/link vô căn cứ.
+   - Không tự tóm tắt các đoạn dài thành ý chính rồi diễn giải lại — phải dịch từng câu.
+
+8. OUTPUT
+   - Trả về DUY NHẤT nội dung Markdown đã dịch, đặt trong 1 code block (```markdown ... ```).
+   - Không thêm lời dẫn/lời chào/giải thích ngoài code block.
+   - Không đổi tiêu đề gốc trừ khi cần dịch tiêu đề.
+
+--- NỘI DUNG GỐC CẦN DỊCH (một phần của tài liệu) ---
+
+Surrogate database primary keys can be used throughout the data model as foreign keys in other tables, providing referential integrity. This may be a requirement for data management in your enterprise (for example, for audits) or for tools support. The referential integrity is important for Hibernate, too, when wiring tables together to implement the various any-to-any (such as 1:M) mappings.  They  also  support  table  joins  to  optimize  queries  when  reading Aggregates out of the database.
+
+## Identity Stability
+
+In most cases unique identity must be protected from modification, remaining stable throughout the lifetime of the Entity to which it is assigned.
+
+Trivial measures may be taken to prevent identity modification. We can hide identity setters from clients. We might also create guards in setters to prevent even the Entity itself from changing the state of the identity if it already exists. Guards are coded as assertions in Entity setters. Here's an example of an identity setter:
+
+```
+public class User extends Entity  { ... protected void setUsername(String aUsername) { if (this.username != null) { throw new IllegalStateException( "The username may not be changed."); } if (aUsername == null) { throw new IllegalArgumentException( "The username may not be set to null."); } this.username = aUsername; } ... }
+```
+
+In this example, the username attribute, being the domain identity of the User Entity,  is  mutable  only  once,  and  only  internally.  The  setter,  method setUsername() , provides self-encapsulation that is hidden from clients. When an  Entity  public  behavior  self-delegates  to  the  setter,  the  method  checks  the username attribute to see if it is already nonnull . If it is already nonnull , indicating  an  unchangeable  invariant  state,  the IllegalStateException is  thrown. The exception indicates that username must be maintained as a modify-once state.
+
+## Whiteboard Time
+
+-  Consider  some  true  Entities  from  your  current  domain  and  write  their names.
+
+What are their unique identities, both domain and surrogate? Would any of the identities have been better served by a different kind of identity generation, or the timing of the identity assignment?
+
+-  Indicate  next  to  each  Entity  whether  you  should  have  used  a  different identity  assignment  approach-user,  application,  persistence,  or  other Bounded Context-and why (even if you can't change it now).
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000188_60b97247a0414ea8a79610e0ef9079e73c93315ca2d430eeed6faab942b3cb1f.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000189_817d87867f10e263a063dceed0d82b34cc4e8cedbe3ec752bc84ad64c87b4b3e.png)
+
+-  Note next to each Entity whether it needs early identity generation or can suffice with late identity generation, and explain why.
+
+Consider  the  stability  of  each  identity,  which  is  one  area  you  can  improve  on  if necessary.
+
+This setter does not get in the way of Hibernate when it needs to reconstitute object state from persistence. Since the object is first constructed with its  default,  zero-argument  constructor,  the username attribute  is  initially null . This enables re-initialization to occur cleanly, and the setter will enable the one-time Hibernate-initiated assignment to take place. This is completely bypassed  when  instructing  Hibernate  to  use  field  (attribute)  access  for  persistence and rehydration purposes, rather than accessors.
+
+A  test  affirms  that  the  modify-once  guard  properly  protects  the  state  of User identity:
+
+```
+public class UserTest extends IdentityTest { ... public void testUsernameImmutable() throws Exception { try { User user = this.userFixture(); user.setUsername("testusername"); fail("The username must be immutable after Φ initialization."); } catch (IllegalStateException e) { // expected, fall through } } ... }
+```
+
+This exemplary test demonstrates how the model works. Upon successful completion it proves that method setUsername() guards existing, nonnull identity  from  being  altered.  (We  discuss  guards  and  Entity  tests  more  thoroughly as part of validation.)
+
+## Discovering Entities and Their Intrinsic Characteristics
+
+Now let's look at some lessons learned by the SaaSOvation teams . . .
+
+At  first  the  CollabOvation  team  got  caught in  the  trap  of  doing  a  lot  of  entity-relationship (ER) modeling in Java code. They put too  much  focus  on  database,  tables,  and columns,  and  how  those  were  reflected in  objects.  That  led  to  a  largely Anemic Domain Model [Fowler, Anemic] composed of a lot of getters and setters. They should have been thinking more about DDD. By the
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000190_bfb3bdd24ad92638c7a2cc1d076cde1de438b2f031954d99268e7e34e830d46b.png)
+
+time they needed to factor out the security tangle, as described in Bounded Contexts  (2) ,  they  had  learned  to  focus  more  on  modeling  the  Ubiquitous  Language. That led to good results. In this section we will see how the newer Identity and Access Context team gained from the lessons learned.
+
+The Ubiquitous Language in a cleanly separated Bounded Context gives us the concepts and terms we need to design our domain model. The Language doesn't suddenly appear. It must be developed through careful discussion with domain  experts  and  by  mining  requirements.  Some  terminology  uncovered will be nouns that name things, adjectives that describe them, and verbs that indicate what the things do. It would be a mistake to think that the objects distill to only a set of nouns that name classes and verbs that name prominent operations, that we can capture deep insight by considering nothing else. Limiting ourselves in that way could stifle the fluency and richness that the model deserves. Investing in liberal amounts of discussion and reviews of specifications will help develop a Language that reflects considerable thought, effort, agreement, and compromise. In the end the team speaks the Language in complete sentences, and the model clearly reflects the spoken Language.
+
+If it is important for these special domain scenarios to outlive team discussions, capture them in a lightweight document. In an early form, your Ubiquitous Language can take the shape of a glossary and a set of simple usage scenarios. Yet, it would be a further mistake to think of the Language as the glossary and scenarios only. In the end the Language is modeled by your code, and it may be difficult or impossible to keep documentation in sync.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000191_59f1248ddbb5587d5d35a6587ff9ccf952ef7b50041a0768e247a725f80fb0b5.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000192_b942e5c077731e7c32548ffa655a29c8e8e856667a43d00590b1c5afa7192236.png)
+
+## Uncovering Entities and Properties
+
+Let's  take  up  a  very  basic  example.  In  the Identity  and  Access  Context the SaaSOvation team knows that it needs to model a User . True, this modeling example is not taken from the Core Domain (2) , but we do transition to that example later.  At  this  time  I  want  to  clear  away  added  complexity  inherent with the Core Domain and just focus on a more basic Entity. It has enough modeling challenge to serve as an effective teaching tool.
+
+Here's what the team knew about a User in  terse  software  requirements  (not  use  cases  or  user  stories)  that roughly  reflected  statements  from  the  Ubiquitous  Language. They did need refinement:
+
+-  Users exist in association with and under the control of a tenancy.
+-  Users of a system must be authenticated.
+-  Users  possess  personal  information,  including  a name and contact information.
+-  User personal information may be changed by the users themselves or by a manager.
+-  User security credentials (passwords) may be changed.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000193_397c03340c8af5f117d89629553bb3b4442a482a3639ab7b2ef355b8247b2ddd.png)
+
+The team had to read and listen carefully. As soon as they saw/heard different forms of the word change used, they were pretty sure that they were dealing with at least one Entity. True enough, 'change' could also mean 'replace the Value' instead of 'change the Entity.' Was there anything else that sealed the team's choice of which building  block  to  use?  There  was.  The  key  term  was authenticated ,  which  was  a strong indication to the team that some kind of search resolution needed to be provided. If you have a bunch of things, and one of the things needs to be found out of many, you need unique identity to distinguish the one from all others. A search will need to resolve from many users in association with a tenant down to a single one.
+
+But what about the statement regarding tenancy controlling users? Doesn't that  imply  that  the  real  Entity  here  is Tenant ,  not User ?  This  opens  up  a discussion about Aggregates (10) , which we save for that chapter. In short, the answer is 'yes and no.' Yes, there is a Tenant Entity,  and  no,  this  doesn't mean there is not a User Entity. They are both Entities. To understand why Tenant and User are  the Roots (10) of  two  different  Aggregates,  see  that chapter. And yes, both User and Tenant are ultimately types of Aggregates, but the team avoids those concerns at first.
+
+The justification here is that each User must be uniquely identified, clearly distinguished from all others. A User must also support change over time, so it is clearly an Entity. At this time, it doesn't matter how we model the personal information inside the User .
+
+The  team  needed  to  give  some  attention  to  clarifying  the  meaning  of  the  first requirement:
+
+-  Users exist in association with and under the control of a tenancy.
+
+At first the team could just add a note or change the wording of the statement in some way that would show that tenants own users, but they don't collect and contain them . The team needed to be careful because they didn't want to get down into the technical and tactical modeling weeds. The statements needed to make sense to the whole team. They settled on this:
+
+-  Tenants allow for the registration of many users by invitation.
+-  Tenants may be active or be deactivated.
+-  Users of a system must be authenticated but can be authenticated only if the tenant is active.
+- . . .
+
+Well,  that  was  a  surprise!  Following  further  discussion,  the  team  cut  cleanly through the issues of word craft and at the same time gave the requirements much more meaning. They found that the original  statement  about  users  under  tenancy control was incomplete. The fact is that users are registered within a tenancy, and by invitation only. It was also important to state that tenants may be active or inactive, and that users can be authenticated only when their tenancy is active. This complete restating of one requirement, the addition of another, and the clarification of a third revealed a far more accurate definition of what actually happens.
+
+The effort did away with any possible implications about what manages the life cycle  of  users  but  made  it  clear  that  whatever  owns  users,  some  users  may  be unavailable  under  specific  circumstances.  Those  were  the  important  scenarios  to capture at that time.
+
+It seemed at this point that they had the beginnings of a glossary of the terms of a Ubiquitous Language. Still, they didn't have enough information to flesh out the definitions. The team will wait a while longer to make entries in the glossary.
+
+They had a couple of known Entities, as shown in Figure 5.5. It was important to know next how they would be uniquely identified, and what additional properties might be needed to find them among many possible objects of the same type.
+
+Figure 5.5 Two Entities , Tenant and User , following early discovery
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000194_c521c2412ce55428f4c750c3b44361a57060bc97aa0f2bd7edc9ec5e1b6636dc.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000195_441886947d92dfac1c51795ae09ae3524ef9cfc5faee1d0487b85733757e6414.png)
+
+The  team  decided  that  they  would  use  a  full  UUID  to  identify  each Tenant uniquely, a case where the application generates the identity. The large text value was easily justified, not only for guaranteed uniqueness, but also because it added a  good  measure  of  security  to  each  subscriber.  It  would  be  difficult  for  anyone  to randomly reproduce a UUID as first-level access to proprietary data. They also saw the need to explicitly segregate the Entities that belonged under each Tenant from those that belonged to every other. A requirement like this is stated to address additional  security  issues  that  tenant  subscribers-competitive  businesses-have  with hosted applications and services. Thus, every Entity in all systems would be 'striped' with this unique identity, and every query would require the unique identity to find any Entity, no matter what.
+
+The unique tenant identity is not an Entity. It is a Value of some kind. The question is, Should this identity have a specialized type, or can it remain a simple String ?
+
+There seemed to be no need to model Side-Effect-Free Functions (6) on  the identity. It's just a hexadecimal text representation of a large number. But the identity would be used broadly. It would be set on all other Entities in every Context. In this case strong typing could be advantageous. By defining a TenantId Value Object, the  team  could  more  confidently  ensure  that  all  subscriber-owned  Entities  were striped with the correct identity. Figure 5.6 shows how this is modeled, with both the Tenant and the User Entities.
+
+The Tenant must  be  named.  The name can  be  a  simple String attribute because it has no special behavior. The name helps  resolve  queries.  A  help  desk worker would need to find the Tenant by name before he or she could provide assistance. It's a necessary attribute and an 'intrinsic characteristic.' The name may also be constrained as unique among all other subscribers, but that's not important now.
+
+Other attributes may be associated with each subscriber, such as a support contract and call activation PIN, billing and payment information, and maybe a business location along with customer contacts. But those are business concerns, not part of security.  Attempting  to  stretch  the Identity  and  Access  Context too  far  would  be  a defeating effort.
+
+Figure 5.6 After an Entity is discovered and named, uncover the attributes/ properties that uniquely identify it and enable it to be found.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000196_9ddcbeb6dff8d16514ad636f16ffcfb7992fa3f8144bf5ff2cd18e9de67b5e45.png)
+
+Support will be managed by a different Context. After finding the tenant by name, the software can use its unique TenantId . It would then be used to access the Support Context , for example, or the Billing Context , or the Customer Relationship Management Context . Support contracts, business location, and customer contacts have little to nothing to do with security. Still, associating the name of the subscriber with the Tenant will help support personnel quickly provide needed support. The name belongs.
+
+Having completed what appears to be the essence of Tenant ,  the team turned their attention to the User Entity for a while. What would serve as its unique identity? Most identity systems support a unique username. It doesn't matter much what comprises the username, as long as it is unique within the tenant. (Usernames need not be unique across tenant lines.) It will be left to the discretion of users to determine their own usernames. If the subscribing business has certain policy criteria for usernames, or if the names will be determined by a federated security integration, it will be left to the registering user to comply. The team simply declared a username attribute on class User .
+
+One requirement states that a security credential exists. It indicates that this is a password. The team picked up on the terminology and declared a password attribute on class User .  They concluded that the password would never be stored as clear text. A note was made that the password must be encrypted. Since they will need a way to encrypt each password before it is associated with the User , it seemed as if  this  called  for  some  kind  of Domain Service (7) .  The  team  created a placeholder in the glossary of the Ubiquitous Language, which could now be started. The glossary would be limited, but useful:
+
+- Tenant: A named organizational subscriber of identity and access services, as well as other online services. Facilitates user registration through invitation.
+- User: A  registered  security  principal  within  a  tenancy,  complete  with  personal name and contact information. The User has a unique username and an encrypted password.
+- Encryption Service: Provides a means to encrypt passwords and other data that cannot be stored and used as clear text.
+
+One question remained: Should the password be considered a part of the unique identity of a User ? After all, it is used to find a User .  If  so,  we'd  probably want to combine the two attributes into a Whole Value, naming it something like SecurityPrincipal .  That  would make this concept much more explicit. It is an interesting idea, but it overlooks an important requirement: Passwords can be changed. There may also be times when services will need to find a User without being provided with a password. This is not for authentication. (Consider the scenario where we need to check to see if a User is playing a security Role . We can't require a password to find a User every time we need to check for access permissions.) It's not identity. We can still include both the username and the password in a single authentication query.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000197_1dbd509b1d32781c660c1317bee8d199d1046582cda0610840b98b06f61c44b3.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000198_9aa0e5df966d34e4f8f392f9a6e1a4cfdfdc81530bce28a1413de74d3b51c34f.png)
+
+The idea  of  creating  a SecurityPrincipal Value  type  produced  a  desirable modeling  proposition.  It  was  noted  for  later  consideration.  There  were  also  some other concepts that went unexplored, such as how registration invitations would be provided, and the details on personal name and contact information. The team would catch those in the next quick iteration.
+
+## Digging for Essential Behavior
+
+After essential attributes were identified, the team could look into indispensable behavior . . .
+
+After looking back at the basic requirements the team was given, they now sought the behavior of Tenant and User :
+
+-  Tenants may be active or be deactivated.
+
+When we think of activating and deactivating a Tenant , we probably visualize a Boolean toggle. As true as that may be, how it is implemented is unimportant  here.  If  we  were  to  place active in  the  attributes  compartment  of Tenant in the class diagram, would that necessarily tell the reader anything useful?  In Tenant. java ,  would  the  following  attribute  declaration  reveal intentions?
+
+```
+public class Tenant extends Entity {
+```
+
+```
+... private boolean active; ...
+```
+
+Probably not entirely. And at first we want to focus only on attributes/properties that provide identity and enable matching on queries. We add support details like that later.
+
+The team could have decided in favor of declaring method setActive(boolean) , though  that  wouldn't  really  address  the terminology  of  the  requirement.  It's  not that  public  setter  methods  are  never appropriate,  but  they  should  be  used only when the Language allows for them
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000199_5b7d848709e04b47faf02d1d200684088c399f0c8f3c4069a54f889064c3ef73.png)
+
+## DISCOVERING ENTITIES AND THEIR INTRINSIC CHARACTERISTICS
+
+and usually only when you won't have to use multiple setters to fulfill a single request. The multiple setters make the intention ambiguous. They also complicate publishing a single, meaningful Domain Event as an outcome to what should actually be a single logical command.
+
+To address the Language, the team noted that domain experts talk about activating and deactivating. To incorporate that terminology they'd assign operations such as activate() and deactivate() instead.
+
+The following source is an Intention Revealing Interface [Evans] and complies with the team's growing Ubiquitous Language:
+
+```
+public class Tenant extends Entity { ... public void activate() { // TODO: implement } public void deactivate() { // TODO: implement } ...
+```
+
+To animate their ideas, the team first developed a test to see how it feels to use the new behaviors:
+
+```
+public class TenantTest ... { public void testActivateDeactivate() throws Exception { Tenant tenant = this.tenantFixture(); assertTrue(tenant.isActive()); tenant.deactivate(); assertFalse(tenant.isActive()); tenant.activate(); assertTrue(tenant.isActive()); } }
+```
+
+After this test the team felt confident in the quality of the interface. Writing the test made them realize that another method, isActive() , was needed. They settled on these three new methods, as seen in Figure 5.7. The Ubiquitous Language glossary grew as well:
+
+- Activate tenant: Facilitate the activation of a tenant using this operation, and the current state may be confirmed.
+- Deactivate tenant: Facilitate the deactivation of a tenant using this operation. Users may not be authenticated when the tenant is deactivated.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000200_ce3caa429250fe072b90930e21472713db76911bfad574c2c0c71e03b16176c0.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000201_7264c29c74a58c20ce84397a0d0e433f7b5b91813818561869e93b10b60725f9.png)
+
+Figure 5.7 Indispensable behavior is assigned to Tenant during the first rapid iteration. Some behaviors are omitted due to complexity but can be added soon.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000202_8b7e87c8903e80403d0f4280a1372182b611b57a75bffc0c2d777a17fa6ae298.png)
+
+- Authentication Service: Coordinates the authentication of users, first ensuring that their owning tenant is active.
+
+The  last  glossary  entry  added  here  indicates  the  discovery  of  another  Domain Service. Before attempting to match the User instance, something must first check Tenant for isActive() . That understanding was gained when also considering this requirement:
+
+-  Users of a system must be authenticated but can be authenticated only if the tenant is active.
+
+Since there is  more  to  authentication  than  merely  finding  a User that  matches a specific username and password , a higher-level coordinator is needed. Domain Services are good at that. Details can be added later. For now it's important that the team captured the AuthenticationService by name and added it to the Ubiquitous Language. The test-first approach sure paid off.
+
+The team also considered the following requirement:
+
+-  Tenants allow for the registration of many users by invitation.
+
+When they started  analyzing  this  carefully,  they  understood  it  to  be  a  bit  more complex than they wanted to deal with in the first, rapid iteration. There seemed to be some kind of Invitation object involved. But the requirement didn't tell them enough to be understood clearly. The behavior to manage invitations wasn't clear either. So the team postponed modeling this until they could solicit more input from early  domain  experts  and  early  customers.  They  did  define  the registerUser() method, however. It is essential to the creation of User instances (see 'Construction' later in the chapter).
+
+With that they ventured back into class User :
+
+-  Users possess personal information, including a name and contact information.
+-  User personal information may be changed by the users themselves or by a manager.
+-  User security credentials (passwords) may be changed.
+
+User along  with Fundamental Identity ,  two  commonly  combined  security  patterns, were applied. 1 From the use of the term personal ,  it  is  clear  that  a  personal concept accompanies the User . The team worked out the composition and behavior based on the preceding statements.
+
+Person is  modeled  as  a  separate  class  to  avoid  placing  too  much  responsibility  on the User .  The word personal led  the team to add Person to  the  Ubiquitous Language:
+
+- Person: Contains and manages personal data about a User ,  including name and contact information.
+
+Is the Person an Entity or a Value Object? Again here the word change is key. It seems unnecessary to replace the entire Person object just because the individual's work telephone number may change. The team made it an Entity, as indicated in Figure 5.8, which holds two Values, the ContactInformation and Name . These were currently fuzzy concepts and would stand to be refactored in time.
+
+Managing  changes  to  the  personal  name  and  contact  information  of  a  user resulted in some further deliberation. Should clients be given access to the Person object inside the User ? One developer questioned whether a User would always be a person. What if it were an external system? This was not the current situation and might be rushing ahead on unknown future requirements, but the concern had merit. If clients were given access to the shape of User , with navigation into the Person in order to execute behavior, that could require client refactoring later.
+
+If, instead, they modeled the personal behavior on User , making it more generalized for a security principal, they would probably avoid some of the ripple later. After they wrote some exemplary tests to explore the notion, it seemed like the right thing to do. They modeled User as shown in Figure 5.8.
+
+Figure 5.8 The foundational behavior of User drives out more associations. Without being overly specific, the team modeled a few more objects along with the operations.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000203_70261ed7a63e99ad08fda95e6afed7a9af39aeefc08df4d498c92538bb474c97.png)
+
+1.  See my published patterns: http://vaughnvernon.co/.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000204_ff5ff04953f29a3c66dd5fd2b8d6e5092883124e53f36760cd3d9129a6a4539c.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000205_50966df4e42821bf65119a8fb7188973a495a5bc210d30328457c6ad6bade57d.png)
+
+There were other considerations. Should the team expose Person at all, or hide it from all clients? For now they decided to leave Person exposed for the purpose of querying information. The accessor could later be redesigned to serve a Principal interface, and Person and System would each be a specialized Principal .  The team would be able to refactor this as they gained deeper understanding.
+
+Maintaining their cadence, the team quickly recognized the Ubiquitous Language highlighted by the final requirement currently under consideration:
+
+-  User security credentials (passwords) may be changed.
+
+The User has  a changePassword() behavior.  This  reflects  the  term  used  in requirements and satisfies domain experts. Access to even the encrypted password is never granted to clients. Once the password is set on User ,  it  is  never  exposed beyond  the  Aggregate  boundary.  Anything  seeking  authentication  has  but  one approach, using the AuthenticationService .
+
+The team also decided that all behaviors that could cause modification, when successful, were to publish a specific Domain Event outcome. This, too, was more detail than the team wanted to address early on. But they did recognize the need for Events. Events would accomplish at least two things. First, they would enable change tracking through the life cycle of all objects (discussed later). Second, they would enable outside subscribers to synchronize with the changes, giving outsiders the potential for autonomy.
+
+Those topics are discussed in Events (8) and Integrating Bounded Contexts (13) .
+
+## Roles and Responsibilities
+
+An aspect of modeling is to discover the roles and responsibilities of objects. Role  and  responsibility  analysis  is  applicable  to  domain  objects  in  general. Here we look specifically at the roles and responsibilities of Entities.
+
+We need some context for the term role . One use, when discussing the Identity and Access Context , is that a Role is an Entity and Aggregate Root that addresses a broad system security concern. Clients can ask if a user is in, or plays,  a  security  role.  That's  completely  different  from  what  I  am  now  discussing. What I am discussing in this section is how roles can be played by the objects in your model.
+
+## Domain Objects Playing Multiple Roles
+
+In  object-oriented  programming,  generally  interfaces  determine  the  roles  of an implementing class. When designed correctly, a class has one role for each interface  that  it  implements.  If  the  class  has  no  explicitly  declared  roles-it doesn't implement any explicit interfaces-by default it has the role of its class. That is, the class has the implicit interface of its public methods. Class User in the preceding examples implements no explicit interfaces, yet it plays one role, a User .
+
+We could make one object play the role of both User and Person . Not that this is being suggested, but for now assume that we consider this a good idea. If we did, there would be no reason to aggregate a separate Person object as a referenced association of the User object. Instead, there would be just one object, one that plays two roles.
+
+Why might we do this? Usually it's  because  we  see  both  similarities  and differences  in  two  or  more  objects.  The  overlapping  characteristics  can  be addressed by blending multiple interfaces on a single object. For example, we could have one object be both a User and a Person , naming the implementation class HumanUser :
+
+```
+public interface User { ... } public interface Person { ... } public class HumanUser implements User, Person { ... }
+```
+
+Does this make sense? Possibly, but it may also complicate things. If both interfaces are complex, it could be difficult to implement both in one object. Also, a User may be a system, which would increase the necessary interfaces to three. Designing the single object to play the roles of User , Person ,  and System would be even harder. Maybe we could simplify this by creating a general-purpose Principal :
+
+```
+public interface User { ... } public interface Principal { ... } public class UserPrincipal implements User, Principal { ... }
+```
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000206_f44974492ab6da283e5b6e049bf4048ad19970a7406e36cfad0539fe522f5295.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000207_b5e91bf490cfce394d4feca730beecbb2415df379e4b8d8c50a146dfd1f84cf9.png)
+
+With this design we are attempting to determine the actual principal type at runtime (late binding). A person principal and a system principal have different implementations. Systems don't need the same kind of contact information as a person has. Still, we might try anyway, designing a forwarding delegation implementation. To do that we'd check for the existence of one type or the other at runtime and delegate to the existing object:
+
+```
+public interface User { ... } public interface Principal { public Name principalName(); ... } public class PersonPrincipal implements Principal { ... } public class SystemPrincipal implements Principal { ... } public class UserPrincipal implements User, Principal { private Principal personPrincipal; private Principal systemPrincipal; ... public Name principalName() { if (personPrincipal != null) { return personPrincipal.principalName(); } else if (systemPrincipal != null) { return systemPrincipal.principalName(); } else { throw new IllegalStateException( "The principal is unknown."); } } ... }
+```
+
+This  design  produces  various  problems.  For  one,  it  suffers  from  what  is called object  schizophrenia . 2 Behavior  is  delegated  by  a  technique  known as  forwarding  or  dispatching.  Neither personPrincipal nor systemPrincipal carries  the  identity  of  Entity UserPrincipal ,  on  which  the behavior  was  originally  executed.  Object  schizophrenia  describes  the  situation where the objects delegated to don't know the identity of their originating object. There is confusion inside the delegates as to who they really are. It's not that every delegate method in the two concrete classes would be required to take on the base object's identity, but some could need it. We could pass in a reference to the UserPrincipal . But that complicates the design and actually requires the Principal interface to change. That's not good. As [Gamma et al.]  states,  'Delegation is  a  good design choice only when it simplifies more than it complicates.'
+
+2.  It describes an object with multiple personalities, which is not medically the definition of schizophrenia. The actual problem behind the confusing name is object identity confusion.
+
+We won't try to solve this modeling challenge here. It's used only to illustrate  the  challenges  sometimes  encountered  when  using  object  roles  and  to emphasize that it's a modeling style we need to be careful with. With the right tools, such as Qi4j [Öberg], we could improve things.
+
+It  might  help  the  situation  to  make  role  interfaces  finer  grained,  as  Udi Dahan [Dahan, Roles] promotes. Here are two requirements that enable us to create fine-grained interfaces:
+
+-  Add new orders to a customer.
+-  Make  a  customer  preferred  (the  condition  for  meeting  this  level  is  not stated).
+
+Class Customer implements two fine-grained role interfaces: IAddOrdersToCustomer and IMakeCustomerPreferred .  Each  defines  only  a  single operation, as seen in Figure 5.9. We might even implement other interfaces, such as Ivalidator .
+
+As discussed in Aggregates (10) , we wouldn't normally collect a large number of objects, such as all its orders, on a Customer .  So let's view this as a synthetic  example,  used  solely  as  a  means  to  illustrate  how  object  roles  are used.
+
+Figure 5.9 Using C#.NET naming conventions, the Customer Entity implements two object roles, IAddOrdersToCustomer and IMakeCustomerPreferred .
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000208_d9029a33f34b68be216eff942aae8228ee830b2987dbc6a09080a62b5b53d07e.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000209_61893e1943aae9949550da58904bb25b04a328e068eb57d1ecb879fc1715f586.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000210_c92d1e7a64410d7bba0f52f3cc87a3753e3269f9469e7fb6fe374d0a52fa9513.png)
+
+The I interface name prefix is a style widely used in .NET programming. Besides following the .NET approach in general, some think it enhances readability: 'I add orders to customer' and 'I make customer preferred.' Without the I prefix, the resulting verb-based names may be less desirable: AddOrdersToCustomer and MakeCustomerPreferred .  We  may  be  more  used  to naming interfaces as nouns or adjectives, and that standard could certainly be applied here instead.
+
+Consider some advantages this style promotes. The role of an Entity can change from use case to use case. When a client needs to add a new Order instance to a Customer , the role is different from when they want to make the Customer preferred. There's also a technical advantage. Different use cases may require specialized fetching strategies:
+
+```
+IMakeCustomerPreferred customer = session.Get<IMakeCustomerPreferred>(customerId); customer.MakePreferred(); ... IAddOrdersToCustomer customer = session.Get<IAddOrdersToCustomer>(customerId); customer.AddOrder(order);
+```
+
+The persistence mechanism interrogates the parameterization type name T of the Get&lt;T&gt;() method. It uses the type to look up an associated fetching strategy that is registered with the infrastructure. If the interface happens to have no special fetching strategy, the default is used. By executing the fetching strategy, the identified Customer object is loaded in the shape needed by the specific use case.
+
+We may see technical merit as role marker interfaces lend a hand to enabling behind-the-scenes hooks. Other use-case-specific behavior can be associated with any given role, such as validation, enabling the execution of a specific validator as the Entity modifications are being persisted.
+
+Fine-grained interfaces make it easier for the implementing class, such as Customer , to implement the behavior on itself. There is no need to delegate the implementation to separate classes, which helps prevent object schizophrenia.
+
+It's  fair  to  ask  whether  there  is  a  distinct domain modeling advantage to separating Customer behaviors by role. Compare the previous Customer to the  one  in  Figure  5.10;  is  one  better  than  the  other?  Would  it  be  easier  for
+
+## DISCOVERING ENTITIES AND THEIR INTRINSIC CHARACTERISTICS
+
+Figure 5.10 Here Customer is modeled with the operations that were previously on different interfaces now collapsed onto the single interface of the Entity class.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000211_507534f56eb61d6185c92a1ac22985bc9f190f5cc0e96aec1d8c3512dbb84ba5.png)
+
+a client to mistakenly invoke the AddOrder() method when it should actually  invoke MakePreferred() ?  Probably  not.  But  we  should  not  judge  the approach on this alone.
+
+Perhaps the most practical use of role interfaces is also the simplest. We can leverage interfaces to hide implementation details that we don't want leaking out  of  the  model  to  clients.  Design  an  interface  to  expose  exactly  what  we want to allow clients to use, and nothing more. The implementation class can be far more complex than the interface. It might have all kinds of supporting properties with getters and setters, and implementation behavior that clients will never get a glimpse of. For example, perhaps a tool or framework forces the creation of public methods that we don't want clients to use. Even so, the domain model interface is not influenced by necessarily nasty technical implementation details. This has a definite domain modeling advantage.
+
+Along with any design choice, ensure that the Ubiquitous Language holds sway over any technical preferences. With DDD, it's a model of the business domain that matters most.
+
+## Construction
+
+When we newly instantiate an Entity, we want to use a constructor that captures enough state to fully identify it and enable clients to find it. When early identity generation is used, a correctly designed constructor takes as a parameter at least the unique identity. If the Entity is queried by other means, such as with a name or description, we would also include all such as constructor parameters.
+
+Sometimes an Entity maintains one or more invariants. An invariant is a state that must stay transactionally consistent throughout the Entity life cycle. Invariants are a concern of Aggregates, but since the Aggregate Root is always an Entity, it is mentioned here. If an Entity has an invariant that is satisfied by the nonnull state of a contained object, or calculated using some other state, that state must be provided by one or more constructor parameters.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000212_f743ee2ca8f413c80933330b73ec31ead2e233216cf12af29d22873034dca8a7.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000213_2505faadf37f4651818540fcc895591951449b850c10e368c7f8580323c704b1.png)
+
+Every User object must contain a tenantId , username , password , and person . In other words, following successful construction, references to these declared instance variables may never be null . The User constructor and its instance variable setters ensure this:
+
+```
+public class User extends Entity { ... protected User(TenantId aTenantId, String aUsername, String aPassword, Person aPerson) { this(); this.setPassword(aPassword); this.setPerson(aPerson); this.setTenantId(aTenantId); this.setUsername(aUsername); this.initialize(); } ... protected void setPassword(String aPassword) { if (aPassword == null) { throw new IllegalArgumentException( "The password may not be set to null."); } this.password = aPassword; } protected void setPerson(Person aPerson) { if (aPerson == null) { throw new IllegalArgumentException( "The person may not be set to null."); } this.person = aPerson; } protected void setTenantId(TenantId aTenantId) { if (aTenantId == null) { throw new IllegalArgumentException( "The tenantId may not be set to null."); } this.tenantId = aTenantId; } protected void setUsername(String aUsername) { if (this.username != null) { throw new IllegalStateException( "The username may not be changed."); } if (aUsername == null) { throw new IllegalArgumentException( "The username may not be set to null."); }
+```
+
+```
+this.username = aUsername; } ... }
+```
+
+The design of class User demonstrates the power of self-encapsulation. The constructor  delegates  instance  variable  assignment  to  its  own  internal  attribute/property setters, which provide self-encapsulation for the variables. The self-encapsulation enables each setter to determine the appropriate contractual conditions for setting a portion of state. Each of the setters individually asserts a  nonnull constraint  on  behalf  of  the  Entity,  which  enforces  the  instance contract.  The  assertions  are  called guards (see  'Validation').  As  indicated earlier in the 'Identity Stability' section, the self-encapsulation techniques of these setter methods can be more complex as needed.
+
+Use  a  Factory  for  complex  Entity  instantiations.  This  is  covered  in  more detail in Factories (11) . In the preceding example, did you notice that the User constructor has protected visibility? The Tenant Entity serves as a Factory for User instances, and only classes in the same Module can see the User constructor. That way no object other than a Tenant may create User instances:
+
+```
+public class Tenant extends Entity  { ... public User registerUser( String aUsername, String aPassword, Person aPerson) { aPerson.setTenantId(this.tenantId()); User user = new User( this.tenantId(), aUsername, aPassword, aPerson); return user; } ... }
+```
+
+Here  method registerUser() is  the  Factory.  The  Factory  simplifies  construction of the User default state and ensures that the TenantId for both the User and Person Entities is always correct. This all happens under the control of a Factory method that addresses the Ubiquitous Language.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000214_e04640c225b04998fe28c0649546d00bb19e7d30d7baca37230f147340c8eab3.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000215_eec8397c98458f7659b8757e212d390d543ac8b50e1b8b0bea3dcaf4e6caf0a1.png)
+
+## Validation
+
+The primary reasons to use validation in the model are to check the correctness of any one attribute/property, any whole object, or any composition of objects. We look at three levels of validation in the model. Although there are lots of ways to perform validation, including specialized frameworks/libraries, those are not examined here. Instead, general-purpose approaches are presented, but these can lead to more elaborate approaches.
+
+Validation accomplishes different things. Just because all of the attributes/ properties of a domain object are individually valid, that does not mean that the object as a whole is valid. Maybe the combination of two correct attributes invalidates the whole object. Just because a single object as a whole is valid, that does not mean that a composition of objects is valid. Perhaps the combination of two Entities, each of which has individual valid states, actually makes the composition invalid. Therefore, we may need to use one or more levels of validation to address all possible issues.
+
+## Validating Attributes/Properties
+
+How  can  we  protect  a  single  attribute  or  property-see Value  Objects  (6) for  the  difference  between  the  two-from  being  set  to  an  invalid  value?  As discussed elsewhere in this chapter and book, I highly recommend the use of self-encapsulation. Self-encapsulation facilitates the first solution.
+
+To quote Martin Fowler, 'Self encapsulation is designing your classes so that all access to data, even from within the same class, goes through accessor methods' [Fowler, Self Encap]. Using this technique provides several advantages. It allows for the abstraction of an object's instance (and class/static) variables. It provides a way to easily derive attributes/properties from any number of others the object holds. And not least for this specific discussion, it lends support for a simple form of validation.
+
+Actually,  I  don't  necessarily  like  calling  the  use  of  self-encapsulation  to protect correct object state by the name validation . That name puts off some developers, because validation is a separate concern and should be the responsibility of a validation class, not a domain object. I agree. Still, I am talking about something a bit different. What I'm discussing is assertions that follow a design-by-contract approach .
+
+By  definition,  design  by  contract  enables  us  to  specify  the  preconditions, postconditions, and invariants of the components we design. This is advocated by Bertrand Meyer and was thoroughly expressed in his Eiffel programming language. There is some support for the Java and C# languages and a book on the subject, Design Patterns and Contracts [Jezequel et al.]. Here we look only at preconditions, by applying guards, as a form of validation:
+
+```
+public final class EmailAddress { private String address; public EmailAddress(String anAddress) { super(); this.setAddress(anAddress); } ... private void setAddress(String anAddress) { if (anAddress == null) { throw new IllegalArgumentException( "The address may not be set to null."); } if (anAddress.length() == 0) { throw new IllegalArgumentException( "The email address is required."); } if (anAddress.length() > 100) { throw new IllegalArgumentException( "Email address must be 100 characters or less."); } if (!java.util.regex.Pattern.matches( "\\w+([-+.']\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*", anAddress)) { throw new IllegalArgumentException( "Email address and/or its format is invalid."); } this.address = anAddress; } ... }
+```
+
+There are four preconditions to the method contract of setAddress() . All of the precondition guards assert a condition of the argument anAddress :
+
+-  The parameter may not be null.
+-  The parameter must not be an empty string.
+-  The  parameter  must  be  100  characters  in  length  or  less  (but  not  zero characters).
+-  The parameter must match the basic format of an e-mail address.
+
+If all of these preconditions pass, the address property is set to the value of anAddress . If one is not met, an IllegalArgumentException is thrown.
+
+Class EmailAddress is not an Entity. It is a Value Object. We use it here for a few reasons. First, it is a good example of implementing various degrees of precondition guards, from null checks down to value formatting (more on this next). Second, this Value is held by the Person Entity as one of its properties, indirectly through the ContactInformation Value. So, actually, this is part of an Entity in the same way that a simple attribute declared on an Entity class is  also part of it. We use the exact same kinds of precondition guards when implementing setters for simple attributes. When a Whole Value is assigned to an Entity property, there is no way to guard against setting insane state unless the smaller attributes within the Value are guarded.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000216_4e626eb269613487384a36d7998a8b2f57665684634e8c201a861cb3f94f264d.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000217_8f7b5db14b31d20e9c1116591f1e71de76474299b1242e4332866d9a883d0392.png)
+
+## Cowboy Logic
+
+- LB:    'I thought I had a valid argument with the missus, but then she suddenly threw an illegal argument exception at me.'
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000218_d6b405e58716e872f15a058ff9116bd56bac3e082c795e6b21f56c4ea495369d.png)

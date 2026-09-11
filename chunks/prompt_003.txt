@@ -1,0 +1,351 @@
+Bạn là chuyên gia dịch thuật kỹ thuật Anh → Việt, chuyên tài liệu kỹ thuật/công nghệ, có kinh nghiệm dịch như biên dịch viên bản ngữ chuyên nghiệp. Nhiệm vụ: dịch TOÀN BỘ nội dung Markdown dưới đây sang tiếng Việt, không bỏ sót bất kỳ phần nào. Đây là MỘT PHẦN (chunk) của một tài liệu lớn hơn, hãy dịch độc lập đoạn này, không thêm lời mở đầu/kết luận về việc đây chỉ là một phần.
+
+QUY TẮC BẮT BUỘC — VI PHẠM LÀ SAI:
+
+1. XÁC ĐỊNH LOẠI TÀI LIỆU TRƯỚC KHI DỊCH
+   - Tự phân tích nội dung để xác định loại tài liệu (kỹ thuật/lập trình, tài chính, bảo hiểm, pháp lý, marketing, học thuật, vận hành, sản phẩm...).
+   - Chọn văn phong và thuật ngữ CHUẨN NGÀNH tương ứng trong tiếng Việt, nhất quán xuyên suốt.
+
+2. VĂN PHONG — MƯỢT NHƯ NGƯỜI DỊCH, KHÔNG GIẢM CHÍNH XÁC
+   - Dịch mượt, tự nhiên, đúng ngữ pháp tiếng Việt — như biên dịch viên bản ngữ dịch tay, KHÔNG dịch máy móc kiểu word-by-word.
+   - Được phép đảo cấu trúc câu, tách/gộp câu cho tự nhiên, miễn giữ nguyên 100% ý nghĩa, thông tin, logic, số liệu gốc.
+   - Khi "mượt mà" và "chính xác" xung đột → LUÔN ưu tiên chính xác.
+
+3. DỊCH ĐẦY ĐỦ 100%
+   - Không tóm tắt, không rút gọn, không lược bỏ đoạn/câu/mục/bullet nào.
+   - Số lượng heading, đoạn văn, bảng, code block ở output PHẢI khớp 1:1 với input.
+   - Đoạn dài dịch hết, không cắt ngắn.
+
+4. GIỮ NGUYÊN THUẬT NGỮ TIẾNG ANH
+   - Thuật ngữ chuyên ngành (tên công nghệ, framework, pattern, tên hàm/biến, acronym...) giữ nguyên tiếng Anh, không dịch, không phiên âm.
+   - Ngay sau lần xuất hiện ĐẦU TIÊN của mỗi thuật ngữ, thêm chú thích ngắn trong ngoặc giải thích nghĩa bằng tiếng Việt.
+   - Các lần xuất hiện sau KHÔNG cần chú thích lại.
+
+5. GIỮ NGUYÊN FORMAT — RẤT QUAN TRỌNG
+   - VỀ ẢNH (làm trước khi dịch): ĐẾM chính xác số lượng thẻ ảnh dạng ![...](...) trong đoạn gốc bên dưới. Output PHẢI có ĐÚNG số lượng thẻ ảnh đó, không được thiếu một cái nào — kể cả ảnh không có caption, không rõ ngữ cảnh, hay trông như ảnh trang trí/lặp lại. Copy nguyên URL 100%, không sửa, không rút gọn, không thay bằng mô tả text.
+   - Giữ cấp độ heading (#, ##, ###...), giữ đúng số lượng heading.
+   - Giữ cấu trúc bảng (số cột, số hàng, alignment, header row).
+   - Giữ code block (```lang ... ```) — KHÔNG dịch code; comment được dịch tại chỗ; **được phép reformat code, tự động xuống dòng/indent chuẩn, không giữ nguyên code 1 dòng; không đổi logic/cú pháp**.
+   - Giữ blockquote, callout/note/warning (>, [!NOTE], [!WARNING]...).
+   - Giữ list, nested list, checkbox (- [ ]).
+   - Giữ nguyên link thường ([text](url)) — chỉ dịch phần text hiển thị, TUYỆT ĐỐI giữ nguyên URL.
+   - TRƯỚC KHI TRẢ KẾT QUẢ: tự đếm lại số heading, số ảnh, số dòng ``` giữa bản gốc và bản dịch của bạn, nếu lệch phải sửa lại cho khớp.
+
+6. GIẢI THÍCH ẨN DỤ / KHÁI NIỆM KHÓ
+   - Với ẩn dụ, thành ngữ, khái niệm trừu tượng khó hiểu với người Việt, thêm khối giải thích riêng ngay sau đoạn đó:
+     > 💡 **Giải thích thêm:** [giải thích dễ hiểu, đủ chuyên sâu, có ví dụ thực tế]
+     > Nguồn tham khảo: [link cụ thể để kiểm chứng]
+   - CHỈ đưa link nếu chắc chắn tồn tại và đúng nội dung — không bịa link.
+   - Không tìm được nguồn tin cậy → ghi rõ: "(Không có nguồn trích dẫn xác thực — cần tự kiểm chứng thêm)".
+
+7. CHỐNG HALLUCINATION (BẮT BUỘC)
+   - Không tự thêm thông tin/số liệu/ví dụ/kết luận KHÔNG có trong bản gốc — trừ phần giải thích ẩn dụ ở mục 6 (phải gắn nhãn rõ là phần bổ sung).
+   - Câu gốc mơ hồ → dịch sát nghĩa nhất, nếu không chắc ghi chú: "[CẦN KIỂM CHỨNG: câu gốc mơ hồ]".
+   - Không tự sửa/thêm/bớt logic kỹ thuật gốc. Không bịa trích dẫn/số liệu/link vô căn cứ.
+   - Không tự tóm tắt các đoạn dài thành ý chính rồi diễn giải lại — phải dịch từng câu.
+
+8. OUTPUT
+   - Trả về DUY NHẤT nội dung Markdown đã dịch, đặt trong 1 code block (```markdown ... ```).
+   - Không thêm lời dẫn/lời chào/giải thích ngoài code block.
+   - Không đổi tiêu đề gốc trừ khi cần dịch tiêu đề.
+
+--- NỘI DUNG GỐC CẦN DỊCH (một phần của tài liệu) ---
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000001_d22647fb7118b4819dd9afbaeabe8ab3f766cbe7c2ab8b2db57e2b8c3fa10442.png)
+
+As you practice strategic design, you'll find that the Context Mapping (3) patterns  seen  in  Figure  G.2  work  in  harmony.  Your  team  will  use  Context Maps to understand their project terrain.
+
+We've just considered the big picture of DDD's strategic design. Understanding it is imperative.
+
+Figure G.2 Context Maps show the relationships among Bounded Contexts.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000002_af88776058b8eddbc89d2ccf6ddd7cbd1c019e2e33d7bc3a41a0f1ee03fd8655.png)
+
+## Architecture
+
+Sometimes a new Bounded Context or existing ones that interact through Context Mapping will need to take on a new style of Architecture (4) . It's important to keep in mind that your strategically and tactically designed domain models should be architecturally neutral. Still, there will need to be some architecture around and between each model. A powerful architectural style for hosting a Bounded Context is Hexagonal ,  which  can  be  used  to  facilitate  other  styles such  as Service-Oriented , REST and Event-Driven ,  and  others.  Figure  G.3 depicts a Hexagonal Architecture, and while it may look a little busy, it's a fairly simplistic style to employ.
+
+Sometimes we may be tempted to place too much emphasis on architecture rather  than  focusing  on  the  importance  of  carefully  crafting  a  DDD-based model. Architecture is important, but architectural influences come and go. Remember to prioritize correctly, placing more emphasis on the domain model, which has greater business value and will be more enduring.
+
+Figure G.3 The Hexagonal Architecture with the domain model at the heart of the software
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000003_17f949da19d9effc314bfdfe18d6c201bff0a2e8afc6033d358be6e02d348080.png)
+
+## Tactical Modeling
+
+We model tactically inside a Bounded Context using  DDD's building block patterns. One of the most important patterns of tactical design is Aggregate (10) , as illustrated in Figure G.4.
+
+An Aggregate is composed of either a single Entity (5) or a cluster of Entities and Value Objects (6) that must remain transactionally consistent throughout the Aggregate's lifetime. Understanding how to effectively model Aggregates is quite important and one of the least well understood techniques among DDD's building blocks. If they are so important, you may be wondering why Aggregates are placed later in the book. First of all, the placement of tactical patterns in this book follows the same order as is found in [Evans]. Also, since Aggregates are based on other tactical patterns, we cover the basic building blocks-such as Entities and Value Objects-before the more complex Aggregate pattern.
+
+An instance of an Aggregate is persisted using its Repository (12) and later searched for within and retrieved from it. You can see an indication of that in Figure G.4.
+
+Use  stateless Services  (7) ,  such  as  seen  in  Figure  G.5,  inside  the  domain model to perform business operations that don't fit naturally as an operation on an Entity or a Value Object.
+
+Figure G.4 Two Aggregate types with their own transactional consistency boundaries
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000004_8fff0ba316c5d917a7f928552822780dc0a5e87178508f874a0a2b8e557f7cd3.png)
+
+Figure G.5 Domain Services carry out domain-specific operations, which may involve multiple domain objects.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000005_40a8903029e8805f20a28d9bd4745c5e8c2946a20fdbaf904dedfbde39306c1c.png)
+
+Use Domain Events (8) to indicate the occurrence of significant happenings in  the  domain.  Domain Events can be modeled a few different ways. When they capture occurrences that are a result of some Aggregate command operation, the Aggregate itself publishes the Event as depicted in Figure G.6.
+
+Although often given little thought, it's really important to design Modules (9) correctly. In its simplest form, think of a Module as a package in Java or a namespace in C#. Remember that if you design your Modules mechanically rather than according to the Ubiquitous Language, they will probably do more harm than good. Figure G.7 illustrates how Modules should contain a limited set of cohesive domain objects.
+
+Of  course,  there's  much  more  to  implementing  DDD,  and  I  won't  try  to cover it all here. There's a whole book ahead of you that does just that. I think this Guide gets you off on the right foot for your journey through implementing DDD. So, enjoy the journey!
+
+Figure G.6 Domain Events can be published by Aggregates.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000006_f493c87f3bf2af82db5d0052060232845524e95450d79b94558145e7e98a3475.png)
+
+Figure G.7 A Module contains and organizes cohesive domain objects.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000007_e6a51114ca93ecb5371d0cc1e8a58d10c9a58e2ff2fe2468daf6fdfe4b7ad263.png)
+
+Oh, and just to get you familiarized with Cowboy Logic, here's one for the trail:
+
+## Cowboy Logic
+
+AJ:    'Don't worry about bitin' off more than you can chew. Your mouth is probably a whole lot bigger than you think.' ;-)
+
+LB:    'You meant to say 'mind,' J. Your mind is bigger than you think!'
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000008_f5a414263e825c5cea36d3956bd2fb9fac3f1040cc4426357b00b3d5aa292405.png)
+
+This page intentionally left blank
+
+## Chapter 1
+
+## Getting Started with DDD
+
+Design is not just what it looks like and feels like. Design is how it works. -Steve Jobs
+
+We strive to produce quality in the software we develop. We achieve some quality by using tests to help us avoid delivering software with a fatal number of bugs. Yet, even if we could produce completely bug-free software, that in itself does not necessarily mean that a quality software model is designed. The software model-the way the software expresses the solution to the business goal being sought-could still suffer greatly. Delivering software with few defects is obviously good. Still, we can reach higher for a well-designed software model that explicitly reflects the intended business objective, and our work may even reach the level of great .
+
+The  software  development  approach  called Domain-Driven  Design ,  or DDD , exists to help us more readily succeed at achieving high-quality software model designs.  When  implemented  correctly,  DDD  helps  us  reach  the  point where our design is exactly how the software works . This book is about helping you correctly implement DDD.
+
+You may be completely new to DDD, you may have tried it and struggled, or you may have already succeeded with it before. Regardless, you no doubt are reading this book because you want to improve your ability to implement DDD, and you can. The chapter road map helps you target your specific needs.
+
+## Road Map to This Chapter
+
+-  Discover what DDD can do for your projects and your teams as you grapple with complexity.
+-  Find out how to score your project to see if it deserves the DDD investment.
+-  Consider  the  common  alternatives  to  DDD  and  why  they  often  lead  to problems.
+-  Grasp the foundations of DDD as you learn how to take the first steps on your project.
+-  Learn how to sell DDD to your management, domain experts, and technical team members.
+
+continues
+
+-  Face the challenges of using DDD armed with knowledge of how to succeed.
+-  Look in on a team that is learning how to implement DDD.
+
+What should you expect from DDD? Not a heavy, dense, ceremonial process that blocks your way to progress. Rather, expect to use the agile development techniques you probably already have come to trust. Beyond agile, anticipate the acquisition of methods that help you gain deep insight into your business domain, with the prospect of producing testable, malleable, organized, carefully crafted, high-quality software models.
+
+DDD gives you both the strategic and tactical modeling tools necessary to design high-quality software that meets core business objectives.
+
+## Can I DDD?
+
+You can implement DDD if you have
+
+-  A passion for creating excellent software every day, and the tenacity to achieve that goal
+-  The eagerness to learn and improve, and the fortitude to admit you need to
+-  The aptitude to understand software patterns and how to properly apply them
+-  The skill and patience to explore design alternatives using proven agile methods
+-  The courage to challenge the status quo
+-  The  desire  and  ability  to  pay  attention  to  details,  to  experiment  and discover
+-  A drive to seek ways to code smarter and better
+
+I'm not going to tell you that there isn't a learning curve. To put it bluntly, the learning curve can be steep. Yet, this book has been put together to help flatten the curve as much as possible. My goal is to help you and your team implement DDD with the greatest potential for success.
+
+DDD isn't first and foremost about technology. In its most central principles, DDD is  about  discussion,  listening,  understanding,  discovery,  and  business value,  all  in  an  effort  to  centralize  knowledge.  If  you  are  capable  of understanding the business in which your company works, you can at a minimum participate in the software model discovery process to produce a Ubiquitous Language .  Sure,  you're  going  to  have  to  learn  more  about  the  business,  lots more. Still, you are on your way to succeeding with DDD already because you can comprehend the concepts of your business, you revel in developing great software, and that gives you the proper footing to take DDD all the way.
+
+Won't having years, even a decade or two, of software development experience help? It might. Nevertheless, software development experience doesn't give you the ability to listen and learn from domain experts , the people who know the most about some high-priority area of the business. You are at a greater advantage if you can engage with those who seldom, if ever, express themselves using technical lingo. You're going to have to listen and listen carefully. You're going to have to respect their viewpoint and trust that they know a lot more than you do.
+
+## There Are Big Advantages to Engaging with Domain Experts
+
+You are at a greater advantage if you can engage with those who seldom, if ever, express themselves using technical lingo. Just as you are going to learn from them, there is a high probability that they are also going to learn from you.
+
+What you may like best about DDD is that the domain experts are also going to have to listen to you . You are on the team just as they are. As strange as it may seem, the domain experts don't know everything about their business, and they are also going to learn more about it. Just as you are going to learn from them, there is a high probability that they are also going to learn from you. Your questions about what they know will most likely also uncover what they don't know. You'll be directly involved in helping everyone on the team discover a deeper understanding of the business, even shaping the business .
+
+It's  great when a team learns and grows together. If you give it a chance, DDD makes that possible.
+
+## But We Don't Have Domain Experts
+
+A domain expert is not one by job title. These are the people who know the line of business you are working in really well. They probably have a lot of background in the business domain, and they might be product designers or even your salespeople.
+
+Look past the job title. The people you are looking for know more about what you are working on than anyone else, and for sure way more than you know. Find them. Listen. Learn. Design in code.
+
+So far we're off to a pretty reassuring start. Still, I am also not going to tell you that technical ability isn't important, that somehow you can get by without it. You will have to grasp some advanced software domain modeling concepts. Even  so,  it  doesn't  necessarily  mean  you  are  going  to  be  in  over  your  head. If you have abilities somewhere between grasping Head First Design Patterns [Freeman et al.] and grokking the original Design Patterns [Gamma et al.] text, or even more advanced patterns, you stand a really good chance of succeeding with DDD. You can bank on this: I'm going to do everything I can to make that happen by lowering the bar, no matter what your level of experience.
+
+## What's a Domain Model?
+
+It's a software model of the very specific business domain you are working in. Often it's implemented as an object model, where those objects have both data and behavior with literal and accurate business meaning.
+
+Creating a unique, carefully crafted domain model at the heart of a core, strategic application or subsystem is essential to practicing DDD. With DDD your domain models will tend to be smallish, very focused. Using DDD, you never try to model the whole business enterprise with a single, large domain model. Phew, that's good!
+
+Consider  the  following  perspectives  of  the  people  who  can  benefit  from DDD. I know you fit in here somewhere:
+
+- Newbie, junior developer : 'I'm young, with fresh ideas, I've got pent-up energy to code, and I'm going to have an impact. What's got me miffed is one of the projects I sprint on. I didn't expect that my first gig off campus would mean shoveling data back and forth using lots of almost identical yet redundant 'objects.' Why is this architecture so complex if that's all that's happening? What's up with that ? The code breaks a lot when I try to change it. Does anyone actually understand what it's supposed to do? Now there are some complex new features I have to add. I regularly slap an adapter around legacy classes to shield me from the goo. No joy . I'm sure there's something I can do besides code and debug all day and night just to finish iterations. Whatever that is, I'm going to track it down and own it.  I  heard  some  of  the  others  talking  about  DDD. It  sounds  like Gang of Four, but tuned for the domain model. Nice.'
+
+Gotcha covered.
+
+- Midlevel  developer : 'Over  the  past  few  months  I've  been  included  on the new system. It's my turn to make a difference. I get it, but what I'm missing are profound insights when I'm meeting with the senior developers. Sometimes things seem whacked, but I'm not sure why. I'm going to help change the way things are done around here. I know that throwing technology at a problem only takes you so far, and that's basically not far enough. What I need is a sound software development technique that's
+
+going to help me become a wise and experienced software practitioner. One of the senior architects, the new guy, made a pitch for something called DDD. I'm listening.'
+
+You're sounding senior already. Read on. Your forward-thinking attitude will be rewarded.
+
+- Senior developer, architect : 'I've used DDD on a few projects, but not since landing this new position. I like the power of the tactical patterns , but there's a lot more I could apply, with strategic design being one. What I  found  most  insightful  when  reading  [Evans]  was  the  Ubiquitous  Language. That's powerful stuff .  I've had discussions with a number of my teammates and management, trying to influence DDD's adoption here. One of the new kids and a few of the midlevel and senior members are jazzed about the prospects. Management isn't so excited. I recently joined this  company, and although I was brought in to lead, it seems that the organization is less interested in disruptive advancements than I thought. Whatever. I'm not giving up. With other developers psyched about it, I know we can make it happen . The payoffs are going to be much greater than  anticipated.  We'll  draw  the  pure  business  people-the  domain experts-closer to our technical teams, and we'll actually invest in our solutions , not just grunt them out iteration after iteration.'
+
+Now that's what a leader does. This book has lots of guidance that shows how to succeed with strategic design .
+
+- Domain expert : 'I've been involved in specifying the IT solutions to our business challenges for a long time now. Maybe it's too much to expect, but  I  wish  the  developers  understood  better  what  we  do  here.  They're always talking down to us like we're stupid. What they don't understand is, if it wasn't for us there wouldn't be jobs here for them to mess around with computers. The developers always have some strange way of talking about  what  our  software  does.  If  we  talk  about  A,  they  say  it's  really called B. It's like we have to have some sort of dictionary and road map on hand every time we try to communicate what we need . If we don't let them have their way by calling B what we know is A, they don't cooperate. We waste so much time in this mode. Why can't the software just work the way the real experts think about the business? '
+
+You've got that right. One of the biggest problems is the false need for translation between business people and techies. This chapter is for you. As you're going to see, DDD puts you and developers on level ground .
+
+And, surprise! You've got some developers already leaning your way. Help them here.
+
+- Manager : 'We are shipping software. It's  not  always  with  the  greatest result, and changes seem to take longer than they should. The developers keep talking about some domain something-or-another. I'm not sure we need to get high centered on yet another technique or methodology, like it's some kind of silver bullet. I've heard all that a thousand times before. We try, the fad dies, and we are right back to the same-old same-old. I keep saying that we need to stay the course and stop dreaming, but the team keeps hounding me. They've worked hard, so I owe them a listen. They are smart people and they all deserve a chance to improve things before they get torqued and move on. I could allow them some time to learn and adjust if I can get backing from upper management. I think I could get that approval if I can convince my boss of the team's claims of achieving  critical  software  investment  and  a  centralization  of  business knowledge . Truth is, it will make my job easier if I can do something to inspire  trust  and  cooperation between my teams and business experts . Anyway, that's what I am hearing I can do.'
+
+Good manager!
+
+Whoever you are, here's an important heads-up. To succeed with DDD you are going to have to learn something , and actually a lot of somethings. That shouldn't be a big deal, though. You are smart and you have to learn all the time. Yet we all face this challenge:
+
+Personally I'm always ready to learn, although I do not always like being taught. -Sir Winston Churchill
+
+That's where this book comes in. I've tried to make the teaching as pleasant as possible while delivering the vital understanding you need to implement DDD with success.
+
+Your question, though, is: 'Why should I do DDD?' That's fair.
+
+## Why You Should Do DDD
+
+Actually, I've already given you some pretty good reasons why DDD makes so much practical sense. At the risk of breaking the DRY principle ('Don't repeat yourself'), I reiterate them here and also add to the earlier reasons. Does anyone hear an echo?
+
+-  Put domain experts and developers on a level playing field, which produces software that makes perfect sense to the business, not just the coders.  This  doesn't  mean  merely  tolerating  the  opposite  group.  It  means becoming one cohesive, tight-knit team.
+-  That 'makes sense to the business' thing means investing in the business by making software that is as close as possible to what the business leaders and experts would create if they were the coders.
+-  You can actually teach the business more about itself. No domain expert, no C-level manager, no one, ever knows every single thing about the business. It's a constant discovery process that becomes more insightful over time. With DDD, everybody learns because everybody contributes to discovery discussions.
+-  Centralizing knowledge is key, because with that the business is capable of ensuring that understanding the software is not locked in 'tribal knowledge,' available only to a select few, who are usually only the developers.
+-  There  are  zero  translations  between  the  domain  experts,  the  software developers, and the software. That doesn't mean maybe some few translations. It means zero translations because your team develops a common, shared language that everyone on the team speaks.
+-  The design is the code, and the code is the design. The design is how it works. Knowing the best code design comes through quick experimental models using an agile discovery process.
+-  DDD provides sound software development techniques that address both strategic  and  tactical  design.  Strategic  design  helps  us  understand  what are the most important software investments to make, what existing software assets to leverage in order to get there fastest and safest, and who must be involved. Tactical design helps us craft the single elegant model of a solution using time-tested, proven software building blocks.
+
+Like any good, high-yielding investment, DDD has some up-front cost of time and effort for the team. Considering the typical challenges encountered by every software development effort will reinforce the need to invest in a sound software development approach.
+
+## Delivering Business Value Can Be Elusive
+
+Developing software that delivers true business value is not the same thing as developing  ordinary  business  software.  Software  that  delivers  true  business value  aligns  with  the  business  strategic  initiatives  and  bears  solutions  with clearly identifiable competitive advantage-software that is not about technology, but about the business.
+
+Business knowledge is never centralized. Development teams have to balance and prioritize among the needs and requests of multiple stakeholders and engage with many people having diverse skill sets, all with the goal of uncovering software functional and nonfunctional requirements. After gathering all that information, how can teams be certain that any given requirement delivers true business value? In fact, what are the business values being sought, and how do you uncover them, prioritize them, and realize them?
+
+One of the worst disconnects of a business software development effort is seen in the gap between domain experts and software developers. Generally speaking, true domain experts are focused on delivering business value. On the  other  hand,  software  developers  are  typically  drawn  to  technology  and technical solutions to business problems. It's not that software developers have wrong motivations; it's just what tends to grab their attention. Even when software developers engage with domain experts, the collaboration is largely at a surface level, and the software that gets developed often results in a translation/mapping between how the business thinks and operates and how the software developer interprets that. The resulting software generally does not reflect a recognizable realization of the mental model of the domain experts, or perhaps it does so only partially. Over time this disconnect becomes costly. The translation of domain knowledge into software is lost as developers transition to other projects or leave the company.
+
+A different,  yet  related  problem  is  when  one  or  more  domain  experts  do not agree with each other. This tends to happen because each expert has more or  less  experience  in  the  specific  domain  being  modeled,  or  they  are  simply experts in related but different areas. It's also common for multiple 'domain experts' to have no expertise in a given domain, where they are more of a business analyst, yet they are expected to bring insightful direction to discussions. When this situation goes unchecked, it results in blurred rather than crisp mental models, which lead to conflicting software models.
+
+Worse still is when the technical approach to software development actually wrongly changes the way the business functions. While a different scenario, it  is  well  known that enterprise resource planning (ERP) software will often change the overall business operations of an organization to fit the way the ERP functions. The total cost of owning the ERP cannot be fully calculated in terms of license and maintenance fees. The reorganization and disruption to the business can be far more costly than either of those two tangible factors. A similar dynamic is at play as your software development teams interpret what the business needs into what the newly developed software actually does. This can be both costly and disruptive to the business, its customers, and its partners. Furthermore, this technical interpretation is both unnecessary and avoidable with the use of proven software development techniques. The solution is a key investment.
+
+## How DDD Helps
+
+DDD is an approach to developing software that focuses on these three primary aspects:
+
+1. DDD brings domain experts and software developers together in order to develop software that reflects the mental model of the business experts. This  does  not  mean  that  effort  is  spent  on  modeling  the  'real  world.' Rather,  DDD  delivers  a  model  that  is  the  most  useful  to  the  business. Sometimes  useful  and  realistic  models  happen  to  intersect,  but  to  the degree that they diverge, DDD chooses useful.
+
+With this aspect the efforts of domain experts and software developers are devoted to jointly developing a Ubiquitous Language of the areas of the business that they are focused on modeling. The Ubiquitous Language is developed with full team agreement, is spoken, and is directly captured in the model of the software. It is worth reiterating that the team is composed of both domain experts and software developers. It's never 'us and them.' It's always us. This  is  a  key  business  value  that  allows  business know-how to outlive the relatively short initial development efforts that deliver the first few versions of the software, and the teams that produce it. It's the point where the cost of developing software is a justifiable business investment, not just a cost center.
+
+This  entire  effort  unifies  domain  experts  who  initially  disagree  with each other, or who simply lack core knowledge of the domain. Further, it  strengthens  the  close-knit  team  by  spreading  deep  domain  insight among all team members, including software developers. Consider this the hands-on training that every company should invest in its knowledge workers.
+
+2. DDD addresses the strategic initiatives of the business. While this strategic  design  approach  naturally  includes  technical  analysis,  it  is  more concerned with the strategic direction of the business. It helps define the best  inter-team  organizational  relationships  and  provides  early-warning systems for recognizing when a given relationship could cause software and even project  failure.  The  technical  aspects  of  strategic  design  have the goal of cleanly bounding systems and business concerns, which protects  each business-level  service .  This  provides  meaningful  motivations
+
+for how an overall service-oriented architecture or business-driven architecture is achieved.
+
+3. DDD meets the real technical demands of the software by using tactical design modeling tools to analyze and develop the executable software deliverables. These tactical design tools allow developers to produce software that is a correct codification of the domain experts' mental model, is  highly  testable,  is  less  error  prone  (a  provable  statement),  performs to    service-level  agreements  (SLAs),  is  scalable,  and  allows  for  distributed computing. DDD best practices generally address a dozen or more higher-level architectural and lower-level software design concerns, with a focus on recognizing true business rules and data invariants, and protecting the rules from error situations.
+
+Using this approach to software development, you and your team can succeed in delivering true business value.
+
+## Grappling with the Complexity of Your Domain
+
+We primarily want to use DDD in the areas that are most important to the business.  You  don't  invest  in  what  can  be  easily  replaced. You invest in the nontrivial, the more complex stuff, the most valuable and important stuff that promises to return the greatest dividends. That's why we call such a model a Core Domain (2) . It is these, and in second priority the significant Supporting Subdomains (2) , that deserve and get the biggest investment. Rightly, then, we need to grasp what complex means.
+
+## Use DDD to Simplify, Not to Complicate
+
+Use DDD to model a complex domain in the simplest possible way. Never use DDD to make your solution more complex.
+
+What qualifies as complex will differ from business to business. Different companies have different challenges, different levels of maturity, and different software development capabilities. So rather than determining what is complex ,  it  may  be  easier to determine what is nontrivial .  Thus, your team and management will have to determine if a system you are planning to work on deserves the cost of making a DDD investment.
+
+DDD Scorecard: Use Table 1.1 to determine whether your project qualifies for an investment in DDD. If a row on the scorecard describes your project, place the corresponding number of points in the right-hand column. Tally all the points for your project. If it's 7 or higher, seriously consider using DDD.
+
+11
+
+Table 1.1 The DDD Scorecard
+
+| Does Your Project Score a Total of 7 Points or Higher? If Your Project . . .                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |   Points | Supporting Thoughts                                                                                                                                                                                                                                                                                                   | Your Score   |
+|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------|
+| If your application is completely data-centric and truly qualifies for a pure CRUD solution, where every operation is basically a simple database query to Create, Read, Update, or Delete, you don't need DDD. Your team just needs to put a pretty face on a database table editor. In other words, if you can trust your users to insert data directly into a table, update it, and some- times delete it, you wouldn't even need a user interface. That's not realistic, but it's conceptually relevant. If you could even use a simple database development tool to create a solution, don't waste your company's time and money on DDD. |        0 | This seems like a no-brainer, but it's not usually that easy to determine simple versus complex. It's not as if every application that isn't pure CRUD deserves the time and effort of using DDD. So maybe we could come up with other metrics to help us draw a line between what is complex and what is not . . .   |              |
+| If your system requires just 30 or fewer business operations, it's probably pretty simple. This would mean that your applica- tion would have no more than 30 total user stories or use case flows, with each of those flows having only minimal business logic. If you could quickly and easily develop such an applica- tion using Ruby on Rails or Groovy and Grails and not feel the pain of lacking power and control over complexity and change, your system probably doesn't need to use DDD.                                                                                                                                          |        1 | To be clear, I am talking about 25 to 30 single busi- ness methods, not 25 to 30 whole service interfaces, each with multiple methods. The latter might be complex.                                                                                                                                                   |              |
+| So let's say that somewhere in the range of 30 to 40 user stories or use case flows could be creeping toward complexity. Your system might be getting into DDD territory.                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |        2 | Caveat emptor : Very often complexity is not rec- ognized soon enough. We software developers are really, really good at underestimating complexity and level of effort. Just because we might want to code up a Rails or Grails application doesn't mean we should. In the long run those could hurt more than help. |              |
+
+Table 1.1 The DDD Scorecard ( Continued )
+
+| Does Your Project Score a Total of 7 Points or Higher? If Your Project . . .                                                                                                                                                                                                                                                                                                                                                                                                                                |    | Points Supporting Thoughts                                                                                                                                                                                                                                                                                                                                                                                                   | Your Score   |
+|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------|
+| Even if the application is not going to be complex now, will it grow in complexity? You may not know this for sure until real users start working with it, but there is a step in the 'Sup- porting Thoughts' column that may help uncover the true situation. Be careful here. If there is any hint at all that the application has even moderate complexity-here's a good time to be para- noid-that may be sufficient indication that it will actually be more than moderately complex. Lean toward DDD. |  3 | Here it pays off to walk through the more complex usage scenarios with domain experts and see where it leads. Are domain experts . . . 1. . . . already asking for more complex features? If so, it's likely an indication that the application is already or will soon become too complex to use a CRUD approach. 2. . . . so bored with the features that they can hardly bear discussing them? It's probably not complex. |              |
+| The application's features are going to change often over a number of years, and you can't anticipate that the kinds of changes will be simple.                                                                                                                                                                                                                                                                                                                                                             |  4 | DDD can help you manage the complexity of refac- toring your model over time.                                                                                                                                                                                                                                                                                                                                                |              |
+| You don't understand the Domain (2) because it's new. As far as you and your team know, nobody has done this before. That most likely means it's complex, or at least deserves due diligence with analytical scrutiny to determine the level of complexity.                                                                                                                                                                                                                                                 |  5 | You are going to need to work with domain experts and experiment with models to get it right. You certainly also scored on one or more of the previous criteria, so use DDD.                                                                                                                                                                                                                                                 |              |
+
+This scoring exercise may have led your team to these conclusions:
+
+It's too bad that we can't shift gears quickly and easily when we discover we are on the wrong side of complexity, no matter if the wrong side is more or less complex than we thought.
+
+Sure, but that just means that we need to become much better at determining simplicity versus complexity early on in our project planning. That would save us a lot of time, expense, and trouble.
+
+Once we make a major architectural decision and get several use cases deep in development, we are usually stuck with it. We had better choose wisely.
+
+If any of these observations resonates with your team, you are making good use of critical thought.
+
+## Anemia and Memory Loss
+
+Anemia can  be  a  serious  health  ailment  with  dangerous  side  effects.  When the name Anemic Domain Model [Fowler, Anemic] was first coined, it wasn't meant to be a complimentary term ,  as if to say that a domain model that is weak, without the power of inherent behavioral qualities, could possibly be a good thing. Strangely enough, Anemic Domain Models have popped up left and right in our industry. The trouble is that most developers seem to think this is quite normal and would not even acknowledge that a serious condition exists when employed in their systems. It's a real problem.
+
+Are you wondering if your model is feeling tired, listless, forgetful, clumsy, needing  a  good  shot  in  the  arm?  If  you're  suddenly  experiencing  technical hypochondria, here's a good way to perform a self-examination. You'll either put yourself at ease or confirm your worst fears. Use the steps in Table 1.2 to perform your checkup.
+
+Table 1.2 Determine Your Domain Model Health History
+
+|                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         | Yes / No   |
+|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------|
+| Does the software you call a 'domain model' have mostly public getters and setters, and no business logic or almost none at all-you know, objects that are mostly attri- bute value holders?                                                                                                                                                                                                                                                                                                            |            |
+| Are the software components that frequently use your 'domain model' the ones that house most of the business logic of your system, and do those heavily invoke the public getters and setters on the 'domain model'? You probably call this particular client layer of the 'domain model' a Service Layer or Application Layer (4, 14) . If instead this describes your user interface, answer 'Yes' to this question and write a thousand times on a whiteboard that you'll never, ever do that again. |            |
+| Hint: The correct answers are either 'Yes' to both questions or 'No' to both questions.                                                                                                                                                                                                                                                                                                                                                                                                                 |            |
+
+How did you do?
+
+If you answered 'No' to both questions, your domain is doing well.
+
+If you answered 'Yes' to both questions, your 'domain model' is very, very ill. It's anemic. The good news is that you can get help for it by reading on.
+
+If you answered 'Yes' to one question and 'No' to the other question, you are either in denial or suffering from delusions or another neurological issue that could be caused by anemia. What should you do if you have conflicting answers? Go straight back to the first question and run the self-examination once again. Take your time, but remember that your answer to both questions must be an emphatic 'Yes!'
+
+As [Fowler, Anemic] says, an Anemic Domain Model is a bad thing because you pay most of the high cost of developing a domain model, but you get little or none of the benefit. For example, because of the object-relational impedance mismatch, developers of such a 'domain model' spend a lot of time and effort mapping objects to and from the persistence store. That's a high price to pay while getting little or no benefit in return. I'll add that what you have is not a domain model at all, but just a data model projected from a relational model (or other database) into objects. It's an impostor that may actually be closer to the definition of Active Record [Fowler, P of EAA]. You can probably simplify your architecture by not being pretentious and just admit that you are really using a form of Transaction Script [Fowler, P of EAA].
+
+## Reasons Why Anemia Happens
+
+So if  an  Anemic  Domain Model is the sickly outcome of a poorly executed design effort, why do so many use it while thinking that their model is experiencing fine health? Certainly it does reflect a procedural programming mentality, but I don't think that's the primary reason. A good portion of our industry is  made up of sample code followers, which isn't bad as long as the samples are quality ones. Often, however, sample code is purposely focused on demonstrating some concept or application programming interface (API) feature in the  simplest  possible  way,  without  concern  for  good  design  principles.  Yet oversimplified sample code, which usually demonstrates with a lot of getters and setters, is copied every day without a second thought about design.
+
+There is another, older influence. The ancient history of Microsoft's Visual Basic had much to do with where we are today. I'm not saying that Visual Basic was a bad language and integrated development environment (IDE), because it's always been a highly productive environment and in some ways influenced the industry for the good. Of course, some may have avoided its direct influence  altogether,  but  Visual  Basic  indirectly  caught  up  with  just  about  every software developer eventually. Just note the timeline shown in Table 1.3.
+
+Table 1.3 The Timeline from Behavior Rich to Infamous Anemia
+
+| 1980s                                           | 1991                                        | 1992-1995                             | 1996                  | 1997                   | 1998-                                                                                 |
+|-------------------------------------------------|---------------------------------------------|---------------------------------------|-----------------------|------------------------|---------------------------------------------------------------------------------------|
+| Objects make an impact due to Smalltalk and C++ | Visual Basic properties and property sheets | Visual tools and IDEs become prolific | Java JDK 1.0 released | JavaBean specification | Explosion of reflection-based tools for Java and .NET plat- forms based on properties |
+
+What I am talking about is the influence of properties and property sheets, both backed by property getters and setters that were made so popular by the original Visual Basic forms designer. All you had to do was place a few custom control instances on a form, fill out their property sheets, and voilà! You had a fully functioning Windows application. It took just a few minutes to do that compared to the few days required to program a similar application directly against the Windows API using C.
+
+So what does all that have to do with Anemic Domain Models? The JavaBean standard was originally specified to assist in the creation of visual programming tools for Java .  Its  motivation was to bring the Microsoft ActiveX capabilities to the Java platform. It offered the hope of creating a market full of third-party custom controls of various kinds, just like Visual Basic's. Soon almost every framework and library jumped on the JavaBean bandwagon. This included much of the Java SDK/JDK as well as libraries such as the popular Hibernate. Specific to our DDD concerns, Hibernate was introduced to persist domain models. The trend continued as the .NET platform reached us.
+
+Interestingly, any domain model that was persisted using Hibernate in the early  days  had  to  expose  public  getters  and  setters  for  every  persistent  simple attribute and complex association in every domain object. This meant that even if you wanted to design your POJO (Plain Old Java Object) with a behavior-rich interface, you had to expose your internals publicly so that Hibernate could persist and reconstitute your domain objects. Sure, you could do things to hide the public JavaBean interface, but by and large most developers didn't bother or even understand why they should have.
+
+## Should I Be Concerned about Using Object-Relational Mappers with DDD?
+
+The  preceding  critique  of  Hibernate  is  from  a  historical  perspective.  For  quite  a while now Hibernate has supported the use of hidden getters and setters, and even direct field access. I demonstrate in later chapters how to avoid anemia in your models when using Hibernate and other persistence mechanisms. So, don't sweat it.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000009_6d9abf391db6e6ca88e2a6d5e4c89e5c5e72ca46d4f85f02b5c086c62a984a6d.png)

@@ -1,0 +1,567 @@
+Bạn là chuyên gia dịch thuật kỹ thuật Anh → Việt, chuyên tài liệu kỹ thuật/công nghệ, có kinh nghiệm dịch như biên dịch viên bản ngữ chuyên nghiệp. Nhiệm vụ: dịch TOÀN BỘ nội dung Markdown dưới đây sang tiếng Việt, không bỏ sót bất kỳ phần nào. Đây là MỘT PHẦN (chunk) của một tài liệu lớn hơn, hãy dịch độc lập đoạn này, không thêm lời mở đầu/kết luận về việc đây chỉ là một phần.
+
+QUY TẮC BẮT BUỘC — VI PHẠM LÀ SAI:
+
+1. XÁC ĐỊNH LOẠI TÀI LIỆU TRƯỚC KHI DỊCH
+   - Tự phân tích nội dung để xác định loại tài liệu (kỹ thuật/lập trình, tài chính, bảo hiểm, pháp lý, marketing, học thuật, vận hành, sản phẩm...).
+   - Chọn văn phong và thuật ngữ CHUẨN NGÀNH tương ứng trong tiếng Việt, nhất quán xuyên suốt.
+
+2. VĂN PHONG — MƯỢT NHƯ NGƯỜI DỊCH, KHÔNG GIẢM CHÍNH XÁC
+   - Dịch mượt, tự nhiên, đúng ngữ pháp tiếng Việt — như biên dịch viên bản ngữ dịch tay, KHÔNG dịch máy móc kiểu word-by-word.
+   - Được phép đảo cấu trúc câu, tách/gộp câu cho tự nhiên, miễn giữ nguyên 100% ý nghĩa, thông tin, logic, số liệu gốc.
+   - Khi "mượt mà" và "chính xác" xung đột → LUÔN ưu tiên chính xác.
+
+3. DỊCH ĐẦY ĐỦ 100%
+   - Không tóm tắt, không rút gọn, không lược bỏ đoạn/câu/mục/bullet nào.
+   - Số lượng heading, đoạn văn, bảng, code block ở output PHẢI khớp 1:1 với input.
+   - Đoạn dài dịch hết, không cắt ngắn.
+
+4. GIỮ NGUYÊN THUẬT NGỮ TIẾNG ANH
+   - Thuật ngữ chuyên ngành (tên công nghệ, framework, pattern, tên hàm/biến, acronym...) giữ nguyên tiếng Anh, không dịch, không phiên âm.
+   - Ngay sau lần xuất hiện ĐẦU TIÊN của mỗi thuật ngữ, thêm chú thích ngắn trong ngoặc giải thích nghĩa bằng tiếng Việt.
+   - Các lần xuất hiện sau KHÔNG cần chú thích lại.
+
+5. GIỮ NGUYÊN FORMAT — RẤT QUAN TRỌNG
+   - VỀ ẢNH (làm trước khi dịch): ĐẾM chính xác số lượng thẻ ảnh dạng ![...](...) trong đoạn gốc bên dưới. Output PHẢI có ĐÚNG số lượng thẻ ảnh đó, không được thiếu một cái nào — kể cả ảnh không có caption, không rõ ngữ cảnh, hay trông như ảnh trang trí/lặp lại. Copy nguyên URL 100%, không sửa, không rút gọn, không thay bằng mô tả text.
+   - Giữ cấp độ heading (#, ##, ###...), giữ đúng số lượng heading.
+   - Giữ cấu trúc bảng (số cột, số hàng, alignment, header row).
+   - Giữ code block (```lang ... ```) — KHÔNG dịch code; comment được dịch tại chỗ; **được phép reformat code, tự động xuống dòng/indent chuẩn, không giữ nguyên code 1 dòng; không đổi logic/cú pháp**.
+   - Giữ blockquote, callout/note/warning (>, [!NOTE], [!WARNING]...).
+   - Giữ list, nested list, checkbox (- [ ]).
+   - Giữ nguyên link thường ([text](url)) — chỉ dịch phần text hiển thị, TUYỆT ĐỐI giữ nguyên URL.
+   - TRƯỚC KHI TRẢ KẾT QUẢ: tự đếm lại số heading, số ảnh, số dòng ``` giữa bản gốc và bản dịch của bạn, nếu lệch phải sửa lại cho khớp.
+
+6. GIẢI THÍCH ẨN DỤ / KHÁI NIỆM KHÓ
+   - Với ẩn dụ, thành ngữ, khái niệm trừu tượng khó hiểu với người Việt, thêm khối giải thích riêng ngay sau đoạn đó:
+     > 💡 **Giải thích thêm:** [giải thích dễ hiểu, đủ chuyên sâu, có ví dụ thực tế]
+     > Nguồn tham khảo: [link cụ thể để kiểm chứng]
+   - CHỈ đưa link nếu chắc chắn tồn tại và đúng nội dung — không bịa link.
+   - Không tìm được nguồn tin cậy → ghi rõ: "(Không có nguồn trích dẫn xác thực — cần tự kiểm chứng thêm)".
+
+7. CHỐNG HALLUCINATION (BẮT BUỘC)
+   - Không tự thêm thông tin/số liệu/ví dụ/kết luận KHÔNG có trong bản gốc — trừ phần giải thích ẩn dụ ở mục 6 (phải gắn nhãn rõ là phần bổ sung).
+   - Câu gốc mơ hồ → dịch sát nghĩa nhất, nếu không chắc ghi chú: "[CẦN KIỂM CHỨNG: câu gốc mơ hồ]".
+   - Không tự sửa/thêm/bớt logic kỹ thuật gốc. Không bịa trích dẫn/số liệu/link vô căn cứ.
+   - Không tự tóm tắt các đoạn dài thành ý chính rồi diễn giải lại — phải dịch từng câu.
+
+8. OUTPUT
+   - Trả về DUY NHẤT nội dung Markdown đã dịch, đặt trong 1 code block (```markdown ... ```).
+   - Không thêm lời dẫn/lời chào/giải thích ngoài code block.
+   - Không đổi tiêu đề gốc trừ khi cần dịch tiêu đề.
+
+--- NỘI DUNG GỐC CẦN DỊCH (một phần của tài liệu) ---
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000596_fdb9125e2dbe86ae3c0769de2ae2c7e08ea0023483afa9fcb94c63b044dfee06.png)
+
+serializing the current state of an Aggregate to a database, we are always overwriting the previous serialized state, never to be recovered. However, retaining the reason for every change from the creation of an Aggregate instance through its entire lifetime can be invaluable for the business. As discussed in Architecture (4) , the benefits can be far-reaching: reliability, near-  and  far-term  business  intelligence,  analytic  discoveries,  full  audit log, the ability to look back in time for debugging purposes.
+
+-  The append-only nature of Event Streams performs outstandingly well and supports an array of data replication options. Using similar approaches has allowed companies such as LMAX to facilitate very low-latency equities trading systems.
+-  The Event-centric approach to Aggregate design can allow developers to focus more of their attention on behaviors expressed by the Ubiquitous Language (1) by  avoiding  the  potential  impedance  mismatch  of  objectrelational mapping and can lead to systems that are more robust and tolerant to change.
+
+That said, make no mistake: A+ES is not a silver bullet. Consider a few realistic drawbacks:
+
+-  Defining Events for A+ES requires a deep understanding of the business domain. As in any DDD project, this level of effort is usually justifiable only for complex models from which the organization will derive competitive advantage.
+-  At the time of writing, there is a lack of tooling and a consistent body of knowledge in this field. This increases costs and the risks of introducing the approach to inexperienced teams.
+-  The number of experienced developers is limited.
+-  Implementing  A+ES  almost  certainly  requires  some  form  of  Command-Query  Responsibility  Segregation,  or CQRS  (4) , since Event Streams are hard to query. This increases developer cognitive load and learning curve.
+
+For those undaunted by these challenges, implementing with A+ES can provide a lot of benefits. Let's examine some ways to implement using this powerful approach in the object-oriented world.
+
+## Inside an Application Service
+
+Looking at A+ES inside an Application Service (4, 14) demonstrates the big picture. It's common for Aggregates to reside inside a domain model behind Application Services, which serve as the direct clients of the domain model.
+
+When an Application  Service  receives  control,  it  loads  an  Aggregate  and retrieves any supporting Domain Services (7) needed by the Aggregate's business operation. When the Application Service delegates to the Aggregate business operation, the Aggregate's method produces Events as the outcome. Those Events mutate the state of the Aggregate and are also published as notifications to all subscribers. The Aggregate's business method may require passing one or  more  Domain  Services  as  parameters.  The  use  of  any  such  Domain  Services could compute values used to cause side effects to the Aggregate's state. Some such Domain Service operations could include calling a payment gateway, requesting a unique identity, or querying data from a remote system. Figure A.2 illustrates how this works.
+
+Figure A.2 An Application Service controls access to and use of the Aggregate.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000597_84890c962fbf366354cf113b6b435af7bbe69052b83e5c7d6ebf53912222976a.png)
+
+541
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000598_1feda9505e38e4050d29b2f88b9fe60c6a43413cf0bb92ce024c4c49844a40ee.png)
+
+The following Application Service implemented in C# shows how the steps of Figure A.2 might be supported:
+
+```
+public class CustomerApplicationService { // event store for accessing event streams IEventStore _eventStore; // domain service that is neeeded by aggregate IPricingService _pricingService; // pass dependencies for this application service via constructor public CustomerApplicationService( IEventStore eventStore, IPricingService pricing) { _eventStore = eventStore; _pricingService = pricing; } // Step 1: LockForAccountOverdraft method of // Customer Application Service is called public void LockForAccountOverdraft( CustomerId customerId, string comment) { // Step 2.1: Load event stream for Customer, given its id var stream = _eventStore.LoadEventStream(customerId); // Step 2.2: Build aggregate from event stream var customer = new Customer(stream.Events); // Step 3: Call aggregate method, passing it arguments and // pricing domain service customer.LockForAccountOverdraft(comment, _pricingService); // Step 4: Commit changes to the event stream by id _eventStore.AppendToStream( customerId, stream.Version, customer.Changes); } public void LockCustomer(CustomerId customerId, string reason) { var stream = _eventStore.LoadEventStream(customerId); var customer = new Customer(stream.Events); customer.Lock(reason); _eventStore.AppendToStream( customerId, stream.Version, customer.Changes); } // other methods on this application service }
+```
+
+The CustomerApplicationService is  initialized  with  two  dependencies  through  the  constructor,  the IEventStore ,  and IPricingService .
+
+Constructor-based  initialization  is  a  worthy  means  to  fulfill  the  dependencies, but they could have been retrieved by means of a Service Factory or using dependency injection. Your team standards and practices reign.
+
+## Where Can I Find the Sample Code?
+
+All source code for the A+ES examples is available for download here: http://lokad.github.com/lokad-iddd-sample/.
+
+Our IEventStore can have a simple interface definition, and our EventStream follows suit:
+
+```
+public interface IEventStore { EventStream LoadEventStream(IIdentity id); EventStream LoadEventStream( IIdentity id, int skipEvents, int maxCount); void AppendToStream( IIdentity id, int expectedVersion, ICollection<IEvent> events); } public class EventStream { // version of the event stream returned public int Version; // all events in the stream public List<IEvent> Events; }
+```
+
+This Event Store can be implemented quite easily with a relational database (Microsoft SQL, Oracle, or MySQL) or with a NoSQL store that has strong consistency  guarantees  (file  system,  MongoDB,  RavenDB,  or  Azure  Blob storage).
+
+We load Events from the Event Store using the unique identity of the Aggregate instance to be reconstituted. Let's see how this can be done for an Aggregate named Customer . Although the unique identity could have any type, for expressiveness let's use an IIdentity interface implemented by CustomerId .
+
+We need to load the Events belonging to the specific Customer ,  and  the Events are passed to the Customer 's constructor to instantiate the Aggregate:
+
+```
+var eventStream = _eventStore.LoadEventStream(customerId); var customer = new Customer(eventStream.Events);
+```
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000599_b70fcf59682b141b2128077102152245d4e4a1873b701ed66b2e4e634a00ae4a.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000600_f5df346d084f1830f5b93fd384daf57b9499d5e66a2aa5f0220e1bb7349b75d6.png)
+
+As  seen  in  Figure  A.3,  the  Aggregate  applies  Events  by  replaying  them through method Mutate() . Here's how it works:
+
+```
+public partial class Customer { public Customer(IEnumerable<IEvent> events) { // reinstate this aggregate to the latest version foreach (var @event in events) { Mutate(@event); } } public bool ConsumptionLocked { get; private set; } public void Mutate(IEvent e) { // .NET magic to call one of 'When' handlers with // matching signature ((dynamic) this).When((dynamic)e); } public void When(CustomerLocked e) { ConsumptionLocked = true; } public void When(CustomerUnlocked e) { ConsumptionLocked = false; } // etc.
+```
+
+Figure A.3 The Aggregate state is reconstituted using Events applied in order of occurrence.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000601_5d2ff394ec4c10c5da22cf6374a078176a1f1b84061b1e139cd1e7777f2d9fe6.png)
+
+Mutate() just  locates  (via  .NET  dynamics)  the  appropriate  overloaded When() method by the specific Event parameter type, and then executes the method by passing in the Event. After Mutate() has completed, the Customer instance has a completely reconstituted state.
+
+We can make a reusable query operation for reconstituting an Aggregate instance from the Event Store:
+
+```
+public Customer LoadCustomerById(CustomerId id) { var eventStream = _eventStore.LoadEventStream(id); var customer = new Customer(eventStream.Events); return customer; }
+```
+
+After  considering  how  an  Aggregate  instance  can  be  reconstituted  from a Stream of historic Events, it's easy to imagine other uses for the historical record. We can use them to look back in time just to view what happened, and when. The view capability becomes even more powerful when considering the need to debug production deployments.
+
+How are business operations performed? Once the Aggregate is reconstituted from the Event Store, the Application Service delegates to a command operation on the Aggregate instance. It uses its current state and any Domain Services required by the contract to carry out the operation. As a behavior is executed, changes to the state are expressed as new Events. Each new Event is passed to the Aggregate's Apply() method, as pictured in Figure A.4.
+
+Figure A.4 Aggregate state is based on past Events, and outcome of behavior produces new Events.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000602_f96055058dda20b56a83ed7ce562d105519733dea2785c1204780db4f21b0f6e.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000603_03e6e5e165d9e25a80f5f8e96f058aab516f75f8a6914c61b6deda5d01f1c217.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000604_5290d2660c83c7637865d07ca178e1f4d3baed9c88b97d9f096b369af1df4bfe.png)
+
+As seen in the following code, new Events are accumulated in the Changes collection and then used to mutate the current state of the Aggregate:
+
+```
+public partial class Customer { ... void Apply(IEvent event) { // append event to change list for further persistence Changes.Add(event); // pass each event to modify current in-memory state Mutate(event); } ... }
+```
+
+All  Events  added  to  the Changes collection  will  be  persisted  as  newly appended. Since each Event is also used to immediately mutate the Aggregate's state,  if  a  behavior  has  multiple  steps,  each  subsequent  step  has  up-to-date state to operate on.
+
+Next,  take  a  look  at  some  of  the  business  behavior  of  the Customer Aggregate:
+
+```
+public partial class Customer { // Second part of aggregate class public List<IEvent> Changes = new List<IEvent>(); public void LockForAccountOverdraft( string comment, IPricingService pricing) { if (!ManualBilling) { var balance = pricing.GetOverdraftThreshold(Currency); if (Balance < balance) { LockCustomer("Overdraft. " + comment); } } } public void LockCustomer(string reason) { if (!ConsumptionLocked) { Apply(new CustomerLocked(_state.Id, reason)); } }
+```
+
+```
+// Other business methods are not shown ... void Apply(IEvent e) { Changes.Add(e); Mutate(e); } }
+```
+
+## Consider Using Two Implementation Classes
+
+To make your code clearer, you can split the A+ES implementation into two distinct classes, one for state and one for behavior, with the state object being held by the behavioral. The two objects would collaborate exclusively through the Apply() method. This ensures that state is mutated only by means of Events.
+
+Once the mutating behaviors have completed, we must commit the Changes collection to the Event Store. We append all new changes, ensuring that there are no concurrency conflicts with other writing threads. This check is possible  because we pass a concurrency version variable from the Load() to  the Append() methods.
+
+In the simplest implementation, there will be a background processor that catches  up  with  newly  appended  Events  and  publishes  them  to  a  messaging infrastructure (such as RabbitMQ, JMS, MSMQ, or cloud queues), delivering them to all interested parties. See Figure A.5.
+
+This simple implementation can be replaced by more elaborate ones. One such immediately or eventually replicates Events to one or more clones, increasing fault tolerance. Figure A.6 shows immediate Event replication to one clone.
+
+Figure A.5 Newly appended Aggregate behavioral outcome Events are published to subscribers.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000605_5f3ae5cc9e4968990a3c3cf3a3c557b666d1da997ef74abe27f4f8f844a471e8.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000606_4873fc09d644b76fc9cf04c2f42e517e26a07a6352f6b5a39530ada02d2aca89.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000607_c0059bfd8dbe314924dc1a55372fd921d891752fb9055aabdc58c6c106ff498b.png)
+
+Figure A.6 Write through: A Master Event Store immediately replicates all newly appended Events to a Clone Event Store.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000608_7e3596ee153a1e4df67012123b447b5f235bdf6fe587395d92b9116b0fd9359f.png)
+
+In this case, the Master Event Store considers its own Events to be saved only after it has successfully replicated them to the Clone Event Store, which is a write-through strategy.
+
+An alternative is to replicate  Events  to  the  Clone  after  changes  are  saved by the Master using a separate thread, which is a write-behind strategy. This approach is illustrated in Figure A.7. In this case the Clone could be inconsistent with the Master, which is especially true if a server crashes or if partitioning is impacted by network latency.
+
+To summarize what has been discussed so far, let's walk through the execution sequence that begins with the invocation of an operation on an Application Service:
+
+1. A client invokes a method on an Application Service.
+2. Obtain any Domain Services needed to carry out the business operation.
+3. With  the  client-supplied  Aggregate  instance  identity,  retrieve  its  Event Stream.
+
+Figure A.7 Write behind: A Master Event Store eventually replicates all newly appended Events to a Clone Event Store.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000609_3289aac377534916406fac995ee565d7e1463a6fa7f95f1e535010b1952cf4e4.png)
+
+4. Reconstitute the Aggregate instance by applying to it all Events from the Stream.
+5. Execute a business operation provided by the Aggregate, passing in all parameters required by the interface's contract.
+6. The  Aggregate  may  double-dispatch  to  any  provided  Domain  Services, instances of other Aggregates, and so on and will generate new Events as the outcome of the operation.
+7. Assuming  no  failed  business  operations,  append  all  newly  generated Events to the Stream using the Stream version to guard against concurrency conflicts.
+8. Publish newly appended Events from the Event Store to subscribers using your choice of messaging infrastructure.
+
+We  could  enhance  our  A+ES  implementation  using  various  options.  For example, we could use a Repository (12) to  encapsulate  access  to  the  Event Store and the details of reconstitution of the Aggregate instances. Given the preceding code snippets, it would be easy for you to create a reusable Repository base class. Let's focus on just two practical optional enhancements that help a lot with A+ES designs: Command Handlers and lambdas .
+
+## Command Handlers
+
+Let's consider the advantages of using Commands (4, 14) and Command Handlers to control the task management of our application. To start, first take another look at our Application Service and its LockCustomer() method:
+
+```
+public class CustomerApplicationService { ... public void LockCustomer(CustomerId id, string reason) { var eventStream = _eventStore.LoadEventStream(id); var customer = new Customer(stream.Events); customer.LockCustomer(reason); _store.AppendToStream(id, eventStream.Version, customer.Changes); } ... }
+```
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000610_0ed900a11f595d83511fd499e681920a7753acb952fed9f36078356e85a503e7.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000611_48cabef86fc7a316b27858b9d159cbacc357d0e6f58cbf1dc4d526b7e0c01cb8.png)
+
+Now imagine creating a serialized representation of the method name and its parameters. How might that look? We could create a class named for the application operation and create instance properties to match the parameters to the service method. This class forms a Command:
+
+```
+public sealed class LockCustomerCommand { public CustomerId { get; set; } public string Reason { get; set; } }
+```
+
+Command contracts follow the same semantics as Events and can be shared across systems in a similar fashion. This Command could then be passed to a method on the Application Service:
+
+```
+public class CustomerApplicationService { ... public void When(LockCustomerCommand command) { var eventStream = _eventStore.LoadEventStream(command.CustomerId); var customer = new Customer(stream.Events); customer.LockCustomer(command.Reason); _eventStore.AppendToStream( command.CustomerId, eventStream.Version, customer.Changes); } ... }
+```
+
+This simple refactoring could have a few long-term benefits for the system. Let's see how.
+
+Since the Command objects can be serialized, we can send the textual or binary representations as messages over a message queue. The object that the message is delivered to is a message handler and is to us a Command Handler. The Command Handler effectively replaces the Application Service method, although it is roughly equivalent and may still be referred to as such. Anyway, decoupling  the  client  from  the  Service  can enhance  load  balancing,  enable competing  consumers,  and  support  system  partitioning .  Take  load  balancing for one. We can spread the load by starting the same Command Handler (semantically an Application Service) on any number of servers. As Commands are put on the message queue, the Command messages can be delivered to one of the several Command Handlers that are listening for them. This is depicted in Figure A.8. (In this appendix Commands are shown as circular objects.) The actual  distribution  might  be  done  using  a  simple  round-robin  style  or  some more sophisticated delivery algorithm, any of which are provided by the messaging infrastructure.
+
+Figure A.8 Application Commands being distributed to any number of Command Handlers
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000612_da7b1aa54501fb4645a7f72d7071557a3f66d78e55057f558ad89b256b4247b9.png)
+
+This approach creates temporal decoupling between clients and the Application Service, leading toward more robust systems. For one, the client will no longer be blocked if the Application Service is unavailable for a short period of time (for example, for maintenance or upgrade). Instead, Commands will be put into a persistent queue, which will be processed by the Command Handlers (Application Service) when its server comes back online, as indicated in Figure A.9.
+
+Another advantage is the ability to chain additional aspects before Command dispatching as needed. For example, we could easily patch in auditing, logging, authorization, and validation.
+
+Figure A.9 The temporal decoupling characteristics of message-based Commands and their Command Handlers allow for flexible system availability options.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000613_13fe37f9401b81f34e3d4d68ca9c6d89763d1d4c495822e483185773d21f4b99.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000614_0a726b9e95a6ad00e00946d08fe5e8b01861e5891c064f03f16343e0294eafe8.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000615_fcdb4a18a9fd9e62fda63d6d29b6cc85db0550ba57d7a0d3c21f26186f8dc33f.png)
+
+Consider how we might patch in logging. We first define a standard interface and implement the interface in an Application Service class:
+
+```
+public interface IApplicationService { void Execute(ICommand cmd); } public partial class CustomerApplicationService : IApplicationService { public void Execute(ICommand command) { // pass command to a specific method When() // that can handle the command ((dynamic)this).When((dynamic)command); } }
+```
+
+## Execute and Mutate Have Similar Implementations
+
+Note that the way this Execute() method is implemented has some characteristics similar to the Mutate() method described previously as part of an A+ES Aggregate's design.
+
+Once we have a standard interface for all Command Handlers (Application Services), we can patch in any kind of standard pre- and post-execution features, such as generic logging:
+
+```
+public class LoggingWrapper : IApplicationService { readonly IApplicationService _service; public LoggingWrapper(IApplicationService service) { _service = service; } public void Execute(ICommand cmd) { Console.WriteLine("Command: " + cmd); try { var watch = Stopwatch.StartNew(); _service.Execute(cmd); var ms = watch.ElapsedMilliseconds; Console.WriteLine("  Completed in {0} ms", ms); }
+```
+
+```
+catch( Exception ex) { Console.WriteLine("Error: {0}", ex); } } }
+```
+
+Because  all  Application  Services  have  a  standard  interface,  we  can  patch in any number of generic utilities that operate before and/or after the actual Command Handler functions. Here's how the CustomerApplicationService is initialized with pre- and post-execution logging:
+
+```
+var customerService = new CustomerApplicationService(eventStore, pricingService);
+```
+
+```
+var customerServiceWithLogging = new LoggingWrapper(customerService);
+```
+
+Of  course,  the  fact  that  Commands  are  serialized  objects  dispatched  to Command Handlers enables us to deal with various failures and error conditions in a single location. Given a certain class of error, such as resource contention over concurrency issues, we could choose a standard recovery action, such as retrying the operation X number of times. The retries could be based on a Capped Exponential Back-off strategy, making all retries uniform, reliable, and maintained in a single class.
+
+## Lambda Syntax
+
+If  your  language  supports  lambda  expressions,  it  is  possible  to  make  otherwise repetitive code more compact by avoiding repetitive Event Stream management. To demonstrate this fact, here we introduce a helper method within our Application Service:
+
+```
+public class CustomerApplicationService { ... public void Update(CustomerId id, Action<Customer> execute) { EventStream eventStream = _eventStore.LoadEventStream(id); Customer customer = new Customer(eventStream.Events); execute(customer); _eventStore.AppendToStream( id, eventStream.Version, customer.Changes); } ... }
+```
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000616_1af63ebe06b924a8984d09872b2b495c261f602140ebb52e5dbb54e80ac52902.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000617_8d350d2b841aa23046cf90426f1481153959f5028ac7c289eaa4fded04779f59.png)
+
+In this method the parameter Action&lt;Customer&gt;  execute references an  anonymous  function  (C#  delegate)  that  can  operate  on  any Customer instance. The conciseness of the lambda expression can be seen in the parameter passed to Update() :
+
+```
+public class CustomerApplicationService { ... public void When(LockCustomer c) { Update(c.Id, customer => customer.LockCustomer(c.Reason)); } ... }
+```
+
+In actuality the C# compiler generates something similar to the following code that fulfills the intent of the lambda expression:
+
+```
+public class AnonymousClass_X { public string Reason; public void Execute(Customer customer); { Customer.LockCustomer(Reason); } } public delegate void Action<T>(T argument); public void When(LockCustomer c) { var x = new AnonymousClass_X(); x.Reason = c.Reason Update(c.Id, new Action<Customer>(customer => x.Execute(customer)); }
+```
+
+Since this generated function takes a Customer instance as an argument, it can actually be used to capture the behavior in the code and execute it multiple times on different Customer instances. The power of using lambdas is highlighted in the following section.
+
+## Concurrency Control
+
+Aggregate Event Streams can be accessed and read by multiple threads simultaneously. This opens up the real potential for concurrency conflicts that, if left unchecked, could result in a random number of invalid Aggregate states. Consider a scenario when two threads attempt to modify the Event Stream at the same time, as shown in Figure A.10.
+
+Figure A.10 Two threads contending for the same instance of an Aggregate designed using A+ES
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000618_88a375d4c9350c1717bf158ee8fae90c52e759bc76a9032edebf6f9610531737.png)
+
+The  simplest  resolution  to  this  situation  is  to  use EventStoreConcurrencyException at  step  4,  allowing  it  to  propagate  all  the  way  up  to  the ultimate client:
+
+```
+public class EventStoreConcurrencyException : Exception { public List<IEvent> StoreEvents { get; set; } public long StoreVersion { get; set; } }
+```
+
+Upon catching this exception in the ultimate client, the user would probably be instructed to retry the operation manually.
+
+Instead  of  taking  that  approach  first,  you  would  probably  agree  that  a standardized retry approach might be best. So when our Event Store throws EventStoreConcurrencyException , we can immediately attempt recovery:
+
+```
+void Update(CustomerId id, Action<Customer> execute) { while(true) {
+```
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000619_f8ba902a45a166fd4ae62c4acd7e79b0f57d9c3f5d7739d3b1840ce3f214f95c.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000620_e690f53bb5dc6673d35dbe1e3f92e3d4668556a46140a52cc45445c3a99b30aa.png)
+
+```
+EventStream eventStream = _eventStore.LoadEventStream(c.Id); var customer = new Customer(eventStream.Events); try { execute(customer); _eventStore.AppendToStream( c.Id, eventStream.Version, customer.Changes); return; } catch (EventStoreConcurrencyException) { // fall through and retry, with optional brief delay } } }
+```
+
+In the case where a concurrency conflict occurs, we would add these additional steps to overcome the problem:
+
+1. Thread 2 catches the exception and falls through, with control going to the beginning of the while loop. Now Events 1-5 are loaded into a new Customer instance.
+2. Thread 2 reexecutes the delegate on the reloaded Customer , which now creates Events 6-7, which will be successfully appended after Event 5.
+
+If the required Aggregate behavior reexecution is too expensive or for some reason not feasible (for example, requires costly third-party system integration to place an order or to charge a credit card), we might want to employ a different strategy.
+
+As is illustrated in Figure A.11, one such strategy is Event conflict resolution,  which  is  employed  to  reduce  the  number  of  actual  concurrency  exceptions. Here's how a very simple use of conflict resolution can work:
+
+Figure A.11 Using Event conflict resolution on the Event Stream of an Aggregate
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000621_8286799c0249226699ca660a20d068e566b3f76d18fe9368e15dc0e8effccf4e.png)
+
+```
+void UpdateWithSimpleConflictResolution( CustomerId id, Action<Customer> execute) { while (true) { EventStream eventStream = _eventStore.LoadEventStream(id); Customer customer = new Customer(eventStream.Events); execute(customer); try { _eventStore.AppendToStream( id, eventStream.Version, customer.Changes); return; } catch (EventStoreConcurrencyException ex) { foreach (var failedEvent in customer.Changes) { foreach (var succeededEvent in ex.ActualEvents) { if (ConflictsWith(failedEvent, succeededEvent)) { var msg = string.Format("Conflict between {0} and {1}", failedEvent, succeededEvent); throw new RealConcurrencyException(msg, ex); } } } // there are no conflicts and we can append _eventStore.AppendToStream( id, ex.ActualVersion, customer.Changes); } } }
+```
+
+In  this  case  the  conflict  detection  method ConflictsWith() is  used  to compare each of the Aggregate Events for conflicts with Events that were concurrently appended to the Event Store (as reported in the exception).
+
+This  conflict  resolution  method  is  usually  defined  per  Aggregate  Root, depending  on  the  specific  kinds  of  behaviors  it  supports.  Yet,  there  is  a ConflictsWith() implementation  that  would  work  for  the  majority  of Aggregates:
+
+```
+bool ConflictsWith(IEvent event1, IEvent event2) { return event1.GetType() == event2.GetType(); }
+```
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000622_1775c96bbfcb852b779a53440ad8e86c5660237239438741aa5d9bc016a3a1fc.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000623_97633ffc504f95f5da96cd70f5e98ace5b27e7d65327ac873737a399f1091105.png)
+
+This majority-case conflict resolution is based on a simple rule: Events of the same type always conflict with each other, but Events of different types do not.
+
+## Structural Freedom with A+ES
+
+One of the biggest practical advantages of A+ES is the simplicity of persistence and the versatility it provides. No matter how complex the structure of a given Aggregate is, it can always be represented with a sequence of serialized Events that  can  be  used  to  reconstitute  it.  Many  domains  influence  changes  to  the model over time, with new behaviors or modeling subtleties that arise from changing requirements of an evolving system. Even if we must restructure the internal implementation of a given Aggregate in order to deal with significant changes, A+ES can most times facilitate such changes with lower risks and little frustration to developers.
+
+The sequence of Events associated with a specific identity is usually referred to  as  an  Event  Stream.  In  essence,  it  is  just  an  append-only  list  of  messages serialized into byte blocks with the serializer of your choice. As such, an Event Stream can be persisted with equal success using relational databases, NoSQL persistence, plain file systems, or cloud storage, as long as any chosen store has strong consistency guarantees.
+
+Here are three major advantages of A+ES persistence, which are especially important for Bounded Contexts (2) with a long life:
+
+-  The ability to adapt the internal implementations of an Aggregate to any practical  structural  representation  necessary  to  express  new  behaviors encountered by domain experts
+-  The  ability  to  move  the  entire  infrastructure  between  various  hosting solutions, which enables us to deal with cloud outages and provide sound fail-over options
+-  The ability of an Event Stream for any Aggregate instance to be downloaded to a development machine and replayed to debug an error condition
+
+## Performance
+
+Sometimes loading Aggregates from large Streams can cause performance problems, especially when individual Streams go beyond hundreds of thousands of Events. There are a couple of simple patterns that could be applied in individual cases to solve this problem:
+
+Figure A.12 An Aggregate's Event Stream with a snapshot of its state followed by two Events that occurred after the snapshot was taken
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000624_a1d047024c5530ed257b5fa2cdd33b3d275c3f4ca99cb278431cd0c63fb16671.png)
+
+-  Cache  Event  Streams  in  server  memory,  leveraging  the  fact  that  Events are immutable once written to an Event Store. While querying the Event Store for any changes, we could supply a version of the last known Event and ask only for those that occurred since then, if any. This can improve performance at the cost of memory consumption.
+-  Avoid loading and replaying a large portion of an Event Stream by taking a snapshot of each Aggregate instance. This way, while loading any Aggregate  instance,  you  just  need  to  find  its  latest  snapshot  and  then replay any Events that were appended to the Event Stream since it was taken.
+
+As seen in Figure A.12, snapshots are just serialized copies of an Aggregate's full state, taken at certain moments in time, that reside in the Event Stream as specific versions. They can be persisted in a Repository encapsulated behind a simple interface like this:
+
+```
+public interface ISnapshotRepository { bool TryGetSnapshotById<TAggregate>( IIdentity id, out TAggregate snapshot, out int version); void SaveSnapshot(IIdentity id, TAggregate snapshot, int version); }
+```
+
+We must record the Stream's version along with each snapshot. With the version we can load the snapshot along with only the Events that have occurred since the moment the snapshot was recorded. We first retrieve the snapshot as the base state of the Aggregate instance, and then we load and replay all Events that occurred since the snapshot was taken:
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000625_226cb2f4aa366aa76e3837434853cc1624dcecfffc42f8e0c21e9d2273d5477a.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000626_a7881cb4993b908e83eb8d9b123907baf1974ba60deca459eb5ec9c4fe3cd0f0.png)
+
+```
+// our event store IEventStore _store; public Customer LoadCustomerAggregateById(CustomerId id) { Customer customer; long snapshotVersion = 0; if (_snapshots.TryGetSnapshotById( id, out customer, out snapshotVersion)) { // load any events since snapshot was taken EventStream stream = _store.LoadEventStreamAfterVersion( id, snapshotVersion); // replay these events to update snapshot customer.ReplayEvents(stream.Events); return customer; } else // we don't have any persisted snapshot { EventStream stream = _store.LoadEventStream(id); return new Customer(stream.Events); } }
+```
+
+The  method ReplayEvents() must  be  used  to  bring  the  Aggregate instance state up-to-date with the Events that occurred since the latest snapshot. Remember that the Aggregate instance state is mutated from the point of the latest snapshot forward. Thus, we will not be instantiating the Customer (in this example) using an Event Stream only. And we can't just use Apply() because it not only mutates the current state with the given Event, it also saves each Event it receives to the Changes collection. Saving Events to Changes that are already in the Event Stream would cause serious bugs. Thus, we simply need to implement the new method ReplayEvents() :
+
+```
+public partial class Customer { ... public void ReplayEvents(IEnumerable<IEvent> events) { foreach (var event in events) { Mutate(event); } } ... }
+```
+
+Figure A.13 An Aggregate's snapshot is generated after a specific number of new Events have occurred.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000627_f1642dde88e77562ec3f7f7639413f8a31bc06a3f27e382db72ec13aa8110a71.png)
+
+Here's some simple code for generating Customer snapshots:
+
+```
+public void GenerateSnapshotForCustomer(IIdentity id) { // load all events from the start EventStream stream = _store.LoadEventStream(id); Customer customer = new Customer(stream.Events); _snapshots.SaveSnapshot(id, customer, stream.Version); }
+```
+
+Snapshot  generation  and  persistence  can  be  delegated  to  a  background thread.  New  snapshots  would  be  produced  only  after  some  set  number  of Events  have  occurred  since  the  latest  snapshot.  These  steps  are  indicated  in Figure A.13. Since the characteristics of each Aggregate type could be quite different, the snapshot threshold for each type can be tuned for specific performance needs.
+
+One additional way to address performance concerns with A+ES Aggregates is to partition Aggregates among multiple processes or machines by Aggregate identity. This partitioning can be accomplished using identity hashing or other algorithms and can be combined with both Aggregate instance memory caching and Aggregate snapshots.
+
+## Implementing an Event Store
+
+Let's now actually implement a few different Event Stores that are suitable for use with A+ES. The Stores here are simple and aren't designed for extremely high performance, yet they will be good enough for most domains.
+
+While the implementation for each of the various Event Stores is different, the contracts are the same:
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000628_f34dca0caf247209acf40ec1d0c2f1db0e8181497ee32dc7cf0d900ad5a840ef.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000629_94b53b1e1b481cddb8ca2337076a146311f0104690f33bf7ed1991134571bcab.png)
+
+```
+public interface IEventStore { // loads all events for a stream EventStream LoadEventStream(IIdentity id); // loads subset of events for a stream EventStream LoadEventStream( IIdentity id, int skipEvents, int maxCount); // appends events to a stream, throwing // OptimisticConcurrencyException another appended // new events since expectedversion void AppendToStream( IIdentity id, int expectedVersion, ICollection<IEvent> events); } public class EventStream { // version of the event stream returned public int Version; // all events in the stream public IList<IEvent> Events = new List<IEvent>(); }
+```
+
+As  illustrated  in  Figure  A.14,  the  class  implementing IEventStore is  a project-specific  wrapper  around  the  more  generic  and  reusable IAppendOnlyStore . While the IEventStore implementation deals with serialization and  strong  typing,  the IAppendOnlyStore implementations  provide  lowlevel access to various storage engines.
+
+Figure A.14 The characteristics of the higher-level IEventStore and the lower-level IAppendOnlyStore
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000630_dce6a5f79a6c6a48a1c1a9b200a6ad3a8dd892e77e9b7631e74082a8a2aa0979.png)
+
+## Event Store Source Code
+
+Full source code for the range of Event Stores with multiple storage implementations is  available  for  download  as  part  of  an  A+ES  sample  project:  http://lokad.github. com/lokad-iddd-sample/.
+
+Here is the lower-level IAppendOnlyStore interface:
+
+```
+public interface IAppendOnlyStore : IDisposable { void Append(string name, byte[] data, int expectedVersion = -1); IEnumerable<DataWithVersion> ReadRecords( string name, int afterVersion, int maxCount); IEnumerable<DataWithName> ReadRecords( int afterVersion, int maxCount); void Close(); } public class DataWithVersion { public int Version; public byte[] Data; } public sealed class DataWithName { public string Name; public byte[] Data; }
+```
+
+As you can see, IAppendOnlyStore deals with arrays of bytes instead of Event collections, and string names instead of strongly typed identities. Class EventStore handles conversions between the two types of data.
+
+The IAppendOnlyStore declares  two  distinct ReadRecords() methods. The first one listed is used to read Events within a single Stream by their names, and the second one to read all Events in the Store. Both method implementations must always read Events in the order in which they were persisted. As  you  have  probably  deduced,  the  first  overloaded  method  is  required  for rebuilding the state of a single Aggregate. The second ReadRecords() is used by the infrastructure to replicate Events, to publish them without the need for two-phase commit, and to rebuild persistent read models such as are needed for CQRS-based user interfaces.
+
+A simple approach to serialization and deserialization-conversion between bytes and strongly typed Event objects-could use the .NET BinaryFormatter :
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000631_2f4c110a279283394e29d0e5c681c311e76534f4c5b0cc4a50923dd84a608a7f.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000632_20711ff671186f0a26e480b9dd408611f40ab4a12dc25f7292f7e0aaf3b460fd.png)
+
+## Appendix A AGGREGATES AND EVENT SOURCING: A+ES
+
+```
+public class EventStore : IEventStore { readonly BinaryFormatter _formatter = new BinaryFormatter(); byte[] SerializeEvent(IEvent[] e) { using (var mem = new MemoryStream()) { _formatter.Serialize(mem, e); return mem.ToArray(); } } IEvent[] DeserializeEvent(byte[] data) { using (var mem = new MemoryStream(data)) { return (IEvent[])_formatter.Deserialize(mem); } } }
+```
+
+Here's  how  we  can  use  serialization  and  deserialization  to  load  an  Event Stream:
+
+```
+readonly IAppendOnlyStore _appendOnlyStore; ... public EventStream LoadEventStream(IIdentity id, int skip, int take) { var name = IdentityToString(id); var records = _appendOnlyStore.ReadRecords(name, skip, take).ToList(); var stream = new EventStream(); foreach (var tapeRecord in records) { stream.Events.AddRange(DeserializeEvent(tapeRecord.Data)); stream.Version = tapeRecord.Version; } return stream; } string IdentityToString(IIdentity id) { // in this project all identities produce proper name return id.ToString(); }
+```
+
+Here we see how to append new Events to the Event Store by way of the IAppendOnlyStore :
+
+```
+public void AppendToStream( IIdentity id, int originalVersion, ICollection<IEvent> events) { if (events.Count == 0) return; var name = IdentityToString(id); var data = SerializeEvent(events.ToArray()); try { _appendOnlyStore.Append(name, data, originalVersion); } catch(AppendOnlyStoreConcurrencyException e) { // load server events var server = LoadEventStream(id, 0, int.MaxValue); // throw a real problem throw OptimisticConcurrencyException.Create( server.Version, e.ExpectedVersion, id, server.Events); } }
+```
+
+## Relational Persistence
+
+The  capabilities  and  strong  consistency  guarantees  provided  by  relational databases make for the simplest approach to implementing append-only persistence. The fact that many enterprises have already standardized on one or more relational database products means there is little to no cost or learning curve to using them for Event Stores.
+
+Since  the  MySQL  database  is  a  popular  open  source  relational  database server  that  is  available  on  several  platforms,  we  will  use  it  to  implement  an Event  Store.  The MySQLAppendOnlyStore implements IAppendOnlyStore , acting as an access layer. It will be used to save Events as binary data into an ES\_Events table, and to subsequently load those persisted Events.
+
+Here's the table definition, which manages an Event Stream for each Aggregate type in a Bounded Context:
+
+```
+CREATE TABLE IF NOT EXISTS `ES_Events` ( `Id` int NOT NULL AUTO_INCREMENT,    -- unique id `Name` nvarchar(50) NOT NULL,        -- name of the stream
+```
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000633_bc2fdc23683ea0679ed80544250ec0b1d9107f0db867b929320a136e1c2e12c5.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000634_72389723e94b72ffd55a0b07f6d03c303706ae41dbda0ad94dbd511a9fa20077.png)
+
+`Version` int NOT NULL,              -- incrementing stream version
+
+```
+`Data` LONGBLOB NOT NULL             -- data payload
+```
+
+)
+
+To append an Event to a specific Stream using a transaction, use the following steps:
+
+1. Begin a transaction.
+2. Check if the Event Store changed from the expected version; if so, throw an exception.
+3. If there are no concurrency conflicts, append the Events.
+4. Commit the transaction.
+
+Here is the source code for method Append() :
+
+```
+public void Append(string name, byte[] data, int expectedVersion) { using (var conn = new MySqlConnection(_connectionString)) { conn.Open(); using (var tx = conn.BeginTransaction()) { const string sql = @"SELECT COALESCE(MAX(Version),0) FROM `ES_Events` WHERE Name=?name"; int version; using (var cmd = new MySqlCommand(sql, conn, tx)) { cmd.Parameters.AddWithValue("?name", name); version = (int)cmd.ExecuteScalar(); if (expectedVersion != -1) { if (version != expectedVersion) { throw new AppendOnlyStoreConcurrencyException( version, expectedVersion, name); } } } const string txt = @"INSERT INTO `ES_Events` (`Name`, `Version`, `Data`) VALUES(?name, ?version, ?data)"; using (var cmd = new MySqlCommand(txt, conn, tx)) { cmd.Parameters.AddWithValue("?name", name);
+```
+
+## RELATIONAL PERSISTENCE
+
+```
+cmd.Parameters.AddWithValue("?version", version+1); cmd.Parameters.AddWithValue("?data", data); cmd.ExecuteNonQuery(); } tx.Commit(); } } }
+```
+
+Reading  from  the IAppendOnlyStore is  quite  simple,  requiring  only  a basic query. For example, this is how we get a list of records for an Aggregate's Event Stream:
+
+```
+public IEnumerable<DataWithVersion> ReadRecords( string name, int afterVersion, int maxCount) { using (var conn = new MySqlConnection(_connectionString)) { conn.Open(); const string sql = @"SELECT `Data`, `Version` FROM `ES_Events` WHERE `Name` = ?name AND `Version`>?version ORDER BY `Version` LIMIT 0,?take"; using (var cmd = new MySqlCommand(sql, conn)) { cmd.Parameters.AddWithValue("?name", name); cmd.Parameters.AddWithValue("?version", afterVersion); cmd.Parameters.AddWithValue("?take", maxCount); using (var reader = cmd.ExecuteReader()) { while (reader.Read()) { var data = (byte[])reader["Data"]; var version = (int)reader["Version"]; yield return new DataWithVersion(version, data); } } } } }
+```
+
+You will find the full source code for this MySQL-based Event Store with the rest of the sample code. A similar implementation is provided for Microsoft SQL Server.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000635_a32bf8d4905e6a5d08ec052a79fffdacba255fa87ce5c827b081f03c8339c51f.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000636_851aa746a06530da8c2af365e49bdab5cf8ff788f51d1d5a7e176360a614e155.png)
+
+## BLOB Persistence
+
+Leveraging a database server (such as MySQL or MS SQL Server) will save you a lot of work. It saves significant effort in dealing with concurrency management, file fragmentation, caching, and data consistency. Obviously, then, not using a database product would require us to handle many of those concerns on our own.
+
+However, if we did choose to brave a rougher road to Event Stores, we do have  some  help.  For  example,  Windows  Azure  Blob  storage  and  simple  file system storage are at our disposal, and the sample project includes implementations of both.
+
+Let's consider some design guidelines for building an Event Store without a database, some of which are summarized by Figure A.15:
+
+1. Our  custom  storage  is  composed  of  a  set  of  one  or  more  append-only binary large object (BLOB) files or their equivalents. The component that writes to the storage locks it exclusively as it appends but allows for concurrent reads.
+2. Depending on your strategy, you could use just one BLOB store for all Aggregate types and instances for a Bounded Context. Alternatively you could create one BLOB store for each Aggregate type, where all instances of a given type would be stored. Or you could split up the BLOB stores for each Aggregate type by instance, where the Event Stream for a single instance would be stored on its own.
+3. When  the  writer  component  appends,  it  opens  the  appropriate  BLOB store, writes to it, and maintains an index into the store.
+
+Figure A.15 File-based BLOB storage using a strategy of one file for each Aggregate instance, containing one record for each Event
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000637_8e1fb061c337e86f5355ee23869cc27dc8095676e782fed0a1a7f2899debe977.png)
+
+4. Regardless  of  the  BLOB  storage  strategy  in  use,  all  new  Events  are appended to the end. Each record is composed of a name, version, and binary data fields. This is similar to the way we store Event records to a relational database. However, with a BLOB store we must prefix variable-length fields with the byte count length, and we also append a hash code or cyclic redundancy check (CRC) to verify data integrity when the records are read.
+5. BLOB-based  append-only  storage  allows  for  enumeration  of  all  Events across  all  Event  Streams  simply  by  enumerating  all  files  and  their  contents. In order to speed up disk seeks and reading Events for a specific Stream, we would need to maintain a dedicated in-memory index and/ or cache the Event Streams in memory. If memory caching is used, each append would require the cache to be refreshed. Further, Aggregate state snapshots and file defragmentation can also help to improve performance.
+6. Of course, we can avoid many of the file system disk fragmentation issues by preallocating large regions of BLOB file space as each file-based Event Stream is created.
+
+This design is inspired by the Riak Bitcask model. You can read more details and  explanations  in  the  Riak  Bitcask  architecture  paper:  http://downloads. basho.com/papers/bitcask-intro.pdf.
+
+## Focused Aggregates

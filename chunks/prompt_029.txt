@@ -1,0 +1,1353 @@
+Bạn là chuyên gia dịch thuật kỹ thuật Anh → Việt, chuyên tài liệu kỹ thuật/công nghệ, có kinh nghiệm dịch như biên dịch viên bản ngữ chuyên nghiệp. Nhiệm vụ: dịch TOÀN BỘ nội dung Markdown dưới đây sang tiếng Việt, không bỏ sót bất kỳ phần nào. Đây là MỘT PHẦN (chunk) của một tài liệu lớn hơn, hãy dịch độc lập đoạn này, không thêm lời mở đầu/kết luận về việc đây chỉ là một phần.
+
+QUY TẮC BẮT BUỘC — VI PHẠM LÀ SAI:
+
+1. XÁC ĐỊNH LOẠI TÀI LIỆU TRƯỚC KHI DỊCH
+   - Tự phân tích nội dung để xác định loại tài liệu (kỹ thuật/lập trình, tài chính, bảo hiểm, pháp lý, marketing, học thuật, vận hành, sản phẩm...).
+   - Chọn văn phong và thuật ngữ CHUẨN NGÀNH tương ứng trong tiếng Việt, nhất quán xuyên suốt.
+
+2. VĂN PHONG — MƯỢT NHƯ NGƯỜI DỊCH, KHÔNG GIẢM CHÍNH XÁC
+   - Dịch mượt, tự nhiên, đúng ngữ pháp tiếng Việt — như biên dịch viên bản ngữ dịch tay, KHÔNG dịch máy móc kiểu word-by-word.
+   - Được phép đảo cấu trúc câu, tách/gộp câu cho tự nhiên, miễn giữ nguyên 100% ý nghĩa, thông tin, logic, số liệu gốc.
+   - Khi "mượt mà" và "chính xác" xung đột → LUÔN ưu tiên chính xác.
+
+3. DỊCH ĐẦY ĐỦ 100%
+   - Không tóm tắt, không rút gọn, không lược bỏ đoạn/câu/mục/bullet nào.
+   - Số lượng heading, đoạn văn, bảng, code block ở output PHẢI khớp 1:1 với input.
+   - Đoạn dài dịch hết, không cắt ngắn.
+
+4. GIỮ NGUYÊN THUẬT NGỮ TIẾNG ANH
+   - Thuật ngữ chuyên ngành (tên công nghệ, framework, pattern, tên hàm/biến, acronym...) giữ nguyên tiếng Anh, không dịch, không phiên âm.
+   - Ngay sau lần xuất hiện ĐẦU TIÊN của mỗi thuật ngữ, thêm chú thích ngắn trong ngoặc giải thích nghĩa bằng tiếng Việt.
+   - Các lần xuất hiện sau KHÔNG cần chú thích lại.
+
+5. GIỮ NGUYÊN FORMAT — RẤT QUAN TRỌNG
+   - VỀ ẢNH (làm trước khi dịch): ĐẾM chính xác số lượng thẻ ảnh dạng ![...](...) trong đoạn gốc bên dưới. Output PHẢI có ĐÚNG số lượng thẻ ảnh đó, không được thiếu một cái nào — kể cả ảnh không có caption, không rõ ngữ cảnh, hay trông như ảnh trang trí/lặp lại. Copy nguyên URL 100%, không sửa, không rút gọn, không thay bằng mô tả text.
+   - Giữ cấp độ heading (#, ##, ###...), giữ đúng số lượng heading.
+   - Giữ cấu trúc bảng (số cột, số hàng, alignment, header row).
+   - Giữ code block (```lang ... ```) — KHÔNG dịch code; comment được dịch tại chỗ; **được phép reformat code, tự động xuống dòng/indent chuẩn, không giữ nguyên code 1 dòng; không đổi logic/cú pháp**.
+   - Giữ blockquote, callout/note/warning (>, [!NOTE], [!WARNING]...).
+   - Giữ list, nested list, checkbox (- [ ]).
+   - Giữ nguyên link thường ([text](url)) — chỉ dịch phần text hiển thị, TUYỆT ĐỐI giữ nguyên URL.
+   - TRƯỚC KHI TRẢ KẾT QUẢ: tự đếm lại số heading, số ảnh, số dòng ``` giữa bản gốc và bản dịch của bạn, nếu lệch phải sửa lại cho khớp.
+
+6. GIẢI THÍCH ẨN DỤ / KHÁI NIỆM KHÓ
+   - Với ẩn dụ, thành ngữ, khái niệm trừu tượng khó hiểu với người Việt, thêm khối giải thích riêng ngay sau đoạn đó:
+     > 💡 **Giải thích thêm:** [giải thích dễ hiểu, đủ chuyên sâu, có ví dụ thực tế]
+     > Nguồn tham khảo: [link cụ thể để kiểm chứng]
+   - CHỈ đưa link nếu chắc chắn tồn tại và đúng nội dung — không bịa link.
+   - Không tìm được nguồn tin cậy → ghi rõ: "(Không có nguồn trích dẫn xác thực — cần tự kiểm chứng thêm)".
+
+7. CHỐNG HALLUCINATION (BẮT BUỘC)
+   - Không tự thêm thông tin/số liệu/ví dụ/kết luận KHÔNG có trong bản gốc — trừ phần giải thích ẩn dụ ở mục 6 (phải gắn nhãn rõ là phần bổ sung).
+   - Câu gốc mơ hồ → dịch sát nghĩa nhất, nếu không chắc ghi chú: "[CẦN KIỂM CHỨNG: câu gốc mơ hồ]".
+   - Không tự sửa/thêm/bớt logic kỹ thuật gốc. Không bịa trích dẫn/số liệu/link vô căn cứ.
+   - Không tự tóm tắt các đoạn dài thành ý chính rồi diễn giải lại — phải dịch từng câu.
+
+8. OUTPUT
+   - Trả về DUY NHẤT nội dung Markdown đã dịch, đặt trong 1 code block (```markdown ... ```).
+   - Không thêm lời dẫn/lời chào/giải thích ngoài code block.
+   - Không đổi tiêu đề gốc trừ khi cần dịch tiêu đề.
+
+--- NỘI DUNG GỐC CẦN DỊCH (một phần của tài liệu) ---
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000659_442ea19e6380551b028c461e01c310bbc1afd233c873a4cfc382f6d4c43d83c8.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000660_9d96c27934080e919a4768fcfdf55907af01efe0732929e7920a8b59d93c7d56.png)
+
+Bounded Context. See also Integrating Bounded Contexts
+
+abstract business domain with Subdomains and, 50
+
+Aggregate discovery in, 353-354
+
+Agile Project Management Context and, 82-84
+
+alignment with Subdomains, 57, 60 alignment with technical components, 71-72
+
+assigning identity of Entities, 182-183
+
+bank accounts example, 64
+
+book publishing example, 64-65
+
+business value and, 28
+
+Collaboration Context. See Collaboration Context
+
+combining DDD and RESTful HTTP and, 137
+
+communicating Domain Events across, 286
+
+communicating to remote, 303
+
+composing multiple, 531-532
+
+context is king, 63
+
+Context Maps. See Context Maps
+
+contextual boundaries and, 344
+
+Core Domain and, 35
+
+encompassing more than Domain Model, 66-68
+
+examples, 72-73
+
+explicit and linguistic nature of, 62
+
+Identity and Access Context, 80-81
+
+integrating with Subdomains, 46
+
+integration between, 49-50, 450-451
+
+linguistic boundaries, 48
+
+mapping, 64
+
+module name identifying, 337-339
+
+naming, 54
+
+overview of, 20
+
+persistence of, 558
+
+repositories and, 402
+
+SaaSOvation case study, 65-66
+
+size of, 68-71
+
+SOA and, 132-133
+
+solution space and, 57
+
+whiteboard illustration of Subdomain
+
+Ubiquitous Language and, 25 and, 51
+
+BSON (binary JSON), 426
+
+Builder pattern, 389
+
+Bundles, OSGi, 336
+
+Business analysts, benefits of Ubiquitous Language to, 21
+
+Business processes, uses of Domain Services, 268
+
+Business services, 66-68. See also Applications
+
+Business strategies, 132
+
+Business value, of DDD
+
+clean boundaries around models, 28
+
+domain experts contributing to software design, 27
+
+improved organization of enterprise architecture, 28
+
+improved user experience, 27-28
+
+overview of, 25-26
+
+precise and refined understanding of business, 27
+
+software development, 7-10 strategic and tactical tools, 28-29 useful Domain Models, 26-27
+
+Business-driven architecture, 10
+
+Business-level service, 9-10
+
+BusinessPriority
+
+testing for, 242
+
+Ubiquitous Language and, 240
+
+using Value type as Strategy, 243-244
+
+C
+
+C#
+
+Application Service implemented in, 542 collections in, 403 namespaces, 333, 336-337
+
+Cache
+
+client cache, 316
+
+Data Fabrics providing, 164-165
+
+distributed, 147
+
+Event Streams, 559
+
+named cache strategies in Coherence, 422-424
+
+Calculations
+
+creating service for, 277-280
+
+uses of Domain Services, 268
+
+CalendarEntry instances, Factory examples, 392-395
+
+Callback, 514-515
+
+Capped Exponential Back-off, 365, 502, 553
+
+Categorized style, CQRS Command Handlers, 143
+
+Checks pattern language (Cunningham), 211 Classes
+
+implementation classes for repository, 410-411 model in modules, 338 roles and, 200-201
+
+Clear-text passwords, 274
+
+Client and query processor, 141
+
+Clients
+
+dealing with multiple, disparate clients, 517-518
+
+justification for domain modeling, 37 producing specific output types for, 528 RESTful HTTP clients, 136, 463-469
+
+Client-server style, using Layers Architecture for, 115
+
+Clojure, event sourcing in, 583
+
+Clones, of Value Objects, 244
+
+Cockburn, Alistair, 125
+
+Code smells
+
+Aggregate mis-design and, 432
+
+indicating need of a service, 265
+
+type hierarchies and, 439
+
+Coherence (Oracle)
+
+concurrency and, 385-386
+
+distributed processing and, 167
+
+implementing persistence-oriented repository, 420-425
+
+persistence-oriented repositories and, 418-420
+
+testing persistence-oriented repository, 442-445
+
+Collaboration Context
+
+designing and implementing, 74
+
+facilitating synergistic workspace, 73
+
+Factory Methods on Aggregates and, 391-392
+
+implementing REST client, 463-469 integrating with Agile Project
+
+Management Context, 107-110
+
+integrating with Identity and Access Context, 101-103
+
+long-running processes (sagas) and, 488-490
+
+mapping three contexts, 95-96 naming Bounded Context and, 54 responsibilities and, 476
+
+Services as Factories and, 397-399
+
+Value Objects preferred over Entities when possible, 382
+
+Collaboration model, example from failure to use strategic design, 53-55
+
+Collection-oriented repositories
+
+background of collections and, 403-404
+
+Hibernate implementation of.
+
+See
+
+Hibernate repository
+
+mimicking set collections, 404-406 overview of, 402
+
+persistent data store and, 406-407
+
+tools for, 407
+
+Columns, serialization of many Values into,
+
+253-255 Comet (Ajax Push), 147 Command (write) model, in CQRS client driving command processing, 143 command processors, 143-144 defined, 140 overview of, 144-145 Command Handlers controlling task management for applications, 549-553 in CQRS, 143-144 Command objects designing, 523 designing Command class, 527-528 Command-Query Responsibility Segregation. See CQRS (Command-Query Responsibility Segregation) Command-Query Separation. See CQS (Command-Query Separation) Commands contract generation and maintenance, 580-581 controlling task management for applications, 549 CQRS, 139 passing to Application Services methods, 550 Communication Context Maps facilitating inter-team, 88-89 of Domain Events across Bounded Context, 286 of Events to remote Bounded Contexts, 303 Complexity, Subdomains and, 46 Conceptual Wholeness characteristic, of Value Objects, 221, 223-226 Concurrency concurrency control for Event Streams, 554-558 eventual consistency and, 365 persistence mechanisms for dealing with, 350 Conformist relationships being forced into, 89 Bounded Context, 93 Context Maps and, 460 Consistency eventual. See Eventual consistency invariants and, 359 in modeling Aggregates, 349-351, 355 transactional. See Transactional consistency
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000661_c3ef3b92e2051895040084c03b97a1c1206eab53e9e1560f503973306d5c72dc.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000662_3e451eb850cf646fcf3b95e317d436346363f8b7b504a3ead698ab994fe252b5.png)
+
+| Constructors of Entities, 205-207 of Events, 291 fulfilling dependencies, 543 of Value class, 225 of Value Objects, 244                                                                                                              |
+|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Containers, for enterprise components, 534-537 Context Maps Agile Project Management Context and, 104                                                                                                                                |
+| Bounded Context and, 25                                                                                                                                                                                                              |
+| business value from, 28                                                                                                                                                                                                              |
+| design approaches, 460 drawing, 89-91                                                                                                                                                                                                |
+| forms of, 449 integrating Agile Project Management Context with Identity                                                                                                                                                             |
+| and Access Context, 104-107 integrating Collaboration Context with Agile Project Management Context, 107-110                                                                                                                         |
+| integrating Collaboration Context with Identity and Access Context, 101-103 integration options in, 50 integration with, 182 iterative refinement of, 97-98 linguistic boundaries, 96 message-based approach to integration,         |
+| 482 of organizational and integration patterns, 92-94 overview of, 87 in problem space assessment, 96-97 project and organizational relationships and, 91-92                                                                         |
+| review, 111 tool for shaping team judgment, 69 upstream/downstream relationships,                                                                                                                                                    |
+| 99-100 why essential, 87-89 Queries, Data Fabrics                                                                                                                                                                                    |
+| Continuous supporting, 166                                                                                                                                                                                                           |
+| Continuous modeling, benefits of DDD, 28 Contracts design-by-contract approach and, 208 for Domain Events, 290 generating and maintaining, 580-581 Copy constructors, creating Value Objects, 244 Core Domain aggregates in, 348-349 |
+
+Agile Project Management Context as, 98, 239 in assessment of problem and solution spaces, 58-59 distinguishing between types of domains, 44 eliminating extraneous concepts, 69 focus on, 50-51 investing in what produces biggest benefit, 10 justification for domain modeling, 35, 37 module of Agile Project Management Context, 340 problem space in development of, 56-57 for SaaS Ovation Domain Model, 91 Transaction Script approach to modeling, 532 when to add, 47-48 whiteboard illustration of, 52 CQRS (Command-Query Responsibility Segregation) client and query processor in, 141 client driving command processing, 143 code smell suggesting use of, 432 command (write) model, 144-145 command processors, 143-144 continuos queries, 166 dealing with inconsistency in query model, 146-147 Event Sourcing and, 160, 162 event subscriber updating query model, 145-146 eventual consistency and, 366 example of use of, 117 implementing Aggregates and Event Sourcing (A+ES), 540 overview of, 138-140 query (read) model, 141-142 references by identity and, 363 use case optimal query compared with, 517 CQS (Command-Query Separation) defined, 139 in multiple-Aggregate design, 352 Query methods, 229 Side-Effect-Free Functions and, 245 CRC (cyclic redundancy check), BLOB data store and, 569 Critical path, justification for Domain Modeling, 36 CRUD-based systems as alternative to Entities, 172 DAOs (Data Access Objects) and, 441
+
+Cunningham, Ward, 211-212, 215, 223, 357 Current logs
+
+HTTP GET method and, 313-315 publishing NotificationLog , 319-323
+
+Customers, justification for Domain Modeling, 37
+
+Customer-Supplier Development, Bounded Context relationships, 92, 94
+
+Customer-Supplier relationship, 89
+
+Cyclic redundancy check (CRC), BLOB data
+
+store and, 569
+
+## D
+
+Dahan, Udi, 203
+
+DAOs (Data Access Objects), 440-441
+
+Data Fabrics
+
+continuous queries, 166
+
+data replication, 164-165
+
+distributed processing, 167-168
+
+domain modeling, 441
+
+event-driven fabrics and Domain Events, 165-166
+
+overview of, 163-164
+
+persistence-oriented repositories and, 418
+
+Data Mapper, use within Domain Model, 441
+
+Data Model Leakage, 249-251
+
+Data replication, 164-165
+
+Data store
+
+BLOB data store and, 569
+
+persistence-oriented repositories and, 418-420
+
+Data Transfer Objects. See DTOs (Data Transfer Objects)
+
+Data Transformer
+
+dealing with multiple, disparate clients, 517-518
+
+for producing specific output types for clients, 528
+
+type complexity and, 523
+
+Databases
+
+ACID, 521
+
+functional, 583
+
+many Values backed by database entity, 255-260
+
+MySQL. See MySQL
+
+NoSQL, 249, 418
+
+relational, 543, 565-567
+
+DDD (Domain-Driven Design), getting started anemia-induced memory loss and, 16-20 benefits of, 26-29
+
+benefits to architects and domain experts, 5-6
+
+benefits to developers, 4-5
+
+benefits to managers, 6
+
+business value of, 25-26
+
+case studies in presentation of, 38-39
+
+challenges in applying, 29-34
+
+delivering software with true business value, 7-10
+
+determining Domain Model health, 13-14 justification for domain modeling, 34-37 modeling complex domains in simplest manner, 10
+
+overview of, 1
+
+reasons for implementing, 6-7
+
+reasons for poor (anemic) domain health,
+
+14-16
+
+requirements for implementing, 2-4
+
+review, 41-42
+
+SaaSOvation case study, 40-41
+
+scorecard for determining if project qualifies, 10-13
+
+test-first approach, 37-38, 239-243
+
+Ubiquitous Language and, 20-25
+
+DDR (Domain Dependency Resolver), 516 Decision making
+
+Aggregate design and, 379-380 fictitious interview and, 115-119 models providing tools for, 57
+
+Decoupling service output Application Services and, 528-530 decoupling service from client, 550-551 temporal decoupling, 551
+
+Dedicated style, CQRS Command Handlers, 143
+
+Deep clones, creating Value Objects, 244
+
+Defensive programming, 210
+
+Deferred Validation of object compositions, 215 of whole objects, 211-212
+
+Delegation
+
+of Aggregate instances to DTO, 513-514 of Application Services, 461-462 self-delegation, 244, 248
+
+DELETE method, HTTP, 135, 458
+
+Dependency Injection
+
+avoiding when implementing Aggregates, 387
+
+fulfilling dependencies, 543
+
+implicit lookup, 533
+
+preventing client awareness of implementations, 276-277
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000663_67753d45a673e20ee54ce1c732a2760fb1966d94b24cd54c29a2942485dd8298.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000664_b2a312c10b064112f0e94bede8d7b36a07daaba9a76fdc0cd58a994099bdafc6.png)
+
+- Dependency Inversion Principle. See DIP (Dependency Inversion Principle)
+
+Describing characteristic, of Value Objects, 221
+
+Design
+
+agile, 55
+
+with modules, 333-336
+
+Design Patterns and Contracts (Jezequel et. al.), 208
+
+Design Patterns (Gamma et. al.), 389
+
+Design rules, modules, 334-335
+
+Design-by-contract approach, 208
+
+Developers
+
+benefits of DDD to, 4-5
+
+benefits of Ubiquitous Language, 21
+
+challenges in applying DDD, 30
+
+delivering business value and, 8
+
+how DDD helps in software development, 9
+
+on level playing field with domain experts, 7
+
+DIP (Dependency Inversion Principle) example of use of, 115-116 Hexagonal Architecture and, 126 infrastructure and, 532 layering infrastructure, 411 Layers Architecture pattern and, 123-125 in UML, 510-511
+
+Disconnected Domain Model, 362
+
+Discussion instances, Factory examples, 395-397
+
+Distributed Cache/Grid, data synchronization and, 147
+
+- Distributed Computing Data Fabrics supporting, 167-168 principles of, 451
+
+Distribution, Aggregate design and, 363-364
+
+Documentation, in developing Ubiquitous
+
+Language, 22
+
+Domain
+
+the big picture, 43-44
+
+mapping domain data to views. See CQRS (Command-Query Responsibility Segregation)
+
+modeling complex, 10
+
+problem space and solution space of, 56-58
+
+with Subdomains and Bounded Contexts, 45
+
+Domain Dependency Resolver (DDR), 516 Domain Event
+
+with Aggregate characteristics, 294-295 architectural styles for forwarding stored Events, 312
+
+assigning unique identifiers to, 156 autonomous services and systems and, 305-306
+
+communicating to remote Bounded Contexts regarding, 303
+
+contract for, 290
+
+CQRS command model and, 144-145
+
+CQRS query model and, 145-146
+
+creating properties, 290-291
+
+Data Fabrics and, 165-166
+
+de-duplication, 329-331
+
+enrichment, 294, 453, 471, 481, 573-575
+
+Event Store and, 307-312
+
+eventual consistency and, 108
+
+Identity and Access Context and, 80, 104-105
+
+identity of, 295-296
+
+implementing, 318-319
+
+latency tolerances, 306-307
+
+messaging infrastructure consistency and, 303-304
+
+modeling behavioral operations, 291-293 modeling Events, 288-289
+
+naming and publishing, 289
+
+overview of, 285
+
+Published Language used in, 100
+
+publishers and, 297-300
+
+publishing, 121, 296-297
+
+publishing message-based notifications, 324-329
+
+publishing NotificationLog , 319-323 publishing notifications as RESTful
+
+resources, 312-317
+
+publishing notifications using messaging middleware, 317-318
+
+review, 324-329
+
+subscribers and, 300-302
+
+system autonomy and, 469
+
+tactical modeling tools, 29
+
+tracking changes, 216-217
+
+when to use and why to use, 285-288
+
+Domain Event Publisher, 121, 530
+
+Domain experts advantages of engaging, 3-4 availability of, 36 benefits of DDD to, 5-6 challenges of applying DDD, 29-30 contribution to software design, 27 in delivering business value, 8 influence on Ubiquitous Language, 21 involving in whiteboard drawing of domain, 52
+
+on level playing field with developers, 7 in software development, 9
+
+## Domain Layer
+
+accessing Infrastructure Layer, 121-122 creating and naming modules of nonmodel components, 343-344
+
+DIP (Dependency Inversion Principle) and, 124
+
+in Layers Architecture, 119
+
+unidirectional and downward references from Infrastructure Layer, 411
+
+## Domain model
+
+abstract business domains, 50 analyzing best model for business, 22
+
+applications and, 509
+
+benefit of, 26-27
+
+Bounded Context encompassing more than, 66-68
+
+characteristics of sound models, 69
+
+clean boundaries around, 28
+
+Data Fabrics and, 441
+
+designing, 191
+
+determining health of, 13-14
+
+Disconnected Domain Model, 362
+
+Factories in, 389-391
+
+Hibernate and, 15-16
+
+justification for, 34-37
+
+modeling complex domains in simplest manner, 10
+
+module naming conventions and, 339 publishing Domain Events from, 296-297 reducing costs of doing business, 57 SaaS Ovation example, 91 shielding from dependencies, 453 tailoring to specific business areas, 44
+
+Value Objects in development of, 577-580 what anemia does to your model, 16-20 what it is, 4
+
+Domain names, module naming conventions and, 337
+
+Domain objects with multiple roles, 200-205 rendering, 512-513
+
+Domain Payload Objects (DPOs) Presentation Model and, 520 rendering Aggregate instances from, 515-516
+
+Domain Services
+
+Application Services compared with, 120, 521, 526-527
+
+Application Services supporting, 541
+
+avoiding dependency injection, 387 in bad design example, 76 for business priorities, 231 calculation service, 277-280 creating Events, 295
+
+## E
+
+Eager loading strategy, 516
+
+Eclipse, 71 EclipseLink, 407 integration implementation using,
+
+EDA (event-driven architecture) event sourcing, 160-163 example of use of, 117-118 469-508
+
+determining need for, 268-272 mini-layer of, 281
+
+model navigation and, 362-363
+
+modeling, 272-275
+
+overview of, 265-267
+
+performing business operations, 545-546 providing Standard Types, 238
+
+registering subscribers to Domain Events, 300-302
+
+review, 284
+
+Separated Interface and, 275-277
+
+testing, 281-284
+
+transformation services, 280
+
+uses of, 268
+
+for validating object compositions, 215-216
+
+what they are and what they are not, 267-268
+
+Don't repeat yourself (DRY) principle, 6 Double-Dispatch
+
+Domain Payload Objects and, 516 for handling client output types, 530 publishing internal state of Aggregates, 514-515
+
+Downstream models, upstream models influencing, 99-100
+
+DPOs (Domain Payload Objects) Presentation Model and, 520 rendering Aggregate instances from, 515-516
+
+Drawings, Context Maps, 89-91, 449
+
+DRY (Don't repeat yourself) principle, 6
+
+DTO Assemblers, 141, 513
+
+DTOs (Data Transfer Objects) complexity and, 523 CQRS and, 141 Domain Payload Objects compared with,
+
+515-516
+
+mimicking Anemic Domain Model, 532
+
+Presentation Model and, 520 querying repositories and, 138 rendering from Aggregate instances,
+
+Read Model Projections and, 572 513-514
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000665_c0512f88027fa384ebc4fd621369837d39afc3c55b0ce88edf64c4857ac078fb.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000666_381177a7cc0532cccbc4901fbe18f493aa44ed377d818780fb70580e4ad07c42.png)
+
+EDA ( continued )
+
+leveraging eventual consistency, 108 long-running processes (sagas), 153-159 overview of, 147-149
+
+Pipes and Filters and, 149-153
+
+Editing, handling user edits, 518-521
+
+Eiffel programming language, 208
+
+EJB (Enterprise JavaBeans), 534
+
+Encapsulation, power of self-encapsulation, 207
+
+Encrypting passwords, 269-271
+
+Enrichment, of Domain Events, 294, 453, 471, 481, 573-575
+
+Enterprise architecture
+
+Context Maps are not EA diagrams, 90 improving organization of, 28
+
+Enterprise component containers, 534-537
+
+Enterprise JavaBeans (EJB), 534
+
+Enterprise resource planning (ERP) delivering business value and, 8 Subdomains as modules in, 57
+
+Entities
+
+Aggregate with multiple Entities, 358 application assigning identity, 175-178
+
+Bounded Context assigning identity, 182-183
+
+clustering into Aggregate, 347 constructing, 205-207
+
+creating and assigning identity, 410
+
+developer focus on, 53
+
+domain objects with multiple roles, 200-205
+
+essential behaviors, 196-200
+
+overview of, 171
+
+persistence mechanism assigning identity of, 179-182
+
+reasons for using, 171-173
+
+refactoring as Value Objects, 357
+
+repositories and, 402
+
+review, 218
+
+Root Entity, 380-382
+
+stability of identity, 188-190
+
+surrogate identities, 186-188
+
+tactical modeling tools, 29
+
+tracking changes, 216-217
+
+uncovering Entities and their properties, 192-196
+
+unique identity of, 156, 173-174
+
+user providing identity, 174-175
+
+validating attributes and properties, 208-211
+
+validating object compositions, 215-216 validating whole objects, 211-215
+
+Value Objects preferred when possible, 219-220, 382
+
+when timing of identity generation matters, 183-186
+
+Enum (Java)
+
+enum-as-state objects, 261-263 support for Standard Types, 235-238
+
+Equality, of Value Objects, 227-228
+
+ERP (enterprise resource planning) delivering business value and, 8 Subdomains as modules in, 57
+
+Evans, Eric, 367, 510
+
+Event Sourcing
+
+aggregates and. See Aggregates and Event Sourcing (A+ES)
+
+applying to DDD, 539
+
+example of use of EDA and, 118
+
+in functional languages, 583
+
+overview of, 160-163
+
+tracking changes and, 217
+
+unit tests and specifications, 582-583
+
+Event Store
+
+Aggregate Event Stream persistence in, 539
+
+BLOB persistence and, 568-569
+
+Changes
+
+committing collection to, 547
+
+functional databases and, 583
+
+implementing, 561-565
+
+implementing with relational database, 543
+
+loading events from, 543-545 maintaining for Domain Events, 307-312 messaging infrastructure consistency and, 304
+
+reconstituting Aggregate instance from, 545
+
+tracking changes, 216-217
+
+Event Streams caching, 559 concurrency control, 554-558 immutability of, 577 overview of, 539-540
+
+Event-based messages, in exchange of media between Bounded Contexts, 453-454
+
+Event-driven architecture. See EDA (eventdriven architecture)
+
+Event-driven fabrics, 165-166
+
+Events. See also Domain Event Aggregates as series of, 539 architectural styles for forwarding stored, 312
+
+consuming Events in local and foreign Bounded Contexts, 287
+
+contract generation and maintenance, 580-581
+
+de-duplication, 329-331
+
+enrichment of, 573-575
+
+immutability of, 577
+
+incorporating into Ubiquitous Language, 287
+
+loading from Event Store, 543-545 performing business operations, 545-546 Read Model Projections, 570-572 replicating and publishing, 547-548 serializing, 576-577
+
+size of Bounded Contexts and, 68
+
+Eventual consistency
+
+acceptable update delay, 359
+
+for execution outside Aggregate boundaries, 364-366
+
+implementing in Aggregate design, 376-378
+
+for multiple Aggregates, 364
+
+technical mechanisms needed for, 368
+
+vs. transactional consistency, 366-367
+
+Execute() , 552
+
+Executive, merging executives and trackers into Aggregates, 156
+
+Explicit Copy-before-Write, collectionoriented repositories and, 407
+
+## F
+
+F# language, 583
+
+Facade
+
+EJB Session Facades, 534 managing transactions and, 433-435 Presentation Model and, 520-521
+
+services acting as, 68
+
+Factories
+
+on Aggregate Root, 391-392
+
+for application-generated identities, 178
+
+CalendarEntry instances example,
+
+392-395
+
+creating Aggregates, 121 subclasses,
+
+creating Collaborator 464-465
+
+Discussion instances example, 395-397
+
+in Domain Model, 389-391
+
+Entity instantiations and, 207
+
+overview of, 389
+
+review, 400
+
+of services, 276-277, 397-399
+
+Factory Method
+
+on Aggregate Root, 391-392
+
+CalendarEntry instances example, 392-395
+
+Design Patterns (Gamma et. al.) and, 389 Ubiquitous Language and, 390
+
+Fallacies of Distributed Computing (Deutsch), 451
+
+Fanout exchange, RabbitMQ, 317
+
+Fielding, Roy T., 133-134
+
+Filters. See Pipes and Filters
+
+Finder methods, in repository interface, 409
+
+Formats, for information exchange, 452
+
+Fowler, Martin, 131, 164, 229, 276, 441
+
+Functional databases, 583
+
+Function/Entry Processor, 441
+
+Functions, 228
+
+Fundamental Identity pattern, 199-200
+
+## G
+
+Gang of Four, 4
+
+GemFire
+
+concurrency and, 385-386 distributed processing and, 167 persistence-oriented repositories and, 418-420
+
+Generic Subdomains
+
+application support in, 509
+
+assessment of problem space and solution space, 58, 61
+
+defined, 52
+
+Identity and Access Context and, 80 justification for domain modeling, 35 in SaaS Ovation Domain Model, 91
+
+Generic utilities, patching in, 552-553
+
+GET method, HTTP
+
+applying HTTP verbs to resources, 135-136
+
+requesting current logs, 313-315 RESTful notifications, 458
+
+Given-When-Expect, unit tests, 582
+
+Global transactions, as reason to break Aggregate design rules, 369
+
+Globally unique identifiers. See GUIDs (globally unique identifiers)
+
+Glossary, for developing Ubiquitous Language, 22
+
+Google Protocol Buffers, 576-577
+
+Graphical clients, 517
+
+Graphical user interfaces (GUIs), 512
+
+Greenfield development
+
+Bounded Contexts and, 72
+
+Context Maps in, 89
+
+Grid Computing. See Data Fabrics Guards
+
+Entity assertions, 207
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000667_68b4ccceb7537fb064a0851a8a9cf7840c21de406a57c3566995a2d7289d7d46.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000668_49e254fd81212144a44c579ef5ad2cf9b317b02fa99bd8b8d90cf6e22be144dd.png)
+
+Guards (
+
+)
+
+continued
+
+as form of validation, 208-211 parameter validity and, 248
+
+GUIDs (globally unique identifiers) assigning to Aggregate instances, 410 identity creation patterns and, 175 referencing Aggregate instances, 361-362
+
+GUIs (graphical user interfaces), 512
+
+## H
+
+HATEOAS (Hypermedia as the Engine of Application State), 136
+
+Hedhman, Niclas, 357
+
+Helland, Pat, 156, 363-364, 480
+
+Hexagonal Architecture
+
+adapter for RESTful HTTP port, 461
+
+adapters for handling client output types,
+
+529-530
+
+advantages of, 129
+
+EDA (event-driven architecture) and, 147-148
+
+example of use of, 116
+
+how ports and adapters work, 127
+
+JAX-RS example, 128-129
+
+module naming conventions and, 338
+
+outside and inside dimensions of, 126
+
+overview of, 125
+
+ports, 126-127
+
+versatility of, 129-130
+
+## Hibernate
+
+enum-as-state objects and, 261-263
+
+many Values backed by database entity,
+
+255-260
+
+many Values backed by join table, 260
+
+optimistic concurrency, 350, 385-386
+
+as persistence mechanism, 179-182, 373
+
+for persistent Domain Models, 15
+
+for persistent Value Objects, 251-253
+
+serializing many Values into single
+
+column, 253-255
+
+surrogate identities and, 186-188
+
+theta joins supported by, 363
+
+transaction management with, 432-437
+
+Hibernate repository
+
+creating and assigning identity, 410
+
+implementation classes, 410-411
+
+implementing methods, 412-415
+
+interfaces for, 407-408
+
+removing Aggregate instances, 409
+
+HTML, 100
+
+HTTP
+
+API availability and, 450-451
+
+GET, PUT, POST, and
+
+methods (
+
+DELETE
+
+), 313-315, 458
+
+## RESTful HTTP, 135-136, 450-451 standardization of, 134
+
+Hypermedia as the Engine of Application State (HATEOAS), 136
+
+## I
+
+IDE
+
+alignment of Bounded Contexts with, 71
+
+Value Objects supporting, 578
+
+Idempotent, HTTP method, 136
+
+Identity
+
+access management and, 91-92
+
+applications generating, 175-178
+
+Bounded Contexts assigning, 182-183
+
+creating Root Entity with unique identity,
+
+380-382
+
+of Domain Events, 294-296
+
+persistence mechanism generating, 179-182
+
+references between Aggregates, 359-361
+
+referencing Aggregates by globally unique
+
+identity, 361-362
+
+segregating types by, 439
+
+stability of, 188-190
+
+surrogate identities, 186-188
+
+uniqueness of, 173-174
+
+user providing, 174-175
+
+when timing of creation matters,
+
+183-186
+
+Identity and Access Context
+
+application support in, 509
+
+centralizing security and permissions,
+
+80-81
+
+mini-layer of Domain Services and, 281
+
+role assignments via, 200, 469-471, 480
+
+service providing translation to
+
+Collaboration Context, 398
+
+sessionProvider bean, 435-437
+
+uncovering Entities and Entity properties,
+
+192
+
+Identity module, authentication service placed in, 273
+
+Immutability
+
+creating explicitly named immutable
+
+types, 577-578
+
+of Events, 291, 577
+
+instantiation not a guarantee of, 222
+
+Side-Effect-Free Functions and, 228-229
+
+testing for, 241
+
+using immutable Values results in less
+
+responsibility, 232-233
+
+of Value Objects, 221-223
+
+Implementation classes, 275-276, 410-411
+
+Implementations, technical, 273
+
+## Implementing
+
+Aggregates and Event Sourcing (A+ES), 540, 561-565
+
+Anticorruption Layer (ACL), 469
+
+Collaboration Context, 74
+
+Domain Events, 318-319
+
+event stores, 543, 561-565
+
+eventual consistency, 376-378 queues, 312
+
+Value Objects, 243-248
+
+Implementing Aggregates
+
+avoiding dependency injection, 387
+
+creating Root Entity, 380-382
+
+information hiding (Law of Demeter and
+
+Tell, Don't Ask), 382-384
+
+optimistic concurrency, 385-387 overview of, 380
+
+Value Objects preferred over Entities when possible, 382
+
+Implementing DDD reasons for, 6-7
+
+requirements for, 2-4
+
+Implementing repositories classes, 410-411
+
+Coherence in, 420-425
+
+Hibernate in, 407-415
+
+methods, 412-415
+
+MongoDB in, 425-430
+
+testing with in-memory implementations, 445-447
+
+TopLink in, 416-417
+
+Implementing RESTful resources Bounded Contexts and, 459-462 HTTP clients, 463-469
+
+HTTP servers, 135-136
+
+Implicit copy-on-read, track changes mechanism for persistence, 406-407
+
+Implicit copy-on-write, track changes mechanism for persistence, 406-407
+
+Information
+
+exchanging across system boundaries, 452-458
+
+hiding (Law of Demeter and Tell, Don't Ask), 382-384
+
+Infrastructure Layer
+
+applications and, 532-534
+
+creating and naming modules of nonmodel components, 343-344
+
+DIP (Dependency Inversion Principle) and, 122-124
+
+Domain Layer accessing, 121-122
+
+housing technical implementations in module in, 273
+
+in Layers Architecture, 119 unidirectional and downward references
+
+to Domain Layer, 411
+
+In-memory editions, of repositories, 445-447 Instantiation, not a guarantee of immutability, 222
+
+Integrating Bounded Contexts
+
+Agile Project Management Context and,
+
+109
+
+DDD integrations and, 182
+
+distributed systems and, 451
+
+Domain Services and, 280
+
+exchanging information across system
+
+boundaries, 452-458
+
+feed based notifications, 105
+
+implementing RESTful clients, 463-469
+
+implementing RESTful resources,
+
+459-462
+
+integration basics, 450-451
+
+integration between Bounded Contexts, 49-50
+
+integration using RESTful resources, 458-459
+
+long-running processes (sagas) and, 481-493
+
+message-based approach to, 469 overview of, 449
+
+process state machines and time-out trackers, 493-503
+
+responsibilities and, 476-481 review, 508
+
+Services as Factories and, 397 sophistication of design, 503-507
+
+staying informed about product owners and team members, 469-476
+
+with Subdomains, 46
+
+technical characteristics of integration, 100
+
+Value Objects and, 219-220
+
+when messaging or system is unavailable, 507-508
+
+Integration
+
+Agile Project Management Context with Identity and Access Context, 104-107
+
+Collaboration Context with Agile Project Management Context, 107-110
+
+Collaboration Context with Identity and Access Context, 101-103
+
+integration patterns, 92-94
+
+of Value Objects, 232-233
+
+IntelliJ IDEA, 71
+
+Intention Revealing Interface, compliance with Ubiquitous Language, 197
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000669_d70cb7f1d8030769aa39dea437ca859cdff7c6a78bb5e3b3f831ed58dc165998.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000670_36dc401d024ce877a10b4d484fba9bfa60bb891c302224cd47c5d4ad6e7cb45c.png)

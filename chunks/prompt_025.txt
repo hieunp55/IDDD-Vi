@@ -1,0 +1,420 @@
+Bạn là chuyên gia dịch thuật kỹ thuật Anh → Việt, chuyên tài liệu kỹ thuật/công nghệ, có kinh nghiệm dịch như biên dịch viên bản ngữ chuyên nghiệp. Nhiệm vụ: dịch TOÀN BỘ nội dung Markdown dưới đây sang tiếng Việt, không bỏ sót bất kỳ phần nào. Đây là MỘT PHẦN (chunk) của một tài liệu lớn hơn, hãy dịch độc lập đoạn này, không thêm lời mở đầu/kết luận về việc đây chỉ là một phần.
+
+QUY TẮC BẮT BUỘC — VI PHẠM LÀ SAI:
+
+1. XÁC ĐỊNH LOẠI TÀI LIỆU TRƯỚC KHI DỊCH
+   - Tự phân tích nội dung để xác định loại tài liệu (kỹ thuật/lập trình, tài chính, bảo hiểm, pháp lý, marketing, học thuật, vận hành, sản phẩm...).
+   - Chọn văn phong và thuật ngữ CHUẨN NGÀNH tương ứng trong tiếng Việt, nhất quán xuyên suốt.
+
+2. VĂN PHONG — MƯỢT NHƯ NGƯỜI DỊCH, KHÔNG GIẢM CHÍNH XÁC
+   - Dịch mượt, tự nhiên, đúng ngữ pháp tiếng Việt — như biên dịch viên bản ngữ dịch tay, KHÔNG dịch máy móc kiểu word-by-word.
+   - Được phép đảo cấu trúc câu, tách/gộp câu cho tự nhiên, miễn giữ nguyên 100% ý nghĩa, thông tin, logic, số liệu gốc.
+   - Khi "mượt mà" và "chính xác" xung đột → LUÔN ưu tiên chính xác.
+
+3. DỊCH ĐẦY ĐỦ 100%
+   - Không tóm tắt, không rút gọn, không lược bỏ đoạn/câu/mục/bullet nào.
+   - Số lượng heading, đoạn văn, bảng, code block ở output PHẢI khớp 1:1 với input.
+   - Đoạn dài dịch hết, không cắt ngắn.
+
+4. GIỮ NGUYÊN THUẬT NGỮ TIẾNG ANH
+   - Thuật ngữ chuyên ngành (tên công nghệ, framework, pattern, tên hàm/biến, acronym...) giữ nguyên tiếng Anh, không dịch, không phiên âm.
+   - Ngay sau lần xuất hiện ĐẦU TIÊN của mỗi thuật ngữ, thêm chú thích ngắn trong ngoặc giải thích nghĩa bằng tiếng Việt.
+   - Các lần xuất hiện sau KHÔNG cần chú thích lại.
+
+5. GIỮ NGUYÊN FORMAT — RẤT QUAN TRỌNG
+   - VỀ ẢNH (làm trước khi dịch): ĐẾM chính xác số lượng thẻ ảnh dạng ![...](...) trong đoạn gốc bên dưới. Output PHẢI có ĐÚNG số lượng thẻ ảnh đó, không được thiếu một cái nào — kể cả ảnh không có caption, không rõ ngữ cảnh, hay trông như ảnh trang trí/lặp lại. Copy nguyên URL 100%, không sửa, không rút gọn, không thay bằng mô tả text.
+   - Giữ cấp độ heading (#, ##, ###...), giữ đúng số lượng heading.
+   - Giữ cấu trúc bảng (số cột, số hàng, alignment, header row).
+   - Giữ code block (```lang ... ```) — KHÔNG dịch code; comment được dịch tại chỗ; **được phép reformat code, tự động xuống dòng/indent chuẩn, không giữ nguyên code 1 dòng; không đổi logic/cú pháp**.
+   - Giữ blockquote, callout/note/warning (>, [!NOTE], [!WARNING]...).
+   - Giữ list, nested list, checkbox (- [ ]).
+   - Giữ nguyên link thường ([text](url)) — chỉ dịch phần text hiển thị, TUYỆT ĐỐI giữ nguyên URL.
+   - TRƯỚC KHI TRẢ KẾT QUẢ: tự đếm lại số heading, số ảnh, số dòng ``` giữa bản gốc và bản dịch của bạn, nếu lệch phải sửa lại cho khớp.
+
+6. GIẢI THÍCH ẨN DỤ / KHÁI NIỆM KHÓ
+   - Với ẩn dụ, thành ngữ, khái niệm trừu tượng khó hiểu với người Việt, thêm khối giải thích riêng ngay sau đoạn đó:
+     > 💡 **Giải thích thêm:** [giải thích dễ hiểu, đủ chuyên sâu, có ví dụ thực tế]
+     > Nguồn tham khảo: [link cụ thể để kiểm chứng]
+   - CHỈ đưa link nếu chắc chắn tồn tại và đúng nội dung — không bịa link.
+   - Không tìm được nguồn tin cậy → ghi rõ: "(Không có nguồn trích dẫn xác thực — cần tự kiểm chứng thêm)".
+
+7. CHỐNG HALLUCINATION (BẮT BUỘC)
+   - Không tự thêm thông tin/số liệu/ví dụ/kết luận KHÔNG có trong bản gốc — trừ phần giải thích ẩn dụ ở mục 6 (phải gắn nhãn rõ là phần bổ sung).
+   - Câu gốc mơ hồ → dịch sát nghĩa nhất, nếu không chắc ghi chú: "[CẦN KIỂM CHỨNG: câu gốc mơ hồ]".
+   - Không tự sửa/thêm/bớt logic kỹ thuật gốc. Không bịa trích dẫn/số liệu/link vô căn cứ.
+   - Không tự tóm tắt các đoạn dài thành ý chính rồi diễn giải lại — phải dịch từng câu.
+
+8. OUTPUT
+   - Trả về DUY NHẤT nội dung Markdown đã dịch, đặt trong 1 code block (```markdown ... ```).
+   - Không thêm lời dẫn/lời chào/giải thích ngoài code block.
+   - Không đổi tiêu đề gốc trừ khi cần dịch tiêu đề.
+
+--- NỘI DUNG GỐC CẦN DỊCH (một phần của tài liệu) ---
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000542_cb54814c38ab5233fe33f16971a406f3e6e012889ccc601fe7fedbb6cfcbd80c.png)
+
+```
+package com.saasovation.collaboration.infrastructure.messaging; ... public class ExclusiveDiscussionCreationListener extends ExchangeListener { @Autowired private ForumService forumService; ... @Override protected void filteredDispatch( String aType, String aTextMessage) { NotificationReader reader = new NotificationReader(aTextMessage); String tenantId = reader.eventStringValue("tenantId"); String exclusiveOwnerId = reader.eventStringValue("exclusiveOwnerId"); String forumSubject = reader.eventStringValue("forumTitle"); String forumDescription = reader.eventStringValue("forumDescription"); String discussionSubject = reader.eventStringValue("discussionSubject"); String creatorId = reader.eventStringValue("creatorId"); String moderatorId = reader.eventStringValue("moderatorId"); forumService.startExclusiveForumWithDiscussion( tenantId, creatorId, moderatorId, forumSubject, forumDescription, discussionSubject, exclusiveOwnerId); } ... }
+```
+
+That makes sense, but shouldn't this ExclusiveDiscussionCreationListener send  a  response  message  back  to  the Agile  Project  Management Context ?  Well,  not  exactly.  Both  the Forum and Discussion Aggregates publish an Event in response to their respective creation: ForumStarted and DiscussionStarted . This Bounded Context publishes all its Domain Events though its exchange, defined by COLLABORATION\_EXCHANGE\_NAME . That's why the DiscussionStartedListener in  the Agile Project Management Context receives the DiscussionStarted Event. And here's what that listener does when it receives the Event:
+
+```
+package com.saasovation.agilepm.infrastructure.messaging; ... public class DiscussionStartedListener extends ExchangeListener { @Autowired private ProductService productService; ... @Override protected void filteredDispatch( String aType, String aTextMessage) { NotificationReader reader = new NotificationReader(aTextMessage); String tenantId = reader.eventStringValue("tenant.id"); String productId = reader.eventStringValue("exclusiveOwner"); String discussionId = reader.eventStringValue("discussionId.id"); productService.initiateDiscussion( new InitiateDiscussionCommand( tenantId, productId, discussionId)); } ... }
+```
+
+This  listener  adapts  the  received  notification's  Event  properties  to  pass  as  a command to the ProductService Application Service. This initiateDiscussion() service method works like this:
+
+```
+package com.saasovation.agilepm.application; ... public class ProductService ... { @Autowired private ProductRepository productRepository; ... @Transactional public void initiateDiscussion( InitiateDiscussionCommand aCommand) { Product product = productRepository .productOfId( new TenantId(aCommand.getTenantId()), new ProductId(aCommand.getProductId()));
+```
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000543_be9c11ba540e1a6947d4b8fec26e9d47359160d3daad55460ebd9772a2ebe1c5.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000544_172148f205c2df89b7c7d09ecfa39454fed8753fc21d1743a981fcab9a1f3d38.png)
+
+## Chapter 13 INTEGRATING BOUNDED CONTEXTS
+
+```
+if (product == null) { throw new IllegalStateException( "Unknown product of tenant id: " + aCommand.getTenantId() + " and product id: " + aCommand.getProductId()); } product.initiateDiscussion( new DiscussionDescriptor( aCommand.getDiscussionId())); } ... }
+```
+
+Ultimately  the Product Aggregate's initiateDiscussion() behavior  is executed:
+
+```
+package com.saasovation.agilepm.domain.model.product; ... public class Product extends ConcurrencySafeEntity  { ... public void initiateDiscussion(DiscussionDescriptor aDescriptor) { if (aDescriptor == null) { throw new IllegalArgumentException( "The descriptor must not be null."); } if (this.discussion().availability().isRequested()) { this.setDiscussion(this.discussion() .nowReady(aDescriptor)); DomainEventPublisher .instance() .publish(new ProductDiscussionInitiated( this.tenantId(), this.productId(), this.discussion())); } } ... }
+```
+
+If the Product discussion property is still in the REQUESTED state, it is transitioned to the READY state with the DiscussionDescriptor , which holds an identity reference to the exclusive Discussion in the Collaboration Context .  The  request  for  a Forum and Discussion to  be  created  for  and associated with the Product has just become consistent, although it happened eventually.
+
+However, if discussion is  in  the READY state  at  the  time  of  this  command invocation,  it  is  not  further  transitioned.  Is  this  a  bug?  No.  It  is  one way to ensure that initiateDiscussion() is an idempotent operation. The assumption must be made that if the state is currently READY , the Long-Running Process has already completed. Perhaps any subsequent command invocation is due to a notification redelivery, since the team chose to use a messaging mechanism that delivers messages at least once. Whatever the case, we need not  be  concerned  because  the  idempotent  operation  allows  for  any  number of infrastructure and architectural influences to be harmlessly ignored when they  should  be.  Further,  in  this  specific  case  we  didn't  need  to  design  with a ProductChangeTracker as we did for the Member subclasses and their MemberChangeTracker .  The  simple  fact  that  the discussion is READY tells us all we need to know.
+
+There could be a problem with this overall approach, however. What happens if the Long-Running Process experiences some sort of problem due to the messaging mechanism? How would we ensure that the process is run completely to its finish? Well, it's probably time for the teenager to grow up a little.
+
+## Process State Machines and Time-out Trackers
+
+We can make this process more mature by adding a concept similar to that described  under Long-Running  Processes  (4) .  The  SaaSOvation  developers created  a  reusable  concept  that  they  named TimeConstrainedProcessTracker . A tracker watches for processes whose allotted time for completion has expired, and those that can be retried any number of times prior to expiring. The tracker design allows for retries at fixed intervals if desired and can eventually  completely  time-out  after  no  retries  at  all,  or  after  a  determined number of retries.
+
+To clarify, the tracker is not part of the Core Domain. It is rather part of a technical Subdomain that any SaaSOvation project can reuse. This means that in some cases we aren't overly concerned with the rules of Aggregates when persisting trackers and later causing their modification. Trackers are relatively isolated and won't tend to face concurrency conflicts since there is a one-to-one relationship  with  the  associated  process.  However,  if  there  are  conflicts,  we can count on messaging retries to help our cause. Any exception in the context of a notification delivery will cause the listener to NAK the message, which in turn causes RabbitMQ to redeliver. Still, we don't anticipate the necessity of a great number of retries.
+
+It is the Product that holds the current state of the process, and in that context a tracker will publish the following Event when a retry interval is reached, or when the observed process completely times out:
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000545_436c231303bd619dbd78795591a0abb663d437c08b12ed65db4085189b5e5b41.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000546_86405122465c975e9f88fa6514cbbed2b2c045c089272f14b8efec4ee0f0c575.png)
+
+```
+package com.saasovation.agilepm.domain.model.product; import com.saasovation.common.domain.model.process.ProcessId; import com.saasovation.common.domain.model.process.ProcessTimedOut; public class ProductDiscussionRequestTimedOut extends ProcessTimedOut { public ProductDiscussionRequestTimedOut( String aTenantId, ProcessId aProcessId, int aTotalRetriesPermitted, int aRetryCount) { super(aTenantId, aProcessId, aTotalRetriesPermitted, aRetryCount); } }
+```
+
+Events that subclass ProcessTimedOut are used by the tracker when retry intervals  or  full  time-outs  have  been  reached.  Event  listeners  can  use  Event method hasFullyTimedOut() to determine whether the Event signifies a full time-out or is just a retry. If retries are permitted, assuming listeners have use of the ProcessTimedOut class, they can ask the Event for indicators and values such as allowsRetries() , retryCount() , totalRetriesPermitted() , and totalRetriesReached() .
+
+Armed  with  the  ability  to  receive  notifications  about  retries  and  timeouts,  we  can  make  the Product participate  in  a  better  process.  First, we  need  to  start  the  process,  and  we  can  do  that  from  our  existing ProductDiscussionRequestedListener :
+
+```
+package com.saasovation.agilepm.infrastructure.messaging; ... public class ProductDiscussionRequestedListener extends ExchangeListener { @Override protected void filteredDispatch( String aType, String aTextMessage) { NotificationReader reader = new NotificationReader(aTextMessage); if (!reader.eventBooleanValue("requestingDiscussion")) { return; } String tenantId = reader.eventStringValue("tenantId.id"); String productId = reader.eventStringValue("product.id");
+```
+
+## INTEGRATION USING MESSAGING
+
+```
+productService.startDiscussionInitiation( new StartDiscussionInitiationCommand( tenantId, productId)); // send command to Collaboration Context ... } ... }
+```
+
+The ProductService creates the tracker and persists it, and it associates the process with the given Product :
+
+```
+package com.saasovation.agilepm.application; ... public class ProductService ... { ... @Transactional public void startDiscussionInitiation( StartDiscussionInitiationCommand aCommand) { Product product = productRepository .productOfId( new TenantId(aCommand.getTenantId()), new ProductId(aCommand.getProductId())); if (product == null) { throw new IllegalStateException( "Unknown product of tenant id: " + aCommand.getTenantId() + " and product id: " + aCommand.getProductId()); } String timedOutEventName = ProductDiscussionRequestTimedOut.class.getName(); TimeConstrainedProcessTracker tracker = new TimeConstrainedProcessTracker( product.tenantId().id(), ProcessId.newProcessId(), "Create discussion for product: " + product.name(), new Date(), 5L * 60L * 1000L, // retries every 5 minutes 3, // 3 total retries timedOutEventName); processTrackerRepository.add(tracker);
+```
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000547_8f7ed333237bdb070b571b71e73fee7f95fea64800af3be8fb90ce04e6b1caae.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000548_e8238cb61588df39ad37e3d6e0e1278ca7dd1ab7d414e24b5bb11448a91d75c9.png)
+
+```
+product.setDiscussionInitiationId( tracker.processId().id()); } ... }
+```
+
+The TimeConstrainedProcessTracker is  instantiated  to  retry  three times every five minutes, if necessary. True, we may not normally hard-code these values, but doing so allows us to see clearly how the tracker is created.
+
+## Did You Detect a Possible Problem Here?
+
+The retry specification we are using could contribute to problems if we aren't careful, but we'll leave the design as is for now and act as if we think it's all right.
+
+It is this approach of creating a tracker on behalf of the Product that may best address the reason we have handled the ProductCreated Event locally, rather than having it interpreted in the Collaboration Context . This gives our own system the opportunity to set up process management and decouple the ProductCreated Event  from  the  command in the Collaboration Context , namely, CreateExclusiveDiscussion .
+
+A background timer will fire regularly to check on process elapsed times. The timer will delegate to method checkForTimedOutProcesses() in the ProcessService :
+
+```
+package com.saasovation.agilepm.application; ... public class ProcessService ... { ... @Transactional public void checkForTimedOutProcesses() { Collection<TimeConstrainedProcessTracker> trackers = processTrackerRepository.allTimedOut(); for (TimeConstrainedProcessTracker tracker : trackers) { tracker.informProcessTimedOut(); } } ... }
+```
+
+It's  the  tracker's  method informProcessTimedOut() that  confirms  the need to retry or time-out a process and, if confirmed, publishes the ProcessTimedOut Event subclass.
+
+Next, we need to add a new listener to handle retries and   time-outs. Up to  three  retries  may  occur  every  five  minutes  as  needed.  It's  the ProductDiscussionRetryListener :
+
+```
+package com.saasovation.agilepm.infrastructure.messaging; ... public class ProductDiscussionRetryListener extends ExchangeListener { @Autowired private ProcessService processService; ... @Override protected String exchangeName() { return Exchanges.AGILEPM_EXCHANGE_NAME; } @Override protected void filteredDispatch( String aType, String aTextMessage) { Notification notification = NotificationSerializer .instance() .deserialize(aTextMessage, Notification.class); ProductDiscussionRequestTimedOut event = notification.event(); if (event.hasFullyTimedOut()) { productService.timeOutProductDiscussionRequest( new TimeOutProductDiscussionRequestCommand( event.tenantId(), event.processId().id(), event.occurredOn())); } else { productService.retryProductDiscussionRequest( new RetryProductDiscussionRequestCommand( event.tenantId(), event.processId().id())); } } @Override protected String[] listensToEvents() { return new String[] { "com.saasovation.agilepm.process. Φ ProductDiscussionRequestTimedOut" }; } }
+```
+
+This listener is interested only in ProductDiscussionRequestTimedOut Events and is designed to work with any number of retry and time-out permutations. It's the process and tracker that determine how many times it could possibly be notified. Events will be sent under one of two possible conditions. The  process  may  have  completely  timed  out,  or  it  may  be  a  notification  to retry the operation. In both cases the listener dispatches to the new ProductService .  If  a  complete time-out has occurred, the Application Service handles the situation:
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000549_cc2c1065cfc6be3dfd753d23a8cf8d931e7ea2f104f68949ff02c4bd4cfe9ab5.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000550_9ec25067def09a43e27ba540ae4ab5285ea0f4bac79e22ae8135ef0f5d8bbefb.png)
+
+```
+package com.saasovation.agilepm.application; ... public class ProductService ... { ... @Transactional public void timeOutProductDiscussionRequest( TimeOutProductDiscussionRequestCommand aCommand) { ProcessId processId = ProcessId.existingProcessId( aCommand.getProcessId()); TenantId tenantId = new TenantId(aCommand.getTenantId()); Product product = productRepository .productOfDiscussionInitiationId( tenantId, processId.id()); this.sendEmailForTimedOutProcess(product); product.failDiscussionInitiation(); } ... }
+```
+
+First  an  e-mail  is  sent  to  the  product  owner  indicating  that  the  discussion setup has failed, and then the Product is marked as failing discussion initiation. As seen from the new Product method failDiscussionInitiation() , we needed to declare an additional FAILED state as a DiscussionAvailability . Method failDiscussionInitiation() deals with the simple compensation necessary to keep the Product in a sound state:
+
+```
+package com.saasovation.agilepm.domain.model.product; ... public class Product extends ConcurrencySafeEntity  { ... public void failDiscussionInitiation() { if (!this.discussion().availability().isReady()) { this.setDiscussionInitiationId(null);
+```
+
+## INTEGRATION USING MESSAGING
+
+```
+this.setDiscussion( ProductDiscussion .fromAvailability( DiscussionAvailability.FAILED)); } } ... }
+```
+
+What may be missing here is a new DiscussionRequestFailed Event being published by failDiscussionInitiation() . The team will have to consider  the  possible  advantages  of  doing  that.  In  fact,  it  could  be  that  the e-mails sent to product owners and other administrative resources would be best  handled  as  a  result  of  just  that  Event.  After  all,  what  would  happen  if the ProductService method timeOutProductDiscussionRequest() encountered  problems  sending  the  e-mail?  Things  could  get  tedious.  (Aha!) The team has made note of this and will return to address it later.
+
+On the other hand, if the Event indicates that a retry should be attempted, the listener delegates to the following operation in the ProductService :
+
+```
+package com.saasovation.agilepm.application; ... public class ProductService ... { ... @Transactional public void retryProductDiscussionRequest( RetryProductDiscussionRequestCommand aCommand) { ProcessId processId = ProcessId.existingProcessId( aCommand.getProcessId()); TenantId tenantId = new TenantId(aCommand.getTenantId()); Product product = productRepository .productOfDiscussionInitiationId( tenantId, processId.id()); if (product == null) { throw new IllegalStateException( "Unknown product of tenant id: " + aCommand.getTenantId() + " and discussion initiation id: " + processId.id()); }
+```
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000551_e8fb0ea87c0751a5392997fa981470443db63263ed8dd77615f7a17c53f6ecb1.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000552_815c8b6d554b1fba849d1fd6a0e57c8b05d63d8f21429320ac63551066695213.png)
+
+## Chapter 13 INTEGRATING BOUNDED CONTEXTS
+
+```
+this.requestProductDiscussion( new RequestProductDiscussionCommand( aCommand.getTenantId(), product.productId().id())); } ... }
+```
+
+The Product is  retrieved from its Repository by means of the   associated ProcessId ,  which  is  set  on  the Product attribute discussionInitiationId . After the Product is obtained, it is used by the ProductService (self-delegation) to request the discussion again.
+
+Ultimately we get the desired outcome. When the discussion is started successfully,  the Collaboration  Context publishes  the DiscussionStarted Event.  Shortly  following  this  our DiscussionStartedListener in  the Agile Project Management Context receives the notification and dispatches to the ProductService as  it  did  previously.  This  time,  however,  there's  new behavior:
+
+```
+package com.saasovation.agilepm.application; ... public class ProductService ... { ... @Transactional public void initiateDiscussion( InitiateDiscussionCommand aCommand) { Product product = productRepository .productOfId( new TenantId(aCommand.getTenantId()), new ProductId(aCommand.getProductId())); if (product == null) { throw new IllegalStateException( "Unknown product of tenant id: " + aCommand.getTenantId() + " and product id: " + aCommand.getProductId()); } product.initiateDiscussion( new DiscussionDescriptor( aCommand.getDiscussionId())); TimeConstrainedProcessTracker tracker = this.processTrackerRepository.trackerOfProcessId( ProcessId.existingProcessId( product.discussionInitiationId()));
+```
+
+```
+tracker.completed(); } ... }
+```
+
+The ProductService now provides the finishing behavior for the process, informing the tracker  that  it  is completed() .  From  this  point  forward  the tracker will no longer be selected as a retry or time-out notifier. The process is done.
+
+Although we're probably feeling good about the results, there could be a bit of a problem with this design. The way things stand, retrying requests to create a Product discussion could lead to some issues if we were to leave the design of the Collaboration Context as it is. The basic problem is that the operations in the Collaboration Context are currently not idempotent. Here is a breakdown of the minor design flaw and what should be done about it:
+
+-  Since guaranteed, at least once, delivery of messages is in use, as soon as a message is sent to the exchange, it is sure to reach its listener(s) in a matter of time. If there is some delay in creating the new collaboration objects and it causes even one retry, the retry will in turn cause multiple sends of the same CreateExclusiveDiscussion command. All such commands will eventually be delivered. Thus, any retries will make the Collaboration Context attempt to create the same Forum and Discussion multiple times. We won't actually end up with duplicates since uniqueness constraints are already imposed on Forum and Discussion properties. Thus, the multiple creation attempt errors will end up being benign. Yet, from the perspective of error logs the failed attempts will appear to be caused by bugs. The question is, While we still want to stipulate a complete process time-out, should the periodic retries be disabled?
+-  While it might seem that the solution is to disable retries in the Agile Project  Management Context ,  the  bottom  line  is  that  we  need  to  make  the Collaboration Context operations idempotent. Remember that   RabbitMQ guarantees delivery at least once and thus may deliver the same command message multiple times, even if it is sent only once. Making the collaboration operations idempotent will prevent any attempt to create the same Forum and Discussion multiple times and will stifle logging of benign failures.
+-  It  is  possible  for  the Agile  Project  Management  Context to  fail  when attempting  to  send  the CreateExclusiveDiscussion command.  If there is a problem with the message send, care must be taken to ensure
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000553_df649eb286bab05854dbbf978ffcf5e8f3f6a3433ff194c6b3079148074db942.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000554_c5146acf5004433dfe6c40058f3e79d91219e12e96499d5ee218c3e2476e0d0c.png)
+
+that a resend is attempted until it succeeds. Otherwise, a request for creation of the Forum and Discussion will never be made. We can ensure command resend attempts in a few ways. If the message send fails, we can throw an exception from filteredDispatch() , which will cause a message NAK. As a result, RabbitMQ will consider it necessary to redeliver the ProductCreated or ProductDiscussionRequested Event notification, and our ProductDiscussionRequestedListener will receive it again. The other way to handle this is to simply retry the send until  it  succeeds,  perhaps  using  a  Capped  Exponential  Back-off.  In  the case of an offline RabbitMQ, retries could fail for quite a while. Thus, using  a  combination  of  message  NAKs  and  retries  could  be  the  best approach.  Still,  if  our  process  retries  three  times  every  five  minutes,  it could be all we need. After all, a complete process time-out results in an e-mail requesting human intervention.
+
+In  the  end,  if  the Collaboration Context 's ExclusiveDiscussionCreationListener could delegate to an idempotent Application Service operation, it would solve many of our problems:
+
+```
+package com.saasovation.collaboration.application; ... public class ForumService ... { ... @Transactional public Discussion startExclusiveForumWithDiscussion( String aTenantId, String aCreatorId, String aModeratorId, String aForumSubject, String aForumDescription, String aDiscussionSubject, String anExclusiveOwner) { Tenant tenant = new Tenant(aTenantId); Forum forum = forumRepository .exclusiveForumOfOwner( tenant, anExclusiveOwner); if (forum == null) { forum = this.startForum( tenant, aCreatorId, aModeratorId, aForumSubject,
+```
+
+```
+aForumDescription, anExclusiveOwner); } Discussion discussion = discussionRepository .exclusiveDiscussionOfOwner( tenant, anExclusiveOwner); if (discussion == null) { Author author = collaboratorService .authorFrom( tenant, aModeratorId); discussion = forum.startDiscussion( forumNavigationService, author, aDiscussionSubject); discussionRepository.add(discussion); } return discussion; } ... }
+```
+
+By  trying  to  find  the Forum and Discussion from  their  unique  exclusive owner attribute, we prevent attempting to create two Aggregate instances that may already exist. Wow, just a few lines of code make our Event-Driven processing so much better!
+
+## Designing a More Sophisticated Process
+
+Still,  we  may  desire  to  design  a  more  sophisticated  process.  In  cases  where multiple completion steps are necessary, it works best to have a more elaborate state machine. To address such needs, here's the definition of a Process interface:
+
+```
+package com.saasovation.common.domain.model.process; import java.util.Date; public interface Process {
+```
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000555_3e8a8495f351b88a105cad4ae2a83c7d2534f22770ea2db2c770709ccc199c41.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000556_240c7d050dc6ab8f438a94a406e717b0601581305a8be6df556149d332e00d34.png)
+
+```
+public enum ProcessCompletionType { NotCompleted, CompletedNormally, TimedOut } public long allowableDuration(); public boolean canTimeout(); public long currentDuration(); public String description(); public boolean didProcessingComplete(); public void informTimeout(Date aTimedOutDate); public boolean isCompleted(); public boolean isTimedOut(); public boolean notCompleted(); public ProcessCompletionType processCompletionType(); public ProcessId processId(); public Date startTime(); public TimeConstrainedProcessTracker timeConstrainedProcessTracker(); public Date timedOutDate(); public long totalAllowableDuration(); public int totalRetriesPermitted(); }
+```
+
+The following are some of the more significant operations available with a Process :
+
+- allowableDuration() :  If  the Process can  time-out,  answers either the total duration or the duration between retries.
+- canTimeout() :  If  the Process can  time-out,  this  method  answers true .
+- timeConstrainedProcessTracker() : If the Process can time-out, answers a new unique TimeConstrainedProcessTracker .
+- totalAllowableDuration() :  Answers  the  total  allowable  duration of the Process .  If  retries  are  not  permitted,  the  answer is allowableDuration() .  If  retries  are  permitted,  the  answer  is allowableDuration() multiplied by totalRetriesPermitted() .
+- totalRetriesPermitted() :  If  the Process permits  time-outs  and retries,  this  method  answers  the  total  number  of  retries  that  may  be attempted.
+
+Implementers of Process may be observed for time-out and retries under the control of the now familiar TimeConstrainedProcessTracker . Once we create our Process ,  we can ask it for a unique tracker. This test shows how the two objects work together, which is much the same way that Product worked with its tracker:
+
+```
+Process process = new TestableTimeConstrainedProcess( TENANT_ID, ProcessId.newProcessId(), "Testable Time Constrained Process", 5000L); TimeConstrainedProcessTracker tracker = process.timeConstrainedProcessTracker(); process.confirm1(); assertFalse(process.isCompleted()); assertFalse(process.didProcessingComplete()); assertEquals(process.processCompletionType(), ProcessCompletionType.NotCompleted); process.confirm2(); assertTrue(process.isCompleted()); assertTrue(process.didProcessingComplete()); assertEquals(process.processCompletionType(), ProcessCompletionType.CompletedNormally); assertNull(process.timedOutDate()); tracker.informProcessTimedOut(); assertFalse(process.isTimedOut());
+```
+
+The Process created by this test must complete (without retries) within five seconds ( 5000L milliseconds), which it always will do. The Process will be marked as completed, with fully completed processing, only after both confirm1() and confirm2() have been invoked. Internally the Process knows that both states must be confirmed:
+
+```
+public class TestableTimeConstrainedProcess extends AbstractProcess { ... public void confirm1() { this.confirm1 = true; this.completeProcess(ProcessCompletionType.CompletedNormally); } public void confirm2() { this.confirm2 = true;
+```
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000557_87c268d244d9ee933faf5edb28812e6a372126aa080c85aa4d5d458484205010.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000558_9e55f4f152c0506cfc6cee656873f826eccd4c52891e3fbc458a449f1af0f8ac.png)
+
+```
+this.completeProcess(ProcessCompletionType.CompletedNormally); } ... protected boolean completenessVerified() { return this.confirm1 && this.confirm2; } protected void completeProcess( ProcessCompletionType aProcessCompletionType) { if (!this.isCompleted() && this.completenessVerified()) { this.setProcessCompletionType(aProcessCompletionType); } } ... }
+```
+
+Even when this Process self-invokes completeProcess() , the Process cannot  be  marked  as  completed  until completeness Verified() answers true . That method will answer true only when both confirm1 and confirm2 have been set to true . In other words, both the confirm1() and confirm2() operations must have been executed. Thus, method completeness Verified() allows  for  multiple  processing  steps  to  be  confirmed  as  completed  before  the entire Process is considered completed, and every specialized kind of Process can have its own definition of completenessVerified() .
+
+Yet, what will happen when the final step of this test is run?
+
+```
+... tracker.informProcessTimedOut(); assertFalse(process.isTimedOut());
+```
+
+From its internal state the tracker knows that the Process has actually not timed out. Thus, the assertion in the next line of code will always be false. (Of course, it is assumed that the entire test will complete in less than five seconds, and it is strongly believed that it always will under normal test conditions.)
+
+An AbstractProcess base class implements Process , serving as an Adapter, and provides a really easy way to develop a more sophisticated Long-Running Process. Since AbstractProcess extends  the Entity base class, it's easy to design an Aggregate as a Process . For example, we could make Product subclass AbstractProcess ,  although  it  doesn't  need  that level  of  sophistication.  Still,  we  can  imagine  leveraging  this  approach  to accommodate a more complex process and require method completenessVerified() to determine whether or not all required steps have completed.
+
+## When Messaging or Your System Is Unavailable
+
+No  single  approach  to  developing  complex  software  systems  is  a  panacea. There are always issues and drawbacks with any approach, some of which we have already discussed. One problem with a messaging system is that it can become unavailable for a period of time. This may be an infrequent situation, but when it does happen, there are a few things to keep in mind.
+
+When a messaging mechanism is offline for some time, notification publishers will be unable to send messages through it. Since this situation may be detected by the publishing client, it would likely work best to back off attempts to send notifications until the messaging system is available once again. This will be evident when any one send succeeds. But until that time, make sure that attempts to send occur less frequently than when everything is working well. It could make sense to back off as much as 30 seconds or a minute between retries.  Remember, if your system has an Event Store, your Events will continue to be queued in your live system and can be sent as soon as messaging is available again.
+
+Certainly listeners will not receive new Event-carrying notifications if the messaging infrastructure goes away for a period of time. When the messaging mechanism becomes available again, will your client listeners be automatically reactivated, or will it be necessary to subscribe to your consumer-side client mechanism again? If automatic recovery of consumers is not supported, you will need to be certain that your consumers are reregistered. Otherwise, you will eventually make the unwanted discovery that your Bounded Context isn't receiving  the  notifications  that  are  necessary  to  keep  it  interacting  with  the Bounded Contexts it depends on. That's one kind of eventual consistency that you want to avoid.
+
+It's not always the messaging mechanism that is the source of message-based problems. Consider this situation. Your Bounded Context becomes unavailable for some lengthy period of time. When it becomes available again, the durable message exchanges/queues that it subscribes to have collected a lot of undelivered  messages.  Once  your  Bounded  Context  starts  up  again  and  registers its  consumers, it could require a considerable amount of time to receive and process all the available notifications. There may not be much that you can do about this situation other than doggedly pursue limited downtime goals, develop a 'live' deployment scheme, and design with redundant nodes (a cluster) so that losing one node doesn't make your system unavailable. Still, there may be times when you can't avoid some downtime. For example, if changes to your application's code require changes to the database and you can't patch in changes without causing problems, you will need some system downtime. In such cases your message consumption processing may simply have to play catch-up. Clearly it's a situation that we need to be aware of and plan to avoid or deal with if it could be a problem.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000559_2c0aa5e14e4dc2deaf241c37bd3ef9d22dd0867e8f4ca56bc005e1ad38c2bf68.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000560_29d0ece12241199822e87c83c9613960f0ea2b37accde6bd0c31acf99640eba3.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000561_24854c064f7c827fa52b38b85f939f78952a91dfd5320d4cd4eadcaf7bf965fe.png)
+
+## Wrap-Up
+
+In this chapter we've examined various ways to successfully integrate multiple Bounded Contexts.
+
+-  We reviewed the basic mindset necessary to succeed with integration in a distributed computing environment.
+-  We  considered  how  we  can  integrate  multiple  Contexts  by  means  of RESTful resources.
+-  You  got  to  see  several  examples  of  integration  with  messaging,  including how to develop and manage Long-Running Processes, from simple to complex.
+-  You learned the challenges faced when you decide to duplicate information  across  Bounded Contexts, and how to manage it and also how to avoid it.
+-  You benefited from considering simple examples, and then progressed to the more complex ones that employed increasing design maturity.
+
+Now  that  we've  seen  how  to  integrate  multiple  Bounded  Contexts,  let's focus back on the single Bounded Context and how to design the parts of the application that surround the domain model.
+
+## Chapter 14
+
+## Application
+
+Any program is only as good as it is useful. -Linus Torvalds
+
+A domain model often lives at the heart of an application . The application may have a user interface that presents concepts of the domain model and allows the user to perform various actions on the model. The user interface will make use of application-level services that coordinate use case tasks, manage transactions, and assert necessary security authorizations. Further, the user interface, Application Services , and domain model will rely on enterprise platform-specific  infrastructural  support.  The  infrastructure  implementation  details  will generally include the facilities of a component container, application management, messaging, and database.
+
+## Road Map to This Chapter
+
+-  Learn several ways to provide domain model data for the user interface to render.
+-  See how Application Services are implemented, and the kinds of operations they perform.
+-  Study ways to decouple output from Application Services and disparate client types.
+-  Consider why you might need to compose multiple models in the user interface, and how it's done.
+-  Learn  ways  to  use  the  infrastructure  to  provide  the  application's  technical implementations.
+
+Sometimes we work on models that exist to support applications. This is true  of  the Identity  and  Access  Context .  SaaSOvation  has  seen  the  need  to break  off  identity  and  access  management  concerns  and  form  a  supporting model that will also serve as a subscription-based product of its own. Even in the case of IdOvation, it will of necessity have its own administrative and self-service user interface. It's true that Generic and Supporting Subdomains (2) will  sometimes lack all the extras associated with a full application, and that's  fine.  When  a  model  exists  to  support  another  model,  the  supporting model may be as simple as a set of classes in a separate Module (9) that address a specialty concept and provide some algorithms. 1 Other models will require at least some human user experience and application components. This chapter focuses on the latter, more complex variety.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000562_a7e1154b53f39692d81c1d83d17c59c2e9caa74a101f98a3a0c2219f32dbc80b.png)
+
+We are here using the term application somewhat interchangeably with system and business service .  I  won't attempt to formally analyze at what point an application becomes a system, but I'd say when an application depends on other applications or services through integration, the whole solution could be called a system. Sometimes the terms application and system are used interchangeably  to  mean  one  and  the  same  thing,  where system really  describes what we'd normally call an application. And a single business service that provides several or many technical service endpoints might also be called a system in a general sense. While I don't want to muddy the waters of what makes each of these three concepts distinct, I do want to use a single term that allows me to discuss concerns and responsibilities that are common to all three.
+
+## What's an Application?
+
+To boil it down, I am using the term application to mean the finest set of components that are assembled to interact with and support a Core Domain (2) model. This  generally  means  the  domain  model  itself,  a  user  interface,  internally  used Application Services, and infrastructural components. What exactly fits into each of those compartments will vary from application to application and will depend on the specific Architectures (4) in use.
+
+When an application opens up its services programmatically, the user interface is broader and includes a kind of application programming interface (API). There are different ways to open its services, but the interface is not meant for human consumption. This kind of user interface  is  discussed  in Integrating Bounded Contexts (13) . In this chapter I cover aspects of human user interfaces that are typically of the graphical variety.
+
+For  this  topic  I  try  to  avoid  leaning  toward  any  specific  Architecture.  I reflect that departure in the odd-looking diagram of Figure 14.1, which purposely adheres to no typical architecture. Dashed lines with clear arrowheads depict implementation per UML, which is a reflection of Dependency Inversion Principle (4) , or DIP. Solid lines with open arrowheads indicate operation dispatching. For example, the infrastructure implements interface abstractions from the user interface, Application Services, and the domain model. It also dispatches operations to Application Services, the domain model, and the data store.
+
+1.  For an example Generic Subdomain that is a stand-alone model, see Eric Evans's 'Time and Money Code Library': http://timeandmoney.sourceforge.net/.
+
+Figure 14.1 The primary application areas of concern, but without ties to any one architecture. These areas still emphasize the DIP with infrastructure dependent on abstractions of every other area.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000563_91cef0c3bad33346458e717649afed02c6afb3f8f008fd1b5262f779ab92e018.png)
+
+Although it is inevitable that there will be some overlap with some architectural styles, our interest in this chapter is on what most any architecture would need to do to sustain the goals of the application. Where a specific architecture does enter the picture, I provide an acknowledgment.
+
+It is difficult not to use the term layer , as in Layers Architecture (4) . It is a useful term no matter what architectural style is being discussed. For example, consider the place where Application Services live. Whether you think of the Application Services as being in a ring around the domain model, in a hexagon encompassing the model, in a capsule hanging off a message bus, or in a layer below the user interface and above the model, it should be acceptable to use the term Application Layer to describe that conceptual place. While I try to refrain from overusing the term in this chapter, layer is helpful in labeling where components reside. This certainly does not imply that DDD is limited to existing only in a Layers Architecture. 2
+
+I start with the user interface, move on to Application Services, and then to infrastructure. Through each of the subjects I cover where the model fits in, but I don't delve into the model proper since that would be redundant with the remainder of the book.
+
+2.  See Chapter 4 for details.
+
+511
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000564_89adefa4ace322dc945cac8c9cc88eec2ce1a3f7f080811abb6e06cae02a60ca.png)
+
+## User Interface
+
+On  the  Java  platform,  the  .NET  platform,  and  others,  there  are  so  many human user interface frameworks that it seems neither interesting nor productive to study their advantages here.
+
+What seems best is to understand the broader categories, which fall mainly under those described in the following list. They are listed in order of 'heaviness' factors, not popularity. At the time of this writing it must almost certainly be the case that the second category of Web-based rich user interface is the direction of greatest choice and will soon be influenced by HTML5. Applications of the first category, pure request-response Web user interfaces, may still be more prolific as legacy applications than Web 2.0.
+
+-  Pure request-response Web user interfaces, perhaps best known as Web 1.0. Frameworks such as Struts, Spring MVC and Web Flow, and ASP.NET support this category.
+-  Web-based  rich  Internet  application  (RIA)  user  interfaces,  including those that use DHTML and Ajax, known as Web 2.0. Google's GWT, Yahoo!'s YUI, Ext JS, Adobe's Flex, and Microsoft's Silverlight fall into this category.
+-  Native  client  GUIs  (for  example,  Windows,  Mac,  and  Linux  desktop user interfaces) that may include the use of abstraction libraries (such as Eclipse  SWT,  Java  Swing,  or  WinForms  and  WPF  on  Windows).  This does not necessarily imply a heavy desktop application, but it is possible that it does. The native client GUI may access services over HTTP, for example, making the user interface the only client installed component.
+
+With any of these user interface categories, a few priority questions must be answered: How do we render domain objects onto the glass? And how do we communicate user gestures back to the model?
+
+## Rendering Domain Objects
+
+There is a fair amount of controversy and disagreement on how best to render  objects  of  the  domain  model  onto  the  user  interface.  The  user  interface regularly benefits from views of data richer than is required to accomplish the direct task. The display of extra data is necessary because it provides supporting information that users need in order to make intelligent decisions to carry out their immediate task. The extra data may also include selection options. Thus, the user interface will often need to render properties of multiple Aggregate (10) instances. This is despite the fact that in most cases a user should be performing a state-mutating task that is to be applied to just one instance of a single type of Aggregate. This situation is illustrated in Figure 14.2.
+
+Figure 14.2 The user interface may need to render properties of multiple Aggregate instances but submit a request to modify only a single instance at a time.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000565_e23c78cd43286762a80039d854b9f148d1dcd1d569853819f536a3f17e542d09.png)
+
+## Render Data Transfer Object from Aggregate Instances
+
+A popular way to tackle the problem of rendering multiple Aggregate instances to a single view is to use Data Transfer Objects [Fowler, P of EAA], or DTOs. The DTO is designed to hold the entire number of attributes that need to be displayed in a view. The Application Service (see 'Application Services') will use Repositories (12) to read the necessary Aggregate instances and then delegate to a DTO Assembler [Fowler,  P  of  EAA]  to  map  the  attributes  of  the DTO. The DTO thus carries the full complement of information that needs to be rendered. The user interface component accesses each individual DTO attribute and renders it onto the view.
+
+With this approach both reads and writes are performed through Repositories. It has the advantage of resolving any lazy-loaded collections because the DTO Assembler will directly access every part of the Aggregates that it needs to build the DTO. It also solves the specific problem where the presentation tier is physically separated from the business tier and you need to serialize data holders and transfer them over the network to another tier.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000566_c88a0275203207a3159155583fd849718f5c14288998f19d15cd33c13930e1bd.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000567_d438d414936d6f1c87e8beb59435ad7c8244bb97ab39ed71e2000ccae1339e37.png)
+
+Interestingly, the DTO pattern was originally designed to deal with a remote presentation tier that consumes the DTO instances. The DTO is built on the business tier, serialized, sent over the wire, and deserialized on the presentation tier. If your presentation tier is not remote, this pattern many times leads to accidental complexity in the application's design, as in YAGNI ('You Ain't Gonna Need It'). This includes the disadvantage of requiring the creation of classes  that  sometimes closely resemble the shape of domain objects but are not quite the same. It also has the downside of instantiating additional potentially large objects that must be managed by the virtual machine (for example, JVM) when in fact they are mismatched for a single virtual machine application architecture.
+
+Your  Aggregates  will  need  to  be  designed  so  that  DTO  Assemblers  can query for necessary data. Think carefully about how to reveal state without revealing too much about the internal shape or structure of the Aggregates. Try to eliminate a client's coupling to all internal parts of an Aggregate. Should you allow clients-the Assemblers in this case-to navigate deeply into Aggregates? That can be a bad idea since it tightly couples each client to a specific Aggregate implementation.
+
+## Use a Mediator to Publish Aggregate Internal State
+
+To work around the problem of tight coupling between the model and its clients, you may choose to design Mediator [Gamma et al.] (aka Double-Dispatch and Callback )  interfaces  to  which  the  Aggregate  publishes  its  internal  state. Clients  would  implement  the  Mediator  interface,  passing  the  implementer's object reference to the Aggregate as a method argument. The Aggregate would then double-dispatch to that Mediator to publish the requested state, all without  revealing  its  shape  or  structure.  The  trick  is  to  not  wed  the  Mediator's interface to any sort of view specification, but to keep it focused on rendering Aggregate states of interest:
+
+```
+public class BacklogItem ... { ... public void provideBacklogItemInterest( BacklogItemInterest anInterest) { anInterest.informTenantId(this.tenantId().id()); anInterest.informProductId(this.productId().id()); anInterest.informBacklogItemId(this.backlogItemId().id()); anInterest.informStory(this.story()); anInterest.informSummary(this.summary()); anInterest.informType(this.type().toString()); ... }
+```
+
+```
+public void provideTasksInterest(TasksInterest anInterest) { Set<Task> tasks = this.allTasks(); anInterest.informTaskCount(tasks.size()); for (Task task : tasks) { ... } } ... }
+```
+
+The various interest providers may be implemented by other classes, much the same way that Entities (5) describe the way validation is delegated to separate validator classes.
+
+Be  aware  that  some  will  consider  this  approach  completely  outside  the responsibility  of  an  Aggregate.  Others  will  consider  it  a  completely  natural extension of a well-designed domain model. As always, such trade-offs must be discussed by your technical team members.
+
+## Render Aggregate Instances from a Domain Payload Object

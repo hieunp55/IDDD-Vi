@@ -1,0 +1,458 @@
+Bạn là chuyên gia dịch thuật kỹ thuật Anh → Việt, chuyên tài liệu kỹ thuật/công nghệ, có kinh nghiệm dịch như biên dịch viên bản ngữ chuyên nghiệp. Nhiệm vụ: dịch TOÀN BỘ nội dung Markdown dưới đây sang tiếng Việt, không bỏ sót bất kỳ phần nào. Đây là MỘT PHẦN (chunk) của một tài liệu lớn hơn, hãy dịch độc lập đoạn này, không thêm lời mở đầu/kết luận về việc đây chỉ là một phần.
+
+QUY TẮC BẮT BUỘC — VI PHẠM LÀ SAI:
+
+1. XÁC ĐỊNH LOẠI TÀI LIỆU TRƯỚC KHI DỊCH
+   - Tự phân tích nội dung để xác định loại tài liệu (kỹ thuật/lập trình, tài chính, bảo hiểm, pháp lý, marketing, học thuật, vận hành, sản phẩm...).
+   - Chọn văn phong và thuật ngữ CHUẨN NGÀNH tương ứng trong tiếng Việt, nhất quán xuyên suốt.
+
+2. VĂN PHONG — MƯỢT NHƯ NGƯỜI DỊCH, KHÔNG GIẢM CHÍNH XÁC
+   - Dịch mượt, tự nhiên, đúng ngữ pháp tiếng Việt — như biên dịch viên bản ngữ dịch tay, KHÔNG dịch máy móc kiểu word-by-word.
+   - Được phép đảo cấu trúc câu, tách/gộp câu cho tự nhiên, miễn giữ nguyên 100% ý nghĩa, thông tin, logic, số liệu gốc.
+   - Khi "mượt mà" và "chính xác" xung đột → LUÔN ưu tiên chính xác.
+
+3. DỊCH ĐẦY ĐỦ 100%
+   - Không tóm tắt, không rút gọn, không lược bỏ đoạn/câu/mục/bullet nào.
+   - Số lượng heading, đoạn văn, bảng, code block ở output PHẢI khớp 1:1 với input.
+   - Đoạn dài dịch hết, không cắt ngắn.
+
+4. GIỮ NGUYÊN THUẬT NGỮ TIẾNG ANH
+   - Thuật ngữ chuyên ngành (tên công nghệ, framework, pattern, tên hàm/biến, acronym...) giữ nguyên tiếng Anh, không dịch, không phiên âm.
+   - Ngay sau lần xuất hiện ĐẦU TIÊN của mỗi thuật ngữ, thêm chú thích ngắn trong ngoặc giải thích nghĩa bằng tiếng Việt.
+   - Các lần xuất hiện sau KHÔNG cần chú thích lại.
+
+5. GIỮ NGUYÊN FORMAT — RẤT QUAN TRỌNG
+   - VỀ ẢNH (làm trước khi dịch): ĐẾM chính xác số lượng thẻ ảnh dạng ![...](...) trong đoạn gốc bên dưới. Output PHẢI có ĐÚNG số lượng thẻ ảnh đó, không được thiếu một cái nào — kể cả ảnh không có caption, không rõ ngữ cảnh, hay trông như ảnh trang trí/lặp lại. Copy nguyên URL 100%, không sửa, không rút gọn, không thay bằng mô tả text.
+   - Giữ cấp độ heading (#, ##, ###...), giữ đúng số lượng heading.
+   - Giữ cấu trúc bảng (số cột, số hàng, alignment, header row).
+   - Giữ code block (```lang ... ```) — KHÔNG dịch code; comment được dịch tại chỗ; **được phép reformat code, tự động xuống dòng/indent chuẩn, không giữ nguyên code 1 dòng; không đổi logic/cú pháp**.
+   - Giữ blockquote, callout/note/warning (>, [!NOTE], [!WARNING]...).
+   - Giữ list, nested list, checkbox (- [ ]).
+   - Giữ nguyên link thường ([text](url)) — chỉ dịch phần text hiển thị, TUYỆT ĐỐI giữ nguyên URL.
+   - TRƯỚC KHI TRẢ KẾT QUẢ: tự đếm lại số heading, số ảnh, số dòng ``` giữa bản gốc và bản dịch của bạn, nếu lệch phải sửa lại cho khớp.
+
+6. GIẢI THÍCH ẨN DỤ / KHÁI NIỆM KHÓ
+   - Với ẩn dụ, thành ngữ, khái niệm trừu tượng khó hiểu với người Việt, thêm khối giải thích riêng ngay sau đoạn đó:
+     > 💡 **Giải thích thêm:** [giải thích dễ hiểu, đủ chuyên sâu, có ví dụ thực tế]
+     > Nguồn tham khảo: [link cụ thể để kiểm chứng]
+   - CHỈ đưa link nếu chắc chắn tồn tại và đúng nội dung — không bịa link.
+   - Không tìm được nguồn tin cậy → ghi rõ: "(Không có nguồn trích dẫn xác thực — cần tự kiểm chứng thêm)".
+
+7. CHỐNG HALLUCINATION (BẮT BUỘC)
+   - Không tự thêm thông tin/số liệu/ví dụ/kết luận KHÔNG có trong bản gốc — trừ phần giải thích ẩn dụ ở mục 6 (phải gắn nhãn rõ là phần bổ sung).
+   - Câu gốc mơ hồ → dịch sát nghĩa nhất, nếu không chắc ghi chú: "[CẦN KIỂM CHỨNG: câu gốc mơ hồ]".
+   - Không tự sửa/thêm/bớt logic kỹ thuật gốc. Không bịa trích dẫn/số liệu/link vô căn cứ.
+   - Không tự tóm tắt các đoạn dài thành ý chính rồi diễn giải lại — phải dịch từng câu.
+
+8. OUTPUT
+   - Trả về DUY NHẤT nội dung Markdown đã dịch, đặt trong 1 code block (```markdown ... ```).
+   - Không thêm lời dẫn/lời chào/giải thích ngoài code block.
+   - Không đổi tiêu đề gốc trừ khi cần dịch tiêu đề.
+
+--- NỘI DUNG GỐC CẦN DỊCH (một phần của tài liệu) ---
+
+```
+private Set<Sprint> sprints; private TenantId tenantId; ... }
+```
+
+The big Aggregate looked attractive, but it wasn't truly practical. Once the application  was  running  in  its  intended  multi-user  environment,  it  began  to regularly experience transactional failures. Let's look more closely at a few client usage patterns and how they interact with our technical solution model. Our Aggregate instances employ optimistic concurrency to protect persistent objects from simultaneous overlapping modifications by different clients, thus avoiding the use of database locks. As discussed in Entities (5) , objects carry a  version  number  that  is  incremented  when  changes  are  made  and  checked before they are saved to the database. If the version on the persisted object is greater than the version on the client's copy, the client's is considered stale and updates are rejected.
+
+Consider a common simultaneous, multiclient usage scenario:
+
+-  Two users, Bill and Joe, view the same Product marked as version 1 and begin to work on it.
+-  Bill  plans  a  new BacklogItem and  commits. The Product version  is incremented to 2.
+-  Joe  schedules  a  new Release and  tries  to  save,  but  his  commit  fails because it was based on Product version 1.
+
+Persistence  mechanisms  are  used  in  this  general  way  to  deal  with  concurrency. 1 If  you  argue  that  the  default  concurrency  configurations  can  be changed,  reserve  your  verdict  for  a  while  longer.  This  approach  is  actually important to protecting Aggregate invariants from concurrent changes.
+
+Figure 10.1 Product modeled as a very large Aggregate
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000381_ae8579f2a1111e995514297ae1a650737b1068bfa0f846747666c69798d809e8.png)
+
+1.  For  example,  Hibernate  provides  optimistic  concurrency  in  this  way.  The  same could be true of a key-value store because the entire Aggregate is often serialized as one value, unless designed to save composed parts separately.
+
+Figure 10.2 Product and related concepts are modeled as separate Aggregate types.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000382_7a79ea50bb7eeca7b7dae1c7ec94c037d1efeb9267c18bd614d6d7cc84b49f8d.png)
+
+These consistency problems came up with just two users. Add more users, and  you  have  a  really  big  problem.  With  Scrum,  multiple  users  often  make these kinds of overlapping modifications during the sprint planning meeting and in sprint  execution.  Failing  all  but  one  of  their  requests  on  an  ongoing basis is completely unacceptable.
+
+Nothing about planning a new backlog item should logically interfere with scheduling a new release! Why did Joe's commit fail? At the heart of the issue, the  large-cluster  Aggregate  was  designed  with  false  invariants  in  mind,  not real business rules. These false invariants are artificial constraints imposed by developers. There are other ways for the team to prevent inappropriate removal without being arbitrarily restrictive. Besides causing transactional issues, the design also has performance and scalability drawbacks.
+
+## Second Attempt: Multiple Aggregates
+
+Now consider an alternative model as shown in Figure 10.2, in which there are four distinct Aggregates. Each of the dependencies is associated by inference using a common ProductId , which is the identity of Product considered the parent of the other three.
+
+Breaking the single large Aggregate into four will change some method contracts on Product . With the large-cluster Aggregate design the method signatures looked like this:
+
+```
+BacklogItemType aType, StoryPoints aStoryPoints) {
+```
+
+```
+public class Product ... { ... public void planBacklogItem( String aSummary, String aCategory, ... } ... public void scheduleRelease( String aName, String aDescription,
+```
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000383_852bbaa50e8db77a5b875f52b0ef136c7ed9ee36b74c3ffc71c43f2ff0d95e7a.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000384_54e6d51b092db67d246b69fd2b98d5a835aae8e1e44d4b68c2e726d95e44de47.png)
+
+## Chapter 10 AGGREGATES
+
+```
+Date aBegins, Date anEnds) { ... } public void scheduleSprint( String aName, String aGoals, Date aBegins, Date anEnds) { ... } ... }
+```
+
+All of these methods are CQS commands [Fowler, CQS]; that is, they modify the state of the Product by adding the new element to a collection, so they have a void return type. But with the multiple-Aggregate design, we have
+
+```
+public class Product ... { ... public BacklogItem planBacklogItem( String aSummary, String aCategory, BacklogItemType aType, StoryPoints aStoryPoints) { ... } public Release scheduleRelease( String aName, String aDescription, Date aBegins, Date anEnds) { ... } public Sprint scheduleSprint( String aName, String aGoals, Date aBegins, Date anEnds) { ... } ... }
+```
+
+These redesigned methods have a CQS query contract and act as Factories (11) ; that is, each creates a new Aggregate instance and returns a reference to it. Now when a client wants to plan a backlog item, the transactional Application Service (14) must do the following:
+
+```
+public class ProductBacklogItemService ... { ... @Transactional public void planProductBacklogItem(
+```
+
+```
+String aTenantId, String aProductId, String aSummary, String aCategory, String aBacklogItemType, String aStoryPoints) { Product product = productRepository.productOfId( new TenantId(aTenantId), new ProductId(aProductId)); BacklogItem plannedBacklogItem = product.planBacklogItem( aSummary, aCategory, BacklogItemType.valueOf(aBacklogItemType), StoryPoints.valueOf(aStoryPoints)); backlogItemRepository.add(plannedBacklogItem); } ... }
+```
+
+So we've solved the transaction failure issue by modeling it away . Any number of BacklogItem , Release , and Sprint instances can now be safely created by simultaneous user requests. That's pretty simple.
+
+However, even with clear transactional advantages, the four smaller Aggregates are less convenient from the perspective of client consumption. Perhaps instead we could tune the large Aggregate to eliminate the concurrency issues. By setting our Hibernate mapping optimistic-lock option to false ,  we make the transaction failure domino effect go away. There is no invariant on the total number of created BacklogItem , Release , or Sprint instances, so why not just allow the collections to grow unbounded and ignore these specific modifications on Product ? What additional cost would there be for keeping the large-cluster Aggregate? The problem is that it could actually grow out of control. Before thoroughly examining why, let's consider the most important modeling tip the SaaSOvation team needed.
+
+## Rule: Model True Invariants in Consistency Boundaries
+
+When trying to discover the Aggregates in a Bounded Context (2) ,  we  must understand  the  model's  true  invariants.  Only  with  that  knowledge  can  we determine which objects should be clustered into a given Aggregate.
+
+An invariant is a business rule that must always be consistent. There are different  kinds  of  consistency.  One  is transactional  consistency ,  which  is considered immediate and atomic. There is also eventual consistency . When discussing invariants, we are referring to transactional consistency. We might have the invariant
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000385_9876f6e57d60f93c539bf944d4d32362b0407e5e6f41bff84f45ed2494bac713.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000386_4e83569f8648925e7a926977a6ab922e5b24517bd43865f42663424d67baa06f.png)
+
+```
+c = a + b
+```
+
+Therefore, when a is 2 and b is 3, c must be 5. According to that rule and conditions, if c is anything but 5, a system invariant is violated. To ensure that c is consistent, we design a boundary around these specific attributes of the model:
+
+```
+AggregateType1 { int a; int b; int c; operations ... }
+```
+
+The consistency boundary logically asserts that everything inside adheres to a  specific  set  of  business  invariant  rules  no  matter  what  operations  are  performed. The consistency of everything outside this boundary is irrelevant to the Aggregate. Thus, Aggregate is synonymous with transactional consistency boundary . (In this limited example, AggregateType1 has three attributes of type int , but any given Aggregate could hold attributes of various types.)
+
+When employing a typical persistence mechanism, we use a single transaction 2 to  manage  consistency.  When  the  transaction  commits,  everything inside one boundary must be consistent. A properly designed Aggregate is one that can be modified in any way required by the business with its invariants completely  consistent  within  a  single  transaction. And  a  properly  designed Bounded Context modifies only one Aggregate instance per transaction in all cases. What is more, we cannot correctly reason on Aggregate design without applying transactional analysis.
+
+Limiting modification to one Aggregate instance per transaction may sound overly strict. However, it is a rule of thumb and should be the goal in most cases. It addresses the very reason to use Aggregates.
+
+2.  The transaction may be handled by a Unit of Work [Fowler, P of EAA].
+
+## Whiteboard Time
+
+-  List on your whiteboard all large-cluster Aggregates in your system.
+-  Make a note next to each of those Aggregates why it is a large cluster and any potential problems caused by its size.
+-  Next  to  that  list,  name  any  Aggregates  that  are  modified  in  the  same transaction with others.
+-  Make a note next to each of those Aggregates whether true or false invariants caused the formation of poorly designed Aggregate boundaries.
+
+The fact that Aggregates must be designed with a consistency focus implies that the user interface should concentrate each request to execute a single command on just one Aggregate instance. If user requests try to accomplish too much, the application will be forced to modify multiple instances at once.
+
+Therefore,  Aggregates  are  chiefly  about  consistency  boundaries  and  not driven by a desire to design object graphs. Some real-world invariants will be more complex than this. Even so, typically invariants will be less demanding on our modeling efforts, making it possible to design small Aggregates .
+
+## Rule: Design Small Aggregates
+
+We can now thoroughly address  this  question:  What  additional  cost  would there  be  for  keeping  the  large-cluster  Aggregate?  Even  if  we  guarantee  that every transaction would succeed, a large cluster still limits performance and scalability. As SaaSOvation develops its market, it's going to bring in lots of tenants. As each tenant makes a deep commitment to ProjectOvation, SaaSOvation will host more and more projects and the management artifacts to go along with them. That will result in vast numbers of products, backlog items, releases,  sprints,  and  others.  Performance  and  scalability  are  nonfunctional requirements that cannot be ignored.
+
+Keeping performance and scalability in mind, what happens when one user of one tenant wants to add a single backlog item to a product, one that is years old and already has thousands of backlog items? Assume a persistence mechanism capable of lazy loading (Hibernate). We almost never load all backlog items, releases, and sprints at once. Still, thousands of backlog items would be loaded into memory just to add one new element to the already large collection. It's worse if a persistence mechanism does not support lazy loading. Even being memory conscious, sometimes we would have to load multiple collections, such as when scheduling a backlog item for release or committing one to a sprint; all backlog items, and either all releases or all sprints, would be loaded.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000387_5cda185f6718b1cc7653facb9b1af60c18b0d830ed3b086c4cb2aca143c61d29.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000388_eccdd0f99f8173d117fab5d39e6e229d54a0556d26900f2474084fcf85076c1b.png)
+
+To  see  this  clearly,  look  at  the  diagram  in  Figure  10.3  containing  the zoomed composition. Don't let the 0..* fool you; the number of associations will almost never be zero and will keep growing over time. We would likely need to load thousands and thousands of objects into memory all at once, just to carry out what should be a relatively basic operation. That's just for a single team member of a single tenant on a single product. We have to keep in mind that this could happen all at once with hundreds or thousands of tenants, each with multiple teams and many products. And over time the situation will only become worse.
+
+This  large-cluster  Aggregate  will  never  perform  or  scale  well.  It  is  more likely to become a nightmare leading only to failure. It was deficient from the start because the false invariants and a desire for compositional convenience drove the design, to the detriment of transactional success, performance, and scalability.
+
+If we are going to design small Aggregates, what does 'small' mean? The extreme would be an Aggregate with only its globally unique identity and one additional  attribute,  which  is not what's  being  recommended  (unless  that  is truly what one specific Aggregate requires). Rather, limit the Aggregate to just the Root Entity and a minimal number of attributes and/or Value-typed properties. 3 The correct minimum is however many are necessary, and no more.
+
+Figure 10.3 With this Product model, multiple large collections load during many basic operations.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000389_007bf73e92a97a1c697d83dbc1ac8665b268663497bffe4bfe5ca498ca110a6c.png)
+
+Which ones are necessary? The simple answer is: those that must be consistent  with  others,  even  if  domain  experts  don't  specify  them  as  rules.  For example, Product has name and description attributes. We can't imagine name and description being inconsistent, modeled in separate Aggregates. When you change the name , you probably also change the description . If you change one and not the other, it's probably because you are fixing a spelling error or making the description more fitting to the name . Even though domain experts will probably not think of this as an explicit business rule, it is an implicit one.
+
+What if you think you should model a contained part as an Entity? First ask whether that part must itself change over time, or whether it can be completely replaced when change is necessary. Cases where instances can be completely replaced point to the use of a Value Object rather than an Entity. At times Entity parts are necessary. Yet, if we run through this design exercise on a case-by-case basis, many concepts modeled as Entities can be refactored to Value Objects. Favoring Value types as Aggregate parts doesn't mean the Aggregate is immutable since the Root Entity itself mutates when one of its Value-typed properties is replaced.
+
+There  are  important  advantages  to  limiting  internal  parts  to  Values. Depending on your persistence mechanism, Values can be serialized with the Root Entity, whereas Entities can require separately tracked storage. Overhead is higher with Entity parts, as, for example, when SQL joins are necessary to read them using Hibernate. Reading a single database table row is much faster. Value objects are smaller and safer to use (fewer bugs). Due to immutability it is easier for unit tests to prove their correctness. These advantages are discussed in Value Objects (6) .
+
+On one project for the financial derivatives sector using Qi4j [Öberg], Niclas Hedhman 4  reported that his team was able to design approximately 70 percent of all Aggregates with just a Root Entity containing some Value-typed properties. The remaining 30 percent had just two to three total Entities. This doesn't indicate that all domain models will have a 70/30 split. It does indicate that a high percentage of Aggregates can be limited to a single Entity, the Root.
+
+3.  A Value-typed property is an attribute that holds a reference to a Value Object. I distinguish this from a simple attribute such as a string or numeric type, as does Ward Cunningham when describing Whole Value [Cunningham, Whole Value].
+
+4.  See also www.jroller.com/niclas/
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000390_535f82a381a980b509aa6320abbd4ab09754d85ea3f63798e0632b1a03e8e66b.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000391_bbc584492205d0a1b22d161e8893d530c27ac50017bbe1aabed3402834dffbc1.png)
+
+The [Evans] discussion of Aggregates gives an example where having multiple  Entities  makes  sense.  A  purchase  order  is  assigned  a  maximum  allowable total, and the sum of all line items must not surpass the total. The rule becomes tricky to enforce when multiple users simultaneously add line items. Any one addition is not permitted to exceed the limit, but concurrent additions by multiple users could collectively do so. I won't repeat the solution here, but I  want to emphasize that most of the time the invariants of business models are simpler to manage than that example. Recognizing this helps us to model Aggregates with as few properties as possible.
+
+Smaller Aggregates not only perform and scale better, they are also biased toward transactional success, meaning that conflicts preventing a commit are rare. This makes a system more usable. Your domain will not often have true invariant constraints that force you into large-composition design situations. Therefore, it is just plain smart to limit Aggregate size. When you occasionally encounter a true consistency rule, add another few Entities, or possibly a collection, as necessary, but continue to push yourself to keep the overall size as small as possible.
+
+## Don't Trust Every Use Case
+
+Business analysts play an important role in delivering use case specifications. Much work goes into a large and detailed specification, and it will affect many of our design decisions. Yet, we mustn't forget that use cases derived in this way don't carry the perspective of the domain experts and developers of our close-knit modeling team. We still must reconcile each use case with our current model and design, including our decisions about Aggregates. A common issue that arises is a particular use case that calls for the modification of multiple Aggregate instances. In such a case we must determine whether the specified large user goal is spread across multiple persistence transactions, or if it occurs within just one. If it is the latter, it pays to be skeptical. No matter how well it is written, such a use case may not accurately reflect the true Aggregates of our model.
+
+Assuming your Aggregate boundaries are aligned with real business constraints, it's going to cause problems if business analysts specify what you see in  Figure  10.4.  Thinking  through  the  various  commit  order  permutations, you'll see that there are cases where two of the three requests will fail. 5  What does attempting this indicate about your design? The answer to that question may lead to a deeper understanding of the domain. Trying to keep multiple Aggregate instances consistent may be telling you that your team has missed an invariant. You may end up folding the multiple Aggregates into one new concept with a new name in order to address the newly recognized business rule.  (And,  of  course,  it  might  be  only  parts  of  the  old  Aggregates  that  get rolled into the new one.)
+
+5.  This doesn't address the fact that some use cases describe modifications to multiple Aggregates that span transactions, which would be fine. A user goal should not be viewed as synonymous with a transaction. We are concerned only with use cases  that  actually  indicate  the  modification  of  multiple  Aggregate  instances  in one transaction.
+
+Figure 10.4 Concurrency contention exists among three users who are all trying to access the same two Aggregate instances, leading to a high number of transactional failures.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000392_a178e10579c9b58c1f21851ddacb4b107ecb09872b8b36d538170ac86e7c8bdd.png)
+
+So a new use case may lead to insights that push us to remodel the Aggregate,  but  be  skeptical  here,  too.  Forming  one  Aggregate  from  multiple  ones may drive out a completely new concept with a new name, yet if modeling this  new  concept  leads  you  toward  designing  a  large-cluster  Aggregate,  that can end up with all the problems common to that approach. What different approach may help?
+
+Just because you are given a use case that calls for maintaining consistency in a single transaction doesn't mean you should do that. Often, in such cases, the business goal can be achieved with eventual consistency between Aggregates.  The  team  should  critically  examine  the  use  cases  and  challenge  their assumptions, especially when following them as written would lead to unwieldy designs. The team may have to rewrite the use case (or at least re-imagine it if they face an uncooperative business analyst). The new use case would specify eventual consistency and the acceptable update delay . This is one of the issues taken up later in this chapter.
+
+## Rule: Reference Other Aggregates by Identity
+
+When  designing  Aggregates,  we  may  desire  a  compositional  structure  that allows for  traversal  through  deep  object  graphs,  but  that  is  not  the  motivation of the pattern. [Evans] states that one Aggregate may hold references to the Root of other Aggregates. However, we must keep in mind that this does not place the referenced Aggregate inside the consistency boundary of the one referencing it. The reference does not cause the formation of just one whole Aggregate. There are still two (or more), as shown in Figure 10.5.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000393_4b367da0877fe6e84bad43f90c41a3586daf9c3d5dd09b6281f6f242d3393b7b.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000394_054f0c4f2ebbb748f5b2cae947ff63d0d5c62d53f304e5854295967f745fb1de.png)
+
+In Java the association would be modeled like this:
+
+```
+public class BacklogItem extends ConcurrencySafeEntity  { ... private Product product; ... }
+```
+
+That is, the BacklogItem holds a direct object association to Product .
+
+In combination with what's already been discussed and what's next, this has a few implications:
+
+1. Both the referencing Aggregate ( BacklogItem ) and the referenced Aggregate ( Product ) must not be modified in the same transaction. Only one or the other may be modified in a single transaction.
+2. If you are modifying multiple instances in a single transaction, it may be a strong indication that your consistency boundaries are wrong. If so, it is possibly a missed modeling opportunity; a concept of your Ubiquitous Language has not yet been discovered although it is waving its hands and shouting at you (see earlier in this chapter).
+
+Figure 10.5 There are two Aggregates, not one.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000395_2181c1030d9fd31109c59a9c05d53556f70515e4a70c9fc9b1871e7379db3056.png)
+
+3. If you are attempting to apply point 2, and doing so influences a largecluster Aggregate with all the previously stated caveats, it may be an indication that you need to use eventual consistency (see later in this chapter) instead of atomic consistency.
+
+If you don't hold any reference, you can't modify another Aggregate. So the temptation  to  modify  multiple  Aggregates  in  the  same  transaction  could  be squelched by avoiding the situation in the first place. But that is overly limiting since domain models always require some associative connections. What might we do to facilitate necessary associations, protect from transaction misuse or inordinate failure, and allow the model to perform and scale?
+
+## Making Aggregates Work Together through Identity References
+
+Prefer references to external Aggregates only by their globally unique identity, not by holding a direct object reference (or 'pointer'). This is exemplified in Figure 10.6.
+
+Figure 10.6 The BacklogItem Aggregate, inferring associations outside its boundary with identities
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000396_4deed4044cec30ece3d7e13534c8014aea279f6eb93db7a1aabea1b3bcc6bf01.png)
+
+361
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000397_73d69aece5001aef089b96bad8acbd7c321df5c694b4a2428c97414f5aab6492.png)
+
+We would refactor the source to
+
+```
+public class BacklogItem extends ConcurrencySafeEntity  {
+```
+
+```
+... private ProductId productId; ... }
+```
+
+Aggregates  with  inferred  object  references  are  thus  automatically  smaller because  references  are  never  eagerly  loaded.  The  model  can  perform  better because instances require less time to load and take less memory. Using less memory has positive implications for both memory allocation overhead and garbage collection.
+
+## Model Navigation
+
+Reference by identity doesn't completely prevent navigation through the model. Some will use a Repository  (12) from  inside  an  Aggregate  for  lookup.  This technique  is  called Disconnected  Domain  Model ,  and  it's  actually  a  form of  lazy  loading.  There's  a  different  recommended  approach,  however:  Use a  Repository  or Domain Service (7) to  look  up  dependent  objects  ahead  of invoking the Aggregate behavior. A client Application Service may control this, then dispatch to the Aggregate:
+
+```
+public class ProductBacklogItemService ... { ... @Transactional public void assignTeamMemberToTask( String aTenantId, String aBacklogItemId, String aTaskId, String aTeamMemberId) { BacklogItem backlogItem = backlogItemRepository.backlogItemOfId( new TenantId(aTenantId), new BacklogItemId(aBacklogItemId)); Team ofTeam = teamRepository.teamOfId( backlogItem.tenantId(), backlogItem.teamId()); backlogItem.assignTeamMemberToTask( new TeamMemberId(aTeamMemberId),
+```
+
+ofTeam, new TaskId(aTaskId));
+
+}
+
+...
+
+}
+
+Having  an  Application  Service  resolve  dependencies  frees  the  Aggregate from relying on either a Repository or a Domain Service. However, for very complex and domain-specific dependency resolutions, passing a Domain Service into an Aggregate command method can be the best way to go. The Aggregate  can  then double-dispatch to  the  Domain  Service  to  resolve  references. Again, in whatever way one Aggregate gains access to others, referencing multiple Aggregates in one request does not give license to cause modification on two or more of them.
+
+## Cowboy Logic
+
+- LB:    'I've got two points of reference when I'm navigating at night. If it smells like beef on the hoof, I'm heading to the herd. If it smells like beef on the grill, I'm heading home.'
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000398_f0602e08044d8dc749009cb98266b0e6849ae5c454a984ad7c9bcb637e2f9b81.png)
+
+Limiting a model to using only reference by identity could make it more difficult to serve clients that assemble and render User Interface (14) views. You may have to use multiple Repositories in a single use case to populate views. If query overhead causes performance issues, it may be worth considering the use of theta joins or CQRS. Hibernate, for example, supports theta joins as a means to assemble a number of referentially associated Aggregate instances in a single join query, which can provide the necessary viewable parts. If CQRS and theta joins are not an option, you may need to strike a balance between inferred and direct object reference.
+
+If all this advice seems to lead to a less convenient model, consider the additional benefits it affords. Making Aggregates smaller leads to better-performing models, plus we can add scalability and distribution.
+
+## Scalability and Distribution
+
+Since Aggregates don't use direct references to other Aggregates but reference by  identity,  their  persistent  state  can  be  moved  around  to  reach  large  scale. Almost-infinite scalability is achieved by allowing for continuous repartitioning of Aggregate data storage, as explained by Amazon.com's Pat Helland in his position paper 'Life beyond Distributed Transactions: An Apostate's Opinion' [Helland]. What we call Aggregate , he calls entity . But what he describes is still an Aggregate by any other name: a unit of composition that has transactional consistency. Some NoSQL persistence mechanisms support the Amazon-inspired distributed storage. These provide much of what [Helland] refers to as the lower, scale-aware layer. When employing a distributed store, or even when  using  a  SQL  database  with  similar  motivations,  reference  by  identity plays an important role.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000399_ac307a3e5d561f0fa425106d2888d177dfd28a8c468a66dc4f5f7ea4f1513690.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000400_7bb3f2f682405dfc06931273c7f4b6e50edb1b5e7432823cb993e3e6bce09f17.png)
+
+Distribution extends beyond storage. Since there are always multiple Bounded Contexts at play in a given Core Domain initiative, reference by identity allows distributed  domain  models  to  have  associations  from  afar.  When  an  EventDriven approach is in use, message-based Domain Events (8) containing Aggregate  identities  are  sent  around  the  enterprise.  Message  subscribers  in  foreign Bounded Contexts use the identities to carry out operations in their own domain models. Reference by identity forms remote associations or partners . Distributed operations are managed by what [Helland] calls two-party activities , but in Publish-Subscribe [Buschmann et al.] or Observer [Gamma et al.] terms it's multiparty (two or more). Transactions across distributed systems are not atomic. The various systems bring multiple Aggregates into a consistent state eventually.
+
+## Rule: Use Eventual Consistency Outside the Boundary
+
+There is a frequently overlooked statement found in the [Evans] Aggregate pattern definition. It bears heavily on what we must do to achieve model consistency when multiple Aggregates must be affected by a single client request:
+
+Any rule that spans AGGREGATES will not be expected to be up-to-date at all times. Through event processing, batch processing, or other update mechanisms, other dependencies can be resolved within some specific time. [Evans, p. 128]
+
+Thus, if executing a command on one Aggregate instance requires that additional business rules execute on one or more other Aggregates, use eventual consistency. Accepting that all Aggregate instances in a large-scale, high-traffic enterprise are never completely consistent helps us accept that eventual consistency also makes sense in the smaller scale where just a few instances are involved.
+
+Ask the domain experts if they could tolerate some time delay between the modification  of  one  instance  and  the  others  involved.  Domain  experts  are sometimes far more comfortable with the idea of delayed consistency than are developers. They are aware of realistic delays that occur all the time in their business, whereas developers are usually indoctrinated with an atomic change mentality. Domain experts often remember the days prior to computer automation of their business operations, when various kinds of delays occurred all the time and consistency was never immediate. Thus, domain experts are often willing to allow for reasonable delays-a generous number of seconds, minutes, hours, or even days-before consistency occurs.
+
+There is a practical way to support eventual consistency in a DDD model. An  Aggregate  command  method  publishes  a  Domain  Event  that  is  in  time delivered to one or more asynchronous subscribers:
+
+```
+public class BacklogItem extends ConcurrencySafeEntity  {
+```
+
+```
+... public void commitTo(Sprint aSprint) { ... DomainEventPublisher .instance() .publish(new BacklogItemCommitted( this.tenantId(), this.backlogItemId(), this.sprintId())); } ... }
+```
+
+Each of these subscribers then retrieves a different yet corresponding Aggregate  instance  and  executes  its  behavior  based  on  it.  Each  of  the  subscribers executes in a separate transaction, obeying the rule of Aggregates to modify just one instance per transaction.
+
+What happens  if  the  subscriber  experiences  concurrency  contention  with another client, causing its modification to fail? The modification can be retried if the subscriber does not acknowledge success to the messaging mechanism. The  message  will  be  redelivered,  a  new  transaction  started,  a  new  attempt made to execute the necessary command, and a corresponding commit made. This retry process can continue until consistency is achieved, or until a retry limit is reached. 6 If complete failure occurs, it may be necessary to compensate, or at a minimum to report the failure for pending intervention.
+
+What is accomplished by publishing the BacklogItemCommitted Domain Event  in  this  specific  example?  Recalling  that BacklogItem already  holds the identity of the Sprint it is committed to, we are in no way interested in maintaining a meaningless bidirectional association. Rather, the Event allows for the eventual creation of a CommittedBacklogItem so the Sprint can make a record of work commitment. Since each CommittedBacklogItem has an ordering attribute, it allows the Sprint to give each BacklogItem an ordering different from those of Product and Release ,  and that is not tied to the BacklogItem instance's own recorded estimation of BusinessPriority .  Thus, Product and Release hold similar associations, namely, ProductBacklogItem and ScheduledBacklogItem , respectively.
+
+6.  Consider  attempting  retries  using  Capped  Exponential  Back-off.  Rather  than defaulting to a retry every N fixed number of seconds, exponentially back off on retries while capping waits with an upper limit. For example, start at one second and back off exponentially, doubling until success or until reaching a 32-second wait-and-retry cap.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000401_f147817898df881e02a25877c18653575ece843a08f44490f6252d0f73bba3ca.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000402_349cee9cc8a01558ac6eb1c2f28b4c3055bfa0561eba5de24549e7d5a0f4d047.png)
+
+## Whiteboard Time
+
+-  Return to your list of large-cluster Aggregates and the two or more modified in a single transaction.
+-  Describe and diagram how you will break up the large clusters. Circle and note each of the true invariants inside each of the new small Aggregates.
+-  Describe and diagram how you will keep separate Aggregates eventually consistent.
+
+This  example  demonstrates  how  to  use  eventual  consistency  in  a  single Bounded Context, but the same technique can also be applied in a distributed fashion as previously described.
+
+## Ask Whose Job It Is
+
+Some domain scenarios  can  make  it  very  challenging  to  determine  whether transactional  or  eventual  consistency  should  be  used.  Those  who  use  DDD in a classic/traditional way may lean toward transactional consistency. Those who use CQRS may tend toward eventual consistency. But which is correct? Frankly, neither of those tendencies provides a domain-specific answer, only a technical preference. Is there a better way to break the tie?
+
+## Cowboy Logic
+
+- LB:    'My son told me that he found on the Internet how to make my cows more fertile. I told him that's the bull's job.'
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000403_53775a4132130e38981219bf60d616e22de192813703273f3d39a98350874ad8.png)
+
+Discussing this with Eric Evans revealed a very simple and sound guideline. When examining the use case (or story), ask whether it's the job of the user executing the use case to make the data consistent. If it is, try to make it transactionally consistent, but only by adhering to the other rules of Aggregates. If it is another user's job, or the job of the system, allow it to be eventually consistent. That bit of wisdom not only provides a convenient tie breaker, but it helps us gain a deeper understanding of our domain. It exposes the real system invariants: the ones that must be kept transactionally consistent. That understanding is much more valuable than defaulting to a technical leaning.
+
+This is a great tip to add to the Aggregate Rules of Thumb. Since there are other forces to consider, it may not always lead to the final choice between transactional and eventual consistency but will usually provide deeper insight into the model. This guideline is used later in the chapter when the team revisits their Aggregate boundaries.
+
+## Reasons to Break the Rules
+
+An experienced DDD practitioner may at times decide to persist changes to multiple Aggregate instances in a single transaction, but only with good reason. What might some reasons be? I discuss four reasons here. You may experience these and others.
+
+## Reason One: User Interface Convenience
+
+Sometimes user interfaces, as a convenience, allow users to define the common characteristics of many things at once in order to create batches of them. Perhaps it happens frequently that team members want to create several backlog items as a batch. The user interface allows them to fill out all the common properties in one section, and then one by one the few distinguishing properties  of  each,  eliminating repeated gestures. All of the new backlog items are then planned (created) at once:
+
+```
+public class ProductBacklogItemService ... { ... @Transactional public void planBatchOfProductBacklogItems( String aTenantId, String productId, BacklogItemDescription[] aDescriptions) { Product product = productRepository.productOfId( new TenantId(aTenantId), new ProductId(productId));
+```
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000404_ca8aeae62a54b0a28852e04b84f6a54835fb86e2e7e142b3f86d4997335fee47.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000405_8633574c7adeb3292757973ddafd395145f53f1863e502bd2bddb828bbb9a4f1.png)
+
+```
+for (BacklogItemDescription desc : aDescriptions) { BacklogItem plannedBacklogItem = product.planBacklogItem( desc.summary(), desc.category(), BacklogItemType.valueOf( desc.backlogItemType()), StoryPoints.valueOf( desc.storyPoints())); backlogItemRepository.add(plannedBacklogItem); } } ... }
+```
+
+Does this cause a problem with managing invariants? In this case, no, since it would not matter whether these were created one at a time or in batch. The objects being instantiated are full Aggregates, which maintain their own invariants. Thus, if creating a batch of Aggregate instances all at once is semantically no different from creating one at a time repeatedly, it represents one reason to break the rule of thumb with impunity.
+
+## Reason Two: Lack of Technical Mechanisms
+
+Eventual  consistency  requires  the  use  of  some  kind  of  out-of-band  processing capability, such as messaging, timers, or background threads. What if the project you are working on has no provision for any such mechanism? While most of us would consider that strange, I have faced that very limitation. With no messaging mechanism, no background timers, and no other home-grown threading capabilities, what could be done?
+
+If  we  aren't  careful,  this  situation  could  lead  us  back  toward  designing large-cluster Aggregates. While that might make us feel as if we are adhering to  the  single  transaction  rule,  as  previously  discussed  it  would  also  degrade performance  and  limit  scalability.  To  avoid  that,  perhaps  we  could  instead change the system's Aggregates altogether, forcing the model to solve our challenges. We've already considered the possibility that project specifications may be jealously guarded, leaving us little room for negotiating previously unimagined domain concepts. That's not really the DDD way, but sometimes it does happen. The conditions may allow for no reasonable way to alter the modeling circumstances in our favor.  In  such  cases  project  dynamics  may  force  us  to modify two or more Aggregate instances in one transaction. However obvious this might seem, such a decision should not be made too hastily.
+
+## Cowboy Logic
+
+AJ:    'If you think that rules are made to be broken, you'd better know a good repairman.'
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000406_648960dd520450d39b3a1e289c5434b3819c6e9b8390c9ba972dc49abf89e8f8.png)
+
+Consider an additional factor that could further support diverging from the rule: user-aggregate affinity .  Are  the  business workflows such that only one user would be focused on one set of Aggregate instances at any given time? Ensuring user-aggregate affinity makes the decision to alter multiple Aggregate instances in a single transaction more sound since it tends to prevent the violation of invariants and transactional collisions. Even with user-aggregate affinity, in rare situations users may face concurrency conflicts. Yet each Aggregate would still be protected from that by using optimistic concurrency. Anyway, concurrency  conflicts  can  happen  in  any  system,  and  even  more  frequently when user-aggregate affinity is not our ally. Besides, recovering from concurrency conflicts is straightforward when encountered at rare times. Thus, when our design is forced to, sometimes it works out well to modify multiple Aggregate instances in one transaction.
+
+## Reason Three: Global Transactions
+
+Another influence considered is the effects of legacy technologies and enterprise  policies.  One  such  might  be  the  need  to  strictly  adhere  to  the  use  of global,  two-phase  commit  transactions.  This  is  one  of  those  situations  that may be impossible to push back on, at least in the short term.
+
+Even  if  you  must  use  a  global  transaction,  you  don't  necessarily  have  to modify multiple Aggregate instances at once in your local Bounded Context. If you can avoid doing so, at least you can prevent transactional contention in your Core Domain and actually obey the rules of Aggregates as far as you are able.  The  downside to global transactions is that your system will probably never scale as it could if you were able to avoid two-phase commits and the immediate consistency that goes along with them.
+
+## Reason Four: Query Performance
+
+There  may  be  times  when  it's  best  to  hold  direct  object  references  to  other Aggregates. This could be used to ease Repository query performance issues. These  must  be  weighed  carefully  in  the  light  of  potential  size  and  overall performance trade-off implications. One example of breaking the rule of reference by identity is given later in the chapter.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000407_d9c3a51731145a3a507b4e290f01bf255e216fb4d14b8848982098c85d671351.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000408_7c8496648f52f347486b98a6b31d45febe1ed58acdc373585c0e134a4c125990.png)
+
+## Adhering to the Rules
+
+You may experience user interface design decisions, technical limitations, stiff policies,  or  other  factors  in  your  enterprise  environment  that  require  you  to make some compromises. Certainly we don't go in search of excuses to break the Aggregate Rules of Thumb . In the long run, adhering to the rules will benefit our projects. We'll have consistency where necessary, and support for optimally performing and highly scalable systems.
+
+## Gaining Insight through Discovery
+
+With the rules of Aggregates in use, we'll see how adhering to them affects the design of the SaaSOvation Scrum model. We'll see how the project team rethinks their design again, applying newfound techniques. That effort leads to the discovery of new insights into the model. Their various ideas are tried and then superseded.
+
+## Rethinking the Design, Again
+
+After  the  refactoring  iteration  that  broke  up  the  large-cluster Product ,  the BacklogItem now stands alone as its own Aggregate. It reflects the model presented in Figure 10.7. The team composed a collection of Task instances inside  the BacklogItem Aggregate.  Each BacklogItem has  a  globally unique identity, its BacklogItemId . All associations to other Aggregates are inferred through identities. That means its parent Product , the Release it is scheduled within, and the Sprint to which it is committed are referenced by identities. It seems fairly small.
+
+With  the  team  now  jazzed  about  designing  small  Aggregates,  could  they possibly overdo it in that direction?
+
+Despite the good feeling coming out of that previous iteration, there was still some concern. For example, the story attribute allowed for a good deal of text. Teams developing agile stories won't  write  lengthy  prose.  Even  so,  there  is  an  optional  editor component that supports writing rich use case definitions. Those could be many thousands of bytes. It was worth considering the possible overhead.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000409_6ae7c0d90c9240f5723997479803fe98dbdfef24bf0a807b2b1f0f0d8629541a.png)
+
+Figure 10.7 The fully composed BacklogItem Aggregate
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000410_f8ce209eeb7eab5440938b6b1c13f6e44f197567cebb886c3cf281ee921357e5.png)
+
+Given  this  potential  overhead  and  the  errors  already  made  in  designing  the large-cluster Product of Figures 10.1 and 10.3, the team was now on a mission to reduce the size of every Aggregate in the Bounded Context. Crucial questions arose. Was there a true invariant between BacklogItem and Task that  this  relationship must maintain? Or was this yet another case where the association could be further broken apart, with two separate Aggregates being safely formed? What would be the total cost of keeping the design as is?
+
+A key to their making a proper determination lay in the Ubiquitous Language. Here is where an invariant was stated:
+
+-  When progress is made on a backlog item task, the team member will estimate task hours remaining.
+-  When a team member estimates that zero hours are remaining on a specific task,  the  backlog  item  checks  all  tasks  for  any  remaining  hours.  If  no  hours remain on any tasks, the backlog item status is automatically changed to done.
+-  When a team member estimates that one or more hours are remaining on a specific task and the backlog item's status is already done, the status is automatically regressed.
+
+This sure seemed like a true invariant. The backlog item's correct status is automatically adjusted and is completely dependent on the total number of hours remaining on all its tasks. If the total number of task hours and the backlog item status are to remain consistent, it seems as if Figure 10.7 does stipulate the correct Aggregate consistency  boundary.  However,  the  team  should  still  determine  what  the  current cluster could cost in terms of performance and scalability. That would be weighed against what they might save if the backlog item status could be eventually consistent with the total task hours remaining.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000411_fcf1f3f6e61c4ea65b29364a1d3133b24b607eb8c0c6ab1eb9ef0598a2570cac.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000412_9fcbf7e5d698d47c32176a32dc675079c7a40116c3d74b32b382b900d7ce4f74.png)
+
+Some will see this as a classic opportunity to use eventual consistency, but we won't jump to that conclusion just yet. Let's analyze a transactional consistency approach, then investigate what could be accomplished using eventual consistency. We can then draw our own conclusion as to which approach is preferred.
+
+## Estimating Aggregate Cost
+
+As Figure 10.7 shows, each Task holds a collection of EstimationLogEntry instances. These logs model the specific occasions when a team member enters a new estimate of hours remaining. In practical terms, how many Task elements will each BacklogItem hold, and how many EstimationLogEntry elements will a given Task hold? It's hard to say exactly. It's largely a measure of how complex any one task is and how long a sprint lasts. But some back-ofthe-envelope (BOTE) calculations might help [Bentley].
+
+Task hours are usually reestimated each day after a team member works on a given task. Let's say that most sprints are either two or three weeks in length. There will be longer sprints, but a two- to three-week time span is common enough. So let's select a number of days somewhere between ten and 15. Without being too precise, 12 days works well since there may actually be more two-week than three-week sprints.

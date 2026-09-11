@@ -1,0 +1,304 @@
+Bạn là chuyên gia dịch thuật kỹ thuật Anh → Việt, chuyên tài liệu kỹ thuật/công nghệ, có kinh nghiệm dịch như biên dịch viên bản ngữ chuyên nghiệp. Nhiệm vụ: dịch TOÀN BỘ nội dung Markdown dưới đây sang tiếng Việt, không bỏ sót bất kỳ phần nào. Đây là MỘT PHẦN (chunk) của một tài liệu lớn hơn, hãy dịch độc lập đoạn này, không thêm lời mở đầu/kết luận về việc đây chỉ là một phần.
+
+QUY TẮC BẮT BUỘC — VI PHẠM LÀ SAI:
+
+1. XÁC ĐỊNH LOẠI TÀI LIỆU TRƯỚC KHI DỊCH
+   - Tự phân tích nội dung để xác định loại tài liệu (kỹ thuật/lập trình, tài chính, bảo hiểm, pháp lý, marketing, học thuật, vận hành, sản phẩm...).
+   - Chọn văn phong và thuật ngữ CHUẨN NGÀNH tương ứng trong tiếng Việt, nhất quán xuyên suốt.
+
+2. VĂN PHONG — MƯỢT NHƯ NGƯỜI DỊCH, KHÔNG GIẢM CHÍNH XÁC
+   - Dịch mượt, tự nhiên, đúng ngữ pháp tiếng Việt — như biên dịch viên bản ngữ dịch tay, KHÔNG dịch máy móc kiểu word-by-word.
+   - Được phép đảo cấu trúc câu, tách/gộp câu cho tự nhiên, miễn giữ nguyên 100% ý nghĩa, thông tin, logic, số liệu gốc.
+   - Khi "mượt mà" và "chính xác" xung đột → LUÔN ưu tiên chính xác.
+
+3. DỊCH ĐẦY ĐỦ 100%
+   - Không tóm tắt, không rút gọn, không lược bỏ đoạn/câu/mục/bullet nào.
+   - Số lượng heading, đoạn văn, bảng, code block ở output PHẢI khớp 1:1 với input.
+   - Đoạn dài dịch hết, không cắt ngắn.
+
+4. GIỮ NGUYÊN THUẬT NGỮ TIẾNG ANH
+   - Thuật ngữ chuyên ngành (tên công nghệ, framework, pattern, tên hàm/biến, acronym...) giữ nguyên tiếng Anh, không dịch, không phiên âm.
+   - Ngay sau lần xuất hiện ĐẦU TIÊN của mỗi thuật ngữ, thêm chú thích ngắn trong ngoặc giải thích nghĩa bằng tiếng Việt.
+   - Các lần xuất hiện sau KHÔNG cần chú thích lại.
+
+5. GIỮ NGUYÊN FORMAT — RẤT QUAN TRỌNG
+   - VỀ ẢNH (làm trước khi dịch): ĐẾM chính xác số lượng thẻ ảnh dạng ![...](...) trong đoạn gốc bên dưới. Output PHẢI có ĐÚNG số lượng thẻ ảnh đó, không được thiếu một cái nào — kể cả ảnh không có caption, không rõ ngữ cảnh, hay trông như ảnh trang trí/lặp lại. Copy nguyên URL 100%, không sửa, không rút gọn, không thay bằng mô tả text.
+   - Giữ cấp độ heading (#, ##, ###...), giữ đúng số lượng heading.
+   - Giữ cấu trúc bảng (số cột, số hàng, alignment, header row).
+   - Giữ code block (```lang ... ```) — KHÔNG dịch code; comment được dịch tại chỗ; **được phép reformat code, tự động xuống dòng/indent chuẩn, không giữ nguyên code 1 dòng; không đổi logic/cú pháp**.
+   - Giữ blockquote, callout/note/warning (>, [!NOTE], [!WARNING]...).
+   - Giữ list, nested list, checkbox (- [ ]).
+   - Giữ nguyên link thường ([text](url)) — chỉ dịch phần text hiển thị, TUYỆT ĐỐI giữ nguyên URL.
+   - TRƯỚC KHI TRẢ KẾT QUẢ: tự đếm lại số heading, số ảnh, số dòng ``` giữa bản gốc và bản dịch của bạn, nếu lệch phải sửa lại cho khớp.
+
+6. GIẢI THÍCH ẨN DỤ / KHÁI NIỆM KHÓ
+   - Với ẩn dụ, thành ngữ, khái niệm trừu tượng khó hiểu với người Việt, thêm khối giải thích riêng ngay sau đoạn đó:
+     > 💡 **Giải thích thêm:** [giải thích dễ hiểu, đủ chuyên sâu, có ví dụ thực tế]
+     > Nguồn tham khảo: [link cụ thể để kiểm chứng]
+   - CHỈ đưa link nếu chắc chắn tồn tại và đúng nội dung — không bịa link.
+   - Không tìm được nguồn tin cậy → ghi rõ: "(Không có nguồn trích dẫn xác thực — cần tự kiểm chứng thêm)".
+
+7. CHỐNG HALLUCINATION (BẮT BUỘC)
+   - Không tự thêm thông tin/số liệu/ví dụ/kết luận KHÔNG có trong bản gốc — trừ phần giải thích ẩn dụ ở mục 6 (phải gắn nhãn rõ là phần bổ sung).
+   - Câu gốc mơ hồ → dịch sát nghĩa nhất, nếu không chắc ghi chú: "[CẦN KIỂM CHỨNG: câu gốc mơ hồ]".
+   - Không tự sửa/thêm/bớt logic kỹ thuật gốc. Không bịa trích dẫn/số liệu/link vô căn cứ.
+   - Không tự tóm tắt các đoạn dài thành ý chính rồi diễn giải lại — phải dịch từng câu.
+
+8. OUTPUT
+   - Trả về DUY NHẤT nội dung Markdown đã dịch, đặt trong 1 code block (```markdown ... ```).
+   - Không thêm lời dẫn/lời chào/giải thích ngoài code block.
+   - Không đổi tiêu đề gốc trừ khi cần dịch tiêu đề.
+
+--- NỘI DUNG GỐC CẦN DỊCH (một phần của tài liệu) ---
+
+| State Representations of Aggregate                                                            | Instances . . . . . . . . . 516                                                                                                       |
+|-----------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------|
+| Use Case Optimal Repository Queries. . . . . . . . . . . .                                    | . . . . . . 517                                                                                                                       |
+| Dealing with Multiple, Disparate Clients                                                      | . . . . . . 517                                                                                                                       |
+| Rendition Adapters and Handling                                                               | User Edits . . . . . . . . . 518                                                                                                      |
+| Application Services . . . . . . . .                                                          | . . . . . . . . . . . . . . . 521                                                                                                     |
+| Sample Application Service . .                                                                | . . . . . . . . . . . . . . . . 522                                                                                                   |
+| Decoupled Service Output .                                                                    | . . . . . . . . . . . . . . . . . 528                                                                                                 |
+| Composing Multiple Bounded Contexts                                                           | . . . . . . . . . . . . . 531                                                                                                         |
+| Infrastructure . . . .                                                                        | . . . . . . . . . . . . . . . . . . . . . . 532                                                                                       |
+| Enterprise Component Containers                                                               | . . . . . . . . . . . . . . . . 534                                                                                                   |
+| Wrap-Up . . . . . . . . . . .                                                                 | . . . . . . . . . . . . . . . . . . 537                                                                                               |
+| Appendix A Aggregates and Event Sourcing: A+ES . . . . . . . . . . . 539                      | Appendix A Aggregates and Event Sourcing: A+ES . . . . . . . . . . . 539                                                              |
+| Inside an Application Service .                                                               | . . . . . . . . . . . . . . . . . 541                                                                                                 |
+| Command Handlers . . . . .                                                                    | . . . . . . . . . . . . . . . . . . 549                                                                                               |
+| Lambda Syntax . . . . . . .                                                                   | . . . . . . . . . . . . . . . . . . 553                                                                                               |
+| Concurrency Control. . . . .                                                                  | . . . . . . . . . . . . . . . . . . 554                                                                                               |
+| Structural Freedom with A+ES                                                                  | . . . . . . . . . . . . . . . . . . 558                                                                                               |
+| Performance . . . . . . . . .                                                                 | . . . . . . . . . . . . . . . . . . 558                                                                                               |
+| Implementing an Event Store                                                                   | . . . . . . . . . . . . . . . . . . . 561                                                                                             |
+| Relational Persistence . . .                                                                  | . . . . . . . . . . . . . . . . . . . 565                                                                                             |
+| BLOB Persistence . . . . .                                                                    | . . . . . . . . . . . . . . . . . . . 568                                                                                             |
+| Focused Aggregates . .                                                                        | . . . . . . . . . . . . . . . . . . . . . 569                                                                                         |
+| Read Model Projections . . .                                                                  | . . . . . . . . . . . . . . . . . . 570                                                                                               |
+| Use with Aggregate Design                                                                     | . . . . . . . . . . . . . . . . . . . 573                                                                                             |
+| Events Enrichment .                                                                           | . . . . . . . . . . . . . . . . . . . . . . . 573                                                                                     |
+| Supporting Tools and Patterns                                                                 | . . . . . . . . . . . . . . . . . . 576                                                                                               |
+| Event Serializers . . . . . .                                                                 | . . . . . . . . . . . . . . . . . . 576                                                                                               |
+| Event Immutability . . . .                                                                    | . . . . . . . . . . . . . . . . . . 577                                                                                               |
+|                                                                                               | . . 577                                                                                                                               |
+| Value Objects . .                                                                             | . . . . . . . . . . . . . . . . . . . . .                                                                                             |
+| Contract Generation . . . . . Unit Testing and                                                | . . . . . . . . . . . . . . . . . . 580 Specifications . . . . . . . . . . . . . . . . . 582                                          |
+| Event Sourcing Bibliography . . . . . . . . . . . . . Index . . . . . . . . . . . . . . . . . | in Functional Languages . . . . . . . . . . . . . 583 . . . . . . . . . . . . . . . . . . 585 . . . . . . . . . . . . . . . . . . 589 |
+
+## Foreword
+
+In  this  new  book,  Vaughn  Vernon  presents  the  whole  of  Domain-Driven Design  (DDD)  in  a  distinctive  way,  with  new  explanations  of  the  concepts, new examples, and an original organization of topics. I believe this fresh, alternative approach will help people grasp the subtleties of DDD, particularly the more abstract ones such as Aggregates and Bounded Contexts. Not only do different people prefer different styles-subtle abstractions are hard to absorb without multiple explanations.
+
+Also, the book conveys some of the insights of the past nine years that have been described in papers and presentations but have not appeared in a book before now. It places Domain Events alongside Entities and Value Objects as the  building  blocks  of  a  model.  It  discusses  the  Big  Ball  of  Mud  and  places it  into  the  Context  Map.  It  explains  the  hexagonal  architecture,  which  has emerged as a better description of what we do than the layered architecture.
+
+My first exposure to the material in this book came almost two years ago (although Vaughn had been working on his book for some time by then). At the first DDD Summit, several of us committed to writing about certain topics about which we felt there were fresh things to say or there was a particular need in the community for more specific advice. Vaughn took up the challenge of writing about Aggregates, and he followed through with a series of excellent articles about Aggregates (which became a chapter in this book).
+
+There was also a consensus at the summit that many practitioners would benefit  from  a  more  prescriptive  treatment  of  some  of  the  DDD  patterns. The  honest  answer  to  almost  any  question  in  software  development  is,  'It depends.' That is not very useful to people who want to learn to apply a technique,  however.  A  person  who  is  assimilating  a  new  subject  needs  concrete guidance. Rules of thumb don't have to be right in all cases. They are what usually works well or the thing to try first. Through their decisiveness, they convey the philosophy of the approach to solving the problem. Vaughn's book has a good mix of straightforward advice balanced with a discussion of tradeoffs that keep it from being simplistic.
+
+Not only have additional patterns, such as Domain Events, become a mainstream part of DDD-people in the field have progressed in learning how to apply those patterns, not to mention adapting them to newer architectures and technologies.  Nine  years  after  my  book, Domain-Driven  Design:  Tackling Complexity in the Heart of Software , was published, there's actually a lot to say about DDD that is new, and there are new ways to talk about the fundamentals.  Vaughn's  book  is  the  most  complete  explanation  yet  of  those  new insights into practicing DDD.
+
+## -Eric Evans
+
+Domain Language, Inc.
+
+## Preface
+
+All the calculations show it can't work. There's only one thing to do: make it work.
+
+-Pierre-Georges Latécoère, early French aviation entrepreneur
+
+And make it work we shall. The Domain-Driven Design approach to software development is far too important to leave any capable developer without clear directions for how to implement it successfully.
+
+## Getting Grounded, Getting Airborne
+
+When I was a kid, my father learned to pilot small airplanes. Often the whole family would go up flying. Sometimes we flew to another airport for lunch, then returned. When Dad had less time but longed to be in the air, we'd go out, just the two of us, and circle the airport doing 'touch-and-goes.'
+
+We also took some long trips. For those, we always had a map of the route that Dad had earlier charted. Our job as kids was to help navigate by looking out for landmarks below so we could be certain to stay on course. This was great fun for us because it was a challenge to spot objects so far below that exhibited little in the way of identifying details. Actually, I'm sure that Dad always knew where we were. He had all the instruments on the dashboard, and he was licensed for instrument flight.
+
+The view from the air really changed my perspective. Now and then Dad and I would fly over our house in the countryside. At a few hundred feet up, this gave me a context for home that I didn't have before. As Dad would cruise over our house, Mom and my sisters would run out into the yard to wave at us. I knew it was them, although I couldn't look into their eyes. We couldn't converse.  If  I  had  shouted  out  the  airplane  window,  they  would  never  have heard me. I could see the split-rail fence in the front dividing our property from the road. When on the ground I'd walk across it as if on a balance beam. From the air, it looked like carefully woven twigs. And there was the huge yard that I circled row by row on our riding lawn mower every summer. From the air, I saw only a sea of green, not the blades of grass.
+
+I loved those moments in the air. They are etched in my memory as if Dad and I were just taxiing in after landing to tie down for the evening. As much as I loved those flights, they sure were no substitute for being on the ground. And as cool as they were, the touch-and-goes were just too brief to make me feel grounded.
+
+## Landing with Domain-Driven Design
+
+Getting in touch with Domain-Driven Design (DDD) can be like flight to a kid. The view from the air is stunning, but sometimes things look unfamiliar enough to prevent us from knowing exactly where we are. Getting from point A to point B appears far from realistic. The DDD grownups always seem to know where they are. They've long ago plotted a course, and they are completely  in  tune  with  their  navigational  instruments.  A  great  number  of  others don't feel grounded. What is needed is the ability to 'land and tie down.' Next, a map is needed to guide the way from where we are to where we need to be.
+
+In the book Domain-Driven Design: Tackling Complexity in the Heart of Software [Evans], Eric Evans brought about what is a timeless work. It is my firm belief that Eric's work will guide developers in practical ways for decades to come. Like other pattern works, it establishes flight far enough above the surface to give a broad vision. Yet, there may be a bit more of a challenge when we need to understand the groundwork involved in implementing DDD, and we usually desire more detailed examples. If only we could land and stay on the surface a bit longer, and even drive home or to some other familiar place.
+
+Part of my goal is to take you in for a soft landing, secure the aircraft, and help you get home by way of a well-known surface route. That will help you make sense of implementing DDD, giving you examples that use familiar tools and technologies. And since none of us can stay home all the time, I will also help you venture out onto other paths to explore new terrain, taking you to places that perhaps you've never been before. Sometimes the path will be steep, but given the right tactics, a challenging yet safe ascent is possible. On this trip  you'll  learn  about  alternative  architectures  and  patterns  for  integrating multiple domain models. This may expose you to some previously unexplored territory. You will find detailed coverage of strategic modeling with multiple integrations, and you'll even learn how to develop autonomous services.
+
+My goal is to provide a map to help you take both short jaunts and long, complicated  treks,  enjoying  the  surrounding  detail,  without  getting  lost  or injured along the way.
+
+## Mapping the Terrain and Charting for Flight
+
+It seems that in software development we are always mapping from one thing to another. We map our objects to databases. We map our objects to the user interface and then back again. We map our objects to and from various application representations, including those that can be consumed by other systems and applications. With all this mapping, it's natural to want a map from the higher-level patterns of Evans to implementation.
+
+Even if you have already landed a few times with DDD, there is probably more to benefit from. Sometimes DDD is first embraced as a technical tool set. Some refer to this approach to DDD as DDD-Lite. We may have homed in on Entities, Services, possibly made a brave attempt at designing Aggregates, and tried to manage their persistence using Repositories. Those patterns felt a bit like familiar ground, so we put them to use. We may even have found some use for Value Objects along the way. All of these fall within the catalog of tactical design patterns, which are more technical. They help us take on a serious software problem with the skill of a surgeon with a scalpel. Still, there is much to learn about these and other places to go with tactical design as well. I map them to implementation.
+
+Have you traveled beyond tactical modeling? Have you visited and even lingered with what some call the 'other half' of DDD, the strategic design patterns? If you've left out the use of Bounded Context and Context Maps, you have probably also missed out on the use of the Ubiquitous Language.
+
+If there is a single 'invention' Evans delivers to the software development community, it is the Ubiquitous Language. At a minimum he brought the Ubiquitous Language out of the dusty archives of design wisdom. It is a team pattern used to capture the concepts and terms of a specific core business domain in the software model itself. The software model incorporates the nouns, adjectives, verbs, and richer expressions formally spoken by the development team, a team that includes one or more business domain experts. It would be a mistake, however, to conclude that the Language is limited to mere words. Just as any human language reflects the minds of those who speak it, the Ubiquitous Language reflects the mental model of the experts of the business domain you are working in. Thus, the software and the tests that verify the model's adherence to the tenets of the domain both capture and adhere to this Language, the same conceived and spoken by the team. The Language is equally as valuable as the various strategic and tactical modeling patterns and in some cases has a more enduring quality.
+
+Simply  stated,  practicing  DDD-Lite  leads  to  the  construction  of  inferior domain models. That's because the Ubiquitous Language, Bounded Context, and Context Mapping have so much to offer. You get more than a team lingo. The Language of a team in an explicit Bounded Context expressed as a domain model adds true business value and gives us certainty that we are implementing the correct software. Even from a technical standpoint, it helps us create better models, ones with more potent behaviors, that are pure and less error prone. Thus, I map the strategic design patterns to understandable example implementations.
+
+This book maps the terrain of DDD in a way that allows you to experience the benefits of both strategic and tactical design. It puts you in touch with its business value and technical strengths by peering closely at the details.
+
+It  would be a disappointment if all we ever did with DDD is stay on the ground.  Getting  stuck  in  the  details,  we'd  forget  that  the  view  from  flight teaches us a lot, too. Don't limit yourself to rugged ground travel. Brave the challenge of getting in the pilot's seat and see from a height that is telling. With training flights  on  strategic  design,  with  its  Bounded  Contexts  and  Context Maps, you will be prepared to gain a grander perspective on its full realization. When you reward yourself with DDD flight, I will have reached my goal.
+
+## Summary of Chapters
+
+The following highlights the chapters of this book and how you can benefit from each one.
+
+## Chapter 1: Getting Started with DDD
+
+This chapter introduces you to the benefits of using DDD and how to achieve the most from it. You will learn what DDD can do for your projects and your teams as you grapple with complexity. You'll find out how to score your project to see if it deserves the DDD investment. You will consider the common alternatives to DDD and why they often lead to problems. The chapter lays the foundations of DDD as you learn how to take the first steps on your project, and it even gives you some ways to sell DDD to your management, domain experts, and technical team members. That will enable you to face the challenges of using DDD armed with the knowledge of how to succeed.
+
+You are introduced to a project case study that involves a fictitious company and team, yet one with real-world DDD challenges. The company, with the charter to create innovative SaaS-based products in a multitenant environment, experiences many of the mistakes common to DDD adoption but makes vital discoveries that help the teams solve their issues and keep the project on track. The project is one that most developers can relate to, as it involves developing a Scrum-based project management application. This case study introduction sets  the  stage  for  subsequent  chapters.  Each  strategic  and  tactical  pattern  is taught through the eyes of the team, both as they err and as they make strides toward maturity in implementing DDD successfully.
+
+## Chapter 2: Domains, Subdomains, and Bounded Contexts
+
+What is a Domain, a Subdomain, and a Core Domain? What are Bounded Contexts, and why and how should you use them? These questions are answered in the light of mistakes made by the project team in our case study. Early on in their first DDD project they failed to understand the Subdomain they were working within, its Bounded Context, and a concise Ubiquitous Language. In fact, they were completely unfamiliar with strategic design, only leveraging the tactical patterns for their technical benefits. This led to problems in their initial  domain  model  design.  Fortunately,  they  recognized  what  had  happened before it became a hopeless morass.
+
+A vital message is conveyed, that of applying Bounded Contexts to distinguish and segregate models properly. Addressed are common misapplications of the pattern along with effective implementation advice. The text then leads you through the corrective steps the team took and how that resulted in the creation of two distinct Bounded Contexts. This led to the proper separation of modeling concepts in their third Bounded Context, the new Core Domain, and the main sample used in the book.
+
+This chapter will strongly resonate with readers who have felt the pain of applying DDD only in a technical way. If you are uninitiated in strategic design, you are pointed in the right direction to start out on a successful journey.
+
+## Chapter 3: Context Maps
+
+Context Maps are a powerful tool to help a team understand their business domain, the boundaries between distinct models, and how they are currently, or can be, integrated. This technique is not limited to drawing a diagram of your system architecture. It's about understanding the relationships between the various Bounded Contexts in an enterprise and the patterns used to map objects cleanly from one model to another. Use of this tool is important to succeeding with Bounded Contexts in a complex business enterprise. This chapter takes you through the process used by the project team as they applied Context Mapping to understand  the  problems  they  created  with  their  first  Bounded Context (Chapter 2). It then shows how the two resulting clean Bounded Contexts were leveraged by the team responsible for designing and implementing the new Core Domain.
+
+## Chapter 4: Architecture
+
+Just about everyone knows the Layers Architecture. Are Layers the only way to house a DDD application, or can other diverse architectures be used? Here we consider how to use DDD within such architectures as Hexagonal (Ports and Adapters),  Service-Oriented,  REST,  CQRS,  Event-Driven  (Pipes  and  Filters, Long-Running  Processes  or  Sagas,  Event  Sourcing),  and  Data  Fabric/GridBased. Several of these architectural styles were put to use by the project team.
+
+## Chapter 5: Entities
+
+The first  of  the  DDD  tactical  patterns  treated  is  Entities.  The  project  team first leaned too heavily on these, overlooking the importance of designing with Value Objects when appropriate. This led to a discussion of how to avoid widespread overuse of Entities because of the undue influence of databases and persistence frameworks.
+
+Once you are familiar with ways to distinguish their proper use, you see lots of examples of how to design Entities well. How do we express the Ubiquitous Language with an Entity? How are Entities tested, implemented, and persisted? You are stepped through how-to guidance for each of these.
+
+## Chapter 6: Value Objects
+
+Early  on  the  project  team  missed  out  on  important  modeling  opportunities with  Value  Objects.  They  focused  too  intensely  on  the  individual  attributes of  Entities  when  they  should  have  been  giving  careful  consideration  to  how multiple related attributes are properly gathered as an immutable whole. This chapter looks at Value Object design from several angles, discussing how to identify the special characteristics in the model as a means to determine when to use a Value rather than an Entity. Other important topics are covered, such as the role of Values in integration and modeling Standard Types. The chapter then shows how to design domain-centric tests, how to implement Value types, and how to avoid the bad influence persistence mechanisms can have on our need to store them as part of an Aggregate.
+
+## Chapter 7: Services
+
+This  chapter  shows  how  to  determine  when  to  model  a  concept  as  a  finegrained, stateless Service that lives in the domain model. You are shown when you should design a Service instead  of  an  Entity  or  Value  Object,  and  how Domain Services can be implemented to handle business domain logic as well as  for  technical  integration  purposes.  The  decisions  of  the  project  team  are used to exemplify when to use Services and how they are designed.
+
+## Chapter 8: Domain Events
+
+Domain Events were not formally introduced by Eric Evans as part of DDD until after his book was published. You'll learn why Domain Events published by  the  model  are  so  powerful,  and  the  diverse  ways  that  they  can  be  used, even  in  supporting  integration  and  autonomous  business  services.  Although various kinds of technical events are sent and processed by applications, the distinguishing  characteristics  of  Domain  Events  are  spotlighted.  Design  and implementation guidance is provided, instructing you on available options and trade-offs. The chapter then teaches how to create a Publish-Subscribe mechanism, how Domain Events are published to integrated subscribers across the enterprise,  ways  to  create  and  manage  an  Event  Store,  and  how  to  properly deal with common messaging challenges faced. Each of these areas is discussed in  light  of  the  project  team's  efforts  to  use  them  correctly  and  to  their  best advantage.
+
+## Chapter 9: Modules
+
+How do we organize model objects into  right-sized  containers  with  limited coupling to objects that are in different containers? How do we name these containers  so  they  reflect  the  Ubiquitous  Language?  Beyond  packages  and namespaces, how can we use the more modern modularization facilities, such as OSGi and Jigsaw, provided by languages and frameworks? Here you will see how Modules were put to use by the project team across a few of their projects.
+
+## Chapter 10: Aggregates
+
+Aggregates  are  probably  the  least  well  understood  among  DDD's  tactical tools. Yet, if we apply some rules of thumb, Aggregates can be made simpler and quicker to implement. You will learn how to cut through the complexity barrier  to  use  Aggregates  that  create  consistency  boundaries  around  small object clusters. Because of putting too much emphasis on the less important aspects of Aggregates, the project team in our case study stumbled in a few different ways. We step through the team's iterations with a few modeling challenges and analyze what went wrong and what they did about it. The result of their efforts led to a deeper understanding of their Core Domain. We look in on how the team corrected their mistakes through the proper application of  transactional  and  eventual  consistency,  and  how  that  led  them  to  design a  more  scalable  and  high-performing  model  within  a  distributed  processing environment.
+
+## Chapter 11: Factories
+
+[Gamma et al.] has plenty to say about Factories, so why bother with treating them in this book? This is a simple chapter that does not attempt to reinvent the wheel. Rather, its focus is on understanding where Factories should exist. There are, of course, a few good tips to share about designing a worthy Factory in a DDD setting. See how the project team created Factories in their Core Domain as a way to simplify the client interface and protect the model's consumers from introducing disastrous bugs into their multitenant environment.
+
+## Chapter 12: Repositories
+
+Isn't a Repository just a simple Data Access Object (DAO)? If not, what's the difference?  Why should we consider designing Repositories to mimic collections  rather  than  databases?  Learn  how  to  design  a  Repository  that  is  used with an ORM, one that supports the Coherence grid-based distributed cache, and one that uses a NoSQL key-value store. Each of these optional persistence mechanisms was at the disposal of the project team because of the power and versatility behind the Repository building block pattern.
+
+## Chapter 13: Integrating Bounded Contexts
+
+Now that you understand the higher-level techniques of Context Mapping and have the tactical patterns on your side, what is involved in actually implementing  the  integrations  between  models? What integration options are afforded by DDD? This chapter uncovers a few different ways to implement model integrations using Context Mapping. Instruction is given based on how the project team integrated the Core Domain with other supporting Bounded Contexts introduced in early chapters.
+
+## Chapter 14: Application
+
+You  have  designed  a  model  per  your  Core  Domain's  Ubiquitous  Language. You've developed ample tests around its usage and correctness, and it works. But how do other members of your team design the areas of the application that surround the model? Should they use DTOs to transfer data between the model and the user interface? Or are there other options for conveying model state  up  to  the  presentation  components?  How  do  the  Application  Services and infrastructure work? This chapter addresses those concerns using the now familiar project to convey available options.
+
+## Appendix A: Aggregates and Event Sourcing: A+ES
+
+Event  Sourcing  is  an  important  technical  approach  to  persisting  Aggregates that  also  provides  the  basis  for  developing  an  Event-Driven  Architecture. Event Sourcing can be used to represent the entire state of an Aggregate as a sequence of Events that have occurred since it was created. The Events are used to rebuild the state of the Aggregate by replaying them in the same order in which they occurred. The premise is that this approach simplifies persistence and allows capturing concepts with complex behavioral properties, besides the far-reaching influence the Events themselves can have on your own and external systems.
+
+## Java and Development Tools
+
+The majority of  the  examples  in  this  book  use  the  Java  Programming  Language. I could have provided the examples in C#, but I made a conscious decision to use Java instead.
+
+First of all, and sad to say, I think there has been a general abandonment of good design and development practices in the Java community. These days it may be difficult to find a clean, explicit domain model in most Java-based projects. It seems to me that Scrum and other agile techniques are being used as substitutes for careful modeling, where a product backlog is thrust at developers as if it serves as a set of designs. Most agile practitioners will leave their daily stand-up without giving a second thought to how their backlog tasks will affect the underlying model of the business. Although I assume this is needless to  say,  I  must  assert  that  Scrum,  for  example,  was  never  meant  to  stand  in place  of  design.  No  matter  how  many  project  and  product  managers  would like to keep you marching on a relentless path of continuous delivery, Scrum was not meant only as a means to keep Gantt chart enthusiasts happy. Yet, it has become that in so many cases.
+
+I consider this a big problem, and a major theme I have is to inspire the Java community to return to domain modeling by giving a reasonable amount of thought to how sound, yet agile and rapid, design techniques can benefit their work.
+
+Further, there are already some good resources for using DDD in a .NET environment, one being Applying Domain-Driven Design and Patterns: With Examples in C# and .NET by Jimmy Nilsson [Nilsson]. Due to Jimmy's good work and that of others promoting the Alt.NET mindset, there is a high tide of good design and development practices going on in the .NET community. Java developers need to take notice.
+
+Second, I am well aware that the C#.NET community will have no problem whatsoever understanding Java code. Due to the fact that much of the DDD community uses C#.NET, most of my early book reviewers are C# developers, and I never once received a complaint about their having to read Java code. So, I have no concern that my use of Java in any way alienates C# developers.
+
+I  need to add that at the time of this writing there was a significant shift toward  interest  in  using  document-based  and  key-value  storage  over  relational  databases.  This  is  for  good  reason,  for  even  Martin  Fowler  has  aptly nicknamed  these  'aggregate-oriented  storage.'  It's  a  fitting  name  and  well describes the advantages of using NoSQL storage in a DDD setting.
+
+Yet,  in  my  consulting  work  I  find  that  many  are  still  quite  married  to relational  databases  and  object-relational  mapping.  Therefore,  I  think  that in practical terms there has been no disservice to the community of NoSQL enthusiasts by my including guidance on using object-relational mapping techniques for domain models. I do acknowledge, however, that this may earn me some scorn from those who think that the object-relational impedance mismatch makes it unworthy of consideration. That's fine, and I accept the flames, because there is a vast majority who must still live with the drudgeries of this impedance mismatch on a day-to-day basis, however unenlightened they may seem to the minority.
+
+Of course, I also provide guidance in Chapter 12, 'Repositories,' on the use of document-based, key-value, and Data Fabric/Grid-Based stores. As well, in several places I discuss where the use of a NoSQL store would tend to influence an alternative design of Aggregates and their contained parts. It's quite likely that the trend toward NoSQL stores will continue to spur growth in that sector, so in this case object-relational developers need to take notice. As you can see, I understand both sides of the argument, and I agree with both. It's all part of the ongoing friction created by technology trends, and the friction needs to happen in order for positive change to happen.
+
+## Acknowledgments
+
+I am grateful to the fine staff at Addison-Wesley for giving me the opportunity to publish under their highly respected label. As I have stated before in my classes and presentations, I see Addison-Wesley as a publisher that understands  the  value  of  DDD.  Both  Christopher  Guzikowski  and  Chris  Zahn (Dr. Z) have supported my efforts throughout the editorial process. I will not forget the day that Christopher Guzikowski called to share the news that he wanted to sign me as one of his authors. I will remember how he encouraged me to persevere through the doubts that most authors must experience, until publication was in sight. Of course, it was Dr. Z who made sure the text was put into a publishable state. Thanks to my production editor, Elizabeth Ryan, for  coordinating  the  book's  publication  details.  And  thanks  to  my  intrepid copyeditor, Barbara Wood.
+
+Going back a ways, it was Eric Evans who devoted a major portion of five years  of  his  career  to  write  the  first  definitive  work  on  DDD.  Without  his efforts, the wisdom that grew out of the Smalltalk and patterns communities, and that Eric himself refined, many more developers would just be hacking their way to delivering bad software. Sadly, this problem is more common than it should be. As Eric says, the poor quality of software development, and the uncreative joylessness of the teams that produce the software, nearly drove him to exit the software industry for good. We owe Eric hearty thanks for concentrating his energy into educating rather than into a career change.
+
+At  the  end  of  the  first  DDD  Summit  in  2011,  which  Eric  invited  me  to attend, it was determined that the leadership should produce a set of guidelines by which more developers could succeed with DDD. I was already far along with this book and was in a good position to understand what developers were missing. I offered to write an essay to provide the 'rules of thumb' for Aggregates.  I  determined  that  this  three-part  series  entitled  'Effective  Aggregate Design' would form the foundation for Chapter 10 of this book. Once released on  dddcommunity.org, it  became  quite  clear  how  such  sound  guidance  was greatly  needed.  Thanks  to  others  among  the  DDD  leadership  who  reviewed that essay and thus provided valuable feedback for this book. Eric Evans and Paul Rayner did several detailed reviews of the essay. I also received feedback from Udi Dahan, Greg Young, Jimmy Nilsson, Niclas Hedhman, and Rickard Öberg.
+
+Special thanks go to Randy Stafford, a longtime member of the DDD community. After attending a DDD talk I gave several years ago in Denver, Randy urged me to become more involved in the larger DDD community. Sometime later, Randy introduced me to Eric Evans so I could pitch my ideas about drawing  the  DDD  community  together.  While  my  ideas  were  a  bit  grander  and possibly less achievable, Eric convinced us that forming a smaller contingent composed of clear DDD leadership would have more near-term value. From these discussions the DDD Summit 2011 was formed. Needless to say, without Randy's coaxing me to push forward with my views of DDD, this book would not exist, and perhaps not even a DDD Summit. Although Randy was too busy with Oracle Coherence work to contribute to this book, perhaps we will get the chance to write something in the future in a combined effort.
+
+A huge thank-you goes to Rinat Abdullin, Stefan Tilkov, and Wes Williams for contributing sections about specialized topics to the text. It's nearly impossible to know everything about everything related to DDD, and absolutely impossible to be an expert in all areas of software development. That's why I turned to experts in specific areas to write a few sections of Chapter 4 and Appendix A. Thanks go to Stefan Tilkov for his uncommon knowledge of REST, to Wes Williams for his GemFire experience, and to Rinat Abdullin for sharing his continually expanding experience with Event Sourcing for Aggregate implementation.
+
+One of my earliest  reviewers  was  Leo  Gorodinsk,  and  he  stuck  with  the project. I first met Leo at our DDD Denver meetup. He provided a lot of great feedback on this book based on his own struggles while implementing DDD with his team in Boulder, Colorado. I hope my book helped Leo as much as his critical reviews helped me. I see Leo as part of DDD's future.
+
+Many others provided feedback on at least one chapter of my book, and some on several  chapters.  Some  of  the  more  critical  feedback  was  provided by Gojko Adzic, Alberto Brandolini, Udi Dahan, Dan Haywood, Dave Muirhead, and Stefan Tilkov. Specifically, Dan Haywood and Gojko Adzic delivered much of the early feedback, which was based on the most-painful-to-read content I produced. I am glad they endured and corrected me. Alberto Brandolini's insights into strategic design in general, and Context Mapping specifically, helped me focus on the essence of that vital material. Dave Muirhead, with an abundance of experience in object-oriented design, domain modeling, as  well  as  object  persistence  and  in-memory  data  grids-including  GemFire and Coherence-influenced my text regarding some of the history and finer details of object persistence. Besides his REST contribution, Stefan Tilkov supplied additional insights into architecture in general, and SOA and Pipes and Filters specifically. Finally, Udi Dahan validated and helped me clarify some of the concepts of CQRS, Long-Running Processes (aka Sagas), and messaging with NServiceBus. Other reviewers who provided valuable feedback were Rinat  Abdullin,  Svein  Arne  Ackenhausen,  Javier  Ruiz  Aranguren,  William Doman, Chuck Durfee, Craig Hoff, Aeden Jameson, Jiwei Wu, Josh Maletz, Tom Marrs, Michael McCarthy, Rob Meidal, Jon Slenk, Aaron Stockton, Tom Stockton, Chris Sutton, and Wes Williams.
+
+Scorpio  Steele  produced  the  fantastic  illustrations  for  the  book.  Scorpio made everyone on the IDDD team the superheroes that they truly are. At the other end of the spectrum was the nontechnical editorial review by my good friend Kerry Gilbert. While everyone else made sure I was technically correct, Kerry put me 'under the grammar hammer.'
+
+My father and mother have provided great inspiration and support throughout  my  life.  My  father-AJ  in  the  'Cowboy  Logic'  humor  throughout  this book-is not just a cowboy. Don't get me wrong. Being a great cowboy would be  enough.  Besides  loving  flight  and  piloting  airplanes,  my  father  was  an accomplished civil engineer and land surveyor, and a talented negotiator. He still loves math and studying the galaxies. Among many other things he taught me, my Dad imparted to me how to solve a right triangle when I was around ten  years  old.  Thanks,  Dad,  for  giving  me  a  technical  bent  at  a  young  age. Thanks also go to my mom, one of the nicest people you could ever know. She has always encouraged and supported me through my personal challenges. Besides, what stamina I have comes from her. I could go on, but I could never say enough good things about her.
+
+Although this book is dedicated to my loving wife, Nicole, and our marvelous son, Tristan, my thanks would not be complete without a special mention here. They are the ones who allowed me to work on and complete the book. Without their support and encouragement my task would not have been possible. Thanks so much, my dearest loved ones.
+
+This page intentionally left blank
+
+## About the Author
+
+Vaughn Vernon is a veteran software craftsman with more than twenty-five years of experience in software design, development, and architecture. He is a thought leader in simplifying software design and implementation using innovative methods. He has been programming with object-oriented languages since the 1980s and applying the tenets of Domain-Driven Design since his Smalltalk domain modeling days in the early 1990s. His experience spans a wide range of business domains, including aerospace, environmental, geospatial, insurance, medical and health care, and telecommunications. He has also succeeded in technical endeavors,  creating  reusable  frameworks,  libraries,  and  implementation  acceleration tools. He consults and speaks internationally and has taught his Implementing Domain-Driven Design classes on multiple continents. You can read more about his  latest  efforts  at  www.VaughnVernon.co  and  follow  him  on  Twitter  here: @VaughnVernon.
+
+This page intentionally left blank
+
+## Guide to This Book
+
+The book Domain-Driven Design by Eric Evans presents what is essentially a large pattern language. A pattern language is a set of software patterns that are  intertwined  because  they  are  dependent  on  each  other.  Any  one  pattern references one or more other patterns that it depends on, or that depend on it. What does this mean for you?
+
+It means that as you read any given chapter of this book, you could run into a DDD pattern that isn't discussed in that chapter and that you don't already know. Don't panic, and please don't stop reading out of frustration. The referenced pattern is very likely explained in detail in another chapter of the book.
+
+In order to help unravel the pattern language, I used the syntax found in Table G.1 in the text.
+
+Table G.1 The Syntax Used in This Book
+
+| When You See This . . .   | It Means This . . .                                                                                                                                                                                                                                                                          |
+|---------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Pattern Name (#)          | 1. It is the first time the pattern is referenced in the chapter that you are reading, or 2. It is an important additional reference to a pattern that was already mentioned in the chapter, but it's essential to know where to locate more information about it at that point in the text. |
+| Bounded Context (2)       | The chapter you are reading is referencing Chapter 2 for you to find out deep details about Bounded Contexts.                                                                                                                                                                                |
+| Bounded Context           | It is the way I reference a pattern already mentioned in the same chapter. I don't want to irritate you by making every reference to a given pattern bold, with a chapter number.                                                                                                            |
+| [REFERENCE]               | It is a bibliographic reference to another work.                                                                                                                                                                                                                                             |
+
+Table G.1 The Syntax Used in This Book ( Continued )
+
+| When You See This . . .               | It Means This . . .                                                                                                                                                                                                                                                                                                                                                                  |
+|---------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| [Evans] or [Evans, Ref]               | I don't cover the specific referenced DDD pattern extensively, and if you want to know more, you need to read these works by Eric Evans. (They're always recommended reading!) [Evans] means his classic book, Domain-Driven Design. [Evans, Ref] means a second publication that is a separate, condensed reference to the patterns in [Evans] that have been updated and extended. |
+| [Gamma et al.] and [Fowler, P of EAA] | [Gamma et al.] means the classic book Design Patterns. [Fowler, P of EAA] means Martin Fowler's Patterns of Enterprise Application Architecture. I reference these works frequently. Although I reference several other works as well, you will tend to see these a bit more than others. Examine the full bibliography for details.                                                 |
+
+If you start reading in the middle of a chapter and you see a reference such as Bounded Context, remember that you'll probably find a chapter in this book that covers the pattern. Just glance at the index for a richer set of references.
+
+If you have already read [Evans] and you know its patterns to some degree, you'll probably tend to use this book as a way to clarify your understanding of DDD and to get ideas for how to improve your existing model designs. In that case you may not need a big-picture view right now. But if you are relatively new to DDD, the following section will help you see how the patterns fit together, and how this book can be used to get you up and running quickly. So, read on.
+
+## Big-Picture View of DDD
+
+Early on I take you through one of the pillars of DDD, the Ubiquitous Language (1) . A Ubiquitous Language is applicable within a single Bounded Context (2) . Straightaway, you need to familiarize yourself with that critical domain modeling mindset. Just remember that whichever way your software models are designed tactically , strategically you'll want them to reflect the following: a clean Ubiquitous Language modeled in an explicitly Bounded Context.
+
+## Strategic Modeling
+
+A Bounded Context is a conceptual boundary where a domain model is applicable. It provides a context for the Ubiquitous Language that is spoken by the team and expressed in its carefully designed software model, as shown in Figure G.1.
+
+Figure G.1 A diagram illustrating a Bounded Context and relevant Ubiquitous Language

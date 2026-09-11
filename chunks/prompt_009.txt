@@ -1,0 +1,371 @@
+Bạn là chuyên gia dịch thuật kỹ thuật Anh → Việt, chuyên tài liệu kỹ thuật/công nghệ, có kinh nghiệm dịch như biên dịch viên bản ngữ chuyên nghiệp. Nhiệm vụ: dịch TOÀN BỘ nội dung Markdown dưới đây sang tiếng Việt, không bỏ sót bất kỳ phần nào. Đây là MỘT PHẦN (chunk) của một tài liệu lớn hơn, hãy dịch độc lập đoạn này, không thêm lời mở đầu/kết luận về việc đây chỉ là một phần.
+
+QUY TẮC BẮT BUỘC — VI PHẠM LÀ SAI:
+
+1. XÁC ĐỊNH LOẠI TÀI LIỆU TRƯỚC KHI DỊCH
+   - Tự phân tích nội dung để xác định loại tài liệu (kỹ thuật/lập trình, tài chính, bảo hiểm, pháp lý, marketing, học thuật, vận hành, sản phẩm...).
+   - Chọn văn phong và thuật ngữ CHUẨN NGÀNH tương ứng trong tiếng Việt, nhất quán xuyên suốt.
+
+2. VĂN PHONG — MƯỢT NHƯ NGƯỜI DỊCH, KHÔNG GIẢM CHÍNH XÁC
+   - Dịch mượt, tự nhiên, đúng ngữ pháp tiếng Việt — như biên dịch viên bản ngữ dịch tay, KHÔNG dịch máy móc kiểu word-by-word.
+   - Được phép đảo cấu trúc câu, tách/gộp câu cho tự nhiên, miễn giữ nguyên 100% ý nghĩa, thông tin, logic, số liệu gốc.
+   - Khi "mượt mà" và "chính xác" xung đột → LUÔN ưu tiên chính xác.
+
+3. DỊCH ĐẦY ĐỦ 100%
+   - Không tóm tắt, không rút gọn, không lược bỏ đoạn/câu/mục/bullet nào.
+   - Số lượng heading, đoạn văn, bảng, code block ở output PHẢI khớp 1:1 với input.
+   - Đoạn dài dịch hết, không cắt ngắn.
+
+4. GIỮ NGUYÊN THUẬT NGỮ TIẾNG ANH
+   - Thuật ngữ chuyên ngành (tên công nghệ, framework, pattern, tên hàm/biến, acronym...) giữ nguyên tiếng Anh, không dịch, không phiên âm.
+   - Ngay sau lần xuất hiện ĐẦU TIÊN của mỗi thuật ngữ, thêm chú thích ngắn trong ngoặc giải thích nghĩa bằng tiếng Việt.
+   - Các lần xuất hiện sau KHÔNG cần chú thích lại.
+
+5. GIỮ NGUYÊN FORMAT — RẤT QUAN TRỌNG
+   - VỀ ẢNH (làm trước khi dịch): ĐẾM chính xác số lượng thẻ ảnh dạng ![...](...) trong đoạn gốc bên dưới. Output PHẢI có ĐÚNG số lượng thẻ ảnh đó, không được thiếu một cái nào — kể cả ảnh không có caption, không rõ ngữ cảnh, hay trông như ảnh trang trí/lặp lại. Copy nguyên URL 100%, không sửa, không rút gọn, không thay bằng mô tả text.
+   - Giữ cấp độ heading (#, ##, ###...), giữ đúng số lượng heading.
+   - Giữ cấu trúc bảng (số cột, số hàng, alignment, header row).
+   - Giữ code block (```lang ... ```) — KHÔNG dịch code; comment được dịch tại chỗ; **được phép reformat code, tự động xuống dòng/indent chuẩn, không giữ nguyên code 1 dòng; không đổi logic/cú pháp**.
+   - Giữ blockquote, callout/note/warning (>, [!NOTE], [!WARNING]...).
+   - Giữ list, nested list, checkbox (- [ ]).
+   - Giữ nguyên link thường ([text](url)) — chỉ dịch phần text hiển thị, TUYỆT ĐỐI giữ nguyên URL.
+   - TRƯỚC KHI TRẢ KẾT QUẢ: tự đếm lại số heading, số ảnh, số dòng ``` giữa bản gốc và bản dịch của bạn, nếu lệch phải sửa lại cho khớp.
+
+6. GIẢI THÍCH ẨN DỤ / KHÁI NIỆM KHÓ
+   - Với ẩn dụ, thành ngữ, khái niệm trừu tượng khó hiểu với người Việt, thêm khối giải thích riêng ngay sau đoạn đó:
+     > 💡 **Giải thích thêm:** [giải thích dễ hiểu, đủ chuyên sâu, có ví dụ thực tế]
+     > Nguồn tham khảo: [link cụ thể để kiểm chứng]
+   - CHỈ đưa link nếu chắc chắn tồn tại và đúng nội dung — không bịa link.
+   - Không tìm được nguồn tin cậy → ghi rõ: "(Không có nguồn trích dẫn xác thực — cần tự kiểm chứng thêm)".
+
+7. CHỐNG HALLUCINATION (BẮT BUỘC)
+   - Không tự thêm thông tin/số liệu/ví dụ/kết luận KHÔNG có trong bản gốc — trừ phần giải thích ẩn dụ ở mục 6 (phải gắn nhãn rõ là phần bổ sung).
+   - Câu gốc mơ hồ → dịch sát nghĩa nhất, nếu không chắc ghi chú: "[CẦN KIỂM CHỨNG: câu gốc mơ hồ]".
+   - Không tự sửa/thêm/bớt logic kỹ thuật gốc. Không bịa trích dẫn/số liệu/link vô căn cứ.
+   - Không tự tóm tắt các đoạn dài thành ý chính rồi diễn giải lại — phải dịch từng câu.
+
+8. OUTPUT
+   - Trả về DUY NHẤT nội dung Markdown đã dịch, đặt trong 1 code block (```markdown ... ```).
+   - Không thêm lời dẫn/lời chào/giải thích ngoài code block.
+   - Không đổi tiêu đề gốc trừ khi cần dịch tiêu đề.
+
+--- NỘI DUNG GỐC CẦN DỊCH (một phần của tài liệu) ---
+
+Focusing on the Domain Layer, using DIP enables both the Domain and Infrastructure  to  depend  on  abstractions  (interfaces)  defined  by  the  domain model.  Since  the  Application  Layer  is  the  direct  client  of  the  Domain,  it depends  on  Domain  interfaces  and  indirectly  accesses  Repository  and  any technical Domain Service implementation classes provided by Infrastructure. It  may use any one of a few ways to acquire the implementations, including Dependency Injection , Service Factory ,  and Plug In [Fowler, P of EAA]. The examples throughout the book use Dependency Injection provided by Spring Framework and sometimes the Service Factory via class DomainRegistry . In  fact, DomainRegistry uses  Spring  to  look  up  references  to  beans  that implement interfaces defined by the domain model, including Repositories and Domain Services.
+
+Interestingly enough, when we think about the influence that DIP has on this  architecture,  we  might  conclude  that  there  are  actually  no  longer  any layers  at  all.  Both  high-level  and  low-level  concerns  are  dependent  only  on abstractions, which seems to topple the stack. What if we actually thought of turning this architecture on its ear and adding a bit more symmetry? Let's next see how that would work.
+
+## Hexagonal or Ports and Adapters
+
+With the Hexagonal Architecture 2 Alistair Cockburn codified a style to produce symmetry [Cockburn]. It advances this goal by allowing many disparate clients to interact with the system on equal footing. Need a new client? Not a problem. Just add an Adapter to transform any given client's input into that understood by the internal application's API. At the same time, output mechanisms employed by the system, such as graphics, persistence, and messaging, may also be diverse and swappable. That's possible because an Adapter is created to transform application results into a form accepted by a specific output mechanism.
+
+As  we  discuss  it,  you  may  agree  that  this  architecture  has  potential  for timelessness.
+
+2.  We refer to this architecture by the name Hexagonal, even though its name seems to have changed to Ports and Adapters. Despite its changed name, the community still  refers  to  it  as  Hexagonal. The Onion Architecture has also surfaced. However,  it  appears  to  many  that  Onion  is  just  an  (unfortunate)  alternate  name  for Hexagonal. We can safely assume that they are the same and stick with the [Cockburn] definition.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000114_9d9a44c04b680402062c07664b07dd0dbc99efb0aa991087cb1167e0adf20b87.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000115_7aeeb3fe42f3824bf9eafb991c3f60e3fe5d47c23685941188ffb1edb44e9916.png)
+
+These days many teams that say they are using a Layers Architecture are actually using Hexagonal instead. This is due, in part, to the number of projects that now use some form of Dependency Injection. It's not that Dependency Injection is automatically Hexagonal. It's just that it encourages a way of producing an architecture that leans naturally toward the development of a Ports and Adapters style. In any case, a more thorough understanding will clarify this point.
+
+We usually think of the place where clients interact with the system as its 'front end.' Likewise, we consider the place where the application retrieves persisted data, stores new persistent data, or sends output as its 'back end.' But Hexagonal promotes a different way of looking at the areas of a system, as indicated by Figure 4.4. There are two primary areas, the outside and the inside . The outside enables disparate clients to submit input and also provides mechanisms to retrieve persisted data, store the application's output (for example, a database), or send it elsewhere along its way (for example, messaging).
+
+Figure 4.4 The Hexagonal Architecture is also known as Ports and Adapters. There are Adapters for each of the outside types. The outside reaches the inside through the application's API.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000116_09e481e2ab5556af1310637d9e9ad5329794412fec5c8afb24701df9f9c4ccbd.png)
+
+## Cowboy Logic
+
+AJ:    'My horses sure do like their new hexagonal corral. It gives 'em more corners to run to when I'm carryin' a saddle.'
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000117_c04bc509531bb24469148cabc32bca90a5cafecac212bada8fb94215dfc9b898.png)
+
+In Figure 4.4 each client type has its own Adapter [Gamma et al.], which transforms input protocols into input that is compatible with the application's API-the inside. Each of the hexagon's sides represents a different kind of Port, for  either  input  or  output.  Three  of  the  clients'  requests  arrive  via  the  same kind of input Port (Adapters A, B, and C), and one uses a different kind of Port (Adapter D). Perhaps the three use HTTP (browser, REST, SOAP, and so on) and the one uses AMQP (for example, RabbitMQ). There is not a strict definition of what a Port means, making it a flexible concept. In whatever way Ports are  partitioned,  client  requests  arrive  and  the  respective  Adapter  transforms their input. It then invokes an operation on the application or sends the application an event. Control is thus transferred to the inside.
+
+## We Probably Are Not Implementing the Ports Ourselves
+
+We actually normally don't implement the Ports ourselves. Think of a Port as HTTP and the Adapter as a Java Servlet or JAX-RS annotated class that receives method invocations  from  a  container  (JEE)  or  framework  (RESTEasy  or  Jersey).  Or  we might create a message listener for NServiceBus or RabbitMQ. In that case the Port is more or less the messaging mechanism, and the Adapter is the message listener, because it is the responsibility of the message listener to grab data from the message and translate it into parameters suitable to pass into the Application's API (the client of the domain model).
+
+## Design the Application Inside per Functional Requirements
+
+When using Hexagonal, we design the application with our use cases in mind, not the number of supported clients. Any number and type of clients may request through various Ports, but each Adapter delegates to the application using the same API.
+
+The application receives requests by way of its public API. The application boundary,  or  inner  hexagon,  is  also  the  use  case  (or  user  story)  boundary. In  other  words,  we  should  create  use  cases  based  on  application  functional requirements,  not  on  the  number  of  diverse  clients  or  output  mechanisms. When the application receives a request via its API, it uses the domain model to fulfill all requests involving the execution of business logic. Thus, the application's API is published as a set of Application Services. Here again, Application Services are the direct client of the domain model, just as when using Layers.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000118_48c7499ab813d5d063e6cd29dcb9bf9634c53b435bc7fd0d9607e4962d64d911.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000119_86511c15721d4fba06d3584619ee112ced3d56a2d157c485e7adda966a5ccdc5.png)
+
+The  following  represents  a  RESTful  resource  published  using  JAX-RS. A request arrives through the HTTP input Port, and the handler acts as an Adapter, delegating to an Application Service:
+
+```
+@Path("/tenants/{tenantId}/products") public class ProductResource extends Resource { private ProductService productService; ... @GET @Path("{productId}") @Produces({ "application/vnd.saasovation.projectovation+xml" }) public Product getProduct( @PathParam("tenantId") String aTenantId, @PathParam("productId") String aProductId, @Context Request aRequest) { Product product = productService.product(aTenantId, aProductId); if (product == null) { throw new WebApplicationException( Response.Status.NOT_FOUND); } return product; // serialized to XML using MessageBodyWriter } ... }
+```
+
+The various JAX-RS annotations provide a significant part of the Adapter, parsing the resource path and turning its parameters into String instances. The ProductService instance is injected and used by this request to delegate to the application inside. The Product is serialized to XML and placed in a Response , which is then sent through the HTTP output Port.
+
+## JAX-RS Isn't the Focus Here
+
+This is  just  one  way  to  use  the  application  and  domain  model  inside.  In  essence, JAX-RS is not important. We could instead use Restfulie, or create a Node.js server running the restify module. Further still, Adapters designed to handle input from other Ports would delegate to the same API, as you will see.
+
+What about the other side of the application, to the right? Consider Repository implementations as persistence Adapters, providing access to previously stored Aggregate instances and storage for new ones. As depicted in the diagram  (Adapters  E,  F,  and  G),  we  might  have  Repository implementations for  relational  databases,  document stores, distributed cache, and in-memory
+
+## HEXAGONAL OR PORTS AND ADAPTERS
+
+stores. If the application sends Domain Event messages to the outside, it would use a different Adapter (H) for messaging. The output messaging Adapter is the opposite of the input Adapter that supports AMQP and thus goes out a different Port from the one used for persistence.
+
+A big advantage with Hexagonal is that Adapters are easily developed for test purposes. The entire application and domain model can be designed and tested before clients and storage mechanisms exist. Tests could be created to exercise ProductService well before any decision is made to support HTTP/ REST, SOAP, or messaging Ports. Any number of test clients can be developed before the user interface wireframes have been completed. Long before a persistence mechanism is selected for the project, in-memory Repositories can be employed to mimic persistence for the sake of testing. See Repositories (12) for details on developing in-memory implementations. Significant progress can be made on the core without the need for supplementary technical components.
+
+If using true Layers, consider the advantages of toppling the structure and developing based on Ports and Adapters instead. When designed properly, the hexagon inside-the application and domain model-will not leak to the outside  parts.  This  promotes  a  clean  application  boundary  inside  in  which  use cases  are  implemented.  Outside  any  number  of  client  Adapters  can  support numerous automated tests and real-world clients, as well as storage, messaging, and other output mechanisms.
+
+When  the  SaaSOvation  teams  considered  the  advantages of using the Hexagonal Architecture, they decided to  make the switch from Layers. It wasn't difficult, actually. It just required adopting a slightly different mindset in using the familiar Spring Framework.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000120_b882ef08cae45102efbdfaf5120215464920843a80cca51e72eb41463af2de33.png)
+
+Because the Hexagonal Architecture is versatile, it could well be the foundation that supports other architectures required by the system. For instance, we might factor in Service-Oriented, REST, or an Event-Driven Architecture; employ CQRS; use a Data Fabric or Grid-Based Distributed Cache; or tack on  Map-Reduce distributed  and  parallel  processing,  most  of  which  are  discussed later in this chapter. The Hexagonal style forms the strong foundation for  supporting  any  and  all  of  those  additional  architectural  options.  There are other ways, but for the remainder of this chapter assume that Ports and Adapters is used to assist with developing around each of the remaining topics discussed.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000121_0867c7a2dfe2dd474fdcb26bdaa43d44b2cc76e27980d9228855665326ab3fa2.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000122_35ac98ddbd6406a66f7970645aed11964b244892e2960245a2b96422d2066efc.png)
+
+## Service-Oriented
+
+The Service-Oriented Architecture, or SOA, has different meanings to different people. This can make discussions about it somewhat challenging. It's best to  try  to  find  some  common  ground,  or  at  least  define  the  ground  for  this discussion. Consider some principles of SOA as defined by Thomas Erl [Erl]. Besides the fact that services are always interoperable, they also possess the eight design principles presented in Table 4.1.
+
+Table 4.1 Design Principles of Services
+
+| Service Design Principle   | Description                                                                                                                                       |
+|----------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------|
+| 1. Service Contract        | Services express their purpose and capabilities by means of a contract in one or more description documents.                                      |
+| 2. Service Loose Coupling  | Services minimize dependency and only have an awareness of each other.                                                                            |
+| 3. Service Abstraction     | Services publish only their contract and hide internal logic from clients.                                                                        |
+| 4. Service Reusability     | Services can be reused by others in order to build more coarse-grained services.                                                                  |
+| 5. Service Autonomy        | Services control their underlying environment and resources to remain independent, which allows them to remain consistent and reliable.           |
+| 6. Service Statelessness   | Services place the responsibility of state management on consumers, where this does not conflict with what is controlled for Service Autonomy.    |
+| 7. Service Discoverability | Services are described with metadata to allow dis- covery and to make their Service Contract under- stood, allowing them to be (re)usable assets. |
+| 8. Service Composability   | Services may be composed within more coarse- grained services no matter the size and complexity of the composition they fall within.              |
+
+Figure 4.5 A Hexagonal Architecture supporting SOA, with REST, SOAP, and messaging services
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000123_d441c6e3d912f6cfcb2810c7cbda35f337f8cf1b9d725b9f812aa4996197a904.png)
+
+We can combine these principles with a Hexagonal Architecture, with the service boundary at the far left and the domain model at the heart. The basic architecture is presented in Figure 4.5, where consumers reach services using REST, SOAP, and messaging. Note that one Hexagonal-based system supports multiple technical service endpoints. This has a bearing on how DDD is used within an SOA.
+
+Since  opinions  vary  widely  on  what  SOA  is  and  what  value  it  provides, it  wouldn't  be  surprising  if  you  disagree  with  what's  presented  here.  Martin  Fowler  labels  this  situation  'service-oriented  ambiguity'  [Fowler,  SOA]. Therefore, I won't make a valiant attempt to disambiguate SOA here. I will, however, provide a perspective on one way DDD fits into the set of priorities declared in the SOA Manifesto. 3
+
+3.  The SOA Manifesto itself has received considerable negative criticism, but we may still glean some value from it.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000124_a52bfd977984334c98582818a927c22b1dc25945e6d72c90aa22bfd41edffa74.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000125_fdf26d2e1ae6e2646722a81c7a384ad89d61d97799c6838c91967068e317fae4.png)
+
+First, considering the pragmatic viewpoints expressed by one of the Manifesto contributors [Tilkov, Manifesto] gives an important context. Commenting on the Manifesto, he brings us at least a step or two closer to understanding what SOA services can be:
+
+[The Manifesto] gives me the option to view a service as either a set of SOAP/ WSDL interfaces  or  a  collection  of  RESTful  resources.  .  .  .  This  is  not  [an] attempt at a definition-it's an attempt to find out what values and principles we could find that we all can agree on.
+
+Stefan's  comments are noteworthy. Finding agreement always helps, and we can probably agree that a business service can be provided by any number of technical services.
+
+The technical services could be RESTful resources, SOAP interfaces, or message types. The business service emphasizes business strategy , a way to bring business and technology together. However, defining a single business service does not equate to defining a single Subdomain (2) or Bounded Context. No doubt as we perform both problem space and solution space assessments, we will find that a business service comprises a number of each. Thus, Figure 4.5 shows the architecture of only a single Bounded Context, one that may provide a  set  of  technical  services  realized  through  a  number  of  RESTful  resources, SOAP interfaces, or message types-just a part of the overall business service. In the SOA solutions space we would expect to see many Bounded Contexts, whether any individual one uses a Hexagonal Architecture or another. Neither SOA nor DDD need specify how each set of technical services is designed and deployed, there being a wide variety of options.
+
+Still, when using DDD our goal is to create a Bounded Context with a complete, linguistically well-defined domain model. As discussed in Bounded Contexts (2) , we don't want architecture to influence the size of the domain model. That could happen if one or a few of the technical service endpoints, such as a  single  REST resource, a single SOAP interface, or a system message type, were  to  be  used  to  dictate  the  size  of  a  Bounded  Context.  Doing  so  would force many, very small Bounded Contexts and domain models, perhaps each consisting of only one Entity acting as the Root of a single, small Aggregate. This could result in hundreds of such miniature Bounded Contexts in a single enterprise.
+
+While that approach may be viewed as having technical advantages, it does not necessarily realize the goals of strategic DDD. It works against a clean, well-modeled  domain  based  on  a  complete  and  comprehensive Ubiquitous Language (1) , actually fragmenting the Language. And, according to the SOA Manifesto, unnaturally fragmenting Bounded Contexts is not necessarily the spirit of SOA:
+
+1. Business value over technical strategy
+2. Strategic goals over project-specific benefits
+
+Assuming we can accept these as worthy values, they align very well with strategic DDD. As explained in Bounded Contexts (2) ,  the  technical component architecture drivers are less important when partitioning models.
+
+The SaaSOvation teams had to learn a difficult and important lesson, that listening to the linguistic drivers aligns better with DDD. Each of their three Bounded Contexts  reflects  the  goals  of  SOAboth for the business and in the technical services.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000126_e70cfad5564efc1a1c64bad5a992f8c8d679b305fbf6076214395c13fa93d03b.png)
+
+The three sample models discussed in Bounded Contexts (2) , Context Maps (3) , and Integrating Bounded Contexts (13) individually represent the single linguistically well-defined domain model. Each domain model is surrounded by a set of open services that implement an SOA that meets the business objectives.
+
+## Representational State Transfer-REST
+
+## Contributed by Stefan Tilkov
+
+REST has become one of the most used, and abused, architecture buzzwords of the last few years. As usual, different people think about different things when they use the acronym. To some, REST means sending XML over HTTP connections without using SOAP; some equate it with using HTTP and JSON; others believe that to do REST you need to send method arguments as URI query  parameters.  All  of  these  interpretations  are  wrong,  but  luckily-and vastly different from many other concepts such as 'components' or 'SOA'- there is an authoritative source for what REST means: the dissertation by Roy T. Fielding, which coined the term and defines it very clearly.
+
+## REST as an Architectural Style
+
+The first thing to understand when trying to 'get' REST is the concept of architectural styles. An architectural style is to architecture what a design pattern is to a specific design. It is an abstraction of those aspects that are common to different concrete implementations, enabling discussion of their relevant benefits without getting lost in technical detail. There are many different styles of distributed systems architecture, including client-server and distributed objects. The first few chapters of Fielding's thesis explain some of them, including the constraints they mandate for an architecture that adheres to each of them. The concept of architectural styles and constraints imposed by them might strike you  as  somewhat  theoretical,  and  you'd  be  right.  They  form  the  theoretical foundation of a (then) new architectural style that Fielding introduces. This is REST, which is the architectural style that the Web's architecture is supposed to adhere to.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000127_49bf1ec1618f546b7d3396db6be4d5571d094b6afe51c0ebba684eeba56bd1b4.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000128_0e874702383cfae3c57bdc00e20319cb29ad480d185a560a7efd877880b6e9e9.png)
+
+Of course the Web-as embodied by its most important standards, URI, HTTP, and HTML-predates Fielding's PhD work. But he had been one of the main forces in standardization of HTTP 1.1, and a huge influence on many design decisions that led to the Web as we know it. 4 Seen this way, REST is a theoretical extrapolation, created after the fact, of the Web's architecture itself.
+
+So why do we now equate 'REST' with a specific way of building systems or, even more restricting, a way to build Web services? The reason for this is, as it turns out, that like any other technology, the Web protocols can be used in many different ways. Some of them match the goals of the original designers; some of them don't. One often-used analogy highlights this using the RDBMS world familiar to many. You can use an RDBMS in line with its architectural concepts-that is, define tables with columns, foreign key relationships, views, constraints,  and  so  on-or you can create a single table with two columns, one called 'key,' one called 'value,' and simply store serialized objects in the value column. Of course, you'd still be using an RDBMS, but many of its benefits will not be available to you (meaningful queries, joins, sorting and grouping, and so forth).
+
+In a very similar fashion, the Web protocols can be used in line with the original ideas that made them what they are-with an architecture that conforms to the REST architectural style-or be used in a way that fails to follow it.  And  similar  to  our  RDBMS  example,  we  ignore  the  underlying  architectural style to our peril. Thus, a different kind of distributed systems architecture might be appropriate if we don't end up exploiting any of the benefits of using HTTP in a 'RESTful' way, just as a NoSQL/key-value store is the better choice for storing whole values that are associated with a single unique key.
+
+4.  He also happens to be the author of the very first widely used HTTP library, one of the original developers of the Apache HTTP server, and founder of the Apache Software Foundation.
+
+## Key Aspects of a RESTful HTTP Server
+
+So what are the key aspects of a distribution architecture that uses '  RESTful HTTP'? Let's look  at  the  server  side  first.  Note  that  it's  entirely  irrelevant whether we are talking about a server that's used by a human using a Web browser (a 'Web application') or used by some other agent, such as a client written in your programming language of choice (a 'Web service').
+
+First of all, as the name implies, resources are a key concept. How so? As a system designer, you decide what are the meaningful 'things' that you want to expose as accessible from the outside, and you assign each a distinct identity. In general, each resource has one URI, and more importantly, each URI should point to one resource-the 'things' you expose to the outside need to be individually addressable. For example, you might decide that each customer, each product, each product listing, each search result, and maybe each change to the  product  catalog  should  be  resources  in  their  own  right.  Resources  have representations, renditions of their state, in one or more formats. It's through representations-an XML or JSON document, an HTML form's post data, or some binary format-that clients interact with resources.
+
+The  next  key  aspect  is  the  idea  of  stateless  communication,  using  selfdescriptive messages. Such is an HTTP request that carries all the information the server needs to handle it. Of course, the server can (and usually will) use its own persistent state to help, but it's important that the client and server don't rely on individual requests to set up an implicit context (a session). This enables access to each resource independently of other requests, an aspect that helps in achieving massive scalability.
+
+If you view resources as objects-and it's not at all unreasonable to do soit's valid to ask what kind of interface they should have. The answer is another very important aspect that differentiates REST from any other architectural style for distributed systems. The set of methods that you can invoke is fixed. Every object supports the same interface. In RESTful HTTP, the methods are the HTTP verbs-most importantly, GET , PUT , POST , DELETE -that can be applied to resources.
+
+Even though it might appear so at first sight, these methods do not translate to CRUD operations. It is very common to create resources that do not represent any persistent entity but instead encapsulate behavior that is invoked once an appropriate verb is used on them. Each of the HTTP methods has a very clear definition in the HTTP specification. For example, the GET method is to be used only for 'safe' operations: (1) it can perform actions that reflect an effect a client might not have requested; (2) it always reads data; (3) it can potentially be cached (if the server indicates that this is the case by means of appropriate response headers).
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000129_3d138d6615a1b4e5c71a9d86c4e37f28f23033b7e1eb32779bc6865455aaeb6c.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000130_556f1680bf05397f593097e1dd0e4e4333c65e00d878bad8a84943e4f5160829.png)
+
+HTTP's GET method has been called 'the most optimized piece of distributed systems plumbing in the world' by none other than Don Box, one of the main figures behind SOAP-style Web services. His words highlight that a lot of the Web's performance and scalability that we take for granted is due to HTTP optimizations for this particular, very common case.
+
+Some  HTTP  methods  are idempotent ,  meaning  that  they  can  be  safely called again without problems in case of an error or unclear outcome. This is true for GET , PUT , and DELETE .
+
+Finally, a RESTful server enables a client to discover a path through the application's possible state transitions by means of hypermedia. This is called Hypermedia as the Engine of Application State (HATEOAS) in Fielding's dissertation. Put more simply, the individual resources don't stand on their own. They are connected, linked to each other. This should not come as a surprise. After all, this is where the Web got its name. For the server, this means that it will embed links in its answers, enabling the client to interact with connected resources.
+
+## Key Aspects of a RESTful HTTP Client
+
+A RESTful HTTP client moves from one resource to the next either by following links contained in resource representations or by being redirected to resources as a result of sending data for processing to the server. Server and client cooperate to influence the client's distribution behavior dynamically. As a URI contains all information necessary for dereferencing an address-including  host  name  and  port-a  client  following  the  hypermedia  principle  might end up talking to a resource hosted by a different application, a different host, or even a different company.
+
+In an ideal REST setup, a client will start with a single well-known URI and continue following hypermedia controls from then on. This is exactly the model used by the browser when rendering and displaying HTML, including links and forms, to the user. Then, it uses the user's input to interact with a multitude of Web applications, without up-front knowledge about their interface or implementations.
+
+Granted, a browser is not a self-sufficient agent. It requires a human to make the actual decisions. But a programmatic client can adopt many of the same principles, even when some logic is hard-coded. It will follow links instead of assuming specific URI structures, or even colocation of resources in one server, and it will make use of its knowledge of one or more media types.
+
+## REST and DDD
+
+Tempting though it may be, it is not advisable to directly expose a domain model via RESTful HTTP. This approach often leads to system interfaces that are more brittle than they need to be, as each change in the domain model is directly reflected in the system interface. There are two alternative approaches for combining DDD and RESTful HTTP.
+
+The first approach is to create a separate Bounded Context for the system's interface layer and use appropriate strategies to access the actual Core Domain from the system's interface model. This can be deemed a classic approach, as it views the system's interface as a cohesive whole that is simply exposed using resource abstractions instead of services or remote interfaces.
+
+Consider a concrete example of this approach. We build a system that manages a workgroup, including its tasks, schedules/appointments, subgroups, and all of the processes needed to handle these. We would design a pure domain model, untainted by the infrastructure  details,  that  captures  the  Ubiquitous Language and implements the necessary business logic. To publish an interface to this carefully crafted domain model, we provide a remote interface as a set of RESTful resources. These resources reflect the use cases the client needs, which is very likely different from the pure domain model. Yet each resource is  built  from,  for  example,  one  or  more  Aggregates  belonging  to  the  Core Domain.
+
+Of course, we could simply use the domain objects as parameters to JAX-RS resource  methods-let's  say /:user/:task would  map  to  a  method getTask() that returns a Task object. That's seemingly simple, but it comes with one major problem. Any change to the Task object structure is immediately reflected in the remote interface, possibly breaking many clients, even though we might only have changed something that's entirely irrelevant to the outside world. Not good.
+
+So the first approach is preferred, that of decoupling the Core Domain from the system's interface model. Doing so enables us to make changes to the Core Domain and then decide in each individual case whether that change must be reflected in the system's interface model and, if so, the best mapping to use. Note that with this approach, the classes designed for the system's interface model are usually driven by those of the Core Domain, but are certainly driven by the use cases. Note: Even in this case we could define a custom media type.
+
+Another approach is appropriate when more emphasis is placed on standard media types. If specific media types are developed to support not only a single system interface but a category of similar client-server interactions, a domain model can be created to represent each standard media type. Such a domain model might even be reused across clients and servers, although some REST and SOA proponents view this as an anti-pattern. Note: Such an approach is essentially a Shared Kernel (3) or Published Language (3) in DDD terms.
+
+This reflects more of an outside-in, crosscutting approach. In the workgroup and task management domain mentioned previously, there are many common formats. Let's consider the ical format as an example. This is a generic format that can be used by many different applications. In this case we would start by selecting a media type (ical) and then creating a domain model for this format. This model could then be used by any system that needs to understand this format-our server application, for example, but also others (such as an Android client). Naturally, with this approach a server might need to deal with many different media types, and the same media type might be used by multiple servers.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000131_8d35ede2ac2f15f49692da519546389a79ae226acffd5176721b3b620ca6ddf3.png)
+
+Which of these two approaches is chosen depends to a large degree on the goals of the system designer in terms of reusability. The more specialized the solution, the more useful the first approach turns out to be. The more generally useful the solution is, with the extreme end of the spectrum being standardization by an official standards body, the more sense it makes to go with the second, media-type-centric approach.
+
+## Why REST?
+
+In my experience, a system designed conforming to REST principles fulfills the promise of loose coupling. In general, it's very easy to add new resources and links to them in existing resource representations. It's also easy to add support for new formats where needed, leading to a much less brittle set of system connections. A REST-based system is much easier to understand, as it's split into smaller chunks-the resources-each of which exposes a separately testable, debuggable, and usable entry point. The design of HTTP and the maturity of the tooling with support for features such as URI rewriting and caching make RESTful HTTP a great choice for architectures that need to be both loosely coupled and highly scalable.
+
+## Command-Query Responsibility Segregation, or CQRS
+
+It can be difficult to query from Repositories all the data users need to view. This is  especially  so  when  user  experience  design  creates  views  of  data  that cuts across a number of Aggregate types and instances. The more sophisticated your domain, the more this situation tends to occur.
+
+Using only Repositories to solve this can be less than desirable. We could require clients to use multiple Repositories to get all the necessary Aggregate instances, then assemble just what's needed into a Data Transfer Object (DTO) [Fowler, P of EAA]. Or we could design specialized finders on various Repositories to gather the disjointed data using a single query. If these solutions seem unsuitable, perhaps we should instead compromise on user experience design, making views rigidly adhere to the model's Aggregate boundaries. Most would agree that in the long run a mechanical and spartan user interface won't suffice.
+
+Is  there  an  altogether  different  way  to  map  domain  data  to  views?  The answer lies in the oddly named architecture pattern CQRS [Dahan, CQRS; Nijof,  CQRS].  It  is  the  result  of  pushing  a  stringent  object  (or  component) design  principle,  command-query  separation  (CQS),  up  to  an  architecture pattern.
+
+This principle, devised by Bertrand Meyer, asserts the following:
+
+Every method should be either a command that performs an action, or a query that returns data to the caller, but not both. In other words, asking a question should not change the answer. More formally, methods should return a value only if they are referentially transparent and hence possess no side effects. [Wikipedia, CQS]
+
+At an object level this means:
+
+1. If  a  method  modifies  the  state  of  the  object,  it  is  a command ,  and  its method  must  not  return  a  value.  In  Java  and  C#  the  method  must  be declared void .
+2. If a method returns some value, it is a query , and it must not directly or indirectly cause the modification of the state of the object. In Java and C# the method must be declared with the type of the value it returns.
+
+That's pretty straightforward guidance, and there is a practical and theoretical basis for adhering to it. Yet, as an architecture pattern when using DDD, why and how is it applied?
+
+Visualize a domain model, such as one of those discussed under Bounded Contexts (2) .  We'd  normally  see  Aggregates  with  both  command  and  query methods. We'd also see Repositories that have a number of finder methods that filter on certain properties. With CQRS we are going to disregard these 'normalities' and design a different way to query display data.
+
+Now think of segregating all of the pure query responsibilities traditionally found in a model from all responsibilities that execute pure commands on the same model.  Aggregates  would  have  no  query  methods  (getters),  only  command methods. Repositories would be stripped down to an add() or save() method (supporting both creation and updating saves) and only a single query method, such as fromId() .  The single query method takes the unique identity of an Aggregate and returns it. A Repository could not be used to find an Aggregate by any other means, such as by filtering on some additional properties.  With  all  of  that  removed  from  the  traditional  model,  we  designate  it a command model .  We still need a way to display data to the user. For that we create a second model, one that is tuned for optimized queries. That's our query model .
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000132_4572468518b4845527c5287dfe36a22d3975d99c75b01b4c3dccaaa4290a3a47.png)
+
+## Isn't This Accidental Complexity?
+
+Your impression may be that this proposed style is a lot of work and that we are merely replacing one set of problems with another set of problems, and adding a lot more code to do it.
+
+Don't be too quick to dismiss this style, however. Under some circumstances the added complexity is justifiable. Remember, CQRS is meant to solve a specific view sophistication problem, not to tack on as a cool new style that will strengthen your résumé.
+
+## Known by Other Names
+
+Note that some areas/components of CQRS may be known by other names. What I call the query model is also known as the read model, and the command model is also called the write model.
+
+As a result, the traditional domain model would be split in two. The command model is persisted in one store and the query model in another. We end up with a set of components like the one in Figure 4.6. Some more details will clarify this pattern.
+
+## Examining Areas of CQRS
+
+Let's step through each of the major areas of this pattern. We can start with the client and query support and move through to the command model and how updates to the query model are done.
+
+Figure 4.6 With CQRS, commands from clients travel one way to the command model. Queries are run against a separate data source optimized for presentation and delivered as user interface or reports.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000133_5e779ac44416911bb9c911efa5ba44f888b74f2e34c95926521c673e85747ba9.png)
+
+## Client and Query Processor
+
+The client (at the far left in the diagram) may be a Web browser or a custom desktop user interface. It uses a set of query processors running on a server. The diagram doesn't show architecturally significant divisions between tiers on the server(s). Whatever tiers exist, the query processor represents a simple component that only knows how to execute basic queries on a database, such as a SQL store.
+
+There  are  no  complex  layers  here.  At  most  this  component  runs  a  query against  the  query  store  database  and  maybe  serializes  the  query  result  into some format for transport (maybe a DTO, but maybe not), if that's necessary. If the client runs Java or C#, it could query the database directly. However, that might require a large number of database client licenses, one per connection. Employing a query processor that uses pooled connections is the best choice.
+
+If  the  client  can  consume  a  database  result  set  (for  example,  JDBC  variety), serialization is unnecessary but may be desirable anyway. There are two schools of thought here. One asserts that ultimate simplicity requires that the result set, or a very basic wire-compatible serialization of it (XML or JSON), must be consumed by the client. Others assert that DTOs should be built and consumed by the client. This may be a matter of taste, but we might agree that anytime we add DTOs and DTO Assemblers [Fowler, P of EAA] there is added complexity,  and  if  not  truly  needed,  these  would  be accidental  complexity . Each team determines which approach works best for their project.
+
+## Query Model (or Read Model)
+
+The  query  model  is  a  denormalized  data  model.  It  is  not  meant  to  deliver domain behavior, only data for display (and possibly reporting). If this data model is  a  SQL  database,  each  table  would  hold  the  data  for  a  single  kind of client view (display). The table can have many columns, even a superset of those needed by any given user interface display view. Table views can be created from tables, each of which is used as a logical subset of the whole.
+
+## Create Support for as Many Views as Needed
+
+It's  worth  noting  that  CQRS-based  views  can  be  both  cheap  and  disposable  (for development and in maintenance). This is especially so if you use a simple form of Event Sourcing (see the section 'Event Sourcing' later in the chapter and Appendix A) and save all Events into a persistent store, which can be republished at any time to create new persistent view data. Doing so, any single view could be rewritten from scratch in isolation or the entire query model be switched to completely different persistence technology. This makes it easy to create and maintain views that continuously address ongoing UI needs. This can lead to more intuitive user experiences that avoid the table paradigm but are instead much richer.
+
+141
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000134_87d9d403639dc9e25939be8aed92d535a6bcf17bdb1e338f6f5c32e5a91db138.png)
+
+For example, a table could be designed with enough data to display user interfaces  for  normal  users,  managers,  and  administrators.  If  a  corresponding database table view was created for each of those user types, the data for each security role would be divided appropriately. This builds security into the viewable data per user type. A normal user view component would select all columns from the normal user table view. A manager's view component would select all columns from the manager's table view. That way normal users would not be able to see what managers can see.
+
+Preferably, a select statement requires only a primary key for the view being used. Here the query processor selects all columns from the normal user table view of a product:
+
+```
+SELECT * FROM vw_usr_product WHERE id = ?
+```
+
+As a side note, the table view naming convention seen here is not necessarily recommended. It just makes obvious what the sample select is doing. The primary key corresponds to the unique identity of some Aggregate type or a combined set of Aggregate types merged into a single table. In this example the id primary key column is the unique identity of a Product in the command model. The data model design should follow, as much as possible, the pattern of one table per user interface view type, with as many table views as necessary to reflect application security roles. But, be practical.
+
+## Be Practical
+
+If there are 25 traders at a high-frequency trading desk and each one is trading securities that most of the others cannot view due to SEC compliance, would we need 25 table views? Using a trader filter would be more appropriate. Otherwise, there may be too many views to maintain to be truly practical.
+
+In practice this may be difficult to achieve, and queries may have to join multiple  tables  or  table  views  as  necessarily  for  practical  use.  Joins  across views/tables may be necessary or at least more practical to achieve necessary filtering. This may tend to be the case, especially when there are many user roles at play in your domain.
+
+## Don't Database Table Views Cause Overhead?
+
+A basic database table view has no overhead when performing updates on the backing table. The view just corresponds to a query, which in this case does not even require a join. Only materialized views incur update overhead since the view's data must be copied into one place so it is ready for selects. Use care when designing tables and views so that query model updates perform optimally.
+
+## Client Drives Command Processing
+
+User interface clients submit commands to the server (or indirectly execute an Application Service method) as the means of executing behavior on Aggregates, which are in the command model. The submitted command contains the name of the behavior to execute and the parameters necessary to carry it out. The command packet is a serialized method invocation. Since the command model has carefully designed contracts and behaviors, matching the commands to the contracts is a straightforward mapping.
+
+To  accomplish  this  the  user  interface  must  collect  the  data  necessary  to correctly  parameterize  the  command.  This  implies  that  much  thought  must be given to user experience design. It must lead users toward the proper goal of  submitting  an  explicit  command. An inductive, task-driven user interface design works best [Inductive UI]. It filters out all inapplicable options, focusing on precision command execution. That said, it is possible to design a deductive user interface that generates an explicit command.
+
+## Command Processors
+
+A command submission is received by a Command Handler/processor, which can have a few different styles. We consider those styles here, along with some advantages and disadvantages.
+
+We  can  use  a categorized  style with  several  Command  Handlers  in  one Application  Service.  This  style  creates  an  Application  Service  interface  and implementation for a category of commands. Each Application Service could have multiple methods, one method declared for each type of command with parameters  that  fits  the  category.  The  primary  advantage  here  is  simplicity. This kind of handler is well understood, easy to create, and easy to maintain.
+
+We can create a dedicated style handler. Each one would be a single class with one method. The method contract facilitates a specific command with parameters.  This  has  clear  advantages:  There  is  a  single  responsibility  per handler/processor; each handler may be redeployed independently of others; handler types can be scaled out to manage high volumes of certain kinds of commands.
+
+This  leads  to  the messaging style of  Command Handler. Each command is sent as an asynchronous message and delivered to a handler designed with the dedicated style. This not only enables each command processor component to receive specifically typed messages, but processors of a given type can be added to deal with command processing load. This approach should not be used by default, as it has a more complex design. Instead, start off with either of the other two styles as synchronous command processors. Switch to asynchronous only if scalability demands require it. That said, some will conclude that an asynchronous approach providing temporal decoupling leads to more resilient systems. That viewpoint will often lead to a bias toward implementing the messaging style of Command Handlers.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000135_07192f965b8bdc7d3361512d0d9f4443a7b078c0d246e440089d92332b88687e.png)
+
+Whatever kind of handler is used, decouple each one from all others. Do not allow any one handler to depend on (make use of) any others. This will allow any type of handler to be redeployed independently without impacting others.
+
+Command Handlers generally do only a few things. If one has a creation aspect, it instantiates a new Aggregate instance and adds the new instance to its  Repository. Most often it gets an Aggregate instance from its Repository and executes a command method behavior on it:
+
+```
+@Transactional public void commitBacklogItemToSprint( String aTenantId, String aBacklogItemId, String aSprintId) { TenantId tenantId = new TenantId(aTenantId); BacklogItem backlogItem = backlogItemRepository.backlogItemOfId( tenantId, new BacklogItemId(aBacklogItemId)); Sprint sprint = sprintRepository.sprintOfId( tenantId, new SprintId(aSprintId)); backlogItem.commitTo(sprint); }
+```

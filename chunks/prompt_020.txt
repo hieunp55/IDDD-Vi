@@ -1,0 +1,411 @@
+Bạn là chuyên gia dịch thuật kỹ thuật Anh → Việt, chuyên tài liệu kỹ thuật/công nghệ, có kinh nghiệm dịch như biên dịch viên bản ngữ chuyên nghiệp. Nhiệm vụ: dịch TOÀN BỘ nội dung Markdown dưới đây sang tiếng Việt, không bỏ sót bất kỳ phần nào. Đây là MỘT PHẦN (chunk) của một tài liệu lớn hơn, hãy dịch độc lập đoạn này, không thêm lời mở đầu/kết luận về việc đây chỉ là một phần.
+
+QUY TẮC BẮT BUỘC — VI PHẠM LÀ SAI:
+
+1. XÁC ĐỊNH LOẠI TÀI LIỆU TRƯỚC KHI DỊCH
+   - Tự phân tích nội dung để xác định loại tài liệu (kỹ thuật/lập trình, tài chính, bảo hiểm, pháp lý, marketing, học thuật, vận hành, sản phẩm...).
+   - Chọn văn phong và thuật ngữ CHUẨN NGÀNH tương ứng trong tiếng Việt, nhất quán xuyên suốt.
+
+2. VĂN PHONG — MƯỢT NHƯ NGƯỜI DỊCH, KHÔNG GIẢM CHÍNH XÁC
+   - Dịch mượt, tự nhiên, đúng ngữ pháp tiếng Việt — như biên dịch viên bản ngữ dịch tay, KHÔNG dịch máy móc kiểu word-by-word.
+   - Được phép đảo cấu trúc câu, tách/gộp câu cho tự nhiên, miễn giữ nguyên 100% ý nghĩa, thông tin, logic, số liệu gốc.
+   - Khi "mượt mà" và "chính xác" xung đột → LUÔN ưu tiên chính xác.
+
+3. DỊCH ĐẦY ĐỦ 100%
+   - Không tóm tắt, không rút gọn, không lược bỏ đoạn/câu/mục/bullet nào.
+   - Số lượng heading, đoạn văn, bảng, code block ở output PHẢI khớp 1:1 với input.
+   - Đoạn dài dịch hết, không cắt ngắn.
+
+4. GIỮ NGUYÊN THUẬT NGỮ TIẾNG ANH
+   - Thuật ngữ chuyên ngành (tên công nghệ, framework, pattern, tên hàm/biến, acronym...) giữ nguyên tiếng Anh, không dịch, không phiên âm.
+   - Ngay sau lần xuất hiện ĐẦU TIÊN của mỗi thuật ngữ, thêm chú thích ngắn trong ngoặc giải thích nghĩa bằng tiếng Việt.
+   - Các lần xuất hiện sau KHÔNG cần chú thích lại.
+
+5. GIỮ NGUYÊN FORMAT — RẤT QUAN TRỌNG
+   - VỀ ẢNH (làm trước khi dịch): ĐẾM chính xác số lượng thẻ ảnh dạng ![...](...) trong đoạn gốc bên dưới. Output PHẢI có ĐÚNG số lượng thẻ ảnh đó, không được thiếu một cái nào — kể cả ảnh không có caption, không rõ ngữ cảnh, hay trông như ảnh trang trí/lặp lại. Copy nguyên URL 100%, không sửa, không rút gọn, không thay bằng mô tả text.
+   - Giữ cấp độ heading (#, ##, ###...), giữ đúng số lượng heading.
+   - Giữ cấu trúc bảng (số cột, số hàng, alignment, header row).
+   - Giữ code block (```lang ... ```) — KHÔNG dịch code; comment được dịch tại chỗ; **được phép reformat code, tự động xuống dòng/indent chuẩn, không giữ nguyên code 1 dòng; không đổi logic/cú pháp**.
+   - Giữ blockquote, callout/note/warning (>, [!NOTE], [!WARNING]...).
+   - Giữ list, nested list, checkbox (- [ ]).
+   - Giữ nguyên link thường ([text](url)) — chỉ dịch phần text hiển thị, TUYỆT ĐỐI giữ nguyên URL.
+   - TRƯỚC KHI TRẢ KẾT QUẢ: tự đếm lại số heading, số ảnh, số dòng ``` giữa bản gốc và bản dịch của bạn, nếu lệch phải sửa lại cho khớp.
+
+6. GIẢI THÍCH ẨN DỤ / KHÁI NIỆM KHÓ
+   - Với ẩn dụ, thành ngữ, khái niệm trừu tượng khó hiểu với người Việt, thêm khối giải thích riêng ngay sau đoạn đó:
+     > 💡 **Giải thích thêm:** [giải thích dễ hiểu, đủ chuyên sâu, có ví dụ thực tế]
+     > Nguồn tham khảo: [link cụ thể để kiểm chứng]
+   - CHỈ đưa link nếu chắc chắn tồn tại và đúng nội dung — không bịa link.
+   - Không tìm được nguồn tin cậy → ghi rõ: "(Không có nguồn trích dẫn xác thực — cần tự kiểm chứng thêm)".
+
+7. CHỐNG HALLUCINATION (BẮT BUỘC)
+   - Không tự thêm thông tin/số liệu/ví dụ/kết luận KHÔNG có trong bản gốc — trừ phần giải thích ẩn dụ ở mục 6 (phải gắn nhãn rõ là phần bổ sung).
+   - Câu gốc mơ hồ → dịch sát nghĩa nhất, nếu không chắc ghi chú: "[CẦN KIỂM CHỨNG: câu gốc mơ hồ]".
+   - Không tự sửa/thêm/bớt logic kỹ thuật gốc. Không bịa trích dẫn/số liệu/link vô căn cứ.
+   - Không tự tóm tắt các đoạn dài thành ý chính rồi diễn giải lại — phải dịch từng câu.
+
+8. OUTPUT
+   - Trả về DUY NHẤT nội dung Markdown đã dịch, đặt trong 1 code block (```markdown ... ```).
+   - Không thêm lời dẫn/lời chào/giải thích ngoài code block.
+   - Không đổi tiêu đề gốc trừ khi cần dịch tiêu đề.
+
+--- NỘI DUNG GỐC CẦN DỊCH (một phần của tài liệu) ---
+
+Next, consider the number of hours assigned to each task. Remembering that  tasks  must  be  broken  down  into  manageable  units,  we  generally  use  a number of hours between four and 16. Normally if a task exceeds a 12-hour estimate, Scrum experts suggest breaking it down further. But using 12 hours as a first test makes it easier to simulate work evenly. We can say that tasks are worked on for one hour on each of the 12 days of the sprint. Doing so favors more complex tasks. So we'll figure 12 reestimations per task, assuming that each task starts out with 12 hours allocated to it.
+
+The question remains: How many tasks would be required per backlog item? That too is a difficult question to answer. What if we thought in terms of there being two or three tasks required per Layer (4) or Hexagonal Port-Adapter (4) for a given feature slice? For example, we might count three for the User Interface Layer (14) , two for the Application Layer (14) , three for the Domain Layer, and three for the Infrastructure Layer (14) .  That would bring us to 11 total tasks. It might be just right or a bit slim, but we've already erred on the side of numerous task estimations. Let's bump it up to 12 tasks per backlog item to be more liberal. With that we are allowing for 12 tasks, each with 12 estimation logs, or 144 total collected objects per backlog item . While this may be more than the norm, it gives us a chunky BOTE calculation to work with.
+
+There is another variable to be considered. If Scrum expert advice to define smaller tasks is commonly followed, it would change things somewhat. Doubling the number of tasks (24) and halving the number of estimation log entries (6) would still produce 144 total objects. However, it would cause more tasks to  be  loaded  (24  rather  than  12)  during  all  estimation  requests,  consuming more memory on each. The team will try various combinations to see if there is any significant impact on their performance tests. But to start they will use 12 tasks of 12 hours each.
+
+## Common Usage Scenarios
+
+Now it's important to consider common usage scenarios. How often will one user request need to load all 144 objects into memory at once? Would that ever happen? It seems not, but the team needs to check. If not, what's the likely high-end count of objects? Also, will there typically be multiclient usage that causes concurrency contention on backlog items? Let's see.
+
+The following scenarios are based on the use of Hibernate for persistence. Also, each Entity type has its own optimistic concurrency version attribute. This  is  workable  because  the  changing  status  invariant  is  managed  on  the BacklogItem Root Entity. When the status is automatically altered (to done or back to committed), the Root's version is bumped. Thus, changes to tasks can happen independently of each other and without impacting the Root each time one is modified, unless the result is a status change. (The following analysis could need to be revisited if using, for example, document-based storage, since the Root is effectively modified every time a collected part is modified.)
+
+When a backlog item is first created, there are zero contained tasks. Normally it is not until sprint planning that tasks are defined. During that meeting tasks are identified by the team. As each one is called out, a team member adds it  to  the  corresponding  backlog  item.  There  is  no  need  for  two  team  members to contend with each other for the Aggregate, as if racing to see who can enter new tasks more quickly. That would cause collision, and one of the two requests would fail (for the same reason simultaneously adding various parts to Product previously failed). However, the two team members would probably soon figure out how counterproductive their redundant work is.
+
+If the developers learned that multiple users do indeed regularly want to add tasks together, it would change the analysis significantly. That understanding could immediately tip the scales in favor of breaking BacklogItem and Task into two separate Aggregates. On the other hand, this could also be a perfect time to tune the Hibernate mapping by setting the optimistic-lock option to false .  Allowing  tasks  to  grow  simultaneously  could  make  sense  in  this case, especially if they don't pose performance and scalability issues.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000413_bca29d377b602faa7ae8a2bc71788065a5baec32746f683356a881bb133dd616.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000414_b49bb2aef352733b108a86726b4949f8f0d6184ae78cfb12e6a186aec384ce4c.png)
+
+If tasks are at first estimated at zero hours and later updated to an accurate estimate, we still don't tend to experience concurrency contention, although this would add one additional estimation log entry, pushing our BOTE total to 13. Simultaneous use here does not change the backlog item status. Again, it  advances  to  done  only  by  going  from  greater  than  zero  to  zero  hours,  or regresses to committed if already done and hours are changed from zero to one or more-two uncommon events.
+
+Will daily estimations cause problems? On day one of the sprint there are usually zero estimation logs on a given task of a backlog item. At the end of day one, each volunteer team member working on a task reduces the estimated hours by one. This adds a new estimation log to each task, but the backlog item's status remains unaffected. There is never contention on a task because just one team member adjusts its hours. It's not until day 12 that we reach the point of status transition. Still, as each of any 11 tasks is reduced to zero hours, the backlog item's status is not altered. It's only the very last estimation, the 144th on the 12th task, that causes automatic status transition to the done state.
+
+This analysis led the team to an important realization. Even if they altered the usage scenarios,  accelerating  task  completion  by  double  (six  days)  or  even  mixing  it  up completely, it wouldn't change anything. It's always the final estimate that transitions the status, which modifies the Root. This seemed like a safe design, although memory overhead was still in question.
+
+## Memory Consumption
+
+Now to address the memory consumption. Important here is that estimates are logged by date as Value Objects. If a team member reestimates any number of times on a single day, only the most recent estimate is retained. The latest Value of the same date replaces the previous one in the collection. At this point there's no requirement to track task estimation mistakes. There is the assumption that a task will never have more estimation log entries than the number of days the sprint is in progress. That assumption changes if tasks were defined one or more days before the sprint planning meeting, and hours were reestimated on any of those earlier days. There would be one extra log for each day that occurred.
+
+What about the total number of tasks and estimates in memory for each reestimation? When using lazy loading for the tasks and estimation logs, we would have as many as 12 plus 12 collected objects in memory at one time per request. This is because all 12 tasks would be loaded when accessing that collection. To add the latest estimation log entry to one of those tasks, we'd have to load the collection of estimation log entries. That would be up to another 12 objects. In the end the Aggregate design requires one backlog item, 12 tasks, and 12 log entries, or 25 objects maximum total. That's not very many; it's a small Aggregate. Another factor is that the higher end of objects (for example, 25) is not reached until the last day of the sprint. During much of the sprint the Aggregate is even smaller.
+
+Will this design cause performance problems because of lazy loads? Possibly, because it actually requires two lazy loads, one for the tasks and one for the estimation log entries for one of the tasks. The team will have to test to investigate the possible overhead of the multiple fetches.
+
+There's another factor. Scrum enables teams to experiment in order to identify the right planning model for their practices. As explained by [Sutherland], experienced teams with a well-known velocity can estimate using story points rather than task hours. As they define each task, they can assign just one hour to each task. During the sprint they will reestimate only once per task, changing one hour to zero when the task is completed. As it pertains to Aggregate design, using story points reduces the total number of estimation logs per task to just one and almost eliminates memory overhead.
+
+Later on, ProjectOvation developers will be able to analytically  determine  (on  average)  how  many  actual  tasks and  estimation  log  entries  exist  per  backlog  item  by examining real production data.
+
+The  foregoing  analysis  was  enough  to  motivate  the team to test against their BOTE calculations. After inconclusive  results,  however,  they  decided  that  there  were still too many variables for them to be confident that this design dealt well with their concerns. There were enough unknowns to consider an alternative design.
+
+## Exploring Another Alternative Design
+
+Is  there  another  design  that  could  contribute  to  Aggregate  boundaries  more fitting to the usage scenarios?
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000415_d6514b2652a481f4b06aa562b27c9fdd694bcaca995db85c87314009647428c2.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000416_d5a2caea8d4a55a871a7e66cd9d15236516e46c0f5e750992c6c1106e5abb3de.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000417_c6b0a13aa93ddc6251fe496703b663c1cdedd89fd2d6ad29b80dd3ec77b45f69.png)
+
+Figure 10.8 BacklogItem and Task modeled as separate Aggregates
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000418_f58298c0534be85683303436a7e5ae2ba2357668679c24db6e2010d0e9c23eb3.png)
+
+To be thorough, the team wanted to think through what they would have to do to make Task an independent Aggregate, and if that would actually work to their benefit. What they  envisioned  is  seen  in  Figure  10.8.  Doing  this  would  reduce  part  composition overhead by 12 objects and reduce lazy load overhead. In fact, this design gave them the option to eagerly load estimation log entries in all cases if that would perform best.
+
+The developers agreed not to modify separate Aggregates, both the Task and the BacklogItem , in the same transaction. They had to determine if they could perform a necessary automatic status change within an acceptable time frame. They'd be weakening the invariant's consistency since the status couldn't be consistent by transaction. Would that be acceptable? They discussed the matter with the domain experts and learned that some delay between the final zero-hour estimate and the status being set to done, and vice versa, would be acceptable.
+
+## Implementing Eventual Consistency
+
+It looks as if there could be a legitimate use of eventual consistency between separate Aggregates. Here is how it could work.
+
+When a Task processes an estimateHoursRemaining() command, it publishes a corresponding Domain Event. It does that already, but the team would now leverage the Event to achieve eventual consistency. The Event is modeled with the following properties:
+
+```
+public class TaskHoursRemainingEstimated implements DomainEvent { private Date occurredOn; private TenantId tenantId; private BacklogItemId backlogItemId; private TaskId taskId; private int hoursRemaining; ... }
+```
+
+A specialized subscriber would now listen for these and delegate to a Domain Service to coordinate the consistency processing. The Service would
+
+-  Use the BacklogItemRepository to retrieve the identified BacklogItem .
+-  Use the TaskRepository to  retrieve  all Task instances associated with the identified BacklogItem .
+- Execute  the BacklogItem command  named estimateTaskHours Remaining() , passing the Domain Event's hoursRemaining and the retrieved Task instances. The BacklogItem may transition its status depending on parameters.
+
+The team should find a way to optimize this. The three-step design requires all Task instances to be loaded every time a reestimation occurs. When using our BOTE estimate and advancing continuously toward done, 143 out of 144 times that's unnecessary. This could be optimized pretty easily. Instead of using the Repository to get all Task instances, they could simply ask it for the sum of all Task hours as calculated by the database:
+
+```
+public class HibernateTaskRepository implements TaskRepository { ... public int totalBacklogItemTaskHoursRemaining( TenantId aTenantId, BacklogItemId aBacklogItemId) { Query query = session.createQuery( "select sum(task.hoursRemaining) from Task task " + "where task.tenantId = ? and " + "task.backlogItemId = ?"); ... } }
+```
+
+Eventual  consistency  complicates  the  user  interface  a  bit.  Unless  the  status transition can be achieved within a few hundred milliseconds, how would the  user  interface  display  the  new  state?  Should  they  place  business  logic  in the view to determine the current status? That would constitute a smart UI anti-pattern.  Perhaps  the  view  would  just  display  the  stale  status  and  allow users to deal with the visual inconsistency. That could easily be perceived as a bug, or at least be very annoying.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000419_81afdb9b6f72ed0c9d7b1fbd6fc004d74bdfef1f1c95fbbf6db81b0d1d4f5fde.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000420_f30405abc72177639065d61b2218dfb9699a5ff34eaf2539501a7a689a07080d.png)
+
+The view could use a background Ajax polling request, but that could be quite inefficient. Since the view component could not easily determine exactly when checking for a status update is necessary, most Ajax pings would be unnecessary. Using our BOTE numbers, 143 of 144 reestimations would not cause the status update, which is a lot of redundant requests on the Web tier. With the right server-side support the clients could instead depend on Comet (aka Ajax Push). Although a nice challenge, that would introduce a completely new technology that the team had no experience using.
+
+On the other hand, perhaps the best solution is the simplest. They could opt to place a visual cue on the screen that informs the user that the current status is uncertain. The view could suggest a time frame for checking back or refreshing. Alternatively, the changed status will probably show on the next rendered view. That's safe. The team would need to run some user acceptance tests, but it looked hopeful.
+
+## Is It the Team Member's Job?
+
+One important question has thus far been completely overlooked: Whose job is it to bring a backlog item's status into consistency with all remaining task hours? Do team members using Scrum care if the parent backlog item's status transitions to done just as they set the last task's hours to zero? Will they always know they are working with the last task that has remaining hours? Perhaps they will and perhaps it is the responsibility of each team member to bring each backlog item to official completion.
+
+On the other hand, what if there is another project stakeholder involved? For example, the product owner or some other person may desire to check the candidate backlog item for satisfactory completion. Maybe someone wants to use  the  feature  on  a  continuous  integration  server  first.  If  others  are  happy with the developers' claim of completion, they will manually mark the status as done. This certainly changes the game, indicating that neither transactional nor eventual consistency is necessary. Tasks could be split off from their parent backlog item because this new use case allows it. However, if it is really the team members who should cause the automatic transition to done, it would mean that tasks should probably be composed within the backlog item to allow for transactional consistency. Interestingly, there is no clear answer here either, which probably indicates that it should be an optional application preference.
+
+Leaving tasks within their backlog item solves the consistency problem, and it's  a  modeling  choice  that  can  support  both  automatic  and  manual  status transitions.
+
+This  valuable  exercise  uncovered  a  completely new aspect of the domain. It seems as  if  teams  should  be  able  to  configure  a workflow preference. They won't implement such a feature now, but they will promote it for further discussion. Asking 'whose job is it?' led them to a few vital perceptions about their domain.
+
+Next,  one  of  the  developers  made  a very practical suggestion as an alternative to this whole analysis. If they were chiefly concerned with the possible overhead of the story attribute, why not do something about that specifically? They could reduce the total storage capacity for the story and in addition create a new useCaseDefinition property. They could design it to lazy load, since much of the time it would never be used. Or they could even design it as a separate Aggregate, loading it only when needed. With that idea they realized this could be a good time to break the rule to reference external Aggregates only by identity. It seemed like a suitable modeling choice to use a direct object reference and declare its object-relational mapping so as to lazily load it. Perhaps that made sense.
+
+## Time for Decisions
+
+This level of analysis can't continue all day. There needs to be a decision. It's not  as  if  going  in  one  direction  now  would  negate  the  possibility  of  going another route later. Open-mindedness is now blocking pragmatism.
+
+Based on all this analysis, currently the team was shying away from splitting Task from BacklogItem . They couldn't be certain that splitting it now was worth the extra effort, the risk of leaving the true invariant unprotected, or allowing users to experience a possible stale status in the view. The current Aggregate, as they understood it, was fairly small. Even if their common worst case loaded 50 objects rather than 25, it would still be a reasonably sized cluster. For now they planned around the specialized use case definition holder. Doing that was a quick win with lots of benefits. It added little risk, because it will work now, and it will also work in the future if they decide to split Task from BacklogItem .
+
+The option to split it in two remained in their hip pocket just in case. After further experimentation  with  the  current  design,  running  it  through  performance  and  load tests,  as  well  investigating  user  acceptance with an eventually consistent status, it will become clearer which approach is better. The BOTE numbers could prove to be wrong if in production the Aggregate is larger than imagined. If so, the team will no doubt split it into two.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000421_f992ed9e93e67e9c8c36abe27f14bd967f9c41ce6bf752a7118663a27546c208.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000422_0617db6b16d520274c31ff8485b24b5228b9eebabffd3dcb7807870bc320f8be.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000423_d79e38c22eb4d65eb67f04897e06b5e3ed5ad1619d04dab796ebb3b151b3a9d3.png)
+
+If you were a member of the ProjectOvation team, which modeling option would you have chosen? Don't shy away from discovery sessions as demonstrated in the case study. That entire effort would require 30 minutes, and perhaps as much as 60 minutes at worst. It's well worth the time to gain deeper insight into your Core Domain.
+
+## Implementation
+
+The  more  prominent  factors  summarized  and  highlighted  here  can  make implementations more robust but should be investigated more thoroughly in Entities (5) , Value Objects (6) , Domain Events (8) , Modules (9) , Factories (11) , and Repositories (12) . Use this amalgamation as a point of reference.
+
+## Create a Root Entity with Unique Identity
+
+Model one Entity  as  the  Aggregate  Root.  Examples  of  Root  Entities  in  the preceding  modeling  efforts  are Product , BacklogItem , Release ,  and Sprint . Depending on the decision made to split Task from BacklogItem , Task may also be a Root.
+
+The refined Product model finally led to the declaration of the following Root Entity:
+
+```
+public class Product extends ConcurrencySafeEntity  { private Set<ProductBacklogItem> backlogItems; private String description; private String name; private ProductDiscussion productDiscussion; private ProductId productId; private TenantId tenantId; ... }
+```
+
+Class ConcurrencySafeEntity is a Layer Supertype [Fowler, P of EAA] used to manage surrogate identity and optimistic concurrency versioning, as explained in Entities (5) .
+
+A Set of ProductBacklogItem instances  not  previously  discussed  has been, perhaps mysteriously, added to the Root. This is for a special purpose. It's not the same as the BacklogItem collection that was formerly composed here. It is for the purpose of maintaining a separate ordering of backlog items.
+
+Each  Root  must  be  designed  with  a  globally  unique  identity.  The Product has been modeled with a Value type named ProductId . That type is the domain-specific identity, and it is different from the surrogate identity provided by ConcurrencySafeEntity . How a model-based identity is designed, allocated, and maintained is further explained in Entities (5) . The implementation of ProductRepository has nextIdentity() generate ProductId as a UUID:
+
+```
+public class HibernateProductRepository implements ProductRepository  { ... public ProductId nextIdentity() { return new ProductId(java.util.UUID.randomUUID() Φ .toString().toUpperCase()); } ... }
+```
+
+Using nextIdentity() ,  a  client  Application  Service  can  instantiate  a Product with its globally unique identity:
+
+```
+public class ProductService ... { ... @Transactional public String newProduct( String aTenantId, aProductName, aProductDescription) { Product product = new Product( new TenantId(aTenantId), this.productRepository.nextIdentity(), "My Product", "This is the description of my product.", new ProductDiscussion( new DiscussionDescriptor( DiscussionDescriptor.UNDEFINED_ID), DiscussionAvailability.NOT_REQUESTED)); this.productRepository.add(product); return product.productId().id(); } ... }
+```
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000424_bd64014cfa7fc78c120d694929aa98ffb5ecd83b5298a5b583d45db35acce2fc.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000425_befb1ff97a111fc41500573170e3d787dda115f8d9718523584022c9675aeab9.png)
+
+The  Application  Service  uses ProductRepository to  both  generate an identity and then persist the new Product instance.  It  returns  the  plain String representation of the new ProductId .
+
+## Favor Value Object Parts
+
+Choose to model a contained Aggregate part as a Value Object rather than an Entity whenever possible. A contained part that can be completely replaced, if its replacement does not cause significant overhead in the model or infrastructure, is the best candidate.
+
+Our current Product model  is  designed  with  two  simple  attributes  and three  Value-typed  properties.  Both description and name are String attributes  that  can  be  completely  replaced.  The productId and tenantId Values are maintained as stable identities; that is, they are never changed after construction. They support reference by identity rather than direct to object. In fact, the referenced Tenant Aggregate is not even in the same Bounded Context and thus should be referenced only by identity. The product  Discussion is an eventually consistent Value-typed property. When the Product is  first instantiated, the discussion may be requested but will not exist until sometime later. It must be created in the Collaboration Context . Once the creation has been completed in the other Bounded Context, the identity and status are set on the Product .
+
+There  are  good  reasons  why ProductBacklogItem is  modeled  as  an Entity rather than a Value. As discussed in Value Objects (6) , since the backing database is used via Hibernate, it must model collections of Values as database entities. Reordering any one of the elements could cause a significant number, even all, of the ProductBacklogItem instances to be deleted and replaced. That  would  tend  to  cause  significant  overhead  in  the  infrastructure.  As  an Entity, it allows the ordering attribute to be changed across any and all collection elements as often as a product owner requires. However, if we were to switch from using Hibernate with MySQL to a key-value store, we could easily change ProductBacklogItem to be a Value type instead. When using a keyvalue  or  document store,  Aggregate  instances  are  typically  serialized  as  one value representation for storage.
+
+## Using Law of Demeter and Tell, Don't Ask
+
+Both Law of Demeter [Appleton, LoD] and Tell, Don't Ask [PragProg, TDA] are design principles that can be used when implementing Aggregates, both of which stress information hiding. Consider the high-level guiding principles to see how we can benefit:
+
+- Law of Demeter : This guideline emphasizes the principle of least knowledge .  Think of a client object  and  another  object  the  client  object  uses to execute some system behavior; refer to the second object as a server . When the client object uses the server object, it should know as little as possible about the server's structure. The server's attributes and properties-its  shape-should  remain  completely  unknown  to  the  client.  The client  can  ask  the  server  to  perform  a  command that is declared on its surface interface. However, the client must not reach into the server, ask the server for some inner part, and then execute a command on the part. If the client needs a service that is rendered by the server's inner parts, the client must not be given access to the inner parts to request that behavior. The server should instead provide only a surface interface and, when invoked, delegate to the appropriate inner parts to fulfill its interface.
+
+Here's a basic summary of the Law of Demeter: Any given method on any object may invoke methods only on the following: (1) itself, (2) any parameters passed to it, (3) any object it instantiates, (4) self-contained part objects that it can directly access.
+
+- Tell, Don't Ask : This guideline simply asserts that objects should be told what to do. The 'Don't Ask' part of the guideline applies to the client as follows: A client object should not ask a server object for its contained parts, then make a decision based on the state it got, and then make the server object do something. Instead, the client should 'Tell' a server what to do, using a command on the server's public interface. This guideline has very similar motivations as Law of Demeter, but Tell, Don't Ask may be easier to apply broadly.
+
+Given these guidelines, let's see how we apply the two design principles to Product :
+
+```
+public class Product extends ConcurrencySafeEntity  { ... public void reorderFrom(BacklogItemId anId, int anOrdering) { for (ProductBacklogItem pbi : this.backlogItems()) { pbi.reorderFrom(anId, anOrdering); } } public Set<ProductBacklogItem> backlogItems() { return this.backlogItems; } ... }
+```
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000426_d43800d4796694fa9b384ddc67f10ac1a4d4d2bafc670704015146f66f88d5d2.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000427_848c188c07fab64cd2e1024e5b9155344c34cd92e2982c92a970ecdf77c28e8a.png)
+
+The Product requires clients to use its method reorderFrom() to  execute  a  state-modifying  command  in  its  contained backlogItems .  That  is a  good application of the guidelines. Yet, method backlogItems() is  also public.  Does  this  break  the  principles  we  are  trying  to  follow  by  exposing ProductBacklogItem instances to clients? It does expose the collection, but clients may use those instances only to query information from them. Because of the limited public interface of ProductBacklogItem , clients cannot determine the shape of Product by deep navigation. Clients are given least knowledge .  As  far  as  clients  are  concerned,  the  returned  collection  instances  may have been created only for the single operation and may represent no definite state of Product . Clients may never execute state-altering commands on the instances of ProductBacklogItem , as its implementation indicates:
+
+```
+public class ProductBacklogItem extends ConcurrencySafeEntity  { ... protected void reorderFrom(BacklogItemId anId, int anOrdering) { if (this.backlogItemId().equals(anId)) { this.setOrdering(anOrdering); } else if (this.ordering() >= anOrdering) { this.setOrdering(this.ordering() + 1); } } ... }
+```
+
+Its only state-modifying behavior is declared as a hidden, protected method. Thus,  clients  can't  see  or  reach  this  command.  For  all  practical  purposes, only Product can see it and execute the command. Clients may use only the Product public reorderFrom() command  method.  When  invoked,  the Product delegates to all its internal ProductBacklogItem instances to perform the inner modifications.
+
+The implementation of Product limits knowledge about itself, is more easily  tested,  and  is  more  maintainable,  due  to  the  application  of  these  simple design principles.
+
+You will need to weigh the competing forces between use of Law of Demeter and Tell, Don't Ask. Certainly the Law of Demeter approach is much more restrictive, disallowing all navigation into Aggregate parts beyond the Root. On the other hand, the use of Tell, Don't Ask allows for navigation beyond the Root but does stipulate that modification of the Aggregate state belongs to the Aggregate, not the client. You may thus find Tell, Don't Ask to be a more broadly applicable approach to Aggregate implementation.
+
+## Optimistic Concurrency
+
+Next, we need to consider where to place the optimistic concurrency version attribute. When we contemplate the definition of Aggregate, it could seem safest to version only the Root Entity. The Root's version would be incremented every time a state-altering command is executed anywhere inside the Aggregate  boundary,  no  matter  how  deep.  Using  the  running  example, Product would have a version attribute, and when any of its describeAs() , initiateDiscussion() , rename() ,  or reorderFrom() command  methods are executed, the version would always be incremented. This would prevent any other client  from  simultaneously  modifying  any  attributes  or  properties anywhere inside the same Product . Depending on the given Aggregate design, this may be difficult to manage, and even unnecessary.
+
+Assuming we are using Hibernate, when the Product name or description is  modified,  or  its productDiscussion is  attached,  the version is automatically incremented. That's a given, because those elements are directly held by the Root Entity. However, how do we see to it that the Product version is incremented when any of its backlogItems are reordered?  Actually,  we  can't,  or  at  least  not  automatically.  Hibernate  will  not consider a modification to a ProductBacklogItem part instance as a modification to the Product itself. To solve this, perhaps we could just change the Product method reorderFrom() ,  dirtying  some flag or just incrementing the version on our own:
+
+```
+public class Product extends ConcurrencySafeEntity  { ... public void reorderFrom(BacklogItemId anId, int anOrdering) { for (ProductBacklogItem pbi : this.backlogItems()) { pbi.reorderFrom(anId, anOrdering); } this.version(this.version() + 1); } ... }
+```
+
+One problem is that this  code  always  dirties  the Product ,  even  when  a reordering  command  actually  has  no  effect.  Further,  this  code  leaks  infrastructural concerns into the model, which is a less desirable domain modeling choice if it can be avoided. What else can be done?
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000428_cbfcdd791b890e42de17eda351205802241631d66facede7d6377defdc4adb52.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000429_d75e53208804c29f78cbf4ff2e1d1cf1db00458f66058c2dc9986209cab002ca.png)
+
+## Cowboy Logic
+
+AJ:    'I'm thinkin' that marriage is a sort of optimistic concurrency. When a man gets married, he is optimistic that the gal will never change. And at the same time, she's optimistic that he will.'
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000430_bee728976b7499f5aa2eee8b9cc02b405deacad14bc8360004923b1029d063ac.png)
+
+Actually  in  the  case  of  the Product and  its ProductBacklogItem instances, it's possible that we don't need to modify the Root's version when any backlogItems are modified. Since the collected instances are themselves Entities, they can carry their own optimistic concurrency version . If two clients reorder any of the same ProductBacklogItem instances, the last client to commit changes will fail. Admittedly, overlapping reordering would rarely if ever happen, because it's usually only the product owner who reorders the product backlog items.
+
+Versioning all Entity parts doesn't work in every case. Sometimes the only way to protect an invariant is to modify the Root version. This can be accomplished more easily if we can modify a legitimate property on the Root. In this case, the Root's property would always be modified in response to a deeper part  modification,  which  in  turn  causes  Hibernate  to  increment  the  Root's version . Recall that this approach was described previously to model the status change on BacklogItem when all of its Task instances have been transitioned to zero hours remaining.
+
+However, that approach may not be possible in all cases. If not, we may be tempted to resort  to  using  hooks  provided  by  the  persistence  mechanism  to manually dirty the Root when Hibernate indicates a part has been modified. This becomes problematic. It can usually be made to work only by maintaining  bidirectional  associations  between  child  parts  and  the  parent  Root.  The bidirectional associations allow navigation from a child back to the Root when Hibernate sends a life cycle event to a specialized listener. Not to be forgotten, though, is that [Evans] generally discourages bidirectional associations in most cases. This is especially so if they must be maintained only to deal with optimistic concurrency, which is an infrastructural concern.
+
+Although we don't want infrastructural concerns to drive modeling decisions, we may be motivated to travel a less painful route. When modifying the Root becomes very difficult and costly, it could be a strong indication that we need to break down our Aggregates to just a Root Entity, containing only simple attributes and Value-typed properties. When our Aggregates consist of only a Root Entity, the Root is always modified when any part is modified.
+
+Finally,  it  must  be  acknowledged  that  the  preceding  scenarios  are  not  a problem when an entire Aggregate is persisted as one value and the value itself prevents  concurrency  conflict.  This  approach  can  be  leveraged  when  using MongoDB, Riak, Oracle's Coherence distributed grid, or VMware's GemFire. For example, when an Aggregate Root implements the Coherence Versionable interface  and  its  Repository  uses  the VersionedPut entry  processor, the Root will always be the single object used for concurrency conflict detection. Other key-value stores may provide similar conveniences.
+
+## Avoid Dependency Injection
+
+Dependency injection of a Repository or Domain Service into an Aggregate should generally be viewed as harmful. The motivation may be to look up a dependent  object  instance  from  inside  the  Aggregate.  The  dependent  object could  be  another  Aggregate,  or  a  number  of  them.  As  stated  earlier  under 'Rule: Reference Other Aggregates by Identity,' preferably dependent objects are looked up before an Aggregate command method is invoked, and passed in to it. The use of Disconnected Domain Model is generally a less favorable approach.
+
+Additionally, in a very high-traffic, high-volume, high-performance domain, with heavily taxed memory and garbage collection cycles, think of the potential  overhead  of  injecting  Repositories  and  Domain  Service  instances  into Aggregates. How many extra object references would that require? Some may contend that it's not enough to tax their operational environment, but theirs is probably not the kind of domain being described here. Still, take great care not to add unnecessary overhead that could be easily avoided by using other design principles, such as looking up dependencies before an Aggregate command method is invoked, and passing them in to it.
+
+This is only meant to warn against injecting Repositories and Domain Services into Aggregate instances. Of course, dependency injection is quite suitable for many other design situations. For example, it could be quite useful to inject Repository and Domain Service references into Application Services.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000431_93befbcf4af5074dfde9741a907868f34cd1428c666390a46b258648de7872cb.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000432_3b343d32c3bec45b486c52f13787787d2508f29dc61472bd81c3344e3db0a93a.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000433_881f4be078c88636ccf75d6188bb37bf260a529a9e182bae5152961d266c9f28.png)
+
+## Wrap-Up
+
+We've  examined  how  crucial  it  is  to  follow  the  Aggregate  Rules  of  Thumb when designing Aggregates.
+
+-  You  experienced  the  negative  consequences  of  modeling  large-cluster Aggregates.
+-  You learned to model true invariants in consistency boundaries.
+-  You considered the advantages of designing small Aggregates.
+-  You  now  know  why  you  should  favor  referencing  other  Aggregates  by identity.
+-  You discovered the importance of using eventual consistency outside the Aggregate boundary.
+-  You  saw  various  implementation  techniques,  including  how  you  might use Tell, Don't Ask and Law of Demeter.
+
+If we adhere to the rules, we'll have consistency where necessary and support optimally performing and highly scalable systems, all while capturing the Ubiquitous Language of our business domain in a carefully crafted model.
+
+## Chapter 11
+
+## Factories
+
+I can't abide ugliness in factories! In we go, then! But do be careful, my dear children! Don't lose your heads! Don't get overexcited! Keep very calm! -Willy Wonka
+
+Of all the patterns used in DDD, Factory is probably one of the better known. Highly  publicized  in Design  Patterns [Gamma  et  al.]  are Abstract  Factory , Factory Method , and Builder . I won't in any way attempt to overshadow the advice given there, or that provided by [Evans]. The focus here is to provide examples of how you can use Factories in the domain model.
+
+## Road Map to This Chapter
+
+-  Learn why the use of Factories can produce expressive models that adhere to the Ubiquitous Language (1) .
+-  See how SaaSOvation uses Factory Methods as Aggregate (10) behaviors.
+-  Consider how to use Factory Methods to create Aggregate instances of other types.
+-  Learn  how  Domain  Services  can  be  designed  as  Factories  while  interacting with other Bounded Contexts (2) and translating foreign objects to local types.
+
+## Factories in the Domain Model
+
+Consider the primary motivations for using Factories:
+
+Shift the responsibility for creating instances of complex objects and AGGREGATES  to  a  separate  object,  which  may  itself  have  no  responsibility  in  the domain model but is still part of the domain design. Provide an interface that encapsulates all complex assembly and does not require the client to reference the concrete classes of the objects being instantiated. Create entire AGGREGATES as a piece, enforcing their invariants. [Evans, p. 138]
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000434_ad0475f3b890075af21606c2b3d7a70cc1ab352b68c4bee07849a1851c7eac1a.png)
+
+A Factory may or may not have additional responsibilities in the domain model other than object creation. An object that has the purpose only of instantiating a specific Aggregate type will have no other responsibilities and will not even be considered a first-class citizen of the model. It is only a Factory. An Aggregate Root that provides a Factory Method for producing instances of another Aggregate  type  (or  inner  parts)  will  have  the  primary  responsibility  of  providing  its main Aggregate behavior, the Factory Method being just one of those.
+
+The  latter  is  what  tends  to  occur  more  frequently  in  my  examples.  The Aggregates I demonstrate have mostly non-complex construction. Yet, some important details of Aggregate construction must be protected against the production of wrong state. Consider the demands of a multitenancy environment. If  an  Aggregate instance were created under the wrong tenant, giving it the wrong TenantId ,  it  could be disastrous. There is a high degree of accountability to keep all data of each tenant segregated and secure from all others. Placing a carefully designed Factory Method on specific Aggregate Roots can ensure  that  tenancy  and  other  association  identities  are  created  correctly.  It simplifies  clients,  requiring  them  to  pass  only  basic  parameters,  often Value Objects (6) only, by hiding the construction details from them.
+
+Further,  Factory  Methods  on  Aggregates  allow  you  to  express  the  Ubiquitous Language in ways not possible through constructors alone. When the behavioral  method  name  is  expressive  with  respect  to  the  Ubiquitous  Language, you've made an additional powerful case for using a Factory Method.
+
+## Cowboy Logic
+
+- LB:    'I used to work in a fire hydrant factory. You couldn't park anywhere near the place.'
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000435_b6e7ec98335670b6f93ec9ed379a0b8611f84eef38591e46b54b36e20ac0ab2c.png)
+
+The sample Bounded Contexts do in some cases require complex construction. These situations occur when Integrating Bounded Contexts (13) . At those times Services (7) function as Factories producing Aggregates or Value Objects of various types.
+
+One case where you would find an Abstract Factory of great benefit is when creating objects of different types in a class hierarchy, which is a classic use. The client is required to pass in only some basic parameters from which the Factory can determine the concrete type that must be created. I don't have any domain-specific class hierarchies among my examples, so I won't be demonstrating  this  usage  here.  If  you  see  class  hierarchies  in  your  future  domain modeling efforts, I suggest that you look at the related discussion under Repositories (12) .  It  will  help you enter such an effort with eyes wide open. If you decide to use class hierarchies in your design, be prepared for the potential for pain that could result.
+
+## Factory Method on Aggregate Root
+
+Throughout  the  three  sample  Bounded  Contexts  there  are  Factory  sites  on Aggregate Root Entities, of which Table 11.1 provides a summary.
+
+I discuss the Product Factory Methods under Aggregates (10) . For example, its method planBacklogItem() creates a new BacklogItem , which is an Aggregate that is subsequently returned to the client.
+
+To demonstrate the design of Factory Methods, let's look at the three in the Collaboration Context .
+
+Table 11.1 Sites of Factory Methods on Aggregates
+
+| Bounded Context             | Aggregate   | Factory Method                |
+|-----------------------------|-------------|-------------------------------|
+| Identity and Access Context | Tenant      | offerRegistrationInvitation() |
+|                             |             | provisionGroup()              |
+|                             |             | provisionRole()               |
+|                             |             | registerUser()                |
+| Collaboration Context       | Calendar    | scheduleCalendarEntry()       |
+|                             | Forum       | startDiscussion()             |
+|                             | Discussion  | post()                        |
+| Agile PM Context            | Product     | planBacklogItem()             |
+|                             |             | scheduleRelease()             |
+|                             |             | scheduleSprint()              |
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000436_9f07ce6fc76bfa8f080e993c3323b2b4437e5f9faed6a5c725b54c0a145cb0f7.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000437_abd9ecb1c83d77499a59d18f31b4ab7e74a1d5747f0f096b8e4a50b231dbaa1b.png)
+
+## Creating CalendarEntry Instances
+
+Let's look at the design. The Factory we are considering now has its site on Calendar and  is  used  to  create CalendarEntry instances.  The  CollabOvation team takes us through the implementation.
+
+Here's a test developed to demonstrate how the Calendar Factory Method should be used:
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000438_9820ee3c01fceb15a1b13ffa79afe5d61c385954d66ba4029c37b798a66d5b84.png)
+
+```
+public class CalendarTest extends DomainTest { private CalendarEntry calendarEntry; private CalendarEntryId calendarEntryId; ... public void testCreateCalendarEntry() throws Exception { Calendar calendar = this.calendarFixture(); DomainRegistry.calendarRepository().add(calendar); DomainEventPublisher .instance() .subscribe( new DomainEventSubscriber<CalendarEntryScheduled>() { public void handleEvent( CalendarEntryScheduled aDomainEvent) { calendarEntryId = aDomainEvent.calendarEntryId(); } public Class<CalendarEntryScheduled> subscribedToEventType() { return CalendarEntryScheduled.class; } }); calendarEntry = calendar.scheduleCalendarEntry( DomainRegistry .calendarEntryRepository() .nextIdentity()
+```
+
+## FACTORY METHOD ON AGGREGATE ROOT
+
+```
+new Owner( "jdoe", "John Doe", "jdoe@lastnamedoe.org"), "Sprint Planning", "Plan sprint for first half of April 2012.", this.tomorrowOneHourTimeSpanFixture(), this.oneHourBeforeAlarmFixture(), this.weeklyRepetitionFixture(), "Team Room", new TreeSet<Invitee>(0)); DomainRegistry.calendarEntryRepository().add(calendarEntry); assertNotNull(calendarEntryId); assertNotNull(calendarEntry); ... } }
+```
+
+Nine  parameters  are  passed  in  to scheduleCalendarEntry() .  Yet,  as  seen later, the CalendarEntry constructor requires a total of 11 parameters. We'll consider the benefits of this in a moment. After a new CalendarEntry is successfully created, the client must add it to its Repository. Failing to do so will release the new instance to be swept by the garbage collector.
+
+The first assertion demonstrates that the CalendarEntryId published with the Event must be nonnull , confirming that the Event was successfully published. It's not that the direct client of Calendar will actually subscribe to that Event, but the test demonstrates that the Event CalendarEntryScheduled is in fact published.
+
+The new CalendarEntry instance must also be nonnull . We could make additional assertions, but the two just shown are most important to documenting the Factory Method design and the client's use of it.
+
+Now let's take a look at the implementation of the Factory Method:
+
+```
+package com.saasovation.collaboration.domain.model.calendar; public class Calendar extends Entity  { ... public CalendarEntry scheduleCalendarEntry( CalendarEntryId aCalendarEntryId, Owner anOwner, String aSubject, String aDescription, TimeSpan aTimeSpan, Alarm anAlarm, Repetition aRepetition, String aLocation, Set<Invitee> anInvitees) {
+```
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000439_289cf1689893e8b280c39213c336e1074a390c382ee888a45c25dda22c7dd456.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000440_9d0afe2c8825ef859421822ac7f089df170974514fdbdf3b87cc446897926d08.png)
+
+## Chapter 11 FACTORIES
+
+```
+CalendarEntry calendarEntry = new CalendarEntry( this.tenant(), this.calendarId(), aCalendarEntryId, anOwner, aSubject, aDescription, aTimeSpan, anAlarm, aRepetition, aLocation, anInvitees); DomainEventPublisher .instance() .publish(new CalendarEntryScheduled(...)); return calendarEntry; } ... }
+```

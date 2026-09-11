@@ -1,0 +1,448 @@
+Bạn là chuyên gia dịch thuật kỹ thuật Anh → Việt, chuyên tài liệu kỹ thuật/công nghệ, có kinh nghiệm dịch như biên dịch viên bản ngữ chuyên nghiệp. Nhiệm vụ: dịch TOÀN BỘ nội dung Markdown dưới đây sang tiếng Việt, không bỏ sót bất kỳ phần nào. Đây là MỘT PHẦN (chunk) của một tài liệu lớn hơn, hãy dịch độc lập đoạn này, không thêm lời mở đầu/kết luận về việc đây chỉ là một phần.
+
+QUY TẮC BẮT BUỘC — VI PHẠM LÀ SAI:
+
+1. XÁC ĐỊNH LOẠI TÀI LIỆU TRƯỚC KHI DỊCH
+   - Tự phân tích nội dung để xác định loại tài liệu (kỹ thuật/lập trình, tài chính, bảo hiểm, pháp lý, marketing, học thuật, vận hành, sản phẩm...).
+   - Chọn văn phong và thuật ngữ CHUẨN NGÀNH tương ứng trong tiếng Việt, nhất quán xuyên suốt.
+
+2. VĂN PHONG — MƯỢT NHƯ NGƯỜI DỊCH, KHÔNG GIẢM CHÍNH XÁC
+   - Dịch mượt, tự nhiên, đúng ngữ pháp tiếng Việt — như biên dịch viên bản ngữ dịch tay, KHÔNG dịch máy móc kiểu word-by-word.
+   - Được phép đảo cấu trúc câu, tách/gộp câu cho tự nhiên, miễn giữ nguyên 100% ý nghĩa, thông tin, logic, số liệu gốc.
+   - Khi "mượt mà" và "chính xác" xung đột → LUÔN ưu tiên chính xác.
+
+3. DỊCH ĐẦY ĐỦ 100%
+   - Không tóm tắt, không rút gọn, không lược bỏ đoạn/câu/mục/bullet nào.
+   - Số lượng heading, đoạn văn, bảng, code block ở output PHẢI khớp 1:1 với input.
+   - Đoạn dài dịch hết, không cắt ngắn.
+
+4. GIỮ NGUYÊN THUẬT NGỮ TIẾNG ANH
+   - Thuật ngữ chuyên ngành (tên công nghệ, framework, pattern, tên hàm/biến, acronym...) giữ nguyên tiếng Anh, không dịch, không phiên âm.
+   - Ngay sau lần xuất hiện ĐẦU TIÊN của mỗi thuật ngữ, thêm chú thích ngắn trong ngoặc giải thích nghĩa bằng tiếng Việt.
+   - Các lần xuất hiện sau KHÔNG cần chú thích lại.
+
+5. GIỮ NGUYÊN FORMAT — RẤT QUAN TRỌNG
+   - VỀ ẢNH (làm trước khi dịch): ĐẾM chính xác số lượng thẻ ảnh dạng ![...](...) trong đoạn gốc bên dưới. Output PHẢI có ĐÚNG số lượng thẻ ảnh đó, không được thiếu một cái nào — kể cả ảnh không có caption, không rõ ngữ cảnh, hay trông như ảnh trang trí/lặp lại. Copy nguyên URL 100%, không sửa, không rút gọn, không thay bằng mô tả text.
+   - Giữ cấp độ heading (#, ##, ###...), giữ đúng số lượng heading.
+   - Giữ cấu trúc bảng (số cột, số hàng, alignment, header row).
+   - Giữ code block (```lang ... ```) — KHÔNG dịch code; comment được dịch tại chỗ; **được phép reformat code, tự động xuống dòng/indent chuẩn, không giữ nguyên code 1 dòng; không đổi logic/cú pháp**.
+   - Giữ blockquote, callout/note/warning (>, [!NOTE], [!WARNING]...).
+   - Giữ list, nested list, checkbox (- [ ]).
+   - Giữ nguyên link thường ([text](url)) — chỉ dịch phần text hiển thị, TUYỆT ĐỐI giữ nguyên URL.
+   - TRƯỚC KHI TRẢ KẾT QUẢ: tự đếm lại số heading, số ảnh, số dòng ``` giữa bản gốc và bản dịch của bạn, nếu lệch phải sửa lại cho khớp.
+
+6. GIẢI THÍCH ẨN DỤ / KHÁI NIỆM KHÓ
+   - Với ẩn dụ, thành ngữ, khái niệm trừu tượng khó hiểu với người Việt, thêm khối giải thích riêng ngay sau đoạn đó:
+     > 💡 **Giải thích thêm:** [giải thích dễ hiểu, đủ chuyên sâu, có ví dụ thực tế]
+     > Nguồn tham khảo: [link cụ thể để kiểm chứng]
+   - CHỈ đưa link nếu chắc chắn tồn tại và đúng nội dung — không bịa link.
+   - Không tìm được nguồn tin cậy → ghi rõ: "(Không có nguồn trích dẫn xác thực — cần tự kiểm chứng thêm)".
+
+7. CHỐNG HALLUCINATION (BẮT BUỘC)
+   - Không tự thêm thông tin/số liệu/ví dụ/kết luận KHÔNG có trong bản gốc — trừ phần giải thích ẩn dụ ở mục 6 (phải gắn nhãn rõ là phần bổ sung).
+   - Câu gốc mơ hồ → dịch sát nghĩa nhất, nếu không chắc ghi chú: "[CẦN KIỂM CHỨNG: câu gốc mơ hồ]".
+   - Không tự sửa/thêm/bớt logic kỹ thuật gốc. Không bịa trích dẫn/số liệu/link vô căn cứ.
+   - Không tự tóm tắt các đoạn dài thành ý chính rồi diễn giải lại — phải dịch từng câu.
+
+8. OUTPUT
+   - Trả về DUY NHẤT nội dung Markdown đã dịch, đặt trong 1 code block (```markdown ... ```).
+   - Không thêm lời dẫn/lời chào/giải thích ngoài code block.
+   - Không đổi tiêu đề gốc trừ khi cần dịch tiêu đề.
+
+--- NỘI DUNG GỐC CẦN DỊCH (một phần của tài liệu) ---
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000466_0852593b00852e5adb26dbeb3d4428f00137cc7fdb1062e98f1edcad5301b874.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000467_19f77fb8d13fa4de282d7533bbfb6cf792ce64305770ea1efde18c963d212d9d.png)
+
+## Persistence-Oriented Repositories
+
+For  times  when  a  collection-oriented  style  doesn't  work,  you  will  need  to employ  a  persistence-oriented,  save-based  Repository.  This  will  be  the  case when your persistence  mechanism doesn't  implicitly  or  explicitly  detect  and track object changes. This happens to be the case when using an in-memory Data Fabric (4) ,  or  by any other name a NoSQL key-value data store. Every time you create a new Aggregate instance or change a preexisting one, you will have to put it into the data store by using save() or  a  save-like Repository method.
+
+There is another consideration for choosing a persistence-oriented approach, even if you are using an object-relational mapper that supports a collection-oriented approach. What would happen if you designed collection-oriented Repositories and then decided to swap out your relational database with a key-value store? You'd have a lot of ripple through your Application Layer as it would have to be changed to use save() in all places where Aggregate updates occur. You'd  also  want  to  rid  your  Repositories  of add() and addAll() ,  because those would no longer pertain. In cases where it is a very realistic possibility that your persistence mechanism will shift in the future, it might be best to design  with  the  more  flexible  interface  in  mind.  The  downside  is  that  your current object-relational mapper may cause you to leave out necessary uses of save() that you may catch only later when there is no longer a backing Unit of  Work. 3 The upside is that the Repository pattern will allow you to completely  replace  your  persistence  mechanism  with  potentially  little  impact  on your application.
+
+## Take-aways for Persistence-Oriented Repositories
+
+We must explicitly put() both new and changed objects into the store, effectively replacing any value previously associated with the given key. Using these kinds of data stores greatly simplifies the basic writes and reads of Aggregates. For this reason they are sometimes called Aggregate Stores or Aggregate-Oriented Databases.
+
+When using an in-memory Data Fabric, such as GemFire or Oracle Coherence, the storage is an in-memory Map implementation mimicking java.util .HashMap , where each mapped element is considered an entry . Similarly, when using a NoSQL store such as MongoDB or Riak, object persistence gives the illusion of something like a collection, instead of tables, rows, and columns.
+
+3.  You could create Application Service (14) tests that account for updating saves as necessary. An in-memory Repository implementation (see the main text later in the chapter) could be designed to audit the thoroughness of saves.
+
+These store key-value pairs. This is effectively a Map -like store, but it uses disk rather than memory as its primary persistence medium.
+
+Although both of these styles of persistence mechanisms roughly mimic a Map collection, we must unfortunately explicitly put() both new and changed objects into the store, effectively replacing the value previously associated with the  given  key.  That's  true  even  when  a  changed  object  is  logically  the  same object that is already stored, because these typically don't provide a Unit of Work to track changes or support transaction demarcation to control atomic writes.  Rather,  each put() and putAll() represents  a  separate  logical transaction.
+
+Using either of these kinds of data stores greatly simplifies the basic writes and reads of Aggregates. For example, consider the simplicity of adding this Product ( Agile Project Management Context ) to a Coherence data grid, and then reading it back again:
+
+```
+cache.put(product.productId(), product);
+```
+
+```
+// later ... product = cache.get(productId);
+```
+
+Here the Product instance is automatically serialized to the Map using standard Java serialization. This simplistic interface can be a bit deceptive, however. If you want really high-performing domains, there is a bit more to do. Coherence  supports  standard  Java  serialization  when  a  custom  serialization provider is not registered. Using the standard Java serialization is not generally the best option. It requires a premium of bytes to represent each object, and it performs relatively poorly. 4 You  don't  want  to  purchase  a  high-performance Data Fabric and then hamstring it by reducing the number of objects it can cache and reduce the overall throughput using slow serialization. So keep in mind that when using a Data Fabric, for example, distribution is introduced into your system. That will often bring a new force into domain model design, namely,  custom  or  at  least  specialized  serialization.  That  can  cause  you  to make different decisions, at least at an implementation level.
+
+So when using the GemFire or Coherence caches, the MongoDB or Riak key-value stores, or some other kind of NoSQL persistence, you will probably want to use a fast and compact means to convert Aggregates to their serialized/
+
+4.  It  also  limits  your  Coherence  clients  to  Java  only,  when  .NET  and  C++  clients could also use the grid data if you were to provide Portable Object Format (POF) serialization.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000468_4bbf2dc7f3fa247784dfb0f49457a1aa5dee8fa46d15fc5081281fab9c513a5f.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000469_e6ba2fe09183ddd25cd8bd21ab744006358bfe9d75db5a6bfc53d1cb0b7dae11.png)
+
+document form and then back again to their object form. Granted, attacking these challenges isn't that difficult. For instance, creating an optimal serialization for an Aggregate persisted by GemFire or Coherence is no more challenging than creating mapping descriptions for an object-relational mapper. But it's not as easy as just using put() and get() on a Map .
+
+Next, I demonstrate how a persistence-oriented Repository can be created for Coherence, and following that I highlight some techniques for doing the same for MongoDB.
+
+## Coherence Implementation
+
+As  we  did  with  the  collection-oriented  Repository,  we  first  define  an  interface and then its implementation. Here's a persistence-oriented interface that defines save-based methods that are used for the Oracle Coherence data grid:
+
+```
+package com.saasovation.agilepm.domain.model.product; import java.util.Collection; import com.saasovation.agilepm.domain.model.tenant.Tenant; public interface ProductRepository  { public ProductId nextIdentity(); public Collection<Product> allProductsOfTenant(Tenant aTenant); public Product productOfId(Tenant aTenant, ProductId aProductId); public void remove(Product aProduct); public void removeAll(Collection<Product> aProductCollection); public void save(Product aProduct); public void saveAll(Collection<Product> aProductCollection); }
+```
+
+This ProductRepository is not entirely unlike the CalendarEntryRepository from the previous section. It differs only in the way it allows Aggregate instances to be included in the mimicked collection. In this case we have save() and saveAll() methods rather than add() and addAll() methods. Both method styles logically do similar things. The main difference is how the client  uses  the  methods.  To  reiterate,  when  using  a  collection-oriented  style, Aggregate instances are added only when they are created. When using a persistence-oriented style, Aggregate instances must be saved both when they are created and when they are modified:
+
+```
+Product product = new Product(...); productRepository.save(product);
+```
+
+```
+// later ... Product product = productRepository.productOfId(tenantId, productId); product.reprioritizeFrom(backlogItemId, orderOfPriority); productRepository.save(product);
+```
+
+Other than that, the details are in the implementation. So let's dive right into that. First take a look at the Coherence infrastructure we need to make the leap to the data grid cache:
+
+```
+package com.saasovation.agilepm.infrastructure.persistence; import com.tangosol.net.CacheFactory; import com.tangosol.net.NamedCache; public class CoherenceProductRepository implements ProductRepository { private Map<Tenant,NamedCache> caches; public CoherenceProductRepository() { super(); this.caches = new HashMap<Tenant,NamedCache>(); } ... private synchronized NamedCache cache(TenantId aTenantId) { NamedCache cache = this.caches.get(aTenantId); if (cache == null) { cache = CacheFactory.getCache( "agilepm.Product." + aTenantId.id(), Product.class.getClassLoader()); this.caches.put(aTenantId, cache); } return cache; } ... }
+```
+
+In the case of the Agile Project Management Context , the team has chosen to place Repository technical implementations in the Infrastructure Layer.
+
+Along  with  a  simple  zero-argument  constructor,  there  is  the  Coherence linchpin, the NamedCache . Among other imports, note those that are specific to creating or attaching to and using a cache, CacheFactory and NamedCache . Both of these classes are in package com.tangosol.net .
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000470_36f7b93c0d24ab60e8eb94f45fc305d017776d7d15ac36a1c57e25a7306b5912.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000471_575f17c251c853cc3081a18d918e1ee0ad189f280ec99b425fe81527b2339c5e.png)
+
+The  private  method cache() is  the  means  by  which  a NamedCache is obtained. The method lazily gets the cache on the Repository's first attempt to use it. This is primarily because each cache is named for the specific Tenant and the Repository must wait for a public method to be invoked before it has access to a TenantId .  There are various Coherence named cache strategies that could be designed. In this case the team has chosen to cache using the following namespace:
+
+1. First level by the Bounded Context short name: agilepm
+2. Second level by the Aggregate simple name: Product
+3. Third level by the unique identity of each tenant: TenantId
+
+This has a few benefits. First, the model of each Bounded Context, Aggregate, and tenant that is managed by Coherence can be tuned and scaled separately.  Also,  each  tenant  is  completely  segregated  from  all  others,  so  there is  no  way that queries for one tenant can accidentally include the objects of other tenants. This is the same motivation used when 'striping' each entity table with the tenant identity in a MySQL persistence solution, yet it is even cleaner in this case. Further, anytime a finder method is required to answer all Aggregate instances for a given tenant, there is actually no query required. The finder method just asks Coherence for all entries in the cache. You'll see this optimization later with the implementation of allProductsOfTenant() .
+
+As each NamedCache is  created  or  attached  to,  it  is  placed  into  the Map associated with the caches instance  variable.  This  allows  each  cache  to  be looked up quickly by TenantId on all uses subsequent to the first.
+
+There are far too many Coherence configuration and tuning considerations to address here. It's an entire discussion on its own, and the literature already goes into this. I'll leave it to Aleks Seovi þ to cover this topic [Seovi þ ]. Now on with the implementation:
+
+```
+public class CoherenceProductRepository implements ProductRepository { ... @Override public ProductId nextIdentity() { return new ProductId( java.util.UUID.randomUUID() .toString() .toUpperCase()); } ... }
+```
+
+The nextIdentity() method  of  the ProductRepository is  implemented in the same fashion as that of the CalendarEntryRepository .  It grabs a UUID and uses it to instantiate a ProductId , which it then answers:
+
+```
+public class CoherenceProductRepository implements ProductRepository { ... @Override public void save(Product aProduct) { this.cache(aProduct.tenantId()) .put(this.idOf(aProduct), aProduct); } @Override public void saveAll(Collection<Product> aProductCollection) { if (!aProductCollection.isEmpty()) { TenantId tenantId = null; Map<String,Product> productsMap = new HashMap<String,Product>(aProductCollection.size()); for (Product product : aProductCollection) { if (tenantId == null) { tenantId = product.tenantId(); } productsMap.put(this.idOf(product), product); } this.cache(tenantId).putAll(productsMap); } } ... private String idOf(Product aProduct) { return this.idOf(aProduct.productId()); } private String idOf(ProductId aProductId) { return aProductId.id(); } }
+```
+
+To persist a single new or modified Product instance to the data grid, use save() . The save() method uses cache() to get the NamedCache instance for the TenantId of the Product . It then puts the Product instance into the NamedCache .  Note the use of method idOf() ,  which has two editions, one for a Product and the other for a ProductId . In both cases these methods answer the String form of the Product 's unique identity, or ProductId . So the put() method of the NamedCache , which implements java.util.Map , is given a String -based key and the Product instance as the value.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000472_8585416f22c378b30bb02854d913b24abc78d85db3cef30402db918b07b6a5bb.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000473_64783ffba79c8ab075725f6b42c5615a9ddb826905059c683f2e886cbae4e9ee.png)
+
+Method saveAll() may be a bit more complex than you expected. Why not just iterate  over aProductCollection ,  invoking save() for  each  element? We could do so. However, depending on the specific Coherence cache in use, each invocation of put() requires a network request. Therefore, it's best to batch up all Product instances to be persisted in a simple local HashMap and submit them with putAll() instead. This reduces the network latency to the lowest possible delay by using a single request, which is the most optimal.
+
+```
+public class CoherenceProductRepository implements ProductRepository { ... @Override public void remove(Product aProduct) { this.cache(aProduct.tenant()).remove(this.idOf(aProduct)); } @Override public void removeAll(Collection<Product> aProductCollection) { for (Product product : aProductCollection) { this.remove(product); } } ... }
+```
+
+The  implementation  of remove() works  exactly  as  expected.  However, given the implementation of saveAll() , removeAll() may be as big a surprise. After all, isn't there a way to remove a batch of entries? Well, no, the standard java.util.Map interface doesn't provide that, and thus neither does Coherence. So in this case we do just iterate over aProductCollection and use remove() for  each  element.  Considering  the  possible  consequences  of removing only some of the given collection due to Coherence failure, this may seem dangerous. Of course, you will have to weigh the forces of providing a removeAll() ,  but  remember that a major strength of Data Fabrics such as GemFire and Coherence is redundancy and high availability.
+
+Finally, we arrive at interface method implementations that provide a few ways of finding Product instances:
+
+```
+public class CoherenceProductRepository implements ProductRepository {
+```
+
+...
+
+```
+@SuppressWarnings("unchecked") @Override public Collection<Product> allProductsOfTenant(Tenant aTenant) { Set<Map.Entry<String, Product>> entries = this.cache(aTenant).entrySet(); Collection<Product> products = new HashSet<Product>(entries.size()); for (Map.Entry<String, Product> entry : entries) { products.add(entry.getValue()); } return products; } @Override public Product productOfId(Tenant aTenant, ProductId aProductId) { return (Product) this.cache(aTenant).get(this.idOf(aProductId)); } ... }
+```
+
+Method productOfId() only  has  to  do  a  basic get() on  the NamedCache , providing the identity of the Product instance being requested.
+
+Method allProductsOfTenant() is  the  one  I  previously  referred  to. Rather than having to employ a more sophisticated Coherence filter entry process, all it needs to do is ask the data grid for all Product instances in the specific NamedCache .  Because each cache is segregated down to the individual tenant, every Aggregate instance in the cache satisfies the query.
+
+That wraps up class CoherenceProductRepository . This implementation shows how an abstract interface is fulfilled using Coherence as a client to persist data on the grid cache and then find it later. It doesn't show everything involved in configuring and tuning Coherence, or what it takes to create indexes for each cache, or design a compacting, high-performance serializer for each domain object. That's not the Repository's responsibility. See [Seovi þ ] for extensive coverage of those topics.
+
+## MongoDB Implementation
+
+As with the other Repository implementations, there are some basic implementation considerations. The MongoDB implementation is actually similar to the Coherence version. Here is the high-level overview of what we need:
+
+1. A means to serialize Aggregate instances to the MongoDB format, and then deserialize from that format and reconstitute the Aggregate instance.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000474_1a19679e704869de44fd4b3f06f03c1301d4301cd151711660d9915cb06e7781.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000475_3cf0552f611c0f249d3cec3add49da65f48fc264e03d76ca52490156d56998be.png)
+
+MongoDB uses a special form of JSON called BSON, which is a binary JSON format.
+
+2. A unique identity generated by MongoDB and assigned to the Aggregate.
+3. A reference to the MongoDB node/cluster.
+4. A unique collection in which to store each Aggregate type. All instances of each Aggregate type must be stored as a set of serialized documents (key-value pairs) in their own collection.
+
+Let's take this step by step as we look through a Repository implementation. Since we'll use the ProductRepository again, you can compare the implementation to that for Coherence (previous section).
+
+```
+public class MongoProductRepository extends MongoRepository<Product> implements ProductRepository { public MongoProductRepository() { super(); this.serializer(new BSONSerializer<Product>(Product.class)); } ... }
+```
+
+This implementation holds an instance of a BSONSerializer , which is used to serialize and deserialize all Product instances (actually held by superclass MongoRepository ). I won't go into deep detail about BSONSerializer . It's a  custom-developed  solution  for  producing  MongoDB DBObject instances from Product instances  (and  any  other  Aggregate  types)  and  back  to Product instances. This class is provided along with other sample code.
+
+There are a few notable things you can do with a BSONSerializer . Basic serialization  and  deserialization  are  handled  using  direct  field  access.  This frees your domain objects from having to implement JavaBean getters and setters, which tends to steer you away from an Anemic Domain Model [Fowler, Anemic]. Since you won't use methods to access fields, you will at some point need to migrate from one version of an Aggregate type to another version. To do so you can specify override mappings for each field on deserialization:
+
+```
+public class MongoProductRepository extends MongoRepository<Product> implements ProductRepository {
+```
+
+```
+public MongoProductRepository() { super(); this.serializer(new BSONSerializer<Product>(Product.class)); Map<String, String> overrides = new HashMap<String, String>(); overrides.put("description", "summary"); this.serializer().registerOverrideMappings(overrides); } ... }
+```
+
+In this example we'll assume that a previous version of class Product had a field named description . In a subsequent version this field was renamed summary .  To  solve  this  problem  we  could  run  a  migration  script  across  all MongoDB collections used to store Product instances for each tenant. However, that could be a difficult and very lengthy set of operations, rendering it an impractical approach. As an alternative, we'll simply ask the BSONSerializer to  map  any  BSON  field  on Product named description to  the  field named summary .  Then, when the migrated Product is  serialized back to a DBObject and  saved  in  the  MongoDB collection, the new serialization will contain a field named summary rather than description . Of course, it also means that any Product instances never read and saved back to the store will remain with the obsolete description field names. You'll have to weigh the trade-offs of this lazy migration approach.
+
+Next, we need a way for MongoDB to generate a unique identity for each Aggregate instance to use:
+
+```
+public class MongoProductRepository extends MongoRepository<Product> implements ProductRepository { ... public ProductId nextIdentity() { return new ProductId(new ObjectId().toString()); } ... }
+```
+
+We still use method nextIdentity() , but in this implementation we initialize the ProductId with the String value of a new ObjectId . The main reason for this is that we want MongoDB to use the same unique identity that we hold in the Aggregate instance itself. Thus, when we serialize a Product (or  another  type  in  a  different  Repository  implementation),  we  can  ask  the BSONSerializer to map that identity to the special MongoDB \_id key:
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000476_61a25509c389f271a9f938ff0ac85648f2457882701da9e7aa4ae71ccffbe47e.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000477_dc5f2d6c40a3696bd28cec97e6e7256c7f29c958e58c17cca5e3ed257e1c9a2b.png)
+
+```
+public class BSONSerializer<T> { ... public DBObject serialize(T anObject) { DBObject serialization = this.toDBObject(anObject); return serialization; } public DBObject serialize(String aKey, T anObject) { DBObject serialization = this.serialize(anObject); serialization.put("_id", new ObjectId(aKey)); return serialization; } ... }
+```
+
+The first serialize() method supports no such \_id mapping, giving clients the option to retain the matching identities, or not. Next, look at how the save() method is implemented:
+
+```
+this.collectionName(aProduct.tenantId()))
+```
+
+```
+public class MongoProductRepository extends MongoRepository<Product> implements ProductRepository { ... @Override public void save(Product aProduct) { this.databaseCollection( .save(this.serialize(aProduct)); } ... }
+```
+
+Similar to the Coherence implementation of the same Repository interface, we get a tenant-specific collection in which to store the Product instances for a given TenantId .  This yields a Mongo DBCollection from a DB .  To get the DBCollection object we have the following in the MongoRepository abstract base class:
+
+```
+public abstract class MongoRepository<T> { ... protected DBCollection databaseCollection( String aDatabaseName, String aCollectionName) {
+```
+
+```
+return MongoDatabaseProvider .database(aDatabaseName) .getCollection(aCollectionName); } ... }
+```
+
+We use a MongoDatabaseProvider to get a connection to the database instance, which answers with a DB object. From the returned DB object we ask for a DBCollection . As seen in the concrete Repository implementation, the collection is named by the combination of the text "product" and the full identity of the tenant. The Agile PM Context uses a dedicated database named agilepm , much like the way the Coherence implementation names its cache:
+
+```
+protected String collectionName(TenantId aTenantId) {
+```
+
+```
+public class MongoProductRepository extends MongoRepository<Product> implements ProductRepository { ... return "product" + aTenantId.id(); } protected String databaseName() { return "agilepm"; } ... }
+```
+
+Similar  to  the SpringHibernateSessionProvider presented  previously,  the MongoDatabaseProvider is  the  means  to  retrieve  an  application-wide instance of DB .
+
+The same DBCollection is used for save() and for finding instances of Product :
+
+```
+public class MongoProductRepository extends MongoRepository<Product> implements ProductRepository { ... @Override public Collection<Product> allProductsOfTenant( TenantId aTenantId) { Collection<Product> products = new ArrayList<Product>(); DBCursor cursor = this.databaseCollection( this.databaseName(), this.collectionName(aTenantId)).find();
+```
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000478_5473d439f5c87bdf8830d4eac77355702a294051918cc617399210df7cf3ca31.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000479_0144b7a809eb373faa153167b50143f15a221a6c05d82394b371c54d53b9dff1.png)
+
+```
+while (cursor.hasNext()) { DBObject dbObject = cursor.next(); Product product = this.deserialize(dbObject); products.add(product); } return products; } @Override public Product productOfId( TenantId aTenantId, ProductId aProductId) { Product product = null; BasicDBObject query = new BasicDBObject(); query.put("productId", new BasicDBObject("id", aProductId.id())); DBCursor cursor = this.databaseCollection( this.databaseName(), this.collectionName(aTenantId)).find(query); if (cursor.hasNext()) { product = this.deserialize(cursor.next()); } return product; } ... }
+```
+
+The implementation of allProductsOfTenant() is, again, very similar to that for Coherence. We simply ask the tenant-based DBCollection to find() all  instances.  As  for productOfId() ,  this  time  we  give  the DBCollection method find() a DBObject describing  the  specific Product instance  to retrieve. In both finder methods we use the returned DBCursor to get all, and get only the first instance, respectively.
+
+## Additional Behavior
+
+Sometimes it is beneficial to provide additional behavior on a Repository interface, besides the typical kinds presented in the previous sections. One behavior that comes in handy is to answer the count of all instances in the collection of Aggregates. You might think of this behavior as having the name count . However, since a Repository should mimic a collection as closely as possible, you might consider instead using the following method:
+
+```
+public interface CalendarEntryRepository { ... public int size(); }
+```
+
+Method size() is  exactly  what  a  standard java.util.Collection supplies. When using Hibernate, the implementation would work like this:
+
+```
+public class HibernateCalendarEntryRepository implements CalendarEntryRepository  { ... public int size() { Query query = this.session().createQuery( "select count(*) from CalendarEntry"); int size = ((Integer) query.uniqueResult()).intValue(); return size; } }
+```
+
+There may be other calculations that must be performed in the data store (database  or  grid  included)  in  order  to  meet  some  stringent  nonfunctional requirement. This can be the case if moving the data from its store to where the business logic executes is too slow. Instead you may have to move the code to the data. This can be accomplished using database stored procedures or data grid  entry  processors,  such  as  are  available  with  Coherence.  However,  such implementations are often best placed under the control of Domain Services (7) , since those are used to house stateless, domain-specific operations.
+
+It may at times be advantageous to query Aggregate parts out of the Repository without directly accessing the Root itself. This might be so if an Aggregate holds a large collection of some Entity type, and you need to get access only to the instances that match a certain criterion. Of course, this might make sense only if the Aggregate allows for such access by navigation through the Root. You wouldn't design a Repository to provide access to parts that the Aggregate Root would not otherwise allow access to by way of navigation. Doing so  would  violate  the  Aggregate  contract.  I  suggest  that  you  would  also  not design the Repository to provide this kind of access as a mere shortcut for client convenience. I think this should be used primarily to address performance concerns under conditions where navigation through the Root would cause an unacceptable bottleneck. The methods that address such optimal access would have the same basic characteristics as other finders (see earlier in this chapter) but would answer instances of the contained parts rather than Root Entities. Again, use with caution.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000480_ca380a929f6766a90c584a95c44aac34726b078d6fc593d7e5602431a50025d0.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000481_6fb3354108e6776e7d4115dd2804b31237b9a7f089529539241acbd5887fd078.png)
+
+Another  reason  might  influence  you  to  design  in  special  finder  methods. Certain use cases of your system may not follow the exact contours of a single Aggregate type when rendering views of domain data. They may instead cut across types, possibly composing just certain parts of one or more Aggregates. In  situations  like  this  you  might  choose  not  to,  in  a  single  transaction,  find whole Aggregate instances of various types and then programmatically compose them into a single container, and supply that payload container to a client. You might instead use what is called a use case optimal query . This is where you specify a complex query against the persistence mechanism, dynamically placing the results into a Value Object (6) specifically designed to address the needs of the use case.
+
+It should not seem strange for a Repository to in some cases answer a Value Object rather than an Aggregate instance. A Repository that provides a size() method answers a very simple Value in the form of an integer count of the total Aggregate instances it holds. A use case optimal query is just extending this notion a bit to provide a somewhat more complex Value, one that addresses more complex client demands.
+
+If you find that you must create many finder methods supporting use case optimal queries on multiple Repositories, it's probably a code smell. First of all, this situation could be an indication that you've misjudged Aggregate boundaries and overlooked the opportunity to design one or more Aggregates of different types. The code smell here might be called Repository masks Aggregate mis-design .
+
+However, what if you encounter this situation and your analysis indicates that  your  Aggregate  boundaries  are  well  designed?  This  could  point  to  the need to consider using CQRS (4) .
+
+## Managing Transactions
+
+The domain model and its encompassing Domain Layer is never the correct place  to  manage  transactions. 5 The  operations  associated  with  a  model  are usually too fine grained to themselves manage transactions and shouldn't be aware that transactions play a part in their life cycle. If you are to avoid placing transactional concerns in the model, just where do they belong?
+
+5.  Note that for some persistence mechanisms transaction management is either nonexistent  or  works  differently  from  ACID  transactions  common  with  relational databases. Both Coherence and many NoSQL stores differ in that way, and this material is generally not applicable to such data storage mechanisms.
+
+A common architectural approach to facilitating transactions on behalf of persistence aspects of the domain model is to manage them in the Application Layer  (14) . 6 Generally,  we  create  one Facade [Gamma et  al.]  there  for  each major use case grouping addressed by the application/system. The Facade is designed with coarse-grained business methods, usually one for each use case flow (which may be limited to one for a given use case). Each such business method coordinates a task as required by the use case. When a Facade's business  method is invoked by the User Interface Layer (14) ,  whether  on  behalf of a human or another system, the business method begins a transaction and then acts as a client to the domain model. After all necessary interaction with the  domain  model  is  successfully  completed,  the  Facade's  business  method commits the transaction it started. If an error/exception occurs that prevents completion  of  the  use  case  task,  the  transaction  is  rolled  back  by  the  same managing business method.
+
+The  transaction  may  be  managed  declaratively  or  explicitly  by  developer code. Whether or not your transactions are declarative or user managed, what I have described here logically works as follows:
+
+```
+public class SomeApplicationServiceFacade { ... public void doSomeUseCaseTask()  { Transaction transaction = null; try { transaction = this.session().beginTransaction(); // use the domain model ... transaction.commit(); } catch (Exception e) { if (transaction != null) { transaction.rollback(); } } } }
+```
+
+6.  There are other concerns managed by the Application Layer, such as security, but I don't discuss those here.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000482_ab393c4687879fe3eb075bf8c2a7afc53f9bf09f43ebb893eb7030601faf1f5a.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000483_685cea97d401023c9645ccd352e80c1dae6ec0c337a1019ea1c5bbbc39012db8.png)
+
+To enlist changes to the domain model in a transaction, ensure that Repository  implementations  have  access  to  the  same  Session  or  Unit  of  Work  for the transaction that the Application Layer started. That way the modifications made in the Domain Layer will be properly committed to the underlying database or rolled back.
+
+There  is  such  a  variety  in  how  this  can  be  accomplished  that  I  cannot address all possibilities. What I will do is note that enterprise Java containers and inversion-of-control containers, such as Spring, provide the means to do what I have described, and it is generally well understood. The emphasis here is to use what is appropriate for your environment. As an example, here's how you might do so using Spring:
+
+```
+<tx:annotation-driven transaction-manager="transactionManager"/> <bean id="sessionFactory" class="org.springframework.orm.hibernate3.LocalSessionFactoryBean"> <property name="configLocation"> <value>classpath:hibernate.cfg.xml</value> </property> </bean> <bean id="sessionProvider" class="com.saasovation.identityaccess.infrastructure .persistence.SpringHibernateSessionProvider" autowire="byName"> </bean> <bean id="transactionManager" class="org.springframework.orm.hibernate3 .HibernateTransactionManager"> <property name="sessionFactory"> <ref bean="sessionFactory"/> </property> </bean> <bean id="abstractTransactionalServiceProxy" abstract="true" class="org.springframework.transaction.interceptor .TransactionProxyFactoryBean"> <property name="transactionManager"> <ref bean="transactionManager"/> </property> <property name="transactionAttributes">
+```
+
+```
+<props> <prop key="*">PROPAGATION_REQUIRED</prop> </props> </property> </bean>
+```
+
+The  configured sessionFactory bean  provides  the  means  to  obtain  a Hibernate Session . The bean named sessionProvider is used to associate a Session obtained  from  the sessionFactory with  the  current Thread of execution. The sessionProvider bean can be used by Hibernate-based Repositories  when  they  need  to  get  the Session instance  for  the Thread they  are  running  under.  The transactionManager uses  the sessionFactory to get and manage Hibernate transactions. The one remaining bean, abstractTransactionalServiceProxy , is used optionally as a proxy for declaring transactional beans using Spring configuration. The topmost declaration allows transactions to be declared via Java annotations, which may be more convenient than using configuration:
+
+&lt;tx:annotation-driven transaction-manager="transactionManager"/&gt;
+
+With this wired you can now declare a given Facade business method transactional using a simple annotation:
+
+```
+public class SomeApplicationServiceFacade { ... @Transactional public void doSomeUseCaseTask()  { // use the domain model ... } }
+```
+
+Compared to the previous example of managing a transaction, this certainly cuts down on clutter in the business method and allows you to focus on the task coordination itself. By means of this annotation, when the business method is invoked, Spring automatically starts a transaction, and when the method completes, the transaction is either committed or rolled back as appropriate.
+
+Here is a look at the source code of the sessionProvider bean as it is implemented for the Identity and Access Context :
+
+```
+package com.saasovation.identityaccess.infrastructure.persistence; import org.hibernate.Session; import org.hibernate.SessionFactory;
+```
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000484_8c693037731e9973e998e0c77ef04045d293cbddcae43e97541f53af7194c84b.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000485_423d6e0e72f24fa80d1019d51e70690e7527936b8fcf308c8f6a65ff75cb6bf2.png)
+
+## Chapter 12 REPOSITORIES
+
+```
+public class SpringHibernateSessionProvider { private static final ThreadLocal<Session> sessionHolder = new ThreadLocal<Session>(); private SessionFactory sessionFactory; public SpringHibernateSessionProvider() { super(); } public Session session() { Session threadBoundsession = sessionHolder.get(); if (threadBoundsession == null) { threadBoundsession = sessionFactory.openSession(); sessionHolder.set(threadBoundsession); } return threadBoundsession; } public void setSessionFactory(SessionFactory aSessionFactory) { this.sessionFactory = aSessionFactory; } }
+```
+
+Since  the sessionProvider is  a  Spring  bean  that  is  declared  with autowire="byName" , when the bean is instantiated as a singleton its setSessionFactory() method is invoked to inject the sessionFactory bean instance.  To  save  you  looking  back  through  the  chapter  in  search  of  how  a Hibernate-based Repository uses this, here's a brief reminder:
+
+```
+package com.saasovation.identityaccess.infrastructure.persistence; public class HibernateUserRepository implements UserRepository  { @Override public void add(User aUser) { try { this.session().saveOrUpdate(aUser); } catch (ConstraintViolationException e) { throw new IllegalStateException("User is not unique.", e); } } ... private SpringHibernateSessionProvider sessionProvider; public void setSessionProvider( SpringHibernateSessionProvider aSessionProvider) { this.sessionProvider = aSessionProvider; }
+```
+
+```
+private org.hibernate.Session session() { return this.sessionProvider.session(); } }
+```
+
+This snippet is from the HibernateUserRepository of the Identity and Access Context .  This class, too, is a Spring bean that is autowired by name, which means its method setSessionProvider() is  automatically invoked upon creation so that it gets a reference to the sessionProvider bean, which is  an  instance  of SpringHibernateSessionProvider .  When the add() method (or any other method that provides persistence) is invoked, it asks for a Session through  its session() method.  In  turn, session() uses  the injected sessionProvider to obtain the thread-bound Session instance.
+
+While I have demonstrated how transactions are managed only when using Hibernate, all of these principles carry over to TopLink, JPA, and other persistence mechanisms. With any such persistence mechanism you must find a way to provide access to the same Session, Unit of Work, and transaction that the Application Layer is managing. Dependency injection works well for this if it is available. If it isn't available, there are other creative ways to facilitate the necessary wiring, even going as far as manually binding such objects to the current thread.
+
+## A Warning
+
+I feel obligated to provide a parting warning about overuse of transactions in conjunction with the domain model. Aggregates must be designed carefully in order to ensure correct consistency boundaries. Be careful not to overuse the ability to commit modifications to multiple Aggregates in a single transaction just  because  it  works  in  a  unit  test  environment.  If  you  aren't  careful,  what works well in development and test can fail severely in production because of concurrency issues. If need be, revisit Aggregates (10) for vital reminders to precisely define consistency boundaries in order to ensure transactional success.
+
+## Type Hierarchies
+
+When using an object-oriented language to develop a domain model, it can be tempting to leverage inheritance to create type hierarchies. We might think of this as an opportunity to place default state and behavior in a base class and then extend that using subclasses. And why not? It seems like a perfect way to avoid repeating yourself.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000486_906f36b7dda152adfed3757b26a2429e619040e872646572c3598bf8b28a363b.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000487_4a414d95d46f0d7d15cfbc981b10812d7bb8f57019605a85710f62f2cb250c40.png)
+
+Creating Aggregates that have a common ancestry and yet stand apart from their relatives with a separate Repository is a different use of inheritance from creating Aggregates with the same ancestry that share a single Repository. So this section does not discuss the situation where all Aggregate types in a single  domain  model  extend  a Layer Supertype [Fowler,  P  of  EAA]  to  provide domain-wide common state and/or behavior. 7
+
+Rather, here I am referring to creating a relatively small number of Aggregate types that extend a common domain-specific superclass. These are designed in order to form a hierarchy of closely related types that have interchangeable, polymorphic characteristics. These kinds of hierarchies use a single Repository to store and retrieve instances of the separate types, because the client should use the instances interchangeably, and clients rarely if ever have to be aware of the specific subclass that they are dealing with at any given time, which reflects the Liskov Substitution Principle (LSP) [Liskov].
+
+Here's what I mean. Say your business uses external businesses to provide various kinds of services, and you need to model the relationships. You decide to have a common abstract base class ServiceProvider , but for some good reason you need to divide various concrete types of these because the services each provides are both common and yet distinctly different. You might have a WarbleServiceProvider and  a WonkleServiceProvider .  You  design these types such that you can schedule a service request in a generic way:
+
+// client of domain model serviceProviderRepository.providerOf(id) .scheduleService(date, description);
+
+With this context, it is clear that the creation of domain-specific Aggregate type hierarchies will probably have limited usefulness in many domains. Here's why. As demonstrated previously, most times the common Repository will be designed with finder methods that retrieve instances of any of the subclasses. That means that the method will answer instances of the common superclass, in  this  case  a ServiceProvider ,  not  instances  of  the  specific  subclasses, WarbleServiceProvider and WonkleServiceProvider . Think of what would happen if finders were designed to return specific types. Clients would have to know which identities or other descriptive attributes of the Aggregates would lead to specific typed instances. Otherwise it could lead to an unmatched find or a ClassCastException when a matched instance of the wrong type is  returned. Even if you could design in a good way to find instances of the correct  types,  clients  would  also  have  to  know  which  subclasses  could  perform specifically different operations, given that the Aggregates could not be entirely designed for LSP.
+
+7.  I discuss the benefits of using a Layer Supertype in the design of Entities (5) and Value Objects (6) . See the respective chapters.
+
+To solve the first problem of segregating types by identity, you might conclude that you could safely detect instances by encoding Aggregate type information as  a  discriminator  in  the  class  of  the  unique  identity.  You  could  do so.  But  that  also  leads  to  two  additional  problems.  The  client  must  take  on the responsibility of resolving and mapping identities to types. The other new problem is coupling clients to the distinct operations by type. It leads to this kind of client type dependencies:
+
+```
+.scheduleWarbleService(date, warbleDescription); .scheduleWonkleService(date, wonkleDescription);
+```
+
+```
+// client of domain model if (id.identifiesWarble()) { serviceProviderRepository.warbleOf(id) } else if (id.identifiesWonkle()) { serviceProviderRepository.wonkleOf(id) } ...
+```
+
+If  this  kind of interaction becomes the norm rather than the exception, it indicates a code smell. Granted, if the benefits gained from creating a hierarchy are so great, a rare one-off usage like this may be a worthwhile trade-off. However, in this contrived example a more discerning design of the implied ServiceDescription type and the internal implementation of scheduleService() would probably suffice. Otherwise, I think we'd have to ask if we could gain some benefits from using inheritance while assigning each type a separate Repository. In the case where only two or a few such concrete subclasses are necessary, it may be best to create separate Repositories. When the number of concrete subclasses grows to several or many, most of which can be used completely interchangeably (LSP), it is worthwhile for them to share a common Repository.
+
+Most of the time, this kind of situation can be completely avoided by designing  type  descriptive  information  as  a  property  of  the  Aggregate  (not  in  the identity).  See  the  discussion  about  Standard  Types  under Value  Objects  (6) . This way a single Aggregate type could internally implement different behavior based on an explicitly determined Standard Type. Using an explicit Standard  Type,  we  could  have  a  single  concrete ServiceProvider Aggregate and design its scheduleService() to dispatch based on its type. To shield clients from the decisions based on the type we ensure that such is not leaked out  to  them.  Instead, scheduleService() and  other ServiceProvider methods properly enclose such domain-specific decisions, as can be seen here:
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000488_e338712d1825045958205f08f02033c694523d0a23102cc452318305771d201f.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000489_83f1b7ecf76f170dc179d9fb69961844ba64aa1e6294c72397b6a6a83ef8028b.png)
+
+```
+this.scheduleWarbleService(aDate, aDescription); this.scheduleWonkleService(aDate, aDescription); this.scheduleCommonService(aDate, aDescription);
+```
+
+```
+public class ServiceProvider { private ServiceType type; ... public void scheduleService( Date aDate, ServiceDescription aDescription) { if (type.isWarble()) { } else if (type.isWonkle()) { } else { } } ... }
+```
+
+If  the  internal  dispatching  becomes  messy,  we  can  always  design  another smaller hierarchy to deal with that. In fact, the Standard Type itself could be designed as a State [Gamma et al.], assuming you like that approach. In that case the various types would implement specialized behavior. This, of course, also means that we'd have a single ServiceProviderRepository ,  which addresses the desire to store different types in one Repository and use them with common behavior.
+
+The situation could also be sidestepped with the use of role-based interfaces. Here we might have decided to design a SchedulableService interface that multiple Aggregate types would implement. See the discussion about roles and responsibilities under Entities (5) . Even if inheritance is used, Aggregate polymorphic behavior can most often be carefully designed such that no special cases are surfaced to clients.
+
+## Repository versus Data Access Object
+
+Sometimes  the  idea  of  a  Repository  is  considered  synonymous  with  Data Access Object, or DAO. Both provide an abstraction over a persistence mechanism. This is true. However, an object-relational mapping tool also provides an abstraction over a persistence mechanism, but it is neither a Repository nor a DAO. Thus, we wouldn't call just any persistence abstraction a DAO. We must rather determine if the DAO pattern is being implemented.
+
+I  think  there  are  generally  differences  between  Repositories  and  DAOs. Basically,  a  DAO is expressed in terms of database tables, providing CRUD interfaces to them. Martin Fowler in [Fowler, P of EAA] separates the uses of DAO-like facilities from those that are used with a domain model. He identifies Table Module , Table Data Gateway, and Active Record as  patterns that would typically  be  used  in  a Transaction  Script application.  That's  because DAO and related patterns tend to serve as wrappers around database tables. On the other hand, Repository and Data Mapper , having object affinity, are typically the patterns that would be used with a domain model.

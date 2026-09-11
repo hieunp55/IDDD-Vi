@@ -1,0 +1,368 @@
+Bạn là chuyên gia dịch thuật kỹ thuật Anh → Việt, chuyên tài liệu kỹ thuật/công nghệ, có kinh nghiệm dịch như biên dịch viên bản ngữ chuyên nghiệp. Nhiệm vụ: dịch TOÀN BỘ nội dung Markdown dưới đây sang tiếng Việt, không bỏ sót bất kỳ phần nào. Đây là MỘT PHẦN (chunk) của một tài liệu lớn hơn, hãy dịch độc lập đoạn này, không thêm lời mở đầu/kết luận về việc đây chỉ là một phần.
+
+QUY TẮC BẮT BUỘC — VI PHẠM LÀ SAI:
+
+1. XÁC ĐỊNH LOẠI TÀI LIỆU TRƯỚC KHI DỊCH
+   - Tự phân tích nội dung để xác định loại tài liệu (kỹ thuật/lập trình, tài chính, bảo hiểm, pháp lý, marketing, học thuật, vận hành, sản phẩm...).
+   - Chọn văn phong và thuật ngữ CHUẨN NGÀNH tương ứng trong tiếng Việt, nhất quán xuyên suốt.
+
+2. VĂN PHONG — MƯỢT NHƯ NGƯỜI DỊCH, KHÔNG GIẢM CHÍNH XÁC
+   - Dịch mượt, tự nhiên, đúng ngữ pháp tiếng Việt — như biên dịch viên bản ngữ dịch tay, KHÔNG dịch máy móc kiểu word-by-word.
+   - Được phép đảo cấu trúc câu, tách/gộp câu cho tự nhiên, miễn giữ nguyên 100% ý nghĩa, thông tin, logic, số liệu gốc.
+   - Khi "mượt mà" và "chính xác" xung đột → LUÔN ưu tiên chính xác.
+
+3. DỊCH ĐẦY ĐỦ 100%
+   - Không tóm tắt, không rút gọn, không lược bỏ đoạn/câu/mục/bullet nào.
+   - Số lượng heading, đoạn văn, bảng, code block ở output PHẢI khớp 1:1 với input.
+   - Đoạn dài dịch hết, không cắt ngắn.
+
+4. GIỮ NGUYÊN THUẬT NGỮ TIẾNG ANH
+   - Thuật ngữ chuyên ngành (tên công nghệ, framework, pattern, tên hàm/biến, acronym...) giữ nguyên tiếng Anh, không dịch, không phiên âm.
+   - Ngay sau lần xuất hiện ĐẦU TIÊN của mỗi thuật ngữ, thêm chú thích ngắn trong ngoặc giải thích nghĩa bằng tiếng Việt.
+   - Các lần xuất hiện sau KHÔNG cần chú thích lại.
+
+5. GIỮ NGUYÊN FORMAT — RẤT QUAN TRỌNG
+   - VỀ ẢNH (làm trước khi dịch): ĐẾM chính xác số lượng thẻ ảnh dạng ![...](...) trong đoạn gốc bên dưới. Output PHẢI có ĐÚNG số lượng thẻ ảnh đó, không được thiếu một cái nào — kể cả ảnh không có caption, không rõ ngữ cảnh, hay trông như ảnh trang trí/lặp lại. Copy nguyên URL 100%, không sửa, không rút gọn, không thay bằng mô tả text.
+   - Giữ cấp độ heading (#, ##, ###...), giữ đúng số lượng heading.
+   - Giữ cấu trúc bảng (số cột, số hàng, alignment, header row).
+   - Giữ code block (```lang ... ```) — KHÔNG dịch code; comment được dịch tại chỗ; **được phép reformat code, tự động xuống dòng/indent chuẩn, không giữ nguyên code 1 dòng; không đổi logic/cú pháp**.
+   - Giữ blockquote, callout/note/warning (>, [!NOTE], [!WARNING]...).
+   - Giữ list, nested list, checkbox (- [ ]).
+   - Giữ nguyên link thường ([text](url)) — chỉ dịch phần text hiển thị, TUYỆT ĐỐI giữ nguyên URL.
+   - TRƯỚC KHI TRẢ KẾT QUẢ: tự đếm lại số heading, số ảnh, số dòng ``` giữa bản gốc và bản dịch của bạn, nếu lệch phải sửa lại cho khớp.
+
+6. GIẢI THÍCH ẨN DỤ / KHÁI NIỆM KHÓ
+   - Với ẩn dụ, thành ngữ, khái niệm trừu tượng khó hiểu với người Việt, thêm khối giải thích riêng ngay sau đoạn đó:
+     > 💡 **Giải thích thêm:** [giải thích dễ hiểu, đủ chuyên sâu, có ví dụ thực tế]
+     > Nguồn tham khảo: [link cụ thể để kiểm chứng]
+   - CHỈ đưa link nếu chắc chắn tồn tại và đúng nội dung — không bịa link.
+   - Không tìm được nguồn tin cậy → ghi rõ: "(Không có nguồn trích dẫn xác thực — cần tự kiểm chứng thêm)".
+
+7. CHỐNG HALLUCINATION (BẮT BUỘC)
+   - Không tự thêm thông tin/số liệu/ví dụ/kết luận KHÔNG có trong bản gốc — trừ phần giải thích ẩn dụ ở mục 6 (phải gắn nhãn rõ là phần bổ sung).
+   - Câu gốc mơ hồ → dịch sát nghĩa nhất, nếu không chắc ghi chú: "[CẦN KIỂM CHỨNG: câu gốc mơ hồ]".
+   - Không tự sửa/thêm/bớt logic kỹ thuật gốc. Không bịa trích dẫn/số liệu/link vô căn cứ.
+   - Không tự tóm tắt các đoạn dài thành ý chính rồi diễn giải lại — phải dịch từng câu.
+
+8. OUTPUT
+   - Trả về DUY NHẤT nội dung Markdown đã dịch, đặt trong 1 code block (```markdown ... ```).
+   - Không thêm lời dẫn/lời chào/giải thích ngoài code block.
+   - Không đổi tiêu đề gốc trừ khi cần dịch tiêu đề.
+
+--- NỘI DUNG GỐC CẦN DỊCH (một phần của tài liệu) ---
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000000_bc68be98ebf9e2a8c89a932f3e88e921c5bb327c2fe12763b48465e18f3b8a4f.png)
+
+## Praise for Implementing Domain-Driven Design
+
+'With Implementing Domain-Driven Design ,  Vaughn  has  made  an  important  contribution not only to the literature of the Domain-Driven Design community, but also to the literature of the broader enterprise application architecture field. In key chapters on Architecture and Repositories, for example, Vaughn shows how DDD fits with the expanding array of architecture styles and persistence technologies for enterprise applications-including SOA and REST, NoSQL and data grids-that has emerged in the decade since Eric Evans' seminal book was first published. And, fittingly, Vaughn illuminates the blocking and tackling of DDD-the implementation of entities, value objects, aggregates, services, events, factories, and repositories-with plentiful examples  and  valuable  insights  drawn from decades of practical experience. In a word, I would describe this book as thorough . For software developers of all experience levels looking to improve their results, and design and implement domain-driven enterprise applications  consistently  with  the  best  current  state  of  professional  practice, Implementing Domain-Driven Design will impart a treasure trove of knowledge hard won within the DDD and enterprise application architecture communities over the last couple decades.'
+
+-Randy Stafford, Architect At-Large, Oracle Coherence Product Development
+
+'Domain-Driven Design is a powerful set of thinking tools that can have a profound impact  on  how  effective  a  team  can  be  at  building  software-intensive  systems.  The thing is that many developers got lost at times when applying these thinking tools and really needed more concrete guidance. In this book, Vaughn provides the missing links between theory and practice. In addition to shedding light on many of the misunderstood  elements  of  DDD,  Vaughn  also  connects  new  concepts  like  Command/Query Responsibility Segregation and Event Sourcing that many advanced DDD practitioners have used with great success. This book is a must-read for anybody looking to put DDD into practice.'
+
+-Udi Dahan, Founder of NServiceBus
+
+'For years, developers struggling to practice Domain-Driven Design have been wishing for more practical help in actually implementing DDD. Vaughn did an excellent job in closing the gap between theory and practice with a complete implementation reference. He paints a vivid picture of what it is like to do DDD in a contemporary project, and provides plenty of practical advice on how to approach and solve typical challenges occurring in a project life cycle.'
+
+-Alberto Brandolini, DDD Instructor, Certified by Eric Evans and Domain Language, Inc.
+
+' Implementing Domain-Driven Design does a remarkable thing: it takes a sophisticated and substantial topic area in DDD and presents it clearly, with nuance, fun and finesse. This book is written in an engaging and friendly style, like a trusted advisor giving you expert counsel on how to accomplish what is most important. By the time you finish the book you will be able to begin applying all the important concepts of DDD, and then some. As I read, I found myself highlighting many sections . . . I will be referring back to it, and recommending it, often.'
+
+- -Paul Rayner, Principal Consultant &amp; Owner, Virtual Genius, LLC., DDD Instructor, Certified by Eric Evans and Domain Language, Inc., DDD Denver Founder and Co-leader
+
+'One important part of the DDD classes I teach is discussing how to put all the ideas and pieces together into a full  blown  working  implementation.  With  this  book,  the DDD community  now  has  a  comprehensive  reference  that  addresses  this  in  detail. Implementing Domain-Driven Design deals with all aspects of building a system using DDD, from getting the small details right to keeping track of the big picture. This is a great reference and an excellent companion to Eric Evans seminal DDD book.'
+
+- -Patrik Fredriksson, DDD Instructor, Certified by Eric Evans and Domain Language, Inc.
+
+'If  you  care  about  software  craftsmanship-and  you  should-then  Domain-Driven Design is a crucial skill set to master and Implementing Domain-Driven Design is the fast path to success. IDDD offers a highly readable yet rigorous discussion of DDD's strategic and tactical patterns that enables developers to move immediately from understanding to action. Tomorrow's business software will benefit from the clear guidance provided by this book.'
+
+- -Dave Muirhead, Principal Consultant, Blue River Systems Group
+
+'There's theory and practice around DDD that every developer needs to know, and this is the missing piece of the puzzle that puts it all together. Highly recommended!'
+
+- -Rickard Öberg, Java Champion and Developer at Neo Technology
+
+'In IDDD ,  Vaughn takes a top-down approach to DDD, bringing strategic patterns such as bounded context and context maps to the fore, with the building block patterns of entities, values and services tackled later. His book uses a case study throughout, and to get the most out of it you'll need to spend time grokking that case study. But if you do you'll be able to see the value of applying DDD to a complex domain; the frequent sidenotes, diagrams, tables, and code all help illustrate the main points. So if you want to build a solid DDD system employing the architectural styles most commonly in use today, Vaughn's book comes recommended.'
+
+- -Dan Haywood, author of Domain-Driven Design with Naked Objects
+
+'This book employs a top-down approach to understanding DDD in a way that fluently connects strategic patterns to lower level tactical constraints. Theory is coupled with guided approaches to implementation within modern architectural styles. Throughout the  book,  Vaughn  highlights  the  importance  and  value  of  focusing  on  the  business domain all while balancing technical considerations. As a result, the role of DDD, as well as what it does and perhaps more importantly doesn't imply, become ostensibly clear. Many a time, my team and I would be at odds with the friction encountered in applying DDD. With Implementing Domain-Driven Design as our luminous guide we were able to overcome those challenges and translate our efforts into immediate business value.'
+
+- -Lev Gorodinski, Principal Architect, DrillSpot.com
+
+## Implementing Domain-Driven Design
+
+This page intentionally left blank
+
+## Implementing Domain-Driven Design
+
+Vaughn Vernon
+
+Upper Saddle River, NJ · Boston · Indianapolis · San Francisco New York · Toronto · Montreal · London · Munich · Paris · Madrid Capetown · Sydney · Tokyo · Singapore · Mexico City Many of the designations used by manufacturers and sellers to distinguish their products are claimed as trademarks. Where those designations appear in this book, and the publisher was aware of a trademark claim, the designations have been printed with initial capital letters or in all capitals.
+
+The author and publisher have taken care in the preparation of this book, but make no expressed or implied warranty of any kind and assume no responsibility for errors or omissions. No liability is assumed for incidental or consequential damages in connection with or arising out of the use of the information or programs contained herein.
+
+The publisher offers excellent discounts on this book when ordered in quantity for bulk purchases or special sales, which may include electronic versions and/or custom covers and content particular to your business, training goals, marketing focus, and branding interests. For more information, please contact:
+
+U.S. Corporate and Government Sales (800) 382-3419 corpsales@pearsontechgroup.com
+
+For sales outside the United States, please contact:
+
+International Sales
+
+international@pearsoned.com
+
+Visit us on the Web: informit.com/aw
+
+Library of Congress Control Number: 2012954071
+
+Copyright © 2013 Pearson Education, Inc.
+
+All  rights  reserved.  Printed  in  the  United  States  of  America.  This  publication  is  protected  by copyright, and permission must be obtained from the publisher prior to any prohibited reproduction, storage in a retrieval system, or transmission in any form or by any means, electronic, mechanical,  photocopying,  recording,  or  likewise.  To  obtain  permission  to  use  material  from this work, please submit a written request to Pearson Education, Inc., Permissions Department, One Lake Street, Upper Saddle River, New Jersey 07458, or you may fax your request to (201) 236-3290.
+
+ISBN-13: 978-0-321-83457-7 ISBN-10: 0-321-83457-7 Text printed in the United States on recycled paper at Courier in Westford, Massachusetts. Second printing, July 2013
+
+This book is dedicated to my dearest Nicole and Tristan. Thanks for your love, your support, and your patience.
+
+This page intentionally left blank
+
+## Contents
+
+| Foreword .                                                                                                | . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . xvii   |
+|-----------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------|
+| Preface . . . . . . . . . . . . .                                                                         | . . . . . . . . . . . . . . . . . . . . . xix                          |
+| Acknowledgments. . . . . . . . . .                                                                        | . . . . . . . . . . . . . . . . . . . xxix                             |
+| About the Author . . . . . . . . . .                                                                      | . . . . . . . . . . . . . . . . . . xxxiii                             |
+| Guide to This Book. . . . . . . . .                                                                       | . . . . . . . . . . . . . . . . . . . xxxv                             |
+| Chapter 1 Getting Started with DDD                                                                        | . . . . . . . . . . . . . . . . . . . 1                                |
+| Can I DDD? . . . . . . . .                                                                                | . . . . . . . . . . . . . . . . . . . . 2                              |
+| Why You Should Do DDD . . .                                                                               | . . . . . . . . . . . . . . . . . . 6                                  |
+| How to Do DDD. . . . . .                                                                                  | . . . . . . . . . . . . . . . . . . . . 20                             |
+| The Business Value of Using DDD                                                                           | . . . . . . . . . . . . . . . . . 25                                   |
+| 1. The Organization Gains a Useful Model of                                                               | Its Domain . . . 26                                                    |
+| 2. A Refined, Precise Definition and Understanding of Business Is Developed . . . . . . . . . . . . . . . | the . . . . . 27                                                       |
+| 3. Domain Experts Contribute to Software                                                                  | Design . . . . . . . 27                                                |
+| 4. A Better User Experience                                                                               | Is Gained . . . . . . . . . . . . . 27                                 |
+| 5. Clean Boundaries Are Placed around Pure                                                                | Models . . . . . . 28                                                  |
+| 6. Enterprise                                                                                             | Architecture Is Better Organized . . . . . . . . . 28                  |
+| 7. Agile, Iterative, Continuous Modeling Is                                                               | Used . . . . . . . . 28                                                |
+| 8. New Tools,                                                                                             | Both Strategic and Tactical, Are Employed . . . 28                     |
+| The Challenges                                                                                            | of Applying DDD . . . . . . . . . . . . . . . . . 29                   |
+| Fiction, with Bucketfuls of Reality .                                                                     | . . . . . . . . . . . . . . . . 38                                     |
+| Wrap-Up . . . . . . . . . .                                                                               | . . . . . . . . . . . . . . . . . . . . 41                             |
+
+| Chapter 2 Domains, Subdomains, and Bounded Contexts                         | Chapter 2 Domains, Subdomains, and Bounded Contexts                            | Chapter 2 Domains, Subdomains, and Bounded Contexts                         |
+|-----------------------------------------------------------------------------|--------------------------------------------------------------------------------|-----------------------------------------------------------------------------|
+|                                                                             | Big Picture . . . . . . . . . . . .                                            | . . . . . . . . 43 . . . . . . . . . . . . . . . . . 43                     |
+|                                                                             | Subdomains and Bounded Contexts at Work                                        | . . . . . . . . . . 44                                                      |
+|                                                                             | Focus on the Core Domain .                                                     | . . . . . . . . . . . . . . . . . . 50                                      |
+|                                                                             | Why Strategic Design Is So Incredibly Essential                                | . . . . . . . . . . 53                                                      |
+|                                                                             | Real-World Domains and Subdomains                                              | . . . . . . . . . . . . . . . 56                                            |
+|                                                                             | Making Sense of Bounded Contexts                                               | . . . . . . . . . . . . . . . . 62                                          |
+|                                                                             | Room for More than the Model .                                                 | . . . . . . . . . . . . . . . . 66                                          |
+|                                                                             | Size of Bounded Contexts . . .                                                 | . . . . . . . . . . . . . . . . . 68                                        |
+|                                                                             | Aligning with Technical Components                                             | . . . . . . . . . . . . . 71                                                |
+|                                                                             | Sample Contexts . . . . . . . . . .                                            | . . . . . . . . . . . . . . . . 72                                          |
+|                                                                             | Collaboration Context. . . . .                                                 | . . . . . . . . . . . . . . . . . 73                                        |
+|                                                                             | Identity and Access Context . .                                                | . . . . . . . . . . . . . . . . . 80                                        |
+|                                                                             | Agile Project Management Context                                               | . . . . . . . . . . . . . . . 82                                            |
+|                                                                             | Wrap-Up . . . . . . . . . . .                                                  | . . . . . . . . . . . . . . . . . . . 84                                    |
+| Chapter 3 Context Maps . . . . . . . . . . . . . . . . . . . . . . . . . 87 | Chapter 3 Context Maps . . . . . . . . . . . . . . . . . . . . . . . . . 87    | Chapter 3 Context Maps . . . . . . . . . . . . . . . . . . . . . . . . . 87 |
+|                                                                             | Why Context Maps Are So Essential                                              | . . . . . . . . . . . . . . . 87                                            |
+|                                                                             | Drawing Context Maps . . . . .                                                 | . . . . . . . . . . . . . . . . 89                                          |
+|                                                                             | Projects and Organizational Relationships                                      | . . . . . . . . . . . 91                                                    |
+|                                                                             | Mapping the Three Contexts . .                                                 | . . . . . . . . . . . . . . . . 95                                          |
+|                                                                             | Wrap-Up . . . . . . . . . . . . . . .                                          | .                                                                           |
+|                                                                             | . .                                                                            | . . . . . . . . . . . 111                                                   |
+|                                                                             | Chapter 4 Architecture . . . . . . . . Interviewing the Successful CIO . . . . | . . . . . . . . . . . . . . . . . . 113 . . . . . . . . . . . . . 114       |
+|                                                                             | Layers . . . . . . . . . . . . . . .                                           | . . . . . . . . . . . . . . . 119                                           |
+|                                                                             | Dependency Inversion Principle .                                               | . . . . . . . . . . . . . . . 123                                           |
+|                                                                             |                                                                                | .                                                                           |
+|                                                                             | Hexagonal or Ports and Adapters . Service-Oriented . . . . . . .               | . . . . . . . . . . . . . . 125 . . . . . . . . . . . . . . . . . . 130     |
+|                                                                             | Representational State REST as an Architectural Style . . .                    | Transfer-REST . . . . . . . . . . . . . 133 . . 133                         |
+|                                                                             | .                                                                              | . . . . . . . . . . . . . . . . . . . .                                     |
+|                                                                             | Key Aspects of a RESTful HTTP Server                                           | . 135 . . . . . . . . . . 136                                               |
+|                                                                             | Key Aspects of a RESTful HTTP Client . REST and DDD . . . . . . . . . . . . .  | . . . . . . . . . . .                                                       |
+|                                                                             |                                                                                | 136 . . . .                                                                 |
+|                                                                             | .                                                                              | . . . . . . . .                                                             |
+|                                                                             | .                                                                              |                                                                             |
+|                                                                             |                                                                                | 138                                                                         |
+|                                                                             | Why REST? . . . . . . . . . . . .                                              |                                                                             |
+
+| Command-Query Responsibility Segregation, or CQRS . . . . . 138                |
+|--------------------------------------------------------------------------------|
+| Examining Areas of CQRS . . . . . . . . . . . . . . . . . . 140                |
+| Dealing with an Eventually Consistent Query Model . . . . . 146                |
+| Event-Driven Architecture . . . . . . . . . . . . . . . . . . . . 147          |
+| Pipes and Filters . . . . . . . . . . . . . . . . . . . . . . . . 149          |
+| Long-Running Processes, aka Sagas . . . . . . . . . . . . . 153                |
+| Event Sourcing . . . . . . . . . . . . . . . . . . . . . . . . 160             |
+| Data Fabric and Grid-Based Distributed Computing . . . . . . 163               |
+| Data Replication . . . . . . . . . . . . . . . . . . . . . . . 164             |
+| Event-Driven Fabrics and Domain Events . . . . . . . . . . . 165               |
+| Continuous Queries . . . . . . . . . . . . . . . . . . . . . . 166             |
+| Distributed Processing . . . . . . . . . . . . . . . . . . . . 167             |
+| Wrap-Up . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 168          |
+| Chapter 5 Entities . . . . . . . . . . . . . . . . . . . . . . . . . . . . 171 |
+| Why We Use Entities . . . . . . . . . . . . . . . . . . . . . . . 171          |
+| Unique Identity . . . . . . . . . . . . . . . . . . . . . . . . . . 173        |
+| User Provides Identity . . . . . . . . . . . . . . . . . . . . . 174           |
+| Application Generates Identity . . . . . . . . . . . . . . . . 175             |
+| Persistence Mechanism Generates Identity . . . . . . . . . . 179               |
+| Another Bounded Context Assigns Identity . . . . . . . . . . 182               |
+| When the Timing of Identity Generation Matters . . . . . . . 184               |
+| Surrogate Identity . . . . . . . . . . . . . . . . . . . . . . . 186           |
+| Identity Stability . . . . . . . . . . . . . . . . . . . . . . . . 188         |
+| Discovering Entities and Their Intrinsic Characteristics . . . . . 191         |
+| Uncovering Entities and Properties . . . . . . . . . . . . . . 192             |
+| Digging for Essential Behavior . . . . . . . . . . . . . . . . 196             |
+| Roles and Responsibilities . . . . . . . . . . . . . . . . . . 200             |
+| Construction . . . . . . . . . . . . . . . . . . . . . . . . . 205             |
+| Validation . . . . . . . . . . . . . . . . . . . . . . . . . . . 208           |
+| Change Tracking . . . . . . . . . . . . . . . . . . . . . . . 216              |
+| Wrap-Up . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 217          |
+| Chapter 6 Value Objects . . . . . . . . . . . . . . . . . . . . . . . . . 219  |
+| Value Characteristics . . . . . . . . . . . . . . . . . . . . . . . 221        |
+| Measures, Quantifies, or Describes . . . . . . . . . . . . . . 221             |
+| Immutable . . . . . . . . . . . . . . . . . . . . . . . . . . . 221            |
+
+| Conceptual Whole . . . . . . . . . . . .         | . . . . . . . . . . 223                             |
+|--------------------------------------------------|-----------------------------------------------------|
+| Replaceability . . . . . . . . . . . .           | . . . . . . . . . . . . . 226                       |
+| Value Equality . . . . . . . . . . . .           | . . . . . . . . . . . . . 227                       |
+| Side-Effect-Free Behavior . . . . . .            | . . . . . . . . . . . . . 228                       |
+| Integrate with Minimalism. . . . . . .           | . . . . . . . . . . . . . 232                       |
+| Standard Types Expressed as Values . .           | . . . . . . . . . . . . . 234                       |
+| Testing Value Objects . . . . . . . . .          | . . . . . . . . . . . . . 239                       |
+| Implementation. . . . . . . . . . . . .          | . . . . . . . . . . . . . 243                       |
+| Persisting Value Objects . . . . . . . .         | . . . . . . . . . . . . . 248                       |
+| Reject Undue Influence of Data Model . . .       | Leakage. . . . . 249                                |
+| ORM and Single Value Objects . . .               | . . . . . . . . . . . . . 251                       |
+| ORM and Many Values Serialized into Column . .   | a Single . 253                                      |
+| ORM and Many Values Backed by a Database         | Entity. . . . . 255                                 |
+| ORM and Many Values Backed by a Join             | Table. . . . . . . . 260                            |
+| ORM and Enum-as-State Objects . .                | . . . . . . . . . . . . . 261                       |
+| Wrap-Up . . . . . . . . . . . . . . . .          | . . . . . . . . . . . . . 263                       |
+| Chapter 7 Services . . . . . . . . . . . . . . . | . . . . . . . . . . . . . 265                       |
+| What a Domain Service Is (but First, What        | It Is Not) . . . . . . 267                          |
+| Make Sure You Need a Service . . . . .           | . . . . . . . . . . . . . 268                       |
+| Modeling a Service in the Domain . . .           | . . . . . . . . . . . . . 272                       |
+| Is Separated Interface a Necessity? .            | . . . . . . . . . . . .                             |
+| A Calculation Process . . . . . . . .            | . 275 . . . .                                       |
+| Transformation Services . . . . . . .            | . . . . . . . . . 277 . . . . . . . . . . . . . 280 |
+| Using a Mini-Layer of Domain Services            | . . . . . . . . . . . 281                           |
+| Testing Services. . . . . . . . . . . . .        | . . . . . . . . . . . . . 281                       |
+| Wrap-Up . . . . . . . . . . . . . . . .          | . . . . . . . . . . . . . 284                       |
+| Chapter 8 Domain Events . . . . . . . . . . .    | . . . . . . . . . . . . . 285                       |
+| The When and Why of Domain Events                | . . . . . . . . . . . . . 285                       |
+| Modeling Events . . . . . . . . . . . .          | . . . . . . . . . . . . . 288                       |
+| With Aggregate Characteristics . . .             | . . . . . . . . . . . . . 294                       |
+| Identity . . . . . . . . . . . . . . .           | . . . . . . . . . . . . . 295                       |
+| Publishing Events from the Domain Model          | . . . . . . . . . . . 296 297                       |
+| Publisher . . . . . . . . . . . . . . .          | . . . . . . . . . . . .                             |
+| Subscribers . . . . . . . . . . . . .            | . . . . . . . . . . . . . 300                       |
+
+|                                                                         | Spreading the News to Remote Bounded Contexts . . . . . . . 303   |
+|-------------------------------------------------------------------------|-------------------------------------------------------------------|
+| Messaging Publishing                                                    | Infrastructure Consistency . . . . . . . . . . . . 303            |
+| Autonomous Services and Systems                                         | . . . . . . . . . . . . . . 305                                   |
+| Latency Tolerances . . . .                                              | . . . . . . . . . . . . . . . . . . 306                           |
+| Event Store . . . . . . . . .                                           | . . . . . . . . . . . . . . . . . . . 307                         |
+| Architectural Styles for Forwarding                                     | Stored Events . . . . . . . . 312                                 |
+| Publishing Notifications as RESTful                                     | Resources . . . . . . . . 312                                     |
+| Publishing Notifications through Messaging                              | Middleware . . 317                                                |
+| Implementation                                                          | . . . . . . . . . . . . . . . . . . . . . . . . . 318             |
+| Publishing the NotificationLog                                          | . . . . . . . . . . . . . . 319                                   |
+| Message-Based Notifications                                             | . . . . . . . . . . . 324                                         |
+| Wrap-Up .                                                               | . . . . . . . . . . . . . . . . . . . . . . . . . . . . 331       |
+| Chapter 9                                                               | Modules . . . . . . . . . . . . . . . . . . . . . . . . . . . 333 |
+| Designing with Modules . . . .                                          | . . . . . . . . . . . . . . . . . 333                             |
+| Basic Module Naming Conventions                                         | . . . . . . . . . . . . . . . 336                                 |
+| Module Naming Conventions for                                           | the Model . . . . . . . . . . . 337                               |
+| Modules of the Agile Project                                            | Management Context . . . . . . . 340                              |
+| Modules in Other Layers .                                               | . . . . . . . . . . . . . . . . . . . 343                         |
+| Module before Bounded Context                                           | . . . . . . . . . . . . . . . . 344                               |
+| Wrap-Up . . . . . . . . . .                                             | . . . . . . . . . . . . . . . . . . . 345                         |
+| Chapter 10 Aggregates . . . . . .                                       | . . . . . . . . . . . . . . . . . . . . 347                       |
+| Using Aggregates in the Scrum Core                                      | Domain . . . . . . . . . . 348                                    |
+| First Attempt: Large-Cluster                                            | Aggregate . . . . . . . . . . . . 349                             |
+| Second Attempt: Multiple                                                | Aggregates . . . . . . . . . . . . . 351                          |
+| Rule: Model True Invariants in                                          | Consistency Boundaries . . . . . 353                              |
+| Rule: Design Small Aggregates . .                                       | . . . . . . . . . . . . . . . . 355                               |
+| Don't Trust Every Use Case                                              | . . . . . . . . . . . . . . . . . . 358                           |
+| Rule: Reference Other Aggregates by                                     | Identity . . . . . . . . . . 359                                  |
+| Making Aggregates Work Together through . . . . . . .                   | Identity                                                          |
+| References . . . . . . . . . . .                                        | . . . . . . . 361                                                 |
+| Model                                                                   | Navigation . . . . . . . . . . . . . . . . . . . . . . . 362      |
+| Scalability and Distribution Rule: Use Eventual Consistency Outside the | . . . . . . . . . . . . . . . . . . 363 Boundary . . . . . 364    |
+| Ask Whose Job                                                           | It Is . . . . . . . . . . . . . . . . . . . . . . 366             |
+
+| Reasons to Break the Rules . . . . . . . . . . . . . . . . . . . 367                                                                     |
+|------------------------------------------------------------------------------------------------------------------------------------------|
+| Reason One: User Interface Convenience . . . . . . . . . . . 367                                                                         |
+| Reason Two: Lack of Technical Mechanisms . . . . . . . . . 368                                                                           |
+| Reason Three: Global Transactions . . . . . . . . . . . . . . 369                                                                        |
+| Reason Four: Query Performance . . . . . . . . . . . . . . . 369                                                                         |
+| Adhering to the Rules . . . . . . . . . . . . . . . . . . . . . 370                                                                      |
+| Gaining Insight through Discovery. . . . . . . . . . . . . . . . 370                                                                     |
+| Rethinking the Design, Again . . . . . . . . . . . . . . . . . 370                                                                       |
+| Estimating Aggregate Cost . . . . . . . . . . . . . . . . . . 372                                                                        |
+| Common Usage Scenarios . . . . . . . . . . . . . . . . . . 373                                                                           |
+| Memory Consumption . . . . . . . . . . . . . . . . . . . . 374                                                                           |
+| Exploring Another Alternative Design . . . . . . . . . . . . 375                                                                         |
+| Implementing Eventual Consistency . . . . . . . . . . . . . . 376                                                                        |
+| Is It the Team Member's Job? . . . . . . . . . . . . . . . . . 378                                                                       |
+| Time for Decisions . . . . . . . . . . . . . . . . . . . . . . 379                                                                       |
+| Implementation . . . . . . . . . . . . . . . . . . . . . . . . . 380 Root Entity with Unique Identity . . . . . . . . . . 380            |
+| Create a                                                                                                                                 |
+| Favor Value Object Parts . . . . . . . . . . . . . . . . . . . 382                                                                       |
+| Using Law of Demeter and Tell, Don't Ask . . . . . . . . . . 382                                                                         |
+| Optimistic Concurrency . . . . . . . . . . . . . . . . . . . . 385                                                                       |
+| Avoid Dependency Injection . . . . . . . . . . . . . . . . . . 387 Wrap-Up . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 388 |
+| Chapter 11 Factories . . . . . . . . . . . . . . . . . . . . . . . . . . . 389                                                           |
+| Factories in the Domain Model . . . . . . . . . . . . . . . . . 389                                                                      |
+| Factory Method on Aggregate Root . . . . . . . . . . . . . . . 391                                                                       |
+| Creating CalendarEntry Instances . . . . . . . . . . . . . 392                                                                           |
+| Discussion Instances . . . . . . . . . . . . . . . 395                                                                                   |
+| Creating Factory on Service . . . . . . . . . . . . . . . . . . . . . . . . 397                                                          |
+| . . . . . . . . . . . . . . . . . . . . . . . . . . . 400                                                                                |
+| Wrap-Up . .                                                                                                                              |
+| 12 Repositories . . . . . . . . . . . . . . . . . . . . . . . . . 401 Collection-Oriented Repositories . . . . . . . . . . . . . .       |
+| . . 402                                                                                                                                  |
+| Hibernate Implementation . . . . . . . . . . . . . . . . . . 407                                                                         |
+| Considerations for a TopLink Implementation . . . . . . . . 416                                                                          |
+
+| Persistence-Oriented                                                                               | Repositories . . . . . . . . . . . . . . . . 418           |
+|----------------------------------------------------------------------------------------------------|------------------------------------------------------------|
+| Coherence                                                                                          | Implementation . . . . . . . . . . . . . . . . . . 420     |
+| MongoDB Implementation .                                                                           | . . . . . . . . . . . . . . . . . 425                      |
+| Additional Behavior .                                                                              | . . . . . . . . . . . . . . . . . . . . . . 430            |
+| Managing Transactions . . . .                                                                      | . . . . . . . . . . . . . . . . . 432                      |
+| A Warning . . . . . . . .                                                                          | . . . . . . . . . . . . . . . . . . 437                    |
+| Type Hierarchies . . . . . .                                                                       | . . . . . . . . . . . . . . . . . . . 437                  |
+| Repository versus Data Access                                                                      | Object . . . . . . . . . . . . . . 440                     |
+| Testing Repositories . . . . .                                                                     | . . . . . . . . . . . . . . . . . . 441                    |
+| Testing with In-Memory                                                                             | Implementations . . . . . . . . . . 445                    |
+| Wrap-Up . . . . . . . . . . .                                                                      | . . . . . . . . . . . . . . . . . . 448                    |
+| Chapter 13 Integrating Bounded Contexts . . . . . . . .                                            | . . . . . . . . 449                                        |
+| Integration                                                                                        | Basics . . . . . . . . . . . . . . . . . . . . . . . . 450 |
+| Distributed Systems Are Fundamentally                                                              | Different . . . . . . 451                                  |
+| Exchanging Information across System                                                               | Boundaries . . . . . . 452                                 |
+| Integration Using RESTful Resources                                                                | . . . . . . . . . . . . . . 458                            |
+| Implementing the RESTful Resource                                                                  | . . . . . . . . . . . . . 459                              |
+| Implementing the REST Client Using an Anticorruption Layer . . . . . . . . . . . . . . . . . . . . | . . . . . . . . 463                                        |
+| Integration Using Messaging . . . . .                                                              | . . . . . . . . . . . . . . 469                            |
+| Staying Informed about Product Owners Members . . . . . . . . . . . .                              | and Team . . . . . . . . . . . . . . 469                   |
+| Can You Handle the Responsibility?                                                                 | . . . . . . . . . . . . . 476                              |
+| Long-Running Processes, and                                                                        | Avoiding Responsibility . . . . 481                        |
+| Process                                                                                            | State Machines and Time-out Trackers . . . . . . . . 493   |
+| Designing a More Sophisticated                                                                     | Process . . . . . . . . . . . 503                          |
+| When Messaging or Your System Is Unavailable                                                       | . . . . . . . 507                                          |
+| Wrap-Up . . . . . . . . . . .                                                                      | . . . . . . . . . . . . . . . . . . 508                    |
+| Chapter 14 Application. . . . . . . . . . . .                                                      | . . . . . . . . . . . . . . 509                            |
+| User Interface . . . . . . . .                                                                     | . . . . . . . . . . . . . . . . . . 512                    |
+|                                                                                                    | from Aggregate Instances . . . 513                         |
+| Rendering Domain Objects Render Data Transfer                                                      | . . . . . . . . . . . . . . . . . . 512 Object             |
+| Use a Mediator to Publish Render Aggregate Instances from a Domain                                 | Aggregate Internal State . . . . . . 514 Object            |
+| Payload                                                                                            | 515                                                        |

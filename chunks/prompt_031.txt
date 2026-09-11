@@ -1,0 +1,1104 @@
+Bạn là chuyên gia dịch thuật kỹ thuật Anh → Việt, chuyên tài liệu kỹ thuật/công nghệ, có kinh nghiệm dịch như biên dịch viên bản ngữ chuyên nghiệp. Nhiệm vụ: dịch TOÀN BỘ nội dung Markdown dưới đây sang tiếng Việt, không bỏ sót bất kỳ phần nào. Đây là MỘT PHẦN (chunk) của một tài liệu lớn hơn, hãy dịch độc lập đoạn này, không thêm lời mở đầu/kết luận về việc đây chỉ là một phần.
+
+QUY TẮC BẮT BUỘC — VI PHẠM LÀ SAI:
+
+1. XÁC ĐỊNH LOẠI TÀI LIỆU TRƯỚC KHI DỊCH
+   - Tự phân tích nội dung để xác định loại tài liệu (kỹ thuật/lập trình, tài chính, bảo hiểm, pháp lý, marketing, học thuật, vận hành, sản phẩm...).
+   - Chọn văn phong và thuật ngữ CHUẨN NGÀNH tương ứng trong tiếng Việt, nhất quán xuyên suốt.
+
+2. VĂN PHONG — MƯỢT NHƯ NGƯỜI DỊCH, KHÔNG GIẢM CHÍNH XÁC
+   - Dịch mượt, tự nhiên, đúng ngữ pháp tiếng Việt — như biên dịch viên bản ngữ dịch tay, KHÔNG dịch máy móc kiểu word-by-word.
+   - Được phép đảo cấu trúc câu, tách/gộp câu cho tự nhiên, miễn giữ nguyên 100% ý nghĩa, thông tin, logic, số liệu gốc.
+   - Khi "mượt mà" và "chính xác" xung đột → LUÔN ưu tiên chính xác.
+
+3. DỊCH ĐẦY ĐỦ 100%
+   - Không tóm tắt, không rút gọn, không lược bỏ đoạn/câu/mục/bullet nào.
+   - Số lượng heading, đoạn văn, bảng, code block ở output PHẢI khớp 1:1 với input.
+   - Đoạn dài dịch hết, không cắt ngắn.
+
+4. GIỮ NGUYÊN THUẬT NGỮ TIẾNG ANH
+   - Thuật ngữ chuyên ngành (tên công nghệ, framework, pattern, tên hàm/biến, acronym...) giữ nguyên tiếng Anh, không dịch, không phiên âm.
+   - Ngay sau lần xuất hiện ĐẦU TIÊN của mỗi thuật ngữ, thêm chú thích ngắn trong ngoặc giải thích nghĩa bằng tiếng Việt.
+   - Các lần xuất hiện sau KHÔNG cần chú thích lại.
+
+5. GIỮ NGUYÊN FORMAT — RẤT QUAN TRỌNG
+   - VỀ ẢNH (làm trước khi dịch): ĐẾM chính xác số lượng thẻ ảnh dạng ![...](...) trong đoạn gốc bên dưới. Output PHẢI có ĐÚNG số lượng thẻ ảnh đó, không được thiếu một cái nào — kể cả ảnh không có caption, không rõ ngữ cảnh, hay trông như ảnh trang trí/lặp lại. Copy nguyên URL 100%, không sửa, không rút gọn, không thay bằng mô tả text.
+   - Giữ cấp độ heading (#, ##, ###...), giữ đúng số lượng heading.
+   - Giữ cấu trúc bảng (số cột, số hàng, alignment, header row).
+   - Giữ code block (```lang ... ```) — KHÔNG dịch code; comment được dịch tại chỗ; **được phép reformat code, tự động xuống dòng/indent chuẩn, không giữ nguyên code 1 dòng; không đổi logic/cú pháp**.
+   - Giữ blockquote, callout/note/warning (>, [!NOTE], [!WARNING]...).
+   - Giữ list, nested list, checkbox (- [ ]).
+   - Giữ nguyên link thường ([text](url)) — chỉ dịch phần text hiển thị, TUYỆT ĐỐI giữ nguyên URL.
+   - TRƯỚC KHI TRẢ KẾT QUẢ: tự đếm lại số heading, số ảnh, số dòng ``` giữa bản gốc và bản dịch của bạn, nếu lệch phải sửa lại cho khớp.
+
+6. GIẢI THÍCH ẨN DỤ / KHÁI NIỆM KHÓ
+   - Với ẩn dụ, thành ngữ, khái niệm trừu tượng khó hiểu với người Việt, thêm khối giải thích riêng ngay sau đoạn đó:
+     > 💡 **Giải thích thêm:** [giải thích dễ hiểu, đủ chuyên sâu, có ví dụ thực tế]
+     > Nguồn tham khảo: [link cụ thể để kiểm chứng]
+   - CHỈ đưa link nếu chắc chắn tồn tại và đúng nội dung — không bịa link.
+   - Không tìm được nguồn tin cậy → ghi rõ: "(Không có nguồn trích dẫn xác thực — cần tự kiểm chứng thêm)".
+
+7. CHỐNG HALLUCINATION (BẮT BUỘC)
+   - Không tự thêm thông tin/số liệu/ví dụ/kết luận KHÔNG có trong bản gốc — trừ phần giải thích ẩn dụ ở mục 6 (phải gắn nhãn rõ là phần bổ sung).
+   - Câu gốc mơ hồ → dịch sát nghĩa nhất, nếu không chắc ghi chú: "[CẦN KIỂM CHỨNG: câu gốc mơ hồ]".
+   - Không tự sửa/thêm/bớt logic kỹ thuật gốc. Không bịa trích dẫn/số liệu/link vô căn cứ.
+   - Không tự tóm tắt các đoạn dài thành ý chính rồi diễn giải lại — phải dịch từng câu.
+
+8. OUTPUT
+   - Trả về DUY NHẤT nội dung Markdown đã dịch, đặt trong 1 code block (```markdown ... ```).
+   - Không thêm lời dẫn/lời chào/giải thích ngoài code block.
+   - Không đổi tiêu đề gốc trừ khi cần dịch tiêu đề.
+
+--- NỘI DUNG GỐC CẦN DỊCH (một phần của tài liệu) ---
+
+Bounded Context relationships, 93-94 combining DDD and RESTful HTTP, 137
+
+defined, 100
+
+information exchange and, 453 serializing Events as, 580
+
+Publishers, Domain Events, 297-300
+
+Publishing Domain Events
+
+from Domain Model, 296-297
+
+message-based notifications, 324-329
+
+notifications published as RESTful
+
+resources, 312-317
+
+notifications published using messaging
+
+middleware, 317-318
+
+overview of, 289
+
+publishing the NotificationLog , 319-323
+
+Publish-Subscribe pattern
+
+event notification and, 303 integration basics, 450 multiparty activities, 364 overview of, 296-297 publisher, 297-300 pull vs. push models, 312 subscriber, 300-302
+
+Pull model, Publish-Subscribe pattern, 312
+
+Push model, Publish-Subscribe pattern, 312 put() , Coherence cache and, 424
+
+applying HTTP verbs to resources, 135
+
+PUT method, HTTP RESTful notifications and, 458
+
+## Q
+
+Quantifying characteristic, of Value Objects, 221
+
+Queries
+
+Aggregate Root query interface, 516 Command-Query Responsibility
+
+Segregation. See CQRS (Command-
+
+Query Responsibility Segregation) Command-Query Separation principle. See CQS (Command-Query Separation) continuous queries, 166 query performance as reason to break
+
+Aggregate design rules, 369-370
+
+repositories and, 138
+
+use case optimal query, 432, 517
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000673_a716418fe34377e6548940a746f2e0761053685b54ad33ffacdfd1a1e3bc0a34.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000674_fa4e2d6e40e86a2c9fe120d56fc82ea65762146112443123be1b8303719c914a.png)
+
+Query (read) model, in CQRS client driving command processing, 143 command processors, 143-144 dealing with inconsistency in, 146-147 defined, 140 event subscriber updating query model, 145-146 overview of, 141-142 Query methods, 229
+
+Queues, implementing, 312
+
+## R
+
+## RabbitMQ
+
+abstraction layer around, 327 Event de-duplication, 329-331 Fanout exchange, 317 messaging middleware, 303 notifications from, 471-472 publishing Events, 547
+
+- Random number generators, for unique identifiers, 175
+
+Read (query) model, in CQRS. See Query (read) model, in CQRS
+
+Read Model Projections
+
+persistence and, 570-572
+
+use in Aggregate design, 573
+
+Realization view, Bounded Contexts and, 57 Reference by identity
+
+between Aggregates, 359-361 preferred by globally unique identity,
+
+361-362
+
+scalability and distribution of Aggregates and, 363-364
+
+Relational databases for implementing Event Store, 543
+
+persistence and, 565-567
+
+Relational persistence, 565-567
+
+Relationships, Context Maps and, 90
+
+Relaxed Layers Architecture, 120
+
+Remote associations, reference by identity forming, 364
+
+Remote procedure calls. See RPCs (remote procedure calls)
+
+remove() , Coherence cache and, 424
+
+Rendition adapters, 518-521
+
+Replaceability, of Value Objects, 226-227
+
+- Replication data replication, 164-165 event replication, 547-548
+
+Repositories
+
+accessing repository instances in Infrastructure Layer, 121-122
+
+additional behaviors, 430-432
+
+Anticorruption Layer (ACL) implemented via, 101, 469
+
+avoiding dependency injection and, 387 in bad design example, 76
+
+Coherence in implementation of, 420-425 collection-oriented, 402-407
+
+Data Access Objects compared with, 440-441
+
+Hibernate in implementation of, 407-415
+
+identity generation and, 178
+
+managing transactions, 432-437
+
+model navigation and, 362-363
+
+MongoDB in implementation of, 425-430 not accessing from Aggregate instances, 266, 279
+
+obtaining Aggregate instances from, 121 overview of, 401-402
+
+persistence-oriented, 418-420
+
+querying, 138
+
+reading Aggregate instances and
+
+delegating to DTO assemblers,
+
+513-514
+
+review, 448
+
+testing, 129, 441-445
+
+testing with in-memory implementations, 445-447
+
+TopLink in implementation of, 416-417 type hierarchies in, 437-440
+
+Responsibility Layers, refactoring model and, 77
+
+Representational State Transfer. See REST (Representational State Transfer)
+
+Responsibilities. See also Roles avoiding, 481-493
+
+integrating Bounded Contexts and, 476-481
+
+of objects, 200
+
+Single Responsibility principle, 270-271 team members and product owners and, 476-481
+
+using immutable Values results in less responsibility, 232-233
+
+REST (Representational State Transfer) as architectural style, 133-134 creating/naming modules of non-model components, 343-344
+
+DDD and, 136-138
+
+Event Store feeding event notifications to clients, 307-308
+
+in exchange of media between Bounded Contexts, 453-454
+
+Hexagonal Architecture supporting, 130-132
+
+HTTP clients, 136
+
+HTTP servers, 135-136
+
+implementing RESTful clients, 463-469 implementing RESTful resources, 459-462
+
+Integrating Bounded Contexts, 458-459 integration basics, 450
+
+publishing Events as RESTful resources, 312-317
+
+service-oriented components in Bounded Context, 67
+
+state representation of domain objects, 516
+
+RIA (rich Internet applications) dealing with multiple, disparate clients, 517
+
+user interfaces and, 512
+
+## Riak
+
+Bitcask model, 569
+
+concurrency and, 385-386
+
+persistence-oriented repositories and, 418-420
+
+Rich Internet applications (RIA) dealing with multiple, disparate clients, 517
+
+user interfaces and, 512
+
+## Roles
+
+assigning, 469-471 domain objects with multiple, 200-205 domain-specific, 463 event-carrying notification for, 473-476 overview of, 200
+
+responsibilities and, 476-481
+
+Root Entity
+
+many Aggregates containing only single Entity, 357
+
+optimistic concurrency and, 385-386 requires globally unique identity, 177
+
+RPCs (remote procedure calls) autonomous services and systems, 305-306
+
+integration basics, 450-451
+
+Open Host Service as, 100
+
+system integration and, 103
+
+system-level, 267
+
+Ruby language
+
+effecting class namespaces, 333 patching classes with specialized behaviors, 225-226
+
+## S
+
+SaaS (software as a service), 40-41 Sagas. See Long-running processes save()
+
+Coherence cache and, 423
+
+persistence-oriented repositories and, 418
+
+Save-like Repository method, 418 Scalability
+
+Aggregate design and, 363-364 limitations of single large-cluster
+
+Aggregate, 356
+
+with Domain Events, 287, 316, 322
+
+## Scrum
+
+Aggregate models and, 348 agile projects and, 82-83
+
+## Security
+
+Application Services and, 521 centralizing in Identity and Access Context, 80-81
+
+leveraging Spring Security, 525-526
+
+Security patterns, 199-200
+
+Segregated Core
+
+creating, 77-78
+
+team use of, 97
+
+Self-delegation, 244, 248
+
+Self-encapsulation, 248
+
+Senior developer, benefits of DDD to, 5
+
+Separate Ways, Bounded Context relationships, 93-94
+
+Separated Interface implementing REST client and, 464 modeling Domain Services and, 272 notification services and, 318 technical implementations and, 275-277
+
+Serialization
+
+of command objects, 550
+
+conversion between bytes and strongly
+
+typed Event objects, 563-564
+
+of events, 576-577
+
+information exchange and, 452, 457-458
+
+of many Values into single column, 253-255
+
+Servers, RESTful HTTP servers, 135-136
+
+Service Factories
+
+fulfilling dependencies, 543
+
+look up repository, 533-534
+
+Service-oriented ambiguity (Fowler), 131
+
+Service-Oriented Architecture. See SOA (Service-Oriented Architecture)
+
+## Services
+
+Application Services. See Application Services
+
+authentication services, 281-284 autonomous, 305-306 business services, 66-68
+
+code smells indicating need for, 265
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000675_060ed31ce98138919eb010dc480ced5973d9013ff1205a94f749f14f913876f4.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000676_32aee1ab454b80d97167d3e01af037a6d1f5b1016fd3f93ee4913bdb0e91dba8.png)
+
+Services ( continued )
+
+creating, 277-280
+
+design principles for, 130
+
+Domain Services. See Domain Services
+
+factories of, 276-277, 397-399
+
+notification services, 318
+
+OHS. See Open Host Service (OHS)
+
+opening, 510
+
+SaaS (software as a service), 40-41
+
+size of Bounded Contexts and, 68
+
+SOA. See SOA (Service-Oriented Architecture)
+
+stateless, 268
+
+tactical modeling tools, 29
+
+transactional services, 352-353
+
+Web services, 67
+
+Session
+
+as alternative to repository, 402 Hibernate, 407
+
+Session Facades, EJB (Enterprise JavaBeans), 534
+
+Set collections, repositories mimicking, 404-406
+
+Shallow copies, creating Value Objects, 244 Shared Kernel
+
+Bounded Context relationships, 92
+
+combining DDD and RESTful HTTP, 137
+
+Context Maps and, 460
+
+deploying Value Objects in Commands and/or in Events, 580
+
+information exchange and, 452-453
+
+Side-Effect-Free Functions
+
+Event behaviors and, 294
+
+Java enum and, 236
+
+modeling on identities, 194
+
+Value Objects and, 228-232
+
+Simplification, benefits of DDD, 10
+
+Single Responsibility, 143, 152, 270, 309
+
+size() , for counting collection instances, 430-431
+
+Smart UI Anti-Pattern, 67
+
+Snapshots, of Aggregate state, 161-162, 559-561
+
+SOA (Service-Oriented Architecture)
+
+design principles for services, 130
+
+example of use of, 117
+
+goals of DDD and, 132-133
+
+Hexagonal Architecture supporting,
+
+130-131
+
+how DDD helps, 10
+
+services in, 267
+
+SOA manifesto and, 131-132
+
+SOAP (Simple Object Access Protocol) APIs made available with, 450
+
+Hexagonal Architecture supporting, 130-132
+
+service-oriented components in Bounded Context, 67-68
+
+Software
+
+domain experts contributing to design, 27 with true business value, 9-10
+
+Software as a service (SaaS), 40-41
+
+Solution space
+
+assessment of, 59-60
+
+of domains, 56-58
+
+Sophistication of design, integrating Bounded Contexts, 503-507
+
+Specifications, 582-583
+
+Spring
+
+enterprise component containers,
+
+534-537
+
+inversion-of-control containers, 434-437 leveraging Spring Security, 525-526
+
+Standard Types
+
+Agile Project Management Context and, 108
+
+consuming remote, 233
+
+expressed as Values, 234-235, 238-239
+
+Java enum for supporting, 235-238
+
+type hierarchies and, 439-440
+
+## State
+
+mediators publishing internal state of Aggregates, 514-515
+
+persisting enum-as-state objects, 261-263 representing state of Aggregate instances, 516-517
+
+State pattern
+
+disadvantages of, 237
+
+Standard Type as, 236-237, 440
+
+Stateless services, 268
+
+Static methods, Domain Services as alternative to, 278
+
+Storage. See Repositories
+
+Story points, as alternative to estimating task hours, 375
+
+Strategic business initiatives, 9-10
+
+Strategic design
+
+aligning Subdomains with Bounded Contexts, 57
+
+alignment with the DDD community, 55-56
+
+big picture of, 44-52 cutting through complexity, 46
+
+essential nature of, 53-56
+
+focusing on Core Domain, 50-52
+
+Generic Subdomains, 52
+
+identifying multiple Subdomains in one
+
+Bounded Context, 49-52, 57-58
+
+problem and solution space, 56-57
+
+Supporting Subdomains, 52
+
+understanding Bounded Contexts, 62-72
+
+understanding Subdomains, 44-50
+
+using to refactor problem code, 76-79
+
+vision of Core Domain, 58
+
+when dealing with a Big Ball of Mud, 55, 57
+
+when doing greenfield development, 72-73
+
+with Context Maps, 50, 95-110
+
+Strategic tools, benefits of DDD, 28-29
+
+Strategy pattern
+
+DDR (Domain Dependency Resolver) and, 516
+
+using Value type as, 243-244
+
+Strict Layers Architecture, 120
+
+Structural freedom, with Aggregates and Event Sourcing (A+ES), 558
+
+Subdomains
+
+abstract business domain and, 50 alignment with Bounded Contexts, 57, 60 distinguishing between types of domains, 44
+
+in e-Commerce example, 48-50
+
+how to use, 44-45
+
+mapping three contexts, 96
+
+modules and, 48
+
+problem space and, 56
+
+publishing Events to, 302
+
+separating by functionality, 46
+
+Supporting Subdomains. See Supporting Subdomains
+
+tactical modeling and, 35
+
+types of, 52
+
+whiteboard illustration of, 51
+
+Subscribers
+
+Domain Events and, 300-302 publishing notifications using messaging middleware, 317
+
+Supervising Controller and Passive View (Fowler), 518
+
+Supporting Subdomains
+
+application support in, 509
+
+assessment of problem space and solution space, 58
+
+Context Maps and, 98
+
+defined, 52
+
+## T
+
+Table Data Gateway, in Transaction Scripts, 441
+
+Table Module, in Transaction Scripts, 441 Tactical modeling
+
+strategic modeling compared with, 34 Ubiquitous Language and, 75
+
+Tactical patterns, 36
+
+Tactical tools, 10, 28-29
+
+Task hours, used to estimate of memory overhead of Aggregate type, 372-373
+
+Team members
+
+benefits of asking whose job it is in Aggregate design, 378-379
+
+responsibilities and, 476-481
+
+staying informed about, 469-476
+
+Teams
+
+estimating Aggregate type memory overhead using in task hours, 372-373
+
+facilitating inter-team communication, 88
+
+single team for single Bounded Context, 72
+
+Ubiquitous Language as shared language of, 20-21
+
+Technical components
+
+alignment with Bounded Contexts, 71-72 housing in Infrastructure Layer, 273 reasons to break Aggregate design rules, 368-369
+
+Tell, Don't Ask, information hiding in Aggregate implementation, 382-384
+
+Temporal decoupling, between clients and Application Service, 551
+
+investing in what produces biggest benefit, 10
+
+justification for Domain Models, 35
+
+for SaaS Ovation Domain Model, 91
+
+Surrogate identities
+
+Entities and, 186-188
+
+Layer Supertype and, 255-256, 380
+
+when persisting Value Objects, 255-260
+
+Symmetry style. See Hexagonal Architecture
+
+Systems. See also Applications
+
+Bounded Context encompassing more than Domain Model, 66-68
+
+Context Maps are not system topology diagrams, 90
+
+decoupling service from client, 550 exchanging information across system
+
+boundaries, 452-458
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000677_f043bc07f26c76d92a007128e33398c26d60dd10cc450f39c3c899b36f309303.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000678_d803b4a407cb4934d174d89ed1785691d8112bdc91cfac67be731b6581682378.png)
+
+## Tenants
+
+comparing with Users, 192-193 subscribing organizations registered as, 348
+
+UUID applied to identifying, 194
+
+## Tests/testing
+
+Domain Services, 281-284
+
+Hexagonal Architecture and, 129
+
+repositories, 441-445
+
+repositories with in-memory
+
+implementations, 445-447
+
+test-first approach, 37-38
+
+unit tests, 582-583
+
+Value Objects, 239-243
+
+Textual descriptions, at User Interface Layer, 236
+
+Theta joins, 363
+
+Tilkov, Stefan, 133
+
+Time-demands, challenges of applying DDD, 29
+
+Timelessness, Hexagonal Architecture supporting, 125
+
+Timeline, justification for domain modeling, 36
+
+Time-out trackers, integrating Bounded Contexts, 493-503
+
+Time-sensitivity
+
+of identity generation, 183-186
+
+long-running processes (sagas) and, 158
+
+implementing repository for, 416-417
+
+TopLink Unit of Work in, 407
+
+Track changes
+
+to Entities, 216-217
+
+persistence mechanisms and, 406-407
+
+Trackers, merging executives and trackers into Aggregates, 156
+
+Train wreck, 76
+
+Transaction Script
+
+justification for domain modeling, 36-37 modeling Core Domain, 532
+
+patterns used in, 441
+
+Transactional consistency Aggregates and, 364 vs. eventual consistency, 366-367 invariants and, 353-354
+
+Transactional consistency boundary. See Aggregates
+
+Transactions, managing in repositories, 432-437
+
+Transformation services, 280
+
+Transformations, uses of Domain Services, 268
+
+Translations, drawing Context Maps and, 90 Translators
+
+Domain Services use for integration, 280 implementing REST client and, 465-467
+
+Two-party activities, 364
+
+Types
+
+checking static types, 578
+
+creating explicitly named immutable types, 577-578
+
+hierarchies in repositories, 437-440
+
+information exchange and type safety,
+
+452-453
+
+primitive, 522-523
+
+standard. See Standard Types
+
+## U
+
+Ubiquitous Language
+
+BusinessPriority , 240
+
+collaboration and, 53-54, 74
+
+designing Domain Model and, 191
+
+domain experts and developers jointly developing, 9
+
+Entities properties and, 197-198
+
+Event-centric approach to Aggregate design and, 540
+
+Factory Method and, 390
+
+Intention Revealing Interface complying with, 197
+
+module naming conventions and, 338 naming object behaviors and, 31-32 principles, 24-25
+
+process of producing, 3
+
+refining, 23-24
+
+Scrum terminology as starting point, 348
+
+Shared Kernel and, 92
+
+as shared team language, 20-21
+
+SOA causing fragmentation of, 132
+
+solution space and, 59
+
+techniques for capturing, 22-23
+
+UML (Unified Modeling Language)
+
+of Application Services, 533
+
+DIP (Dependency Inversion Principle) representation in, 510-511
+
+techniques for developing Ubiquitous
+
+Language, 22
+
+Unique identity, of Entities, 173-174
+
+Unit of Work
+
+as alternative to repository, 402
+
+for handling transactions, 354
+
+in TopLink, 407
+
+Unit tests, 582-583
+
+Universally unique identifiers. See UUIDs (universally unique identifiers)
+
+Upstream models, influencing downstream, 99-100
+
+## URIs
+
+integration of Bounded Contexts using RESTful resources, 458-459 media types and, 104-105
+
+resources and, 135
+
+Usage scenarios adjusting Aggregate design, 375-376 applying to Aggregate design, 373-374
+
+Use case optimal queries, 517
+
+Use case optimal query, 432
+
+Use cases
+
+Aggregate design and, 358-359 Create a Product use case, 481-482
+
+determining whose job it is, 367
+
+User Entity comparing with Tenants, 192-193 UUID applied to identifying, 195-196
+
+User Interface Layer
+
+creating and naming modules of nonmodel components, 343-344
+
+DIP (Dependency Inversion Principle) and, 124
+
+Facade business method invoked by, 433 in Layers Architecture, 119 textual descriptions and, 236
+
+views in Bounded Context, 67
+
+User interfaces
+
+dealing with multiple, disparate clients, 517-518
+
+eventual consistency and, 377-378 mediators publishing internal state of Aggregates, 514-515
+
+overview of, 512
+
+reasons to break Aggregate design rules, 367-368
+
+rendering Aggregate instances from Domain Payload Objects, 515-516
+
+rendering data transfer objects from Aggregate instances, 513-514
+
+rendering domain objects, 512-513
+
+rendition adapters and user edit handling, 518-521
+
+representing state of Aggregate instances, 516-517
+
+views impacted by references by identity, 363
+
+Web user interfaces, 512
+
+User pattern, security patterns, 199-200
+
+User-aggregate affinity rule, 369
+
+Users
+
+handling user edits, 518-521
+
+## V
+
+Validating Entities attributes and properties, 208-211 object compositions, 215-216 whole objects, 211-215
+
+Value Objects
+
+Agile Project Management Context and, 108-109
+
+backed by database entity (ORM), 255-260
+
+backed by join table (ORM), 260
+
+characteristics of Values, 221
+
+clustering into Aggregates, 347
+
+conceptual wholeness of, 223-226
+
+Data Model Leakage and, 249-251 developer focus on, 53
+
+in development of Domain Models, 577-580
+
+distinguishing Entities from, 172
+
+enum-as-state objects (ORM), 261-263
+
+equality of, 227-228
+
+immutability of, 221-223
+
+implementing, 243-248
+
+integration based on prioritizing or minimalism, 232-233
+
+Java enum for supporting Standard Type, 235-238
+
+measuring, quantifying, describing, 221 not everything is a Value Object, 232 overview of, 219-220
+
+persisting, 248-249
+
+preferred over Entities when possible, 382
+
+refactoring Entities as, 357
+
+replaceability of, 226-227
+
+review, 263
+
+serialization of many Values into single column (ORM), 253-255 side-effect-free behavior, 228-232 single Value Objects (ORM), 251-253 Standard Types expressed as, 234-235, 238-239
+
+improvements in user experience due to
+
+DDD, 27-28 providing identity of Entities, 174-175 Utilities, patching in, 552-553 UUIDs (universally unique identifiers) assigning to processes, 156 assigning to Tenants, 194-195 assigning to Users, 195-196 creating Aggregate Root Entity with
+
+unique identity, 381
+
+identity creation patterns and, 175-177
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000679_4a38418f2beafda8b4f2a96a6b0064ff0c07a150cf651b365bd7a9525c49cbcc.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000680_3457d363ef6af447c8b53da5dd6db94aa7b4f29e3a3a166bc68211c1ed51d7ee.png)
+
+```
+Value Objects ( continued ) tactical modeling tools, 29 testing, 239-243 unique identity and, 173 use case optimal query, 432, 517 Verbs, HTTP, 135 version attribute, optimistic concurrency and, 385-387 View Model, state representation of domain objects, 516 Views, mapping domain data to. See CQRS (Command-Query Responsibility Segregation) Vision documents, Ubiquitous Language in, 27 Visual Basic, historical influence on Anemic Domain Model, 14-15 VMware GemFire. See GemFire W Web protocols, 134-135 Web services, service-oriented components in Bounded Context, 67
+```
+
+```
+Web user interfaces, 512 Webber, Jim, 317 Whiteboard drawing Context Maps, 90 illustration of Core Domain, 52 illustration of Subdomain, 51 Whole Value pattern, 223, 357 Williams, Wes, 163 X XML published language and, 100 standard intermediate formats for information exchange, 452 Y YAGNI ("You Ain't Gonna Need It") principle, 514 Young, Greg, 539 Z
+```
+
+Zero-argument constructors, 248
+
+## Try Safari Books Online FREE for 15 days
+
+## Get online access to Thousands of Books and Videos
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000681_ee495a5df3b3b076614b7fde87a6e325d70c1eb0a56da52a19cbd164f2687350.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000682_bb69f1d7f54dcc468bedb709fafebb36ad8429edd71a21d1a7695a994e9e1604.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000683_9564fce01cdb8eb9f92a4cb083b014b483445ef6a70045975a6c6cd2d619670e.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000684_ec2a022323ff76eba3f883793fee60404e8c6ddc688eadfc40bf6afa205861bc.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000685_dc13c5d9e7e212452431898adcab854e6ae5447afa66bbdd104cc788e4810385.png)
+
+## Feed your brain
+
+Gain unlimited access to thousands of books and videos about technology, digital media and professional development from O'Reilly Media, Addison-Wesley, Microsoft Press, Cisco Press, McGraw Hill, Wiley, WROX, Prentice Hall, Que, Sams, Apress, Adobe Press and other top publishers.
+
+## See it, believe it
+
+Watch hundreds of expert-led instructional videos on today's hottest topics.
+
+## WAIT, THERE'S MORE!
+
+## Gain a competitive edge
+
+Be first to learn about the newest technologies and subjects with Rough Cuts pre-published manuscripts and new technology overviews in Short Cuts.
+
+## Accelerate your project
+
+Copy and paste code, create smart searches that let you know when new books about your favorite topics are available, and customize your library with favorites, highlights, tags, notes, mash-ups and more.
+
+* Available to new subscribers only. Discount applies to the Safari Library and is valid for m rst 12 consecutive monthly billing cycles. Safari Library is not available in all countries.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000686_07b97fbc01f61fd2500840025b0682b68086d84a72c21b86fca069508a7c3343.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000687_e847506fe97444df225da7da60415ce88274f818a2512d646ff13f92127c35c8.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000688_6a65b52f14e2af74a6bf8d2e991e64e17ade116da0a761962b3db7e04bd7822b.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000689_02adfb91b4e963f9f1c55ffae39132858f99193bba66c1c01524d8b2dbfcf49e.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000690_9b1edcc025d741a7d340ee4c91c03daaf0c465cc917077e1a75f326d4c28943c.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000691_928bc867ee5d57d3b2c7a7136d58965a2cdcbabdc99b91b8cb9f6417b2f4f788.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000692_89552ce881f3894ec48fda46c8b098a67eb2cc848d8565fec9bd928f872461b4.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000693_4f7252d17467144d9d66c5140d21791cc3f4fb04ab5360f61905d5c519b96f71.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000694_f8015d47282a7caa22a56f930d3b152cb994f3da706d1da35b1407b87fa0db41.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000695_c345b8b52e1b241368325a4206e48d52b87c70f631f13c16e9b7aa2fa2f72504.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000696_c1c59e7a7557d2129f033ac7506e4eff246559e4b28e037a4f557610c0845dbe.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000697_4d9cb77d62e1f480e0036fc545b9ff6f3c28bcc28afeef5a758ed4818beab572.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000698_d0cf2227a997598df44fd193d7e2d8e18953551ffd78cd5e5ba46ab7692ef45a.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000699_95a2577cd823a27a5e62633abff7b78648e17a3d118f444bcc84071517e198a0.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000700_a4f71e53f559f36ea4925498df9c8cc240c469f6231e0317419e0da8072b05ef.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000701_2aad6a6ed1eb94fed3aa78b05b5a76d1d7ca5755730d248e31d40340685eff65.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000702_12182040b8c35680cd118d27c63bd2c4553f4630806ff32e67ddacd6b5f1cc43.png)
+
+## FREE 15-DAY TRIAL + 15% OFF * informit.com/safaritrial
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000703_55d174645b15fd1f83be40933d235472fafe63690e0ac21369f964310da44740.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000704_e7f49b5adef6747fbc89f2bf133e893bc9ae88c52d875c0cde2c31887b09bb50.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000705_9985cf8ad948327b04fbe1c20962bc06c2154d5aa263443b75d197f74e62ace7.png)
+
+## FREE Online Edition
+
+Your purchase of Implementing Domain-Driven Design includes access to a free online edition for 45 days through the Safari Books Online subscription service. Nearly every Addison-Wesley Professional book is available online through Safari Books Online , along with thousands of books and videos from publishers such as Cisco Press, Exam Cram, IBM Press, O'Reilly Media, Prentice Hall, Que, Sams, and VMware Press.
+
+Safari Books Online is a digital library providing searchable, on-demand access to thousands of technology, digital media, and professional development books and videos from leading publishers. With one monthly or yearly subscription price, you get unlimited access to learning tools and information on topics including mobile app and software development, tips and tricks on using your favorite gadgets, networking, project management, graphic design, and much more.
+
+## Activate your FREE Online Edition at informit.com/safarifree
+
+STEP 1:
+
+STEP 2:
+
+Enter the coupon code: VUQLOGA.
+
+New Safari users, complete the brief registration form. Safari subscribers, just log in.
+
+If you have diffi  culty registering on Safari or accessing the online edition, please e-mail customer-service@safaribooksonline.com
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000706_29b7de98ff0dfd767f50a950ddb04b71b2097e9f1253264830c2c684be717164.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000707_a4549750f7acbd4a93a23ee21d578f38315d9c5e56779664e3b40360adb41a07.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000708_d1515fe267e6f0ea5b65e6ee31baa432eefb4598ca5af6cf1d75937d823464b1.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000709_f43a6e1296a8bc8b372e03d2be10d24b50bf1ec6fc2e2609c71ff06fcaa7c520.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000710_b352209d1a0716aea7f407cf75d690f5aca8917bc760e04805626be936125338.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000711_c8ba2c94051c3b247d2180a0c4dfe742fe73d188f803ea5a2f6bbc0c1943af11.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000712_a3ac008116d42b3a5a218e473d8ead2caeaf69fdd2bad6bf0d9ab92d43f338dc.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000713_47673fcd2305565637c137a0d9b76c31a0473c98b9185a619a15d28c53e4fb06.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000714_c87f1c43eb756ec5f840985296b2e67734ed27af1f3dcee40af4b951f87f08e4.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000715_4671fb3fef5cb44c4c5f54f5f75f6887147d3407afc7a4187fc2a0f09b674009.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000716_94c6d8c1fa4cca4ff7b1f3557ee6f69118ba7a89f9105629e81c7671348cb90a.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000717_f55f55339610dffc59fe01097c07e95d250459fa00043fe558c47a5c6275ce55.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000718_0557620a18d164fd3713312f81c8ce3ab14b2a0e66617a88d24afa14695dddc4.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000719_f8d67aa29c66eecaee5b70fbb6aede1f2729460bef375eeba700e1463b682299.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000720_c92a561351b81bfc188a6c14b6fb7b2e1ccac21a45f5021b1c33f60e76b12110.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000721_b09ef0af74a55f860bab8e53ad6e844454c4be87500d189a719974c52cb62e01.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000722_2c3f305a8b6e97eba258ba0f334b75a5455c0bb255494324eeb86fda2414f125.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000723_3346a1f4a40af51485477eed2c6310787c69ea2f9e732ec520f39ea90a7f39a5.png)

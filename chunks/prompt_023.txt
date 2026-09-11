@@ -1,0 +1,426 @@
+Bạn là chuyên gia dịch thuật kỹ thuật Anh → Việt, chuyên tài liệu kỹ thuật/công nghệ, có kinh nghiệm dịch như biên dịch viên bản ngữ chuyên nghiệp. Nhiệm vụ: dịch TOÀN BỘ nội dung Markdown dưới đây sang tiếng Việt, không bỏ sót bất kỳ phần nào. Đây là MỘT PHẦN (chunk) của một tài liệu lớn hơn, hãy dịch độc lập đoạn này, không thêm lời mở đầu/kết luận về việc đây chỉ là một phần.
+
+QUY TẮC BẮT BUỘC — VI PHẠM LÀ SAI:
+
+1. XÁC ĐỊNH LOẠI TÀI LIỆU TRƯỚC KHI DỊCH
+   - Tự phân tích nội dung để xác định loại tài liệu (kỹ thuật/lập trình, tài chính, bảo hiểm, pháp lý, marketing, học thuật, vận hành, sản phẩm...).
+   - Chọn văn phong và thuật ngữ CHUẨN NGÀNH tương ứng trong tiếng Việt, nhất quán xuyên suốt.
+
+2. VĂN PHONG — MƯỢT NHƯ NGƯỜI DỊCH, KHÔNG GIẢM CHÍNH XÁC
+   - Dịch mượt, tự nhiên, đúng ngữ pháp tiếng Việt — như biên dịch viên bản ngữ dịch tay, KHÔNG dịch máy móc kiểu word-by-word.
+   - Được phép đảo cấu trúc câu, tách/gộp câu cho tự nhiên, miễn giữ nguyên 100% ý nghĩa, thông tin, logic, số liệu gốc.
+   - Khi "mượt mà" và "chính xác" xung đột → LUÔN ưu tiên chính xác.
+
+3. DỊCH ĐẦY ĐỦ 100%
+   - Không tóm tắt, không rút gọn, không lược bỏ đoạn/câu/mục/bullet nào.
+   - Số lượng heading, đoạn văn, bảng, code block ở output PHẢI khớp 1:1 với input.
+   - Đoạn dài dịch hết, không cắt ngắn.
+
+4. GIỮ NGUYÊN THUẬT NGỮ TIẾNG ANH
+   - Thuật ngữ chuyên ngành (tên công nghệ, framework, pattern, tên hàm/biến, acronym...) giữ nguyên tiếng Anh, không dịch, không phiên âm.
+   - Ngay sau lần xuất hiện ĐẦU TIÊN của mỗi thuật ngữ, thêm chú thích ngắn trong ngoặc giải thích nghĩa bằng tiếng Việt.
+   - Các lần xuất hiện sau KHÔNG cần chú thích lại.
+
+5. GIỮ NGUYÊN FORMAT — RẤT QUAN TRỌNG
+   - VỀ ẢNH (làm trước khi dịch): ĐẾM chính xác số lượng thẻ ảnh dạng ![...](...) trong đoạn gốc bên dưới. Output PHẢI có ĐÚNG số lượng thẻ ảnh đó, không được thiếu một cái nào — kể cả ảnh không có caption, không rõ ngữ cảnh, hay trông như ảnh trang trí/lặp lại. Copy nguyên URL 100%, không sửa, không rút gọn, không thay bằng mô tả text.
+   - Giữ cấp độ heading (#, ##, ###...), giữ đúng số lượng heading.
+   - Giữ cấu trúc bảng (số cột, số hàng, alignment, header row).
+   - Giữ code block (```lang ... ```) — KHÔNG dịch code; comment được dịch tại chỗ; **được phép reformat code, tự động xuống dòng/indent chuẩn, không giữ nguyên code 1 dòng; không đổi logic/cú pháp**.
+   - Giữ blockquote, callout/note/warning (>, [!NOTE], [!WARNING]...).
+   - Giữ list, nested list, checkbox (- [ ]).
+   - Giữ nguyên link thường ([text](url)) — chỉ dịch phần text hiển thị, TUYỆT ĐỐI giữ nguyên URL.
+   - TRƯỚC KHI TRẢ KẾT QUẢ: tự đếm lại số heading, số ảnh, số dòng ``` giữa bản gốc và bản dịch của bạn, nếu lệch phải sửa lại cho khớp.
+
+6. GIẢI THÍCH ẨN DỤ / KHÁI NIỆM KHÓ
+   - Với ẩn dụ, thành ngữ, khái niệm trừu tượng khó hiểu với người Việt, thêm khối giải thích riêng ngay sau đoạn đó:
+     > 💡 **Giải thích thêm:** [giải thích dễ hiểu, đủ chuyên sâu, có ví dụ thực tế]
+     > Nguồn tham khảo: [link cụ thể để kiểm chứng]
+   - CHỈ đưa link nếu chắc chắn tồn tại và đúng nội dung — không bịa link.
+   - Không tìm được nguồn tin cậy → ghi rõ: "(Không có nguồn trích dẫn xác thực — cần tự kiểm chứng thêm)".
+
+7. CHỐNG HALLUCINATION (BẮT BUỘC)
+   - Không tự thêm thông tin/số liệu/ví dụ/kết luận KHÔNG có trong bản gốc — trừ phần giải thích ẩn dụ ở mục 6 (phải gắn nhãn rõ là phần bổ sung).
+   - Câu gốc mơ hồ → dịch sát nghĩa nhất, nếu không chắc ghi chú: "[CẦN KIỂM CHỨNG: câu gốc mơ hồ]".
+   - Không tự sửa/thêm/bớt logic kỹ thuật gốc. Không bịa trích dẫn/số liệu/link vô căn cứ.
+   - Không tự tóm tắt các đoạn dài thành ý chính rồi diễn giải lại — phải dịch từng câu.
+
+8. OUTPUT
+   - Trả về DUY NHẤT nội dung Markdown đã dịch, đặt trong 1 code block (```markdown ... ```).
+   - Không thêm lời dẫn/lời chào/giải thích ngoài code block.
+   - Không đổi tiêu đề gốc trừ khi cần dịch tiêu đề.
+
+--- NỘI DUNG GỐC CẦN DỊCH (một phần của tài liệu) ---
+
+Since you can use DAO and related patterns to perform fine-grained CRUD operations on data that would otherwise be considered parts of an Aggregate, this  would  be  a  pattern  to  avoid  with  a  domain  model.  Under  normal  conditions you want the Aggregate itself to manage its business logic and other internals and keep everyone else out.
+
+I did indicate previously that at times a stored procedure or a data grid entry processor  is  essential  to  meet  some  demanding  nonfunctional  requirement. Depending on your domain, this may be more the rule than the exception. If a system nonfunctional requirement is not driving this, however, I suggest that you should avoid it.  Housing and executing business logic in the data store many times runs orthogonal to DDD. I would conclude that the use of a Data Fabric Function/Entry Processor is not really disruptive to the goals of domain modeling. The Function/Entry Processor implementation would be written in Java, for example, and would adhere to the Ubiquitous Language (1) and goals of the domain. The only difference from the core model is where the Function/ Entry Processor is executed, which is not disruptive. On the other hand, prolific use of stored procedures is potentially very disruptive to DDD because the programming language is generally not well understood by the modeling team and implementations are generally 'safely' tucked away from their view. If so, that is exactly the opposite of what DDD is trying to accomplish.
+
+You may choose to think of a Repository as a DAO in a general sense. The primary thing to keep in mind is that as much as possible you should try to design your Repositories with a collection orientation rather than a data access orientation. That will help keep you focused on the domain as a model rather than on data and any CRUD operations that may be used behind the scenes to manage its persistence.
+
+## Testing Repositories
+
+There are two ways to look at testing Repositories. You have to test the Repositories  themselves in order to prove that they work correctly. You also must test code that uses Repositories to store the Aggregates that they create and to find preexisting ones. For the first kind of test you must use the full production-quality implementations. Otherwise you won't know if your production code will work. For the second kind of test, either you can use your production implementations, or you can use in-memory implementations instead. I discuss the production implementation tests now and defer the in-memory tests to just a bit later.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000490_9df635afd1abff62a7130e56334b0b6845d056abe7ee9dd1c1ddea4b08479a11.png)
+
+Let's take a look at the tests for the Coherence implementation of the ProductRepository presented previously:
+
+```
+public class CoherenceProductRepositoryTest extends DomainTest { private ProductRepository productRepository; private TenantId tenantId; public CoherenceProductRepositoryTest() { super(); } ... @Override protected void setUp() throws Exception { this.setProductRepository(new CoherenceProductRepository()); this.tenantId = new TenantId("01234567"); super.setUp(); } @Override protected void tearDown() throws Exception { Collection<Product> products = this.productRepository() .allProductsOfTenant(tenantId); this.productRepository().removeAll(products); } protected ProductRepository productRepository() { return this.productRepository; } protected void setProductRepository( ProductRepository aProductRepository) { this.productRepository = aProductRepository; } }
+```
+
+There are some general setup and tear-down operations to prepare for and clean up after each test. To set up we create an instance of class CoherenceProductRepository and then create a fake instance of TenantId .
+
+To tear down we remove all Product instances that may have been added to the backing cache by each test. For Coherence this is an important cleanup step. If you don't remove all cached instances, they will remain during subsequent tests,  which  may  cause  failure  for  certain  assertions  such  as  persisted instance counts.
+
+Next, we test the Repository behavior:
+
+```
+public class CoherenceProductRepositoryTest extends DomainTest { ... public void testSaveAndFindOneProduct() throws Exception { Product product = new Product( tenantId, this.productRepository().nextIdentity(), "My Product", "This is the description of my product."); this.productRepository().save(product); Product readProduct = this.productRepository() .productOfId(tenantId, product.productId()); assertNotNull(readProduct); assertEquals(readProduct.tenantId(), tenantId); assertEquals(readProduct.productId(), product.productId()); assertEquals(readProduct.name(), product.name()); assertEquals(readProduct.description(), product.description()); } ... }
+```
+
+As the test method name states, here we save a single Product and attempt to find it. The first task is to instantiate a Product and then save it to the Repository. If no exception is thrown by the infrastructure, we may think that the Product was correctly saved. However, there is only one way to know for certain. We have to find the instance and compare it to the original. To find the instance we pass its globally unique identity to method productOfId() . If the instance was found, we can successfully assert that it is not null , that its tenantId is the same, its productId is the same, its name is the same, and its description is the same as the one that was stored.
+
+Next, we test saving and finding multiple instances:
+
+```
+public class CoherenceProductRepositoryTest extends DomainTest { ... public void testSaveAndFindMultipleProducts() throws Exception {
+```
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000491_7197cb8c9ea745059992848ae6de6b2f78f543ca816969eb8b1dde2e0f9edd3a.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000492_ff9a91d7fb0312764133f571d8a18078436c0792d1028276151d0835bb13858f.png)
+
+## Chapter 12 REPOSITORIES
+
+```
+Product product1 = new Product( tenantId, this.productRepository().nextIdentity(), "My Product 1", "This is the description of my first product."); Product product2 = new Product( tenantId, this.productRepository().nextIdentity(), "My Product 2", "This is the description of my second product."); Product product3 = new Product( tenantId, this.productRepository().nextIdentity(), "My Product 3", "This is the description of my third product."); this.productRepository() .saveAll(Arrays.asList(product1, product2, product3)); assertNotNull(this.productRepository() .productOfId(tenant, product1.productId())); assertNotNull(this.productRepository() .productOfId(tenant, product2.productId())); assertNotNull(this.productRepository() .productOfId(tenant, product3.productId())); Collection<Product> allProducts = this.productRepository().allProductsOfTenant(tenant); assertEquals(allProducts.size(), 3); } ... }
+```
+
+First  we instantiate three Product instances and then save them at once using saveAll() .  Next,  we  again  use productOfId() to  find  individual instances. If all three instances are not null , we are convinced that all three instances were correctly persisted.
+
+## Cowboy Logic
+
+- AJ:    'My sister told me her husband asked her to sell all the stuff in his storage unit when he dies. My sister asked him why. He said he didn't want some jerk to have his stuff when she remarries. She told him not to worry since she wasn't going to marry another jerk.'
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000493_44efe1f03378dba8abe145ffca793e2ecdfa2fafaa5ee3d5f6ef2a6502f2f984.png)
+
+There is one Repository method, allProductsOfTenant() , that has not yet been tested. Given that the Repository cache was completely empty when the test started, we should be able to successfully read three Product instances from it. So we attempt to find all of them. The returned Collection should never be null , even if you don't find what you expected. So the last step in the test is to assert that the full number of expected Product instances, or three, was in fact found.
+
+Now that we have a test that demonstrates how clients can use the Repository and proves its correctness, we can look at how you can more optimally test clients that use Repositories.
+
+## Testing with In-Memory Implementations
+
+If it is very difficult to set up the full persistent implementation of a Repository for test, or too slow to use it, you can leverage another approach. You may also face undesirable conditions early on during domain modeling, perhaps when your persistence mechanisms, including the database schema, are not yet available.  When  you  face  any  of  these  situations,  it  works  best  to  implement  an in-memory edition of Repositories.
+
+Creating in-memory editions can be quite simple, but it may also pose some challenges. The simple part is creating a HashMap to back your interface. It is straightforward to put() entries to and remove() them from the Map . We just use the globally unique identity of each Aggregate instance as the key. The Aggregate instance itself serves as the value. The add() or save() methods and the remove() methods are quite trivial. In fact, in the case of the ProductRepository the entire implementation is fairly simple:
+
+```
+package com.saasovation.agilepm.domain.model.product.impl; public class InMemoryProductRepository implements ProductRepository { private Map<ProductId,Product> store; public InMemoryProductRepository() { super(); this.store = new HashMap<ProductId,Product>(); } @Override public Collection<Product> allProductsOfTenant(Tenant aTenant) { Set<Product> entries = new HashSet<Product>(); for (Product product : this.store.values()) { if (product.tenant().equals(aTenant)) { entries.add(product); } }
+```
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000494_4ec904ecec8e97759df9d01a22b5c5ba9191703d0ef23b05b264a9a5663a9308.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000495_f46c8eb048150362af38081c3581ecf69d198f73c1d2ee27b66cbd87ff3426e6.png)
+
+```
+return entries; } @Override public ProductId nextIdentity() { return new ProductId(java.util.UUID.randomUUID() .toString().toUpperCase()); } @Override public Product productOfId(Tenant aTenant, ProductId aProductId) { Product product = this.store.get(aProductId); if (product != null) { if (!product.tenant().equals(aTenant)) { product = null; } } return product; } @Override public void remove(Product aProduct) { this.store.remove(aProduct.productId()); } @Override public void removeAll(Collection<Product> aProductCollection) { for (Product product : aProductCollection) { this.remove(product); } } @Override public void save(Product aProduct) { this.store.put(aProduct.productId(), aProduct); } @Override public void saveAll(Collection<Product> aProductCollection) { for (Product product : aProductCollection) { this.save(product); } } }
+```
+
+There  is  actually  only  a  single  special  case  for productOfId() .  To  correctly implement this finder, after getting a matching Product by the given ProductId , we must also check that the TenantId of the Product matches the Tenant parameter. If it doesn't, we set the Product instance to null .
+
+We  can  actually  make  a  near-identical  copy  of CoherenceProductRepositoryTest named InMemoryProductRepositoryTest to  test  this in-memory implementation. The only change that needs to be made is in setUp() :
+
+```
+public class InMemoryProductRepositoryTest extends TestCase { ... @Override protected void setUp() throws Exception { this.setProductRepository(new InMemoryProductRepository()); this.tenantId = new TenantId("01234567"); super.setUp(); } ... }
+```
+
+Just  instantiate InMemoryProductRepository rather  than  the  Coherence implementation. Other than that the test methods themselves are identical.
+
+The possible difficult challenges are generally related to implementing more advanced finders, where parameter criteria are complex to resolve. If the criteria and resolution logic becomes too complex, you may have to find a way to work around the situation. It might mean prepopulating the Repository with instances  that  will  resolve  the  search  while  making  the  finder  method  itself return only the instance or instances that are prepopulated. You can prepopulate using the test's setUp() method.
+
+Another advantage to implementing in-memory editions of your Repositories is when you need to test for proper uses of save() with a persistence-  oriented interface. You can implement the save() methods to count invocations. After each test is run, you can assert that the invocation count matches the number required by the client of the specific Repository. Generally, you could use this approach when testing Application Services that must explicitly save() changes to an Aggregate.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000496_b030eabea36541d9d0570e573d7f3eb86fe5c8683d746afe1177a9d8e3e40624.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000497_14db21ce1e00be49fe18c10709838b49eee9a14826f145ab6853020e91b4fa29.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000498_881f4be078c88636ccf75d6188bb37bf260a529a9e182bae5152961d266c9f28.png)
+
+## Wrap-Up
+
+In this chapter we looked in depth at implementing Repositories.
+
+-  You learned about collection-oriented and persistence-oriented   Repositories, and why to use one or the other.
+-  You saw how to implement Repositories for Hibernate, TopLink, Coherence, and MongoDB.
+-  You investigated why you might need additional behavior on a Repository's interface.
+-  You considered how transactions play into the use of Repositories.
+-  You are now familiar with the challenges of designing Repositories for type hierarchies.
+-  You  looked  at  some  fundamental  differences  between  Repositories  and Data Access Objects.
+-  You  saw  how  to  test  Repositories  and  different  ways  to  test  using Repositories.
+
+Next,  we'll  shift  gears  and  take  a  careful  look  at  integrating  Bounded Contexts.
+
+## Chapter 13
+
+## Integrating Bounded Contexts
+
+Making mental connections is our most crucial learning tool, the essence of human intelligence; to forge links; to go beyond the given; to see patterns, relationships, context.
+
+-Marilyn Ferguson
+
+There are always multiple Bounded Contexts (2) in any project of significance, and two or more of those Bounded Contexts will need to integrate. Using Context  Maps  (3) ,  we  discussed  the  relationships  that  commonly  exist  between Bounded Contexts, and we examined some ways that those relationships can be managed correctly according to the principles of DDD. If you don't have a fairly  strong grasp of Domains (2) , Subdomains (2) ,  and Bounded Contexts, or of Context Maps, you should obtain that before continuing. The material presented here builds on those fundamental concepts.
+
+As previously discussed, Context Maps have two primary forms. One form is a simple drawing that is used to illustrate the kinds of relationships that exist between any two or more Bounded Contexts. The second and far more concrete form is the code that actually implements those relationships. That's what we are considering now.
+
+## Road Map to This Chapter
+
+-  Review some of the basics of integration, and develop the proper mindset necessary  to  succeed  in  integrating  systems  in  a  distributed  computing environment.
+-  See how you can approach integration using RESTful resources, and consider some of its advantages and disadvantages.
+-  Learn how to integrate when using messaging.
+-  Understand the challenges you will face when you decide to duplicate information across Bounded Contexts.
+-  Study examples that provide increasing maturity in design approaches.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000499_eb8a30e0d6511c27aaf1966ed0cfe3f3684eb481f4b8076927190947e8013e48.png)
+
+## Integration Basics
+
+When two Bounded Contexts need to integrate, there are a few reasonably straightforward ways this can be done in code.
+
+One such straightforward approach is for a Bounded Context to expose an application programming interface (API), and another Bounded Context to use that  API  via  remote  procedure  calls  (RPCs).  The  API  could  be  made  available using SOAP or simply support sending XML requests and responses over HTTP (not the same as REST). Actually, there are several ways to create a remotely accessible API. This is one of the more popular ways to integrate, and since it supports a procedure call style, it is easily understood by programmers used to calling procedures or methods. That's pretty much all of us.
+
+A second straightforward way to integrate Bounded Contexts is through the use of a messaging mechanism. Each of the systems that need to interact do so through the use of a message queue or a Publish-Subscribe [Gamma et al.] mechanism. Of course, these messaging gateways can well be thought of as an API, but we may find broader acceptance if we simply refer to them as service interfaces instead. There are a large number of integration techniques that may be employed when using messaging, many of them discussed in [Hohpe &amp; Woolf].
+
+A third way to integrate Bounded Contexts is by using RESTful HTTP. Some think of this as a kind of RPC approach, but it really is not. It has some similar properties in that one system makes a request of another system, but these requests are not made using procedures that take parameters. As discussed in Architecture (4) , REST is a means of exchanging and modifying resources that are  uniquely  identified  using  a  distinct  URI.  Various  operations  can  be  performed on each resource.  RESTful  HTTP  provides  methods,  primarily GET , PUT , POST , and DELETE . Even though these may seem to support only CRUD operations, using a little imagination allows us to actually categorize operations with explicit intent within one of the four method categories. For example, GET can be used to categorize various kinds of query operations, and PUT can be used to encapsulate a command operation that executes on an Aggregate (10) .
+
+Of course, this in no way means that there are only three ways to integrate applications.  You  can,  for  example,  use  file-based  integration  and  shareddatabase integration, but doing so could make you old before your time.
+
+## Cowboy Logic
+
+AJ:    'You better take a low seat in your saddle. That horse is a tough one and it'll make you feel old before your time.'
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000500_a5f3fd6d6c2c83d45eec67e12f7ad36e463df16f4131adb4d0251c5abc9ae45a.png)
+
+Although  I've  highlighted  three  common  ways  that  are  used  to  integrate Bounded Contexts, we'll actually stick with just two of those in this chapter. We will mostly focus on integrating with messaging mechanisms but will see how to use RESTful HTTP as well. We'll avoid examples using RPC because you can easily imagine creating procedural APIs that could be used to replace the other two approaches. Also, RPC has less resilience when our goal is to support autonomous services (aka autonomous applications). A failed system that would normally provide an RPC-based API will prevent dependent systems from succeeding in their own operations.
+
+This brings up a topic of vital importance, which requires the attention of every integration developer.
+
+## Distributed Systems Are Fundamentally Different
+
+Problems always arise with integration when developers who are unfamiliar with the principles of distributed systems gloss over its inherent complexity. This  can  be  especially  true  when  using  RPC,  because  those  inexperienced with distribution commonly imagine that any one remote call is as good as an in-process call.  Such  assumptions  can  cause  cascading  failure  across  any number of systems when just one system or one of its components becomes unavailable,  even  temporarily  so.  Thus,  all  developers  working  within  distributed systems will succeed or fail by the following Principles of Distributed Computing:
+
+-  The network is not reliable.
+-  There is always some latency, and maybe a lot.
+-  Bandwidth is not infinite.
+-  Do not assume that the network is secure.
+-  Network topology changes.
+-  Knowledge and policies are spread across multiple administrators.
+-  Network transport has cost.
+-  The network is heterogeneous.
+
+These are purposely stated differently from the 'Fallacies of Distributed Computing' [Deutsch]. I call them principles to emphasize the challenges that must be worked around and complexities that must be planned for, rather than the mistakes commonly made by the naive.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000501_d6987f0a2a350cff2c29be3e63cfd359d01da7bf49ab00adb72e581fb790e5d4.png)
+
+## Exchanging Information across System Boundaries
+
+Most of the time when we need a foreign system to provide a service for our own system, we need to pass informational data to the service. The services we use sometimes need to provide responses. Thus, we need a reliable way to pass informational data between systems. This data needs to be exchanged between disparate systems in a structure that is easily consumed by all involved. Most of us would choose to use some standard way to do that.
+
+Informational data sent as parameters or messages constitutes just machine-readable structures that can be generated in one of many formats. We must also create some form of contract between the data-exchanging systems, and possibly even the mechanisms to parse or interpret those structures, so they can be consumed.
+
+There are several ways to generate the structures used to exchange information between systems. One technical implementation simply relies on the programming language facilities to serialize objects into a binary format and deserialize them on the consumer's side. This works well as long as all systems support the same language facilities, and if the serialization is actually compatible  or  interchangeable  between  disparate  hardware  architectures.  It  also requires you to deploy all the interfaces and classes of objects that are used across systems to each system that uses the specific object type.
+
+Another approach to building exchangeable information structures is to use some standard intermediate format. Some options are to use XML, JSON, or a  specialized  format  such  as  Protocol  Buffers.  Each  of  these  approaches  has advantages and disadvantages, some of which include richness and compactness factors, performance of type conversions, support for flexibility between object versions, and ease of use. Some of these can have costly impacts when considering the Principles of Distributed Computing listed earlier (for example, 'Network transport has cost').
+
+Using this intermediate format approach, you may still desire to deploy all the interfaces and classes of objects that are used across systems, and use a tool to place the data of the intermediate format into your type-safe objects. This has the advantage that you can use objects the same way in the consuming system as you would in the source system.
+
+Of course, deploying these interfaces and classes also has related complexity, and it typically means that the consuming system will need to be recompiled to maintain compatibility with the latest versions of interface and class definitions. There is also the danger of using the foreign objects freely in the consuming system as if they were our very own, which would tend to violate the very DDD strategic design principles we have been fighting so hard to follow. Some may think that by declaring this as a Shared Kernel (3) , it indemnifies the approach. However, be aware that the convenience of objects that are shared between systems can lead you down a slippery slope. Yet, regardless of the complexity  and  potential  danger  of  polluted  models,  many  believe  that  any strong  typing  afforded  by  this  tactic  is  a  suitable  trade-off  for  the  required complexity.
+
+Still, I encounter those who struggle with this for various reasons, and they often wish for an easier and safer approach, but one that doesn't entirely discard type safety. Let's consider such an approach.
+
+What if we could define a contract between the systems that produce the exchangeable information structures and those that consume them in such a way that the consumers could confidently use the data without deserializing it into object instances of specific classes? We can define such a reliable contract using a standards-based approach, which actually forms a Published Language (3) . One such standard approach is to define a custom media type, or the semantic equivalent. Whether or not you have good reason to register such a media type using the guidelines from RFC 4288, it is the actual specification that matters. The specification defines the binding contract between producers and consumers and offers a foolproof means to exchange such media without sharing the interface and class binaries.
+
+This does require some trade-offs, as always. You will not be able to navigate using property accessors as you would if you had the interfaces/classes for each object, and with associated type safety. You would also lack some IDE support, such as the ability to use code completion. This isn't really a big disadvantage. Further, you would have no operational function/method support that having the Event class could provide. However, I do not see the lack of Event operational functions/methods as a disadvantage, but rather as a protection. The consuming Bounded Context should be interested only in the data properties and should never be tempted to use functionality that is part of a different model. The consumer's Port Adapters (4) should shield its domain model from any such dependencies and must instead pass needed Event data as appropriate parameters with types as defined only in its own Bounded Context. Any necessary calculations or processing should be performed by the producing Bounded Context and provided as enriching Event data attributes.
+
+Consider  an  example.  SaaSOvation  needs  to  exchange  media  between  its various  Bounded  Contexts.  It  will  do  so  using  RESTful  resources  and  by sending messages containing Events (8) between services. In fact, one kind of RESTful  resource  is  a notification ,  and  Event-based  messages  are  also  sent to  subscribers  as Notification objects.  In  other  words,  in  both  cases  the Notification holds an Event, and the two are formatted into a single structure. The custom media type specification for notifications and Events could indicate a contract that includes
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000502_24dd1392ad540226212087ebe394b17889360101e61373d0264d429016acfe74.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000503_c7014e1c3c80c99f2da039ee66c9bcfbf814e71a18e6cf199ea2a441d691b300.png)
+
+## Chapter 13 INTEGRATING BOUNDED CONTEXTS
+
+-  Type: Notification format: JSON
+- notificationId : long integer unique identity
+- typeName : text String type of notification, an example type name being com.saasovation.agilepm.domain.model.product. Φ backlogItem.BacklogItemCommitted
+- version : integer version of the notification
+- occurredOn : date/time when the notification's contained Event happened
+- event : JSON payload details; see specific Event types
+
+Using  the  fully  qualified  class  name  (package  name  included)  for  the typeName allows  subscribers  to  precisely  differentiate  various Notification types. The notification specification would be followed by the various Event type specifications. For one example, consider a familiar Event named BacklogItemCommitted :
+
+-  Event type: com.saasovation.agilepm.domain.model.product. Φ backlogItem.BacklogItemCommitted
+- eventVersion :  integer  version  of  the  Event,  which  is  the  same  as  the Notification version
+- occurredOn : date/time when the Event occurred, which is the same as Notification occurredOn
+- backlogItemId : BacklogItemId ,  which  contains  the id text  string attribute
+- committedToSprintId : SprintId , which contains the id text string attribute
+- tenantId : TenantId , which contains the id text string attribute
+-  Event details: see specific Event types
+
+We  would,  of  course,  specify  the  Event  details  for  every  Event  type. With the Notification and  all  Event  types  specified,  we  can  safely  use  a Notification  Reader as demonstrated by this test:
+
+```
+DomainEvent domainEvent = new TestableDomainEvent(100, "testing"); Notification notification = new Notification(1, domainEvent); NotificationSerializer serializer = NotificationSerializer.instance();
+```
+
+```
+String serializedNotification = serializer.serialize(notification); NotificationReader reader = new NotificationReader(serializedNotification); assertEquals(1L, reader.notificationId()); assertEquals("1", reader.notificationIdAsString()); assertEquals(domainEvent.occurredOn(), reader.occurredOn()); assertEquals(notification.typeName(), reader.typeName()); assertEquals(notification.version(), reader.version()); assertEquals(domainEvent.eventVersion(), reader.version());
+```
+
+The test shows how the NotificationReader can provide type-safe standard parts for every serialized Notification object.
+
+The next test shows how the special parts of each Event's details can also be read out of a Notification payload. Event object navigation is provided using XPath-like syntax, or dot-separated properties, or you may use attribute names separated by commas (Java varargs). You can see that each attribute can  be  read  as  a String value  or  as  its  actual  primitive  type  ( int , long , boolean , double , and so on) if the type is other than String :
+
+```
+TestableNavigableDomainEvent domainEvent = new TestableNavigableDomainEvent(100, "testing"); Notification notification = new Notification(1, domainEvent); NotificationSerializer serializer = NotificationSerializer.instance(); String serializedNotification = serializer.serialize(notification); NotificationReader reader = new NotificationReader(serializedNotification); assertEquals("" + domainEvent.eventVersion(), reader.eventStringValue("eventVersion")); assertEquals("" + domainEvent.eventVersion(), reader.eventStringValue("/eventVersion")); assertEquals(domainEvent.eventVersion(), reader.eventIntegerValue("eventVersion").intValue()); assertEquals(domainEvent.eventVersion(), reader.eventIntegerValue("/eventVersion").intValue()); assertEquals("" + domainEvent.nestedEvent().eventVersion(), reader.eventStringValue("nestedEvent", "eventVersion")); assertEquals("" + domainEvent.nestedEvent().eventVersion(), reader.eventStringValue("/nestedEvent/eventVersion")); assertEquals(domainEvent.nestedEvent().eventVersion(), reader.eventIntegerValue("nestedEvent", "eventVersion").intValue()); assertEquals(domainEvent.nestedEvent().eventVersion(), reader.eventIntegerValue("/nestedEvent/eventVersion").intValue());
+```
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000504_7e725652c1b3475c823675ebde63e4dd41ea716dd57eb5a9fa73333dd7f0a0fb.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000505_72406629a965acf3b815941d345e1fc8c4d87ed5f94a372f031c427ac2c1085b.png)
+
+```
+assertEquals("" + domainEvent.nestedEvent().id(), reader.eventStringValue("nestedEvent", "id")); assertEquals("" + domainEvent.nestedEvent().id(), reader.eventStringValue("/nestedEvent/id")); assertEquals(domainEvent.nestedEvent().id(), reader.eventLongValue("nestedEvent", "id").longValue()); assertEquals(domainEvent.nestedEvent().id(), reader.eventLongValue("/nestedEvent/id").longValue()); assertEquals("" + domainEvent.nestedEvent().name(), reader.eventStringValue("nestedEvent", "name")); assertEquals("" + domainEvent.nestedEvent().name(), reader.eventStringValue("/nestedEvent/name")); assertEquals("" + domainEvent.nestedEvent().occurredOn().getTime(), reader.eventStringValue("nestedEvent", "occurredOn")); assertEquals("" + domainEvent.nestedEvent().occurredOn().getTime(), reader.eventStringValue("/nestedEvent/occurredOn")); assertEquals(domainEvent.nestedEvent().occurredOn(), reader.eventDateValue("nestedEvent", "occurredOn")); assertEquals(domainEvent.nestedEvent().occurredOn(), reader.eventDateValue("/nestedEvent/occurredOn")); assertEquals("" + domainEvent.occurredOn().getTime(), reader.eventStringValue("occurredOn")); assertEquals("" + domainEvent.occurredOn().getTime(), reader.eventStringValue("/occurredOn")); assertEquals(domainEvent.occurredOn(), reader.eventDateValue("occurredOn")); assertEquals(domainEvent.occurredOn(), reader.eventDateValue("/occurredOn"));
+```
+
+The TestableNavigableDomainEvent holds  a TestableDomainEvent ,  which allows us to test navigation to deeper attributes. The various attributes are read using XPath-like syntax with varargs attribute navigation. We also test reading each attribute value as various types.
+
+Since Notification and Event instances always have a version number, you can key off of the version to read specialized attributes in a specific version. Consumers that specialize in a given version can pick out the special parts that they need. However, it is also possible for consumers to receive any given Event-containing Notification as if it were version 1.
+
+Thus, if we carefully consider how each Event type is designed, we can protect most consumers from incompatibility when all they need is version 1 of a given Event. Such consumers never have to change or be recompiled when an Event changes. Still, you really have to think in terms of the version compatibility  and  plan  for  smart  modifications  to  new  versions  so  you  don't  break most consumers. Sometimes it's impossible to achieve, but in many cases it is entirely possible.
+
+This  approach  has  the  added  advantage  that  Events  can  hold  more  than just primitive attributes and strings. Events may also safely hold instances of more sophisticated Value Objects (6) , which is especially effective when their Value types tend to be stable. This is certainly the case with BacklogItemId , SprintId , and TenantId , as demonstrated by the following code, this time using dot-separated property navigation:
+
+```
+NotificationReader reader = new NotificationReader(backlogItemCommittedNotification); String backlogItemId = reader.eventStringValue("backlogItemId.id")); String sprintId = reader.eventStringValue("sprintId.id")); String tenantId = reader.eventStringValue("tenantId.id"));
+```
+
+The fact that any held Value instances are frozen in the structure allows Events  to  be  not  only  immutable,  but  also  eternally  fixed.  New  versions  of Value  Object  types  contained  by  Events  do  not  impact  your  ability  to  read older versions of those Values from preexisting Notification instances. Certainly,  Protocol Buffers can be far easier to use when Event versions change significantly and often, and dealing with those changes becomes unwieldy for consumers that use the NotificationReader .
+
+Understand that this is simply an option for gracefully handling deserialization without deploying Event types and dependencies everywhere. Some will find this approach quite elegant and liberating, while others will find it risky, inept, or downright dangerous. The opposite approach of deploying interfaces and  classes  everywhere  the  serialized  objects  are  consumed  is  well  known. Here I provide some food for thought by pointing out a less traveled road.
+
+## Cowboy Logic
+
+- LB:    'You know, J, when a cowboy's too old to set a bad example, he hands out good advice.'
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000506_20361ea20e681a853f54acb8a2efd65fdd912d68a26d1abd2ea1208580eb5433.png)
+
+It  is  possible that each approach-deploying classes to exchange serializations  versus  defining  a  media  type  contract-has  an  advantage  at  different stages of a project. For example, depending on the number of teams, Bounded Contexts, change ratio, and other factors, it might work out to share classes and interfaces  when your project is starting,  but  it  could  be  better  to  use  a more decoupled, custom media type contract in the production stage. In practice this may or may not work for a particular team or set of teams. Sometimes what a team starts out with ends up being what they live with ongoing, and they never take the time to make a 180-degree change.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000507_e75df7d5f79c88386309623c7d189bd5e11faefbd02ac8078bedd2ff2e8e8c9a.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000508_a8077e07c0b57a3a80e015a5c7533372a64ff909905e5dc09edc94bb12ad68a1.png)
+
+To keep our running examples simple and understandable, in the remainder of the chapter I use the NotificationReader throughout. Whether or not to use a custom media type contract and NotificationReader in your Bounded Contexts is your choice to make.
+
+## Integration Using RESTful Resources
+
+When a Bounded Context provides a rich set of RESTful resources through URIs, it is a kind of Open Host Service (3) :
+
+Define a protocol that gives access to your subsystem as a set of services. Open the protocol so that all who need to integrate with you can use it. Enhance and expand the protocol to handle new integration requirements. [Evans]
+
+We can well think of the HTTP methodsGET , PUT , POST , and DELETE - combined  with  resources  on  which  they  operate,  as  a  set  of  open  services. HTTP and REST certainly form an open protocol allowing all who need to integrate with the subsystem to do so. The fact that a virtually unlimited number of resources-each with a unique identity through a URI-can be created allows the protocol to handle new integration requirements as needed. It is a very versatile way to allow clients to integrate with your Bounded Context.
+
+Even so, since the RESTful service provider must be directly interacted with whenever a resource is operated on, this style does not permit clients to be completely autonomous. If the REST-based Bounded Context becomes unavailable for some reason, dependent client Bounded Contexts will be unable to carry out necessary integration operations during any downtime.
+
+Still, we can overcome this to some extent by making dependence on RESTful resources a lesser obstacle to consumer autonomy. Even when RESTful (or RPC for that matter) is your only means to integrate, you can create the illusion of temporal decoupling by using timers or messaging in your own system. That way your system will reach out to any remote systems only when a timer elapses or when a message is received. If the remote system is unavailable, the timer threshold can be backed off, or if using messaging the message can be negatively acknowledged to the broker and redelivered. This naturally places more of a burden on your team to make the systems loosely coupled, but that's a price you may have to pay to achieve autonomy.
+
+When  the SaaSOvation  team developing  the Identity  and  Access  Context needed to create a way for integrators to use  their  Bounded  Context,  they  determined that RESTful HTTP would be one of the best ways to open their system for integration without directly exposing the
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000509_36dfc5ca8d8f7c13d5ed0d1f8da7d39a5a95fcbe8f8b29d4a6c0cc983a3a76ee.png)
+
+structural and behavioral details of their domain model. For them this meant designing  a  set  of  RESTful  resources  that  would  provide  representations  of  identity  and access concepts on a tenant-by-tenant basis.
+
+Much of their design would allow integrating Bounded Contexts to GET resources that  convey  user  and  group  identity,  and  also  indicate  role-based  security  permissions for those identity types. For example, if an integration client needs to know if a user within a given tenant could play a specific access role, the client should GET a resource using this URI format:
+
+/tenants/{tenantId}/users/{username}/inRole/{role}
+
+If  the  tenant's  user  is  in  the  role,  the  resource  representation  is  included  in  the successful 200 response. Otherwise, the response is a 204 No Content status code if the user does not exist or does not play that named role. It's a simple RESTful HTTP design.
+
+Let's  look  at  how  the  team  exposed  the  access  resources  and  how  integration clients could consume them in terms of the Ubiquitous Language (1) of their own Bounded Context.
+
+## Implementing the RESTful Resource
+
+As  SaaSOvation  started  applying  REST  principles  to  one  of  their  Bounded Contexts, they learned some important lessons. Let's look in on their journey.
+
+As the SaaSOvation team working in the Identity and Access Context considered how to  provide  an  Open  Host  Service  for  integrators,  they  considered  simply  exposing their domain model as a set of RESTful linked resources. That would mean allowing HTTP clients to GET a unique tenant resource and navigate through its users, groups, and roles. Was that a good idea? It seemed natural at first. After all, that would afford clients with the greatest flexibility. Clients could know everything about the domain model and just make decisions in their own Bounded Context.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000510_fa61f694303fda7703e7edb6f1ca513796eed22387f50e9dcc9fb0de4337c023.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000511_3528c564b29ddac058ba50072b358922eff4ab03934606b4c3cd3f3cec8fa3f6.png)
+
+Which  DDD  Context  Mapping  pattern  best  describes  this  design  approach?  In reality  that  is  not  an  Open  Host  Service,  but  depending  on  the  size  of  the  shared model it would instead be a Shared Kernel or a Conformist (3) . Publishing a Shared Kernel or accepting a Conformist relationship puts consumers into a tightly coupled integration with the consumed domain model. Those kinds of relationships should be avoided if at all possible since they tend to run counter to the most fundamental goals of DDD.
+
+It was a good thing that along the way the team found some good advice to avoid exposing their model to clients in that way. They learned to think of the use cases (or user stories) that integrators needed. That was in harmony with this part of the Open Host Service definition: 'Enhance and expand the protocol to handle new integration requirements.' That means that you provide only what integrators need at present, and you understand those needs only by considering a range of use case scenarios.
+
+When the team followed that advice, they realized that, for example, what integrators are really interested in is whether or not a given user can play a specific  role.  Shielding  the  integrators  from  the  details  of  understanding  the domain  model  would  ultimately  increase  their  productivity  and  make  their dependent Bounded Contexts more maintainable. In terms of design it meant that their User RESTful resource could include the following design:
+
+```
+@Path("/tenants/{tenantId}/users") public class UserResource { ... @GET @Path("{username}/inRole/{role}") @Produces({ OvationsMediaType.ID_OVATION_TYPE }) public Response getUserInRole( @PathParam("tenantId") String aTenantId, @PathParam("username") String aUsername, @PathParam("role") String aRoleName) { Response response = null; User user = null; try { user = this.accessService().userInRole( aTenantId, aUsername, aRoleName); } catch (Exception e) { // fall through } if (user != null) { response = this.userInRoleResponse(user, aRoleName); } else { response = Response.noContent().build(); }
+```
+
+```
+return response; } ... }
+```
+
+In  the Hexagonal  (4) or  Ports  and  Adapters  architecture,  class UserResource is an Adapter for the RESTful HTTP Port provided by the JAX-RS implementation. A consumer makes a request in the form
+
+```
+GET /tenants/{tenantId}/users/{username}/inRole/{role}
+```
+
+The Adapter delegates to the AccessService ,  an Application  Service  (14) that provides an API at the inner hexagon. Being a direct client of the domain model, the AccessService manages the use case task and transaction. The task includes finding whether or not the User exists at all, and if so, whether or not it plays the named role:
+
+```
+package com.saasovation.identityaccess.application; ... public class AccessService ... { ... @Transactional(readOnly=true) public User userInRole( String aTenantId, String aUsername, String aRoleName) { User userInRole = null; TenantId tenantId = new TenantId(new TenantId(aTenantId)); User user = DomainRegistry .userRepository() .userWithUsername(tenantId, aUsername); if (user != null) { Role role = DomainRegistry .roleRepository() .roleNamed(tenantId, aRoleName); if (role != null) { GroupMemberService groupMemberService = DomainRegistry.groupMemberService(); if (role.isInRole(user, groupMemberService)) { userInRole = user; } } }
+```
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000512_b55b07dca5999c928b94abf0ac7e286c796c4ee05e3566e2b71399102a2774eb.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000513_6945cbd271b398578411a0f345407e1f70b8ac7ae8bf567462a23eba48a01d8e.png)
+
+```
+return userInRole; } ... }
+```
+
+The Application Service finds both the User and the named Role Aggregate. When the Role query method isInRole() is called, a GroupMemberService is passed in. This is not an Application Service, but rather a Domain Service  (7) that  helps  the Role perform  certain  domain-specific  checks  and queries that the Role itself should not be responsible for.
+
+The Response from the UserResource is formed from the resolved User and the specific role name, using one of the custom media types:
+
+```
+package com.saasovation.common.media; public class OvationsMediaType { public static final String COLLAB_OVATION_TYPE = "application/vnd.saasovation.collabovation+json"; public static final String ID_OVATION_TYPE = "application/vnd.saasovation.idovation+json"; public static final String PROJECT_OVATION_TYPE = "application/vnd.saasovation.projectovation+json"; ... }
+```
+
+When the user is in the named role, the UserResource Adapter produces an HTTP response with a JSON representation like the following:
+
+```
+HTTP/1.1 200 OK Content-Type: application/vnd.saasovation.idovation+json ... { "role":"Author","username":"zoe", "tenantId":"A94A8298-43B8-4DA0-9917-13FFF9E116ED", "firstName":"Zoe","lastName":"Doe", "emailAddress":"zoe@saasovation.com" }
+```
+
+As  you  will  see  next,  the  integrating  consumer  of  this  RESTful  resource can translate it into the specific kind of domain object needed by its Bounded Context.
+
+## Implementing the REST Client Using an Anticorruption Layer
+
+Although the JSON representation produced by the Identity and Access Context is quite useful to the client integrators, when we are focused on the goals of DDD, the representation will not be consumed as is in the client Bounded Context. As discussed in previous chapters, if the consumer is the Collaboration Context ,  the  team  is  not  interested  in  primitive  users  and  their  roles. Instead,  the  team  developing  in  the  collaboration  model  is  interested  in  the domain-specific roles. The fact that in some other model there is a set of User objects that can be assigned to one or more roles as modeled by a Role object is really not in the collaboration sweet spot.
+
+So, then, how do we make the user-in-role representation serve our specific collaboration purposes? Let's take another look at a previously drawn Context Map, this time found in Figure 13.1. The important parts of the UserResource Adapter  were  shown  in  the  previous  subsection.  This  leaves  the interfaces and classes to be developed specifically for the Collaboration Context . These are the CollaboratorService , the UserInRoleAdapter , and the CollaboratorTranslator . There is also the HttpClient , but that is provided by the JAX-RS implementation through the classes ClientRequest and ClientResponse .
+
+Figure 13.1 The Open Host Service of the Identity and Access Context and the Anticorruption Layer of the Collaboration Context used for integration between the two
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000514_97321952459d2dfcea1b81e48ee0555894ff95b1a681487ee74ffd44f68d8b0e.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000515_c33f0bbd075d9bb1151c266cd37576921c0807394fdf1732a4be75b92d804fe6.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000516_0e2b5f7c7140df584509d10cf3f45ad8fc985f5197a60a0835c51b999b023ae7.png)
+
+The  trio  of CollaboratorService , UserInRoleAdapter ,  and CollaboratorTranslator is  used  to  form  an Anticorruption  Layer  (3) ,  the means by which the Collaboration Context will interact with the Identity and Access  Context and  translate  the  user-in-role  representation  into  a  Value Object for a specific kind of Collaborator .

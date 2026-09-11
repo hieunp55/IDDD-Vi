@@ -1,0 +1,376 @@
+Bạn là chuyên gia dịch thuật kỹ thuật Anh → Việt, chuyên tài liệu kỹ thuật/công nghệ, có kinh nghiệm dịch như biên dịch viên bản ngữ chuyên nghiệp. Nhiệm vụ: dịch TOÀN BỘ nội dung Markdown dưới đây sang tiếng Việt, không bỏ sót bất kỳ phần nào. Đây là MỘT PHẦN (chunk) của một tài liệu lớn hơn, hãy dịch độc lập đoạn này, không thêm lời mở đầu/kết luận về việc đây chỉ là một phần.
+
+QUY TẮC BẮT BUỘC — VI PHẠM LÀ SAI:
+
+1. XÁC ĐỊNH LOẠI TÀI LIỆU TRƯỚC KHI DỊCH
+   - Tự phân tích nội dung để xác định loại tài liệu (kỹ thuật/lập trình, tài chính, bảo hiểm, pháp lý, marketing, học thuật, vận hành, sản phẩm...).
+   - Chọn văn phong và thuật ngữ CHUẨN NGÀNH tương ứng trong tiếng Việt, nhất quán xuyên suốt.
+
+2. VĂN PHONG — MƯỢT NHƯ NGƯỜI DỊCH, KHÔNG GIẢM CHÍNH XÁC
+   - Dịch mượt, tự nhiên, đúng ngữ pháp tiếng Việt — như biên dịch viên bản ngữ dịch tay, KHÔNG dịch máy móc kiểu word-by-word.
+   - Được phép đảo cấu trúc câu, tách/gộp câu cho tự nhiên, miễn giữ nguyên 100% ý nghĩa, thông tin, logic, số liệu gốc.
+   - Khi "mượt mà" và "chính xác" xung đột → LUÔN ưu tiên chính xác.
+
+3. DỊCH ĐẦY ĐỦ 100%
+   - Không tóm tắt, không rút gọn, không lược bỏ đoạn/câu/mục/bullet nào.
+   - Số lượng heading, đoạn văn, bảng, code block ở output PHẢI khớp 1:1 với input.
+   - Đoạn dài dịch hết, không cắt ngắn.
+
+4. GIỮ NGUYÊN THUẬT NGỮ TIẾNG ANH
+   - Thuật ngữ chuyên ngành (tên công nghệ, framework, pattern, tên hàm/biến, acronym...) giữ nguyên tiếng Anh, không dịch, không phiên âm.
+   - Ngay sau lần xuất hiện ĐẦU TIÊN của mỗi thuật ngữ, thêm chú thích ngắn trong ngoặc giải thích nghĩa bằng tiếng Việt.
+   - Các lần xuất hiện sau KHÔNG cần chú thích lại.
+
+5. GIỮ NGUYÊN FORMAT — RẤT QUAN TRỌNG
+   - VỀ ẢNH (làm trước khi dịch): ĐẾM chính xác số lượng thẻ ảnh dạng ![...](...) trong đoạn gốc bên dưới. Output PHẢI có ĐÚNG số lượng thẻ ảnh đó, không được thiếu một cái nào — kể cả ảnh không có caption, không rõ ngữ cảnh, hay trông như ảnh trang trí/lặp lại. Copy nguyên URL 100%, không sửa, không rút gọn, không thay bằng mô tả text.
+   - Giữ cấp độ heading (#, ##, ###...), giữ đúng số lượng heading.
+   - Giữ cấu trúc bảng (số cột, số hàng, alignment, header row).
+   - Giữ code block (```lang ... ```) — KHÔNG dịch code; comment được dịch tại chỗ; **được phép reformat code, tự động xuống dòng/indent chuẩn, không giữ nguyên code 1 dòng; không đổi logic/cú pháp**.
+   - Giữ blockquote, callout/note/warning (>, [!NOTE], [!WARNING]...).
+   - Giữ list, nested list, checkbox (- [ ]).
+   - Giữ nguyên link thường ([text](url)) — chỉ dịch phần text hiển thị, TUYỆT ĐỐI giữ nguyên URL.
+   - TRƯỚC KHI TRẢ KẾT QUẢ: tự đếm lại số heading, số ảnh, số dòng ``` giữa bản gốc và bản dịch của bạn, nếu lệch phải sửa lại cho khớp.
+
+6. GIẢI THÍCH ẨN DỤ / KHÁI NIỆM KHÓ
+   - Với ẩn dụ, thành ngữ, khái niệm trừu tượng khó hiểu với người Việt, thêm khối giải thích riêng ngay sau đoạn đó:
+     > 💡 **Giải thích thêm:** [giải thích dễ hiểu, đủ chuyên sâu, có ví dụ thực tế]
+     > Nguồn tham khảo: [link cụ thể để kiểm chứng]
+   - CHỈ đưa link nếu chắc chắn tồn tại và đúng nội dung — không bịa link.
+   - Không tìm được nguồn tin cậy → ghi rõ: "(Không có nguồn trích dẫn xác thực — cần tự kiểm chứng thêm)".
+
+7. CHỐNG HALLUCINATION (BẮT BUỘC)
+   - Không tự thêm thông tin/số liệu/ví dụ/kết luận KHÔNG có trong bản gốc — trừ phần giải thích ẩn dụ ở mục 6 (phải gắn nhãn rõ là phần bổ sung).
+   - Câu gốc mơ hồ → dịch sát nghĩa nhất, nếu không chắc ghi chú: "[CẦN KIỂM CHỨNG: câu gốc mơ hồ]".
+   - Không tự sửa/thêm/bớt logic kỹ thuật gốc. Không bịa trích dẫn/số liệu/link vô căn cứ.
+   - Không tự tóm tắt các đoạn dài thành ý chính rồi diễn giải lại — phải dịch từng câu.
+
+8. OUTPUT
+   - Trả về DUY NHẤT nội dung Markdown đã dịch, đặt trong 1 code block (```markdown ... ```).
+   - Không thêm lời dẫn/lời chào/giải thích ngoài code block.
+   - Không đổi tiêu đề gốc trừ khi cần dịch tiêu đề.
+
+--- NỘI DUNG GỐC CẦN DỊCH (một phần của tài liệu) ---
+
+When the Command Handler completes, a single Aggregate instance has been updated and a Domain Event has been published by the command model. This is essential to ensuring that the query model is updated. Note too that, as  discussed in Domain Events (8) and Aggregates (10) ,  the  published  Event may also be used to cause the synchronization of other Aggregate instances effected by this one command, but the modification of the additional Aggregate instances would be eventually consistent with the one committed by this transaction.
+
+## Command Model (or Write Model) Executes Behavior
+
+As each command method on the command model is executed, it completes by publishing an Event as described in Domain Events (8) . Using the running example, the BacklogItem would complete its command method as follows:
+
+```
+public class BacklogItem extends ConcurrencySafeEntity  { ... public void commitTo(Sprint aSprint) { ...
+```
+
+```
+DomainEventPublisher .instance() .publish(new BacklogItemCommitted( this.tenant(), this.backlogItemId(), this.sprintId())); } ...
+```
+
+}
+
+## What's Behind the Publisher Component?
+
+This particular DomainEventPublisher is a lightweight component based on the Observer pattern [Gamma et al.]. See Domain Events (8) for details on how Events get published broadly.
+
+This  is  the  linchpin  for  updating  the  query  model  with  the  most  recent changes to the command model. If using Event Sourcing, the Events are also necessary for persisting the state of the Aggregate that has just been modified ( BacklogItem in  this  example). However, it is not a necessity to use Event Sourcing with CQRS. Unless Event logging is a requirement specified by the business, the command model can be persisted using an object-  relational mapper  (ORM)  to  a  relational  database  or  some  other  approach.  Either  way,  a Domain Event must still be published to ensure that the query model is updated.
+
+## When Commands Don't Result in Event Publishing
+
+There are circumstances when command dispatching does not lead to Events being published.  For  example,  if  a  command  was  delivered  by  'at-least-once'  messaging and the application ensures idempotent operations, the redelivered message is silently dropped.
+
+Also consider the case where the application validates incoming commands. All authorized clients know about validation rules and will always pass them. However, all unauthorized clients-such as those of attackers-submitting invalid commands will fail and can be silently dropped without endangering authorized users.
+
+## Event Subscriber Updates the Query Model
+
+A special subscriber registers to receive all  Domain Events published by the command model. The subscriber uses each Domain Event to update the query model to reflect the most recent changes to the command model. This implies that each Event must be rich enough to supply all the data necessary to produce the correct state in the query model.
+
+Should  the  updates  be  performed  synchronously  or  asynchronously?  It depends on the normal load on the system, and possibly also on where the query model database is stored. Data consistency constraints and performance requirements will influence the decision.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000136_8693c7ff48c18158ac92411fd16ca55b3d44a29a35e314e452e2aa2c86960155.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000137_9e4f1c6f30246914808af133e035942e76ad140962aad170600bf2178e0678bd.png)
+
+To update synchronously, the query model and command model would normally share the same database (or schema), and we would update the two models in the same transaction. That keeps both models completely consistent. Yet, this  will  require  more  processing  time  for  the  multiple  table  updates,  which may  not  meet  the  service-level  agreement  (SLA).  If  the  system  is  normally under heavy load and the query model update process is lengthy, use asynchronous updates instead. This may lead to challenges of eventual consistency, where the user interface will not immediately reflect the most recent changes in the command model. The lag time is unpredictable, but it is a trade-off that may be necessary to meet other SLAs.
+
+What happens when a new user interface view is created but its data must be created? Design the table and any table views as described previously. Populate  the  new  table  with  current  state  using  one  of  a  few  techniques.  If  the command model is persisted using Event Sourcing, or if there is a full historical Event Store, replay the historical Events to produce the updates. This is possible only if the right kinds of Events already exist in the store. If they don't, the table may have to be populated as future commands enter the system. There may be another option.
+
+If  the  command model is persisted using an ORM, use the backing command model store to populate the new query model table. This may employ a common data warehousing (or report database) generation technique, such as extract, transform, load (ETL). Extract the data from the command model store, transform it as needed by the user interface, and load it into the query model store.
+
+## Dealing with an Eventually Consistent Query Model
+
+If  the  query  model  is  designed  to  be  eventually  consistent-query  model updates are performed asynchronously following writes to the command model store-there will be resulting idiosyncrasies in the user interface to deal with. For example, after a user submits a command, will the next user interface view have the fully updated and consistent data reflected from the query model? It may depend on system load and other factors. But we had better assume not and design for the worst case, where the user interface is never consistent.
+
+One option is to design the user interface to temporarily display the data that was successfully submitted as parameters of the command just executed. This is a bit of a trick, but it enables the user to immediately see what will eventually be reflected in the query model. It may be the only way to ensure that the user interface does not display completely stale data just after a command is successfully executed.
+
+What if that is not practical for a given user interface? Even if it is, there are also times when any one user executes a command and all other users viewing related data will absolutely see stale data. How can this challenge be met?
+
+One technique suggested by [Dahan, CQRS] always explicitly displays on the  user  interface  the  date  and  time  of  the  data  from  the  query  model  that a user is currently viewing. To do so, each record in the query model needs to maintain the date and time of the latest update. This is a trivial step, generally  supported  by  a  database  trigger.  With  the  date  and  time  of  the  latest update, the user interface can now inform the user how old the data is. If the user determines that the data is too stale to use, he or she can at that time request fresher data. Admittedly this approach is lauded by some as an effective  pattern  and  heavily  criticized  by  others  as  a  hack  or  artifice.  Certainly these opposing viewpoints indicate the need to perform user acceptance tests before this approach is employed in our own systems.
+
+Yet, it's  possible  that  the  delayed  view  data  synchronization is  not  a  critical problem at all. It may also be overcome by other means, such as Comet (aka Ajax Push), or another form of latent update, such as some variation of Observer [Gamma et al.] or Distributed Cache/Grid (for example, Coherence or  GemFire)  event  subscriptions.  Addressing  delays  may  even  be  as  easy  as informing users that their request has been accepted and a result will require some processing time. Carefully determine whether the eventual consistency lag time poses a problem. If so, you'll have to find the best way to address it in a given environment.
+
+As with every pattern, CQRS introduces a number of competing forces. We must exercise a great deal of care and choose wisely. Certainly if a user interface is not overly complex or regularly cut across several different Aggregates in a single view, employing CQRS would serve to introduce accidental complexity  rather  than  necessary  complexity.  CQRS  is  the  right  choice  when  it removes a risk that has a high probability of causing failure if ignored.
+
+## Event-Driven Architecture
+
+Event-driven architecture (EDA) is a software architecture promoting the production, detection, consumption of, and reaction to events. [Wikipedia, EDA]
+
+The Hexagonal Architecture shown in Figure 4.4 can represent the notion of one system participating in an EDA by means of incoming and outgoing messages. An EDA doesn't have to use Hexagonal, but it's a decent way to present the concepts here. On a greenfield project it would be well worth it to consider using Hexagonal as the overarching style.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000138_04d2d39e6492fef9a3ac127cee3d36233584817c56a4bb5eac1c022cb57c74e7.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000139_03db5ddfcc4069ec2c6367e56fa7cdef490330edaef95f4399a3aef17ca1c6d8.png)
+
+Examining Figure 4.4, say that the triangular client and the corresponding triangular output mechanism represent the messaging mechanism used by the Bounded Context. Input events enter on a Port separate from the one used by the other three clients. Output events likewise travel via a different Port. As proposed previously, the separate Ports could represent the message transport over AMQP, as used by RabbitMQ, rather than the more common HTTP that the other clients use. Whichever actual messaging mechanism may be in use, we will assume that events enter and exit the system by means of the symbolic triangles.
+
+There may be a number of different kinds of events that enter and exit a hexagon. We are interested specifically in Domain Events. The application may also subscribe to system, enterprise, or other types of events as well. Perhaps those deal with system health and monitoring, logging, dynamic provisioning, and the like. Yet, it is the Domain Events that convey the happenings requiring our modeling attention.
+
+We can replicate the system in the Hexagonal Architecture view as many times  as  necessary  to  represent  the  complement  of  systems  in  the  enterprise that support the Event-Driven way. That's been done in Figure 4.7. Again, it's not that every system will be based on Hexagonal. The diagram just demonstrates  how  Event-Driven  could  be  supported  if  multiple  systems  were  Hexagonal at their foundation. Otherwise, feel free to replace the hexagons with Layers, or another style.
+
+The  Domain  Events  published  by  one  such  system  through  the  output  Port would be delivered to subscribers represented in the others through their input Port. The various Domain Events received have a specific meaning in each receiving Bounded Context, or possibly no meaning at all. 5 If the Event type is of interest in a specific Context, its properties are adapted to the application's API and used to execute an operation there. The command operation executed on the application's API is then reflected into the domain model according to its protocol.
+
+Figure 4.7 Three systems using an Event-Driven Architecture with an overarching Hexagonal style. The EDA style decouples all but the systems' dependency on the messaging mechanism itself and the Event types they subscribe to.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000140_409c7f73e00848fe24e830a6bf11a0d25f6e9980eb9f06c949803f3d5bd71993.png)
+
+It's possible that a specific Domain Event received represents only one part of  a  multitask  process.  Until  all  anticipated  Domain  Events  arrive,  the  multitask process is not considered completed. But how does the process begin? How is it distributed across the enterprise? And how do we handle tack progress through to process completion? The answers are discussed subsequently in the section on long-running processes. But first some initial groundwork is in order. Message-based systems often reflect a Pipes and Filters style.
+
+## Pipes and Filters
+
+In one of its simplest forms, Pipes and Filters are available using a shell/console command line:
+
+```
+$ cat phone_numbers.txt | grep 303 | wc -l 3 $
+```
+
+Here a Linux command line is used to find how many contacts are in the fancy personal information manager, phone\_numbers.txt ,  who have   Coloradobased phone numbers. Admittedly this is not a very reliable way to implement that use case, but it does demonstrate how Pipes and Filters work:
+
+1. The cat utility outputs the contents of phone\_numbers.txt to what is called the standard output stream . Normally this stream is connected to the console. But when the | symbol is used, the output is piped to the input of the next utility.
+2. Next, grep reads its input from the standard input stream, which was the result of cat . The argument to grep tells it to match lines that contain the text 303 . Each line that it finds is output to its standard output stream. As with cat , grep 's output stream is now piped to the input of the next utility.
+3. Finally, wc reads its standard input stream, which was piped from grep 's standard output. The command-line argument to wc is -l ,  telling  it  to count the number of lines it reads. It outputs the result, which in this case
+
+5.  If using message filters or routing keys, subscribers can avoid receiving Events that are meaningless to them.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000141_743228c006af2e6099d12f3da07772b4c207750e64b0fe78d0a8698975393a16.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000142_7ff5450eb0393b521bb669adc286984bf43497bf7d3b7c61d42e5727c9fb6239.png)
+
+is 3 ,  because three lines were output by grep .  Note that now the standard output is displayed to the console since this time there is no Pipe to an additional command.
+
+This can be approximated using a Windows console, but with less piping:
+
+```
+C:\fancy_pim> type phone_numbers.txt | find /c "303" 3 C:\fancy_pim>
+```
+
+Consider what happens with each of the utilities. Each receives a dataset, processes it, and outputs a different dataset. The dataset that is output changes from the input because each utility acts as a Filter. By the end of the filtering process the output is completely different from the input. The input started out as a text file with individual lines of contact information and ended up being the text digit representing the number 3.
+
+Using the basic principles from this example, how might we apply them to an  Event-Driven  Architecture?  In  fact,  we  can  find  some  useful  overlap.  The following discussion is based on the Pipes and Filters messaging pattern found in  [Hohpe,  Woolf].  Understand,  however,  that  a  messaging  Pipes  and  Filters approach is not exactly like the command-line version, and it is not intended to  be.  For  example,  an  EDA  Filter  doesn't  need  to  actually  filter  anything.  A Filter in an EDA may be used to perform some processing while leaving the message data intact. Yet Pipes and Filters in an EDA is similar enough to the command-line type that the previous example helped lay some groundwork for what follows. If you are a more advanced reader, feel free to 'filter' what follows.
+
+Table 4.2 presents some of the basic characteristics of a message-based Pipes and Filters process.
+
+Table 4.2 Basic Characteristics of a Message-Based Pipes and Filters Process
+
+| Characteristic                 | Description                                                                                                                          |
+|--------------------------------|--------------------------------------------------------------------------------------------------------------------------------------|
+| Pipes are message channels     | Filters receive messages on an inbound Pipe and send mes- sages on an outbound Pipe. The Pipe is actually a message channel.         |
+| Ports connect Filters to Pipes | Filters connect to inbound and outbound Pipes through a Port. Ports make Hexagonal (Ports and Adapters) a fitting overarching style. |
+| Filters are processors         | Filters may process messages without actually filtering.                                                                             |
+| Separate processors            | Each Filter processor is a separate component, and proper component granularity is achieved by careful design.                       |
+
+Table 4.2 Basic Characteristics of a Message-Based Pipes and Filters Process ( Continued )
+
+| Characteristic                    | Description                                                                                                                                                                             |
+|-----------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Loosely coupled                   | Each Filter processor is composed into the process inde- pendent of all others. Filter processor composition may be defined by configuration.                                           |
+| Interchangeable                   | The order in which a processor receives messages may be rearranged per use case requirements, again using config- ured composition.                                                     |
+| Filters may multi-Pipe            | While the command-line Filters read from and write to only one Pipe, messaging Filters may read from and/or write to multiple Pipes, which implies parallel or concur- rent processing. |
+| Use same-type Filters in parallel | The busiest and possibly slowest Filters may be deployed in multiples to increase throughput.                                                                                           |
+
+Now, what if we were to think of each of the utilities cat , grep , and wc (or type and find ) as components in an Event-Driven Architecture? What if we even implemented components to act as message senders and receivers to process telephone numbers in a similar way? (Again, I am not trying to illustrate a one-to-one command-line replacement, just a simple messaging example with the same basic goals.)
+
+Here's how a messaging Pipes and Filters approach could work, with steps illustrated in Figure 4.8:
+
+1. We could start off with a component named PhoneNumbersPublisher that  reads  all  the  lines  in phone\_numbers.txt and  then  creates  and sends an Event message that includes all of the text lines. The Event is named AllPhoneNumbersListed . Once it is sent, the pipeline begins.
+2. A message handler component named PhoneNumberFinder is configured  to  subscribe  to AllPhoneNumbersListed and  receives  it.  This message handler is the first Filter in the pipeline. The Filter is configured to search for the text 303 . This component processes the Event by searching each line for the 303 text sequence. It then creates a new Event named PhoneNumbersMatched ,  placing  the  full  lines  of  matching  results  in the Event. The Event message is sent, continuing the pipeline.
+3. A message handler component named MatchedPhoneNumberCounter is configured to subscribe to PhoneNumbersMatched and receives it. This message handler is the second Filter in the pipeline. Its sole responsibility
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000143_1d3d77d06ca408e61f1d8a34ac5bd450f2ee8dc7d4406d4cdcc99079dc050001.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000144_eb3d73ba8f832c10082175cfacfd66173102c9e47258248450121c28f30f4162.png)
+
+Figure 4.8 A pipeline is formed by sending Events that the Filters process.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000145_a981e7587740ff5daed7fada9d840a127e12a0d8fb669ef4ab79fe7d8e923068.png)
+
+is to count the phone numbers in the Event and then forward the results in a new Event. In this case it counts three total lines containing phone numbers. The Filter completes by creating the MatchedPhoneNumbersCounted Event, setting the count property to 3 .  The Event message is sent, continuing the pipeline.
+
+4. Finally,  a  message  handler  component  subscribed  to MatchedPhoneNumbersCounted receives it. This component is named PhoneNumberExecutive .  Its  single  responsibility  is  to  log  the  result,  including  the count Event property and the date and time it was received, to a file. In this case it writes
+2. 3 phone numbers matched on July 15, 2012 at 11:15 PM
+
+The pipeline for this specific process is now completed. 6
+
+6.  For  simplicity  I  don't  discuss  Ports,  Adapters,  and  the  application  API  of  the Hexagonal Architecture.
+
+This kind of pipeline is somewhat flexible. If we wanted to add any new Filters to the pipeline, we'd create new Events that each existing Filter subscribes to and publishes. Basically we'd have to carefully change the sequential order of the pipeline via configuration. Of course, it's not as easy to change this process as with the command-line approach. Typically, however, we won't change Domain Event pipelines all that frequently. While this particular distributed process is not very useful in itself, it does demonstrate how Pipes and Filters might work in a messaging, Event-Driven Architecture.
+
+So, would we actually expect that we'd see Pipes and Filters exploited to solve a problem like this? Well, ideally not. (In fact, if you find this example annoying, it's probably because you already know better. That's fine, but there are plenty of others who are helped by it.) This is meant only as a synthetic example, one that highlights the concepts. In a real enterprise we would use this pattern to break down a large problem into smaller steps that would make distributed processing easier to understand and manage. It would also allow multiple systems to care only for what they do well.
+
+In  an  actual  DDD  scenario,  Domain  Events  reflect  names  meaningful  to the  business.  Step  1  could  publish  a  Domain  Event  based  on  the  behavioral outcome of an Aggregate in one Bounded Context. Steps 2 through 4 could occur in one or more different Bounded Contexts that receive the initial Event and then publish one of the subsequent ones. Those three steps could create or modify Aggregates in their respective Contexts. It does depend on the domain, but those are common outcomes of handling Domain Events in a Pipes and Filters Architecture.
+
+As explained in Domain Events (8) , these are not just paper-thin technical notifications. They explicitly model business process activity occurrences that are useful for domain-wide subscribers to know about, and they pack unique identity and as many knowledge-conveying properties as necessary to clearly get their point across. Yet this synchronous, step-by-step style can be extended to accomplish more than one thing at the same time.
+
+## Long-Running Processes, aka Sagas
+
+The synthetic Pipes and Filters example can be extended to demonstrate another Event-Driven, distributed, parallel processing pattern, namely, Long-Running Processes . A Long-Running Process is sometimes called a Saga, but depending on your background that name may collide with a preexisting pattern. An early description of Sagas is presented in [Garcia-Molina &amp; Salem]. In an attempt to avoid confusion and ambiguity, I have chosen to use the name Long-Running Process, and sometimes I use the name Process for brevity.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000146_61f96fc7e1d47095ec52ba374e14a9c235e8fe16fd3e6c7230004064bb80d6bb.png)
+
+## Cowboy Logic
+
+- LB:    ' Dallas and Dynasty , now those are what I call sagas!'
+- AJ:    'For all you German readers, y'all know Dynasty as Der Denver Clan .'
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000147_b25b49625e45e2b7d14d2a32881bb7415c4b6a2d50e4cd403896c0b6080872b5.png)
+
+Extending the previous example, we could create parallel pipelines by adding just  one  new  Filter, TotalPhoneNumbersCounter ,  as  an  additional  subscriber  to AllPhoneNumbersListed .  It  receives  the  Event AllPhoneNumbersListed virtually  in  parallel  with  the PhoneNumberFinder .  The new Filter has a very simple goal, counting all existing contacts. This time, however, PhoneNumberExecutive both  starts  the  Long-Running  Process and  tracks  it  through  completion.  The  executive  may  or  may  not  reuse  the PhoneNumbersPublisher , but the important thing is what's new about it. The executive, implemented as an Application Service or Command Handler, tracks the progress of the Long-  Running Process and understands when it is completed and what to do when that happens. Refer to Figure 4.9 as we step through the sample Long-Running Process.
+
+Figure 4.9 The single Long-Running Process executive initiates the parallel processing and tracks it to completion. The wider arrows indicate where the parallelism begins when two Filters receive the same Event.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000148_889d37c15b7da80b4fb2849fdf8001b8fa108f4135f1ffee298841c647d871e5.png)
+
+## Different Ways to Design a Long-Running Process
+
+Here are three approaches to designing a Long-Running Process, although there may be more:
+
+-  Design the process as a composite task, which is tracked by an executive component that records the steps and completeness of the task using  a  persistent  object.  This  is  the  approach  discussed  most  thoroughly here.
+-  Design the process as a set of partner Aggregates that collaborate in a set of activities. One or more Aggregate instances act as the executive and maintain the overall state of the process. This is the approach promoted by Amazon's Pat Helland [Helland].
+-  Design a stateless process in that each message handler component that  receives  an  Event-carrying  message  must  enrich  the  received Event with more task progress information as it sends the next message. The state of the overall process is maintained only in the body of each message sent from collaborator to collaborator.
+
+Since the initial Event is now subscribed to by two components, both Filters receive the same Event virtually simultaneously. The original Filter goes about as it always has, matching the specific 303 text pattern. The new Filter only counts  all  lines,  and  when  it  has  completed,  it  sends  the  Event AllPhoneNumbersCounted .  The  Event  includes  the  count  of  total  contacts.  If  there are,  for  example,  15  total  phone  numbers,  the  Event count property  is  set to 15.
+
+Now  it  is  the  responsibility  of PhoneNumberExecutive to  subscribe to  two  Events,  both MatchedPhoneNumbersCounted and AllPhoneNumbersCounted . The parallel processing is not considered completed until both of these Domain Events are received. When completion is reached, the results of the parallel processing are merged into a single result. The executive now logs
+
+```
+3 of 15 phone numbers matched on July 15, 2012 at 11:27 PM
+```
+
+The log output is enhanced with the total count of phone numbers in addition to the previous matching, date, and time information. Although the tasks performed to yield results were really simple, they were performed in parallel. And if at least some of the subscriber components were deployed to different computing nodes, the parallel processing was also distributed.
+
+There  is  a  problem  with  this  Long-Running  Process,  however.  The PhoneNumberExecutive currently  has  no  way  of  knowing  that  it  has received the two completion Domain Events associated with the specific, corresponding parallel processes. If many such processes were started in parallel, and  completion  Events  for  each  were  received  out  of  order,  how  would  the executive know which parallel process was ending? For our synthetic example, logging with mismatched events is hardly tragic. But when dealing with corporate business domains, an improperly aligned Long-Running Process could be disastrous.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000149_dc2ccad4a04733c14b996005399bd8d5b3b2d2ce3bb51b48c3be4fa460ff71cb.png)
+
+The  first  step  in  the  solution  to  this  troublesome  situation  is  to assign  a unique Process identity that is carried by each of the associated Domain Events. This could be the same identity assigned to the originating Domain Event that causes the Long-Running Process to begin (for example, AllPhoneNumbersListed ). We could use a universally unique identifier (UUID) allocated specifically to the Process. See Entities (5) and Domain Events (8) for a discussion of providing unique identity. The PhoneNumberExecutive would now write output to the log only upon receiving completion Events with equal identities. However, we can't expect the executive to wait around until all the completion Events are received. It, too, is an Event subscriber that comes and goes with the receipt and handling of each delivery.
+
+## Executive and Tracker?
+
+Some find that merging the concepts of executive and tracker into a single object-an Aggregate-to be the simplest approach. Implementing such an Aggregate as a part of the domain model that naturally tracks just a part of the overall Process can be a liberating technique. For one, we avoid developing a separate tracker as state machine, in addition to the Aggregates that must also exist. In fact, the most basic Long-Running Processes are best implemented just that way.
+
+In  a  Hexagonal Architecture, a Port-Adapter message handler would simply dispatch to an Application Service (or Command Handler), which would load the target Aggregate and delegate to its appropriate command method. Since the Aggregate would in turn fire a Domain Event, the Event would be published in part as an indication that the Aggregate has completed its role in the Process.
+
+This approach closely follows that promoted by Pat Helland, which he refers to as partner activities [Helland], and is the second approach described in the  sidebar  'Different  Ways  to  Design  a  Long-Running  Process.'  Ideally, however,  discussing  a  separate  executive  and  tracker  is  a  more  effective way to teach the overall technique, and a more intuitive way to learn it.
+
+Figure 4.10 A PhoneNumberStateTracker serves as a Long-Running Process state object to track progress. The tracker is implemented as an Aggregate.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000150_742f071f76132bbcb3e13bb1cc20bdb4935625372f864a803c7a92559e363bb0.png)
+
+In  an  actual  domain  each  instance  of  a  Process  executive  creates  a  new Aggregate-like  state  object  for  tracking  its  eventual  completion.  The  state object is created when the Process begins, associating the same unique identity that each related Domain Event must carry. It may also be useful for it to hold a timestamp of when the Process began (the reasons are discussed later in the chapter). The Process state tracker object is illustrated in Figure 4.10.
+
+As each pipeline in the parallel processing completes, the executive receives a corresponding completion Event. The executive retrieves the state tracking instance by matching the unique Process identity carried by the received Event and sets a property that represents the step just completed.
+
+The Process state instance usually has a method such as isCompleted() . As  each  step  is  completed  and  recorded  on  this  state  tracker,  the  executive checks isCompleted() . This method checks for the recorded completion of all required parallel processes. When the method answers true , the executive has the option to publish a final Domain Event if required by the business. This Event could be required if the completing Process is just a branch in a larger parallel process, for example.
+
+A given messaging mechanism may lack features that guarantee single delivery of each Event. 7 If  it  is  possible for the messaging mechanism to deliver a Domain Event message two or more times, we can use the Process state object to de-duplicate. Does this require special features to be provided by the messaging mechanism? Consider how it can be handled without them.
+
+7.  This does not mean guaranteed delivery, but guaranteed single delivery, or once and only once.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000151_862da500abe98875fed9eb57d08a931a28d2f55c82727934735da055e9734d59.png)
+
+When  each  completion  Event  is  received, the  executive  checks  the  state object  for  an  existing  record  of  completion  for  that  specific  Event .  If  the completion indicator is already set, the Event is considered a duplicate and is ignored, yet acknowledged. 8 Another option is to design the state object to be idempotent . That way, if duplicate messages are received by the executive, the state  object  absorbs  the  duplicate  occurrence  recordings  equally.  While  only the second option designs the state tracker itself as idempotent, both of these approaches support idempotent messaging. See Domain Events (8) for further discussion of Event de-duplication.
+
+Some Process completion tracking may be time-sensitive. We can deal with Process  time-outs  passively  or  actively.  Recall  that  the  Process  state  tracker can hold a timestamp of its inception. Add to this a total allowable time constant  (or  configuration)  value  and  the  executive  can  manage  time-sensitive Long-Running Processes.
+
+A passive time-out check is performed each time a parallel processing completion  Event  is  received  by  the  executive.  The  executive  retrieves  the  state tracker and asks it if a time-out has occurred. A method such as hasTimedOut() can serve that purpose. If the passive time-out check indicates that the allowable time threshold has been exceeded, the Process state tracker can be marked  as  abandoned.  It's  also  possible  to  publish  a  corresponding  failure Domain Event. Note that a disadvantage of the passive time-out check is that the  Process  could  remain  active  well  past  its  threshold  if  one  or  more  completion Events are for some reason never received by the executive. This may be unacceptable if a larger parallel process is dependent on certain success or failure of this Process.
+
+An active Process time-out check can be managed using an external timer. For example, a JMX TimerMBean instance is one way to get a Java-managed timer. The timer is set for the maximum time-out threshold just as the Process begins. When the timer fires, the listener accesses the Process state tracker. If the state is not already completed (always checked in case the timer fires just as an asynchronous Event completes the Process), it is then marked as abandoned, and a corresponding failure Event is published. If the state tracker is marked as completed prior to the timer firing, the timer can then be terminated. One disadvantage of the active time-out check is that it requires more system resources, which may burden a high-traffic environment. Also, a race condition between the timer and the arriving completion Event could incorrectly cause failure.
+
+8.  When the messaging mechanism finally receives acknowledgment of receipt, the message will not be delivered again.
+
+Long-Running Processes are often associated with distributed parallel processing but have nothing to do with distributed transactions. They require a mindset that embraces eventual consistency. We must enter any effort to design a Long-Running Process soberly, with the expectation that when infrastructure or the tasks themselves fail, well-designed error recovery is essential. Every system participating in a single instance of a Long-Running Process must be considered inconsistent with all other participants until the executive receives the final completion notification. True, some Long-Running Processes may be capable of succeeding with only partial completion, or they may delay for even a number of days before full completion. But if the Process runs aground and the participating systems are left in inconsistent states, compensation may be necessary. If  compensation is mandatory, it could surpass the complexity of designing the success path. Perhaps business procedures could allow for failures and offer workflow solutions instead.
+
+The  SaaSOvation  teams  employ  an  Event-Driven  Architecture  across  Bounded Contexts, and the ProjectOvation team will  use  the  simplest  form  of  a  Long-Running  Process  to manage the creation of Discussions assigned to Product instances. The overarching style is Hexagonal to manage the outside  messaging  and  publishing  of  Domain  Events  around the enterprise.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000152_9408e8e9b9b0cfc46ea281a49a4d7bc5a429c1c2049ad4b0975befb7e8301f6d.png)
+
+Not to be overlooked is that the Long-Running Process executive can publish  one,  two,  or  more  Events  to  initiate  the  parallel  processing.  There  may also  be  not  only  two,  but  three  or  more  subscribers  to  any  initiating  Event or Events. In other words, a Long-Running Process may lead to many separate business process activities executing simultaneously. Thus, our synthetic example is limited in complexity only for the sake of communicating the basic concepts of a Long-Running Process.
+
+Long-Running Processes are often useful when integration with legacy systems can have high latency. Even if latency and legacy are not the chief concerns,  we  still  benefit  from  the  distribution  and  parallelism  with  elegance, which can lead to highly scalable, highly available business systems.
+
+Some messaging mechanisms have built-in support for Long-Running Processes, which can greatly expedite adoption. One such is [NServiceBus], which specifically calls them Sagas. Another Saga implementation is provided with [MassTransit].
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000153_5f91a173d67a07a969e3229f184878e6418a45a6953fd4f57a0f213bddf1e31a.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000154_6fd93cbffbe971b1e39478f01b23debc3ab4ce5cc2f691e785c1422ad6a9045e.png)
+
+## Event Sourcing
+
+Sometimes the business cares about tracking changes that occur to the objects in a domain model. There are varying levels of change tracking interest, and ways to support each level. Typically businesses have chosen to track only when some entity is created and last modified, and by whom. It's a relatively simple and straightforward approach to change tracking. This, however, doesn't provide any information about the individual changes in the model.
+
+With  an  increased  desire  for  even  more  change  tracking,  the  business demands more metadata. It begins to care also about the individual operations that were executed over time. Maybe it even wants to understand how long certain  operations  took  to  execute.  Those  desires  lead  to  the  need  to  maintain an audit log or journal of the finer-grained use case metrics. But an audit log or journal has its limitations. It can convey some information about what has happened in the system, perhaps even allowing for some debugging. But it doesn't allow us to examine the state of individual domain objects before and after specific kinds of changes. What if we could stretch more out of change tracking?
+
+As developers we have all experienced finer-grained change tracking in one form or another. The most common example is with the use of a source code repository, such as CVS, Subversion, Git, or Mercurial. What all of these variations of source revision management systems have in common is that they all know how to track changes that occur on a source file. The change tracking provided by this genre of tool enables us to go all the way back in time, to view a source code artifact from its very first revision, and then to proceed revision by revision, all the way to the very latest. When committing all source files to revision control, it can track changes of the whole development life cycle.
+
+Now, if  we  think  about  applying  this  concept  to  a  single  Entity,  then  to an Aggregate, then to every Aggregate in the model, we can understand the power of change tracking objects and the value it can produce in our systems. With that in mind, we want to develop a means to know what occurred in the model to cause the creation of any given Aggregate instance, and also what has happened to that given Aggregate instance throughout time, operation by operation. Given the history of everything that's happened, we could even support temporal models. This level of change tracking is at the heart of a pattern named Event Sourcing. 9 Figure 4.11 shows a high-level view of this pattern.
+
+There are varying definitions of Event Sourcing, so some clarification is fitting.  We  are  discussing  the  use  where  every  operational  command  executed on any given Aggregate instance in the domain model will publish at least one Domain Event that describes the execution outcome. Each of the events is saved to an Event Store (8) in the order in which it occurred. When each Aggregate is retrieved from its Repository, the instance is reconstituted by playing back the Events in the order in which they previously occurred. 10 In  other words, first the very earliest Event is played back, and the Aggregate applies the Event to itself, modifying its state. Next, the second-oldest Event is played back in the same manner. This continues until all Events, from the oldest to the most recent, are completely played back and applied. At that point the Aggregate exists  in  the  state  it  had  upon  the  most  recent  execution  of  some  command behavior.
+
+9.  A  discussion  of  Event  Sourcing  generally  requires  an  understanding  of  CQRS, which is treated in the earlier section on that topic.
+
+Figure 4.11 A high-level view of Event Sourcing, where Aggregates publish Events that are stored and used to track the model's state changes. The Repository reads Events from the Store and applies them to reconstitute the Aggregate's state.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000155_aba1ff7d91306db8433843a70a8b11e690a5e1b1c3bd2756de454a519f0e31b3.png)
+
+## A Moving Target?
+
+The definition of Event Sourcing has undergone some scrutiny and refinement, and at  the  time of writing it is still not completely settled. As with most leading-edge techniques, refinement is necessary. What is described here captures the essence of the pattern as applied using DDD and probably to a large degree reflects how in general it will be used moving forward.
+
+Over a long period of changes to any and all Aggregate instances, doesn't the playback of hundreds, thousands, or even millions of Events cause serious latency and overhead in processing the model? At least for some of the highertraffic models that would most certainly be the case.
+
+To  avoid  this  bottleneck  we  can  apply  an  optimization  that  uses  Aggregate state snapshots . A process is developed to produce, in the background, a snapshot of the Aggregate's in-memory state at a specific point in Event Store history.  To  do  this,  the  Aggregate  is  loaded  into  memory  using  all  previous Events to the current point in time. The Aggregate state is then serialized, and the serialized snapshot image is then saved to the Event Store. From that point forward the Aggregate is first instantiated using the most recent snapshot, and then all Events newer than that snapshot are played back on the Aggregate as described previously.
+
+10.  The Aggregate state is a conflation of previous Events, but only by applying them in the same order in which they occurred.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000156_4b74695826a2ca3a8a4b40f5c0bd4bc27bb7da7b8d05f5107d8c64803dfd46b2.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000157_add9ade71682afeba7fa3c79443eab9dc0a9c80ee23cb83ed85ec6eea7a94d53.png)
+
+Snapshots are not created randomly. Rather, they can be created at points where a predefined number of newer Events have occurred. The team would determine  a  number  based  on  domain  heuristics  or  other  observations.  For example, we might find that Aggregate retrieval performs optimally when having no more than 50 or 100 or so Events between snapshots.
+
+Event Sourcing leans heavily in the direction of technical solution. We can produce domain models that publish Domain Events without the need to support Event Sourcing. As a persistence mechanism, Event Sourcing replaces and is  far  different  from using an ORM tool. Because Events are often persisted in an Event Store as binary representations, they cannot (optimally) be used for queries. In fact, Repositories designed for an Event Sourcing model require only a single get/find operation, and that method takes as a parameter only the Aggregate unique identity. Further, by design Aggregates don't have any query methods (getters).  As  a  result,  we  need  another  way  to  query,  which  generally leads to employing CQRS (discussed previously) hand-in-glove with Event Sourcing. 11
+
+Since Event Sourcing leads us down the path of thinking differently about the way domain models are designed, we need to justify our use. At its most basic, Event history can reveal solutions to bugs in the system. Debugging with the use of explicit history of everything that has ever happened to the model has a big advantage. Event Sourcing can lead to high-throughput domain models, scaling to extremely large numbers of transactions per second. Appending to a single database table, for example, is extremely fast. Further, it enables the CQRS query model to be scaled out, because updates to that data source are performed in the background after the Event Store is updated with new Events. This can additionally allow for replicating the query model to more data source instances in support of growing numbers of clients.
+
+But technical advantages don't always sell techniques to the business. Thus, consider just a few of the business advantages of using Event Sourcing that are afforded due to the technical implementation:
+
+11.  Although we can use CQRS without using Event Sourcing, the opposite is not usually practical.
+
+-  Patch the Event Store with new or modified Events that fix problems. This may have business implications, but if it is legal in a given situation, the patch can save the system from serious issues that occurred because of bugs in the model. Since the patches have a built-in audit trail, the use of patches may decrease any legal implications by making them explicit and traceable.
+-  Besides  patching,  we  can  also  undo  and  redo  changes  in  the  model  by replaying  varying  sets  of  Events.  This  may  have  technical  implications and business implications and may not be possible to support in all cases.
+-  With an accurate history of everything that has occurred in the domain model, the business can consider 'what if?' questions. That is, by playing back stored Events on a set of Aggregates that have experimental enhancements, the business can get accurate answers to hypothetical questions. Would the business benefit if it could simulate conceptual scenarios using real historical data? Very likely, yes. It's an alternative way to approach business intelligence.
+
+Would the business benefit from one or more of these technical and nontechnical advantages?
+
+Appendix A provides rich details on implementing Aggregates with Event Sourcing and discusses how views may be projected for CQRS. For further details see [Dahan, CQRS] and [Nijof, CQRS].
+
+## Data Fabric and Grid-Based Distributed Computing
+
+## Contributed by Wes Williams
+
+As software systems become more and more complex and sophisticated, with expanding user bases and requirements centered around 'big data,' traditional database solutions can become performance bottlenecks. Organizations that face  the  realities  of  information  systems  of  colossal  size  have  no  alternative but to seek solutions that are equal to the computing challenges. Data Fabrics-also sometimes called Grid Computing 12 -offer performance and elastic scalability capabilities that such business situations demand.
+
+12.  This is not to say that Fabrics and Grids are identical concepts, but for those looking at this architecture in a general way these labels often mean the same thing. Certainly marketing and sales often limit them to the same meaning. In any case, this section uses the term Data Fabric since it generally represents a richer set of capabilities than Grid Computing.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000158_19b56e28b4c9394bd6a0990b00b04986aac2e01f0ea33ad8e8fd578d7c83cefe.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000159_d23b251bad2f075513f18de2800a28041f5820adfc3834bcffc95407378d5f25.png)
+
+## Cowboy Logic

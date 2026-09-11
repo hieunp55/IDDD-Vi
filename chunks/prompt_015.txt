@@ -1,0 +1,502 @@
+Bạn là chuyên gia dịch thuật kỹ thuật Anh → Việt, chuyên tài liệu kỹ thuật/công nghệ, có kinh nghiệm dịch như biên dịch viên bản ngữ chuyên nghiệp. Nhiệm vụ: dịch TOÀN BỘ nội dung Markdown dưới đây sang tiếng Việt, không bỏ sót bất kỳ phần nào. Đây là MỘT PHẦN (chunk) của một tài liệu lớn hơn, hãy dịch độc lập đoạn này, không thêm lời mở đầu/kết luận về việc đây chỉ là một phần.
+
+QUY TẮC BẮT BUỘC — VI PHẠM LÀ SAI:
+
+1. XÁC ĐỊNH LOẠI TÀI LIỆU TRƯỚC KHI DỊCH
+   - Tự phân tích nội dung để xác định loại tài liệu (kỹ thuật/lập trình, tài chính, bảo hiểm, pháp lý, marketing, học thuật, vận hành, sản phẩm...).
+   - Chọn văn phong và thuật ngữ CHUẨN NGÀNH tương ứng trong tiếng Việt, nhất quán xuyên suốt.
+
+2. VĂN PHONG — MƯỢT NHƯ NGƯỜI DỊCH, KHÔNG GIẢM CHÍNH XÁC
+   - Dịch mượt, tự nhiên, đúng ngữ pháp tiếng Việt — như biên dịch viên bản ngữ dịch tay, KHÔNG dịch máy móc kiểu word-by-word.
+   - Được phép đảo cấu trúc câu, tách/gộp câu cho tự nhiên, miễn giữ nguyên 100% ý nghĩa, thông tin, logic, số liệu gốc.
+   - Khi "mượt mà" và "chính xác" xung đột → LUÔN ưu tiên chính xác.
+
+3. DỊCH ĐẦY ĐỦ 100%
+   - Không tóm tắt, không rút gọn, không lược bỏ đoạn/câu/mục/bullet nào.
+   - Số lượng heading, đoạn văn, bảng, code block ở output PHẢI khớp 1:1 với input.
+   - Đoạn dài dịch hết, không cắt ngắn.
+
+4. GIỮ NGUYÊN THUẬT NGỮ TIẾNG ANH
+   - Thuật ngữ chuyên ngành (tên công nghệ, framework, pattern, tên hàm/biến, acronym...) giữ nguyên tiếng Anh, không dịch, không phiên âm.
+   - Ngay sau lần xuất hiện ĐẦU TIÊN của mỗi thuật ngữ, thêm chú thích ngắn trong ngoặc giải thích nghĩa bằng tiếng Việt.
+   - Các lần xuất hiện sau KHÔNG cần chú thích lại.
+
+5. GIỮ NGUYÊN FORMAT — RẤT QUAN TRỌNG
+   - VỀ ẢNH (làm trước khi dịch): ĐẾM chính xác số lượng thẻ ảnh dạng ![...](...) trong đoạn gốc bên dưới. Output PHẢI có ĐÚNG số lượng thẻ ảnh đó, không được thiếu một cái nào — kể cả ảnh không có caption, không rõ ngữ cảnh, hay trông như ảnh trang trí/lặp lại. Copy nguyên URL 100%, không sửa, không rút gọn, không thay bằng mô tả text.
+   - Giữ cấp độ heading (#, ##, ###...), giữ đúng số lượng heading.
+   - Giữ cấu trúc bảng (số cột, số hàng, alignment, header row).
+   - Giữ code block (```lang ... ```) — KHÔNG dịch code; comment được dịch tại chỗ; **được phép reformat code, tự động xuống dòng/indent chuẩn, không giữ nguyên code 1 dòng; không đổi logic/cú pháp**.
+   - Giữ blockquote, callout/note/warning (>, [!NOTE], [!WARNING]...).
+   - Giữ list, nested list, checkbox (- [ ]).
+   - Giữ nguyên link thường ([text](url)) — chỉ dịch phần text hiển thị, TUYỆT ĐỐI giữ nguyên URL.
+   - TRƯỚC KHI TRẢ KẾT QUẢ: tự đếm lại số heading, số ảnh, số dòng ``` giữa bản gốc và bản dịch của bạn, nếu lệch phải sửa lại cho khớp.
+
+6. GIẢI THÍCH ẨN DỤ / KHÁI NIỆM KHÓ
+   - Với ẩn dụ, thành ngữ, khái niệm trừu tượng khó hiểu với người Việt, thêm khối giải thích riêng ngay sau đoạn đó:
+     > 💡 **Giải thích thêm:** [giải thích dễ hiểu, đủ chuyên sâu, có ví dụ thực tế]
+     > Nguồn tham khảo: [link cụ thể để kiểm chứng]
+   - CHỈ đưa link nếu chắc chắn tồn tại và đúng nội dung — không bịa link.
+   - Không tìm được nguồn tin cậy → ghi rõ: "(Không có nguồn trích dẫn xác thực — cần tự kiểm chứng thêm)".
+
+7. CHỐNG HALLUCINATION (BẮT BUỘC)
+   - Không tự thêm thông tin/số liệu/ví dụ/kết luận KHÔNG có trong bản gốc — trừ phần giải thích ẩn dụ ở mục 6 (phải gắn nhãn rõ là phần bổ sung).
+   - Câu gốc mơ hồ → dịch sát nghĩa nhất, nếu không chắc ghi chú: "[CẦN KIỂM CHỨNG: câu gốc mơ hồ]".
+   - Không tự sửa/thêm/bớt logic kỹ thuật gốc. Không bịa trích dẫn/số liệu/link vô căn cứ.
+   - Không tự tóm tắt các đoạn dài thành ý chính rồi diễn giải lại — phải dịch từng câu.
+
+8. OUTPUT
+   - Trả về DUY NHẤT nội dung Markdown đã dịch, đặt trong 1 code block (```markdown ... ```).
+   - Không thêm lời dẫn/lời chào/giải thích ngoài code block.
+   - Không đổi tiêu đề gốc trừ khi cần dịch tiêu đề.
+
+--- NỘI DUNG GỐC CẦN DỊCH (một phần của tài liệu) ---
+
+One option available with Hibernate object-relational mapping is to serialize the entire collection of objects into a textual representation and persist the representation into a single column. This approach has some drawbacks. However, in some cases the drawbacks are unobtrusive and may be summarily ignored in favor of leveraging this option's advantages. In such cases you may decide to use this Value collection persistence option. Here are the potential drawbacks to consider:
+
+- Column width. Sometimes you cannot determine the maximum number of Value elements in the collection, or the maximum size of each serialized Value. For example, some object collections could have any number of elements-an unknown upper limit. Also, each of the Value elements in  the  collection  could  have  an  indeterminate  serialized  representation character width. This can happen when one or more of the attributes of the Value type are of type String and the length in characters is many or  open-ended.  In  either  or  both  of  these  situations,  it  is  possible  that the serialized form or the entire collection would overflow the maximum available width of a character column. This may be further compounded by character columns that have a relatively narrow maximum width, or by the total maximum number of bytes available to store an entire row of  data.  While  the  MySQL  InnoDB  engine,  for  example,  has  a  maximum VARCHAR width of 65,535 characters, it also has a limit of 65,535 total bytes of storage for a single row. You must allow room for enough columns  to  store  an  entire  Entity.  Oracle  Database  has  a  maximum VARCHAR2 / NVARCHAR2 width of 4,000. If you cannot predetermine the maximum width required to store a serialized representation of a Value collection and/or your maximum column width could be overflowed, you should avoid this option.
+- Must query .  Since  with this style Value collections are serialized into a flat text representation, the attributes of individual Value elements cannot be used in SQL query expressions. If any of the Value attributes must be queryable, you cannot use this option. It's possible that this is a less likely reason to avoid this option since the need to query one or more attributes out of objects in a contained collection could be rare.
+- Requires  custom  user  type .  To  use  this  approach  you  must  develop  a Hibernate custom user type that manages serialization and deserialization of each collection. Personally, I think this is less obtrusive than the other concerns because a single, well-thought-out, custom user type implementation can support collections of every Value Object type (one size fits all).
+
+I don't provide a Hibernate custom user type here to manage collection serialization to a single column, but the Hibernate community provides plenty of guidance for you to implement your own.
+
+## ORM and Many Values Backed by a Database Entity
+
+A very straightforward approach to persisting a collection of Value instances using Hibernate (or other ORM) and a relational database is to treat the Value type as an entity in the data model. To reiterate what I asserted in the section 'Reject Undue Influence of Data Model Leakage,' this approach must not lead to wrongly modeling a concept as an Entity in the domain model just because it is best represented as a database entity for the sake of persistence. It is the object-relation impedance mismatch that in some cases requires this approach, not a DDD principle. If there were a perfectly matched persistence style available to you, you'd model the concept as a Value type and never give database entity characteristics a second thought. It helps our domain modeling mind to think that way.
+
+To accomplish this we can employ a Layer Supertype [Fowler, P of EAA]. Personally it makes me feel better to tuck away the necessary surrogate identity (primary key). However, since every Object in Java (and other languages) already has an internal unique identity that is used only by the virtual machine, you may feel justified in adding a specialized identity directly to the Value. I think whatever approach we prefer, when working around the object-relational impedance mismatch we need to formulate a convincing justification in our minds for why we make a technical choice. My preferences are addressed next.
+
+Here's an example of my preferred approach to surrogate keys, which uses two Layer Supertype classes:
+
+```
+public abstract class IdentifiedDomainObject
+```
+
+```
+implements Serializable  { private long id = -1; public IdentifiedDomainObject() { super(); } protected long id() { return this.id; } protected void setId(long anId) { this.id = anId; } }
+```
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000267_6d6eeae6de5481291d053c857f7c99c0958a08a70d87d3fe2701d53f843af578.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000268_1aa54b23830a23bd1b66328a26d6d19da38df3cdc7bed0226e7a61a813dff02e.png)
+
+The first  Layer  Supertype  involved  is IdentifiedDomainObject .  This abstract base class provides a basic surrogate primary key that is hidden from the view of clients. Because the accessor methods are declared protected , clients will never have to wonder if the methods are for their use. Of course, you can further avoid any knowledge of these methods by declaring their scope private . Hibernate has no problems using method or field reflection on any scope other than public .
+
+Next, I provide one more Layer Supertype that is specific to Value Objects:
+
+```
+public abstract class IdentifiedValueObject
+```
+
+```
+extends IdentifiedDomainObject  { public IdentifiedValueObject() { super(); } }
+```
+
+You may consider class IdentifiedValueObject as merely a marker class, a behaviorless subclass of IdentifiedDomainObject .  I  see  it  as  having  a source code documentation benefit because it makes the modeling challenge it addresses more explicit. Along those lines, class IdentifiedDomain  Object has  a  second  direct  abstract  subclass  named Entity ,  which  is  discussed  in Entities (5) . I like this approach. You may prefer to eliminate these extra classes.
+
+Now that there is a convenient and suitably hidden means to give any Value type a surrogate identity, here's a sample class that puts it to use:
+
+```
+public final class GroupMember extends IdentifiedValueObject  { private String name; private TenantId tenantId; private GroupMemberType type; public GroupMember( TenantId aTenantId, String aName, GroupMemberType aType) { this(); this.setName(aName); this.setTenantId(aTenantId); this.setType(aType); this.initialize(); } ... }
+```
+
+Class GroupMember is  a  Value  type  that  is  collected  by  the  Root  Entity  of the Aggregate class Group . The Root Entity contains any number of GroupMember instances.  Now  with  each GroupMember instance  being  uniquely identified  to  the  data  model  using  its  surrogate  primary  key,  we  are  free  to map its persistence as a database entity while keeping it a Value in the domain model. Here's the relevant portion of class Group :
+
+```
+public class Group extends Entity  { private String description; private Set<GroupMember> groupMembers; private String name; private TenantId tenantId; public Group( TenantId aTenantId, String aName, String aDescription) { this(); this.setDescription(aDescription); this.setName(aName); this.setTenantId(aTenantId); this.initialize(); } ... protected Group() { super(); this.setGroupMembers(new HashSet<GroupMember>(0)); } ... }
+```
+
+Class Group will  gradually  build  up  any  number  of GroupMember instances in its Set of groupMembers . Keep in mind that if you will ever perform whole collection replacement, always use the Collection 's clear() method  prior  to  replacement.  Doing  so  ensures  that  the  backing  Hibernate Collection implementation will delete obsolete elements from the data store. The following is not an actual Group method,  but  an  example  provided  to demonstrate how, in general, to avoid orphaned Value elements when performing whole collection replacement:
+
+```
+public void replaceMembers(Set<GroupMember> aReplacementMembers) {
+```
+
+```
+this.groupMembers().clear(); this.setGroupMembers(aReplacementMembers); }
+```
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000269_9b7201e3672ca386355f3cd3f218a1900ce21a01bb0edab5668cc9ef9520f7b0.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000270_bb74dfc8e1ce06fe843555afd8c22be24fabab713d055e431bcc564685282ec1.png)
+
+I  think this ORM leakage into the model is unobtrusive because it uses a common Collection facility, and besides, the client doesn't see it. Synchronizing  collection  contents  with  the  database  doesn't  always  require  careful thought. A single Value data store deletion is automatically covered by the use of Collection 's remove() method, so in that case there's no ORM leakage at all.
+
+Next, we are interested in the section of Group 's mapping description that maps the collection:
+
+```
+<hibernate-mapping> <class name="com.saasovation.identityaccess.domain.model. ↵ identity.Group" table="tbl_group" lazy="true"> ... <set name="groupMembers" cascade="all,delete-orphan" inverse="false" lazy="true"> <key column="group_id" not-null="true" /> <one-to-many class="com.saasovation. ↵ identityaccess.domain.model.identity.GroupMember" /> </set> ... </class> </hibernate-mapping>
+```
+
+The Set of groupMembers is mapped exactly as a database entity. Additionally we see the full GroupMember mapping description:
+
+```
+<hibernate-mapping> <class name="com.saasovation.identityaccess.domain.model. ↵ identity.GroupMember" table="tbl_group_member" lazy="true"> <id name="id" type="long" column="id" unsaved-value="-1"> <generator class="native"/> </id> <property name="name" column="name" type="java.lang.String" update="true" insert="true" lazy="false" />
+```
+
+```
+<component name="tenantId" class="com.saasovation.identityaccess.domain.model. Φ identity.TenantId"> <property name="id" column="tenant_id_id" type="java.lang.String" update="true" insert="true" lazy="false" /> </component> <property name="type" column="type" type="com.saasovation.identityaccess.infrastructure. Φ persistence.GroupMemberTypeUserType" update="true" insert="true" not-null="true" /> </class> </hibernate-mapping>
+```
+
+Note the &lt;id&gt; element that defines the persistence surrogate primary key. And finally, here is the corresponding MySQL tbl\_group\_member description:
+
+```
+CREATE TABLE `tbl_group_member` ( `id` int(11) NOT NULL auto_increment, `name` varchar(100) NOT NULL, `tenant_id_id` varchar(36) NOT NULL, `type` varchar(5) NOT NULL, `group_id` int(11) NOT NULL, KEY `k_group_id` (`group_id`), KEY `k_tenant_id_id` (`tenant_id_id`), CONSTRAINT `fk_1_tbl_group_member_tbl_group` FOREIGN KEY (`group_id`) REFERENCES `tbl_group` (`id`), PRIMARY KEY (`id`) ) ENGINE=InnoDB;
+```
+
+When we look at the GroupMember mapping and database table description, we get the strong impression that we are dealing with an entity. There's the primary key named id . There's the separate table that must be joined with tbl\_group . There's the foreign key back to tbl\_group . By any other name we are dealing with an entity, but only from the data model perspective .  In the domain model GroupMember is clearly a Value Object. Appropriate steps have been taken in the domain model to carefully hide any persistence concerns. I give no clue to clients of the domain model that any persistence leakage has occurred. And what is more, even developers in the model must look hard to detect any notion of persistence leakage.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000271_c798088ac4adf6860b52991b93ea8b44a3597d9decbe000b010f4268502f69bd.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000272_bb48c2928a15b64d15839f1e2272d7fe4c4b06afd6c0ad73e09ca8a4de3930a9.png)
+
+## ORM and Many Values Backed by a Join Table
+
+Hibernate provides a means to persist multivalued collections in a join table without requiring the Value type itself to have any data model entity characteristics. This mapping type simply persists the collection Value elements to a dedicated table with the parent Entity domain object's database identity as a foreign key. Thus, all collection Value elements can be queried by their parent's foreign key identity and reconstituted into the model's Value collection. The strength of this mapping approach is that the Value type doesn't need to have a hidden surrogate identity in order to achieve a join. To use this Value collection mapping option you employ Hibernate's &lt;composite-element&gt; tag.
+
+This seems like a big win, and it may be for your needs. However, there are weaknesses to this approach that you should be aware of. One downside is that a join is necessary even if your Value type requires no surrogate key because it  involves  normalization  of  two  tables.  True,  the  'ORM  and  Many  Values Backed by a Database Entity' approach also requires a join. But that approach is not limited by the second weakness of this one, which is . . .
+
+If your collection is a Set , none of your Value type's attributes may be null . This is the case because in order to delete (garbage collection in the data model) a given Set element, all attributes that make the element a unique Value must be used as a sort of composite key to find and delete it. A null cannot be used as a part of the required composite key. Of course, if you know that a given Value type will never have null attributes, this is a viable approach-that is, as long as you have no additional conflicting needs.
+
+The third downside of using this mapping approach is that the Value type being mapped may itself not contain a collection. There is no provision for mapping with &lt;composite-element&gt; if the elements themselves contain collections. If your Value type does not hold a collection of any kind and otherwise meets the requirements for this mapping style, it is available for your use.
+
+In  the  end,  I  find  this  mapping  approach  to  be  limiting  enough  that  it deserves general avoidance. To me it is simply easier to put a well-hidden surrogate identity on the Value type that is collected into a one-to-many association and  not  worry  about  any  of  the &lt;composite-element&gt; constraints.  You may feel differently, and it certainly can be leveraged to your benefit if all the modeling cards fall into place for you.
+
+## ORM and Enum-as-State Objects
+
+If you find enums an effective modeling choice for Standard Types and/or State objects, you will need the means to persist them. With Hibernate, Java enums require a specialized persistence technique. Unfortunately to date, the Hibernate  development  community  does  not  support  enums  as  an  out-of-the-box property type. Therefore, to persist enums in our model we have to create a Hibernate custom user type.
+
+Recall that each GroupMember has a GroupMemberType :
+
+```
+public final class GroupMember extends IdentifiedValueObject  { private String name; private TenantId tenantId; private GroupMemberType type; public GroupMember( TenantId aTenantId, String aName, GroupMemberType aType) { this(); this.setName(aName); this.setTenantId(aTenantId); this.setType(aType); this.initialize(); } ... }
+```
+
+The GroupMemberType enum  Standard  Types  include GROUP and USER . Here again is the definition:
+
+```
+package com.saasovation.identityaccess.domain.model.identity; public enum GroupMemberType { GROUP { public boolean isGroup() { return true; } }, USER { public boolean isUser() { return true; } }; public boolean isGroup() { return false; }
+```
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000273_70c43d99f11017c5871d4663fa14a17c0093085b2334f73f5071c2f3a7bb484c.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000274_d3f88ff63ab6e306e11a14064b6f05926b42fbfeb40ac978a7148b0d1ed61592.png)
+
+```
+public boolean isUser() { return false; } }
+```
+
+The simple answer to persisting a Java enum Value is to store its text representation. However, the simple answer leads to the unfolding of a slightly more complex technique of creating a Hibernate customer user type. Rather than include here the various approaches to class EnumUserType provided by the Hibernate community, I provide the wiki article resource link: http://community.jboss.org/wiki/Java5EnumUserType.
+
+At the time of writing, this wiki article provided a variety of approaches. There were samples for implementing a custom user type class for each enum type; a way to use Hibernate 3 parameterized types to avoid implementing a custom user for each enum type (very desirable); one that supports not only text string but numeric representations of the enum value; and even an enhanced implementation by Gavin King. Gavin King's enhanced implementation allows the enum to be used as a type discriminator or as a data table identity ( id ).
+
+Given the selection of one choice from these options, here's an example of how the enum GroupMemberType is mapped:
+
+```
+<hibernate-mapping> <class name="com.saasovation.identityaccess.domain.model. Φ identity.GroupMember" table="tbl_group_member" lazy="true"> ... <property name="type" column="type" type="com.saasovation.identityaccess.infrastructure. Φ persistence.GroupMemberTypeUserType" update="true" insert="true" not-null="true" /> </class> </hibernate-mapping>
+```
+
+Note  that  the &lt;property&gt; element's  type  attribute  is  set  to  class GroupMemberTypeUserType 's  full  classpath.  This  is  just  one  choice,  and  you should choose whatever one you prefer. Recall that the MySQL table description contains the column to hold the enum:
+
+```
+CREATE TABLE `tbl_group_member` ( ... `type` varchar(5) NOT NULL, ... ) ENGINE=InnoDB;
+```
+
+The type column is a VARCHAR type with a maximum size of five characters, enough to hold the widest type text representation: GROUP or USER .
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000275_82f14fa1d60393c419b5d372257c673919df050174e9ef90d19942e6f7057329.png)
+
+## Wrap-Up
+
+In  this  chapter  you've  seen  the  importance  of  favoring  the  use  of  Value Objects whenever possible, because they are simply easier to develop, test, and maintain.
+
+-  You've learned the characteristics of Value Objects and how to use them.
+-  You've  seen  how  to  leverage  Value  Objects  to  minimize  integration complexity.
+-  You examined the use of domain Standard Types expressed as Values and have a few strategies for implementing them.
+-  You saw why SaaSOvation now favors modeling with Values whenever possible.
+-  You gained experience in how to test, implement, and persist Value types through the SaaSOvation projects.
+
+Next,  we'll  be  looking  at  Domain  Services,  stateless  operations  that  are actually part of the model.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000276_db5159855d913c7fc2bd1ccb6c1e9d7da0a98091ab5c6698292c3340602cc5fc.png)
+
+This page intentionally left blank
+
+## Chapter 7
+
+## Services
+
+Sometimes, it just isn't a thing. -Eric Evans
+
+A Service in the domain is a stateless operation that fulfills a domain-specific task. Often the best indication that you should create a Service in the domain model is when the operation you need to perform feels out of place as a method on an Aggregate (10) or  a Value Object (6) .  To  alleviate  that  uncomfortable feeling, our natural tendency might be to create a static method on the class of an Aggregate Root. However, when using DDD, that tactic is a code smell that likely indicates you need a Service instead.
+
+## Road Map to This Chapter
+
+-  See how domain model refinements can lead to the realization that you need a Service.
+-  Learn what a Service in the domain is, and what it isn't.
+-  Consider  a  necessary  caution  when  deciding  whether  or  not  to  create  a Service.
+-  Discover  how  to  model  Services  in  a  domain  through  two  examples  from SaaSOvation's projects.
+
+Smelly  code?  That's  exactly  what  SaaSOvation's  developers  experienced because of refactoring an Aggregate. Let's consider their tactical correction. Here's what happened . . .
+
+Early on in their project the team had modeled the collection of BacklogItem instances as a composed Aggregate part of Product . That modeling situation allowed calculating the total business priority value of all product backlog items to be a simple instance method on class Product :
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000277_5efcaed0a0080218e7581abfe2a45bc3ab4a16788f2596a0831e4391029e3209.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000278_3088a0c360c1f501d32d5140640565989bc9171ee3e235a84a90707890309d8c.png)
+
+```
+public class Product extends ConcurrencySafeEntity { ... private Set<BacklogItem> backlogItems; ... public BusinessPriorityTotals businessPriorityTotals() { ... } ... }
+```
+
+At  that  time  the  design  made  perfect  sense  because  method businessPriorityTotals() would just iterate over the composed BacklogItem instances and come up with the queried total business priority. The design properly answered the query with a Value Object, namely, BusinessPriorityTotals .
+
+However,  it  wouldn't  stay  that  way.  As  the  analysis  found  in Aggregates  (10) showed,  the  large  cluster Product needed  to  be  broken  up,  and BacklogItem would be redesigned to stand on its own as an Aggregate. Thus, the previous design that used an instance method no longer worked.
+
+Since Product no longer contained the BacklogItem collection, the team's first reaction was to refactor the existing instance method to use the new BacklogItemRepository to  get  all  the BacklogItem instances  the  calculation  needed.  Does that sound right?
+
+Actually, the senior team mentor persuaded the team not to do that. As a rule of thumb, we should try to avoid the use of Repositories (12) from inside Aggregates, if at all possible. What about just making the same method static on class Product and passing in the collection of BacklogItem instances  that  static  method  would need for the calculation? That way the method would remain almost intact, except for the new parameter:
+
+```
+public class Product extends ConcurrencySafeEntity { ... public static BusinessPriorityTotals businessPriorityTotals( Set<BacklogItem> aBacklogItems) { ... } ... }
+```
+
+Was Product really the best place to create the static method? It seemed difficult to determine where it really belonged. Since the operation actually only used the business priority values of each BacklogItem ,  maybe the static method belonged there. Still, the business priority being sought was that of a product, not a backlog item. Quandaries.
+
+At that point the mentoring senior developer spoke up. He noted that the team's entire  source  of  discomfort  could  be  dismissed  with  a  single  modeling  tool,  the Domain Service. How would that work?
+
+Let's first establish some background. Then we'll revisit this modeling situation and see what the team decided to do.
+
+## What a Domain Service Is (but First, What It Is Not)
+
+When  we  hear  the  term service in  a  software  context,  we  might  naturally envision a coarse-grained component that enables a remote client to interact with a complex business system. That basically describes a service in a ServiceOriented  Architecture  (4) .  There  are  different  technologies  and  approaches for  developing  SOA  services.  In  the  end  these  kinds  of  services  emphasize system-level remote procedure calls (RPCs) or message-oriented middleware (MoM), where other systems across the data center, or across the globe, are able to interact with the service to carry out business transactions.
+
+None of those is a Domain Service.
+
+Further, don't confuse a Domain Service with an Application Service .  We don't want to house business logic in an Application Service, but we do want business logic housed in a Domain Service. If you are confused about the difference, compare with Application (14) . Briefly, to differentiate the two, an Application Service, being the natural client of the domain model, would normally be the client of a Domain Service. You'll see that demonstrated later in the chapter.
+
+Just because a Domain Service has the word service in  its  name does not mean that it is required to be a coarse-grained, remote-capable, heavyweight transactional operation. 1
+
+## Cowboy Logic
+
+LB:    'Always take a good look at what you are about to eat. It's not so important to know what it is, but it's critical to know what it was.'
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000279_53eae23f4fa8c83fd4c8a4dd1c4786fe775d1b40a1927e4209d0153d67342ed0.png)
+
+Services that specifically belong to the business domain are a perfect modeling tool to use when your needs intersect with their sweet spot. So, now that we know what a Domain Service isn't , let's consider what it is .
+
+1.  There are times when a Domain Service is concerned with remote invocations on a foreign Bounded Context (2). Yet, the focus here is different in that the Domain Service is not itself providing a remote procedure call interface but is rather the client of the RPC.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000280_8fca4cdf3e5310e6da53f0fa8e946f65aff9e9a048acd65512bc4f6841246329.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000281_3de1b859bd7c3c5c9dd90c667be709e3743cc0bc8fc3df19bcf38be9abea9116.png)
+
+Sometimes, it just isn't a thing. . . . When a significant process or transformation in the domain is not a natural responsibility of an ENTITY or VALUE OBJECT, add an operation to the model as a standalone interface declared as a SERVICE. Define the interface in terms of the language of the model and make sure the operation name is part of the UBIQUITOUS LANGUAGE. Make the SERVICE stateless. [Evans, pp. 104, 106]
+
+Since the domain model generally deals with finer-grained behaviors that are focused on some specific aspect of the business at hand, a Service in the domain would tend to adhere to similar tenets. Since it may be dealing with multiple domain objects in a single, atomic operation, it would have the latitude to scale up a bit in complexity.
+
+Under what conditions would an operation not belong on an existing Entity (5) or Value Object? It is difficult to give an exhaustive list of reasons, but I've listed a few here. You can use a Domain Service to
+
+-  Perform a significant business process
+-  Transform a domain object from one composition to another
+-  Calculate a Value requiring input from more than one domain object
+
+The  last  one-a  calculation-probably  falls  under  the  'significant  process' category, but I call it out to be clear. It's a very common one, and that kind of operation can require two, and possibly many, different Aggregates or their composed parts as input. And when it is just plain clumsy to place the method on any one Entity or Value, it works out best to define a Service. Make sure the Service is stateless and has an interface that clearly expresses the Ubiquitous Language (1) in its Bounded Context.
+
+## Make Sure You Need a Service
+
+Don't lean too heavily toward modeling a domain concept as a Service. Do so only if the circumstances fit. If we aren't careful, we might start to treat Services as our modeling 'silver bullet.' Using Services overzealously will usually result in the negative consequences of creating an Anemic Domain Model [Fowler, Anemic], where all the domain logic resides in Services rather than mostly spread across Entities and Value Objects. The following analysis shows the importance of thinking carefully about the tactics you should employ for each modeling situation. Following this guidance should help you make good decisions about whether or not to model a Service.
+
+Let's  investigate  an  example  of  recognizing  the  need  to  model  a  Service. Think of trying to authenticate a User in  our Identity and Access Context .
+
+Recall  that  in Entities  (5) we  ran  into  this  domain  scenario  that  the  team wanted to push off until later. Well, later is now:
+
+-  Users of a system must be authenticated but can be authenticated only if the tenant is active.
+
+Let's consider why a Service is necessary. Could we simply place this behavior on an Entity? From a client's perspective, maybe we could model authentication like this:
+
+```
+// client finds User and asks it to authenticate itself
+```
+
+```
+boolean authentic = false; User user = DomainRegistry .userRepository() .userWithUsername(aTenantId, aUsername); if (user != null) { authentic = user.isAuthentic(aPassword); } return authentic;
+```
+
+I think there are at least a few problems with this design. We require clients to understand what it means to authenticate. They have to find the User and then ask the User if a given password matches the one the User holds. Also, the Ubiquitous Language is not explicitly modeled. Here we asked the User if it 'is authentic' rather than ask the model to 'authenticate.' If possible it would be best to model in terms of the natural expressions spoken by the team, rather than force the team to adjust their view away from what comes naturally because we failed to better model the concept. But there are worse problems than these.
+
+This does not properly model what that team discovered about authenticating a user. A glaring omission is that there is no check to determine whether or not the tenant is active. Per the requirement, if the tenant under which the user resides is not active, the user is not authenticated. Perhaps we could solve the problem like this:
+
+```
+// maybe this way is better ... boolean authentic = false;
+```
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000282_f41929a92c28d458e3360183303f0fc37ba75cc4cefdd3f4e34aeda97c4a4afb.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000283_d27867a57f0c916a7a08acfe65a5f42434196e18cf8e4cbac1f652e6e3faa2ad.png)
+
+```
+Tenant tenant = DomainRegistry .tenantRepository() .tenantOfId(aTenantId); if (tenant != null && tenant.isActive()) { User user = DomainRegistry .userRepository() .userWithUsername(aTenantId, aUsername); if (user != null) { authentic = tenant.authenticate(user, aPassword) } } return authentic;
+```
+
+This  test  does  properly  determine  that  the Tenant is  active  before  carrying  on  with  authentication.  We  were  also  able  to  rid User of  method isAuthentic() by placing authenticate() on Tenant .
+
+But there are problems with this. Look at the additional burden that we've heaped on the client. It now needs to understand much more about authentication than it should. We could alleviate this a bit by checking whether Tenant isActive() inside method authenticate() ,  but I'd argue that that is not an explicit model. It also produces another problem. Now Tenant might need to understand what to do with a password. Recall that another requirement was realized, though not specifically called out in the authentication scenario:
+
+-  Passwords must be stored encrypted, not as clear text.
+
+With our proposed solutions, we seem to keep producing more friction in the model. With the latest proposal we have to choose one of four undesirable approaches:
+
+1. Handle encryption in Tenant and pass the encrypted password to User . This violates Tenant 's Single Responsibility [Martin, SRP] to deal with modeling only a tenant.
+2. User may already need to know a little bit about encryption since it must guarantee that any stored password is encrypted. If so, create a method on User that  knows  how  to  authenticate  given  a  clear-text  password. But in this case authentication becomes a facade on Tenant that is fully implemented  only  on User .  Further  still, User must  have  a  protected authentication interface to prevent clients outside the model from directly using it.
+
+3. Tenant asks User to encrypt the clear-text password, then it compares it with the one User is holding. This seems to have extra steps with an untidy set of collaborations. Tenant is  still  required  to  understand the details of authentication even though it doesn't quite carry it out.
+4. Have the client encrypt the password and pass it in to the Tenant . This adds further to the responsibility that the client has, when in fact the client should need to know nothing of the need to encrypt passwords.
+
+None of these proposals help much, and the client is still too complex. Responsibility  that  we've  dumped  on  the  client  should  instead  be  elegantly  tucked away in the model. Knowledge that is purely domain specific should never be leaked out into clients. Even if the client is an Application Service, that component is not responsible for the domain of identity and access management.
+
+## Cowboy Logic
+
+AJ:    'When you find yourself in a hole, the first thing to do is stop digging.'
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000284_5695eb29fc9d2044dda345fe736a32d6bd9c565eae8af298f28e4cb74d5f21c8.png)
+
+Really,  the  only  business  responsibility  that  the  client  should  have  is  to coordinate the use of a single domain-specific operation that handles all other details of the business problem:
+
+```
+// inside an Application Service client with // only task coordination responsibility UserDescriptor userDescriptor = DomainRegistry .authenticationService()
+```
+
+```
+.authenticate(aTenantId, aUsername, aPassword);
+```
+
+In  this  simple  and  elegant  solution,  the  client  need  only  obtain  a  reference to  a  stateless  instance  of AuthenticationService and  then  ask  it  to authenticate() . This pushes all details of authentication out of the Application Service client and into the Domain Service. Any number of domain objects may be used by the Service, as needed. This includes ensuring that password encryption is performed as appropriate. The client doesn't need to understand any  of  those  details.  The  Ubiquitous  Language  in  the  Context  is  satisfied because the proper terms are expressed by the software that models the identity management domain, rather than partly by the model and partly by the client.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000285_118ad3c7d3d1fd4a15097342540e25765b336060b73f2074374290dfda1594c8.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000286_26ed82a6f2516ba6303f112359361d3669a7d60d74ea4b8a95cf520508ce7792.png)
+
+A Value Object, UserDescriptor ,  is  returned from the Service method. This object is small and secure. Unlike a full User , it includes only a few attributes essential to referencing a User :
+
+```
+public class UserDescriptor implements Serializable  { private String emailAddress; private TenantId tenantId; private String username; public UserDescriptor( TenantId aTenantId, String aUsername, String anEmailAddress) { ... } ... }
+```
+
+It is suitable for storing in a per-user Web session. The client Application Service may itself return this object to its invoker or create one more suitable for it.
+
+## Modeling a Service in the Domain
+
+Depending  on  the  purpose  of  a  Domain  Service,  it  can  be  quite  simple  to model. You'll have to decide whether or not your Service should have a Separated Interface [Fowler, P of EAA]. If so, this might be the interface definition:
+
+```
+package com.saasovation.identityaccess.domain.model.identity;
+```
+
+```
+public interface AuthenticationService { public UserDescriptor authenticate( TenantId aTenantId, String aUsername, String aPassword); }
+```
+
+The  interface  is  declared  in  the  same Module  (9) as  the  identity-specific  Aggregates,  such  as Tenant , User ,  and Group .  That  is  done  because AuthenticationService is an identity concept, and we currently place all identity-related  concepts  in  the identity Module.  The  interface  definition itself is quite simple. Only one operation, authenticate() , is necessary.
+
+A choice we have is where to place the implementation class. If you are using the Dependency Inversion Principle (4) or Hexagonal (4) ,  you may decide to place this somewhat technical implementation class in a location outside the domain model. Technical implementations may be housed in a Module in the Infrastructure Layer, for example.
+
+Here is the class:
+
+```
+package com.saasovation.identityaccess.infrastructure.services; import com.saasovation.identityaccess.domain.model.DomainRegistry; import com.saasovation.identityaccess.domain.model.identity. Φ AuthenticationService; import com.saasovation.identityaccess.domain.model.identity.Tenant; import com.saasovation.identityaccess.domain.model.identity.TenantId; import com.saasovation.identityaccess.domain.model. Φ identity.User; import com.saasovation.identityaccess.domain.model. Φ identity.UserDescriptor; public class DefaultEncryptionAuthenticationService implements AuthenticationService  { public DefaultEncryptionAuthenticationService() { super(); } @Override public UserDescriptor authenticate( TenantId aTenantId, String aUsername, String aPassword) { if (aTenantId == null) { throw new IllegalArgumentException( "TenantId must not be null."); } if (aUsername == null) { throw new IllegalArgumentException( "Username must not be null."); } if (aPassword == null) { throw new IllegalArgumentException( "Password must not be null."); } UserDescriptor userDescriptor = null;
+```
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000287_d0ceb5def829065a0a7576913fccaa89dfe4ba9720abef47b7701ecd6b12beec.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000288_f9eb514bc8a112d62311383dfedd4f0ac44e48dedd69da2c47b435e325cc81b7.png)
+
+```
+Tenant tenant = DomainRegistry .tenantRepository() .tenantOfId(aTenantId); if (tenant != null && tenant.isActive()) { String encryptedPassword = DomainRegistry .encryptionService() .encryptedValue(aPassword); User user = DomainRegistry .userRepository() .userFromAuthenticCredentials( aTenantId, aUsername, encryptedPassword); if (user != null && user.isEnabled()) { userDescriptor = user.userDescriptor(); } } return userDescriptor; } }
+```
+
+The method guards against null parameters. Otherwise, if the authentication process fails under normal conditions, the returned UserDescriptor will be null .
+
+To  authenticate  we  begin  by  attempting  to  retrieve  the Tenant from  its Repository using its identity. If the Tenant both exists and is active, we next encrypt  the  clear-text  password.  We  do  that  now  because  we  will  use  the encrypted password to retrieve the User . Rather than request the User only from a TenantId and matching username , we also match on the encrypted password. (The result of encryption is always the same for two equal clear-text passwords.) The Repository is designed to filter on all three.
+
+If the human user has submitted the correct tenant identity, username, and clear-text  password,  it  will  result  in  retrieving  the  matching User instance. Still, this does not completely prove the user's authenticity. There is one final requirement not yet handled:
+
+-  Users can be authenticated only if they are enabled.
+
+Even if the Repository finds the filtered User instance, it may have been disabled. Providing the possibility of disabling a User allows the tenant to control user authentication at a different level. Thus, as a final step the User instance must be both nonnull and enabled, which will result in a UserDescriptor being derived from the User .
+
+## Is Separated Interface a Necessity?
+
+Since this AuthenticationService does not have a technical implementation, is it really necessary to create a Separated Interface and implementation class, and in separate Layers and Modules? No, it is not, in fact, an absolute necessity.  We  could  have  created  this  particular  Service  with  only  a  single implementation class with the name of the Service:
+
+```
+package com.saasovation.identityaccess.domain.model.identity; public class AuthenticationService { public AuthenticationService() { super(); } public UserDescriptor authenticate( TenantId aTenantId, String aUsername, String aPassword) { ... } }
+```
+
+There would be nothing wrong with this. You might even consider this a more fitting approach since this particular Service may never need to have multiple implementations. However, given that different tenants might eventually desire specialized security standards, it's possible that there could be multiple implementations. At this point in time, however, the team has decided to drop the use of a Separated Interface and go with the class as shown here.
+
+## Naming Your Implementation Class
+
+In  the  Java  world  it's  become  quite  common  to  name  the  implementation class  with  its  interface's  name  as  a  prefix  and Impl as  a  postfix.  In  our example using  this  approach  would  render  the  name AuthenticationServiceImpl .  Further,  the  interface  and  implementing  class  are  often housed in the same package. Is this a good thing?
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000289_50b7218c160aa8a0bb3083b804581eb1355eeda3b6d97af2584b9e1d5fb51064.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000290_205977bb955c81b73cc1e605c01a67b0be466d4c395276add49f80da6b47548b.png)
+
+Actually, if your implementation class is named this way, it's probably a very good indication that you don't need a Separated Interface, or that you need to think more carefully about the name of the implementing class. So, no, the AuthenticationServiceImpl name isn't a really good one. But then again, DefaultEncryptionAuthenticationService is not particularly useful either. For that reason the SaaSOvation team decided to eliminate the Separated Interface for now and go with AuthenticationService as  a simple class instead.
+
+If your implementation class has specific decoupling goals because you are providing multiple specific implementations, name the class according to its specialty.  The  need  to  name  each  specialized  implementation  carefully  is proof that specialties exist in your domain.
+
+Some will conclude that having the interface and implementation class similarly named makes large packages of these pairs easier to browse and navigate. However, others would conclude that such large packages are poorly designed according to the goals of Modules. Further still, those with focused modularity goals will also favor placing the interface and various implementation classes in separate packages, as we do with Dependency Inversion Principle  (4) .  For  example,  the EncryptionService interface  is  in  the domain model, while MD5EncryptionService resides in infrastructure.
+
+Eliminating the Separated Interface for nontechnical Domain Services will not weaken testability since any interfaces that the Service depends on can be injected or resolved by a test-configured Service Factory, or you could pass in as parameters instances of inbound and outbound dependencies as needed. Remember, too, that nontechnical, domain-specific Services, such as calculations, must be tested for correctness.
+
+Understandably this is a controversial topic, and I am aware that there is a large camp that regularly names interface realizations using Impl . Just be aware that there is a well-informed polar opposite to that camp that has very sound reasons for avoiding that approach. As always, the choice is yours to make.
+
+Using  Separated  Interface  may  be  more  a  matter  of  style  in  cases  where the Service is always domain specific and will never have a technical implementation or multiple implementations. As Fowler [Fowler, P of EAA] states, Separated  Interface  is  useful  if  you  have  certain  decoupling  goals:  'A  client that needs the dependency to the interface can be completely unaware of the implementation.' However, if you are using Dependency Injection or a Factory [Gamma et al.] of Services, even when the Service interface and class are combined, you can still prevent the client from being aware of the implementation.
+
+In other words, the following use of the DomainRegistry as Service Factory will decouple the client from implementation:
+
+```
+// the registry decouples client from implementation knowledge UserDescriptor userDescriptor = DomainRegistry .authenticationService() .authenticate(aTenantId, aUsername, aPassword);
+```
+
+Or if you are using Dependency Injection, you can get similar benefits:
+
+```
+public class SomeApplicationService ... { @Autowired private AuthenticationService authenticationService; ... }
+```
+
+The inversion-of-control container (such as Spring) injects the Service instance. Since the client never instantiates the Service, it isn't aware that the interface and implementation are either combined or separated.
+
+Clearly, some have utter disdain for both the Service Factory and Dependency Injection and prefer to set up inbound dependencies by way of a constructor  or  pass  them  in  as  method  parameters.  In  the  end  that  is  the  most explicit way to wire dependencies and make code testable, and it could even be considered easier than Dependency Injection. Some may find it beneficial to use a combination of all three depending on the situation, while preferring constructor-based  dependency  setup  overall.  Several  of  the  samples  in  this chapter use DomainRegistry for clarity, though not necessarily indicating a preference . Much of the source code actually distributed online in support of this book leans toward dependency set up by way of constructors, or by passing dependencies directly to methods as parameters.
+
+## A Calculation Process
+
+Here's another example, this time from the current Core Domain (2) , the Agile Project Management Context . This Service calculates a result from Values on any number of Aggregates of a specific type. Here I think there is no good reason to use a Separated Interface, at least not at present. The calculations are always performed the same way. Unless that situation changes, we shouldn't bother separating the interface from the implementation.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000291_b2410852bdb2700a9a033c2546c71c400d59e66095639d9564b6c9eff01b009f.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000292_c698cdc379c0ab032159198b8e145eb1520075bc8c9cef7eeca06567d67a2987.png)
+
+## Cowboy Logic
+
+- LB:    'My stallion brings $5,000 per service, and I've got the mares lined up.'
+- AJ:    'Now that horse is in his domain.'
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000293_b25b49625e45e2b7d14d2a32881bb7415c4b6a2d50e4cd403896c0b6080872b5.png)
+
+Recall that the SaaSOvation developers originally created fine-grained static methods on Product to  perform the desired calculations. Here's what happened next . . .
+
+The team's mentor also pointed to the desirability of using a Domain Service instead of a static method. The idea behind this  Service  would  be  very  similar  to  the  current  design,  to calculate  and  return  a BusinessPriorityTotals Value instance. But the Service would have to do a bit more work. This would include finding all outstanding backlog items of a given Scrum product and then totaling each of their individual BusinessPriority Values. Here's the implementation:
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000294_f2679726fd28f7f1252a31d8c7f689d90284b8fbd2eee89d4a03096a2d156f59.png)
+
+```
+package com.saasovation.agilepm.domain.model.product; import com.saasovation.agilepm.domain.model.DomainRegistry; import com.saasovation.agilepm.domain.model.tenant.Tenant; public class BusinessPriorityCalculator { public BusinessPriorityCalculator() { super(); } public BusinessPriorityTotals businessPriorityTotals( Tenant aTenant, ProductId aProductId) { int totalBenefit = 0; int totalPenalty = 0; int totalCost = 0; int totalRisk = 0; java.util.Collection<BacklogItem> outstandingBacklogItems = DomainRegistry .backlogItemRepository() .allOutstandingProductBacklogItems( aTenant, aProductId);
+```
+
+```
+for (BacklogItem backlogItem : outstandingBacklogItems) { if (backlogItem.hasBusinessPriority()) { BusinessPriorityRatings ratings = backlogItem.businessPriority().ratings(); totalBenefit += ratings.benefit(); totalPenalty += ratings.penalty(); totalCost += ratings.cost(); totalRisk += ratings.risk(); } } BusinessPriorityTotals businessPriorityTotals = new BusinessPriorityTotals( totalBenefit, totalPenalty, totalBenefit + totalPenalty, totalCost, totalRisk); return businessPriorityTotals; } }
+```
+
+The BacklogItemRepository is used to get all outstanding BacklogItem instances.  An  outstanding BacklogItem is  one  with  a  status  type  of Planned , Scheduled , or Committed , not either Done or Removed . A Service in the domain is welcome to use Repositories as needed, but accessing Repositories from an Aggregate instance is not a recommended practice.

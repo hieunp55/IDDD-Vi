@@ -1,0 +1,499 @@
+Bạn là chuyên gia dịch thuật kỹ thuật Anh → Việt, chuyên tài liệu kỹ thuật/công nghệ, có kinh nghiệm dịch như biên dịch viên bản ngữ chuyên nghiệp. Nhiệm vụ: dịch TOÀN BỘ nội dung Markdown dưới đây sang tiếng Việt, không bỏ sót bất kỳ phần nào. Đây là MỘT PHẦN (chunk) của một tài liệu lớn hơn, hãy dịch độc lập đoạn này, không thêm lời mở đầu/kết luận về việc đây chỉ là một phần.
+
+QUY TẮC BẮT BUỘC — VI PHẠM LÀ SAI:
+
+1. XÁC ĐỊNH LOẠI TÀI LIỆU TRƯỚC KHI DỊCH
+   - Tự phân tích nội dung để xác định loại tài liệu (kỹ thuật/lập trình, tài chính, bảo hiểm, pháp lý, marketing, học thuật, vận hành, sản phẩm...).
+   - Chọn văn phong và thuật ngữ CHUẨN NGÀNH tương ứng trong tiếng Việt, nhất quán xuyên suốt.
+
+2. VĂN PHONG — MƯỢT NHƯ NGƯỜI DỊCH, KHÔNG GIẢM CHÍNH XÁC
+   - Dịch mượt, tự nhiên, đúng ngữ pháp tiếng Việt — như biên dịch viên bản ngữ dịch tay, KHÔNG dịch máy móc kiểu word-by-word.
+   - Được phép đảo cấu trúc câu, tách/gộp câu cho tự nhiên, miễn giữ nguyên 100% ý nghĩa, thông tin, logic, số liệu gốc.
+   - Khi "mượt mà" và "chính xác" xung đột → LUÔN ưu tiên chính xác.
+
+3. DỊCH ĐẦY ĐỦ 100%
+   - Không tóm tắt, không rút gọn, không lược bỏ đoạn/câu/mục/bullet nào.
+   - Số lượng heading, đoạn văn, bảng, code block ở output PHẢI khớp 1:1 với input.
+   - Đoạn dài dịch hết, không cắt ngắn.
+
+4. GIỮ NGUYÊN THUẬT NGỮ TIẾNG ANH
+   - Thuật ngữ chuyên ngành (tên công nghệ, framework, pattern, tên hàm/biến, acronym...) giữ nguyên tiếng Anh, không dịch, không phiên âm.
+   - Ngay sau lần xuất hiện ĐẦU TIÊN của mỗi thuật ngữ, thêm chú thích ngắn trong ngoặc giải thích nghĩa bằng tiếng Việt.
+   - Các lần xuất hiện sau KHÔNG cần chú thích lại.
+
+5. GIỮ NGUYÊN FORMAT — RẤT QUAN TRỌNG
+   - VỀ ẢNH (làm trước khi dịch): ĐẾM chính xác số lượng thẻ ảnh dạng ![...](...) trong đoạn gốc bên dưới. Output PHẢI có ĐÚNG số lượng thẻ ảnh đó, không được thiếu một cái nào — kể cả ảnh không có caption, không rõ ngữ cảnh, hay trông như ảnh trang trí/lặp lại. Copy nguyên URL 100%, không sửa, không rút gọn, không thay bằng mô tả text.
+   - Giữ cấp độ heading (#, ##, ###...), giữ đúng số lượng heading.
+   - Giữ cấu trúc bảng (số cột, số hàng, alignment, header row).
+   - Giữ code block (```lang ... ```) — KHÔNG dịch code; comment được dịch tại chỗ; **được phép reformat code, tự động xuống dòng/indent chuẩn, không giữ nguyên code 1 dòng; không đổi logic/cú pháp**.
+   - Giữ blockquote, callout/note/warning (>, [!NOTE], [!WARNING]...).
+   - Giữ list, nested list, checkbox (- [ ]).
+   - Giữ nguyên link thường ([text](url)) — chỉ dịch phần text hiển thị, TUYỆT ĐỐI giữ nguyên URL.
+   - TRƯỚC KHI TRẢ KẾT QUẢ: tự đếm lại số heading, số ảnh, số dòng ``` giữa bản gốc và bản dịch của bạn, nếu lệch phải sửa lại cho khớp.
+
+6. GIẢI THÍCH ẨN DỤ / KHÁI NIỆM KHÓ
+   - Với ẩn dụ, thành ngữ, khái niệm trừu tượng khó hiểu với người Việt, thêm khối giải thích riêng ngay sau đoạn đó:
+     > 💡 **Giải thích thêm:** [giải thích dễ hiểu, đủ chuyên sâu, có ví dụ thực tế]
+     > Nguồn tham khảo: [link cụ thể để kiểm chứng]
+   - CHỈ đưa link nếu chắc chắn tồn tại và đúng nội dung — không bịa link.
+   - Không tìm được nguồn tin cậy → ghi rõ: "(Không có nguồn trích dẫn xác thực — cần tự kiểm chứng thêm)".
+
+7. CHỐNG HALLUCINATION (BẮT BUỘC)
+   - Không tự thêm thông tin/số liệu/ví dụ/kết luận KHÔNG có trong bản gốc — trừ phần giải thích ẩn dụ ở mục 6 (phải gắn nhãn rõ là phần bổ sung).
+   - Câu gốc mơ hồ → dịch sát nghĩa nhất, nếu không chắc ghi chú: "[CẦN KIỂM CHỨNG: câu gốc mơ hồ]".
+   - Không tự sửa/thêm/bớt logic kỹ thuật gốc. Không bịa trích dẫn/số liệu/link vô căn cứ.
+   - Không tự tóm tắt các đoạn dài thành ý chính rồi diễn giải lại — phải dịch từng câu.
+
+8. OUTPUT
+   - Trả về DUY NHẤT nội dung Markdown đã dịch, đặt trong 1 code block (```markdown ... ```).
+   - Không thêm lời dẫn/lời chào/giải thích ngoài code block.
+   - Không đổi tiêu đề gốc trừ khi cần dịch tiêu đề.
+
+--- NỘI DUNG GỐC CẦN DỊCH (một phần của tài liệu) ---
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000355_1cc3c05d39bf6fa98e195a4ec1966dc0716058e706674d93425c9d1d547342bd.png)
+
+Method publishNotifications() uses messageProducer() to  ensure that  the  exchange  exists  and  then  gets  the  instance  of MessageProducer used  to  publish.  RabbitMQ  supports  exchange  idempotence,  so  the  first time you ask for the exchange it is created, and all subsequent times you are given the preexisting one. We don't retain an open instance of the MessageProducer in case a problem with the backing broker channel somehow develops. Reestablishing the connection each time publish is executed helps prevent a completely inoperable publisher. We may need to look out for possible performance issues if constant reconnection becomes a bottleneck. But for now we will count on the configured pauses between publish operations to alleviate reconnection overhead.
+
+Speaking of pauses between publish operations, none of the preceding code indicates  how  Events  are  published  to  the  exchange  on  a  regular,  recurring basis. That can be accomplished in a few different ways and may depend on your operational environment. For one, a JMX TimerMBean can be used to manage recurring time intervals.
+
+Before  presenting  the  following  timer  solution,  it's  important  to  note  an important context. The Java MBean standard also uses the term notification , but this is not the same used by our own publishing process. In this case, a listener receives notification of each occurrence of the timer firing. Just be prepared to sort that out in your mind.
+
+Whatever suitable interval is determined and configured for a given timer, a NotificationListener is registered so the MBeanServer can notify on each occasion when an interval is reached:
+
+```
+mbeanServer.addNotificationListener( timer.getObjectName(), new NotificationListener() { public void handleNotification( Notification aTimerNotification, Object aHandback) { ApplicationServiceRegistry .notificationService() .publishNotifications(); } }, null, null);
+```
+
+In  this  example,  when  method handleNotification() is  invoked  due to  the  timer  firing,  it  requests  the NotificationService to  perform  its publishNotifications() operation. That's all that's necessary. For as long as the TimerMBean continues to fire at regular, recurring intervals, Domain Events will continue to be published through the exchange and consumed by subscribers across the enterprise.
+
+Using an application-server-managed timer has the added advantage that you don't have to create a component to monitor the life cycle of your publishing process. If, for example, the publishNotifications() should for some reason on any given execution encounter problems and terminate with an exception, the TimerMBean would continue to run and fire on subsequent intervals. Administrators may need to address infrastructure errors, perhaps with RabbitMQ, but once problems are out of the way, messages would continue to be published. That said, there are other timer facilities available, such as [Quartz].
+
+But we are still left with questions about message de-duplication. What is message de-duplication? And why is it necessary for messaging subscribers to support it?
+
+Event De-duplication De-duplication is a necessity in environments where a single message published through a messaging system could possibly be delivered to subscribers more than once. There are various causes of duplicate messages. One way this can happen is the following:
+
+1. RabbitMQ delivers the newly sent messages to one or more subscribers.
+2. The subscribers process the messages.
+3. Before subscribers can acknowledge that the messages were received and processed, they fail.
+4. RabbitMQ delivers the unacknowledged messages again.
+
+The possibility also exists when publishing out of an Event Store, and the messaging system doesn't share the Event Store's persistence mechanism, and global, XA transactions are not controlling atomic commits of Event Store and messaging persistence changes. As discussed earlier under 'Publishing Notifications through Messaging Middleware,' that is exactly our situation. Consider a scenario that highlights how a message could be sent more than once:
+
+1. The NotificationService queries and publishes three unpublished Notification instances.  It  updates  the  record  of  this  with PublishedMessageTracker .
+2. The RabbitMQ broker receives all three messages and prepares to send them to all subscribers.
+3. However, due to some exceptional condition  on  the  application  server, there is a failure of the NotificationService . The modification to the PublishedMessageTracker is not committed.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000356_c8c4ed71d45091fb490a6b8c76b9dc4e5b4f4e939f280a166f31f4dde4499a5c.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000357_d2196bfb09410aeeaa6df29e9bbe141fdf6330fb6f65471e1b0c8735eea77dd7.png)
+
+4. RabbitMQ delivers the newly sent messages to subscribers.
+5. The  exceptional  condition  on  the  application  server  is  corrected.  The process  of  publishing  begins  again  and  the NotificationService successfully  sends  messages  for  all  unpublished  Events.  This  includes sending (again!)  messages  for  all  Events  that  were  previously  published but unknown to the PublishedMessageTracker .
+6. RabbitMQ delivers the newly sent messages to subscribers, at least three of which are duplicate deliveries.
+
+In this scenario I arbitrarily use three Events. I could have used one, two, four, or many more. The number is not significant, only the fact that problems like these could cause redelivery. When you face this and other reasons for message duplication, de-duplication is necessary. See Idempotent Receiver [Hohpe &amp; Woolf] for more elaborate treatment.
+
+## An Idempotent Operation
+
+An idempotent operation is one that can be executed two or more times in succession with results identical to those of executing the same operation only once.
+
+One way to deal with the possibility  of  duplicate  message  delivery  is  for subscriber model operation to be idempotent. The subscriber's response to all messages could be idempotent operations against its own domain model. The problem is that designing a domain object, or any object for that matter, to be idempotent can be difficult, impractical, or even impossible. And if we attempt to  design  the  Event  itself  to  carry  information  that  reflects  an  idempotent action to be taken, that can also be troublesome. For one, the sender must fully understand the current business situation of all receivers relative to the Event state they will send. Further, receipt of Events that are out of sequence due to latency, retries, and so on could cause errors.
+
+When domain object idempotence is not a viable option, you can instead design  the  subscriber/receiver  itself  to  be  idempotent.  The  receiver  can  be designed to refuse to execute an operation in response to a duplicate message. First, you should check to see if your messaging product supports this as a feature. If not, your receiver will need to track which messages have already been handled. One way to accomplish that is to allocate an area in the subscriber's persistence mechanism to save the name of the topic/exchange along with the unique message ID of all handled messages-yes, similar to a PublishedMessageTracker .  Then you can query for duplicates before handling each message. If the query finds that a message was already handled, the subscriber simply  ignores  it.  The  handled  message  tracking  is  not  part  of  the  domain model. It should be viewed only as a technical work-around for common messaging idiosyncrasies.
+
+When using a typical messaging middleware product, it is not enough to save  only  a  record  of  the  latest  handled  message  because  messages  can  be received out of order. Thus, a de-duplication query that checks for message IDs less than the most recent one would cause you to ignore some messages that were received out of order. Also to be considered is that sometimes you will want to discard all handled message tracking entries that are obsolete, as in database garbage collection.
+
+When using  the  REST-based  notification  approach,  de-duplication  is  not really a factor. Client receivers need to save only the most recently applied notification  identity  since  they  will  always  be  applying  only  the  notifications  of events that occurred after it. Each notification log will always be in reverse chronological order (descending) by notification identity.
+
+In both cases-messaging middleware subscribers and REST-based notification clients-it is important that the tracking of handled message identity be committed along with any changes to the local domain model state. Otherwise, you will be unable to maintain tracking consistency in conjunction with the modifications made in response to Events.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000358_dcad87dabef9071360d42f585d236ea13d461cd11feb026a6c7cf934f8503225.png)
+
+## Wrap-Up
+
+In this chapter we looked at the definition of Domain Events and how they determine when modeling an Event would be to your advantage.
+
+-  You've learned what Domain Events are, and when and why to use them.
+-  You looked into how Events are modeled as objects, and when they must be uniquely identified.
+-  You considered when an Event should have Aggregate characteristics, and when a simple Value-based Event works best.
+-  You saw how lightweight Publish-Subscribe components are used in the model.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000359_a9f1ad7f2ff3d428797411c68143e9ea2b848d8c2655ce781a7b7514b9768d50.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000360_ccf760d818b12d9d505ee1501884a76e8528e0432fb4bdee421f6543c6c3b94f.png)
+
+-  You discovered which components publish Events and which ones subscribe to them.
+-  You grasped why you'd want to develop an Event Store, how it can be done, and how one is used.
+-  You  learned  about  two  approaches  to  Event  publishing  outside  the Bounded  Context:  REST-based  notifications  and  the  use  of  messaging middleware.
+-  You learned some ways to de-duplicate messages in subscribing systems.
+
+Next,  we  are  going  to  change  directions  quite  a  bit  and  look  into  how domain model objects can be well organized by using Modules.
+
+## Chapter 9
+
+## Modules
+
+The secret of all victory lies in the organization of the non-obvious. -Marcus Aurelius
+
+If  you are using Java or C#, you are already familiar with Modules ,  though you  know  them  by  another  name.  Java  calls  them  packages.  C#  calls  them namespaces. Actually in Ruby you can use the module language construct to effect namespaces for classes. In Ruby's case the DDD pattern name matches the name of the language construct. For the sake of our DDD context I will continue to call them Modules in most cases. It will be easy for you to map that name to the programming language term you regularly use. I won't spend much time trying to explain technically what Modules do, because you probably figured that out long ago.
+
+## Road Map to This Chapter
+
+-  Learn the difference between traditional Modules and the newer deployment modularity approach.
+-  Consider the importance of naming Modules per the Ubiquitous Language (1) .
+-  See how designing Modules mechanically actually stifles modeling creativity.
+-  Learn the design choices and trade-offs made by the SaaSOvation teams.
+-  Find out the role Modules play outside the domain model, and when to favor new Modules over new Bounded Contexts.
+
+## Designing with Modules
+
+In  a  DDD  context,  Modules  in  your  model  serve  as  named  containers  for domain  object  classes  that  are  highly  cohesive  with  one  another.  The  goal should be low coupling between the classes that are in different Modules. Since Modules as used in DDD are not bland or generic storage compartments, it is also important to properly name the Modules. Their names are an important facet of the Ubiquitous Language.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000361_0916a594a4d2894f53d7a273107c66c407421c11635f3987d9929a33424348ad.png)
+
+Choose Modules that tell the story of the system and contain a cohesive set of concepts. This often yields low coupling among Modules, but if it doesn't, look for a way to change the model to disentangle the concepts. . . . Give Modules names that become part of the Ubiquitous Language. Modules and their names should reflect insight into the domain. [Evans, pp. 110, 111]
+
+There are a few simple rules to keep in mind when designing Modules, as noted in Table 9.1.
+
+Table 9.1 Simple Rules for Module Design
+
+| Module Do's and Don'ts                                                                                                                                                                 | Why?                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Do design Modules to fit modeling concepts.                                                                                                                                            | Typically you'll have one Module for one or a few Aggregates (10) that are cohesive, if only by reference.                                                                                                                                                                                                                                                                                                                           |
+| Do name Modules per the Ubiquitous Language.                                                                                                                                           | This is a basic goal of DDD, but it will also tend to come natu- rally if you think about the concepts being modeled.                                                                                                                                                                                                                                                                                                                |
+| Don't create Modules mechanically according to a general component type or pattern being used in the model.                                                                            | Our model won't benefit at all if we segregate all Aggregates into one Module, all Services (7) into another Module, all Fac- tories (11) into yet another, for example. That misses the point of DDD Modules and will also tend to limit your creativity toward rich modeling. Instead of thinking openly about the domain, you'd tend to think only about the kinds of compo- nents or patterns you use to solve current problems. |
+| Do design loosely coupled Modules.                                                                                                                                                     | Ensuring that Modules are largely independent of others has the same benefits as loosely coupled classes. This will make it easier to maintain and refactor your modeling concepts and to use larger-grained modularization facilities, such as OSGi and Jigsaw.                                                                                                                                                                     |
+| Do strive for acyclic depen- dencies on peer Modules where coupling is necessary. (Peer Modules are those at the same 'level,' or those with similar weight or bearing on the design.) | It's rarely possible or even practical for Modules to be com- pletely independent of each other. After all, a domain model implies some coupling. Yet, you will reduce the coupling of components if you think in terms of making the dependency between two peer Modules only unidirectional (for exam- ple, product depends on team, but team does not depend on product).                                                         |
+| Do relax the rules a bit between child and parent Modules. (A parent Mod- ule is one at a higher level and a child is just a level lower- parent.child , for example.)                 | It's really difficult to prevent dependency between parent and child Modules. If at all possible, still strive for acyclic depen- dencies between parents and children, but allow for circular dependencies if there's no way to avoid it (for example, a parent creates a child, and the child must reference its parent, if only by identity).                                                                                     |
+
+Table 9.1 Simple Rules for Module Design ( Continued )
+
+| Module Do's and Don'ts                                                                                                   | Why?                                                                                                                                                                                                                                                                                                                                                                                                |
+|--------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Don't make Modules a static concept of the model, but allow them to be molded along with the objects that they organize. | If the model's concepts are malleable and take on different shapes, behaviors, and names over time, it's very likely that the Modules that organize those same concepts should be created, renamed, and deleted in kind. It's not a necessity, but if you can see mismatched names, refactor. Yes, it can be a pain, but the pain is probably less than that experienced with poorly named Modules. |
+
+View  Modules  as  first-class  citizens  of  the  model,  and  strive  to  create ones with as much meaning and naming consideration as is given to Entities (5) , Value Objects (6) ,  Services,  and Events (8) .  This  means being aggressive enough to rename existing Modules with the same boldness as when creating new ones. Always assertively place fresh and freshened domain concepts into the Modules that contemporary insight calls for.
+
+None of us would feel good about opening a drawer in our home kitchen and  finding  a  disorganized  assortment  of  forks,  knives,  spoons,  wrenches, screwdrivers, sockets, and hammers. We would probably at least refuse to eat with the silverware, even if we could gather a full place setting. We might avoid digging through the disorganized drawer to look for a particular screwdriver out of fear of being sliced by an undetected butcher's knife.
+
+Contrast this  with  a  kitchen  drawer  that  has  silverware  neatly  organized into sets of forks, knives, and spoons, and a toolbox in your garage where each type  of  tool  has  its  own  well-arranged  drawer.  We  would  have  no  problem finding what we need to use for a specific purpose, or hesitate to put it to its intended use. Everything is well organized, uncluttered. With all this modular  organization  in  place,  no  one  would  expect  to  find  cups  and  saucers  in the drawer with silverware, even though both belong in the kitchen. The neat stacks of tableware would likely lead us to believe that cups and saucers have a proper place of their own. A few quick glances into nearby obvious-looking cabinets,  and  there  they  would  be.  We  would  likewise  expect  to  find  sharp cutlery  in  a  location  that  promised  to  protect  their  edges  and  protect  those intending to use them.
+
+On the other hand, we would probably not organize our kitchen's contents using a mechanical approach, such as placing all sturdy things in one drawer and all things that might break in a high cabinet. We wouldn't want to have to remember that our flower vases are kept with our fine teacups just because both are somewhat fragile. Neither would we want to remember that we keep our stainless steel meat tenderizer with the fine cutlery just because both kinds of devices are in little danger of damage by the other sturdy ones.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000362_f8063b832e379449cc5a12b36cf27782e8c095556033148995cdeb05375a5072.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000363_c7251880e0a900cd0079d7f9df17e0af0b97350d0bff6f053fdd17800e034b15.png)
+
+If we were modeling a kitchen, it would be perfectly natural to see a Module  named placesettings ,  and  in  it  we  would  see  objects  such  as Fork , Spoon , and Knife . Possibly we might even decide to place Serviette there as well, proving that it's not only being made of metal that qualifies an object to  be  a  part  of  the placesettings Module.  On the other hand, it would be less helpful to modeling place settings if we had separate Modules named pronged , scooping , and blunt .
+
+Note that more recent advances in the modularization of software have led to a different level of software modularity. This approach has to do with the packaging of loosely coupled yet logically cohesive segments of software into a deployment unit by version. In a Java ecosystem we still think in terms of JAR files, but with those now assembled by version using, for example, OSGi bundles or Java 8 Jigsaw modules. Thus, various high-level modules, their versions, and their dependencies could be managed as bundles/modules. These kinds of modules/bundles are a bit different from DDD Modules, but they can complement each other. Certainly it makes sense to bundle loosely coupled parts of a domain model into the larger-grained modules according to their DDD Modules. After all, it's the loosely coupled design of your DDD Modules that will contribute to your ability to bundle with OSGi or modularize to Jigsaw.
+
+## Cowboy Logic
+
+- LB:    'You gotta wonder how this gas station keeps their restrooms so neat and clean.'
+- AJ:    'Now, LB, a tornado could hit that restroom and do $10,000 in improvements.'
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000364_53c5f98965b44ad997aeb1ba9157d143ce755a1bf858c622f260bfb0febc779c.png)
+
+We'll focus on how DDD Modules are used. Thinking of the purposes of specific Entities,  Value  Objects,  Services,  and  Events  of  your  model  benefits Module design. Let's look at examples of thoughtful Module design.
+
+## Basic Module Naming Conventions
+
+In  both  Java  and  C#,  the  names  of  Modules  reflect  a  hierarchical  form. 1 Each level in the hierarchy is separated by a dot/period. The name hierarchy generally begins with the name of the organization that produced it, composed with its Internet domain name. When the Internet domain name is used, it typically starts with the top-level domain, followed by the organizational domain name:
+
+1.  There will be some differences between Java packages and C# namespaces. If you're developing with C#, for example, you can still use this as guidance, but you'll want to adapt it to make sense for your specific programming language and platform.
+
+```
+com.saasovation // Java SaaSOvation // C#
+```
+
+Using  unique  top-level  names  prevents  namespace  collision  with  third-party Modules that are employed on your projects, or those caused when yours are consumed by others. If you have questions about the most basic conventions, you can consult the standard. 2
+
+Very  likely  your  organization  has  already  settled  on  a  top-level  Module naming convention. It's best to be consistent.
+
+## Module Naming Conventions for the Model
+
+The next segment of the Module name identifies the Bounded Context. Basing this segment on the name of the Bounded Context is a good choice.
+
+Here is how the SaaSOvation teams named these Modules:
+
+```
+com.saasovation.identityaccess com.saasovation.collaboration com.saasovation.agilepm
+```
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000365_ca1f1f9577b7624f850cdfc2cc1978cca0cfaa84fc86bb590b7a9dd1a821d9cf.png)
+
+They considered using the following, but it added little if any value compared to the previous Module names. Even though they exactly name the Context, they probably produce unnecessary noise:
+
+```
+com.saasovation.identityandaccess com.saasovation.agileprojectmanagement
+```
+
+Interestingly,  too,  they  did  not  use  their  commercial  product  names  (brands)  in the Module names. Brand names can change, and sometimes product names have little or no direct correlation to the underlying Bounded Contexts. It is more important to  identify  the  Context  by  name since that's what the team discusses. The goal is to reflect the Ubiquitous Language. If the team were to use the following names, it wouldn't help them realize that goal:
+
+2.  http://java.sun.com/docs/books/jls/second\_edition/html/packages.doc.html#26639.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000366_46d362292089e0bd3ce607b22b4b5e2124515a1132efa349710f8914d334460e.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000367_22306d80eac89a889c0a7063c901084ba767f3b60b5069feb50bbe61e221760f.png)
+
+```
+com.saasovation.idovation com.saasovation.collabovation com.saasovation.projectovation
+```
+
+The first Module name, com.saasovation.idovation , has almost no correlation to its Bounded Context. The second one is fairly close. The third name is almost as deficient as the first, but slightly better. At least it has the word project in it. Nonetheless, the team decided that these names didn't have an intuitively obvious mental mapping to the Bounded Contexts represented. Even more, if marketing decided that any  of  the  product  names  had  to  change-possibly  for  trademark  infringement  or cultural incompatibilities-these Module names would be completely obsolete. So the team decided to stick with the first set.
+
+Next, they tacked on an important qualifier. It identifies that the specific Module is in the domain:
+
+```
+com.saasovation.identityaccess.domain com.saasovation.collaboration.domain com.saasovation.agilepm.domain
+```
+
+This convention is compatible with a traditional Layers Architecture (4) and a Hexagonal Architecture (4) . These days a system that uses Layers will generally manage them using a Hexagonal, injection style. With Hexagonal you have an 'inside' part of the application, which includes the domain part. This will be similar with other architectural styles.
+
+The domain compartment  may  be  devoid  of  interfaces/classes  and  serve only as a container for lower-level Modules. Here's the next level down:
+
+```
+com.saasovation.identityaccess.domain.model com.saasovation.collaboration.domain.model com.saasovation.agilepm.domain.model
+```
+
+This is where model classes start to be defined. This package level can contain reusable interfaces and abstract classes.
+
+SaaSOvation liked to place in this Module common interfaces, such as those that were used for Event publishing, and abstract base classes for Entities and Value Objects:
+
+```
+ConcurrencySafeEntity DomainEvent DomainEventPublisher DomainEventSubscriber DomainRegistry Entity IdentifiedDomainObject IdentifiedValueObject
+```
+
+If  you  favor  the  style  of  placing  Domain  Services  outside  the domain. model Module, you can create a peer to it:
+
+```
+com.saasovation.identityaccess.domain.service com.saasovation.collaboration.domain.service com.saasovation.agilepm.domain.service
+```
+
+It  is  not  a  requirement  to  place  Domain  Services  here.  It  is  available  if  you consider  them  to  be  a  kind  of  medium-grained  service  mini-layer  above  the model, or a ring surrounding it [Evans, p. 108, 'Granularity']. However, be aware that this approach can quickly lead to Anemic Domain Model , which is discussed in Services (7) .
+
+In the case where you do not divide model and services into two packages, it  is  possible  to  drop  the model Module  and  just  place  all  model  Modules directly under domain :
+
+```
+com.saasovation.identityaccess.domain.conceptname
+```
+
+It  does  eliminate  one  level  that  may  seem  redundant.  Yet,  what  happens  if later you do decide to place a few Domain Services into a domain.service sub-Module?  At  that  point  you'd  probably  be  pretty  disappointed  that  you failed to create a domain.model sub-Module.
+
+But there's an even more important naming influence to consider. Remember that we do not develop a domain. The Domain (2) is some realm of know-how of the business we are working in. What we design and implement is a model of a domain .  So  when naming the ultimate Module of the model, domain. model seems most appropriate. Still, that's the choice of your team.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000368_f31c0dfefb55d5a686fb49706aae3d44369ee16b50d840f79daa2c77039012df.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000369_195b0b93d51a6826464e58192a3ec884b67aded5c1e12a5a19b7440438239f7f.png)
+
+## Modules of the Agile Project Management Context
+
+SaaSOvation's current Core Domain (2) is the Agile Project Management Context , so it makes sense to see how its Modules are designed.
+
+The ProjectOvation team chose three top-level Modules: tenant , team , and product . Here's the first:
+
+```
+com.saasovation.agilepm.domain.model.tenant <<value object>> TenantId
+```
+
+Its contents are a simple Value Object, TenantId , that holds the unique identity of a specific tenant, which originates in the Identity and Access Context . In the case of this Module, just about all others in the model will depend on it.  It's  essential  for  segregating  one  tenant's  objects  from  another's.  Yet,  the dependency is acyclic. The tenant Module does not depend on the others.
+
+The team Module holds Aggregates and a Domain Service that is used to manage product teams:
+
+```
+com.saasovation.agilepm.domain.model.team <<service>> MemberService <<aggregate root>> ProductOwner <<aggregate root>> Team <<aggregate root>> TeamMember
+```
+
+There  are  three  Aggregates  and  one  Domain  Service  interface.  Class Team holds  one ProductOwner instance  and  any  number  of TeamMember instances  in  a  collection.  The ProductOwner and TeamMember instances are created by the MemberService . All three of the Aggregate Root Entities reference the TenantId of the tenant Module:
+
+```
+package com.saasovation.agilepm.domain.model.team; import com.saasovation.agilepm.domain.model.tenant.TenantId; public class Team extends ConcurrencySafeEntity { private TenantId tenantId; ... }
+```
+
+The MemberService is  a  front end for an Anticorruption Layer (3) that synchronizes product team members with identities and roles of the Identity and Access Context . The synchronization happens in the background, out of band with regular user requests. This Service is proactive, creating members as
+
+## MODULES OF THE AGILE PROJECT MANAGEMENT CONTEXT
+
+they are registered in the remote Context. The synchronization is eventually consistent with the remote system but lags only a short period of time from actual  changes  that  occur  remotely.  It  also  updates  member  details,  such  as names and e-mail addresses, as needed.
+
+The Agile  Project  Management  Context has  a  parent  Module  named product and three children:
+
+```
+com.saasovation.agilepm.domain.model.product <<aggregate root>> Product ... com.saasovation.agilepm.domain.model.product.backlogitem <<aggregate root>> BacklogItem ... com.saasovation.agilepm.domain.model.product.release <<aggregate root>> Release ... com.saasovation.agilepm.domain.model.product.sprint <<aggregate root>> Sprint ...
+```
+
+This  is  where  the  modeling  of  Scrum's  core  lives.  Here  you  will  find Product , BacklogItem , Release ,  and Sprint Aggregates.  You'll  see  in Aggregates (10) why the concepts are modeled as separate Aggregates.
+
+The team liked how the Modules read naturally per the Ubiquitous Language: 'product,' 'product backlog item,' 'product release,' and 'product sprint.'
+
+With  so  few  closely  related  Aggregates-only  fourwhy didn't the team place all four in the product Module?  Not  shown here are all the other Aggregate parts, such  as  the ProductBacklogItem Entity  contained by Product ,  the Task Entity  contained  by BacklogItem , the ScheduledBacklogItem contained by Release ,  and the CommittedBacklogItem contained
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000370_260034cd13e62b305a962092185839abc25700665f1e52a00bedaeb679bad438.png)
+
+by Sprint . There are other Entities and Value Objects held by each Aggregate type. Too, there are a number of Domain Events published by some Aggregates. All in all, placing nearly 60 classes and interfaces in a single Module would make it quite busy, giving a definite impression of disorganization. The team opted for organization over cross-Module coupling concerns.
+
+Like ProductOwner , Team ,  and TeamMember ,  all  of  the Product , BacklogItem , Release , and Sprint Aggregate types reference TenantId . And there are additional dependencies. Consider Product :
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000371_3cfce97f819351817e09092d64bfe91dfda2651ae235a6358787b47ddac32c41.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000372_b1a26a6e88a1774097d12f9367f65429cd24fea1d4dcae5032137432344afac8.png)
+
+```
+package com.saasovation.agilepm.domain.model.product; import com.saasovation.agilepm.domain.model.tenant.TenantId; public class Product extends ConcurrencySafeEntity { private ProductId productId; private TeamId teamId; private TenantId tenantId; ... }
+```
+
+Also, look at BacklogItem :
+
+```
+package com.saasovation.agilepm.domain.model.product.backlogitem; import com.saasovation.agilepm.domain.model.tenant.TenantId; public class BacklogItem extends ConcurrencySafeEntity { private BacklogItemId backlogItemId; private ProductId productId; private TeamId teamId; private TenantId tenantId; ... }
+```
+
+The references to TenantId and TeamId are acyclic dependencies; they go in a single direction. Yet, while the BacklogItem reference to ProductId seems to form an acyclic dependency from the backlogItem Module to product , it is actually bidirectional. Each Product serves as a Factory for creating BacklogItem (and Release ,  and Sprint )  instances.  Thus,  the  dependencies  go  in  both  directions. Still,  the  three  sub-Modules  are  children  of product ,  and  we  can  relax  the  rules of dependencies a bit. Here the trade-off is organizational strengths over coupling. Again, BacklogItem , Release , and Sprint are all natural and expected child concepts of Product , so there is little sense in trying to break up these concepts beyond Aggregate boundaries.
+
+However, couldn't the team have achieved loose coupling among these elements by the use of a generic identity type, where BacklogItem , Release , and Sprint would all refer to their Product in a nonbinding manner?
+
+```
+public class BacklogItem extends ConcurrencySafeEntity { private Identity backlogItemId; private Identity productId; private Identity teamId; private Identity tenantId; ... }
+```
+
+True, the team could have achieved looser coupling. However, it would also have opened up the potential for bugs in code where each Identity type could not be distinguished from the others.
+
+The Agile  Project  Management  Context will  continue  to  evolve.  SaaSOvation plans to support other agile approaches and tools. Doing so will impact the current Modules, at least in driving the creation of new ones, but probably also influencing changes to  existing  ones.  The  team,  having  an  agile  mentality,  was  committed  to refactoring Modules with due diligence.
+
+Next, let's consider how Modules are used in other locations through the system's source code.
+
+## Modules in Other Layers
+
+Regardless  of  the Architecture  (4) you  choose,  you  will  always  have  to  create and name the Modules of the non-model components of your architecture. Here we discuss some options for a conventional Layered Architecture (4) , but ones that can be applied with other architectural styles.
+
+In a typical Layered Architecture used for an application that sports a domain model, you'd stack the layers as follows: User Interface, Application, Domain, Infrastructure. Depending on the kinds of components in each layer, as determined by your application's needs, the Modules within each layer will vary.
+
+To start, consider the User Interface Layer (14) and the effect of supporting RESTful resources. It is possible that your resources will be used to service a GUI and system clients, producing representational state in XML, JSON, and HTML. However, in the case of supporting a GUI, RESTful resources will not/should  not  create  representations  that  include  presentation  layout.  They will instead produce only bland representations in a variety of markup (XML, HTML) and serialization formats (XML, JSON, Protocol Buffers). All of the graphical layouts that any of the representational state might be subjected to on the client will come from a different channel. Thus, in the User Interface Layer that supports REST you may choose to have at least two Modules that could be named like this:
+
+com.saasovation.agilepm.resources com.saasovation.agilepm.resources.view
+
+RESTful resources are maintained in the resources package. Pure presentation concerns are provided by components in the view sub-package (or presentation ,  if  you  prefer).  Depending  on  the  number  of  REST-based resources your system requires, you may have a number of sub-Modules under each primary Module. Keeping in mind that one resource provider class can support several URIs, you may have few enough resource provider classes to keep  them  all  in  the  primary  Module.  Whether  or  not  to  further  modularize them is an easy decision to make once you determine your actual resource requirements.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000373_c3fa4b9e0205600c1646fcdf49f8e3fff6822f81523d2ddfb2ed5850ad8b8e13.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000374_46f59606d155402ded4f58523edde1bf9903250795137aa43c216a8a04e5c6e8.png)
+
+The Application Layer may have other Modules, which could consist of one per service type:
+
+```
+com.saasovation.agilepm.application.team com.saasovation.agilepm.application.product ... com.saasovation.agilepm.application.tenant
+```
+
+Similar to the design principles of RESTful service resources, the services in the Application Layer are divided into sub-Modules only if it helps. In the Identity and Access Context ,  for  example, there are only a few Application Services, and the team chose to leave them in the main Module:
+
+```
+com.saasovation.identityaccess.application
+```
+
+You could decide in favor of the more modularized design. That would also be fine. When you have more than a few services, perhaps half a dozen or so, it would probably help to modularize them more carefully.
+
+## Module before Bounded Context
+
+We have to give careful consideration to the perceived need to divide cohesive domain model objects into separate models, or to keep them together. Sometimes the linguistics of the true, actual domain will jump out at you, and sometimes the terminology will be fuzzy. In cases where terminology is fuzzy and it is not clear if contextual boundaries should be created, first consider the possibility of keeping them together. This approach will use the thinner boundary of Module to separate, rather than the thicker one of Bounded Context.
+
+This does not mean that we rarely use multiple Bounded Contexts. Boundaries between models are clearly justified, as the linguistics demand. You should take away that Bounded Contexts are not meant to be used as a substitute for Modules. Use Modules to modularize cohesive domain objects, and to separate those that are not cohesive or less cohesive.
+
+## Wrap-Up
+
+We've just considered domain model modularization, why it is important, and how it is done.
+
+-  You  noted  the  difference  between  traditional  Modules  and  the  newer deployment modularity approach.
+-  You learned about the importance of naming Modules per the Ubiquitous Language.
+-  You saw how designing Modules incorrectly, even mechanically, actually stifles modeling creativity.
+-  You considered how the Modules of the Agile PM Context were designed, and why certain choices were made.
+-  You received some helpful guidance on Modules in areas of the system outside the model.
+-  Finally,  you  got  a  few  reminders  about  considering the use of Modules rather than creating new Bounded Contexts, unless the linguistics dictate the coarser-grained division.
+
+Next, we will take a seriously deep dive into one of the least understood modeling tools of DDD, Aggregates.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000375_763821da2dc668f93e792c38b9e2f181e31501452a0d9e3833f3d1b92d5e65d6.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000376_425e08a840af2fe7df4def915ac6f32484ec78f838acc23d47d37712a24133b3.png)
+
+This page intentionally left blank
+
+## Chapter 10
+
+## Aggregates
+
+The universe is built up into an aggregate of permanent objects connected by causal relations that are independent of the subject and are placed in objective space and time.
+
+-Jean Piaget
+
+Clustering Entities (5) and Value Objects (6) into an Aggregate with a carefully crafted consistency boundary may at first seem like quick work, but among all DDD tactical guidance, this pattern is one of the least well understood.
+
+## Road Map to This Chapter
+
+-  Along with SaaSOvation, experience the negative consequences of improperly modeling Aggregates.
+-  Learn to design by the Aggregate Rules of Thumb as a set of best-practice guidelines.
+-  Grasp how to model true invariants in consistency boundaries according to real business rules.
+-  Consider the advantages of designing small Aggregates.
+-  See why you should design Aggregates to reference other Aggregates by identity.
+-  Discover the importance of using eventual consistency outside the Aggregate boundary.
+-  Learn Aggregate implementation techniques, including Tell, Don't Ask and Law of Demeter.
+
+To start off, it might help to consider some common questions. Is an Aggregate just a way to cluster a graph of closely related objects under a common parent? If so, is there some practical limit to the number of objects that should be allowed to reside in the graph? Since one Aggregate instance can reference other Aggregate instances, can the associations be navigated deeply, modifying various objects along the way? And what is this concept of invariants and a consistency boundary all  about? It is the answer to this last question that greatly influences the answers to the others.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000377_ec36483e386e60c3b9b4febd99dafda9da428658ae3b7530ac8af28c4f567a04.png)
+
+There are various ways to model Aggregates incorrectly. We could fall into the trap of designing for compositional convenience and make them too large. At the other end of the spectrum we could strip all Aggregates bare and as a result fail to protect true invariants. As we'll see, it's imperative that we avoid both extremes and instead pay attention to the business rules.
+
+## Using Aggregates in the Scrum Core Domain
+
+We'll take a close look at how Aggregates are used by SaaSOvation, and specifically within the Agile Project Management Context the application named ProjectOvation. It follows the traditional Scrum project management model, complete with product, product owner, team, backlog items, planned releases, and sprints. If you think of Scrum at its richest, that's where ProjectOvation is  headed;  this  is  a  familiar  domain  to  most  of  us.  The  Scrum  terminology forms the starting point of the Ubiquitous Language (1) . Since it is a subscription-based  application  hosted  using  the  software  as  a  service  (SaaS)  model, each subscribing organization is registered as a tenant ,  another  term  of  our Ubiquitous Language.
+
+The company has assembled a group of talented Scrum experts and developers. However,  since  their  experience  with DDD is somewhat limited, the team will make some mistakes with DDD as they climb a difficult learning curve. They will grow by learning from their experiences
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000378_1addc503bd048bb890433d96cc99a2c2de481c34c43a3567135700b99a20252d.png)
+
+with Aggregates, and so can we. Their struggles may help us recognize and change similar unfavorable situations we've created in our own software.
+
+The concepts of this domain, along with its performance and scalability requirements, are more complex than any that the team has previously faced in the initial Core Domain (2) ,  the Collaboration Context .  To  address  these  issues,  one  of  the DDD tactical tools that they will employ is Aggregates.
+
+How should the team choose the best object clusters? The Aggregate pattern discusses composition and alludes to information hiding, which they understand how to achieve. It also discusses consistency boundaries and transactions, but they haven't been overly concerned with that. Their chosen persistence mechanism will help manage atomic commits of their data. However, that was a crucial misunderstanding of the pattern's guidance that caused them to regress. Here's what happened. The team considered the following statements in the Ubiquitous Language:
+
+-  Products have backlog items, releases, and sprints.
+-  New product backlog items are planned.
+
+## USING AGGREGATES IN THE SCRUM CORE DOMAIN
+
+-  New product releases are scheduled.
+-  New product sprints are scheduled.
+-  A planned backlog item may be scheduled for release.
+-  A scheduled backlog item may be committed to a sprint.
+
+From these they envisioned a model and made their first attempt at a design. Let's see how it went.
+
+## First Attempt: Large-Cluster Aggregate
+
+The team put a lot of weight on the words Products have in the first statement, which influenced their initial attempt to design Aggregates for this domain.
+
+It  sounded to some like composition, that objects needed to be interconnected like an object graph. Maintaining these object life cycles together was considered very important. As a result the developers added the following consistency rules to the specification:
+
+-  If  a  backlog item is committed to a sprint, we must not allow it to be removed from the system.
+-  If a sprint has committed backlog items, we must not allow it to be removed from the system.
+-  If  a release has scheduled backlog items, we must not allow it to be removed from the system.
+-  If a backlog item is scheduled for release, we must not allow it to be removed from the system.
+
+As  a  result, Product was  first  modeled  as  a  very  large  Aggregate.  The  Root object, Product ,  held  all BacklogItem ,  all Release ,  and  all Sprint instances associated  with  it.  The  interface  design  protected  all  parts  from  inadvertent  client removal.
+
+This design is shown in the following code, and as a UML diagram in Figure 10.1:
+
+```
+public class Product extends ConcurrencySafeEntity  {
+```
+
+```
+private Set<BacklogItem> backlogItems; private String description; private String name; private ProductId productId; private Set<Release> releases;
+```
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000379_2d2cf5ce183abe12922d408bf280cd7b7ed9f2cca89d3cd879a57f76dbdd93dd.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000380_a2e6fe3939aa16f74607213f1e55362f4f9c6e6c50615c5e82203efa91411749.png)

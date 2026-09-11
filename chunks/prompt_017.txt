@@ -1,0 +1,443 @@
+Bạn là chuyên gia dịch thuật kỹ thuật Anh → Việt, chuyên tài liệu kỹ thuật/công nghệ, có kinh nghiệm dịch như biên dịch viên bản ngữ chuyên nghiệp. Nhiệm vụ: dịch TOÀN BỘ nội dung Markdown dưới đây sang tiếng Việt, không bỏ sót bất kỳ phần nào. Đây là MỘT PHẦN (chunk) của một tài liệu lớn hơn, hãy dịch độc lập đoạn này, không thêm lời mở đầu/kết luận về việc đây chỉ là một phần.
+
+QUY TẮC BẮT BUỘC — VI PHẠM LÀ SAI:
+
+1. XÁC ĐỊNH LOẠI TÀI LIỆU TRƯỚC KHI DỊCH
+   - Tự phân tích nội dung để xác định loại tài liệu (kỹ thuật/lập trình, tài chính, bảo hiểm, pháp lý, marketing, học thuật, vận hành, sản phẩm...).
+   - Chọn văn phong và thuật ngữ CHUẨN NGÀNH tương ứng trong tiếng Việt, nhất quán xuyên suốt.
+
+2. VĂN PHONG — MƯỢT NHƯ NGƯỜI DỊCH, KHÔNG GIẢM CHÍNH XÁC
+   - Dịch mượt, tự nhiên, đúng ngữ pháp tiếng Việt — như biên dịch viên bản ngữ dịch tay, KHÔNG dịch máy móc kiểu word-by-word.
+   - Được phép đảo cấu trúc câu, tách/gộp câu cho tự nhiên, miễn giữ nguyên 100% ý nghĩa, thông tin, logic, số liệu gốc.
+   - Khi "mượt mà" và "chính xác" xung đột → LUÔN ưu tiên chính xác.
+
+3. DỊCH ĐẦY ĐỦ 100%
+   - Không tóm tắt, không rút gọn, không lược bỏ đoạn/câu/mục/bullet nào.
+   - Số lượng heading, đoạn văn, bảng, code block ở output PHẢI khớp 1:1 với input.
+   - Đoạn dài dịch hết, không cắt ngắn.
+
+4. GIỮ NGUYÊN THUẬT NGỮ TIẾNG ANH
+   - Thuật ngữ chuyên ngành (tên công nghệ, framework, pattern, tên hàm/biến, acronym...) giữ nguyên tiếng Anh, không dịch, không phiên âm.
+   - Ngay sau lần xuất hiện ĐẦU TIÊN của mỗi thuật ngữ, thêm chú thích ngắn trong ngoặc giải thích nghĩa bằng tiếng Việt.
+   - Các lần xuất hiện sau KHÔNG cần chú thích lại.
+
+5. GIỮ NGUYÊN FORMAT — RẤT QUAN TRỌNG
+   - VỀ ẢNH (làm trước khi dịch): ĐẾM chính xác số lượng thẻ ảnh dạng ![...](...) trong đoạn gốc bên dưới. Output PHẢI có ĐÚNG số lượng thẻ ảnh đó, không được thiếu một cái nào — kể cả ảnh không có caption, không rõ ngữ cảnh, hay trông như ảnh trang trí/lặp lại. Copy nguyên URL 100%, không sửa, không rút gọn, không thay bằng mô tả text.
+   - Giữ cấp độ heading (#, ##, ###...), giữ đúng số lượng heading.
+   - Giữ cấu trúc bảng (số cột, số hàng, alignment, header row).
+   - Giữ code block (```lang ... ```) — KHÔNG dịch code; comment được dịch tại chỗ; **được phép reformat code, tự động xuống dòng/indent chuẩn, không giữ nguyên code 1 dòng; không đổi logic/cú pháp**.
+   - Giữ blockquote, callout/note/warning (>, [!NOTE], [!WARNING]...).
+   - Giữ list, nested list, checkbox (- [ ]).
+   - Giữ nguyên link thường ([text](url)) — chỉ dịch phần text hiển thị, TUYỆT ĐỐI giữ nguyên URL.
+   - TRƯỚC KHI TRẢ KẾT QUẢ: tự đếm lại số heading, số ảnh, số dòng ``` giữa bản gốc và bản dịch của bạn, nếu lệch phải sửa lại cho khớp.
+
+6. GIẢI THÍCH ẨN DỤ / KHÁI NIỆM KHÓ
+   - Với ẩn dụ, thành ngữ, khái niệm trừu tượng khó hiểu với người Việt, thêm khối giải thích riêng ngay sau đoạn đó:
+     > 💡 **Giải thích thêm:** [giải thích dễ hiểu, đủ chuyên sâu, có ví dụ thực tế]
+     > Nguồn tham khảo: [link cụ thể để kiểm chứng]
+   - CHỈ đưa link nếu chắc chắn tồn tại và đúng nội dung — không bịa link.
+   - Không tìm được nguồn tin cậy → ghi rõ: "(Không có nguồn trích dẫn xác thực — cần tự kiểm chứng thêm)".
+
+7. CHỐNG HALLUCINATION (BẮT BUỘC)
+   - Không tự thêm thông tin/số liệu/ví dụ/kết luận KHÔNG có trong bản gốc — trừ phần giải thích ẩn dụ ở mục 6 (phải gắn nhãn rõ là phần bổ sung).
+   - Câu gốc mơ hồ → dịch sát nghĩa nhất, nếu không chắc ghi chú: "[CẦN KIỂM CHỨNG: câu gốc mơ hồ]".
+   - Không tự sửa/thêm/bớt logic kỹ thuật gốc. Không bịa trích dẫn/số liệu/link vô căn cứ.
+   - Không tự tóm tắt các đoạn dài thành ý chính rồi diễn giải lại — phải dịch từng câu.
+
+8. OUTPUT
+   - Trả về DUY NHẤT nội dung Markdown đã dịch, đặt trong 1 code block (```markdown ... ```).
+   - Không thêm lời dẫn/lời chào/giải thích ngoài code block.
+   - Không đổi tiêu đề gốc trừ khi cần dịch tiêu đề.
+
+--- NỘI DUNG GỐC CẦN DỊCH (một phần của tài liệu) ---
+
+1. Your  domain  model  and  messaging  infrastructure  share  the  same  persistence store (for example, a data source). This will allow the changes to the model and the insertion of the new message to commit under the same local transaction. It has the advantage of relatively good performance. It has the possible disadvantage that the messaging system's storage areas (such as database tables) must reside in the same database (or schema) as your model's, which may be a matter of taste. Of course, this is not a viable option if your choice of model store and your messaging mechanism's store cannot be shared.
+2. Your  domain  model's  persistence  store  and  your  messaging  persistence store  are  controlled  under  a  global,  XA  transaction  (two-phase  commit).  This  has  the  advantage  that  you  can  keep  model  and  messaging storage  separated  from  each  other.  It  has  the  disadvantage  that  global transactions require special support, which may not be available for all persistence stores or messaging systems. Global transactions tend to be expensive and perform poorly. It is also possible that either the model's store or the messaging mechanism's store, or both, isn't XA compatible.
+3. You  create  a  special  storage  area  (for  example,  a  database  table)  for Events  in  the  same  persistence  store  that  is  used  to  store  your  domain model. This is an Event Store, as discussed later in this chapter. It is similar to option 1; however, this storage area is not owned and controlled by your messaging mechanism but instead by your Bounded Context. An out-of-band component that you create uses the Event Store to publish all  stored,  unpublished  Events  through  the  messaging  mechanism.  This has the advantage that your model and your Events are guaranteed to be consistent within a single, local transaction. It has the further advantages that are characteristic of an Event Store, including the ability to produce REST-based notification feeds. This approach allows the use of a messaging  infrastructure  whose  message  store  is  completely  private.  Given that  a  middleware  messaging  mechanism  can  be  used  after  Event  storage,  this  approach  has  the  disadvantage  that  the  Event  forwarder  must be custom-developed in order to send through the messaging mechanism, and that clients must be designed to de-duplicate incoming messages (see 'Event Store').
+
+It is the third approach that I use in my examples. While there are disadvantages to this approach, there are also several advantages that are made clear under 'Event Store.' My choice of this one approach in no way negates the value of selecting in favor of a different set of trade-offs. You and your team must choose from among them.
+
+## Autonomous Services and Systems
+
+Using  Domain  Events  allows  any  number  of  your  enterprise  systems  to  be designed as autonomous services and systems . I use the term autonomous service to  represent  any  coarse-grained  business service, possibly thought of as a system or application, that operates largely independent of other such 'services' in the enterprise. The autonomous service may have a number of service interface endpoints, meaning that it offers potentially many technical service interfaces to remote clients. A high degree of independence from other systems is achieved by avoiding in-band remote procedure calls (RPCs), where a user request is satisfied only by successful completion of an API request to a remote system.
+
+Since  there  may  be  times  when  the  remote  system  is  either  completely unavailable or under heavy load, RPC may affect the success of the dependent system. This risk multiples as the number of systems with RPC APIs that a given system depends on increases. Thus, avoiding in-band RPC greatly eases dependency and related instances of complete failure and/or unacceptable performance caused by unavailable or low-throughput remote systems.
+
+Rather than calling out to other systems, use asynchronous messaging to achieve  a  greater  degree  of  independence  between  systems-autonomy.  As messages carrying Domain Events from Bounded Contexts around the enterprise are received, execute behavior on your model that reflects the meaning of those Events within your Bounded Context. This does not mean that you simply replicate data or make exact copies of objects from other business services into your business service. True, some data may be copied between systems. At a minimum, copied data will include some unique identities of foreign Aggregates. But the objects in one system will seldom if ever be exact copies of objects from surrounding ones. If that probable modeling error exists, see Bounded Contexts (2) and Context Maps (3) for reasons why it is problematic and for ways to avoid it. In fact, if Domain Events are correctly designed, they will rarely if ever carry entire objects as part of their state.
+
+The Event will hold some limited amount of command parameters and/or Aggregate state that will convey enough meaning to allow subscribing Bounded Contexts to react correctly. Certainly if any given Event does not hold enough information for any given subscriber, the domain-wide contract of the Event must be altered in order to supply what is needed. This probably spells designing an explicitly new version of the Event or a completely different one.
+
+It is also true that in some cases the use of RPC cannot be easily avoided. Some legacy systems may be capable of providing only RPC. Also, when translating a concept or set of concepts from a foreign Bounded Context to your local Bounded Context is very difficult to do, extrapolating sufficient meaning from multiple Events may tend to increase complexity. If you must nearly replicate the concepts, objects, and their associations from the foreign model in your own model, you may need to consider sticking with RPC. This must be considered on a case-by-case basis, and I suggest not giving in to RPC too easily. If it can't be avoided, either surrender to RPC or try to influence the team that owns the foreign model to find a way to simplify their design. Admittedly the latter may be very difficult, if not impossible.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000328_08b8c915925784180a89c4959f27fc2b3954d9ca09e505ce56bc87548f36505d.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000329_e1beadadedd0b2806e35313ce293664cf6fe08a97c8c262bea7804e7144780f5.png)
+
+## Latency Tolerances
+
+Won't the potentially long latency periods before a message is received-where eventual consistency represents delays of more than a few milliseconds-cause problems? Certainly this is a matter to consider carefully, given that out-ofsync data could influence wrong and even damaging actions. We must ask how long between consistent states is acceptable, and how much delay is too great. Domain experts will likely be very much in tune with what constitutes acceptable  and  unacceptable  delays.  It  may  surprise  developers  to  learn  that  most times, several seconds, minutes, hours, or even days between consistent states is completely tolerable. This is not to say that it is always true. But we must not assume that in any given domain, near-consistent time frames are always imperative.
+
+Sometimes the following question will lead to an informative answer: How did the business work prior to computers, or how would it work without them now? Perhaps not even the very simplest of paper-based systems is ever immediately consistent. It would only make sense, then, that automated computer systems could also tolerate and even thrive in an eventually consistent manner. We might conclude that eventual consistency makes better business sense.
+
+Imagine a Subdomain used to plan future team activities. As any of the individual activities becomes approved, a Domain Event is published that reflects the  approval: TeamActivityApproved .  This  one  follows  any  number  of other Events that have already been published about the genesis and definition  of  all  now-approved  activities.  Another  Bounded  Context  reacts  to  the approval by scheduling the latest readied activity to start sometime in relation to all other approved activities.
+
+We know that any given activity is specified and approved at least weeks before it begins. That being so, would it matter if the Event necessary to cause placement of the approved activity in the schedule were to be received minutes, hours, or possibly even days following approval? Maybe days wouldn't be acceptable. However, if the outage of a system caused the Event to be delayed for  a  number  of  hours-probably  an  unlikely  situation-would  hours  without having the activity on the schedule be a completely intolerable delay? No, because it is a rare system outage that must be worked around, and the activity is still weeks off anyway. Since that is so, certainly a typical delay of perhaps as much as a few seconds-at the outer limits-for the same Event to arrive under completely normal circumstances would be not only tolerable, but acceptable. In fact any actual delays may not even be perceptible.
+
+## Cowboy Logic
+
+AJ:    'Is that a Kentucky 'shortly'?'
+
+LB:    'It might be a New York 'minute.''
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000330_cbf05381213c364c959251bd074d4e9eda5d2c4db79b96a4a876d2ac0b674fdb.png)
+
+Just as much as this example may prove true, other business services will demand  higher  throughput.  Maximum  latency  tolerances  should  be  well understood and systems should have the architectural qualities to meet them and possibly even out-perform them. High availability and scalability must be designed into autonomous services and their supporting messaging infrastructure in order to dutifully fulfill stringent enterprise nonfunctional requirements.
+
+## Event Store
+
+Maintaining a store of all Domain Events for a single Bounded Context has several potential benefits. Consider what you could do if you were to store a discrete Event for every model command behavior that is ever executed. You could
+
+1. Use the Event Store as a queue for publishing all Domain Events through a messaging infrastructure. This is one of the primary uses in this book. It allows integrations between Bounded Contexts, where remote subscribers react to the Events in terms of their own contextual needs. (See the previous section, 'Spreading the News to Remote Bounded Contexts.')
+2. You may use the same Event Store to feed REST-based Event notifications to polling clients. (This is logically the same as point 1, but different in actual use.)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000331_fdc7fc2aa2ba77af09f25784dc6b5a226a478ff9ce57653413d22e467f3dbb03.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000332_d3bb7fecf152999942e1358363396c9ba2bc29b85ebbadf2784b1a094570c750.png)
+
+3. Examine a historical record of the result of every command that has ever been executed on the model. This could help trace bugs, not only in the model but also in clients. It's important to grasp that an Event Store is not just an audit log. Audit logs may helpful for debugging, but they rarely carry the complete results of each Aggregate command outcome.
+4. Use  the  data  in  trending,  forecasting,  and  for  other  business  analytics. Many times businesses have no idea how such historical data can be used until  they  later  realize  that  they  need  it.  Unless  an  Event  Store  is  maintained from the start, the historical data will be unavailable as needs arise.
+5. Use the Events to reconstitute each Aggregate instance when it is retrieved from its Repository. This is a required part of what is known as Event Sourcing. It is done by applying to an Aggregate instance all previously stored Events in chronological order. You may produce snapshots of any number of stored Events (for example, groups of 100) to optimize instance reconstitution.
+6. Given an application of the preceding point, undo blocks of changes to an Aggregate. This is possible by preventing (perhaps by removal or marking as obsolete) certain Events from being used to reconstitute a given Aggregate instance. You may also patch Events or insert additional Events to correct bugs in the Event stream.
+
+Depending on your reasons to create an Event Store, it will  have  certain characteristics. Since the examples presented here are primarily motivated by benefits 1 and 2, our Event Store is basically concerned with holding serialized Events in the order in which they occurred. This does not mean that we couldn't use the Events to realize all of the first four benefits, because the second two are possible based on the fact that we are making a record of all significant Events in the domain. Achieving benefits 3 and 4 is, therefore, further application of what's accomplished by the first two. However, we will not be attempting to leverage the Event Store for points 5 and 6 in this chapter.
+
+Several steps are necessary to realize benefits 1 and 2. The steps are summarized in  Figure  8.3.  Let's  first  discuss  the  steps  covered  in  that  sequence diagram and the components involved. We'll do so through the project experiences of SaaSOvation.
+
+For whatever reasons we use an Event Store, one of the first things we need to do is create a subscriber that will receive every Event that is published out of the model. The team decided to do that using an aspect-oriented hook that can insert itself in the execution path of every Application Service in the system.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000333_1fa9ca6e441a84417735e9c456c8f8c88b0d1974cdb14dfbfa0153f2bb981e13.png)
+
+Figure 8.3 The IdentityAccessEventProcessor anonymously subscribes to all Events of the model. It delegates to EventStore , which serializes each to a StoredEvent and saves it .
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000334_6806d50d6126a5a2c98328d72e91252d6a18e113e3bf8702ea19f4eea87f7745.png)
+
+Here's  what  the  SaaSOvation  team  did  for  the Identity  and Access  Context .  The  following  component  has  the  single responsibility to see to it that all Domain Events get stored:
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000335_6e0df3093024052db014127944a0dc8353ba82ecc3c41f0a5418c4b363cd95fe.png)
+
+```
+@Aspect public class IdentityAccessEventProcessor { ... @Before( "execution(* com.saasovation.identityaccess.application.*.*(..))") public void listen() { DomainEventPublisher .instance() .subscribe(new DomainEventSubscriber<DomainEvent>() { public void handleEvent(DomainEvent aDomainEvent) { store(aDomainEvent); }
+```
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000336_2a5863dde76eb74ff5b080a78784e0d80ecff971d94e23593d204c83dd4b7c81.png)
+
+```
+public Class<DomainEvent> subscribedToEventType() { return DomainEvent.class; // all domain events } }); } private void store(DomainEvent aDomainEvent) { EventStore.instance().append(aDomainEvent); } }
+```
+
+It's  a  simple  Event  processor,  and  a  similar  one  could  be  used  by  any  other Bounded Context with the same mission. It's designed as an aspect (using Spring's AOP) that intercepts all Application Service method invocations. When an Application Service method is executed, this processor arranges to listen for all Domain Events that get published due to the Application Service's interaction with the model. The processor registers a subscriber with the thread-bound instance of DomainEventPublisher .  This subscriber's filter is wide open, which is indicated by its answering DomainEvent.class from subscribedToEventType() . Returning that class indicates that the subscriber wants to receive all Events. When its handleEvent() is invoked, it delegates to store() , which in turn delegates to class EventStore to append the Event to the end of the actual Event Store.
+
+Here's a look at the EventStore component's append() method:
+
+```
+package com.saasovation.identityaccess.application.eventStore; ... public class EventStore ... { ... public void append(DomainEvent aDomainEvent) { String eventSerialization = EventStore.objectSerializer().serialize(aDomainEvent); StoredEvent storedEvent = new StoredEvent( aDomainEvent.getClass().getName(), aDomainEvent.occurredOn(), eventSerialization); this.session().save(storedEvent); this.setStoredEvent(storedEvent); } }
+```
+
+Method store() serializes  the DomainEvent instance,  places  that  into a new StoredEvent instance, and then writes that new object to the Event Store.  Here  is  a  portion  of  class StoredEvent that  holds  the  serialized DomainEvent :
+
+```
+package com.saasovation.identityaccess.application.eventStore; ... public class StoredEvent { private String eventBody; private long eventId; private Date occurredOn; private String typeName; public StoredEvent( String aTypeName, Date anOccurredOn, String anEventBody) { this(); this.setEventBody(anEventBody); this.setOccurredOn(anOccurredOn); this.setTypeName(aTypeName); } ... }
+```
+
+Each StoredEvent instance  gets  a  unique  sequence  value  autogenerated by the database and set as its eventId .  Its eventBody contains the serialization of the DomainEvent .  The serialization used here is JSON using the [Gson] library, but we could use another form. The typeName holds the name of the concrete class of the corresponding DomainEvent , and occurredOn is a copy of the same occurredOn in the DomainEvent .
+
+All StoredEvent objects are persisted into a MySQL table. Plenty of room is reserved for Event serializations, although 65,000 characters is no doubt far more storage than will ever be needed by a single instance:
+
+```
+CREATE TABLE `tbl_stored_event` ( `event_id` int(11) NOT NULL auto_increment, `event_body` varchar(65000) NOT NULL, `occurred_on` datetime NOT NULL, `type_name` varchar(100) NOT NULL, PRIMARY KEY (`event_id`) ) ENGINE=InnoDB;
+```
+
+That takes us through the high-level review of a few components necessary to build up the Event Store with all Event instances published by Aggregates in the domain model. We'll look at more detail later. Let's next see how these stored records of happenings in our model can be consumed by other systems.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000337_fd774d9e54e26b34cc9f08a2dc240ad58c08fa55498f7d5d8161445258ce8ea5.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000338_e7d5ab1d8c0eaa081a679490c77bfd86519b134dea22d54f59718b6fefe6d8d1.png)
+
+## Architectural Styles for Forwarding Stored Events
+
+Once the Event Store is populated, it is available to provide Events to be forwarded as notifications to interested parties. We'll look at two styles of making these Events available. One style is through RESTful resources that are queried by clients, and the second style is by sending messages over a topic/exchange of a middleware messaging product.
+
+Granted, the REST-based approach is not truly a forwarding technique. Yet, it is used to produce the same results as a Publish-Subscribe style, much as an e-mail  client  is  a  'subscriber'  to  e-mail  messages  'published'  by  an  e-mail server.
+
+## Publishing Notifications as RESTful Resources
+
+The REST style of Event notification works best when used in an environment that follows the basic premises of Publish-Subscribe. That is, many consumers are interested in the same events that are available from a single producer. On the other hand, if you attempt to use the REST-based style as a Queue, the approach tends to break down. Here is a summary of the good and the bad of the RESTful approach:
+
+-  If potentially many clients can go to a single well-known URI to request the same set of notifications, the RESTful approach works well. Essentially notifications are fanned out to any number of polling consumers. This follows the basic Publish-Subscribe pattern, even though it uses the pull model instead of the push model . 2
+-  If one or a few consumers are required to pull from multiple producers for resources in order to get a single set of tasks to be performed in a specific sequence, you will probably quickly feel the pain of using a RESTful approach. This describes a Queue, where potentially many producers need to feed notifications to one or a few consumers, and the order of receipt  may  matter.  A  polling  model  is  typically  not  a  good  choice  for implementing Queues.
+
+2.  See  http://c2.com/cgi/wiki?ObserverPattern  for  a  discussion  of  push  versus  pull model in conjunction with the Observer pattern.
+
+The RESTful approach to publishing Event notifications is quite the opposite  of  those  published  using  a  typical  messaging  infrastructure.  The  'publisher' does not maintain a set of registered 'subscribers' because nothing gets pushed to interested  parties.  Instead  this  approach  requires  REST  clients  to pull for notifications using a well-known URI.
+
+Consider the RESTful approach from a high level. If you are familiar with the way Atom feeds are consumed on the Web, this approach will look very familiar. It's actually based on Atom concepts.
+
+Clients use the HTTP GET method to request what is known as the current log . The current log contains the very latest notifications that have been published.  The client receives the current log with a number of notifications not to exceed a standard limit. Our examples use 20 as the maximum number of notifications for each log. The client navigates through each of the Events in the current log to find all that have not yet been consumed by its Bounded Context.
+
+How does a client consume Event notifications locally? It interprets the serialized Event by type, translating any pertinent data as appropriate to the local Bounded Context. This likely includes finding related Aggregate instances in its own model and executing commands based on the interpretation of applicable Events. Of course, Events must be applied in chronological order, since the oldest Events represent operations that took place earlier than newer ones. Unless the oldest Events are applied first in the order in which they occurred, the changes that are affected on the local model could well cause bugs.
+
+In our implementation, the current log will have at most 19 notifications. It could have somewhat fewer than 19, even as few as zero. When the current log reaches 20 total notifications, it is automatically archived. If there are no new notifications available at the time the previous current log is archived, the new current log will be empty of notifications.
+
+## What's an Archived Log All About?
+
+There's nothing mysterious about an archived log. It just means that the specific log can no longer be altered by any action in the owning system, and clients are guaranteed that no matter how many times they ask for a particular archived log, it will always be the same.
+
+On the other hand, the current log will change up to the point where it becomes full and is finally archived. However, the only changes that can occur to the current log would be to add new notifications until it is full.
+
+Events previously added to any log must never change. This is so because clients must have the guarantee that once they have applied a specific Event locally, it has been applied once and for all times.
+
+Thus, the current log may not always hold the newest or oldest notification that has yet to be applied locally. The oldest such Event may reside in the log previous to the current, or even the others before it. It's all a matter of timing based on how frequently Events fill up a given finite log (in this case with just 20 entries) and how often clients pull for the logs. Figure 8.4 shows how notification logs chain together to provide a virtual array of individual notifications.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000339_d6abd2126edead0c2f781e0a59df2b3563361f86e244ff54bb286b2d03d4f44b.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000340_bd583a708dd74f2ab9df9c66fcf31410b0143070a52ee5cb0667e03dfe47c4cf.png)
+
+Assuming the log state depicted by Figure 8.4, let's say that notifications 1 through 58 have already been applied locally. That means that notifications 59 through 65 have not yet been applied. If the client pulls the following URI, it will receive the current log:
+
+//iam/notifications
+
+The client reads from its own database a tracking record of the identity of the most recently applied notification, which in our example is 58. The onus is on the client, not the server, to track the next notification to apply. The client navigates from the top to the bottom through the current log in search of the notification with identity 58. It doesn't find it there, so it continues to navigate back to the previous log, which is an archived log. The previous log is reached by use of a hypermedia link in the current log. One style is to allow hypermedia navigation to leverage a header:
+
+```
+HTTP/1.1 200 OK Content-Type: application/vnd.saasovation.idovation+json ... Link: <http://iam/notifications/61,80>; rel=self Link: <http://iam/notifications/41,60>; rel=previous ...
+```
+
+Figure 8.4 The current log and any number of linked archived logs form a virtual array of all Events from the most recent Event back to the very first Event. Here notifications 1 through 65 are depicted. Each of the archived logs contains the full 20-notification limit. The current log has not yet filled up and contains just five total notifications.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000341_1a2bbeb1c918cdcb46b2b1433f76ee694d125ae8464a64d0821ee5078229054c.png)
+
+## Why Doesn't the URI Reflect What's Actually in the Current Log?
+
+Note that although the current log presently has only notifications with identities 61 through 65, its URI is composed of the full identity range, 61 through 80, for example:
+
+```
+Link: <http://iam/notifications/61,80>; rel=self
+```
+
+That's  because  the  resource  must  remain  stable  over  its  entire  lifetime.  This allows for consistent access and for caching to work correctly.
+
+From  the Link containing rel=previous ,  the  URI  is  used  for  a GET , which retrieves the log previous to the current one:
+
+```
+//iam/notifications/41,60
+```
+
+Using this archived log, the client now finds the sought-after notification, the one  with  identity  58,  after  three  probes  on  individual  notifications  (60,  59, then 58). Since this client has already applied that notification (identity 58), it does not apply notification 58 again. Instead, it now navigates in the other direction in search of all newer notifications. In this archived log it finds identity 59 and applies it. Then it finds 60 and applies it. It has now reached the top of this archived log, so it navigates to the rel=next resource, which is the current log:
+
+```
+HTTP/1.1 200 OK Content-Type: application/vnd.saasovation.idovation+json ... Link: <http://iam/notifications/61,80>; rel=next Link: <http://iam/notifications/41,60>; rel=self Link: <http://iam/notifications/21,40>; rel=previous ...
+```
+
+It finds in that log notifications with identities 61, 62, 63, 64, and 65, applying each in chronological order. It reaches the end of the current log and stops processing for now, because the current log never has a link header of rel=next .
+
+Sometime later the process repeats. The current log is requested by URI. Perhaps  by  now  the  activity  in  the  source  Bounded  Context  has  caused  the generation of significantly different logs by producing a number of new notifications. When the current log is now requested, it may have any number of new notifications. The client may have to navigate back one, two, or even more archived logs to find the most recently applied notification, which is presently the one with identity 65. As before, when the client finds notification 65, it will apply all newer ones in chronological order.
+
+Any number of different client Bounded Contexts may request the notification logs. In fact, any Bounded Context that needs to know what Events have been produced by any other Bounded Context providing this kind of notification publisher may reach out to get the notifications as far back as the 'beginning of time.' Of course, each client Bounded Context may actually be a client only if it has proper access to the source system (for example, security rights).
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000342_45a7a6759c225e1a95ffcbe069167b869523d1435b78f9322c5877d9ceb49533.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000343_677019af49e7a09a047ac8578ee7795d31a21c13bc1edc42746155088e06f5f2.png)
+
+But won't client polling of notification resources cause enormous amounts of unwanted traffic against your Web server? Not if your RESTful resources make effective use of caching. For example, the current log might be cached by the client itself for approximately one minute:
+
+```
+HTTP/1.1 200 OK Content-Type: application/vnd.saasovation.idovation+json ... Cache-Control: max-age=60 ...
+```
+
+Every time the client polling precedes the one-minute caching, the client cache itself provides the previously retrieved current log. When the cache times out, the latest current log will be retrieved from the server resource. Archived logs may be cached longer since their contents never change, as demonstrated by this one-hour max-age :
+
+```
+HTTP/1.1 200 OK Content-Type: application/vnd.saasovation.idovation+json ... Cache-Control: max-age=3600 ...
+```
+
+The client may use the current log max-age value as a timer/sleep threshold  since  it  is  unnecessary  to  perform GET requests  continuously  on  cached resources. Sleep-induced decreased polling can benefit processing load on the client Bounded Context and on the source server. The resource provider will never receive the requests as long as the cache max-age has not expired. So an ill-behaved client can never hurt performance or availability of the notification producer, assuming the proper use of client caching. This highlights the benefits of using the Web and its built-in infrastructure to achieve tremendous performance and scalability benefits.
+
+The server may also provide its own cache. Server caching of notification logs  works  really  well  because  the  contents  of  archived  logs  never  change. Any  client  that  requests  a  given  archived  notification  log  not  only  receives the resource, it also warms the cache for all other clients in need of the same resource. There is no need for the cache to refresh an archived log because the log is guaranteed immutable.
+
+Wow! That was quite a bit  of  detail,  and  still  more  remains  under Integrating  Bounded  Contexts  (13) .  I  suggest  that  you  reference  [Parastatidis  et al., RiP] for various strategies on designing efficient RESTful Event notification systems. There you will find discussions on the advantages and disadvantages of the standard media type Atom-based notification logs, as well as a few reference implementations. Also, Jim Webber provides further insight on this  approach in his presentation [Webber, REST &amp; DDD]. One of the earliest references to this approach comes from Stefan Tilkov's article on InfoQ [Tilkov, RESTful Doubts]. You can also watch my own presentation using this approach [Vernon, RESTful DDD].
+
+## Publishing Notifications through Messaging Middleware
+
+Not surprisingly, a messaging middleware product such as RabbitMQ manages details for you that the REST style forces you to deal with on your own. The messaging system also allows you to fairly easily support both Publish-Subscribe and Queues, whichever better fits your needs. In both cases the messaging system uses a push model to send messages of Event notifications to registered subscribers or listeners.
+
+Consider the requirements for publishing Events from our Event Store via a messaging middleware product. We are going to stick with Publish-Subscribe, using what RabbitMQ calls a fanout exchange . We will need a set of components that together do the following in order:
+
+1. Query all Domain Event objects from the Event Store that have not yet been  published  to  the  specific  exchange.  Order  the  queried  objects  in ascending order by their sequenced unique identity.
+2. Iterate  over  the  queried  objects  in  ascending  order,  sending  each  to  the exchange.
+3. When the messaging system indicates that the message was successfully published,  track  that  Domain  Event  as  having  been  published  through that exchange.
+
+We do not wait to see if subscribers confirm receipt. Subscriber systems may not even be running when the publisher sends messages through the exchange. Each subscriber is responsible for handling messages in its own time frame, ensuring that it properly carries out any necessary domain behavior on its own model. We simply allow the messaging mechanism to guarantee delivery.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000344_201a334dfc9bcf73afeab8ebee83d9632585da4ec0d673dd2e65c9274c75d786.png)
+
+## Whiteboard Time
+
+-  Draw a Context Map of the Bounded Context you work on and the others  you  integrate  with.  Make  sure  you  show  connections  between  the Contexts that interact.
+-  Make notations of the kinds of relationships between them, such as Anticorruption Layer (3) .
+-  Now  indicate  how  you  would  integrate  these  Contexts.  Would  you  use RPC, RESTful notifications, or a messaging infrastructure? Draw those in.
+
+Remember,  you  might  not  have  much  choice  when  integrating  with  a  legacy system.
+
+## Implementation
+
+Having  decided  on  the  architectural  styles  used  for  publishing  Events,  the SaaSOvation team is now focused on the implementation of components to accomplish that . . .
+
+The  core  of  notification  publishing  behavior  is  placed behind an Application Service, the NotificationService .  That  allowed  the  team  to  manage  the  transactional scope of changes in their own data source. It also emphasized that  notification  is  an  application  concern, not  a  domain  concern,  even  though  the  Events  being published as notifications originated in the model.
+
+There was no need for the NotificationService to  have  a Separated Interface [Fowler,  P  of  EAA].  At this time there would be just one implementation of the
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000345_25eeb2f3bcc849c5a062a042b9b327c4265bbee51692928e20020a03d06ad6aa.png)
+
+Application Service, so the team would keep things simple. Still, every simple class has a public interface, so here it is presented as stubbed-out methods:
+
+```
+package com.saasovation.identityaccess.application; ... public class NotificationService { ... @Transactional(readOnly=true) public NotificationLog currentNotificationLog() { ... }
+```
+
+```
+@Transactional(readOnly=true) public NotificationLog notificationLog(String aNotificationLogId) { ... } @Transactional public void publishNotifications() { ... } ... }
+```
+
+The first two methods will be used for querying NotificationLog instances that are provided to clients as RESTful resources, and the third will be used to publish individual Notification instances over a messaging mechanism. The team will first tackle the query methods for getting NotificationLog instances, then turn their attention to the one that interacts with the messaging infrastructure.
+
+There are some interesting implementations ahead.
+
+## Publishing the NotificationLog
+
+Recall  that  there  are  two  kinds  of  notification  logs,  a  current  log  and  an archived  log.  Thus,  the NotificationService interface  provides  a  query method for each type:
+
+```
+public class NotificationService { @Transactional(readOnly=true) public NotificationLog currentNotificationLog() { EventStore eventStore = EventStore.instance(); return this.findNotificationLog( this.calculateCurrentNotificationLogId(eventStore), eventStore); } @Transactional(readOnly=true) public NotificationLog notificationLog(String aNotificationLogId) { EventStore eventStore = EventStore.instance(); return this.findNotificationLog( new NotificationLogId(aNotificationLogId), eventStore); } ... }
+```
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000346_48de86d0bb4006291849a16a580d1d8b5ca05ddf5aeaf72ca955cdb572bfc48e.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000347_4fc094f216ec53b12f670431bbda848466d2641dcebdc0bfc4b105edbba8b696.png)
+
+Ultimately  both  of  these  methods  must  'find'  a NotificationLog . What  that  really  means  is  finding  a  section  of DomainEvent instances that  have  been  serialized  in  the  Event  Store,  encapsulating  each  one  with  a Notification ,  and collecting all those into a NotificationLog .  Once a NotificationLog instance  is  created,  it  can  be  represented  as  a  RESTful resource and provided to a requesting client.
+
+Since the current log may be a constantly moving target, its identity must be calculated every time it is requested. Here's the calculation:
+
+```
+public class NotificationService { ... protected NotificationLogId calculateCurrentNotificationLogId( EventStore anEventStore) { long count = anEventStore.countStoredEvents(); long remainder = count % LOG_NOTIFICATION_COUNT; if (remainder == 0) { remainder = LOG_NOTIFICATION_COUNT; } long low = count - remainder + 1; // ensures a minted id value even though there may // not be a full set of notifications at present long high = low + LOG_NOTIFICATION_COUNT - 1; return new NotificationLogId(low, high); } ... }
+```
+
+Otherwise, for an archived log all that is needed is a NotificationLogId to encapsulate the low and high range of the identifier. Remember that the identifier is encoded as a textual representation of a range between low and high values, such as 21-40. Thus, the constructor for an encoded identity looks like this:
+
+```
+public class NotificationLogId { ... public NotificationLogId(String aNotificationLogId) { super(); String[] textIds = aNotificationLogId.split(","); this.setLow(Long.parseLong(textIds[0])); this.setHigh(Long.parseLong(textIds[1])); } ... }
+```
+
+Whether querying for the current log or an archived log, we now have a NotificationLogId that  describes  what  method findNotificationLog() will query for:
+
+```
+public class NotificationService { ... protected NotificationLog findNotificationLog( NotificationLogId aNotificationLogId, EventStore anEventStore) { List<StoredEvent> storedEvents = anEventStore.allStoredEventsBetween( aNotificationLogId.low(), aNotificationLogId.high()); long count = anEventStore.countStoredEvents(); boolean archivedIndicator = aNotificationLogId.high() < count; NotificationLog notificationLog = new NotificationLog( aNotificationLogId.encoded(), NotificationLogId.encoded( aNotificationLogId.next( LOG_NOTIFICATION_COUNT)), NotificationLogId.encoded( aNotificationLogId.previous( LOG_NOTIFICATION_COUNT)), this.notificationsFrom(storedEvents), archivedIndicator); return notificationLog; } ... protected List<Notification> notificationsFrom( List<StoredEvent> aStoredEvents) { List<Notification> notifications = new ArrayList<Notification>(aStoredEvents.size()); for (StoredEvent storedEvent : aStoredEvents) { DomainEvent domainEvent = EventStore.toDomainEvent(storedEvent); Notification notification = new Notification( domainEvent.getClass().getSimpleName(), storedEvent.eventId(), domainEvent.occurredOn(), domainEvent); notifications.add(notification); }
+```
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000348_147caa3e4c6546f8d2a7aaf537d76e86812b59903e4e19ce7f26b3ddfae05adb.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000349_f1955e6df91518ce2e7d3b1a67d990e6fddb08d941a1918711a9223ab6aff648.png)
+
+```
+return notifications; } ... }
+```
+
+It's quite interesting that there is no need to actually persist any Notification instances  or  whole  logs.  We  can  just  manufacture  them  each  time  they  are needed. Obviously, for that reason, it helps with performance and scalability to cache NotificationLog resources at the points of request.
+
+Method findNotificationLog() uses the EventStore component to query the StoredEvent instances  it  needs  for  a  given  log.  Here's  how  the EventStore finds them:
+
+```
+package com.saasovation.identityaccess.application.eventStore; ... public class EventStore ... { ... public List<StoredEvent> allStoredEventsBetween( long aLowStoredEventId, long aHighStoredEventId) { Query query = this.session().createQuery( "from StoredEvent as _obj_ " + "where _obj_.eventId between ? and ? " + "order by _obj_.eventId"); query.setParameter(0, aLowStoredEventId); query.setParameter(1, aHighStoredEventId); List<StoredEvent> storedEvents = query.list(); return storedEvents; } ... }
+```
+
+Finally, at the Web tier we publish the current log and archived logs:
+
+```
+@Path("/notifications") public class NotificationResource { ... @GET @Produces({ OvationsMediaType.NAME }) public Response getCurrentNotificationLog( @Context UriInfo aUriInfo) {
+```
+
+```
+NotificationLog currentNotificationLog = this.notificationService() .currentNotificationLog(); if (currentNotificationLog == null) { throw new WebApplicationException( Response.Status.NOT_FOUND); } Response response = this.currentNotificationLogResponse( currentNotificationLog, aUriInfo); return response; } @GET @Path("{notificationId}") @Produces({ OvationsMediaType.ID_OVATION_NAME }) public Response getNotificationLog( @PathParam("notificationId") String aNotificationId, @Context UriInfo aUriInfo) { NotificationLog notificationLog = this.notificationService() .notificationLog(aNotificationId); if (notificationLog == null) { throw new WebApplicationException( Response.Status.NOT_FOUND); } Response response = this.notificationLogResponse( notificationLog, aUriInfo); return response; } ... }
+```
+
+The team could have used a MessageBodyWriter to generate the response, but there are some necessary minor complexities that are managed in response builder methods.
+
+That covers the important bits used to publish both current and archived notification logs to RESTful clients.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000350_6e97741faa5f6f15039d0b07fec86f720a9451a70a58e9e2234d0e99b5f805ae.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000351_ced0f267ab7f1eb7c5e5cc0d0700013f25259a02c04a973aaf13743ca9b685a6.png)
+
+## Publishing Message-Based Notifications
+
+The NotificationService provides a single method  for publishing DomainEvent instances over a messaging infrastructure. Here is the service method:
+
+```
+public class NotificationService { ... @Transactional public void publishNotifications() { PublishedMessageTracker publishedMessageTracker = this.publishedMessageTracker(); List<Notification> notifications = this.listUnpublishedNotifications( publishedMessageTracker .mostRecentPublishedMessageId()); MessageProducer messageProducer = this.messageProducer(); try { for (Notification notification : notifications) { this.publish(notification, messageProducer); } this.trackMostRecentPublishedMessage( publishedMessageTracker, notifications); } finally { messageProducer.close(); } } ... }
+```
+
+Method publishNotifications() first  gets its PublishedMessageTracker .  This  is  the  object  that  persists  the  record  of  which  Events  have already been published:
+
+```
+package com.saasovation.identityaccess.application.notifications; ... public class PublishedMessageTracker { private long mostRecentPublishedMessageId; private long trackerId; private String type; ... }
+```
+
+Note that this class is not part of the domain model but rather belongs to the application. The trackerId is just this object's unique identity (essentially an Entity). The type attribute  holds  the String description of the type of topic/channel that the Events were published on. The attribute mostRecentPublishedMessageId corresponds to the unique identity of the individual DomainEvent that was serialized and persisted as a StoreEvent .  Thus, it holds the value of the StoredEvent eventId of the most recently published instance. After all new Notification messages have been sent, the service method  ensures  that  the PublishedMessageTracker is  saved  with  the identity of the now most recently published Event.
+
+The Event identity along with the type attribute allows us to publish the same notifications at different times to any number of topics/channels . We just create a new instance of the PublishedMessageTracker with the name of the topic/channel as its type and start again with the first StoredEvent . In fact, here's how method publishedMessageTracker() does it:
+
+```
+public class NotificationService { private static final String EXCHANGE_NAME = "saasovation.identity_access"; ... private PublishedMessageTracker publishedMessageTracker() { Query query = this.session().createQuery( "from PublishedMessageTracker as _obj_ " + "where _obj_.type = ?"); query.setParameter(0, EXCHANGE_NAME); PublishedMessageTracker publishedMessageTracker = (PublishedMessageTracker) query.uniqueResult(); if (publishedMessageTracker == null) { publishedMessageTracker = new PublishedMessageTracker(EXCHANGE_NAME); } return publishedMessageTracker; } ... }
+```
+
+Multichannel publishing is not yet supported, but it could be added easily with a little refactoring.
+
+Next,  method listUnpublishedNotifications() is  responsible  for querying a sorted list of all unpublished Notification instances:
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000352_bcbccff962b758c2159f9b997567ec20584ce5799acf6c6b6b692f9da9130c53.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000353_00247b63c5a0fc3332aa963f8436c56a8f8d39354bddb9a55d6fb17f83ababa0.png)
+
+```
+public class NotificationService { ... protected List<Notification> listUnpublishedNotifications( long aMostRecentPublishedMessageId) { EventStore eventStore = EventStore.instance(); List<StoredEvent> storedEvents = eventStore.allStoredEventsSince( aMostRecentPublishedMessageId); List<Notification> notifications = this.notificationsFrom(storedEvents); return notifications; } ... }
+```
+
+In  reality  it's  querying  the EventStore for StoredEvent instances  with eventId values  greater  than  the  one  held  by  parameter aMostRecentPublishedMessageId .  Those returned from the EventStore are used to create a new collection of Notification instances.
+
+Now, back to the main service method publishNotifications() . With the collection of DomainEvent wrapper Notification instances, it iterates and dispatches to method publish() :
+
+```
+... for (Notification notification : notifications) { this.publish(notification, messageProducer); }
+```
+
+This  method  that  publishes  individual Notification instances  does  so through RabbitMQ, but using a very simple object library to make its interface seem more object-oriented:
+
+```
+public class NotificationService { ... protected void publish( Notification aNotification, MessageProducer aMessageProducer) { MessageParameters messageParameters = MessageParameters.durableTextParameters( aNotification.type(), Long.toString(aNotification.notificationId()), aNotification.occurredOn());
+```
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000354_429e4939cc48031a5356e2ee538e57006ff5a94c9fc87bb2af94fe48d3f50617.png)
+
+```
+String notification = NotificationService .objectSerializer() .serialize(aNotification); aMessageProducer.send(notification, messageParameters); } ... }
+```
+
+This publish() method creates MessageParameters and then sends the  JSON  serialized DomainEvent by  way  of  a MessageProducer . 3 The MessageParameters include select properties to send along with the message  body.  Among  these  special  parameters  are  the  Event type string,  the notification identity used as a unique message ID, and the occurredOn timestamp of the Event. These parameters allow subscribers to determine important  facts  about  each  message  without  the  need  to  parse  the  JSON  message body, which is the serialized Event. And the unique message ID (notification identity) supports message de-duplication, which is explained later.
+
+Consider one more method used to fully implement publishing:
+
+```
+public class NotificationService { ... private MessageProducer messageProducer() { // create my exchange if nonexistent Exchange exchange = Exchange.fanOutInstance( ConnectionSettings.instance(), EXCHANGE_NAME, true); // create a message producer used to forward Events MessageProducer messageProducer = MessageProducer.instance(exchange); return messageProducer; } ... }
+```
+
+3.  Classes Exchange , ConnectionSettings , MessageProducer , MessageParameters , and others are part of a library that serves as an abstraction layer around RabbitMQ. I provide this library,  which  makes  using  RabbitMQ  much more object friendly, along with the other sample code for the book.
