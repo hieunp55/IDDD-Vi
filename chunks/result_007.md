@@ -1,4 +1,4 @@
-﻿Rất có thể trong tương lai, Identity and Access Bounded Context (Ngữ cảnh Giới hạn Định danh và Truy cập) sẽ mang diện mạo rất khác so với thiết kế nhúng trực tiếp cơ chế bảo mật và phân quyền ban đầu. Việc thiết kế hướng tới khả năng tái sử dụng (reuse) sẽ buộc đội ngũ phải tập trung vào một mô hình mang tính tổng quát hơn, có thể được khai thác bởi nhiều ứng dụng khác nhau khi cần thiết. Đội ngũ chuyên trách đó — một đội ngũ tách biệt với nhóm Collaboration Context (Ngữ cảnh Cộng tác), nhưng được thành lập từ một vài thành viên của nhóm này — cũng có thể đưa vào nhiều chiến lược triển khai khác nhau. Các chiến lược đó có thể bao gồm việc sử dụng các sản phẩm của bên thứ ba và các giải pháp tích hợp tùy biến theo từng khách hàng — những điều vốn từng nằm ngoài tầm với do sự hỗn độn của cơ chế bảo mật nhúng sâu trước đây.
+Rất có thể trong tương lai, Identity and Access Bounded Context (Ngữ cảnh Giới hạn Định danh và Truy cập) sẽ mang diện mạo rất khác so với thiết kế nhúng trực tiếp cơ chế bảo mật và phân quyền ban đầu. Việc thiết kế hướng tới khả năng tái sử dụng (reuse) sẽ buộc đội ngũ phải tập trung vào một mô hình mang tính tổng quát hơn, có thể được khai thác bởi nhiều ứng dụng khác nhau khi cần thiết. Đội ngũ chuyên trách đó — một đội ngũ tách biệt với nhóm Collaboration Context (Ngữ cảnh Cộng tác), nhưng được thành lập từ một vài thành viên của nhóm này — cũng có thể đưa vào nhiều chiến lược triển khai khác nhau. Các chiến lược đó có thể bao gồm việc sử dụng các sản phẩm của bên thứ ba và các giải pháp tích hợp tùy biến theo từng khách hàng — những điều vốn từng nằm ngoài tầm với do sự hỗn độn của cơ chế bảo mật nhúng sâu trước đây.
 
 Do việc phát triển Segregated Core (Lõi Tách biệt — một mẫu hình chiến lược của DDD) chỉ là một bước đệm tạm thời, chúng ta sẽ không đi quá sâu vào các kết quả đó tại đây. Tóm lại, phương pháp này bao gồm việc chuyển toàn bộ các lớp (classes) bảo mật và phân quyền sang các Modules (Mô-đun) biệt lập, đồng thời yêu cầu các client thuộc Application Services (Dịch vụ Ứng dụng) phải kiểm tra bảo mật và phân quyền thông qua các đối tượng đó trước khi gọi vào Core Domain (Miền Cốt lõi). Điều này đã giải phóng Core Domain, giúp nó chỉ tập trung hiện thực hóa việc cấu thành và các hành vi của các đối tượng mô hình cộng tác. Application Service sẽ đảm nhận trách nhiệm bảo mật và chuyển đổi đối tượng:
 
@@ -87,6 +87,10 @@ Thay vào đó, đội ngũ quyết định giữ mô hình thành một khối 
 
 Với hiểu biết nền tảng này, chúng ta có thể khảo sát xem Identity and Access Context đã được hình thành như thế nào.
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000052_cacc3a2b9866a338395d15f5f9f5eac2d4cf46a050220c5b162de544db3a0222.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000053_2161c1960b61a2d7e8b531cf74a5a4417ec3ccfce5b30ee01bf8c8a2919e3bca.png)
+
 ## Identity and Access Context (Ngữ cảnh Định danh và Truy cập)
 
 Hầu hết các ứng dụng doanh nghiệp ngày nay đều cần trang bị một số hình thức thành phần bảo mật và phân quyền nhằm đảm bảo rằng những người truy cập hệ thống là những người dùng hợp thức, đồng thời được phân quyền chính xác để thực hiện những tác vụ mà họ dự định làm. Như chúng ta vừa phân tích, cách tiếp cận ngây thơ đối với bảo mật ứng dụng là nhồi nhét người dùng và quyền hạn vào từng hệ thống riêng lẻ, điều này tạo ra hiệu ứng ốc đảo (silo effect - sự phân mảnh biệt lập) trong mọi ứng dụng.
@@ -104,21 +108,31 @@ Người dùng của một hệ thống không thể dễ dàng liên kết vớ
 
 Việc khắc phục sự rối rắm về định danh và truy cập trong CollabOvation sẽ là một quy trình gồm nhiều bước. Trước tiên, đội ngũ đã tái cấu trúc bằng mẫu hình Segregated Core [Evans]; hãy xem lại mục "Collaboration Context". Bước đi này phục vụ đúng mục đích đề ra tại thời điểm đó: đảm bảo CollabOvation được gột rửa sạch sẽ khỏi các mối bận tâm về bảo mật và phân quyền. Tuy nhiên, họ nhận định rằng việc quản lý định danh và truy cập cuối cùng phải chiếm giữ một ranh giới ngữ cảnh (context boundary) của riêng nó. Điều đó sẽ đòi hỏi một nỗ lực lớn hơn rất nhiều.
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000054_3738907ceb28144fc8ce417be02e989feebd27deeccbaa879b44da5c6d403abe.png)
+
 Điều này cấu thành một Bounded Context mới — mang tên Identity and Access Context — và sẽ được các Bounded Contexts khác tiêu thụ thông qua các kỹ thuật tích hợp DDD (Domain-Driven Design - Thiết kế Hướng miền) tiêu chuẩn. Đối với các ngữ cảnh tiêu thụ nó, Identity and Access Context đóng vai trò là một Generic Subdomain (Miền con Chung). Sản phẩm này sẽ được đặt tên là IdOvation.
 
 Như Hình 2.9 mô tả, Identity and Access Context cung cấp sự hỗ trợ cho các khách thuê bao đa người thuê (multitenant subscribers). Khi phát triển một sản phẩm SaaS (Software as a Service - Phần mềm dưới dạng Dịch vụ), đây là điều hiển nhiên. Mỗi khách thuê (tenant) và mọi đối tượng tài nguyên thuộc quyền sở hữu của một khách thuê nhất định đều sẽ có một định danh hoàn toàn duy nhất, cô lập một cách logic từng khách thuê khỏi tất cả những khách thuê khác. Người dùng hệ thống được đăng ký qua cổng tự phục vụ (self-service) thông qua hình thức chỉ chấp nhận thư mời (by invitation only). Quyền truy cập an toàn được xử lý thông qua một dịch vụ xác thực (authentication service), và mật khẩu luôn được mã hóa ở mức độ cao. Các nhóm người dùng (groups) và các nhóm lồng nhau (nested groups) hỗ trợ quản lý định danh tinh vi trên toàn bộ tổ chức và thu hẹp tới từng đội nhóm nhỏ nhất. Việc truy cập vào các tài nguyên hệ thống được quản lý thông qua các quyền hạn dựa trên vai trò (role-based permissions) đơn giản, thanh lịch nhưng vô cùng mạnh mẽ.
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000055_f5c2521d1c6af6e055c9ae620e1fb63887d81cbdb6dec79b3bcfda7a3f1932b9.png)
+
 Figure 2.9 Identity and Access Context. Mọi thứ bên trong ranh giới đều nằm đúng ngữ cảnh theo Ubiquitous Language. Có các thành phần khác trong Bounded Context này, một số nằm trong mô hình và một số nằm ở các tầng khác, nhưng chúng không được hiển thị ở đây nhằm đảm bảo tính dễ đọc. Điều tương tự cũng áp dụng cho các thành phần UI và Application Service.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000056_115e2073e0d1cbb778e4ce5f3b6c1ce8c67fed9f76fcb122156cbd12d7ca6fb1.png)
 
 Ở một bước tiến nâng cao hơn, xuyên suốt mô hình, các Domain Events (Sự kiện Miền) (8) được phát hành (publish) khi các hành vi của mô hình tạo ra sự biến đổi trạng thái mang ý nghĩa đặc biệt đối với những bên quan sát các biến cố đó. Những Events này thường được mô hình hóa dưới dạng danh từ kết hợp với động từ ở thì quá khứ, chẳng hạn như TenantProvisioned, UserPasswordChanged, PersonNameChanged, cùng nhiều sự kiện khác.
 
 Chương tiếp theo, "Context Maps", sẽ trình bày cách thức Identity and Access Context được hai Contexts mẫu còn lại tiêu thụ bằng cách sử dụng các mẫu hình tích hợp DDD.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000057_2e22705966aa12da4238d6997e32319642fd28e5e3f62a2a26a16f1fe05c4ced.png)
 
 ## Agile Project Management Context (Ngữ cảnh Quản lý Dự án Agile)
 
 Các phương pháp phát triển linh hoạt (agile) tinh gọn đã thúc đẩy sự phổ biến mạnh mẽ của nó, đặc biệt là sau sự ra đời của Tuyên ngôn Agile (Agile Manifesto) vào năm 2001. Trong bản tuyên bố tầm nhìn của mình, SaaSOvation đặt ra sáng kiến chiến lược trọng tâm thứ hai là phát triển một ứng dụng quản lý dự án linh hoạt. Dưới đây là diễn biến của câu chuyện . . .
 
 Sau ba quý bán thuê bao CollabOvation thành công, thực hiện các đợt nâng cấp theo kế hoạch với các cải tiến tăng dần dựa trên phản hồi của khách hàng và đạt doanh thu vượt kỳ vọng, kế hoạch phát triển ProjectOvation của công ty chính thức được khởi động. Đây chính là Core Domain mới của họ, và các lập trình viên hàng đầu từ dự án CollabOvation sẽ được điều động sang nhằm tận dụng kinh nghiệm về kiến trúc đa khách thuê SaaS cũng như vốn kinh nghiệm DDD mới tích lũy của họ.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000058_14a1d8e48f53d9fefa8c9ad2fec452f86970b61a62a5683bd34a8eb11ba62a86.png)
 
 Công cụ này tập trung vào việc quản lý các dự án linh hoạt, sử dụng Scrum làm khung quản lý dự án lặp đi lặp lại và tăng dần (iterative and incremental). ProjectOvation tuân theo mô hình quản lý dự án Scrum truyền thống, bao gồm đầy đủ: product (sản phẩm), product owner (chủ sở hữu sản phẩm), team (đội ngũ), backlog items (hạng mục tồn đọng), planned releases (các đợt phát hành theo kế hoạch) và sprints (các chu kỳ nước rút). Việc ước lượng backlog item được cung cấp thông qua các bộ tính toán giá trị kinh doanh sử dụng phép phân tích chi phí - lợi ích (cost-benefit analysis).
 
@@ -130,15 +144,23 @@ May mắn thay, đội ngũ kỹ thuật đã rút ra bài học đắt giá t�
 
 Hình 2.10 cho thấy rằng nhờ áp dụng tư duy thiết kế chiến lược, đội ngũ ProjectOvation giờ đây đã nhìn nhận các đối tượng sử dụng hệ thống một cách chuẩn xác: họ là Product Owners (Chủ sở hữu Sản phẩm) và Team Members (Thành viên Đội ngũ). Xét cho cùng, đó chính là các vai trò thành viên dự án do những người thực hành Scrum đảm nhận. Người dùng và vai trò được quản lý bên trong Identity and Access Context tách biệt. Bằng cách sử dụng Bounded Context đó, cổng tự phục vụ cho phép người đăng ký thuê bao tự quản lý định danh cá nhân của họ. Các công cụ quản trị cho phép người quản lý, chẳng hạn như chủ sở hữu sản phẩm, chỉ định các thành viên trong nhóm sản phẩm của mình. Khi các vai trò được quản lý chuẩn xác, Product Owners và Team Members có thể được tạo ra đúng nơi chúng thuộc về: bên trong Agile Project Management Context. Phần còn lại trong thiết kế của dự án sẽ được hưởng lợi khi đội ngũ tập trung toàn lực vào việc nắm bắt Ubiquitous Language của mảng quản lý dự án agile vào trong một domain model được trau chuốt cẩn trọng.
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000059_5f503bf639abba7ea837b84a1e53ec1a3acf83a603a3a6fcb971ec090d30c062.png)
+
 Figure 2.10 Agile Project Management Context. Ubiquitous Language của Bounded Context này xoay quanh các sản phẩm, vòng lặp và đợt phát hành linh hoạt dựa trên Scrum. Để đảm bảo tính dễ đọc, một số thành phần, bao gồm cả các thành phần từ UI và Application Services, không được hiển thị tại đây.
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000060_230860bf46c9edfe6e2d616ee59815cd4fae9ce025cc828862e493aae2c74093.png)
+
 Một yêu cầu đặt ra là ProjectOvation phải vận hành như một tập hợp các dịch vụ ứng dụng tự trị (autonomous application services). Nhóm mong muốn giới hạn sự phụ thuộc của ProjectOvation vào các Bounded Contexts khác ở một chu kỳ định kỳ hợp lý, hoặc ít nhất là trong mức độ thực tế nhất có thể. Nói một cách khái quát, ProjectOvation sẽ có khả năng tự hoạt động độc lập, và nếu IdOvation hoặc CollabOvation có ngừng hoạt động vì bất kỳ lý do gì, ProjectOvation vẫn tiếp tục vận hành một cách tự chủ. Đương nhiên, trong trường hợp đó, một số dữ liệu có thể bị lệch pha đồng bộ trong một khoảng thời gian, và thường là một khoảng thời gian rất ngắn, nhưng toàn bộ hệ thống vẫn tiếp tục vận hành bình thường.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000061_47b314e8e31ccf417fdba4376aa30dffa7e5554d7494b7bc7f7a813d254b7ac4.png)
 
 ## Ngữ cảnh Mang lại cho Mỗi Thuật ngữ một Ý nghĩa Rất Cụ thể (The Context Gives Each Term a Very Specific Meaning)
 
 Một Product (Sản phẩm) trong Scrum có thể chứa nhiều thể hiện BacklogItem mô tả phần mềm đang được xây dựng. Khái niệm này hoàn toàn khác biệt so với các sản phẩm trên một trang thương mại điện tử mà bạn bỏ vào giỏ hàng để mua sắm. Làm sao chúng ta phân biệt được? Đó là nhờ vào Ngữ cảnh (Context). Chúng ta hiểu Product của mình có ý nghĩa gì bởi vì nó nằm trong Agile PM Context. Trong một Online Store Context (Ngữ cảnh Cửa hàng Trực tuyến), Product lại mang một ý nghĩa hoàn toàn khác biệt. Đội ngũ không cần phải đặt tên cho sản phẩm là ScrumProduct chỉ để phân biệt sự khác nhau đó.
 
 Core Domain gồm Product, Backlog Items, Tasks, Sprints và Releases đã có một khởi đầu thuận lợi hơn rất nhiều nhờ vào những kinh nghiệm quý giá tích lũy được từ SaaSOvation. Dẫu vậy, chúng ta vẫn rất quan tâm đến việc xem xét những bài học lớn mà họ đã đúc kết được dọc theo đường dốc học tập đầy chông gai của việc mô hình hóa cẩn trọng các Aggregates (10).
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000062_fad0246a9339c354a1e3799dbaa1718912954c9beeff0302df4f1c11ac890e36.png)
 
 ## Tổng kết (Wrap-Up)
 
@@ -180,6 +202,8 @@ Khi bắt tay vào một nỗ lực DDD, trước tiên hãy vẽ một Context 
 
 Figure 3.1 Context Map của một Domain trừu tượng. Ba Bounded Contexts cùng các mối quan hệ giữa chúng được phác thảo. Chữ U đại diện cho Upstream (Thượng nguồn) và chữ D đại diện cho Downstream (Hạ nguồn).
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000063_01129dcf4c19b3b9a00197389f3cb2c3b5904f5de3737a69a53baf57217ed4f7.png)
+
 Bản vẽ đơn giản này chính là Map của đội ngũ bạn. Các đội ngũ dự án khác có thể tham chiếu tới nó, nhưng họ cũng nên tự tạo ra các Maps của riêng mình nếu họ đang triển khai DDD. Bản đồ của bạn được vẽ ra chủ yếu nhằm cung cấp cho đội ngũ của bạn góc nhìn về không gian giải pháp cần thiết để đi đến thành công. Các đội ngũ khác có thể không sử dụng DDD và/hoặc họ có thể chẳng mảy may quan tâm đến góc nhìn của bạn.
 
 ## Ôi Không! Lại Có Thuật ngữ Mới Nữa Rồi! (Oh, No! There's New Terminology!)
@@ -198,6 +222,8 @@ Hãy xác định từng mô hình đang vận hành trong dự án và định 
 
 Khi đội ngũ CollabOvation lần đầu tiên bắt tay vào phát triển mô hình greenfield của mình, lẽ ra họ nên sử dụng một Context Map. Ngay cả khi họ gần như bắt đầu từ con số không, việc tuyên bố rõ các giả định của mình về dự án dưới dạng một tấm Bản đồ sẽ thúc đẩy họ phải tư duy
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000064_b60b43b81926b5ac4c1cae697792a3213e036e84b38221a1b0fba5150924a4c4.png)
+
 về các Bounded Contexts tách biệt. Họ vẫn có thể liệt kê các phần tử mô hình hóa quan trọng lên bảng trắng, sau đó gom chúng thành các nhóm thuật ngữ ngôn ngữ có liên quan. Việc đó sẽ buộc họ phải nhận diện các ranh giới ngôn ngữ và tạo ra một Context Map đơn giản. Tuy nhiên, họ thực sự không hiểu về mô hình hóa chiến lược một chút nào. Trước tiên, họ cần phải đạt được một bước đột phá về tư duy mô hình hóa chiến lược. Về sau, họ đã có được phát hiện mang tính sống còn về công cụ cứu rỗi dự án này, và áp dụng nó để thu về những lợi ích thiết thực. Khi dự án Core Domain tiếp theo được triển khai, công cụ này một lần nữa đã mang lại những giá trị vượt trội.
 
 Hãy cùng xem bạn có thể tạo ra một Context Map hữu ích nhanh chóng như thế nào.
@@ -205,6 +231,8 @@ Hãy cùng xem bạn có thể tạo ra một Context Map hữu ích nhanh chón
 ## Vẽ Context Maps (Drawing Context Maps)
 
 Một Context Map nắm bắt địa hình thực tế hiện có. Trước hết, bạn nên lập bản đồ cho hiện tại, chứ không phải cho một tương lai tưởng tượng. Nếu bức tranh cảnh quan thay đổi khi dự án hiện tại của bạn tiến triển, bạn hoàn toàn có thể cập nhật Map vào thời điểm đó. Trước tiên, hãy tập trung vào tình hình thực tế hiện tại để bạn có thể hình thành sự hiểu biết rõ ràng về việc mình đang ở đâu và xác định xem cần đi đâu tiếp theo.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000065_a789383fd338844c56bf0343d14f064ceafb1a978aa30560667382d75781b3f7.png)
 
 Việc tạo ra một Context Map trực quan không nhất thiết phải phức tạp. Lựa chọn đầu tiên của bạn luôn là các sơ đồ vẽ tay nơi bảng trắng và bút dạ xóa được thống trị. Phong cách được sử dụng ở đây rất dễ thích ứng như được minh họa bởi [Brandolini]. Nếu bạn quyết định sử dụng một công cụ phần mềm để ghi lại bản vẽ, hãy đảm bảo giữ cho nó thật phi hình thức và mộc mạc.
 
@@ -232,6 +260,12 @@ Một Context Map không phải là một sơ đồ Kiến trúc Doanh nghiệp 
 ## Triết lý Cao bồi (Cowboy Logic)
 
 * AJ:    'Nhà tôi bảo: "Tôi ra đồng cỏ với mấy con bò; anh chẳng để ý thấy tôi à?" Tôi bảo: "Không." Thế là bà ấy giận, không thèm nói chuyện với tôi suốt cả tuần.'
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000066_4d854e42aa244f8131d17bddb090cd690e72633d1ac8a825ddcecce1379d4fa3.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000067_ed96b09e7d3638602bdcd0138642746819222f297aaaf1cfefc30942fbcec3c3.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000068_4b66911536ed4ab24b94cbf069c8bd3d776e8c4d21a440d127fc951493e21b48.png)
 
 Các biểu đồ xứng đáng được dán ở vị trí nổi bật trên bức tường trong khu vực làm việc của nhóm. Nếu nhóm thường xuyên sử dụng wiki, các biểu đồ cũng có thể được tải lên đó. Nhưng nếu trang wiki gần như bị ngó lơ, đừng mất công làm gì. Người ta vẫn thường nói rằng wiki có thể là nơi chôn vùi thông tin ("where information goes to die"). Bất kể chúng được hiển thị ở đâu, Context Maps sẽ bị rơi vào tình trạng "vô hình giữa ban ngày" (hidden in plain sight) trừ khi nhóm thường xuyên dành sự chú ý cho chúng thông qua các cuộc thảo luận thực chất và có ý nghĩa.
 
@@ -282,13 +316,23 @@ Bây giờ hãy cùng bước vào trải nghiệm thực tế của đội ngũ
 
 Khi đội ngũ CollabOvation nhận ra sự hỗn độn mà họ đã tạo ra, họ đã đào sâu vào cuốn sách [Evans] để tìm lối thoát. Trong số những phát hiện có giá trị to lớn thuộc các mẫu hình thiết kế chiến lược, họ đã tìm thấy một công cụ thực tiễn mang tên Context Maps. Họ cũng tìm thấy một bài viết trực tuyến rất hữu ích của [Brandolini] đào sâu thêm về kỹ thuật này. Vì chỉ dẫn của công cụ này chỉ ra rằng họ nên lập bản đồ địa hình hiện có, đó chính là bước đầu tiên họ thực hiện. Hình 3.2 cho thấy các kết quả thu được.
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000069_5eb63d44060691cf96448a0aff00d2a938de488c18742f6772f94f5a2ed5fb81.png)
+
 Tấm Bản đồ đầu tiên do nhóm tạo ra làm nổi bật sự nhận biết ban đầu của họ về sự tồn tại của một Bounded Context mà họ đặt tên là Collaboration Context. Bằng hình dạng kỳ dị của ranh giới hiện có, họ đã truyền tải rất thỏa đáng khả năng tồn tại của một Context thứ hai, nhưng lại là một ngữ cảnh chưa có sự phân tách sạch sẽ và rõ ràng khỏi Core Domain.
 
 Figure 3.2 Sự hỗn độn bên trong Collaboration Context gây ra bởi các khái niệm không mong muốn được vạch trần bởi Map này. Biển báo nguy hiểm chỉ ra khu vực không thuần khiết.
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000070_40340c9868bfabe67213d8905b71a9481869c3c13813925f8d1f17afda2f47f0.png)
+
+A narrow passage near the top allows foreign concepts to migrate back and forth almost without censure, as the caution sign indicates.
+
 Một lối đi hẹp gần phía trên cùng cho phép các khái niệm ngoại lai di chuyển qua lại gần như không bị kiểm duyệt, đúng như biển báo nguy hiểm chỉ ra. Không phải các ranh giới Context bắt buộc phải hoàn toàn bất khả xâm phạm. Giống như bất kỳ ranh giới nào, nhóm muốn Collaboration Context phải kiểm soát với sự hiểu biết đầy đủ về những gì được phép bước qua biên giới của nó và vì mục đích gì. Nếu không, vùng lãnh thổ sẽ bị xâm lấn bởi những vị khách không rõ danh tính và có thể không được chào đón. Trong trường hợp của một mô hình, những vị khách không mời này thường mang lại sự nhầm lẫn và lỗi bọ (bugs). Những người làm mô hình nên hòa nhã và thậm chí chào đón, nhưng phải dưới những điều kiện ủng hộ trật tự và sự hòa hợp. Bất kỳ khái niệm ngoại lai nào bước vào ranh giới đều phải chứng minh được quyền được hiện diện ở đó, thậm chí phải khoác lên mình những đặc tính tương thích với vùng lãnh thổ bên trong.
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000071_949dcdc98b13da25f8a94162ae7667e9f8ae919627267ea532a4abdfa972b23f.png)
+
 Phân tích này không chỉ dẫn đến một sự hiểu biết tốt hơn về tình trạng hiện tại của mô hình, mà còn chỉ ra dự án cần phải đi theo hướng nào. Một khi đội ngũ dự án nhận ra rằng các khái niệm như bảo mật, người dùng và phân quyền không thuộc về bên trong Collaboration Context, họ đã phản ứng một cách tương ứng. Nhóm buộc phải tách biệt những khái niệm này ra khỏi Core Domain và chỉ cho phép chúng bước vào dưới những điều khoản được chấp thuận.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000072_92da81d662bead46cdfd346c8c4a6ed37be40badd2539f1648f8f2e088a2cd84.png)
 
 Đây là một cam kết mang tính sống còn của dự án DDD. Ngôn ngữ của từng Bounded Context bắt buộc phải được tôn trọng để mọi mô hình luôn giữ được sự thuần khiết. Sự phân tách ngôn ngữ và việc tuân thủ nghiêm ngặt nó sẽ giúp mỗi đội ngũ tham gia dự án tập trung vào Bounded Context của chính họ và giữ cho tầm nhìn luôn hướng trúng vào công việc của mình.
 
@@ -296,13 +340,19 @@ Việc áp dụng phân tích Subdomain, hay đánh giá không gian bài toán,
 
 Figure 3.3 Phân tích Subdomain của nhóm đã dẫn đến việc phát hiện ra hai miền: một Collaboration Core Domain và một Security Generic Subdomain.
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000073_86f4f29e3b1d778ef778ad93d58d37ff8a50fce7c8d1a28cf065f49235624028.png)
+
 Phân tích Subdomain và ranh giới đã dẫn đến các quyết định dứt khoát. Khi những người dùng con người của CollabOvation tương tác với các tính năng sẵn có, họ làm điều đó với tư cách là Participants, Authors, Moderators, v.v. Hàng loạt các sự phân tách ngữ cảnh khác sẽ được thảo luận sau, nhưng điều này mang lại một hình dung rõ ràng về các sự phân chia cần thiết đã được tạo ra. Với tri thức đó, các ranh giới rõ ràng và sắc nét được chỉ định trên Context Map cấp cao trong Hình 3.4 đã ra đời. Nhóm đã sử dụng mẫu hình Segregated Core [Evans] để tái cấu trúc nhằm đạt đến điểm sáng tỏ này. Các hình dạng dễ nhận diện của các ranh giới đóng vai trò như các biểu tượng hoặc tín hiệu thị giác cho từng Context. Việc giữ nguyên các hình dạng tương đối qua các sơ đồ khác nhau có thể hỗ trợ rất tốt cho khả năng nhận thức.
 
 Figure 3.4 Core Domain ban đầu được đánh dấu bằng ranh giới đậm và các điểm tích hợp. Tại đây IdOvation đóng vai trò là một Generic Subdomain cho CollabOvation ở hạ nguồn.
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000074_2be65921b530b7767138651a76a50950a473ede809dbfcbfe64ee6380e0cc503.png)
+
 Các Context Maps thường không xuất hiện cùng một lúc như các bản phác thảo khác nhau có thể khiến bạn lầm tưởng, mặc dù khi đã thực sự hiểu ra, chúng không hề khó tạo ra. Tư duy và thảo luận giúp tinh chỉnh một Map thông qua các vòng lặp nhanh chóng. Một số cải tiến có thể đến dưới dạng các điểm tích hợp, vốn mô tả các mối quan hệ giữa các Contexts.
 
 Hai tấm Maps đầu tiên chỉ ra những thành quả gặt hái được sau khi áp dụng thiết kế chiến lược. Sau khi dự án CollabOvation ban đầu đã đi đúng hướng, nhóm đã bóc tách thành công các mối bận tâm về định danh và truy cập ra ngoài. Khi tiến triển, họ đã tạo ra Context Map trong Hình 3.4. Nhóm chỉ phác thảo Core Domain, Collaboration Context, cùng với Generic Subdomain mới, Identity and Access Context. Họ không hề vẽ bất kỳ mô hình nào trong tương lai, chẳng hạn như Agile Project Management Context. Việc nhảy cóc quá xa về phía trước sẽ chẳng giúp ích gì cho nhóm. Họ chỉ cần sửa chữa các khiếm khuyết với những gì đang tồn tại. Các biến đổi hỗ trợ các hệ thống sắp tới sẽ sớm trở nên cần thiết, và tấm Map đó thuộc về trách nhiệm của đội ngũ tương lai.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000075_741dbddbe5ddd05b4c36dfc8b630d45c982fceefb4378e0cf34ec541056e4fea.png)
 
 ## Giờ Làm việc với Bảng trắng (Whiteboard Time)
 
@@ -311,6 +361,8 @@ Hai tấm Maps đầu tiên chỉ ra những thành quả gặt hái được sa
 
 Khi dự án tiếp theo liên quan đến ProjectOvation bắt đầu khởi động, đã đến lúc mở rộng Map hiện có với Core Domain mới, Agile Project Management Context. Kết quả của đợt lập bản đồ đó được thể hiện trong Hình 3.5. Việc ghi nhận những gì đang nằm trong kế hoạch hoàn toàn không phải là quá sớm —
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000076_82fba0bfaff3b4f84e8e0fb9c04d573163b1ff6fba20ecb2ae987af1db7e5a04.png)
+
 mặc dù nó chưa hề được chuyển thành mã nguồn. Các chi tiết bên trong Context mới chưa được hiểu tường tận, nhưng điều đó sẽ dần sáng tỏ qua các cuộc thảo luận. Việc áp dụng thiết kế chiến lược cấp cao ở giai đoạn sớm này sẽ giúp tất cả các đội ngũ hiểu rõ trách nhiệm của họ nằm ở đâu. Vì tấm Map thứ ba trong số ba Maps cấp cao chỉ là một sự mở rộng của bản đồ trước đó, chúng ta sẽ tập trung vào nó. Đó chính là nơi SaaSOvation đang hướng tới. Công ty đã chỉ định các lập trình viên trưởng giàu kinh nghiệm cho dự án mới. Là ngữ cảnh phong phú nhất trong số ba Contexts và là định hướng hiện tại, Core Domain mới chính là nơi các lập trình viên giỏi nhất nên cống hiến.
 
 Một số sự phân tách thiết yếu đã được hiểu rất rõ ràng. Tương tự như Collaboration Context, khi người dùng của ProjectOvation tạo sản phẩm, lập kế hoạch phát hành, lên lịch sprint và xử lý các tác vụ của backlog items, họ làm điều đó với tư cách là Product Owners và Team Members. Identity and Access Context được tách biệt hoàn toàn khỏi Core Domain. Điều tương tự cũng diễn ra đối với việc họ sử dụng Collaboration Context. Giờ đây nó là một Supporting Subdomain. Bất kỳ sự tiêu thụ nào của mô hình mới cũng sẽ được bảo vệ bởi các ranh giới và các cơ chế phiên dịch sang các khái niệm của Core Domain.
@@ -318,6 +370,8 @@ Một số sự phân tách thiết yếu đã được hiểu rất rõ ràng. 
 Hãy xem xét các chi tiết tinh tế hơn của những biểu đồ này. Chúng không phải là các sơ đồ kiến trúc hệ thống. Nếu đúng là như vậy, xét thấy Agile Project Management Context là Core Domain mới của chúng ta, chúng ta sẽ kỳ vọng nó nằm ở trên cùng hoặc ở vị trí trung tâm của biểu đồ. Tuy nhiên, tại đây, nó lại nằm ở dưới cùng. Đặc điểm có vẻ kỳ lạ này đóng vai trò chỉ dẫn trực quan rằng mô hình cốt lõi nằm ở hạ nguồn (downstream) của các mô hình khác.
 
 Figure 3.5 Core Domain hiện tại được đánh dấu bằng ranh giới đậm và các điểm tích hợp. CollabOvation Supporting Subdomain và IdOvation Generic Subdomain nằm ở thượng nguồn.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000077_144d51fbe8b3f091023926fdcbe2cad6d39629acf8ac2bd44fbbb1e43a444931.png)
 
 Nét tinh tế này đóng vai trò như một tín hiệu thị giác khác. Các mô hình thượng nguồn có tầm ảnh hưởng tới các mô hình hạ nguồn, giống như các hoạt động diễn ra ở thượng nguồn một con sông thường có xu hướng tác động tới các quần thể dân cư ở hạ nguồn, dù là tích cực hay tiêu cực. Hãy nghĩ đến các chất ô nhiễm bị một thành phố lớn xả thẳng xuống sông. Những chất ô nhiễm đó có thể ít ảnh hưởng đến chính thành phố đó, nhưng các thành phố ở hạ nguồn có thể phải đối mặt với những hậu quả thảm khốc. Vị trí theo chiều dọc của các mô hình trên biểu đồ giúp nhận diện các ảnh hưởng từ thượng nguồn lên các mô hình hạ nguồn. Các nhãn U (Upstream) và D (Downstream) chỉ rõ điều này giữa từng mô hình liên kết. Những nhãn này khiến việc định vị vị trí theo chiều dọc của từng Context trở nên ít quan trọng hơn, dẫu vậy việc bố trí trực quan như vậy vẫn mang lại tính thẩm mỹ cao.
 
@@ -328,6 +382,12 @@ LB:    'Khi cậu thấy khát khô cả họng, hãy luôn uống nước ở p
 > 💡 **Giải thích thêm:** "Always drink upstream from the herd" (khi khát, luôn uống nước phía trên đầu nguồn của đàn gia súc) là câu châm ngôn kinh điển của các cao bồi miền Tây. Đàn gia súc lội qua sông sẽ khuấy đục bùn cát và thải chất bẩn xuống nước; do đó kẻ khôn ngoan phải lấy nước ở thượng nguồn (upstream). Trong kiến trúc phần mềm DDD, hệ thống thượng nguồn (Upstream - U) nắm quyền kiểm soát mô hình và giao diện; hệ thống hạ nguồn (Downstream - D) phải hứng chịu mọi thay đổi từ thượng nguồn. Nếu hạ nguồn không muốn bị "ô nhiễm" bởi mô hình của thượng nguồn, nó bắt buộc phải xây dựng Tầng Chống suy thoái (Anticorruption Layer - ACL) để lọc sạch dữ liệu.
 > Nguồn tham khảo: (Không có nguồn trích dẫn xác thực — cần tự kiểm chứng thêm)
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000078_8fb9d264406a5c65a1cf9dcd18021d39e225102e6c790950887c405d92004b55.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000079_843d24f1eb51368b58f7446a5818b29b86f03933d89afc66334c269ec388acf7.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000080_c5d7aa592b50e560cac8f272d1f0fc0b7f6de320d6db1e1b74e722a005db0398.png)
+
 Identity and Access Context nằm ở vị trí xa nhất về phía thượng nguồn. Nó tạo ra tác động lên cả Collaboration Context lẫn Agile Project Management Context. Collaboration Context của chúng ta cũng nằm ở thượng nguồn đối với Agile Project Management Context bởi vì mô hình agile phụ thuộc vào mô hình và các dịch vụ cộng tác. Như đã lưu ý trong chương Bounded Contexts (2), ProjectOvation sẽ vận hành một cách tự chủ nhất có thể trong thực tế. Hoạt động của nó bắt buộc phải tiếp diễn phần lớn độc lập với tính sẵn sàng của các hệ thống xung quanh. Điều này không có nghĩa là các dịch vụ tự trị có thể hoạt động hoàn toàn độc lập khỏi các mô hình thượng nguồn. Chúng ta bắt buộc phải thiết kế theo những phương thức giúp hạn chế tối đa các phụ thuộc trực tiếp theo thời gian thực. Dù tự trị, Agile Project Management Context của chúng ta vẫn nằm ở hạ nguồn của các ngữ cảnh khác.
 
 Việc trang bị cho một ứng dụng các dịch vụ tự trị không đồng nghĩa với việc các cơ sở dữ liệu từ các Contexts thượng nguồn chỉ đơn thuần được sao chép (replicated) sang Context phụ thuộc. Sự sao chép dữ liệu sẽ buộc hệ thống cục bộ phải gánh vác nhiều trách nhiệm không mong muốn. Điều đó sẽ đòi hỏi phải tạo ra một Shared Kernel, thứ vốn không thực sự mang lại sự tự trị đích thực.
@@ -335,8 +395,9 @@ Việc trang bị cho một ứng dụng các dịch vụ tự trị không đ�
 Trên tấm Map mới nhất, hãy chú ý các hộp kết nối ở phía thượng nguồn của mỗi kết nối. Cả hai hộp kết nối đều được gắn nhãn OHS/PL, chữ viết tắt nhận diện Open Host Service (Dịch vụ Máy chủ Mở) và Published Language (Ngôn ngữ Công bố). Cả ba hộp kết nối ở phía hạ nguồn đều được gắn nhãn ACL, chữ viết tắt của Anticorruption Layer (Tầng Chống suy thoái). Các cách triển khai kỹ thuật cụ thể được trình bày trong chương Tích hợp các Bounded Contexts (Integrating Bounded Contexts) (13). Tóm lại, các mẫu hình tích hợp này có các đặc tính kỹ thuật sau:
 
 * Open Host Service: Mẫu hình này có thể được triển khai dưới dạng các tài nguyên dựa trên REST mà các client Bounded Contexts tương tác cùng. Chúng ta thường nghĩ Open Host Service như một API gọi thủ tục từ xa (RPC - Remote Procedure Call), nhưng nó hoàn toàn có thể được triển khai bằng cơ chế trao đổi thông điệp (message exchange).
-* Published Language: Điều này có thể được triển khai theo một vài cách khác nhau nhưng thường được thực hiện dưới dạng một lược đồ XML (XML schema). Khi được thể hiện với các dịch vụ dựa trên REST, Published Language được kết xuất dưới dạng các biểu diễn (representations) của các khái niệm miền. Các biểu diễn có thể bao gồm cả XML và JSON, ví dụ như vậy. Người ta cũng hoàn toàn có thể kết xuất các biểu diễn dưới dạng Google Protocol Buffers. Nếu bạn đang xuất bản các giao diện người dùng Web, nó cũng có thể bao gồm các biểu diễn HTML. Một lợi thế của việc sử dụng REST là mỗi client có thể chỉ định Published Language ưu tiên của mình, và các tài nguyên sẽ kết xuất các biểu diễn theo đúng kiểu nội dung (content type) được yêu cầu. REST cũng có lợi thế trong việc tạo ra các biểu diễn siêu phương tiện (hypermedia representations), tạo điều kiện thuận lợi cho HATEOAS (Hypermedia as the Engine of Application State - Siêu phương tiện đóng vai trò động cơ điều hướng trạng thái ứng dụng). Siêu phương tiện làm cho Published Language trở nên vô cùng năng động và có tính tương tác cao, cho phép các client điều hướng đến các tập hợp tài nguyên được liên kết. Ngôn ngữ có thể được xuất bản bằng cách sử dụng các kiểu phương tiện (media types) tiêu chuẩn và/hoặc tùy biến. Published Language cũng được sử dụng trong một Event-Driven Architecture (Kiến trúc Hướng sự kiện) (4), nơi các Domain Events (8) được chuyển phát dưới dạng các thông điệp tới các bên quan tâm đã đăng ký.
-* Anticorruption Layer: Một Domain Service (Dịch vụ Miền) (7) có thể được định nghĩa trong Context hạ nguồn cho từng loại Anticorruption Layer. Bạn cũng có thể đặt một Anticorruption Layer đằng sau một giao diện Repository (Kho lưu trữ) (12). Nếu sử dụng REST, một hiện thực hóa Domain Service phía client sẽ truy cập vào một Open Host Service từ xa. Các phản hồi của máy chủ tạo ra các biểu diễn dưới dạng một Published Language. Tầng Anticorruption Layer ở hạ nguồn sẽ phiên dịch các biểu diễn này thành các đối tượng miền của chính Context cục bộ của nó. Đây chính là nơi mà, ví dụ, Collaboration Context yêu cầu Identity and Access Context cung cấp một tài nguyên User-trong-vai-trò-Moderator. Nó có thể nhận được tài nguyên được yêu cầu dưới dạng XML hoặc JSON, rồi sau đó phiên dịch thành một Moderator — vốn là một Value Object. Thể hiện Moderator mới này phản ánh một khái niệm theo các thuật ngữ của mô hình hạ nguồn, chứ không phải mô hình thượng nguồn.
+* Published Language: Điều này có thể được triển khai theo một vài cách khác nhau nhưng thường được thực hiện dưới dạng một lược đồ XML (XML schema). Khi được thể hiện với các dịch vụ dựa trên REST, Published Language được kết xuất dưới dạng các biểu diễn (representations) của các khái niệm miền. Các biểu diễn có thể bao gồm cả XML và JSON, ví dụ như vậy. Người ta cũng hoàn toàn có thể kết xuất các biểu diễn dưới dạng Google Protocol Buffers. Nếu bạn đang xuất bản các giao diện người dùng Web, nó cũng có thể bao gồm các biểu diễn HTML. Một lợi thế của việc sử dụng REST là mỗi client có thể chỉ định Published Language ưu tiên của mình, và các tài nguyên sẽ kết xuất các biểu diễn theo đúng kiểu nội dung (content type) được yêu cầu. REST cũng có lợi thế trong việc tạo ra các biểu diễn siêu phương tiện (hypermedia representations), tạo điều kiện thuận lợi cho HATEOAS (Hypermedia as the Engine of Application State - Siêu phương tiện đóng vai trò động cơ điều hướng trạng thái ứng dụng). Siêu phương tiện làm cho Published Language trở nên vô cùng năng động và có tính tương tác cao, cho phép các client điều hướng đến các tập hợp tài nguyên được liên kết. Ngôn ngữ có thể được xuất bản bằng cách sử dụng các kiểu phương tiện (media types) tiêu chuẩn và/hoặc tùy biến. Published Language cũng được sử dụng trong một Event-Driven Architecture (4), nơi các Domain Events (8) được chuyển phát dưới dạng các thông điệp tới các bên quan tâm đã đăng ký.
+
+* Anticorruption Layer: Một Domain Service (7) có thể được định nghĩa trong Context hạ nguồn cho từng loại Anticorruption Layer. Bạn cũng có thể đặt một Anticorruption Layer đằng sau một giao diện Repository (12). Nếu sử dụng REST, một hiện thực hóa Domain Service phía client sẽ truy cập vào một Open Host Service từ xa. Các phản hồi của máy chủ tạo ra các biểu diễn dưới dạng một Published Language. Tầng Anticorruption Layer ở hạ nguồn sẽ phiên dịch các biểu diễn này thành các đối tượng miền của chính Context cục bộ của nó. Đây chính là nơi mà, ví dụ, Collaboration Context yêu cầu Identity and Access Context cung cấp một tài nguyên User-trong-vai-trò-Moderator. Nó có thể nhận được tài nguyên được yêu cầu dưới dạng XML hoặc JSON, rồi sau đó phiên dịch thành một Moderator — vốn là một Value Object. Thể hiện Moderator mới này phản ánh một khái niệm theo các thuật ngữ của mô hình hạ nguồn, chứ không phải mô hình thượng nguồn.
 
 Các mẫu hình được lựa chọn đều là những mẫu hình phổ biến. Việc giới hạn các lựa chọn giúp giữ cho phạm vi tích hợp được thảo luận trong cuốn sách này ở mức có thể kiểm soát được. Chúng ta sẽ thấy, ngay cả giữa số ít các mẫu hình được chọn lọc này, vẫn có sự đa dạng lớn trong cách thức áp dụng chúng vào thực tế.
 
