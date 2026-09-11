@@ -1,4 +1,4 @@
-﻿Tập trung vào Domain Layer (Tầng Miền), việc áp dụng DIP (Dependency Inversion Principle - Nguyên lý Đảo ngược Phụ thuộc) cho phép cả Domain và Infrastructure (Tầng Hạ tầng) đều phụ thuộc vào abstractions (các trừu tượng hóa/interface) được định nghĩa bởi mô hình miền. Vì Application Layer (Tầng Ứng dụng) là client (bên tiêu thụ dịch vụ) trực tiếp của Domain, nó phụ thuộc vào các interface của Domain và truy cập gián tiếp tới Repository (Kho lưu trữ - đối tượng trừu tượng hóa việc truy xuất tập hợp thực thể) cùng bất kỳ lớp triển khai kỹ thuật nào của Domain Service (Dịch vụ Miền) do Infrastructure cung cấp. Tầng này có thể sử dụng một trong vài cách thức để tiếp nhận các triển khai này, bao gồm Dependency Injection (Tiêm phụ thuộc), Service Factory (Nhà máy Dịch vụ), và Plug In (Trình cắm) [Fowler, P of EAA]. Các ví dụ xuyên suốt cuốn sách này sử dụng Dependency Injection được cung cấp bởi Spring Framework và đôi khi sử dụng Service Factory thông qua lớp DomainRegistry. Trên thực tế, DomainRegistry sử dụng Spring để tra cứu các tham chiếu tới các bean hiện thực hóa những interface được định nghĩa bởi mô hình miền, bao gồm cả các Repository và Domain Service.
+Tập trung vào Domain Layer (Tầng Miền), việc áp dụng DIP (Dependency Inversion Principle - Nguyên lý Đảo ngược Phụ thuộc) cho phép cả Domain và Infrastructure (Tầng Hạ tầng) đều phụ thuộc vào abstractions (các trừu tượng hóa/interface) được định nghĩa bởi mô hình miền. Vì Application Layer (Tầng Ứng dụng) là client (bên tiêu thụ dịch vụ) trực tiếp của Domain, nó phụ thuộc vào các interface của Domain và truy cập gián tiếp tới Repository (Kho lưu trữ - đối tượng trừu tượng hóa việc truy xuất tập hợp thực thể) cùng bất kỳ lớp triển khai kỹ thuật nào của Domain Service (Dịch vụ Miền) do Infrastructure cung cấp. Tầng này có thể sử dụng một trong vài cách thức để tiếp nhận các triển khai này, bao gồm Dependency Injection (Tiêm phụ thuộc), Service Factory (Nhà máy Dịch vụ), và Plug In (Trình cắm) [Fowler, P of EAA]. Các ví dụ xuyên suốt cuốn sách này sử dụng Dependency Injection được cung cấp bởi Spring Framework và đôi khi sử dụng Service Factory thông qua lớp DomainRegistry. Trên thực tế, DomainRegistry sử dụng Spring để tra cứu các tham chiếu tới các bean hiện thực hóa những interface được định nghĩa bởi mô hình miền, bao gồm cả các Repository và Domain Service.
 
 Một điều rất thú vị là khi suy ngẫm về sức ảnh hưởng của DIP đối với kiến trúc này, chúng ta có thể kết luận rằng thực chất không còn bất kỳ tầng nào tồn tại nữa. Cả các mối bận tâm cấp cao lẫn cấp thấp đều chỉ phụ thuộc duy nhất vào abstractions, điều này dường như đã lật đổ hoàn toàn cấu trúc xếp tầng (stack). Sẽ ra sao nếu chúng ta thực sự nghĩ đến việc đảo ngược hoàn toàn kiến trúc này và bổ sung thêm một chút tính đối xứng? Tiếp theo, hãy cùng xem cơ chế đó hoạt động như thế nào.
 
@@ -90,7 +90,13 @@ Nếu đang sử dụng mô hình Layers thuần túy, hãy cân nhắc những 
 
 Khi các nhóm phát triển tại SaaSOvation cân nhắc những ưu điểm của việc sử dụng Hexagonal Architecture, họ đã quyết định chuyển dịch từ Layers sang. Việc đó thực ra không hề khó khăn. Nó chỉ đòi hỏi việc áp dụng một tư duy hơi khác một chút khi sử dụng Spring Framework quen thuộc.
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000120_b882ef08cae45102efbdfaf5120215464920843a80cca51e72eb41463af2de33.png)
+
 Bởi vì Hexagonal Architecture rất đa năng, nó hoàn toàn có thể trở thành nền tảng nâng đỡ các kiến trúc khác mà hệ thống yêu cầu. Chẳng hạn, chúng ta có thể tích hợp Service-Oriented (Hướng Dịch vụ), REST, hoặc Event-Driven Architecture (Kiến trúc Hướng Sự kiện); áp dụng CQRS; sử dụng Data Fabric (Mạng lưới Dữ liệu) hoặc Grid-Based Distributed Cache (Bộ nhớ đệm phân tán dạng lưới); hoặc gắn thêm cơ chế xử lý song song và phân tán Map-Reduce, hầu hết những điều này sẽ được thảo luận ở phần sau của chương. Phong cách Hexagonal tạo nên nền tảng vững chắc để hỗ trợ bất kỳ và tất cả các lựa chọn kiến trúc bổ sung đó. Còn có những cách tiếp cận khác, nhưng trong phần còn lại của chương này, hãy mặc định rằng Ports and Adapters được sử dụng để hỗ trợ phát triển xung quanh từng chủ đề còn lại được thảo luận.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000121_0867c7a2dfe2dd474fdcb26bdaa43d44b2cc76e27980d9228855665326ab3fa2.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000122_35ac98ddbd6406a66f7970645aed11964b244892e2960245a2b96422d2066efc.png)
 
 ## Service-Oriented
 
@@ -111,11 +117,17 @@ Bảng 4.1 Các Nguyên lý Thiết kế Dịch vụ
 
 Hình 4.5 Kiến trúc Hexagonal hỗ trợ SOA, với các dịch vụ REST, SOAP, và messaging
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000123_d441c6e3d912f6cfcb2810c7cbda35f337f8cf1b9d725b9f812aa4996197a904.png)
+
 Chúng ta có thể kết hợp các nguyên lý này với Hexagonal Architecture, với ranh giới dịch vụ nằm ở góc ngoài cùng bên trái và mô hình miền nằm ở vị trí trung tâm. Kiến trúc cơ bản được trình bày trong Hình 4.5, nơi các bên tiêu thụ tiếp cận dịch vụ bằng REST, SOAP, và messaging. Lưu ý rằng một hệ thống dựa trên Hexagonal có thể hỗ trợ nhiều endpoint (điểm cuối) dịch vụ kỹ thuật. Điều này có ảnh hưởng trực tiếp đến cách DDD được áp dụng bên trong một kiến trúc SOA.
 
 Vì quan điểm còn rất khác nhau về việc SOA thực chất là gì và nó mang lại giá trị gì, sẽ không có gì đáng ngạc nhiên nếu bạn không đồng tình với những gì được trình bày ở đây. Martin Fowler gọi tình huống này là "sự mơ hồ hướng dịch vụ" (service-oriented ambiguity) [Fowler, SOA]. Do đó, tôi sẽ không cố gắng làm sáng tỏ toàn bộ SOA ở đây. Tuy nhiên, tôi sẽ đưa ra một góc nhìn về cách thức DDD khớp nối vào tập hợp các ưu tiên được công bố trong Tuyên ngôn SOA (SOA Manifesto) [^3].
 
 [^3]: Bản thân Tuyên ngôn SOA đã phải nhận khá nhiều chỉ trích tiêu cực, nhưng chúng ta vẫn có thể chắt lọc được một số giá trị từ nó.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000124_a52bfd977984334c98582818a927c22b1dc25945e6d72c90aa22bfd41effa74.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000125_fdf26d2e1ae6e2646722a81c7a384ad89d61d97799c6838c91967068e317fae4.png)
 
 Trước hết, việc xem xét các góc nhìn thực tế được bày tỏ bởi một trong những người đóng góp cho bản Tuyên ngôn [Tilkov, Manifesto] sẽ cung cấp một bối cảnh quan trọng. Bình luận về bản Tuyên ngôn, ông đưa chúng ta tiến gần hơn ít nhất một hoặc hai bước tới việc hiểu các dịch vụ SOA có thể là gì:
 
@@ -136,6 +148,8 @@ Nếu chấp nhận những điều này như những giá trị đáng giá, ch
 
 Các nhóm phát triển của SaaSOvation đã phải học một bài học khó khăn nhưng quan trọng: lắng nghe các yếu tố dẫn dắt về mặt ngôn ngữ sẽ phù hợp hơn với DDD. Mỗi Bounded Context trong số ba ngữ cảnh của họ đều phản ánh các mục tiêu của SOA — cả về mặt kinh doanh lẫn trong các dịch vụ kỹ thuật.
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000126_e70cfad5564efc1a1c64bad5a992f8c8d679b305fbf6076214395c13fa93d03b.png)
+
 Ba mô hình mẫu được thảo luận trong Bounded Contexts (Chương 2), Context Maps (Chương 3), và Integrating Bounded Contexts (Chương 13) lần lượt đại diện cho từng mô hình miền đơn lẻ được định nghĩa chặt chẽ về mặt ngôn ngữ. Mỗi mô hình miền được bao bọc bởi một tập hợp các dịch vụ mở triển khai một SOA nhằm đáp ứng các mục tiêu kinh doanh.
 
 ## Representational State Transfer-REST
@@ -147,6 +161,10 @@ REST đã trở thành một trong những buzzword (từ ngữ thông dụng th
 ## REST as an Architectural Style
 
 Điều đầu tiên cần nắm bắt khi cố gắng hiểu thấu đáo về REST là khái niệm về phong cách kiến trúc (architectural styles). Một phong cách kiến trúc có vai trò đối với kiến trúc tương tự như một design pattern (mẫu thiết kế) đối với một thiết kế cụ thể. Nó là sự trừu tượng hóa những khía cạnh chung của các cách triển khai cụ thể khác nhau, cho phép thảo luận về những lợi ích liên quan của chúng mà không bị sa đà vào các chi tiết kỹ thuật. Có rất nhiều phong cách kiến trúc hệ thống phân tán khác nhau, bao gồm client-server và distributed objects (đối tượng phân tán). Một vài chương đầu trong luận án của Fielding giải thích một số phong cách trong số đó, bao gồm cả các ràng buộc (constraints) mà chúng bắt buộc phải có đối với một kiến trúc tuân thủ từng phong cách. Khái niệm về các phong cách kiến trúc và các ràng buộc do chúng áp đặt có thể khiến bạn cảm thấy hơi mang tính lý thuyết, và bạn nhận định hoàn toàn đúng. Chúng tạo nên nền tảng lý thuyết cho một phong cách kiến trúc (vào thời điểm đó là) hoàn toàn mới mà Fielding giới thiệu. Đó chính là REST — phong cách kiến trúc mà kiến trúc của Web được kỳ vọng sẽ tuân theo.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000127_49bf1ec1618f546b7d3396db6be4d5571d094b6afe51c0ebba684eeba56bd1b4.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000128_0e874702383cfae3c57bdc00e20319cb29ad480d185a560a7efd877880b6e9e9.png)
 
 Tất nhiên, Web — vốn được định hình bởi các tiêu chuẩn quan trọng nhất của nó là URI, HTTP và HTML — đã ra đời trước công trình nghiên cứu tiến sĩ của Fielding. Nhưng ông từng là một trong những nhân tố chủ chốt trong việc chuẩn hóa HTTP 1.1, và có tầm ảnh hưởng to lớn đến nhiều quyết định thiết kế dẫn tới diện mạo của Web như chúng ta biết ngày nay [^4]. Nhìn theo góc độ này, REST là một phép ngoại suy lý thuyết (theoretical extrapolation), được tạo ra sau thực tế, đúc kết từ chính kiến trúc của Web.
 
@@ -167,6 +185,10 @@ Khía cạnh then chốt tiếp theo là ý tưởng về giao tiếp phi trạn
 Nếu bạn coi các tài nguyên như các đối tượng — và hoàn toàn hợp lý khi làm như vậy — thì việc đặt câu hỏi chúng nên có loại interface nào là hoàn toàn xác đáng. Câu trả lời chính là một khía cạnh rất quan trọng khác giúp phân biệt REST với bất kỳ phong cách kiến trúc hệ thống phân tán nào khác. Tập hợp các phương thức mà bạn có thể gọi là cố định. Mọi đối tượng đều hỗ trợ cùng một interface duy nhất. Trong RESTful HTTP, các phương thức chính là các động từ HTTP (HTTP verbs) — quan trọng nhất là GET, PUT, POST, DELETE — có thể được áp dụng lên các tài nguyên.
 
 Mặc dù thoạt nhìn có vẻ giống, các phương thức này không hoàn toàn chuyển dịch tương đương sang các thao tác CRUD (Create, Read, Update, Delete). Việc tạo ra các tài nguyên không đại diện cho bất kỳ thực thể bền vững nào mà thay vào đó đóng gói hành vi được kích hoạt khi một động từ thích hợp được áp dụng lên chúng là điều rất phổ biến. Mỗi phương thức HTTP đều có một định nghĩa rất rõ ràng trong đặc tả kỹ thuật của HTTP. Ví dụ, phương thức GET chỉ được sử dụng cho các thao tác "an toàn" (safe operations): (1) nó không được thực hiện các hành động tạo ra tác động mà client có thể không yêu cầu; (2) nó luôn luôn chỉ đọc dữ liệu; (3) nó có tiềm năng được lưu vào bộ nhớ đệm (caching - nếu máy chủ chỉ định rõ điều này thông qua các tiêu đề phản hồi thích hợp).
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000129_3d138d6615a1b4e5c71a9d86c4e37f28f23033b7e1eb32779bc6865455aaeb6c.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000130_556f1680bf05397f593097e1dd0e4e4333c65e00d878bad8a84943e4f5160829.png)
 
 Phương thức GET của HTTP đã được Don Box — một trong những nhân vật chủ chốt đứng sau các Web service kiểu SOAP — gọi là "phần hạ tầng đường ống hệ thống phân tán được tối ưu hóa tốt nhất trên thế giới". Lời nhận xét của ông nhấn mạnh rằng rất nhiều hiệu năng và khả năng mở rộng của Web mà chúng ta coi là hiển nhiên ngày nay có được là nhờ các tối ưu hóa của HTTP cho trường hợp sử dụng cụ thể, cực kỳ phổ biến này.
 
@@ -198,6 +220,8 @@ Một cách tiếp cận khác phù hợp hơn khi sự nhấn mạnh được �
 
 Điều này phản ánh một cách tiếp cận từ ngoài vào trong (outside-in) và mang tính xuyên suốt (crosscutting). Trong miền quản lý nhóm làm việc và nhiệm vụ đã đề cập trước đó, có rất nhiều định dạng phổ biến. Hãy lấy định dạng `ical` làm ví dụ. Đây là một định dạng chung có thể được sử dụng bởi nhiều ứng dụng khác nhau. Trong trường hợp này, chúng ta sẽ bắt đầu bằng việc chọn một media type (`ical`) và sau đó tạo một mô hình miền cho định dạng này. Mô hình này sau đó có thể được sử dụng bởi bất kỳ hệ thống nào cần hiểu định dạng này — ví dụ như ứng dụng máy chủ của chúng ta, nhưng cũng có thể là các hệ thống khác (chẳng hạn như một Android client). Đương nhiên, với cách tiếp cận này, một máy chủ có thể cần xử lý nhiều media type khác nhau, và cùng một media type có thể được sử dụng bởi nhiều máy chủ.
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000131_8d35ede2ac2f15f49692da519546389a79ae226acffd5176721b3b620ca6ddf3.png)
+
 Việc lựa chọn cách tiếp cận nào trong hai cách tiếp cận này phụ thuộc phần lớn vào mục tiêu của nhà thiết kế hệ thống xét về khả năng tái sử dụng. Giải pháp càng mang tính chuyên biệt hóa cao thì cách tiếp cận đầu tiên càng chứng tỏ được tính hữu ích. Giải pháp càng mang tính hữu dụng phổ quát, với mức độ cực hạn là việc chuẩn hóa bởi một tổ chức tiêu chuẩn chính thức, thì việc đi theo cách tiếp cận thứ hai lấy media type làm trung tâm lại càng trở nên hợp lý.
 
 ## Why REST?
@@ -227,6 +251,8 @@ Hãy hình dung một mô hình miền, chẳng hạn như một trong những m
 
 Bây giờ, hãy nghĩ đến việc tách biệt toàn bộ các trách nhiệm truy vấn thuần túy truyền thống trong một mô hình ra khỏi toàn bộ các trách nhiệm thực thi các lệnh thuần túy trên chính mô hình đó. Các Aggregate sẽ không có các phương thức truy vấn (getters), mà chỉ có các phương thức command. Các Repository sẽ được tinh giản chỉ còn một phương thức `add()` hoặc `save()` (hỗ trợ lưu cho cả việc tạo mới lẫn cập nhật) và duy nhất một phương thức truy vấn, chẳng hạn như `fromId()`. Phương thức truy vấn duy nhất này nhận vào định danh duy nhất của một Aggregate và trả về chính Aggregate đó. Một Repository sẽ không thể được sử dụng để tìm kiếm một Aggregate bằng bất kỳ phương thức nào khác, chẳng hạn như lọc theo một số thuộc tính bổ sung. Với tất cả những phần đó đã được loại bỏ khỏi mô hình truyền thống, chúng ta gọi nó là command model (mô hình lệnh/mô hình ghi). Chúng ta vẫn cần một cách để hiển thị dữ liệu cho người dùng. Để làm điều đó, chúng ta tạo ra một mô hình thứ hai, mô hình được tinh chỉnh tối ưu cho các truy vấn. Đó chính là query model (mô hình truy vấn/mô hình đọc).
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000132_4572468518b4845527c5287dfe36a22d3975d99c75b01b4c3dccaaa4290a3a47.png)
+
 ## Isn't This Accidental Complexity?
 
 Ấn tượng ban đầu của bạn có thể là phong cách được đề xuất này đòi hỏi quá nhiều công sức và chúng ta chỉ đơn thuần đang thay thế một tập hợp vấn đề này bằng một tập hợp vấn đề khác, đồng thời phải viết thêm rất nhiều mã nguồn để thực hiện nó.
@@ -248,6 +274,8 @@ Hãy cùng đi qua từng khu vực chính của mẫu kiến trúc này. Chúng
 
 Hình 4.6 Với CQRS, các command từ client truyền đi một chiều tới command model. Các query được thực thi trên một nguồn dữ liệu riêng biệt được tối ưu hóa cho việc trình diễn và chuyển giao tới giao diện người dùng hoặc các báo cáo.
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000133_5e779ac44416911bb9c911efa5ba44f888b74f2e34c95926521c673e85747ba9.png)
+
 ## Client and Query Processor
 
 Client (ở ngoài cùng bên trái trong sơ đồ) có thể là một trình duyệt Web hoặc một giao diện người dùng desktop tùy biến. Nó sử dụng một tập hợp các query processor (bộ xử lý truy vấn) chạy trên máy chủ. Sơ đồ không biểu diễn sự phân chia tầng mang ý nghĩa kiến trúc giữa các bậc (tiers) trên (các) máy chủ. Bất kể có những tầng nào tồn tại, query processor đại diện cho một thành phần đơn giản chỉ biết cách thực thi các truy vấn cơ bản trên một cơ sở dữ liệu, chẳng hạn như một kho lưu trữ SQL.
@@ -265,6 +293,8 @@ Query model là một mô hình dữ liệu phi chuẩn hóa (denormalized data 
 Điều đáng lưu ý là các view dựa trên CQRS có thể vừa có chi phí thấp vừa dễ dàng thay thế/vứt bỏ (cả trong quá trình phát triển lẫn khi bảo trì). Điều này đặc biệt đúng nếu bạn sử dụng một dạng Event Sourcing đơn giản (xem phần 'Event Sourcing' ở phần sau của chương và Phụ lục A) và lưu trữ tất cả các Event vào một kho lưu trữ bền vững, nơi chúng có thể được xuất bản lại bất kỳ lúc nào để tạo ra dữ liệu view bền vững mới. Nhờ làm như vậy, bất kỳ view đơn lẻ nào cũng có thể được viết lại từ đầu một cách độc lập hoặc toàn bộ query model có thể được chuyển đổi sang một công nghệ lưu trữ dữ liệu hoàn toàn khác. Điều này giúp dễ dàng tạo và duy trì các view liên tục đáp ứng các nhu cầu giao diện người dùng không ngừng thay đổi. Nó có thể dẫn đến những trải nghiệm người dùng trực quan hơn, thoát khỏi mô hình bảng dữ liệu truyền thống để trở nên phong phú hơn rất nhiều.
 
 141
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000134_87d9d403639dc9e25939be8aed92d535a6bcf17bdb1e338f6f5c32e5a91db138.png)
 
 Ví dụ, một bảng có thể được thiết kế với đầy đủ dữ liệu để hiển thị giao diện người dùng cho người dùng thông thường, người quản lý, và quản trị viên. Nếu một database table view tương ứng được tạo ra cho từng loại người dùng đó, dữ liệu cho từng vai trò bảo mật sẽ được phân chia một cách thích hợp. Điều này tích hợp sẵn tính bảo mật vào dữ liệu hiển thị theo từng loại người dùng. Một thành phần giao diện của người dùng thông thường sẽ chọn tất cả các cột từ table view của người dùng thông thường. Một thành phần giao diện của người quản lý sẽ chọn tất cả các cột từ table view của người quản lý. Bằng cách đó, người dùng thông thường sẽ không thể nhìn thấy những gì mà người quản lý có thể thấy.
 
@@ -302,6 +332,8 @@ Chúng ta có thể sử dụng một phong cách phân loại (categorized styl
 Chúng ta có thể tạo ra một handler theo phong cách chuyên biệt (dedicated style). Mỗi handler sẽ là một lớp đơn lẻ chỉ có duy nhất một phương thức. Hợp đồng của phương thức sẽ phục vụ một command cụ thể kèm các tham số. Cách này có những ưu điểm rõ rệt: Mỗi handler/processor chỉ đảm nhận một trách nhiệm duy nhất (single responsibility); mỗi handler có thể được triển khai lại (redeploy) độc lập với những handler khác; các loại handler có thể được mở rộng quy mô độc lập (scale out) để xử lý khối lượng lớn các loại command nhất định.
 
 Điều này dẫn tới phong cách hướng thông điệp (messaging style) của Command Handler. Mỗi command được gửi đi như một thông điệp bất đồng bộ và được chuyển phát tới một handler được thiết kế theo phong cách chuyên biệt. Điều này không chỉ cho phép mỗi thành phần xử lý lệnh nhận được các thông điệp có kiểu định danh cụ thể, mà các bộ xử lý của một loại nhất định còn có thể được bổ sung thêm để giải quyết tải xử lý command. Cách tiếp cận này không nên được sử dụng làm mặc định, vì nó có thiết kế phức tạp hơn. Thay vào đó, hãy bắt đầu bằng một trong hai phong cách kia dưới dạng các bộ xử lý command đồng bộ. Chỉ chuyển sang bất đồng bộ khi các yêu cầu về khả năng mở rộng quy mô thực sự đòi hỏi. Dẫu vậy, một số người sẽ đi đến kết luận rằng cách tiếp cận bất đồng bộ cung cấp sự tách rời về mặt thời gian (temporal decoupling) sẽ dẫn đến các hệ thống có khả năng phục hồi tốt hơn. Góc nhìn đó thường sẽ dẫn tới xu hướng ưu tiên triển khai các Command Handler theo phong cách messaging.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000135_07192f965b8bdc7d3361512d0d9f4443a7b078c0d246e440089d92332b88687e.png)
 
 Bất kể loại handler nào được sử dụng, hãy tách rời từng handler khỏi tất cả các handler khác. Không cho phép bất kỳ handler nào phụ thuộc vào (sử dụng) bất kỳ handler nào khác. Điều này sẽ cho phép bất kỳ loại handler nào cũng có thể được triển khai lại một cách độc lập mà không gây ảnh hưởng đến các handler khác.
 
