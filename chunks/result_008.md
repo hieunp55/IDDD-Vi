@@ -1,4 +1,4 @@
-﻿Hãy lùi lại một chút về quá khứ. Vì Collaboration Context (Ngữ cảnh Cộng tác) là Core Domain (Miền Lõi) đầu tiên, hãy cùng nhìn sâu vào bên trong nó. Trước tiên, chúng ta sẽ giới thiệu kỹ thuật "phóng to" (zooming) với các tích hợp đơn giản hơn, sau đó tiến dần tới các tích hợp nâng cao.
+Hãy lùi lại một chút về quá khứ. Vì Collaboration Context (Ngữ cảnh Cộng tác) là Core Domain (Miền Lõi) đầu tiên, hãy cùng nhìn sâu vào bên trong nó. Trước tiên, chúng ta sẽ giới thiệu kỹ thuật "phóng to" (zooming) với các tích hợp đơn giản hơn, sau đó tiến dần tới các tích hợp nâng cao.
 
 ## Collaboration Context
 
@@ -173,7 +173,13 @@ Tại thời điểm này, nhóm phát triển vẫn chưa chắc chắn phươn
 
 Nhóm hiện đã có thể hiểu được một phần mô hình của mình. Ví dụ, điều gì sẽ xảy ra khi một cuộc thảo luận đã được tạo và kết quả được truyền đạt lại cho Context cục bộ? Thành phần bất đồng bộ — có thể là RPC client hoặc message handler — sẽ gọi lệnh attachDiscussion() trên Product, truyền vào một thực thể Value mới của Discussion. Tất cả các Aggregate cục bộ đang chờ đợi tài nguyên từ xa đều sẽ được chăm sóc và xử lý theo cùng một cơ chế như vậy.
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000094_d8e360f94fdf150686ebdd35fb34767265318dde0773d0dd336266cb025b7aeb.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000095_1332e1b5f33f31b1c8588a8a1aa99945e7d2a72ecb645171c4fcf0e635f870aa.png)
+
 Hình 3.10 Phóng to vào một Anticorruption Layer và Open Host Service thuộc các thành phần tích hợp khả dĩ giữa Agile Project Management Context và Collaboration Context
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000096_319392cf0160f8840a14e98a62e6e713bec753188f3b5fba8c9a604a2e9b6aed.png)
 
 Khảo sát này đã đi sâu vào một số chi tiết hữu ích về Context Map. Tuy nhiên, chúng ta cần phải biết kiềm chế, bởi vì chúng ta có thể nhanh chóng chạm tới điểm giới hạn mà lợi ích thu về giảm dần (diminishing returns). Có lẽ chúng ta đã có thể đưa cả Modules (Mô-đun - Chương 9) vào đây, nhưng chúng đã được bố trí trong một chương chuyên biệt riêng. Hãy chỉ đưa vào bất kỳ yếu tố cấp cao nào có liên quan giúp thúc đẩy sự giao tiếp sống còn trong nhóm. Mặt khác, hãy kiên quyết đẩy lùi những chi tiết mang nặng tính hình thức rườm rà.
 
@@ -194,6 +200,10 @@ Hãy tạo ra những Context Map mà bạn có thể in ra và dán ngay lên t
 
 Không phải dự án nào cũng cần mức độ chi tiết như được trình bày ở đây. Một số dự án khác có thể đòi hỏi nhiều hơn. Bí quyết nằm ở chỗ cân bằng giữa nhu cầu thấu hiểu với tính thực tế, không nhồi nhét quá nhiều chi tiết vụn vặt vào cấp độ này. Hãy nhớ rằng chúng ta nhiều khả năng sẽ không duy trì một Bản đồ đồ họa quá chi tiết trong suốt chặng đường dài của dự án. Chúng ta sẽ hưởng lợi nhiều nhất từ những gì có thể dán lên tường, giúp các thành viên trong nhóm có thể chỉ tay vào đó trong các cuộc thảo luận. Nếu chúng ta từ chối sự lễ nghi hình thức và đón nhận sự đơn giản cùng tính linh hoạt (agility), chúng ta sẽ tạo ra những Context Map hữu ích, giúp dự án tiến bước thay vì bị sa lầy.
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000097_763821da2dc668f93e792c38b9e2f181e31501452a0d9e3833f3d1b92d5e65d6.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000098_dcdf334bcab59567ceb638822604c11adc7c51eb46179add29b50554284f96b5.png)
+
 Trang này được cố tình để trống
 
 ## Chapter 4
@@ -211,6 +221,8 @@ Khả năng chứng minh tính hợp lý khi lựa chọn bất kỳ phong cách
 
 [^1]: Chương này bàn về các phong cách kiến trúc (architectural styles), kiến trúc ứng dụng (application architectures), và các mẫu kiến trúc (architecture patterns). Một phong cách sẽ mô tả cách thức hiện thực hóa một kiến trúc cụ thể, trong khi một mẫu kiến trúc giải thích cách giải quyết một mối bận tâm cụ thể bên trong kiến trúc nhưng có phạm vi rộng lớn hơn một mẫu thiết kế (design pattern). Tôi khuyên bạn không nên quá câu nệ vào sự khác biệt giữa các khái niệm này, mà chỉ cần hiểu rằng DDD có thể nằm ở vị trí trung tâm của rất nhiều ảnh hưởng kiến trúc bao bọc xung quanh.
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000099_d2719ff7e77ddc31a7d0ed285d455cdec2f11b8f92de6693338813cac1587761.png)
+
 ## Road Map to This Chapter
 
 * Lắng nghe buổi phỏng vấn nhìn lại chặng đường đã qua với Giám đốc Thông tin (CIO) của SaaSOvation.
@@ -225,6 +237,8 @@ Khả năng chứng minh tính hợp lý khi lựa chọn bất kỳ phong cách
 Các phong cách và mẫu kiến trúc sau đây không phải là một túi đồ chơi công nghệ hấp dẫn để chúng ta tiện tay áp dụng bừa bãi vào mọi nơi có thể. Thay vào đó, hãy chỉ sử dụng chúng ở những nơi thực sự thích hợp, nơi chúng giúp giảm thiểu một rủi ro cụ thể mà nếu không giải quyết sẽ làm tăng khả năng thất bại của dự án hoặc hệ thống.
 
 [Evans] tập trung vào Layers Architecture. Chính vì vậy, SaaSOvation thoạt đầu đã vội vã kết luận rằng DDD chỉ có thể phát huy hiệu quả khi sử dụng mẫu kiến trúc nổi tiếng đó. Các nhóm đã phải mất một thời gian mới hiểu ra rằng DDD có khả năng thích ứng linh hoạt hơn thế rất nhiều, mặc dù Layers là mẫu thịnh hành nhất vào thời điểm cuốn sách của [Evans] được viết.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000100_71b5d40adb3d20ae593f4990a35395268a6e4f74e28391858b3ba73f52a5ee3d.png)
 
 Các nguyên lý của Layers Architecture vẫn có thể được vận dụng để định hướng cho những quyết định đúng đắn. Tuy nhiên, chúng ta không cần dừng lại ở đó, bởi vì chúng ta sẽ xem xét một số kiến trúc và mẫu hiện đại hơn có thể được tận dụng khi cần. Điều này sẽ chứng minh tính đa năng và khả năng áp dụng rộng rãi của DDD.
 
@@ -253,6 +267,10 @@ Mitchell: Chắc chắn là như vậy rồi. Chúng tôi thực tế đã bắt
 Maria: Thú vị thật. Mọi thứ nghe rất mộc mạc và thực tế từ gốc rễ. Những quyết định đó đã dẫn các anh đến đâu?
 
 Mitchell: Khi độ phức tạp của phần mềm tăng lên, chúng tôi cần quản lý chất lượng bằng cách đưa vào các công cụ unit test (kiểm thử đơn vị) và feature test (kiểm thử tính năng). Để làm được điều đó, chúng tôi gần như đã đảo lộn hoàn toàn mô hình Layers bằng cách áp dụng Dependency Inversion Principle (Nguyên lý Đảo ngược Phụ thuộc), hay DIP. Việc này rất quan trọng vì nhóm có thể dễ dàng kiểm thử bằng cách tạo stub (mô phỏng dữ liệu phản hồi) cho User Interface Layer và Infrastructure Layer để tập trung kiểm thử Application Layer và Domain Layer. Trên thực tế, chúng tôi có thể phát triển giao diện người dùng (UI) một cách độc lập hoàn toàn và trì hoãn các quyết định về công nghệ lưu trữ dữ liệu (persistence) trong một thời gian khá dài. Và điều này thực ra không phải là một bước nhảy quá xa rời khỏi Layers. Nhóm cảm thấy rất thoải mái và tự tin.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000101_9a9846241849e24560f62ddcbe898144d1708713956b9ef84ac3762d82aebf5f.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000102_08d810112272525510218b39c53795f5b45b05489f0cf79b8387a3c31233ecfb.png)
 
 Maria: Chà, hoán đổi cả UI lẫn tầng lưu trữ dữ liệu! Nghe có vẻ rủi ro đấy chứ. Việc đó có khó khăn lắm không?
 
@@ -304,6 +322,10 @@ Maria: Nhưng đó vẫn chưa phải là điểm dừng trên con đường đ�
 
 Mitchell: Haha. Không, không đâu. Dường như chuyện đó chẳng bao giờ dừng lại. Tuy nhiên, khi cô sở hữu một đội ngũ kỹ sư thông minh, con đường đầy rẫy phức tạp bỗng nhẹ nhàng như một chuyến dạo chơi trong công viên. Trên thực tế, Kiến trúc Hướng Sự kiện đã đơn giản hóa rất nhiều khu vực trong bộ hệ thống đang ngày càng mở rộng.
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000103_c017e61e56fdeca9a8720a002f6c0b97b680f64936e8c8a787c8436097d361f6.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000104_fba362b48617f9b573c1fbf4d9f2cdb576e035255a139d26df3d2dd13039f517.png)
+
 Maria: Chuẩn quá rồi. Kể tiếp đi anh. Đó rõ ràng là một thời cơ tuyệt vời. Chúng ta đang tiến tới phần câu chuyện mà tôi yêu thích nhất rồi đây. Anh biết đấy . . . [mắt ánh lên vẻ lấp lánh của những con số $$$]
 
 Mitchell: Kiến trúc của chúng tôi cho phép hệ thống mở rộng quy mô (scale) nhanh chóng và quản trị sự thay đổi xuất sắc đến mức RoaringCloud đã quyết định thâu tóm SaaSOvation với mức giá, ừm . . . tất cả những con số đó đều đã được công bố công khai trên hồ sơ tài chính rồi.
@@ -344,7 +366,11 @@ Hình 4.1 thể hiện các tầng phổ biến trong một ứng dụng DDD s�
 
 Hình 4.1 Kiến trúc Phân tầng (Layers Architecture) truyền thống trong đó áp dụng DDD
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000105_d4993e7f4c02f4dc75ba7e3319f12c93ae739649230c1ccb4ebf6983c9559df6.png)
+
 119
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000106_6f24723144776bc4ee1888739d75631f851eddad8ed6b04c03f554e20bf06c36.png)
 
 trong kiến trúc. Nằm phía trên nó là User Interface Layer và Application Layer. Nằm bên dưới nó là Infrastructure Layer.
 
@@ -386,6 +412,10 @@ Vì mô hình miền nắm giữ toàn bộ business logic đã được thảo 
 
 Ví dụ, các interface Repository đòi hỏi các implementation phải sử dụng các thành phần, chẳng hạn như cơ chế lưu trữ dữ liệu, vốn được đặt tại Infrastructure. Điều gì sẽ xảy ra nếu chúng ta chỉ đơn thuần triển khai các interface Repository ngay trong Infrastructure? Vì Infrastructure Layer nằm bên dưới Domain Layer, các tham chiếu từ Infrastructure ngược lên Domain sẽ vi phạm các quy tắc của Layers Architecture. Dẫu vậy, việc tránh điều đó không có nghĩa là các đối tượng miền chính sẽ liên kết với Infrastructure. Để tránh điều đó, chúng ta có thể sử dụng các Module (Chương 9) triển khai để che giấu các lớp kỹ thuật:
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000107_36916302071c845c2445380beb39142b050ad2dab5fe960590ab8fc6559cca59.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000108_432cd48632c23c9bc9f731097cf2df77d2e3f0eea9a666cfb82d143a2eb81b6a.png)
+
 com.saasovation.agilepm.domain.model.product.impl
 
 Như được chỉ ra trong Modules (Chương 9), MongoProductRepository có thể được đặt trong package đó. Tuy nhiên, đây không phải là cách duy nhất để giải quyết thách thức này. Chúng ta có thể quyết định triển khai các interface như vậy ngay trong Application Layer, điều này sẽ giữ vững các nguyên tắc của Layers. Hình 4.2 phác họa một góc nhìn về cách tiếp cận này. Nhưng làm như vậy có vẻ hơi gượng ép và khó chịu.
@@ -396,7 +426,11 @@ Trong một Layers Architecture truyền thống, Infrastructure nằm ở đáy
 
 Hình 4.2 Application Layer có thể chứa một số triển khai kỹ thuật của các interface được định nghĩa bởi Domain Layer.
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000109_89f86183e2edbee8be75e17e114b84eb7976d16e384f7e627bf78e5c6b5ca772.png)
+
 Các nhóm phát triển của SaaSOvation nhận thấy rằng việc đặt Infrastructure Layer ở dưới đáy cùng đã bộc lộ một số nhược điểm. Thứ nhất, nó khiến việc triển khai các khía cạnh kỹ thuật theo yêu cầu của Domain Layer trở nên khá đắng chát vì các nguyên tắc của Layers buộc phải bị vi phạm. Và trên thực tế, mã nguồn của họ rất khó kiểm thử. Làm thế nào họ có thể vượt qua bất lợi này?
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000110_8bca670e7b19e0afa80f53d7176eccb3d85719d39eeb63f4e671074e62a9cf03.png)
 
 Liệu chúng ta có thể nhào nặn ra điều gì đó ngọt ngào hơn nếu chúng ta điều chỉnh lại thứ tự của các Tầng?
 
@@ -413,7 +447,13 @@ Bản chất của định nghĩa này muốn truyền đạt rằng một thàn
 
 Một số người sẽ kết luận rằng DIP thực chất chỉ có hai tầng: một tầng ở trên đỉnh và một tầng ở dưới đáy. Tầng ở trên đỉnh sẽ triển khai các interface trừu tượng được định nghĩa trong tầng ở đáy. Điều chỉnh Hình 4.3 cho khớp với nhận định này, Infrastructure Layer sẽ là tầng nằm trên đỉnh, còn User Interface Layer, Application Layer, và Domain Layer sẽ hợp thành tầng nằm dưới đáy. Bạn có thể thích hoặc không thích góc nhìn này về một kiến trúc DIP. Đừng lo lắng; Hexagonal [Cockburn] hay Kiến trúc Ports and Adapters chính là đích đến của toàn bộ quá trình tiến hóa này.
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000111_ed814c4bf33e89aaafff6bb3bcb338610f70bec95942ced0a2f0d533571f5c17.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000112_8dd2e36f56da9f8afde774331e39836c674224a06ffd96e8ae6a345ce28c3a1e.png)
+
 Hình 4.3 Các Tầng khả dĩ khi áp dụng Dependency Inversion Principle. Chúng ta chuyển Infrastructure Layer lên phía trên tất cả các tầng khác, cho phép nó triển khai các interface cho tất cả các Tầng bên dưới.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000113_bf0ddf7c657784885e307c03bb5d0ace4272d4937dadfd0fa55e4cfa7e7ead7a.png)
 
 Từ kiến trúc trong Hình 4.3, chúng ta sẽ có một Repository được triển khai trong Infrastructure cho một interface được định nghĩa bên trong Domain:
 
