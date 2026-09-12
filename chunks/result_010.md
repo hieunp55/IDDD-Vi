@@ -43,6 +43,10 @@ Một subscriber (bên đăng ký nhận tin) đặc biệt đăng ký để ti�
 
 Các bản cập nhật này nên được thực hiện đồng bộ (synchronously) hay bất đồng bộ (asynchronously)? Điều đó phụ thuộc vào mức tải thông thường của hệ thống, và có thể phụ thuộc cả vào vị trí lưu trữ cơ sở dữ liệu của query model. Các ràng buộc về tính nhất quán dữ liệu và các yêu cầu về hiệu năng sẽ chi phối quyết định này.
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000136_8693c7ff48c18158ac92411fd16ca55b3d44a29a35e314e452e2aa2c86960155.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000137_9e4f1c6f30246914808af133e035942e76ad140962aad170600bf2178e0678bd.png)
+
 Để cập nhật một cách đồng bộ, query model và command model thông thường sẽ dùng chung một cơ sở dữ liệu (hoặc cùng một schema), và chúng ta sẽ cập nhật cả hai mô hình trong cùng một giao dịch (transaction). Điều đó giữ cho cả hai mô hình hoàn toàn nhất quán. Tuy nhiên, điều này sẽ đòi hỏi nhiều thời gian xử lý hơn cho việc cập nhật nhiều bảng, điều có thể không đáp ứng được SLA (Service-Level Agreement - Cam kết Mức Dịch vụ). Nếu hệ thống thường xuyên chịu tải nặng và quy trình cập nhật query model kéo dài, hãy sử dụng cơ chế cập nhật bất đồng bộ thay thế. Điều này có thể dẫn đến những thách thức về tính nhất quán sau cùng, nơi giao diện người dùng sẽ không phản ánh ngay lập tức những thay đổi gần đây nhất trong command model. Thời gian trễ (lag time) là không thể dự đoán trước, nhưng đó là một sự đánh đổi (trade-off) có thể cần thiết để đáp ứng các SLA khác.
 
 Điều gì sẽ xảy ra khi một giao diện hiển thị (view) mới được tạo ra trên giao diện người dùng nhưng dữ liệu của nó bắt buộc phải được tạo mới? Hãy thiết kế bảng và bất kỳ table view nào như đã mô tả trước đó. Điền dữ liệu trạng thái hiện tại vào bảng mới này bằng một trong vài kỹ thuật sau. Nếu command model được lưu trữ bằng Event Sourcing, hoặc nếu có một Event Store (Kho lưu trữ Sự kiện) chứa đầy đủ lịch sử, hãy phát lại (replay) các Event lịch sử để tạo ra các bản cập nhật. Điều này chỉ khả thi nếu các loại Event phù hợp đã tồn tại sẵn trong kho lưu trữ. Nếu không, bảng có thể sẽ phải được điền dữ liệu dần dần khi các command trong tương lai đi vào hệ thống. Ngoài ra, vẫn còn có một lựa chọn khác.
@@ -69,6 +73,10 @@ Giống như mọi pattern khác, CQRS đưa vào một số yếu tố xung đ�
 
 Hexagonal Architecture (Kiến trúc Lục giác) được thể hiện trong Hình 4.4 có thể đại diện cho khái niệm về một hệ thống tham gia vào một EDA thông qua các message gửi đến và gửi đi. Một EDA không nhất thiết phải sử dụng Hexagonal, nhưng đó là một cách tiếp cận thỏa đáng để trình bày các khái niệm ở đây. Đối với một dự án làm mới từ đầu (greenfield project), việc cân nhắc sử dụng Hexagonal làm phong cách bao quát tổng thể là rất đáng giá.
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000138_04d2d39e6492fef9a3ac127cee3d36233584817c56a4bb5eac1c022cb57c74e7.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000139_03db5ddfcc4069ec2c6367e56fa7cdef490330edaef95f4399a3aef17ca1c6d8.png)
+
 Quan sát Hình 4.4, giả sử client hình tam giác và cơ chế đầu ra hình tam giác tương ứng đại diện cho cơ chế messaging được sử dụng bởi Bounded Context (Ngữ cảnh Ranh giới). Các sự kiện đầu vào đi vào qua một Port (Cổng) riêng biệt so với Port được ba client kia sử dụng. Các sự kiện đầu ra tương tự cũng đi qua một Port khác. Như đã đề xuất trước đây, các Port riêng biệt này có thể đại diện cho việc vận chuyển message qua AMQP (Advanced Message Queuing Protocol - Giao thức Hàng đợi Thông điệp Nâng cao), như được sử dụng bởi RabbitMQ, thay vì giao thức HTTP phổ biến hơn mà các client khác sử dụng. Bất kể cơ chế messaging thực tế nào đang được sử dụng, chúng ta sẽ giả định rằng các sự kiện đi vào và đi ra khỏi hệ thống thông qua các hình tam giác mang tính biểu tượng này.
 
 Có thể có một số loại sự kiện khác nhau đi vào và đi ra khỏi một hình lục giác. Chúng ta đặc biệt quan tâm đến các Domain Event. Ứng dụng cũng có thể đăng ký nhận các sự kiện hệ thống, sự kiện doanh nghiệp hoặc các loại sự kiện khác. Có thể những sự kiện đó xử lý tình trạng và giám sát hệ thống, ghi log, cấp phát tài nguyên động và những tác vụ tương tự. Dẫu vậy, chính các Domain Event mới là thứ truyền tải những diễn biến đòi hỏi sự chú ý trong mô hình hóa của chúng ta.
@@ -78,6 +86,8 @@ Chúng ta có thể nhân bản hệ thống trong khung nhìn Hexagonal Archite
 Các Domain Event được công bố bởi một hệ thống như vậy thông qua Port đầu ra sẽ được chuyển phát tới các subscriber được đại diện ở những hệ thống khác thông qua Port đầu vào của chúng. Các Domain Event khác nhau nhận được mang một ý nghĩa cụ thể trong từng Bounded Context tiếp nhận, hoặc có thể hoàn toàn không mang ý nghĩa nào cả. [^5] Nếu loại Event đó được một Context cụ thể quan tâm, các thuộc tính của nó sẽ được chuyển đổi cho phù hợp với API của ứng dụng và được sử dụng để thực thi một thao tác tại đó. Thao tác command được thực thi trên API của ứng dụng sau đó sẽ được phản ánh vào mô hình miền theo đúng giao thức của nó.
 
 Hình 4.7 Ba hệ thống sử dụng Kiến trúc Hướng Sự kiện với phong cách Hexagonal bao quát. Phong cách EDA tách rời mọi sự phụ thuộc của các hệ thống ngoại trừ sự phụ thuộc vào chính cơ chế messaging và các kiểu Event mà chúng đăng ký nhận tin.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000140_409c7f73e00848fe24e830a6bf11a0d25f6e9980eb9f06c949803f3d5bd71993.png)
 
 Hoàn toàn có khả năng một Domain Event cụ thể nhận được chỉ đại diện cho một phần của một quy trình đa tác vụ (multitask process). Cho đến khi tất cả các Domain Event dự kiến đến đủ, quy trình đa tác vụ đó mới được coi là hoàn tất. Nhưng quy trình đó bắt đầu như thế nào? Nó được phân tán trên toàn doanh nghiệp ra sao? Và làm cách nào chúng ta theo dõi tiến độ cho đến khi quy trình hoàn thành? Câu trả lời sẽ được thảo luận ở phần sau trong mục về các tiến trình chạy lâu dài (long-running processes). Nhưng trước tiên, việc đặt nền tảng ban đầu là cần thiết. Các hệ thống dựa trên thông điệp thường phản ánh phong cách Pipes and Filters (Ống dẫn và Bộ lọc).
 
@@ -97,6 +107,10 @@ $cat phone_numbers.txt \vert{} grep 303 \vert{} wc -l 3$
 3. Cuối cùng, `wc` đọc luồng đầu vào tiêu chuẩn của nó, vốn được dẫn từ luồng đầu ra tiêu chuẩn của `grep`. Đối số dòng lệnh truyền cho `wc` là `-l`, yêu cầu nó đếm số dòng mà nó đọc được. Nó xuất ra kết quả, trong trường hợp này
 
 [^5]: Nếu sử dụng các bộ lọc thông điệp (message filters) hoặc các routing key (khóa định tuyến), các subscriber có thể tránh được việc nhận các Event vô nghĩa đối với chúng.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000141_743228c006af2e6099d12f3da07772b4c207750e64b0fe78d0a8698975393a16.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000142_7ff5450e93b521bb669adc286984bf43497bf7d3b7c61d42e5727c9fb6239.png)
 
 là `3`, bởi vì có ba dòng đã được xuất ra bởi `grep`. Lưu ý rằng giờ đây đầu ra tiêu chuẩn được hiển thị ra console vì lần này không còn Pipe nào dẫn tới một lệnh bổ sung nào khác nữa.
 
@@ -139,10 +153,15 @@ Dưới đây là cách thức một giải pháp Pipes and Filters dựa trên 
 2. Một component xử lý message có tên `PhoneNumberFinder` được cấu hình để đăng ký nhận `AllPhoneNumbersListed` và tiếp nhận nó. Component xử lý message này là Filter đầu tiên trong pipeline. Filter này được cấu hình để tìm kiếm chuỗi văn bản `303`. Component này xử lý Event bằng cách tìm kiếm chuỗi ký tự `303` trên từng dòng. Sau đó, nó tạo một Event mới có tên `PhoneNumbersMatched`, đưa toàn bộ các dòng kết quả khớp vào Event. Message Event này được gửi đi, tiếp tục chu trình của pipeline.
 3. Một component xử lý message có tên `MatchedPhoneNumberCounter` được cấu hình để đăng ký nhận `PhoneNumbersMatched` và tiếp nhận nó. Component xử lý message này là Filter thứ hai trong pipeline. Trách nhiệm duy nhất của nó
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000143_1d3d77d06ca408e61f1d8a34ac5bd450f2ee8dc7d4406d4cdcc99079dc050001.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000144_eb3d73ba8f832c10082175cfacfd66173102c9e47258248450121c28f30f4162.png)
+
 Hình 4.8 Một pipeline được tạo thành bằng cách gửi các Event mà các Filter sẽ xử lý.
 
-là đếm các số điện thoại có trong Event và sau đó chuyển tiếp kết quả trong một Event mới. Trong trường hợp này, nó đếm được tổng cộng ba dòng chứa số điện thoại. Filter hoàn tất bằng cách tạo ra Event `MatchedPhoneNumbersCounted`, gán thuộc tính `count` thành `3`. Message Event này được gửi đi, tiếp tục chu trình của pipeline.
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000145_a981e7587740ff5daed7fada9d840a127e12a0d8fb669ef4ab79fe7d8e923068.png)
 
+là đếm các số điện thoại có trong Event và sau đó chuyển tiếp kết quả trong một Event mới. Trong trường hợp này, nó đếm được tổng cộng ba dòng chứa số điện thoại. Filter hoàn tất bằng cách tạo ra Event `MatchedPhoneNumbersCounted`, gán thuộc tính `count` thành `3`. Message Event này được gửi đi, tiếp tục chu trình của pipeline.
 4. Cuối cùng, một component xử lý message đã đăng ký nhận `MatchedPhoneNumbersCounted` sẽ tiếp nhận nó. Component này có tên là `PhoneNumberExecutive`. Trách nhiệm duy nhất của nó là ghi log kết quả ra tệp, bao gồm thuộc tính `count` của Event cùng ngày giờ nhận được. Trong trường hợp này, nó ghi:
 5. 3 phone numbers matched on July 15, 2012 at 11:15 PM (3 số điện thoại khớp vào ngày 15 tháng 7 năm 2012 lúc 11:15 CH)
 
@@ -162,6 +181,8 @@ Như đã giải thích trong Domain Events (Chương 8), đây không chỉ là
 
 Ví dụ tổng hợp về Pipes and Filters có thể được mở rộng để minh họa một pattern xử lý song song, phân tán, hướng sự kiện khác, cụ thể là: Long-Running Processes (Các Tiến trình Chạy Lâu dài). Một Long-Running Process đôi khi được gọi là một Saga, nhưng tùy thuộc vào nền tảng của bạn, tên gọi đó có thể xung đột với một pattern đã tồn tại từ trước. Mô tả ban đầu về Saga được trình bày trong [Garcia-Molina & Salem]. Nhằm nỗ lực tránh sự nhầm lẫn và mơ hồ, tôi chọn sử dụng tên gọi Long-Running Process, và đôi khi tôi dùng tên Process cho ngắn gọn.
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000146_61f96fc7e1d47095ec52ba374e14a9c235e8fe16fd3e6c7230004064bb80d6bb.png)
+
 ## Cowboy Logic
 
 * LB: 'Dallas và Dynasty, đó mới đích thị là những gì tôi gọi là các saga (phim dài tập trường thiên)!'
@@ -170,9 +191,13 @@ Ví dụ tổng hợp về Pipes and Filters có thể được mở rộng đ�
 > 💡 **Giải thích thêm:** "Dallas" và "Dynasty" là hai bộ phim truyền hình dài tập (soap operas) kinh điển của Mỹ phát sóng vào thập niên 1980, kể về những mâu thuẫn gia tộc và thương trường kéo dài hàng trăm tập qua nhiều năm. Tại Đức, phim "Dynasty" được phát sóng dưới tên "Der Denver Clan". Đây là phép chơi chữ dí dỏm giữa từ "saga" trong văn hóa đại chúng (phim truyền hình dài tập, trường thiên kịch nhiều kỳ) và thuật ngữ kỹ thuật "Saga / Long-Running Process" trong hệ thống phân tán (tiến trình nghiệp vụ phức tạp kéo dài qua nhiều bước và nhiều hệ thống).
 > Nguồn tham khảo: [Wikipedia - Dynasty (1981 TV series)](https://en.wikipedia.org/wiki/Dynasty_(1981_TV_series))
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000147_b25b49625e45e2b7d14d2a32881bb7415c4b6a2d50e4cd403896c0b6080872b5.png)
+
 Mở rộng ví dụ trước, chúng ta có thể tạo ra các pipeline song song bằng cách chỉ cần thêm một Filter mới duy nhất, `TotalPhoneNumbersCounter`, làm subscriber bổ sung cho `AllPhoneNumbersListed`. Nó nhận Event `AllPhoneNumbersListed` gần như song song với `PhoneNumberFinder`. Filter mới này có một mục tiêu rất đơn giản: đếm tất cả các liên hệ hiện có. Tuy nhiên, lần này `PhoneNumberExecutive` vừa khởi động Long-Running Process vừa theo dõi nó cho đến khi hoàn tất. Thành phần executive có thể tái sử dụng hoặc không tái sử dụng `PhoneNumbersPublisher`, nhưng điều quan trọng là điểm mới của nó. Executive, được triển khai dưới dạng một Application Service hoặc Command Handler, theo dõi tiến độ của Long-Running Process, thấu hiểu khi nào nó hoàn thành và phải làm gì khi điều đó xảy ra. Hãy tham khảo Hình 4.9 khi chúng ta đi qua từng bước của Long-Running Process mẫu này.
 
 Hình 4.9 Thành phần executive của Long-Running Process đơn lẻ khởi tạo quá trình xử lý song song và theo dõi nó đến khi hoàn tất. Các mũi tên rộng hơn chỉ ra nơi tính song song bắt đầu khi hai Filter nhận cùng một Event.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000148_889d37c15b7da80b4fb2849fdf8001b8fa108f4135f1ffee298841c647d871e5.png)
 
 ## Different Ways to Design a Long-Running Process
 
@@ -195,6 +220,8 @@ Kết quả đầu ra của log được bổ sung thêm tổng số lượng s�
 
 Tuy nhiên, có một vấn đề với Long-Running Process này. `PhoneNumberExecutive` hiện không có cách nào biết được rằng nó đã nhận được hai Domain Event hoàn tất gắn liền với các tiến trình song song cụ thể tương ứng. Nếu nhiều tiến trình như vậy được khởi động song song và các Event hoàn tất của từng tiến trình được nhận không theo thứ tự, làm thế nào executive biết được tiến trình song song nào đang kết thúc? Đối với ví dụ tổng hợp của chúng ta, việc ghi log với các event không khớp nhau hầu như không gây hậu quả nghiêm trọng. Nhưng khi xử lý các miền nghiệp vụ của doanh nghiệp, một Long-Running Process bị sai lệch trật tự có thể dẫn đến thảm họa.
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000149_dc2ccad4a04733c14b996005399bd8d5b3b2d2ce3bb51b48c3be4fa460ff71cb.png)
+
 Bước đầu tiên trong giải pháp cho tình huống nan giải này là gán một định danh Process duy nhất được mang theo bởi mỗi Domain Event liên quan. Đây có thể là cùng một định danh được gán cho Domain Event khởi nguồn kích hoạt Long-Running Process bắt đầu (ví dụ: `AllPhoneNumbersListed`). Chúng ta có thể sử dụng một định danh duy nhất toàn cầu (UUID - Universally Unique Identifier) được cấp phát riêng cho Process. Xem Entities (Chương 5) và Domain Events (Chương 8) để biết phần thảo luận về việc cung cấp định danh duy nhất. `PhoneNumberExecutive` giờ đây sẽ chỉ ghi đầu ra vào log khi nhận được các Event hoàn tất có định danh trùng khớp nhau. Tuy nhiên, chúng ta không thể mong đợi executive cứ đứng chờ cho đến khi nhận đủ tất cả các Event hoàn tất. Bản thân nó cũng là một subscriber tiếp nhận Event, xuất hiện và biến mất theo việc tiếp nhận và xử lý của từng lượt chuyển phát.
 
 ## Executive and Tracker?
@@ -207,6 +234,8 @@ Cách tiếp cận này bám sát phương pháp do Pat Helland đề xuất, m�
 
 Hình 4.10 Một PhoneNumberStateTracker đóng vai trò là một đối tượng trạng thái của Long-Running Process để theo dõi tiến độ. Tracker được triển khai dưới dạng một Aggregate.
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000150_742f071f76132bbcb3e13bb1cc20bdb4935625372f864a803c7a92559e363bb0.png)
+
 Trong một miền thực tế, mỗi thực thể của một Process executive tạo ra một đối tượng trạng thái mới tương tự như Aggregate để theo dõi sự hoàn tất sau cùng của nó. Đối tượng trạng thái được tạo ra khi Process bắt đầu, liên kết với cùng một định danh duy nhất mà mỗi Domain Event liên quan bắt buộc phải mang theo. Việc nó lưu giữ một mốc thời gian (timestamp) ghi nhận thời điểm Process bắt đầu cũng có thể rất hữu ích (lý do sẽ được thảo luận ở phần sau của chương). Đối tượng theo dõi trạng thái Process được minh họa trong Hình 4.10.
 
 Khi mỗi pipeline trong quá trình xử lý song song hoàn tất, executive sẽ nhận được một Event hoàn tất tương ứng. Executive truy xuất thực thể theo dõi trạng thái bằng cách khớp định danh Process duy nhất được mang theo bởi Event nhận được và thiết lập một thuộc tính đại diện cho bước vừa hoàn thành.
@@ -216,6 +245,8 @@ Thực thể trạng thái Process thường có một phương thức chẳng h
 Một cơ chế messaging nhất định có thể thiếu các tính năng đảm bảo chuyển phát duy nhất một lần cho mỗi Event. [^7] Nếu cơ chế messaging có khả năng chuyển phát một message Domain Event hai hoặc nhiều lần, chúng ta có thể sử dụng đối tượng trạng thái Process để khử trùng lặp (de-duplicate). Điều này có đòi hỏi các tính năng đặc biệt phải được cung cấp bởi cơ chế messaging không? Hãy xem xét cách xử lý mà không cần đến chúng.
 
 [^7]: Điều này không có nghĩa là chuyển phát được đảm bảo (guaranteed delivery), mà là đảm bảo chuyển phát duy nhất một lần (guaranteed single delivery), hay chính xác một lần duy nhất (once and only once).
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000151_862da500abe98875fed9eb57d08a931a28d2f55c82727934735da055e9734d59.png)
 
 Khi nhận được mỗi Event hoàn tất, executive kiểm tra đối tượng trạng thái xem đã có bản ghi hoàn tất nào cho Event cụ thể đó từ trước hay chưa. Nếu cờ báo hiệu hoàn tất đã được thiết lập, Event đó được coi là bản sao trùng lặp và bị bỏ qua, nhưng vẫn gửi xác nhận đã nhận (acknowledged). [^8] Một lựa chọn khác là thiết kế đối tượng trạng thái có tính lũy đẳng (idempotent). Bằng cách đó, nếu executive nhận phải các message trùng lặp, đối tượng trạng thái sẽ hấp thụ các lượt ghi nhận trùng lặp đó như nhau mà không làm sai lệch kết quả. Mặc dù chỉ có lựa chọn thứ hai mới thiết kế bản thân state tracker có tính lũy đẳng, cả hai cách tiếp cận này đều hỗ trợ cơ chế truyền tin lũy đẳng (idempotent messaging). Xem Domain Events (Chương 8) để thảo luận sâu hơn về việc khử trùng lặp Event.
 
@@ -231,11 +262,17 @@ Các Long-Running Process thường gắn liền với xử lý song song phân 
 
 Các nhóm phát triển SaaSOvation áp dụng Kiến trúc Hướng Sự kiện xuyên suốt các Bounded Context, và nhóm ProjectOvation sẽ sử dụng dạng đơn giản nhất của một Long-Running Process để quản lý việc tạo ra các Discussion được gán cho các thực thể Product. Phong cách bao quát là Hexagonal để quản lý việc truyền thông điệp ra bên ngoài và công bố các Domain Event xung quanh doanh nghiệp.
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000152_9408e8e9b9b0cfc46ea281a49a4d7bc5a429c1c2049ad4b0975befb7e8301f6d.png)
+
 Một điều không thể bỏ qua là executive của Long-Running Process có thể công bố một, hai hoặc nhiều Event để khởi tạo quá trình xử lý song song. Cũng có thể có không chỉ hai, mà là ba hoặc nhiều subscriber cho bất kỳ Event hoặc các Event khởi tạo nào. Nói cách khác, một Long-Running Process có thể dẫn đến nhiều hoạt động quy trình nghiệp vụ riêng biệt được thực thi đồng thời. Do đó, ví dụ tổng hợp của chúng ta chỉ được giới hạn về độ phức tạp nhằm mục đích truyền đạt các khái niệm cơ bản của một Long-Running Process.
 
 Các Long-Running Process thường hữu ích khi việc tích hợp với các hệ thống cũ (legacy systems) có thể có độ trễ cao. Ngay cả khi độ trễ và hệ thống cũ không phải là mối bận tâm hàng đầu, chúng ta vẫn hưởng lợi từ tính phân tán và song song một cách thanh lịch, điều có thể dẫn đến các hệ thống nghiệp vụ có tính sẵn sàng cao và khả năng mở rộng quy mô lớn.
 
 Một số cơ chế messaging có hỗ trợ tích hợp sẵn cho Long-Running Process, điều này có thể đẩy nhanh đáng kể việc áp dụng. Một trong số đó là [NServiceBus], nơi gọi chúng một cách cụ thể là các Saga. Một triển khai Saga khác được cung cấp bởi [MassTransit].
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000153_5f91a173d67a97a969e3229f184878e6418a45a6953fd4f57a0f213bddf1e31a.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000154_6fd93cbffbe971b1e39478f01b23debc3ab4ce5cc2f691e785c1422ad6a9045e.png)
 
 ## Event Sourcing
 
@@ -253,6 +290,8 @@ Có nhiều định nghĩa khác nhau về Event Sourcing, vì vậy một sự 
 
 Hình 4.11 Góc nhìn cấp cao về Event Sourcing, nơi các Aggregate công bố các Event được lưu trữ và sử dụng để theo dõi các thay đổi trạng thái của mô hình. Repository đọc các Event từ Store và áp dụng chúng để tái thiết lập trạng thái của Aggregate.
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000155_aba1ff7d91306db8433843a70a8b11e690a5e1b1c3bd2756de454a519f0e31b3.png)
+
 ## A Moving Target?
 
 Định nghĩa về Event Sourcing đã trải qua một số cuộc xem xét kỹ lưỡng và tinh chỉnh, và tại thời điểm cuốn sách này được viết, nó vẫn chưa hoàn toàn ổn định tuyệt đối. Giống như hầu hết các kỹ thuật tiên phong hàng đầu, sự tinh chỉnh là điều cần thiết. Những gì được mô tả ở đây nắm bắt được bản chất cốt lõi của pattern này khi được áp dụng cùng với DDD và có lẽ ở mức độ lớn sẽ phản ánh cách thức mà nó nhìn chung sẽ được sử dụng trong tương lai.
@@ -262,6 +301,10 @@ Sau một thời gian dài với rất nhiều thay đổi đối với bất k�
 Để tránh điểm nghẽn cổ chai (bottleneck) này, chúng ta có thể áp dụng một giải pháp tối ưu hóa sử dụng các ảnh chụp nhanh trạng thái Aggregate (Aggregate state snapshots). Một tiến trình được xây dựng để tạo ra, ở chế độ chạy nền, một snapshot ghi lại trạng thái trong bộ nhớ của Aggregate tại một thời điểm cụ thể trong lịch sử của Event Store. Để làm được điều này, Aggregate được tải vào bộ nhớ bằng cách áp dụng tất cả các Event trước đó tính đến thời điểm hiện tại. Trạng thái của Aggregate sau đó được tuần tự hóa, và hình ảnh snapshot đã tuần tự hóa đó sẽ được lưu vào Event Store. Từ thời điểm đó trở đi, Aggregate trước tiên sẽ được khởi tạo bằng cách sử dụng snapshot gần đây nhất, và sau đó tất cả các Event mới hơn snapshot đó sẽ được phát lại trên Aggregate như đã mô tả trước đây.
 
 [^10]: Trạng thái của Aggregate là sự kết hợp (conflation) của các Event trước đó, nhưng chỉ bằng cách áp dụng chúng theo đúng thứ tự mà chúng đã xảy ra.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000156_4b74695826a2ca3a8a4b40f5c0bd4bc27bb7da7b8d05f5107d8c64803dfd46b2.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000157_add9ade71682afeba7fa3c79443eab9dc0a9c80ee23cb83ed85ec6eea7a94d53.png)
 
 Các snapshot không được tạo ra một cách ngẫu nhiên. Thay vào đó, chúng có thể được tạo tại các thời điểm mà một số lượng Event mới được xác định trước đã xảy ra. Nhóm phát triển sẽ xác định con số này dựa trên các phỏng đoán kinh nghiệm (heuristics) của miền hoặc các quan sát khác. Ví dụ, chúng ta có thể nhận thấy rằng việc truy xuất Aggregate đạt hiệu năng tối ưu khi không có quá 50 hoặc khoảng 100 Event giữa các snapshot.
 
@@ -289,4 +332,6 @@ Khi các hệ thống phần mềm ngày càng trở nên phức tạp và tinh 
 
 [^12]: Điều này không có nghĩa Fabrics và Grids là những khái niệm hoàn toàn đồng nhất, nhưng đối với những ai nhìn nhận kiến trúc này một cách khái quát, những thuật ngữ này thường mang cùng một ý nghĩa. Chắc chắn bộ phận tiếp thị và bán hàng thường giới hạn chúng về cùng một ý nghĩa. Dù sao đi nữa, phần này sử dụng thuật ngữ Data Fabric vì nó nhìn chung đại diện cho một tập hợp các năng lực phong phú hơn so với Grid Computing.
 
-## Cowboy Logic
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000158_19b56e28b4c9394bd6a0990b00b04986aac2e01f0ea33ad8e8fd578d7c83cefe.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000159_d23b251bad2f075513f18de2800a28041f5820adfc3834bcffc95407378d5f25.png)

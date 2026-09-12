@@ -898,6 +898,18 @@ Lời phê bình ở trên dành cho Hibernate được nhìn nhận từ một 
 
 ![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000009_6d9abf391db6e6ca88e2a6d5e4c89e5c5e72ca46d4f85f02b5c086c62a984a6d.png)
 
+﻿![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000010_c0d2c752716d17d5e540f8314abbababa3439f7a12729c69aa3db5e549c9a58e.png)
+
+Hầu hết, nếu không muốn nói là tất cả, các Web frameworks hiện nay đều hoạt động hoàn toàn dựa trên tiêu chuẩn JavaBean. Nếu bạn muốn các đối tượng Java của mình có thể đổ dữ liệu lên các trang Web, các đối tượng Java đó tốt hơn hết nên hỗ trợ đặc tả JavaBean. Nếu bạn muốn các biểu mẫu HTML (HTML forms) đổ dữ liệu vào một đối tượng Java khi gửi dữ liệu (submit) lên phía máy chủ, đối tượng biểu mẫu Java của bạn cũng tốt hơn hết nên hỗ trợ đặc tả JavaBean.
+
+Hầu như mọi framework trên thị trường ngày nay đều đòi hỏi, và do đó cổ súy, việc sử dụng các thuộc tính công khai (public properties) trên các đối tượng đơn giản. Phần lớn các lập trình viên không thể tránh khỏi việc bị ảnh hưởng bởi vô số các lớp thiếu máu (anemic classes) tràn ngập khắp doanh nghiệp của họ. Hãy thừa nhận đi. Bạn cũng từng bị cuốn vào lối mòn đó rồi, đúng không? Kết quả là chúng ta rơi vào một tình cảnh có thể gán cho cái nhãn chuẩn xác nhất: hội chứng thiếu máu khắp mọi nơi (anemia everywhere).
+
+## Hãy xem Hội chứng Thiếu máu Tác động Gì tới Mô hình của Bạn (Look at What Anemia Does to Your Model)
+
+Được rồi, hãy giả sử chúng ta đều đồng ý rằng điều này vừa là sự thật vừa gây phiền toái lớn cho chúng ta. Vậy tình trạng thiếu máu khắp mọi nơi thì có liên quan gì đến chứng mất trí nhớ (memory loss)? Khi bạn đọc qua mã nguồn client của một Anemic Domain Model (Mô hình Miền Thiếu máu) — ví dụ như một Application Service (Dịch vụ Ứng dụng) (4, 14) mạo danh, vận hành theo phong cách Transaction Script (Kịch bản Giao dịch) — chúng ta thường thấy những gì? Dưới đây là một ví dụ sơ đẳng:
+
+
+```
 
 @Transactional public void saveCustomer( String customerId, String customerFirstName, String customerLastName, String streetAddress1, String streetAddress2, String city, String stateOrProvince, String postalCode, String country, String homePhone, String mobilePhone, String primaryEmailAddress, String secondaryEmailAddress) { Customer customer = customerDao.readCustomer(customerId); if (customer == null) { customer = new Customer(); customer.setCustomerId(customerId); } customer.setCustomerFirstName(customerFirstName); customer.setCustomerLastName(customerLastName); customer.setStreetAddress1(streetAddress1); customer.setStreetAddress2(streetAddress2); customer.setCity(city); customer.setStateOrProvince(stateOrProvince); customer.setPostalCode(postalCode); customer.setCountry(country); customer.setHomePhone(homePhone); customer.setMobilePhone(mobilePhone);
 
@@ -1245,7 +1257,66 @@ Client của mô hình tường minh này dường như đang hoạt động tr�
 
 // client commit backlog item vào một sprint // bằng cách sử dụng hành vi đặc thù của miền backlogItem.commitTo(sprint);
 
-<!-- ⚠️ CẢNH BÁO chunk 4: số ảnh/heading/code-block KHÔNG khớp bản gốc (gốc={'images': 15, 'headings': 27, 'fences': 20}, dịch={'images': 13, 'headings': 24, 'fences': 18}). Xem lại đoạn này bằng tay. -->
+```
+
+Ví dụ đầu tiên sử dụng một cách tiếp cận mang nặng tính hướng dữ liệu (data-centric). Trọng trách lúc này bị đẩy hoàn toàn về phía client trong việc phải biết làm thế nào để commit backlog item vào sprint một cách chuẩn xác. Mô hình này — vốn không thực sự là một domain model — hoàn toàn không giúp ích được gì. Sẽ ra sao nếu client sơ suất chỉ thay đổi mỗi sprintId mà quên cập nhật status, hoặc ngược lại? Hay điều gì sẽ xảy ra nếu trong tương lai có thêm một thuộc tính khác bắt buộc phải được thiết lập? Mã nguồn của client sẽ phải được phân tích kỹ lưỡng để đảm bảo ánh xạ chuẩn xác các giá trị dữ liệu vào các thuộc tính thích hợp trên BacklogItem.
+
+Cách tiếp cận này cũng làm lộ rõ hình thù bên trong của đối tượng BacklogItem và rõ ràng dồn toàn bộ sự chú ý vào các thuộc tính dữ liệu thay vì các hành vi của nó. Ngay cả khi bạn biện minh rằng setSprintId() và setStatus() cũng là các hành vi, thực tế là những "hành vi" này hoàn toàn không mang giá trị miền nghiệp vụ thực sự. Những "hành vi" này không hề bộc lộ một cách tường minh chủ đích của những kịch bản mà phần mềm miền nghiệp vụ được kỳ vọng phải mô hình hóa — đó là hành động commit một backlog item vào sprint. Chúng gây ra tình trạng quá tải nhận thức (cognitive overload) khi lập trình viên phía client phải căng não lựa chọn trong số các thuộc tính của BacklogItem những trường nào là cần thiết để commit một backlog item vào sprint. Có thể có rất nhiều thuộc tính như vậy vì đây là một mô hình hướng dữ liệu.
+
+Bây giờ hãy xem xét ví dụ thứ hai. Thay vì phơi bày các thuộc tính dữ liệu ra cho các client, nó bộc lộ một hành vi thể hiện rõ ràng và dứt khoát rằng client có thể commit một backlog item vào một sprint. Các chuyên gia trong miền nghiệp vụ cụ thể này thảo luận về yêu cầu sau của mô hình:
+
+Cho phép mỗi backlog item được commit vào một sprint. Nó chỉ có thể được commit nếu nó đã được lên lịch phát hành (scheduled for release). Nếu nó đã được commit vào một sprint khác trước đó, nó bắt buộc phải được uncommit (hủy cam kết) ra trước. Khi hành động commit hoàn tất, hãy gửi thông báo cho các bên quan tâm.
+
+Do đó, phương thức trong ví dụ thứ hai đã nắm bắt trọn vẹn Ubiquitous Language của mô hình trong ngữ cảnh, nghĩa là bên trong Bounded Context mà kiểu dữ liệu BacklogItem được cô lập. Và khi phân tích kịch bản này, chúng ta phát hiện ra rằng giải pháp đầu tiên là chưa hoàn chỉnh và tiềm ẩn nhiều lỗi nghiêm trọng.
+
+Với cách triển khai thứ hai, các client không cần phải bận tâm xem những gì là bắt buộc để thực hiện hành động commit, dù điều đó đơn giản hay phức tạp. Việc triển khai phương thức này chứa đựng lượng logic vừa đủ khi cần thiết. Chúng ta đã dễ dàng bổ sung thêm một mệnh đề bảo vệ (guard clause) để ngăn chặn việc commit một backlog item khi nó chưa được lên lịch phát hành. Đúng là bạn cũng có thể đặt các mệnh đề bảo vệ bên trong các setters của cách triển khai đầu tiên, nhưng khi đó hàm setter lại phải gánh thêm trách nhiệm hiểu toàn bộ ngữ cảnh trạng thái của đối tượng thay vì chỉ kiểm tra các yêu cầu đơn thuần của sprintId và status.
+
+Còn có một điểm khác biệt tinh tế nữa ở đây. Hãy lưu ý rằng nếu backlog item đã được commit vào một sprint khác, nó sẽ trước hết được uncommit khỏi sprint hiện tại. Đây là một chi tiết rất quan trọng, bởi vì khi một backlog item bị hủy commit khỏi sprint, một Domain Event bắt buộc phải được phát hành tới các client:
+
+Cho phép mỗi backlog item được uncommit khỏi một sprint. Khi backlog item bị uncommit, hãy gửi thông báo cho các bên quan tâm.
+
+Việc phát hành thông báo hủy cam kết này được thực hiện hoàn toàn "miễn phí" chỉ bằng cách gọi hành vi miền uncommitFrom(). Phương thức commitTo() thậm chí không cần phải biết việc nó đang gửi thông báo. Tất cả những gì nó cần biết là nó phải uncommit khỏi bất kỳ sprint hiện tại nào trước khi commit vào một sprint mới. Ngoài ra, bản thân hành vi miền commitTo() cũng thông báo cho các bên quan tâm bằng một Event ở bước cuối cùng của nó. Nếu không đặt hành vi giàu ý nghĩa này vào bên trong BacklogItem, chúng ta sẽ buộc phải phát hành các Events từ phía client. Điều đó chắc chắn sẽ làm rò rỉ logic miền ra khỏi mô hình. Rất tồi tệ.
+
+Rõ ràng, việc tạo ra BacklogItem ở ví dụ thứ hai đòi hỏi nhiều tư duy thiết kế hơn so với ví dụ đầu tiên. Dẫu vậy, lượng tư duy cần thêm không phải là quá lớn, trong khi những lợi ích gặt hái được lại vượt trội hơn rất nhiều. Càng học cách thiết kế theo hướng này, mọi thứ sẽ càng trở nên dễ dàng hơn. Sau cùng, chắc chắn sẽ cần nhiều suy nghĩ hơn, nhiều nỗ lực hơn, nhiều sự phối hợp và gắn kết giữa các thành viên trong nhóm hơn, nhưng không đến mức làm cho DDD trở nên nặng nề. Lối tư duy mới này hoàn toàn xứng đáng với công sức bỏ ra.
+
+## Giờ Làm việc với Bảng trắng (Whiteboard Time)
+
+- Dựa trên miền nghiệp vụ cụ thể mà bạn đang trực tiếp tham gia, hãy nghĩ về các thuật ngữ và hành động phổ biến của mô hình.
+- Viết các thuật ngữ đó lên bảng.
+- Tiếp theo, hãy viết các cụm từ mà toàn đội ngũ của bạn nên sử dụng khi trao đổi về dự án.
+- Thảo luận những điều đó với một chuyên gia miền thực thụ để xem chúng có thể được tinh chỉnh ra sao (nhớ mang theo cà phê nhé).
+
+## Cơ sở Biện minh cho việc Mô hình hóa Miền (Justification for Domain Modeling)
+
+Mô hình hóa chiến thuật (tactical modeling) nhìn chung phức tạp hơn so với mô hình hóa chiến lược (strategic modeling). Do đó, nếu bạn có ý định phát triển một domain model sử dụng các mẫu hình chiến thuật của DDD (Aggregates, Services, Value Objects, Events, v.v.), việc làm này sẽ đòi hỏi sự tư duy cẩn trọng hơn và một khoản đầu tư lớn hơn. Đã là như vậy, làm thế nào để một tổ chức có thể biện minh cho việc mô hình hóa miền mang tính chiến thuật? Những tiêu chí nào có thể được dùng để đánh giá xem một dự án nhất định có xứng đáng với khoản đầu tư bổ sung cần thiết để áp dụng DDD bài bản từ trên xuống dưới hay không?
+
+Hãy hình dung bản thân bạn đang dẫn đầu một chuyến thám hiểm băng qua một vùng lãnh thổ hoàn toàn xa lạ. Bạn chắc chắn sẽ muốn nắm rõ các khối đất đá và các đường biên giới bao quanh. Đội ngũ của bạn sẽ nghiên cứu bản đồ, thậm chí tự vẽ ra bản đồ của riêng mình và xác định phương pháp tiếp cận mang tính chiến lược. Bạn sẽ cân nhắc các khía cạnh của địa hình và cách thức biến chúng thành lợi thế của mình. Dù có lên kế hoạch kỹ lưỡng đến đâu, một số khía cạnh của một nỗ lực như vậy chắc chắn sẽ vô cùng gian nan.
+
+Nếu chiến lược của bạn chỉ ra rằng bạn sẽ phải leo lên một vách đá thẳng đứng, bạn sẽ cần một vài công cụ và thao tác chiến thuật phù hợp cho cú leo đó. Đứng ở dưới chân núi và nhìn lên, bạn có thể thấy một vài dấu hiệu của những thách thức cụ thể và những khu vực hiểm trở. Thế nhưng, bạn sẽ không thể nhìn thấy từng chi tiết nhỏ cho đến khi bạn thực sự bám mình trên vách đá. Bạn có thể sẽ cần đóng đinh móc đá (pitons) vào những tảng đá trơn trượt, nhưng bạn cũng có thể dùng các loại nêm chèn đá (cams) với nhiều kích cỡ khác nhau để chêm vào các khe nứt tự nhiên. Để móc vào những điểm bảo hộ leo núi này, bạn sẽ mang theo các móc khóa an toàn (carabiners). Bạn sẽ cố gắng đi theo con đường thẳng nhất có thể nhưng sẽ phải đưa ra những quyết định cụ thể theo từng chặng. Đôi khi bạn thậm chí sẽ phải quay lui lại và đổi hướng tùy thuộc vào địa thế mà vách đá áp đặt. Nhiều người coi leo núi là một môn thể thao mạo hiểm cảm giác mạnh đầy nguy hiểm, nhưng những người thực sự leo núi sẽ nói với bạn rằng nó an toàn hơn lái ô tô hay lái máy bay. Rõ ràng, để điều đó trở thành sự thật, những người leo núi bắt buộc phải hiểu rõ các công cụ, kỹ thuật và cách thức đánh giá chuẩn xác vách đá.
+
+Nếu việc phát triển một Subdomain (2) (Miền con) nhất định đòi hỏi một hành trình leo núi đầy khó khăn, thậm chí bấp bênh như vậy, chúng ta sẽ mang theo các mẫu hình chiến thuật của DDD cho chuyến leo núi đó. Một sáng kiến kinh doanh đáp ứng các tiêu chí của Core Domain thì không nên vội vàng gạt bỏ việc sử dụng các mẫu hình chiến thuật. Core Domain là một vùng đất chưa được biết đến và vô cùng phức tạp. Đội ngũ sẽ được bảo vệ tốt nhất khỏi một cú ngã nguy hiểm giữa chừng nếu biết sử dụng các chiến thuật đúng đắn.
+
+Dưới đây là một số chỉ dẫn mang tính thực tiễn. Tôi xin bắt đầu bằng những chỉ dẫn cấp cao rồi dần tiến vào chi tiết:
+
+- Nếu một Bounded Context đang được phát triển với vai trò là Core Domain, nó mang tính sống còn về mặt chiến lược đối với sự thành công của doanh nghiệp. Mô hình cốt lõi này vốn chưa được hiểu tường tận và sẽ đòi hỏi rất nhiều thử nghiệm cũng như tái cấu trúc. Nó hoàn toàn xứng đáng nhận được sự cam kết gắn bó lâu dài cùng sự nâng cấp liên tục. Nó có thể không mãi mãi là Core Domain của bạn. Dẫu vậy, nếu Bounded Context đó phức tạp, mang tính đột phá đổi mới và cần phải tồn tại bền bỉ trong một thời gian dài qua nhiều biến động thay đổi, hãy cân nhắc mạnh mẽ việc sử dụng các mẫu hình chiến thuật như một khoản đầu tư cho tương lai của doanh nghiệp bạn. Điều này giả định rằng Core Domain của bạn xứng đáng được phân bổ những nguồn lực lập trình viên xuất sắc nhất với trình độ kỹ năng cao.
+- Một miền có thể trở thành một Generic Subdomain (2) (Miền con Chung) hoặc Supporting Subdomain (Miền con Hỗ trợ) đối với những đối tượng tiêu thụ nó, nhưng thực chất nó hoàn toàn có thể lại là một Core Domain đối với doanh nghiệp của bạn. Bạn không phải lúc nào cũng đánh giá một miền từ góc nhìn của những người tiêu thụ cuối cùng của nó. Nếu bạn đang phát triển một Bounded Context với tư cách là sáng kiến kinh doanh chủ lực của mình, đó chính là Core Domain của bạn, bất kể nó được nhìn nhận ra sao bởi những khách hàng bên ngoài doanh nghiệp của bạn. Hãy cân nhắc mạnh mẽ việc sử dụng các mẫu hình chiến thuật.
+- Nếu bạn đang phát triển một Supporting Subdomain mà vì nhiều lý do khác nhau không thể mua sẵn dưới dạng một Generic Subdomain từ bên thứ ba, rất có thể các mẫu hình chiến thuật sẽ mang lại lợi ích lớn cho nỗ lực của bạn. Trong trường hợp này, hãy cân nhắc trình độ kỹ năng của đội ngũ và đánh giá xem liệu mô hình đó có thực sự mới mẻ và mang tính đổi mới hay không. Nó mang tính đổi mới nếu nó gia tăng giá trị kinh doanh cụ thể, nắm bắt những tri thức đặc biệt, chứ không phải chỉ đơn thuần là hấp dẫn về mặt kỹ thuật. Nếu đội ngũ có đủ năng lực
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000024_a48e7c376662fa9dec3d868aec30b130f221b552ed730e27702c4174d326b05d.png)
+
+áp dụng đúng đắn thiết kế chiến thuật, và Supporting Subdomain đó mang tính đổi mới cũng như bắt buộc phải tồn tại bền vững trong nhiều năm tới, đây chính là cơ hội tốt để đầu tư vào phần mềm của bạn bằng thiết kế chiến thuật. Tuy nhiên, điều này không biến mô hình này thành Core Domain, bởi vì trong mắt doanh nghiệp, nó đơn thuần chỉ mang vai trò Hỗ trợ (Supporting).
+
+Những nguyên tắc chỉ đạo này có thể hơi gò bó nếu doanh nghiệp của bạn sở hữu một lượng lớn các lập trình viên có bề dày kinh nghiệm và cực kỳ tự tin, thoải mái với việc mô hình hóa miền. Ở nơi mà kinh nghiệm đã đạt mức rất cao, và bản thân các kỹ sư tin rằng các mẫu hình chiến thuật sẽ là lựa chọn tối ưu nhất, việc tin tưởng vào nhận định của họ là điều hoàn toàn hợp lý. Những lập trình viên trung thực, bất kể giàu kinh nghiệm đến đâu, sẽ luôn chỉ rõ trong từng trường hợp cụ thể rằng việc phát triển một domain model có phải — hoặc không phải — là lựa chọn tốt nhất hay không.
+
+Bản thân loại hình của miền nghiệp vụ không tự động trở thành yếu tố quyết định để lựa chọn một phương pháp phát triển. Đội ngũ của bạn nên cân nhắc những câu hỏi quan trọng để giúp đưa ra quyết định cuối cùng. Hãy xem xét danh sách ngắn các tham số quyết định chi tiết dưới đây — danh sách này cơ bản bám sát và mở rộng thêm cho các nguyên tắc chỉ đạo cấp cao ở trên:
+
+- Liệu các chuyên gia miền có sẵn sàng tham gia không và bạn có cam kết xây dựng một đội ngũ xoay quanh họ hay không?
+- Mặc dù miền nghiệp vụ cụ thể hiện tại có phần đơn giản, liệu nó có phình to về độ phức tạp theo thời gian hay không? Luôn tồn tại rủi ro khi sử dụng Transaction Script [^1] cho các ứng dụng phức tạp. Nếu bạn sử dụng Transaction Script ngay bây giờ, liệu tiềm năng tái cấu trúc thành một mô hình miền giàu hành vi (behavioral domain model) sau này có mang tính khả thi hay không khi/nếu Ngữ cảnh đó trở nên phức tạp?
+- Liệu việc sử dụng các mẫu hình chiến thuật của DDD có làm cho việc tích hợp với các Bounded Contexts khác — dù là của bên thứ ba hay tự phát triển — trở nên dễ dàng và thực tế hơn hay không?
+- Liệu việc phát triển có thực sự đơn giản hơn và đòi hỏi ít mã nguồn hơn nếu bạn sử dụng Transaction Script hay không? (Kinh nghiệm thực tế với cả hai cách tiếp cận chứng minh rằng rất nhiều lần Transaction Script đòi hỏi lượng mã nguồn tương đương hoặc thậm chí nhiều hơn. Điều này có lẽ là do độ phức tạp của miền và tính đổi mới của mô hình chưa được thấu hiểu thấu đáo trong giai đoạn lập kế hoạch dự án. Việc đánh giá thấp độ phức tạp của miền và tính đột phá liên quan là điều diễn ra rất thường xuyên.)
+- Liệu đường găng (critical path) và tiến độ thời gian của dự án có cho phép dành ra những chi phí gián tiếp (overhead) cần thiết cho khoản đầu tư chiến thuật hay không?
+
+[1]: Ở đây tôi đang khái quát hóa các thuật ngữ. Trong danh sách này, tôi sử dụng Transaction Script để đại diện cho một số cách tiếp cận không sử dụng mô hình miền (non-domain-model approaches).
 
 ﻿- Liệu khoản đầu tư chiến thuật vào một Core Domain (Miền cốt lõi) có giúp bảo vệ hệ thống khỏi những ảnh hưởng biến đổi của kiến trúc hay không? Transaction Script (Kịch bản Giao dịch) có thể khiến hệ thống bị phơi nhiễm trước những tác động này. (Các mô hình miền thường bền bỉ theo thời gian, trong khi những ảnh hưởng từ kiến trúc lại có xu hướng gây xáo trộn nhiều hơn tới các tầng khác.)
 - Liệu các khách hàng/người tiêu dùng (clients/customers) có hưởng lợi từ một phương pháp tiếp cận thiết kế và phát triển sạch sẽ, bền vững hơn không, hay ứng dụng của họ có thể bị thay thế bởi một giải pháp đóng gói sẵn (off-the-shelf solution - giải pháp mua sẵn thương mại) vào ngày mai? Nói cách khác, ngay từ đầu, cớ sao chúng ta lại phải phát triển giải pháp này dưới dạng một ứng dụng/dịch vụ tùy biến riêng (custom application/service)?
@@ -1541,7 +1612,173 @@ Tôi có thêm một điều nữa muốn chia sẻ với bạn về các domain
 - Không gian bài toán (problem space) là các phần của Domain cần được phát triển để bàn giao một Core Domain mới. Việc đánh giá không gian bài toán bao gồm việc khảo sát các Subdomains đã tồn tại sẵn cũng như những Subdomains đang cần có. Do đó, không gian bài toán của bạn là sự kết hợp giữa Core Domain và các Subdomains mà nó bắt buộc phải sử dụng. Các Subdomains trong không gian bài toán thường khác nhau giữa các dự án vì chúng được sử dụng để khám phá một bài toán kinh doanh chiến lược hiện tại. Điều này biến Subdomains trở thành một công cụ rất hữu ích trong việc đánh giá không gian bài toán. Subdomains cho phép chúng ta nhanh chóng quan sát các phần khác nhau của Domain vốn cần thiết để giải quyết một bài toán cụ thể.
 - Không gian giải pháp (solution space) là một hoặc nhiều Bounded Contexts, một tập hợp các mô hình phần mềm cụ thể. Đó là bởi vì Bounded Context là một giải pháp cụ thể, một góc nhìn hiện thực hóa (realization view), một khi đã được phát triển. Bounded Context được sử dụng để hiện thực hóa một giải pháp dưới dạng phần mềm.
 
-```java
+﻿Việc ánh xạ các Subdomains (Miền con) theo tỷ lệ một-đối-một với các Bounded Contexts (Ngữ cảnh Giới hạn) là một mục tiêu rất đáng mong đợi. Làm được điều đó sẽ phân tách rạch ròi các domain models (mô hình miền) thành các khu vực nghiệp vụ được xác định rõ ràng theo từng mục tiêu, hợp nhất không gian bài toán (problem space) với không gian giải pháp (solution space). Trong thực tế, điều này không phải lúc nào cũng khả thi, nhưng nó hoàn toàn có thể hiệu quả trong một dự án phát triển mới hoàn toàn trên bãi đất trống (greenfield effort). Tuy nhiên, khi xét đến một hệ thống cũ (legacy system), và rất có thể là một Big Ball of Mud (Kiến trúc Búi bùn lớn), các Subdomains thường giao thoa và cắt ngang qua nhiều Bounded Contexts, tương tự như những gì chúng ta đã thảo luận liên quan đến Hình 2.1. Trong một doanh nghiệp quy mô lớn và phức tạp, chúng ta có thể áp dụng một góc nhìn đánh giá (assessment view) để thấu hiểu không gian bài toán của mình, điều này có thể cứu chúng ta khỏi những sai lầm vô cùng tốn kém. Chúng ta có thể chia tách một Bounded Context đơn lẻ có quy mô lớn về mặt khái niệm bằng cách sử dụng hai hoặc nhiều Subdomains, hoặc gộp nhiều Bounded Contexts thành một phần của một Subdomain duy nhất. Hãy xem xét một ví dụ để làm sáng tỏ sự khác biệt giữa không gian bài toán và không gian giải pháp.
+
+Hãy hình dung một hệ thống nguyên khối (monolithic system) đồ sộ, được phân loại là một ứng dụng ERP (Enterprise Resource Planning - Hệ thống Hoạch định Nguồn lực Doanh nghiệp). Theo nghĩa hẹp, một hệ thống ERP có thể được coi là một Bounded Context đơn lẻ. Tuy nhiên, vì các hệ thống ERP cung cấp rất nhiều dịch vụ nghiệp vụ dạng module, sẽ có lợi nếu chúng ta tư duy về các module khác biệt như những Subdomains riêng biệt. Chẳng hạn, chúng ta có thể chia module quản lý kho và module mua hàng thành các Subdomains logic riêng biệt. Đúng là các module này không được cung cấp thông qua các hệ thống hoàn toàn khác nhau. Cả hai đều là một phần của cùng một hệ thống ERP. Dẫu vậy, mỗi module lại mang đến một tập hợp dịch vụ rất khác biệt cho miền nghiệp vụ. Phục vụ cho các cuộc thảo luận mang tính phân tích, hãy đặt tên cho chúng thành các Subdomains riêng biệt: Inventory Subdomain (Miền con Quản lý Kho) và Purchasing Subdomain (Miền con Mua hàng). Tiếp tục với ví dụ này, chúng ta sẽ thấy lý do tại sao việc làm đó lại hữu ích.
+
+Với tư cách là một sáng kiến kinh doanh cốt lõi, tổ chức có Domain được biểu diễn trong Hình 2.4 (một ví dụ cụ thể sử dụng mẫu từ Hình 2.2) bắt đầu lập kế hoạch thiết kế và phát triển một domain model chuyên biệt nhằm cắt giảm chi phí vận hành kinh doanh. Mô hình này sẽ cung cấp các công cụ hỗ trợ ra quyết định dành cho các nhân viên thu mua. Các thuật toán vốn được đúc kết qua nhiều năm vận hành quy trình thủ công bởi con người giờ đây bắt buộc phải được tự động hóa bằng phần mềm để đảm bảo chúng luôn được mọi nhân viên thu mua áp dụng chuẩn xác mà không xảy ra sai sót. Core Domain (Miền cốt lõi) mới này sẽ giúp tổ chức nâng cao năng lực cạnh tranh bằng cách nhận diện các thương vụ tốt hơn một cách nhanh chóng hơn, rồi sau đó đảm bảo đáp ứng đầy đủ lượng hàng tồn kho cần thiết. Để nhập hàng tồn kho một cách chuẩn xác, việc sử dụng Forecasting System (Hệ thống Dự báo) đã được khảo sát trước đó trong Hình 2.1 cũng sẽ hỗ trợ đắc lực tại đây.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000039_b056d0d187b29e3dea8f41065004d45d5e2a7f1adc81d9c26343f869f17c5ab6.png)
+
+Figure 2.4 Core Domain và các Subdomains khác liên quan đến việc mua hàng và quản lý kho. Góc nhìn này được giới hạn trong các Subdomains được chọn lọc phục vụ cho việc phân tích không gian bài toán cụ thể, chứ không đại diện cho toàn bộ Domain.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000040_f54e6e5a48d6ab6c7be872735719513c34d77df89280474621dc93b0b8d2a2a7.png)
+
+Trước khi có thể triển khai một giải pháp cụ thể, chúng ta cần thực hiện đánh giá không gian bài toán và không gian giải pháp. Dưới đây là một số câu hỏi cần được giải đáp nhằm chèo lái dự án của bạn đi đúng hướng:
+
+- Tên gọi và tầm nhìn dành cho Core Domain mang tính chiến lược là gì?
+- Những khái niệm nào nên được coi là một phần của Core Domain chiến lược?
+- Đâu là các Supporting Subdomains (Miền con Hỗ trợ) và Generic Subdomains (Miền con Chung) cần thiết?
+- Ai nên đảm nhận công việc trong từng khu vực của miền?
+- Liệu có thể quy tụ được các đội ngũ phù hợp hay không?
+
+Nếu chúng ta không thấu hiểu tầm nhìn và mục tiêu của Core Domain cùng các khu vực của Domain cần thiết để hỗ trợ nó, chúng ta sẽ không thể tận dụng chúng một cách chiến lược và tránh khỏi những cạm bẫy liên quan. Hãy giữ cho việc đánh giá không gian bài toán ở mức khái quát cấp cao, nhưng phải đảm bảo tính thấu đáo. Hãy chắc chắn rằng tất cả các bên liên quan (stakeholders) đều đồng thuận và cam kết hiện thực hóa thành công tầm nhìn đó.
+
+## Giờ Làm việc với Bảng trắng (Whiteboard Time)
+
+Hãy dành chút thời gian nhìn lại những gì bạn đã vẽ trên bảng trắng và cân nhắc: Không gian bài toán của bạn là gì? Hãy nhớ lại rằng đó là sự kết hợp giữa Core Domain mang tính chiến lược và các Subdomains hỗ trợ nó.
+
+Khi bạn đã có được sự thấu hiểu rõ ràng về không gian bài toán, bạn sẽ chuyển hướng sang không gian giải pháp. Đợt đánh giá đầu tiên sẽ cung cấp tri thức cho đợt đánh giá thứ hai. Không gian giải pháp sẽ chịu ảnh hưởng mạnh mẽ từ các hệ thống và công nghệ hiện có, cũng như những thứ sắp sửa được tạo mới. Tại đây chúng ta thực sự cần tư duy dưới góc độ của các Bounded Contexts được phân tách rạch ròi, bởi vì chúng ta đang xem xét Ubiquitous Language (Ngôn ngữ Chung / Toàn hiện) của từng ngữ cảnh. Hãy cân nhắc những câu hỏi then chốt sau:
+
+- Những tài sản phần mềm nào đã tồn tại sẵn, và liệu chúng có thể tái sử dụng được không?
+- Những tài sản nào cần phải mua ngoài hoặc tự phát triển mới?
+- Tất cả những thành phần này kết nối với nhau, hay tích hợp với nhau như thế nào?
+- Những tích hợp bổ sung nào sẽ là cần thiết?
+- Xét trên các tài sản sẵn có và những tài sản cần tạo mới, mức độ nỗ lực đòi hỏi là bao nhiêu?
+- Liệu sáng kiến chiến lược và toàn bộ các dự án hỗ trợ có xác suất thành công cao hay không, hoặc liệu có bất kỳ dự án đơn lẻ nào trong số đó có nguy cơ khiến toàn bộ chương trình bị chậm tiến độ hay thậm chí sụp đổ không?
+- Đâu là nơi mà các thuật ngữ của các Ubiquitous Languages liên quan hoàn toàn khác biệt nhau?
+- Đâu là nơi có sự chồng chéo và chia sẻ khái niệm cũng như dữ liệu giữa các Bounded Contexts?
+- Các thuật ngữ dùng chung và/hoặc các khái niệm chồng chéo được ánh xạ và phiên dịch giữa các Bounded Contexts như thế nào?
+- Bounded Context nào chứa đựng các khái niệm giải quyết Core Domain và những mẫu hình chiến thuật nào của [Evans] sẽ được sử dụng để mô hình hóa nó?
+
+Hãy nhớ rằng, những nỗ lực trong việc phát triển các giải pháp thuộc Core Domain chính là một khoản đầu tư kinh doanh then chốt!
+
+Mô hình mua hàng chuyên biệt được mô tả trước đó và được minh họa trong Hình 2.4 — mô hình nắm bắt các công cụ và thuật toán hỗ trợ ra quyết định — đại diện cho giải pháp dành cho Core Domain. Mô hình miền này sẽ được triển khai trong một Bounded Context tường minh: Optimal Acquisitions Context (Ngữ cảnh Thu mua Tối ưu). Bounded Context này ăn khớp một-đối-một với Subdomain Optimal Acquisitions Core Domain. Việc được căn chỉnh với chỉ duy nhất một Subdomain, cùng với mô hình miền được gia công tỉ mỉ, sẽ biến nó thành một trong những Bounded Contexts xuất sắc nhất trong miền kinh doanh này.
+
+Một Bounded Context khác, Purchasing Context (Ngữ cảnh Mua hàng), sẽ được phát triển nhằm tinh chỉnh một số khía cạnh kỹ thuật của quy trình mua hàng với vai trò là một thành phần trợ lực cho Optimal Acquisitions Context. Những tinh chỉnh này không bộc lộ bất kỳ tri thức đặc biệt nào về một phương pháp tiếp cận thu mua tối ưu. Chúng chỉ đơn giản giúp cho Optimal Acquisitions Context tương tác với hệ thống ERP một cách độc lập và giữ khoảng cách an toàn (at an arm's length). Đó chỉ là một mô hình tiện ích hoạt động dựa trên giao diện công khai (published interface) của hệ thống ERP. Purchasing Context mới cùng với module mua hàng sẵn có của ERP nằm trong Purchasing (Supporting) Subdomain.
+
+Module mua hàng của ERP xét về tổng thể là một Generic Subdomain. Đó là vì bạn hoàn toàn có thể thay thế Subdomain này bằng bất kỳ hệ thống mua hàng thương mại đóng gói sẵn (off-the-shelf) nào, miễn là nó đáp ứng được các nhu cầu kinh doanh cơ bản của bạn. Tuy nhiên, việc được sử dụng song hành cùng với Purchasing Context mới bên trong Purchasing Subdomain lại khiến nó vận hành theo phương thức Hỗ trợ (Supporting).
+
+> 💡 **Giải thích thêm:** Thành ngữ "at an arm's length" (cự ly một cánh tay / khoảng cách an toàn) vốn bắt nguồn từ thuật ngữ pháp lý và thương mại chỉ mối quan hệ giữa hai bên độc lập, sòng phẳng và không bị chi phối lẫn nhau. Trong kiến trúc phần mềm, tương tác "at an arm's length" chỉ việc hệ thống giao tiếp với một dịch vụ bên ngoài (như ERP) thông qua một lớp trung gian cách ly, giữ khoảng cách độc lập để sự thay đổi nội bộ của ERP không làm xáo trộn hay ô nhiễm mô hình miền cốt lõi.
+> Nguồn tham khảo: (Không có nguồn trích dẫn xác thực — cần tự kiểm chứng thêm)
+
+## Bạn Không thể Thay đổi Thế giới của Thiết kế Phần mềm Tồi tệ (You Can't Change the World of Bad Software Design)
+
+Trong một doanh nghiệp cải tạo trên nền tảng sẵn có (brownfield enterprise) điển hình, bạn chắc chắn sẽ gặp phải những tình huống không mong muốn như được minh họa trong Hình 2.1 và Hình 2.4. Điều này có nghĩa là các Subdomains trong phần mềm được thiết kế tồi tệ sẽ không ăn khớp theo cách thức lý tưởng một-đối-một với các Bounded Contexts. Bạn không thể thay đổi cả thế giới của thiết kế phần mềm tồi tệ. Bạn chỉ có thể hy vọng triển khai DDD chuẩn mực trong các dự án mà mình trực tiếp tham gia. Sau cùng, bạn vẫn sẽ phải tích hợp với và thậm chí làm việc bên trong các miền brownfield, vì vậy hãy chuẩn bị sẵn sàng để vận dụng các kỹ thuật được giảng dạy trong một phần ba đầu tiên của chương này khi bạn phân tích nhiều mô hình ngầm định ẩn chứa bên trong một Bounded Context đơn lẻ, chắp vá cũ kỹ.
+
+Vẫn bám sát Hình 2.4, Optimal Acquisition Context cũng bắt buộc phải tương tác với Inventory Context. Inventory quản lý các mặt hàng lưu kho. Nó sử dụng module quản lý kho của ERP — module vốn thuộc về Inventory (Supporting) Subdomain. Để tạo sự thuận tiện cho các nhà thầu giao hàng, Inventory Context có thể cung cấp bản đồ và chỉ đường đến từng nhà kho của mình từ một địa điểm xuất phát bằng cách sử dụng một dịch vụ bản đồ địa lý bên ngoài (external geographical mapping service). Từ góc nhìn của Inventory Context, dịch vụ bản đồ chẳng có gì đặc biệt. Có rất nhiều dịch vụ bản đồ địa lý để lựa chọn, và có thể có những lợi ích nhất định khi thay đổi hệ thống bản đồ được chọn theo thời gian. Bản thân dịch vụ bản đồ là một Generic Subdomain, nhưng nó lại được tiêu thụ bởi một Supporting Subdomain.
+
+Hãy lưu ý những điểm mấu chốt này khi được quan sát từ lăng kính của công ty đang phát triển Optimal Acquisition Context: Trong không gian giải pháp, dịch vụ bản đồ địa lý không phải là một phần của Inventory Context, mặc dù trong không gian bài toán nó được coi là một phần của Inventory Subdomain. Trong không gian giải pháp, ngay cả khi các dịch vụ bản đồ được cung cấp thông qua một API (Application Programming Interface - Giao diện Lập trình Ứng dụng) dựa trên thành phần đơn giản, nó vẫn nằm trong một Bounded Context khác biệt. Ubiquitous Language của Quản lý kho (Inventory) và của Bản đồ (Mapping) hoàn toàn loại trừ lẫn nhau, đồng nghĩa với việc chúng nằm trong các Bounded Contexts khác nhau. Khi Inventory Context sử dụng một thành phần nào đó từ Mapping Context bên ngoài, dữ liệu có thể phải trải qua ít nhất một sự phiên dịch tối thiểu để có thể được tiêu thụ một cách chuẩn xác.
+
+Mặt khác, xét từ góc nhìn của tổ chức kinh doanh bên ngoài chuyên phát triển và cung cấp dịch vụ bản đồ dưới dạng thuê bao, lập bản đồ lại chính là một Core Domain. Tổ chức bên ngoài đó có domain riêng, hay lãnh địa vận hành kinh doanh của riêng họ. Họ bắt buộc phải duy trì năng lực cạnh tranh, không ngừng tinh chỉnh domain model của mình nhằm giữ chân các thuê bao hiện tại và thu hút thêm những khách hàng mới. Nếu bạn là CEO của tổ chức cung cấp dịch vụ bản đồ đó, bạn sẽ đảm bảo mang lại cho khách hàng — bao gồm cả khách hàng thuê bao đơn lẻ đang được thảo luận ở đây — mọi lý do xác đáng để tiếp tục gắn bó với dịch vụ của bạn thay vì chuyển sang đối thủ cạnh tranh. Tuy nhiên, điều đó không làm thay đổi góc nhìn của bên thuê bao vốn đang phát triển hệ thống quản lý kho của riêng mình. Đối với hệ thống kho, đó vẫn chỉ là một Generic Subdomain. Họ hoàn toàn có thể chuyển sang đăng ký một dịch vụ bản đồ khác nếu điều đó mang lại lợi thế cho họ.
+
+## Giờ Làm việc với Bảng trắng (Whiteboard Time)
+
+Đâu là các Bounded Contexts trong không gian giải pháp của bạn? Tại thời điểm này, bạn có thể tham chiếu lại sơ đồ trên bảng trắng của mình để có được một hình dung tốt. Dẫu vậy, bạn có thể sẽ cảm thấy đôi chút bất ngờ khi chúng ta đào sâu hơn vào cách thức sử dụng Bounded Contexts chuẩn mực. Vì vậy, hãy sẵn sàng cho những sự tinh chỉnh có thể xảy ra. Xét cho cùng, chúng ta đang thực hành phát triển linh hoạt (agile).
+
+Như vậy, trong phần còn lại của chương này, chúng ta sẽ chuyển hướng và xem xét tầm quan trọng của Bounded Contexts với tư cách là một công cụ mô hình hóa không gian giải pháp thiết yếu cho DDD. Trong chương Context Maps (3), cuộc thảo luận chủ yếu nhấn mạnh cách xử lý việc ánh xạ giữa các Ubiquitous Languages khác nhau nhưng có liên quan mật thiết, bằng cách tích hợp các Bounded Contexts của chúng lại với nhau.
+
+## Hiểu đúng về Bounded Contexts (Making Sense of Bounded Contexts)
+
+Đừng quên rằng, một Bounded Context là một ranh giới tường minh mà bên trong đó một domain model tồn tại. Domain model biểu đạt một Ubiquitous Language dưới dạng một mô hình phần mềm. Ranh giới này được tạo ra bởi vì mỗi khái niệm bên trong mô hình, cùng với các thuộc tính và thao tác của nó, đều mang một ý nghĩa đặc thù. Nếu bạn là thành viên của một đội ngũ mô hình hóa như vậy, bạn sẽ hiểu chính xác ý nghĩa của từng khái niệm trong Context của mình.
+
+## Bounded Context Mang tính Tường minh và Ngôn ngữ (Bounded Context Is Explicit and Linguistic)
+
+Một Bounded Context là một ranh giới tường minh mà bên trong đó một domain model tồn tại. Bên trong ranh giới đó, mọi thuật ngữ và cụm từ của Ubiquitous Language đều mang ý nghĩa cụ thể, và mô hình phản ánh Ngôn ngữ đó với độ chính xác tuyệt đối.
+
+Thường xuyên xảy ra trường hợp trong hai mô hình khác biệt rõ ràng, các đối tượng có tên gọi giống hệt hoặc tương tự nhau lại mang những ý nghĩa hoàn toàn khác nhau. Khi một ranh giới tường minh được thiết lập bao quanh riêng từng mô hình trong số hai mô hình đó, ý nghĩa của mỗi khái niệm trong từng Context sẽ được xác định chắc chắn. Do đó, một Bounded Context về căn bản là một ranh giới về mặt ngôn ngữ (linguistic boundary). Bạn nên sử dụng những lập luận này làm tiêu chuẩn đối chiếu để xác định xem liệu mình có đang sử dụng Bounded Contexts đúng cách hay không.
+
+Một số dự án rơi vào cái bẫy cố gắng tạo ra một mô hình bao quát tất cả, nơi mục tiêu là khiến toàn bộ tổ chức phải đồng thuận về các khái niệm có tên gọi chỉ mang duy nhất một ý nghĩa toàn cục (global meaning). Tiếp cận nỗ lực mô hình hóa theo cách này là một cạm bẫy chết người. Trước hết, gần như bất khả thi để thiết lập sự đồng thuận giữa tất cả các bên liên quan rằng mọi khái niệm đều mang một ý nghĩa toàn cục duy nhất, thuần khiết và khác biệt. Một số tổ chức lớn và phức tạp đến mức bạn sẽ không bao giờ có thể quy tụ tất cả các bên liên quan lại với nhau, chứ đừng nói đến việc thiết lập sự đồng thuận hoàn toàn và có ý nghĩa giữa họ. Ngay cả khi bạn làm việc trong một công ty nhỏ hơn với tương đối ít bên liên quan, việc thiết lập một định nghĩa bền vững cho một khái niệm toàn cục duy nhất vẫn là điều khó xảy ra. Vì vậy, lập trường tốt nhất nên theo đuổi là chấp nhận thực tế rằng sự khác biệt luôn luôn tồn tại, và hãy áp dụng Bounded Context để phân định tách biệt từng domain model — nơi mà những khác biệt được thể hiện tường minh và được thấu hiểu trọn vẹn.
+
+Một Bounded Context không áp đặt việc phải tạo ra một loại tạo tác dự án (project artifact) đơn lẻ cụ thể nào. Nó không phải là một thành phần, một tài liệu hay một biểu đồ riêng lẻ. [^3] Do đó, nó không phải là một file JAR hay DLL, nhưng những file này có thể được sử dụng để triển khai (deploy) một Bounded Context như được mô tả ở phần sau của chương.
+
+Hãy xem xét sự tương phản sâu sắc giữa khái niệm Account (Tài khoản) trong một Banking Context (Ngữ cảnh Ngân hàng) và Account (Lời thuật lại / Lời kể) trong một Literary Context (Ngữ cảnh Văn học) được trình bày trong Bảng 2.1.
+
+[^3]: Bạn có thể vẽ biểu đồ của một hoặc nhiều Bounded Contexts như thấy ở đây và trong Context Maps. Tuy nhiên, bản thân biểu đồ đó không phải là Bounded Context.
+
+Table 2.1 Sự Đa dạng về Ý nghĩa mà Thuật ngữ Account Có thể Sở hữu (The Diversity of Meanings That the Term Account Can Have)
+
+| Context | Ý nghĩa | Ví dụ |
+|---|---|---|
+| Banking Context | Một Account duy trì bản ghi về các giao dịch ghi nợ và ghi có thể hiện trạng thái tài chính hiện tại của khách hàng với ngân hàng. | Checking Account (Tài khoản Vãng lai) và Savings Account (Tài khoản Tiết kiệm) |
+| Literary Context | Một Account là một tập hợp các biểu đạt văn học về một hoặc nhiều sự kiện liên quan diễn ra trong một khoảng thời gian. | Amazon.com bán cuốn sách *Into Thin Air: A Personal Account of the Mt. Everest Disaster* (Tan vào Hư vô: Bản Tường thuật Cá nhân về Thảm họa Đỉnh Everest). |
+
+Nhìn vào Hình 2.5, không có đặc điểm nhận diện nào trong tên gọi của các kiểu Account có thể giúp phân biệt chúng. Chỉ bằng cách nhìn vào tên gọi của từng vỏ chứa khái niệm — tức Bounded Context của nó — bạn mới hiểu được sự khác biệt giữa hai khái niệm này.
+
+Hai Bounded Contexts này có thể không nằm trong cùng một Domain. Mục đích ở đây là nhằm chứng minh rằng ngữ cảnh là yếu tố tối thượng (context is king).
+
+## Ngữ cảnh Là Vua (Context Is King)
+
+Ngữ cảnh là vua, đặc biệt là khi triển khai DDD.
+
+Trong giới tài chính, từ *security* (chứng khoán / bảo đảm) rất thường xuyên được sử dụng. Ủy ban Chứng khoán và Giao dịch Hoa Kỳ (SEC - Securities and Exchange Commission) giới hạn thuật ngữ *security* chỉ được dùng cho cổ phiếu (equities). Bây giờ hãy xem xét điều này: Các hợp đồng tương lai (Futures contracts) là hàng hóa phái sinh (commodities) và không thuộc quyền tài phán của SEC. Tuy nhiên, một số công ty tài chính vẫn gọi Hợp đồng Tương lai bằng cái tên *security* như một cách tham chiếu nhưng gắn nhãn cho chúng bằng Kiểu Tiêu chuẩn (Standard Type) (6) là *Futures*.
+
+Liệu đó có phải là Ngôn ngữ chuẩn xác nhất cho một Future hay không? Điều đó phụ thuộc vào Domain mà nó được sử dụng bên trong. Một số người hiển nhiên sẽ khẳng định là có, trong khi những người khác lại kiên quyết cho rằng không. Ngữ cảnh cũng mang tính văn hóa (cultural). Bên trong một công ty cụ thể chuyên giao dịch Hợp đồng Tương lai, việc sử dụng thuật ngữ *Security* có thể hoàn toàn ăn khớp với văn hóa của họ bên trong một Ubiquitous Language cụ thể.
+
+Figure 2.5 Các đối tượng Account trong hai Bounded Contexts khác nhau mang ý nghĩa hoàn toàn khác nhau, nhưng bạn chỉ biết được điều đó khi xem xét tên gọi của từng Bounded Context.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000041_7373b14fee785000b182488762ab64fe40489d392c9ca013cd85bd87b0013bf2.png)
+
+Chính những ý nghĩa khác biệt tinh tế mới là thứ bạn thường xuyên phải đối mặt nhất trong doanh nghiệp của mình. Đây là lý do tại sao: Tên gọi được từng nhóm lựa chọn trong mỗi Context luôn luôn được đưa ra dựa trên sự cân nhắc về Ubiquitous Language. Bạn không bao giờ đặt tên cho một khái niệm một cách tùy tiện, chẳng hạn như cố tình làm cho nó khác biệt với một thuật ngữ trong một Context khác. Hãy xem xét hai Contexts ngân hàng: một cho tài khoản vãng lai (checking accounts) và một cho tài khoản tiết kiệm (savings accounts). [^4] Chúng ta không cần phải gán cái tên *Checking Account* cho đối tượng trong Checking Context hay cái tên *Savings Account* cho đối tượng trong Savings Context. Cả hai khái niệm đều có thể mang tên *Account* một cách an toàn bởi vì mỗi Bounded Context đã tự phân biệt những ý nghĩa tinh tế đó rồi. Đương nhiên, không có quy tắc nào cấm việc bổ sung thêm ý nghĩa cho những cái tên này. Đó là quyết định thuộc về đội ngũ của bạn.
+
+[^4]: Điều này giả định một Domain nơi các Bounded Contexts riêng biệt được sử dụng cho tài khoản vãng lai và tài khoản tiết kiệm.
+
+Khi phát sinh nhu cầu tích hợp, việc ánh xạ (mapping) bắt buộc phải được thực hiện giữa các Bounded Contexts. Đây có thể là một khía cạnh phức tạp của DDD và đòi hỏi một sự cẩn trọng tương xứng. Chúng ta thường không sử dụng một thể hiện đối tượng (object instance) bên ngoài ranh giới của nó, nhưng các đối tượng có liên quan trong nhiều ngữ cảnh khác nhau có thể chia sẻ một tập con trạng thái chung nào đó.
+
+Dưới đây là một ví dụ khác về một tên gọi chung được sử dụng trong nhiều Bounded Contexts, nhưng lần này là bên trong cùng một Domain. Hãy xem xét những thách thức mô hình hóa của một tổ chức xuất bản phải xử lý các giai đoạn khác nhau trong vòng đời của những cuốn sách. Một cách khái quát, các nhà xuất bản xử lý các giai đoạn tương tự nhau khi một cuốn sách lần lượt đi qua các Contexts khác nhau:
+
+- Khái niệm hóa và đề xuất bản thảo cuốn sách
+- Ký hợp đồng với tác giả
+- Quản lý quá trình chấp bút của tác giả và quy trình biên tập
+- Thiết kế bố cục cuốn sách, bao gồm cả hình minh họa
+- Dịch cuốn sách sang các ngôn ngữ khác
+- Sản xuất các ấn bản in vật lý và/hoặc ấn bản điện tử
+- Tiếp thị cuốn sách
+- Bán sách cho các đại lý phân phối và/hoặc bán trực tiếp cho người tiêu dùng
+- Giao sách vật lý tới các đại lý và người tiêu dùng
+
+Xuyên suốt từng giai đoạn này, liệu có một cách thức duy nhất nào để mô hình hóa chuẩn xác một Book (Cuốn sách) hay không? Tuyệt đối không. Tại mỗi giai đoạn này, Book lại có những định nghĩa hoàn toàn khác biệt. Phải đến khi ký hợp đồng, Book mới có một tiêu đề dự kiến, và tiêu đề này hoàn toàn có thể thay đổi trong quá trình biên tập. Trong các giai đoạn viết sách và biên tập, Book sở hữu một tập hợp các bản thảo nháp kèm theo nhận xét và chỉnh sửa, cùng với một bản thảo cuối cùng. Các nhà thiết kế đồ họa tạo ra bố cục trang. Bộ phận sản xuất sử dụng bố cục đó để tạo ra các bản in thử kẽm, bản in thử định hình ("blue lines"), và cuối cùng là các bản kẽm in (plates). Bộ phận tiếp thị không cần đến hầu hết các tạo tác biên tập hay sản xuất đó, họ có thể chỉ cần bìa sách nghệ thuật và các mô tả cấp cao. Đối với khâu giao hàng, Book có thể chỉ mang một định danh (identity), vị trí trong kho, số lượng sẵn có, kích thước và trọng lượng.
+
+> 💡 **Giải thích thêm:** "Blue lines" (bản in thử định hình / bản in xanh) là thuật ngữ truyền thống trong ngành in ấn và xuất bản sách. Đây là bản in thử nghiệm dùng giấy nhạy sáng màu xanh lam để biên tập viên và nhà in rà soát lần cuối toàn bộ vị trí văn bản, lề trang, hình ảnh trước khi khắc bản kẽm (plates) đưa vào dây chuyền in offset hàng loạt.
+> Nguồn tham khảo: (Không có nguồn trích dẫn xác thực — cần tự kiểm chứng thêm)
+
+Điều gì sẽ xảy ra nếu bạn cố gắng thiết kế một mô hình trung tâm duy nhất cho Book nhằm phục vụ cho tất cả các giai đoạn trong vòng đời của nó? Chắc chắn sẽ có sự nhầm lẫn, bất đồng và tranh cãi ở mức độ rất cao, và hầu như chẳng có phần mềm nào có thể bàn giao được. Ngay cả khi một mô hình chung đúng đắn có thể được tạo ra vào một thời điểm nào đó, nó rất có thể sẽ chỉ đáp ứng được nhu cầu của tất cả các bên một cách hiếm hoi và vô cùng ngắn ngủi.
+
+Để ngăn chặn tình trạng cày xới liên miên mà không mang lại kết quả (churn and burn) không mong muốn đó, một nhà xuất bản mô hình hóa bằng DDD sẽ sử dụng các Bounded Contexts riêng biệt cho từng giai đoạn trong vòng đời. Trong mỗi ngữ cảnh thuộc nhiều Bounded Contexts đó, đều tồn tại một kiểu Book. Các đối tượng Book khác nhau đó sẽ chia sẻ một định danh xuyên suốt tất cả hoặc hầu hết các Contexts, có thể được thiết lập lần đầu tiên ngay từ giai đoạn khái niệm hóa. Tuy nhiên, mô hình của Book trong mỗi Context sẽ hoàn toàn khác biệt so với tất cả các mô hình còn lại. Điều đó hoàn toàn ổn, và trên thực tế đó chính là cách thức mọi việc nên diễn ra. Khi đội ngũ của một Bounded Context nhất định nói về Book, nó mang chính xác ý nghĩa mà họ yêu cầu cho Context của mình. Tổ chức đón nhận nhu cầu tự nhiên về sự khác biệt này. Nói như vậy không có nghĩa là những kết quả tích cực đó có thể đạt được một cách dễ dàng. Dẫu vậy, bằng cách sử dụng các Bounded Contexts tường minh, phần mềm sẽ được bàn giao đều đặn với các cải tiến tăng dần đáp ứng trúng các nhu cầu cụ thể của doanh nghiệp.
+
+> 💡 **Giải thích thêm:** "Churn and burn" là một thành ngữ mô tả trạng thái làm việc cật lực, hao tổn nhiều công sức và tài nguyên nhưng chỉ xoay quanh sự xáo trộn, cọ xát nội bộ mà không tạo ra được kết quả thực tế bền vững nào. Trong phát triển phần mềm, việc cố gắng nhồi nhét mọi yêu cầu của toàn doanh nghiệp vào một mô hình dữ liệu dùng chung duy nhất luôn dẫn đến cảnh các nhóm liên tục tranh cãi, sửa đổi mã nguồn liên miên ("churn and burn") mà không thể phát hành được phiên bản ổn định nào.
+> Nguồn tham khảo: (Không có nguồn trích dẫn xác thực — cần tự kiểm chứng thêm)
+
+Đến thời điểm này, chúng ta hãy cùng nhìn nhanh vào giải pháp mà đội ngũ cộng tác của SaaSOvation đã sử dụng để giải quyết thách thức mô hình hóa như được minh họa trong Hình 2.3.
+
+Như đã chỉ ra trước đây, trong một Collaboration Context, các chuyên gia miền không bao giờ mô tả những người sử dụng các tiện ích cộng tác là Users (Người dùng) kèm theo Permissions (Quyền hạn). Thay vào đó, họ trao đổi về những người cộng tác này dựa trên các vai trò mà họ nắm giữ trong Context đó, chẳng hạn như Authors (Tác giả), Owners (Chủ sở hữu), Participants (Người tham gia), và Moderators (Người điều phối). Một vài thông tin liên lạc có thể tồn tại ở đó, nhưng có lẽ không phải là tất cả. Mặt khác, chính trong Identity and Access Context (Ngữ cảnh Định danh và Truy cập), chúng ta mới bàn về Users. Trong Context đó, các đối tượng User có tên người dùng (usernames) và thông tin chi tiết về từng cá nhân cụ thể, bao gồm các phương thức chi tiết để liên lạc với người đó.
+
+Tuy vậy, chúng ta không tạo ra một đối tượng Author từ hư không. Mọi cộng tác viên đều bắt buộc phải được thẩm định điều kiện từ trước. Chúng ta xác nhận sự tồn tại của một User đang đảm nhiệm Role phù hợp bên trong Identity and Access Context. Các thuộc tính của một bộ mô tả xác thực (authentication descriptor) được truyền kèm theo các yêu cầu gửi tới Identity and Access Context. Để tạo một đối tượng cộng tác viên mới, chẳng hạn như một Moderator, chúng ta sử dụng một tập con các thuộc tính của User cùng với một tên Role. Các chi tiết cụ thể về cách thức chúng ta thu nhận trạng thái đối tượng từ một Bounded Context tách biệt không quá quan trọng vào lúc này (mặc dù phần sau sẽ giải thích rất kỹ lưỡng). Điều quan trọng lúc này là hai khái niệm khác biệt này vừa tương đồng lại vừa khác nhau cùng một lúc, và những khác biệt đó được định đoạt bởi chính Bounded Context. Hình 2.6 minh họa User và Role trong Context riêng của chúng được sử dụng để tạo ra một Moderator trong một Context khác.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000042_3039fa20a4801a59138c5be3f1c1e4054c88a2c1ff023610b52fb20869f6d833.png)
+
+Figure 2.6 Đối tượng Moderator trong Context của nó được tạo dựng dựa trên User và Role trong một ngữ cảnh khác.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000043_97c21a7d1de24d73383c96a9be926d4de92641082486243114ccc631941422d0.png)
+
+## Giờ Làm việc với Bảng trắng (Whiteboard Time)
+
+- Hãy xem liệu bạn có thể nhận diện được một số khái niệm có sự khác biệt tinh tế đang tồn tại trong nhiều Bounded Contexts thuộc Domain của bạn hay không.
+- Xác định xem liệu các khái niệm đó có được phân tách chuẩn xác hay không, hay các lập trình viên chỉ đơn thuần sao chép mã nguồn sang cả hai nơi.
+
+Nhìn chung, bạn có thể xác định một sự phân tách chuẩn xác nhờ vào việc các đối tượng tương tự nhau sở hữu các thuộc tính và thao tác khác nhau. Trong trường hợp đó, ranh giới đã phân định các khái niệm một cách thỏa đáng. Tuy nhiên, nếu bạn nhìn thấy các đối tượng giống hệt nhau xuất hiện ở nhiều ngữ cảnh, điều đó rất có thể ám chỉ một lỗi mô hình hóa nào đó, trừ khi hai Bounded Contexts đó đang cùng sử dụng một Shared Kernel (Hạt nhân Chia sẻ) (3).
+
+## Không gian cho Những thứ Ngoài Mô hình (Room for More than the Model)
+
+Một Bounded Context không nhất thiết chỉ bao bọc riêng domain model. Đúng là mô hình là cư dân chính của chiếc vỏ chứa khái niệm này. Tuy nhiên, một Bounded Context không hề bị giới hạn ở riêng mô hình. Nó thường phân định ranh giới cho một hệ thống, một ứng dụng hoặc một dịch vụ kinh doanh (business service). [^5] Đôi khi một Bounded Context chứa đựng ít hơn thế nếu, chẳng hạn, một Generic Subdomain có thể được tạo ra mà không cần gì nhiều hơn ngoài một domain model. Hãy xem xét các thành phần của một hệ thống vốn thường là một phần của Bounded Context.
+
+[^5]: Phải thừa nhận rằng ý nghĩa của các thuật ngữ *hệ thống* (system), *ứng dụng* (application) và *dịch vụ kinh doanh* (business service) không phải lúc nào cũng nhận được sự đồng thuận hoàn toàn. Tuy nhiên, theo nghĩa khái quát, tôi muốn ám chỉ những thuật ngữ này là một tập hợp phức tạp gồm các thành phần tương tác với nhau để hiện thực hóa một tập hợp các use cases kinh doanh quan trọng.
+
+Khi mô hình dẫn dắt việc tạo ra một lược đồ cơ sở dữ liệu lưu trữ bền vững (persistence database schema), lược đồ cơ sở dữ liệu đó sẽ nằm bên trong ranh giới. Điều này diễn ra bởi vì lược đồ được thiết kế, phát triển và bảo trì bởi chính đội ngũ mô hình hóa. Điều đó có nghĩa là tên bảng và tên cột cơ sở dữ liệu, chẳng hạn, sẽ phản ánh trực tiếp các tên gọi được sử dụng trong mô hình, thay vì các tên gọi bị phiên dịch sang một phong cách khác. Ví dụ, giả sử mô hình của chúng ta có một lớp tên là BacklogItem và lớp đó có các thuộc tính Value Object tên là backlogItemId và businessPriority:
+
+
+```
+
 public class BacklogItem extends Entity  { ... private BacklogItemId backlogItemId; private BusinessPriority businessPriority; ... }
 
 ```
@@ -1549,7 +1786,7 @@ public class BacklogItem extends Entity  { ... private BacklogItemId backlogItem
 Chúng ta sẽ kỳ vọng nhìn thấy những thuộc tính đó được ánh xạ vào cơ sở dữ liệu theo cách thức tương tự:
 
 
-```SQL
+```
 
 CREATE TABLE `tbl_backlog_item` ( ... `backlog_item_id_id` varchar(36) NOT NULL, `business_priority_ratings_benefit` int NOT NULL, `business_priority_ratings_cost` int NOT NULL, `business_priority_ratings_penalty` int NOT NULL, `business_priority_ratings_risk` int NOT NULL, ... ) ENGINE=InnoDB;
 
@@ -1695,8 +1932,47 @@ Giai đoạn đầu họ không quá bận tâm hoặc chưa nhận thức đầ
 
 public class Forum extends Entity { ... public Discussion startDiscussion( String aUsername, String aSubject) { if (this.isClosed()) { throw new IllegalStateException("Forum is closed."); } User user = userRepository.userFor(this.tenantId(), aUsername); if (!user.hasPermissionTo(Permission.Forum.StartDiscussion)) { throw new IllegalStateException( "User may not start forum discussion."); } String authorUser = user.username(); String authorName = user.person().name().asFormattedName(); String authorEmailAddress = user.person().emailAddress(); Discussion discussion = new Discussion( this.tenant(), this.forumId(), DomainRegistry.discussionRepository().nextIdentity(), authorUser, authorName, authorEmailAddress, aSubject); return discussion; } ... }
 
-<!-- ⚠️ CẢNH BÁO chunk 6: số ảnh/heading/code-block KHÔNG khớp bản gốc (gốc={'images': 12, 'headings': 19, 'fences': 10}, dịch={'images': 5, 'headings': 10, 'fences': 8}). Xem lại đoạn này bằng tay. -->
+```
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000049_3326297795cb56df95a96aa408e40719072d70e2fe16d8c791168aca3147a7c2.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000050_89026c27069496ac08c39d27bd46b8a230a9157de6b6c876ec9cdcb684dfc441.png)
+
+## Có Phải Tôi Vừa Thấy một Vụ Tai nạn Dồn toa? (Did I Just See a Train Wreck?)
+
+Một số lập trình viên coi việc xâu chuỗi nhiều biểu thức liên tiếp, chẳng hạn như `user.person().name().asFormattedName()`, là một "vụ tai nạn tàu hỏa dồn toa" (train wreck). Những người khác lại coi đó là khả năng biểu đạt mạch lạc trong mã nguồn. Tôi không bàn luận về cả hai góc nhìn đó tại đây. Thay vào đó, tôi đang tập trung vào mô hình bị hỗn tạp. Vấn đề "tai nạn dồn toa" là một chủ đề hoàn toàn khác.
+
+> 💡 **Giải thích thêm:** Trong lập trình hướng đối tượng, "Train wreck" (tai nạn dồn toa / chuỗi phương thức nối đuôi) là thuật ngữ chỉ các dòng mã gọi hàm liên hoàn dạng `a.getB().getC().getD()`, nhìn tựa như các toa tàu đâm dồn vào nhau. Lối viết này vi phạm nghiêm trọng Luật Demeter (Law of Demeter - nguyên lý chỉ nói chuyện với bạn bè thân cận nhất) và nguyên lý "Tell, Don't Ask", làm lộ cấu trúc nội bộ của đối tượng và khiến mã nguồn trở nên giòn gãy, dễ đổ vỡ khi cấu trúc dữ liệu thay đổi.
+> Nguồn tham khảo: (Không có nguồn trích dẫn xác thực — cần tự kiểm chứng thêm)
+
+Đây thực sự là một thiết kế rất tồi tệ. Các lập trình viên lẽ ra không được phép tham chiếu tới User tại đây, chứ đừng nói đến việc truy vấn một Repository (12) để lấy ra một User. Ngay cả Permission lẽ ra cũng phải nằm ngoài tầm với. Điều này xảy ra được là do chúng đã bị thiết kế sai lầm khi đưa vào làm một phần của mô hình cộng tác. Hơn thế nữa, sự bóp méo này đã khiến họ bỏ qua một khái niệm đáng lẽ ra họ phải mô hình hóa: Author (Tác giả). Thay vì gom ba thuộc tính liên quan chặt chẽ vào trong một Value Object tường minh, các lập trình viên dường như lại thỏa mãn với việc xử lý các phần tử dữ liệu này một cách rời rạc. Vấn đề bảo mật đã choán hết tâm trí của họ thay vì sự cộng tác.
+
+Đây không phải là một trường hợp cá biệt. Mọi đối tượng cộng tác đều gặp phải những vấn đề tương tự. Khi nguy cơ tạo ra một Big Ball of Mud đã cận kề trước mắt, cả nhóm quyết định mã nguồn bắt buộc phải thay đổi. Hơn nữa, nhóm cũng muốn chuyển từ phương pháp tiếp cận bảo mật dựa trên quyền hạn (permissions) sang sử dụng quản lý truy cập dựa trên vai trò (role-based access management). Họ sẽ phải làm gì?
+
+Là những người sử dụng các phương pháp luận phát triển agile và trong tương lai sẽ là những người xây dựng các công cụ quản lý dự án agile, họ không hề e ngại việc áp dụng các nỗ lực tái cấu trúc (refactoring) đúng lúc (just in time). Vì vậy, họ sẽ tái cấu trúc theo từng vòng lặp. Dẫu vậy, câu hỏi vẫn còn đó: Những mẫu hình DDD nào là tối ưu nhất để đưa họ thoát khỏi tình cảnh tồi tệ này — một vũng lầy sâu hoắm của mã nguồn đặt sai vị trí?
+
+Khi một vài thành viên trong nhóm dành thêm nhiều giờ nghiền ngẫm các mẫu hình khối xây dựng chiến thuật của [Evans], họ nhận ra rằng những mẫu hình này không phải là câu trả lời. Họ đã làm theo hướng dẫn trong các mẫu hình đó để tạo ra các Aggregates bằng cách kết hợp các Entities và Value Objects theo phương diện kỹ thuật. Họ cũng đã sử dụng Repositories và Domain Services (7). Tuy nhiên, họ vẫn đang bỏ sót một điều gì đó quan trọng, và rất có thể điều này báo hiệu sự cần thiết phải chú ý kỹ hơn đến nửa sau của cuốn sách [Evans].
+
+Cuối cùng khi làm như vậy, họ đã ghi nhận được một số kỹ thuật mang lại sức mạnh to lớn. Khi họ nghiền ngẫm 'Phần III: Tái cấu trúc Hướng tới Thấu hiểu Sâu sắc hơn' (Part III: Refactoring toward Deeper Insight) [Evans], điều hiển nhiên là DDD mang lại nhiều điều hơn họ từng nghĩ rất nhiều. Với các kỹ thuật thu lượm được từ phần đó của [Evans], giờ đây họ đã biết cách làm thế nào để có thể cải thiện mô hình hiện tại của mình bằng cách chú ý kỹ hơn tới Ubiquitous Language. Bằng cách dành nhiều thời gian chất lượng hơn với các chuyên gia miền của mình, họ có thể tạo ra một mô hình bám sát hơn mô hình tư duy của các chuyên gia. Nhưng điều đó vẫn chưa giải quyết được vũng lầy bảo mật vốn đang làm méo mó tầm nhìn của họ về một domain model cộng tác thuần khiết.
+
+Đi sâu hơn vào cuốn sách, có 'Phần IV: Thiết kế Chiến lược' (Part IV: Strategic Design) [Evans]. Một trong các thành viên trong nhóm đã tìm thấy những chỉ dẫn mang tính sống còn mà cuối cùng sẽ dẫn dắt họ tới việc hiện thực hóa một Core Domain. Một trong những công cụ mới đầu tiên được đưa vào sử dụng là Context Maps, dẫn đến sự thấu hiểu rõ ràng hơn về tình hình dự án hiện tại của họ. Mặc dù là một bài tập đơn giản, việc vẽ ra Context Map đầu tiên và định hình các cuộc thảo luận xoay quanh tình cảnh khó khăn của họ là một bước tiến lớn. Nó đã dẫn đến những phân tích hiệu quả hướng tới một giải pháp tháo gỡ, và cuối cùng đã khai thông thế bế tắc cho cả nhóm.
+
+Giờ đây họ có một vài lựa chọn để thực hiện những tinh chỉnh tạm thời, cho phép họ ổn định mô hình đang ngày càng trở nên giòn gãy (brittle) của mình:
+
+1. Họ có thể tái cấu trúc mô hình thành Responsibility Layers (Các Tầng Trách nhiệm) [Evans], phân chia các tính năng bảo mật và phân quyền bằng cách đẩy chúng xuống một tầng logic thấp hơn của mô hình hiện tại. Nhưng đó dường như không phải là phương pháp tiếp cận tối ưu nhất. Việc sử dụng Responsibility Layers nhằm mục đích giải quyết các mô hình quy mô lớn, hoặc để chuẩn bị cho những mô hình cuối cùng sẽ phát triển lên quy mô lớn. Mỗi tầng được thiết kế để vẫn nằm lại trong mô hình vì nó là một phần của Core Domain, mặc dù các tầng nên được phân chia cẩn thận. Mặt khác, những gì nhóm đang phải đối mặt lại là những khái niệm bị chiếm dụng sai chỗ — những khái niệm hoàn toàn không thuộc về Core Domain.
+2. Ngoài ra, họ có thể hướng tới việc xây dựng một Segregated Core (Lõi Tách biệt) [Evans]. Điều này có thể đạt được thông qua một cuộc rà soát toàn diện mọi mối quan tâm về bảo mật và phân quyền trong Collaboration Context, tiếp nối bằng việc tái cấu trúc các thành phần định danh và truy cập vào các package hoàn toàn tách biệt trong cùng một mô hình. Cách làm này sẽ chưa mang lại kết quả tối hậu là tạo ra một Bounded Context hoàn toàn độc lập, nhưng nó sẽ đưa nhóm tiến gần hơn tới đích đến đó. Đây dường như chính xác là những gì đang cần, bởi bản thân mẫu hình này đã nêu rõ: 'Thời điểm để bóc tách một Segregated Core là khi bạn có một Bounded Context lớn mang tính sống còn đối với hệ thống, nhưng nơi mà phần cốt lõi thiết yếu của mô hình đang bị che mờ bởi một lượng lớn các năng lực hỗ trợ.' Năng lực hỗ trợ ở đây chắc chắn chính là bảo mật và phân quyền. Đội ngũ cuối cùng đã nhận ra rằng một Identity and Access Context riêng biệt sẽ xuất hiện từ những nỗ lực này và đóng vai trò như một Generic Subdomain phục vụ cho Collaboration Context của họ.
+
+Sáng kiến tạo ra một Segregated Core sẽ không hề đơn giản. Nó có thể đòi hỏi vài tuần làm việc ngoài kế hoạch. Nhưng nếu họ không có hành động khắc phục và tái cấu trúc sớm, họ sẽ phải trả giá cho sự thiếu hụt hành động khắc phục đó bằng hàng đống lỗi (bugs), đi kèm với một cơ sở mã (code base) mỏng manh không thể đáp ứng tốt với sự thay đổi. Lãnh đạo doanh nghiệp đã góp phần củng cố tính đúng đắn của định hướng này khi họ nhận định rằng việc tách biệt thành công thành một dịch vụ kinh doanh mới vào một ngày nào đó hoàn toàn có thể mở đường cho một sản phẩm SaaS hoàn toàn mới.
+
+Quan trọng nhất là, giờ đây cả nhóm đã hiểu được giá trị của Bounded Contexts và của việc phải chiến đấu kiên cường để duy trì một Core Domain có tính gắn kết cao. Sử dụng các mẫu hình bổ sung của thiết kế chiến lược, họ có thể phân tách các mô hình tái sử dụng vào các Bounded Contexts riêng biệt và thực hiện tích hợp khi thích hợp.
+
+Rất có thể trong tương lai, Identity and Access Bounded Context (Ngữ cảnh Giới hạn Định danh và Truy cập) sẽ mang diện mạo rất khác so với thiết kế nhúng trực tiếp cơ chế bảo mật và phân quyền ban đầu. Việc thiết kế hướng tới khả năng tái sử dụng (reuse) sẽ buộc đội ngũ phải tập trung vào một mô hình mang tính tổng quát hơn, có thể được khai thác bởi nhiều ứng dụng khác nhau khi cần thiết. Đội ngũ chuyên trách đó — một đội ngũ tách biệt với nhóm Collaboration Context (Ngữ cảnh Cộng tác), nhưng được thành lập từ một vài thành viên của nhóm này — cũng có thể đưa vào nhiều chiến lược triển khai khác nhau. Các chiến lược đó có thể bao gồm việc sử dụng các sản phẩm của bên thứ ba và các giải pháp tích hợp tùy biến theo từng khách hàng — những điều vốn từng nằm ngoài tầm với do sự hỗn độn của cơ chế bảo mật nhúng sâu trước đây.
+
+Do việc phát triển Segregated Core (Lõi Tách biệt — một mẫu hình chiến lược của DDD) chỉ là một bước đệm tạm thời, chúng ta sẽ không đi quá sâu vào các kết quả đó tại đây. Tóm lại, phương pháp này bao gồm việc chuyển toàn bộ các lớp (classes) bảo mật và phân quyền sang các Modules (Mô-đun) biệt lập, đồng thời yêu cầu các client thuộc Application Services (Dịch vụ Ứng dụng) phải kiểm tra bảo mật và phân quyền thông qua các đối tượng đó trước khi gọi vào Core Domain (Miền Cốt lõi). Điều này đã giải phóng Core Domain, giúp nó chỉ tập trung hiện thực hóa việc cấu thành và các hành vi của các đối tượng mô hình cộng tác. Application Service sẽ đảm nhận trách nhiệm bảo mật và chuyển đổi đối tượng:
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000051_e9e8d77141ec5a862f68257b5b286b356bf22ce86e6e48d1abdf2b863c0550a8.png)
+
+```java
 public class ForumApplicationService ... {
     ...
     @Transactional
@@ -1769,6 +2045,464 @@ public class Forum extends Entity {
     ...
 }
 
+```
+
+Cách làm này đã loại bỏ sự nhập nhằng giữa User và Permission, đồng thời định hướng mô hình tập trung nghiêm ngặt vào các nghiệp vụ cộng tác. Xin nhắc lại, đây chưa phải là một kết quả hoàn hảo mĩ mãn, nhưng nó đã chuẩn bị hành trang kỹ lưỡng cho toàn đội ngũ trong các đợt tái cấu trúc (refactoring) tương lai nhằm phân tách và tích hợp các Bounded Contexts (Ngữ cảnh Giới hạn). Cuối cùng, đội ngũ Collaboration Context sẽ loại bỏ hoàn toàn các Modules và kiểu dữ liệu bảo mật, phân quyền ra khỏi Bounded Context của mình để hân hoan tiếp nhận Identity and Access Context mới. Mục tiêu tối hậu của họ — biến cơ chế bảo mật thành một thành phần tập trung và có thể tái sử dụng — giờ đây đã nằm trong tầm tay.
+
+Phải thừa nhận rằng, ban đầu đội ngũ hoàn toàn có thể chọn đi theo hướng ngược lại. Họ có thể đã vi phân hóa các Bounded Contexts (miniaturized Bounded Contexts) bằng cách tạo ra hàng loạt ngữ cảnh tách biệt, dẫn đến việc có tổng cộng mười hoặc nhiều hơn thế — mỗi ngữ cảnh cho một tiện ích cộng tác (chẳng hạn như tách Forum và Calendar thành các mô hình riêng). Điều gì có thể dẫn dắt họ đi theo hướng đó? Vì phần lớn các tiện ích cộng tác không bị ghép nối chặt chẽ với nhau, mỗi tiện ích đều có thể được triển khai dưới dạng một thành phần tự trị (autonomous component). Bằng việc đặt từng tiện ích vào một Bounded Context riêng biệt, nhóm có thể tạo ra khoảng mười đơn vị triển khai tự nhiên. Điều đó đúng, nhưng việc tạo ra mười domain models (mô hình miền) khác nhau là không cần thiết để đạt được các mục tiêu triển khai đó, và nó có thể chỉ làm xói mòn các nguyên lý mô hình hóa của Ubiquitous Language (Ngôn ngữ Chung / Toàn hiện).
+
+Thay vào đó, đội ngũ quyết định giữ mô hình thành một khối thống nhất nhưng tạo ra một file JAR riêng cho từng tiện ích cộng tác. Bằng cách sử dụng cơ chế module hóa Jigsaw (Jigsaw modularization trong Java), họ đã tạo ra một đơn vị triển khai dựa trên phiên bản cho từng tiện ích. Bên cạnh các file JAR cho từng phân vùng cộng tác tự nhiên, họ cũng cần một file JAR dành cho các đối tượng mô hình dùng chung (shared model objects), chẳng hạn như Tenant, Moderator, Author, Participant và các đối tượng khác. Đi theo lộ trình này vừa hỗ trợ phát triển một Ubiquitous Language thống nhất, vừa đáp ứng trọn vẹn các mục tiêu triển khai vốn mang lại nhiều lợi thế về kiến trúc và quản trị ứng dụng.
+
+Với hiểu biết nền tảng này, chúng ta có thể khảo sát xem Identity and Access Context đã được hình thành như thế nào.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000052_cacc3a2b9866a338395d15f5f9f5eac2d4cf46a050220c5b162de544db3a0222.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000053_2161c1960b61a2d7e8b531cf74a5a4417ec3ccfce5b30ee01bf8c8a2919e3bca.png)
+
+## Identity and Access Context (Ngữ cảnh Định danh và Truy cập)
+
+Hầu hết các ứng dụng doanh nghiệp ngày nay đều cần trang bị một số hình thức thành phần bảo mật và phân quyền nhằm đảm bảo rằng những người truy cập hệ thống là những người dùng hợp thức, đồng thời được phân quyền chính xác để thực hiện những tác vụ mà họ dự định làm. Như chúng ta vừa phân tích, cách tiếp cận ngây thơ đối với bảo mật ứng dụng là nhồi nhét người dùng và quyền hạn vào từng hệ thống riêng lẻ, điều này tạo ra hiệu ứng ốc đảo (silo effect - sự phân mảnh biệt lập) trong mọi ứng dụng.
+
+## Triết lý Cao bồi (Cowboy Logic)
+
+* LB:    'Bác chẳng khóa chuồng trại hay tháp ủ ngô gì cả, thế mà chẳng ai thèm trộm ngô của bác à?'
+* AJ:    'Chó Tumbleweed nhà tôi lo việc quản lý truy cập rồi. Đó là hiệu ứng ốc đảo silo của riêng tôi đấy.'
+* LB:    'Cháu nghĩ là bác chẳng hiểu gì về cuốn sách này rồi.'
+
+> 💡 **Giải thích thêm:** "Silo effect" (hiệu ứng ốc đảo / cát cứ thông tin) là thuật ngữ mượn từ các tháp chứa ngũ cốc (silo) trong nông nghiệp — vốn là những kiến trúc hình trụ đứng kín bưng, biệt lập hoàn toàn với nhau. Trong kiến trúc phần mềm và quản trị tổ chức, thuật ngữ này ám chỉ việc mỗi hệ thống, ứng dụng hay phòng ban hoạt động khép kín, tự quản lý người dùng và dữ liệu của riêng mình mà không có sự liên thông, tích hợp hay chia sẻ với phần còn lại. Ở đây, AJ chơi chữ một cách ngô nghê giữa tháp chứa ngô (silo) ngoài đời thực và việc chú chó Tumbleweed canh gác cửa để tự xưng đó là "hiệu ứng silo", khiến LB phải lắc đầu châm chọc.
+> Nguồn tham khảo: (Không có nguồn trích dẫn xác thực — cần tự kiểm chứng thêm)
+
+Người dùng của một hệ thống không thể dễ dàng liên kết với người dùng của bất kỳ hệ thống nào khác, ngay cả khi nhiều người sử dụng chúng thực chất là cùng một cá nhân. Để ngăn chặn các ốc đảo thông tin mọc lên như nấm trên toàn bộ bức tranh doanh nghiệp, các kiến trúc sư cần phải tập trung hóa cơ chế bảo mật và phân quyền. Điều này được thực hiện bằng cách mua ngoài hoặc tự phát triển một hệ thống quản lý định danh và truy cập (IAM - Identity and Access Management). Con đường được lựa chọn sẽ phụ thuộc rất nhiều vào mức độ tinh vi cần thiết, quỹ thời gian sẵn có và tổng chi phí sở hữu (TCO - Total Cost of Ownership).
+
+Việc khắc phục sự rối rắm về định danh và truy cập trong CollabOvation sẽ là một quy trình gồm nhiều bước. Trước tiên, đội ngũ đã tái cấu trúc bằng mẫu hình Segregated Core [Evans]; hãy xem lại mục "Collaboration Context". Bước đi này phục vụ đúng mục đích đề ra tại thời điểm đó: đảm bảo CollabOvation được gột rửa sạch sẽ khỏi các mối bận tâm về bảo mật và phân quyền. Tuy nhiên, họ nhận định rằng việc quản lý định danh và truy cập cuối cùng phải chiếm giữ một ranh giới ngữ cảnh (context boundary) của riêng nó. Điều đó sẽ đòi hỏi một nỗ lực lớn hơn rất nhiều.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000054_3738907ceb28144fc8ce417be02e989feebd27deeccbaa879b44da5c6d403abe.png)
+
+Điều này cấu thành một Bounded Context mới — mang tên Identity and Access Context — và sẽ được các Bounded Contexts khác tiêu thụ thông qua các kỹ thuật tích hợp DDD (Domain-Driven Design - Thiết kế Hướng miền) tiêu chuẩn. Đối với các ngữ cảnh tiêu thụ nó, Identity and Access Context đóng vai trò là một Generic Subdomain (Miền con Chung). Sản phẩm này sẽ được đặt tên là IdOvation.
+
+Như Hình 2.9 mô tả, Identity and Access Context cung cấp sự hỗ trợ cho các khách thuê bao đa người thuê (multitenant subscribers). Khi phát triển một sản phẩm SaaS (Software as a Service - Phần mềm dưới dạng Dịch vụ), đây là điều hiển nhiên. Mỗi khách thuê (tenant) và mọi đối tượng tài nguyên thuộc quyền sở hữu của một khách thuê nhất định đều sẽ có một định danh hoàn toàn duy nhất, cô lập một cách logic từng khách thuê khỏi tất cả những khách thuê khác. Người dùng hệ thống được đăng ký qua cổng tự phục vụ (self-service) thông qua hình thức chỉ chấp nhận thư mời (by invitation only). Quyền truy cập an toàn được xử lý thông qua một dịch vụ xác thực (authentication service), và mật khẩu luôn được mã hóa ở mức độ cao. Các nhóm người dùng (groups) và các nhóm lồng nhau (nested groups) hỗ trợ quản lý định danh tinh vi trên toàn bộ tổ chức và thu hẹp tới từng đội nhóm nhỏ nhất. Việc truy cập vào các tài nguyên hệ thống được quản lý thông qua các quyền hạn dựa trên vai trò (role-based permissions) đơn giản, thanh lịch nhưng vô cùng mạnh mẽ.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000055_f5c2521d1c6af6e055c9ae620e1fb63887d81cbdb6dec79b3bcfda7a3f1932b9.png)
+
+Figure 2.9 Identity and Access Context. Mọi thứ bên trong ranh giới đều nằm đúng ngữ cảnh theo Ubiquitous Language. Có các thành phần khác trong Bounded Context này, một số nằm trong mô hình và một số nằm ở các tầng khác, nhưng chúng không được hiển thị ở đây nhằm đảm bảo tính dễ đọc. Điều tương tự cũng áp dụng cho các thành phần UI và Application Service.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000056_115e2073e0d1cbb778e4ce5f3b6c1ce8c67fed9f76fcb122156cbd12d7ca6fb1.png)
+
+Ở một bước tiến nâng cao hơn, xuyên suốt mô hình, các Domain Events (Sự kiện Miền) (8) được phát hành (publish) khi các hành vi của mô hình tạo ra sự biến đổi trạng thái mang ý nghĩa đặc biệt đối với những bên quan sát các biến cố đó. Những Events này thường được mô hình hóa dưới dạng danh từ kết hợp với động từ ở thì quá khứ, chẳng hạn như TenantProvisioned, UserPasswordChanged, PersonNameChanged, cùng nhiều sự kiện khác.
+
+Chương tiếp theo, "Context Maps", sẽ trình bày cách thức Identity and Access Context được hai Contexts mẫu còn lại tiêu thụ bằng cách sử dụng các mẫu hình tích hợp DDD.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000057_2e22705966aa12da4238d6997e32319642fd28e5e3f62a2a26a16f1fe05c4ced.png)
+
+## Agile Project Management Context (Ngữ cảnh Quản lý Dự án Agile)
+
+Các phương pháp phát triển linh hoạt (agile) tinh gọn đã thúc đẩy sự phổ biến mạnh mẽ của nó, đặc biệt là sau sự ra đời của Tuyên ngôn Agile (Agile Manifesto) vào năm 2001. Trong bản tuyên bố tầm nhìn của mình, SaaSOvation đặt ra sáng kiến chiến lược trọng tâm thứ hai là phát triển một ứng dụng quản lý dự án linh hoạt. Dưới đây là diễn biến của câu chuyện . . .
+
+Sau ba quý bán thuê bao CollabOvation thành công, thực hiện các đợt nâng cấp theo kế hoạch với các cải tiến tăng dần dựa trên phản hồi của khách hàng và đạt doanh thu vượt kỳ vọng, kế hoạch phát triển ProjectOvation của công ty chính thức được khởi động. Đây chính là Core Domain mới của họ, và các lập trình viên hàng đầu từ dự án CollabOvation sẽ được điều động sang nhằm tận dụng kinh nghiệm về kiến trúc đa khách thuê SaaS cũng như vốn kinh nghiệm DDD mới tích lũy của họ.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000058_14a1d8e48f53d9fefa8c9ad2fec452f86970b61a62a5683bd34a8eb11ba62a86.png)
+
+Công cụ này tập trung vào việc quản lý các dự án linh hoạt, sử dụng Scrum làm khung quản lý dự án lặp đi lặp lại và tăng dần (iterative and incremental). ProjectOvation tuân theo mô hình quản lý dự án Scrum truyền thống, bao gồm đầy đủ: product (sản phẩm), product owner (chủ sở hữu sản phẩm), team (đội ngũ), backlog items (hạng mục tồn đọng), planned releases (các đợt phát hành theo kế hoạch) và sprints (các chu kỳ nước rút). Việc ước lượng backlog item được cung cấp thông qua các bộ tính toán giá trị kinh doanh sử dụng phép phân tích chi phí - lợi ích (cost-benefit analysis).
+
+Kế hoạch kinh doanh khởi đầu bằng một tầm nhìn kép. CollabOvation và ProjectOvation sẽ không đi theo những con đường hoàn toàn tách biệt. SaaSOvation và hội đồng quản trị của công ty đã mường tượng ra một sự đổi mới sáng tạo xoay quanh việc gắn kết các công cụ cộng tác vào quy trình phát triển phần mềm agile. Do đó, các tính năng của CollabOvation sẽ được cung cấp dưới dạng một gói bổ sung tùy chọn (optional add-on) cho ProjectOvation. Bởi vì đóng vai trò cung cấp các tính năng bổ trợ, CollabOvation là một Supporting Subdomain (Miền con Hỗ trợ) đối với ProjectOvation. Các chủ sở hữu sản phẩm và thành viên đội ngũ sẽ tương tác trong các cuộc thảo luận về sản phẩm, lập kế hoạch phát hành và kế hoạch sprint, thảo luận về backlog item, chia sẻ lịch biểu và nhiều hoạt động khác. Đã có kế hoạch tương lai về việc tích hợp quản lý tài nguyên doanh nghiệp vào ProjectOvation, nhưng các mục tiêu ban đầu của sản phẩm agile bắt buộc phải được hoàn thành trước tiên.
+
+Các bên liên quan về mặt kỹ thuật ban đầu dự định phát triển các tính năng của ProjectOvation như một phần mở rộng của mô hình CollabOvation bằng cách phân nhánh mã nguồn trên hệ thống quản lý phiên bản (revision control system source branch). Điều đó thực chất sẽ là một sai lầm chết người, dẫu rằng rất điển hình đối với những ai không dành sự chú ý đúng mực cho các Subdomains trong không gian bài toán (problem space) và Bounded Contexts trong không gian giải pháp (solution space) của họ.
+
+May mắn thay, đội ngũ kỹ thuật đã rút ra bài học đắt giá từ những vấn đề ban đầu với Collaboration Context hỗn tạp. Bài học từ trải nghiệm đó đã thuyết phục họ rằng ngay cả việc manh nha bước vào con đường hợp nhất mô hình quản lý dự án agile với mô hình cộng tác cũng sẽ là một sai lầm nghiêm trọng. Giờ đây, các đội ngũ đã bắt đầu tư duy với sự nghiêng hẳn về phía thiết kế chiến lược của DDD.
+
+Hình 2.10 cho thấy rằng nhờ áp dụng tư duy thiết kế chiến lược, đội ngũ ProjectOvation giờ đây đã nhìn nhận các đối tượng sử dụng hệ thống một cách chuẩn xác: họ là Product Owners (Chủ sở hữu Sản phẩm) và Team Members (Thành viên Đội ngũ). Xét cho cùng, đó chính là các vai trò thành viên dự án do những người thực hành Scrum đảm nhận. Người dùng và vai trò được quản lý bên trong Identity and Access Context tách biệt. Bằng cách sử dụng Bounded Context đó, cổng tự phục vụ cho phép người đăng ký thuê bao tự quản lý định danh cá nhân của họ. Các công cụ quản trị cho phép người quản lý, chẳng hạn như chủ sở hữu sản phẩm, chỉ định các thành viên trong nhóm sản phẩm của mình. Khi các vai trò được quản lý chuẩn xác, Product Owners và Team Members có thể được tạo ra đúng nơi chúng thuộc về: bên trong Agile Project Management Context. Phần còn lại trong thiết kế của dự án sẽ được hưởng lợi khi đội ngũ tập trung toàn lực vào việc nắm bắt Ubiquitous Language của mảng quản lý dự án agile vào trong một domain model được trau chuốt cẩn trọng.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000059_5f503bf639abba7ea837b84a1e53ec1a3acf83a603a3a6fcb971ec090d30c062.png)
+
+Figure 2.10 Agile Project Management Context. Ubiquitous Language của Bounded Context này xoay quanh các sản phẩm, vòng lặp và đợt phát hành linh hoạt dựa trên Scrum. Để đảm bảo tính dễ đọc, một số thành phần, bao gồm cả các thành phần từ UI và Application Services, không được hiển thị tại đây.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000060_230860bf46c9edfe6e2d616ee59815cd4fae9ce025cc828862e493aae2c74093.png)
+
+Một yêu cầu đặt ra là ProjectOvation phải vận hành như một tập hợp các dịch vụ ứng dụng tự trị (autonomous application services). Nhóm mong muốn giới hạn sự phụ thuộc của ProjectOvation vào các Bounded Contexts khác ở một chu kỳ định kỳ hợp lý, hoặc ít nhất là trong mức độ thực tế nhất có thể. Nói một cách khái quát, ProjectOvation sẽ có khả năng tự hoạt động độc lập, và nếu IdOvation hoặc CollabOvation có ngừng hoạt động vì bất kỳ lý do gì, ProjectOvation vẫn tiếp tục vận hành một cách tự chủ. Đương nhiên, trong trường hợp đó, một số dữ liệu có thể bị lệch pha đồng bộ trong một khoảng thời gian, và thường là một khoảng thời gian rất ngắn, nhưng toàn bộ hệ thống vẫn tiếp tục vận hành bình thường.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000061_47b314e8e31ccf417fdba4376aa30dffa7e5554d7494b7bc7f7a813d254b7ac4.png)
+
+## Ngữ cảnh Mang lại cho Mỗi Thuật ngữ một Ý nghĩa Rất Cụ thể (The Context Gives Each Term a Very Specific Meaning)
+
+Một Product (Sản phẩm) trong Scrum có thể chứa nhiều thể hiện BacklogItem mô tả phần mềm đang được xây dựng. Khái niệm này hoàn toàn khác biệt so với các sản phẩm trên một trang thương mại điện tử mà bạn bỏ vào giỏ hàng để mua sắm. Làm sao chúng ta phân biệt được? Đó là nhờ vào Ngữ cảnh (Context). Chúng ta hiểu Product của mình có ý nghĩa gì bởi vì nó nằm trong Agile PM Context. Trong một Online Store Context (Ngữ cảnh Cửa hàng Trực tuyến), Product lại mang một ý nghĩa hoàn toàn khác biệt. Đội ngũ không cần phải đặt tên cho sản phẩm là ScrumProduct chỉ để phân biệt sự khác nhau đó.
+
+Core Domain gồm Product, Backlog Items, Tasks, Sprints và Releases đã có một khởi đầu thuận lợi hơn rất nhiều nhờ vào những kinh nghiệm quý giá tích lũy được từ SaaSOvation. Dẫu vậy, chúng ta vẫn rất quan tâm đến việc xem xét những bài học lớn mà họ đã đúc kết được dọc theo đường dốc học tập đầy chông gai của việc mô hình hóa cẩn trọng các Aggregates (10).
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000062_fad0246a9339c354a1e3799dbaa1718912954c9beeff0302df4f1c11ac890e36.png)
+
+## Tổng kết (Wrap-Up)
+
+Đó quả là một cuộc thảo luận thực sự chuyên sâu về tầm quan trọng của thiết kế chiến lược trong DDD!
+
+* Bạn đã nghiên cứu kỹ lưỡng về Domains, Subdomains và Bounded Contexts.
+* Bạn đã khám phá cách thức đánh giá chiến lược hiện trạng toàn cảnh của doanh nghiệp bằng cách sử dụng các phép đánh giá không gian bài toán và không gian giải pháp.
+* Bạn đã đi sâu vào các chi tiết về cách sử dụng Bounded Contexts để phân tách các mô hình một cách tường minh theo phương diện ngôn ngữ.
+* Bạn đã học được những thành phần nào nằm bên trong Bounded Contexts, cách định cỡ quy mô chuẩn xác cho chúng, và cách xây dựng chúng để triển khai thực tế.
+* Bạn đã cảm nhận được nỗi đau mà đội ngũ SaaSOvation phải nếm trải trong giai đoạn đầu thiết kế Collaboration Context và cách thức cả nhóm đã nỗ lực vượt qua tình cảnh bế tắc đó.
+* Bạn đã chứng kiến sự hình thành của Core Domain hiện tại, Agile Project Management Context — tâm điểm của các ví dụ thiết kế và triển khai xuyên suốt cuốn sách.
+
+Đúng như đã hứa, chương tiếp theo sẽ đi sâu vào Context Mapping (Ánh xạ Ngữ cảnh). Đây là một công cụ mô hình hóa chiến lược thiết yếu cần áp dụng trong các thiết kế. Có thể bạn đã nhận ra rằng chúng ta đã thực hiện một phần việc của Context Mapping ngay trong chương này. Điều đó là không thể tránh khỏi khi chúng ta tiến hành đánh giá các miền khác nhau. Dẫu vậy, chúng ta sẽ đi vào chi tiết hơn rất nhiều ở chương sau.
+
+Trang này được chủ ý để trống
+
+## Chương 3 (Chapter 3)
+
+## Context Maps (Bản đồ Ngữ cảnh)
+
+Dù bạn chọn con đường nào, sẽ luôn có người nói rằng bạn đã sai. Luôn có những khó khăn phát sinh cám dỗ bạn tin rằng những kẻ chỉ trích mình là đúng. Để vạch ra một lộ trình hành động và theo đuổi nó đến cùng đòi hỏi lòng dũng cảm.
+
+-Ralph Waldo Emerson
+
+Context Map của một dự án có thể được biểu đạt theo hai cách. Cách đơn giản hơn là vẽ một biểu đồ trực quan thể hiện các ánh xạ giữa hai hay nhiều Bounded Contexts (2) hiện có. Tuy nhiên, hãy hiểu rằng bạn chỉ đang vẽ một biểu đồ đơn giản về những gì vốn đã tồn tại sẵn. Bản vẽ này minh họa cách thức các Bounded Contexts phần mềm thực tế trong không gian giải pháp (solution space) liên kết với nhau thông qua sự tích hợp. Điều này đồng nghĩa với việc cách biểu đạt Context Maps chi tiết và thực chất hơn chính là việc triển khai mã nguồn thực tế của các mối tích hợp đó. Chúng ta sẽ xem xét cả hai cách trong chương này, nhưng để nắm bắt phần lớn các chi tiết triển khai cụ thể, hãy xem chương Tích hợp các Bounded Contexts (Integrating Bounded Contexts) (13).
+
+Ở mức độ khái quát, hãy luôn ghi nhớ rằng chương này tập trung vào việc đánh giá không gian giải pháp (solution space assessment), trong khi chương trước đã xử lý khá nhiều về việc đánh giá không gian bài toán (problem space assessment).
+
+## Lộ trình của Chương này (Road Map to This Chapter)
+
+* Hiểu lý do tại sao việc vẽ một Context Map lại mang tính sống còn đối với sự thành công của dự án.
+* Nhận thấy việc vẽ một Context Map đầy đủ ý nghĩa có thể đơn giản và dễ dàng đến nhường nào.
+* Xem xét các mối quan hệ tổ chức và hệ thống phổ biến cũng như cách thức chúng tác động đến các dự án của bạn.
+* Học hỏi từ các đội ngũ của SaaSOvation khi họ tạo ra các Maps để kiểm soát hoàn toàn dự án của mình.
+
+## Vì sao Context Maps lại Thiết yếu đến vậy (Why Context Maps Are So Essential)
+
+Khi bắt tay vào một nỗ lực DDD, trước tiên hãy vẽ một Context Map trực quan về tình hình dự án hiện tại của bạn. Hãy tạo ra một Context Map mô tả các Bounded Contexts hiện đang liên quan trong dự án của bạn cùng các mối quan hệ tích hợp giữa chúng. Hình 3.1 mô tả một Context Map trừu tượng. Chúng ta sẽ dần lấp đầy các chi tiết khi tiến bước sâu hơn.
+
+Figure 3.1 Context Map của một Domain trừu tượng. Ba Bounded Contexts cùng các mối quan hệ giữa chúng được phác thảo. Chữ U đại diện cho Upstream (Thượng nguồn) và chữ D đại diện cho Downstream (Hạ nguồn).
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000063_01129dcf4c19b3b9a00197389f3cb2c3b5904f5de3737a69a53baf57217ed4f7.png)
+
+Bản vẽ đơn giản này chính là Map của đội ngũ bạn. Các đội ngũ dự án khác có thể tham chiếu tới nó, nhưng họ cũng nên tự tạo ra các Maps của riêng mình nếu họ đang triển khai DDD. Bản đồ của bạn được vẽ ra chủ yếu nhằm cung cấp cho đội ngũ của bạn góc nhìn về không gian giải pháp cần thiết để đi đến thành công. Các đội ngũ khác có thể không sử dụng DDD và/hoặc họ có thể chẳng mảy may quan tâm đến góc nhìn của bạn.
+
+## Ôi Không! Lại Có Thuật ngữ Mới Nữa Rồi! (Oh, No! There's New Terminology!)
+
+Chúng ta đang giới thiệu các khái niệm Big Ball of Mud (Kiến trúc Búi bùn lớn), Customer-Supplier (Khách hàng - Nhà cung cấp), và Conformist (Kẻ phục tùng / Tuân thủ) tại đây. Hãy kiên nhẫn; các khái niệm này cùng với những mối quan hệ tích hợp và đội ngũ khác trong DDD được lưu ý tại đây sẽ được thảo luận chi tiết ở phần sau của chương này.
+
+Ví dụ, khi bạn tích hợp các Bounded Contexts trong một doanh nghiệp lớn, bạn có thể cần phải kết nối với một Big Ball of Mud. Đội ngũ bảo trì khối mã nguồn nguyên khối lầy lội đó có thể không quan tâm dự án của bạn đi theo hướng nào, miễn là bạn tuân thủ đúng API của họ. Vì vậy, họ sẽ không thu được bất kỳ hiểu biết sâu sắc nào từ Map của bạn hay những gì bạn làm với API của họ. Dẫu vậy, Map của bạn bắt buộc phải phản ánh đúng loại mối quan hệ mà bạn đang có với họ, bởi vì nó sẽ mang lại cho nhóm của bạn những hiểu biết thiết yếu và chỉ ra những khu vực mà việc giao tiếp liên nhóm (inter-team communication) mang tính bắt buộc sống còn. Việc nắm giữ sự thấu hiểu đó có thể hỗ trợ rất nhiều cho sự thành công của đội ngũ bạn.
+
+## Phương tiện Giao tiếp (Communications Facility)
+
+Bên cạnh việc cung cấp cho bạn danh mục các hệ thống mà bạn bắt buộc phải tương tác, một Context Map còn đóng vai trò như một chất xúc tác mạnh mẽ cho việc giao tiếp giữa các đội ngũ.
+
+Hãy hình dung điều gì sẽ xảy ra nếu nhóm của bạn đinh ninh rằng đội ngũ bảo trì khối mã nguồn nguyên khối lầy lội kia sẽ cung cấp các API mới mà bạn đang phụ thuộc vào, nhưng họ lại không hề có ý định cung cấp chúng, hoặc thậm chí họ còn chẳng hề hay biết bạn đang nghĩ gì. Nhóm của bạn đang trông chờ vào một mối quan hệ Customer-Supplier với khối bùn lầy đó. Tuy nhiên, đội ngũ quản lý hệ thống cũ, bằng việc chỉ cung cấp những gì họ hiện có, đã vô tình ép nhóm của bạn vào một mối quan hệ Conformist đầy bất ngờ. Tùy thuộc vào việc bạn nhận được tin dữ này muộn đến mức nào trong dự án, mối quan hệ thực tế không nhìn thấy trước này có thể làm chậm tiến độ bàn giao hoặc thậm chí phá hỏng toàn bộ dự án của bạn. Bằng việc vẽ một Context Map ngay từ sớm, bạn sẽ buộc phải suy nghĩ cẩn trọng về các mối quan hệ của mình với tất cả các dự án khác mà bạn đang phụ thuộc vào.
+
+Hãy xác định từng mô hình đang vận hành trong dự án và định nghĩa BOUNDED CONTEXT của nó. . . . Hãy đặt tên cho từng BOUNDED CONTEXT, và biến những tên gọi đó thành một phần của UBIQUITOUS LANGUAGE. Hãy mô tả các điểm tiếp xúc giữa các mô hình, phác thảo cơ chế phiên dịch tường minh cho mọi sự giao tiếp và làm nổi bật bất kỳ sự chia sẻ nào. [Evans, tr. 345]
+
+Khi đội ngũ CollabOvation lần đầu tiên bắt tay vào phát triển mô hình greenfield của mình, lẽ ra họ nên sử dụng một Context Map. Ngay cả khi họ gần như bắt đầu từ con số không, việc tuyên bố rõ các giả định của mình về dự án dưới dạng một tấm Bản đồ sẽ thúc đẩy họ phải tư duy
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000064_b60b43b81926b5ac4c1cae697792a3213e036e84b38221a1b0fba5150924a4c4.png)
+
+về các Bounded Contexts tách biệt. Họ vẫn có thể liệt kê các phần tử mô hình hóa quan trọng lên bảng trắng, sau đó gom chúng thành các nhóm thuật ngữ ngôn ngữ có liên quan. Việc đó sẽ buộc họ phải nhận diện các ranh giới ngôn ngữ và tạo ra một Context Map đơn giản. Tuy nhiên, họ thực sự không hiểu về mô hình hóa chiến lược một chút nào. Trước tiên, họ cần phải đạt được một bước đột phá về tư duy mô hình hóa chiến lược. Về sau, họ đã có được phát hiện mang tính sống còn về công cụ cứu rỗi dự án này, và áp dụng nó để thu về những lợi ích thiết thực. Khi dự án Core Domain tiếp theo được triển khai, công cụ này một lần nữa đã mang lại những giá trị vượt trội.
+
+Hãy cùng xem bạn có thể tạo ra một Context Map hữu ích nhanh chóng như thế nào.
+
+## Vẽ Context Maps (Drawing Context Maps)
+
+Một Context Map nắm bắt địa hình thực tế hiện có. Trước hết, bạn nên lập bản đồ cho hiện tại, chứ không phải cho một tương lai tưởng tượng. Nếu bức tranh cảnh quan thay đổi khi dự án hiện tại của bạn tiến triển, bạn hoàn toàn có thể cập nhật Map vào thời điểm đó. Trước tiên, hãy tập trung vào tình hình thực tế hiện tại để bạn có thể hình thành sự hiểu biết rõ ràng về việc mình đang ở đâu và xác định xem cần đi đâu tiếp theo.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000065_a789383fd338844c56bf0343d14f064ceafb1a978aa30560667382d75781b3f7.png)
+
+Việc tạo ra một Context Map trực quan không nhất thiết phải phức tạp. Lựa chọn đầu tiên của bạn luôn là các sơ đồ vẽ tay nơi bảng trắng và bút dạ xóa được thống trị. Phong cách được sử dụng ở đây rất dễ thích ứng như được minh họa bởi [Brandolini]. Nếu bạn quyết định sử dụng một công cụ phần mềm để ghi lại bản vẽ, hãy đảm bảo giữ cho nó thật phi hình thức và mộc mạc.
+
+Nhìn lại Hình 3.1, tên của các Bounded Contexts chỉ là những phần giữ chỗ (placeholders), và các mối quan hệ tích hợp cũng vậy. Tất cả chúng sẽ là những tên gọi thực tế trong một tấm Bản đồ hữu hình. Các mối quan hệ upstream (thượng nguồn) và downstream (hạ nguồn) được hiển thị rõ ràng, ý nghĩa của chúng sẽ được giải thích ở phần sau của chương.
+
+## Giờ Làm việc với Bảng trắng (Whiteboard Time)
+
+Hãy vẽ một sơ đồ đơn giản về tình hình dự án hiện tại của bạn nhằm truyền đạt ở mức khái quát: ranh giới nằm ở đâu, mối quan hệ giữa các ranh giới và giữa các đội ngũ của chúng, những loại hình tích hợp nào đang tham gia, và các cơ chế phiên dịch cần thiết giữa chúng.
+
+Hãy nhớ rằng phần mềm sẽ hiện thực hóa những gì có trong bản vẽ. Nếu bạn cần thêm thông tin về những gì mình nên vẽ, hãy xem xét các hệ thống mà Bounded Context của bạn đang tích hợp cùng.
+
+Đôi khi chúng ta sẽ muốn phóng to (zoom in) và bổ sung thêm chi tiết cho một phần cụ thể của Context Map. Đó chỉ đơn thuần là một góc nhìn khác về cùng một (hoặc nhiều) Context đó. Bên cạnh các ranh giới, mối quan hệ và cơ chế phiên dịch, chúng ta có thể muốn đưa vào các mục khác như Modules (9), các Aggregates (10) quan trọng, cách thức phân bổ nhân sự các nhóm, và bất kỳ thông tin nào khác có liên quan đến các Contexts. Những kỹ thuật này sẽ được chứng minh ở phần sau của chương.
+
+Tất cả các bản vẽ và bất kỳ văn bản giải thích nào đều có thể được tập hợp vào một tài liệu tham khảo duy nhất nếu nó mang lại giá trị cho cả nhóm. Với bất kỳ nỗ lực nào như vậy, chúng ta nên tránh sự rườm rà mang tính nghi thức và duy trì sự đơn giản kết hợp cùng tính linh hoạt (agile). Càng thêm vào nhiều nghi thức hình thức, sẽ càng có ít người muốn sử dụng Map. Việc nhồi nhét quá nhiều chi tiết vụn vặt vào các biểu đồ sẽ không thực sự giúp ích cho nhóm. Giao tiếp cởi mở mới là chìa khóa. Khi các cuộc trò chuyện hé lộ những hiểu biết chiến lược sâu sắc, hãy bổ sung chúng vào Context Map.
+
+## Không, Nó Không Mang Tính Bệnh Doanh nghiệp (No, It's Not Enterprisy)
+
+Một Context Map không phải là một sơ đồ Kiến trúc Doanh nghiệp (Enterprise Architecture) hay sơ đồ cấu trúc liên kết hệ thống (system topology diagram).
+
+> 💡 **Giải thích thêm:** "Enterprisy" (mang phong cách cồng kềnh kiểu doanh nghiệp lớn) là một tiếng lóng kỹ thuật mang sắc thái châm biếm, chỉ những thứ bị làm cho phức tạp hóa quá mức cần thiết, rườm rà, quan liêu, nặng tính nghi thức và cồng kềnh (over-engineered) — tương tự như các tài liệu kiến trúc doanh nghiệp vẽ hàng trăm hộp kết nối trừu tượng nhưng vô dụng đối với việc viết mã thực tế. Context Map của DDD ngược lại hoàn toàn: nó tập trung vào mối quan hệ thực tế giữa các mô hình và đội ngũ, mang tính thực dụng và tinh gọn.
+> Nguồn tham khảo: (Không có nguồn trích dẫn xác thực — cần tự kiểm chứng thêm)
+
+Một Context Map không phải là một sơ đồ Kiến trúc Doanh nghiệp hay sơ đồ cấu trúc liên kết hệ thống. Thông tin được truyền tải dựa trên sự tương tác giữa các mô hình và các mẫu hình tổ chức của DDD. Dẫu vậy, Context Maps vẫn có thể được sử dụng trong các cuộc điều tra kiến trúc cấp cao, mang lại những góc nhìn về doanh nghiệp mà bình thường không thể có được. Chúng có thể làm nổi bật các khiếm khuyết kiến trúc như các điểm nghẽn tích hợp (integration bottlenecks). Bởi vì chúng phản ánh một động lực mang tính tổ chức, Context Maps thậm chí có thể giúp chúng ta nhận diện các vấn đề quản trị hóc búa có nguy cơ cản trở tiến độ, cùng các thách thức khác về đội ngũ và quản lý vốn rất khó phát hiện nếu sử dụng các phương pháp khác.
+
+## Triết lý Cao bồi (Cowboy Logic)
+
+* AJ:    'Nhà tôi bảo: "Tôi ra đồng cỏ với mấy con bò; anh chẳng để ý thấy tôi à?" Tôi bảo: "Không." Thế là bà ấy giận, không thèm nói chuyện với tôi suốt cả tuần.'
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000066_4d854e42aa244f8131d17bddb090cd690e72633d1ac8a825ddcecce1379d4fa3.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000067_ed96b09e7d3638602bdcd0138642746819222f297aaaf1cfefc30942fbcec3c3.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000068_4b66911536ed4ab24b94cbf069c8bd3d776e8c4d21a440d127fc951493e21b48.png)
+
+Các biểu đồ xứng đáng được dán ở vị trí nổi bật trên bức tường trong khu vực làm việc của nhóm. Nếu nhóm thường xuyên sử dụng wiki, các biểu đồ cũng có thể được tải lên đó. Nhưng nếu trang wiki gần như bị ngó lơ, đừng mất công làm gì. Người ta vẫn thường nói rằng wiki có thể là nơi chôn vùi thông tin ("where information goes to die"). Bất kể chúng được hiển thị ở đâu, Context Maps sẽ bị rơi vào tình trạng "vô hình giữa ban ngày" (hidden in plain sight) trừ khi nhóm thường xuyên dành sự chú ý cho chúng thông qua các cuộc thảo luận thực chất và có ý nghĩa.
+
+## Các Dự án và Mối quan hệ Tổ chức (Projects and Organizational Relationships)
+
+Xin được nhắc lại ngắn gọn, SaaSOvation đang trên lộ trình phát triển và hoàn thiện ba sản phẩm:
+
+1. Một sản phẩm bộ ứng dụng cộng tác xã hội, CollabOvation, cho phép người dùng đã đăng ký xuất bản các nội dung mang giá trị kinh doanh thông qua các công cụ nền web phổ biến như diễn đàn, lịch chia sẻ, blog, wiki và các công cụ tương tự. Đây là sản phẩm chủ lực của SaaSOvation và từng là Core Domain (2) đầu tiên của công ty (mặc dù khi đó nhóm chưa biết đến thuật ngữ DDD). Đây chính là Context mà từ đó mô hình của IdOvation (mục 2) cuối cùng đã được bóc tách ra. CollabOvation hiện sử dụng IdOvation như một Generic Subdomain (2). Bản thân CollabOvation sẽ được tiêu thụ như một Supporting Subdomain (2), đóng vai trò là một gói bổ sung tùy chọn cho ProjectOvation (mục 3).
+2. Một mô hình quản trị định danh và truy cập có thể tái sử dụng, IdOvation cung cấp cơ chế quản lý truy cập an toàn dựa trên vai trò cho những người dùng đã đăng ký. Những tính năng này thoạt đầu được tích hợp chung trong CollabOvation (mục 1), nhưng cách triển khai đó bị hạn chế và không thể tái sử dụng. SaaSOvation đã tái cấu trúc CollabOvation, giới thiệu một Bounded Context mới, sạch sẽ. Một tính năng sản phẩm then chốt là
+
+sự hỗ trợ đa khách thuê (multitenancy), điều mang tính sống còn đối với một ứng dụng SaaS. IdOvation đóng vai trò là một Generic Subdomain phục vụ cho các mô hình tiêu thụ nó.
+
+3. Một sản phẩm quản lý dự án linh hoạt, ProjectOvation, tại thời điểm này chính là Core Domain mới. Người dùng của sản phẩm SaaS này có thể tạo ra các tài nguyên quản lý dự án, cũng như các tạo tác phân tích và thiết kế, đồng thời theo dõi tiến độ công việc bằng cách sử dụng khung thực thi dựa trên Scrum. Tương tự như CollabOvation, ProjectOvation sử dụng IdOvation như một Generic Subdomain. Một trong những tính năng mang tính đổi mới sáng tạo là bổ sung sự cộng tác nhóm (mục 1) vào việc quản lý dự án agile, cho phép thảo luận xung quanh các sản phẩm Scrum, các đợt phát hành, các sprint và từng backlog item riêng lẻ.
+
+## Cuối cùng Cũng Đến các Định nghĩa! (Finally, the Definitions!)
+
+Các mẫu hình tổ chức và tích hợp đã đề cập trước đó được định nghĩa như sau . . .
+
+Đâu là các mối quan hệ giữa các Bounded Contexts này và các đội ngũ dự án riêng lẻ của chúng? Có một số mẫu hình tổ chức và tích hợp trong DDD, một trong số đó thường tồn tại giữa bất kỳ hai Bounded Contexts nào. Mỗi định nghĩa sau đây phần lớn được trích dẫn từ [Evans, Ref]:
+
+* Partnership (Quan hệ Đối tác): Khi các đội ngũ trong hai Contexts cùng chung số phận thành công hay thất bại cùng nhau, một mối quan hệ hợp tác cần phải xuất hiện. Các nhóm thiết lập một quy trình phối hợp lập kế hoạch phát triển và cùng nhau quản lý việc tích hợp. Các nhóm phải hợp tác trong quá trình tiến hóa các giao diện của họ để đáp ứng nhu cầu phát triển của cả hai hệ thống. Các tính năng phụ thuộc lẫn nhau nên được lên lịch trình sao cho chúng được hoàn thành trong cùng một đợt phát hành.
+* Shared Kernel (Hạt nhân Chia sẻ): Việc chia sẻ một phần của mô hình và mã nguồn liên quan tạo ra một sự phụ thuộc lẫn nhau hết sức mật thiết, điều này có thể nâng tầm công sức thiết kế nhưng cũng có thể làm xói mòn nó. Hãy chỉ định một ranh giới tường minh cho một tập con của domain model mà các nhóm đồng thuận chia sẻ cùng nhau. Hãy giữ cho phần hạt nhân (kernel) này thật nhỏ gọn. Phần nội dung chia sẻ tường minh này có vị thế đặc biệt và không được phép thay đổi nếu không có sự tham vấn với nhóm còn lại. Hãy định nghĩa một quy trình tích hợp liên tục (CI - Continuous Integration) để giữ cho mô hình hạt nhân luôn chặt chẽ và đồng bộ Ubiquitous Language (1) của các nhóm.
+* Customer-Supplier Development (Phát triển kiểu Khách hàng - Nhà cung cấp): Khi hai nhóm ở trong mối quan hệ thượng nguồn - hạ nguồn (upstream-downstream relationship), nơi mà nhóm thượng nguồn có thể thành công độc lập với số phận của nhóm hạ nguồn, các nhu cầu của nhóm hạ nguồn sẽ được giải quyết theo nhiều cách khác nhau với hàng loạt hệ quả đa dạng. Các ưu tiên của hạ nguồn sẽ được đưa vào kế hoạch của thượng nguồn. Hãy đàm phán và phân bổ ngân sách tác vụ cho các yêu cầu của hạ nguồn để tất cả mọi người đều hiểu rõ cam kết và tiến độ thời gian.
+* Conformist (Kẻ phục tùng / Tuân thủ): Khi hai đội ngũ phát triển có mối quan hệ thượng nguồn / hạ nguồn, trong đó nhóm thượng nguồn không có bất kỳ động lực nào để đáp ứng các nhu cầu của nhóm hạ nguồn, nhóm hạ nguồn sẽ rơi vào thế hoàn toàn bất lực. Lòng vị tha có thể thúc đẩy các lập trình viên thượng nguồn đưa ra những lời hứa hẹn, nhưng chúng rất khó có khả năng được thực hiện. Nhóm hạ nguồn sẽ triệt tiêu độ phức tạp của việc phiên dịch giữa các Bounded Contexts bằng cách tuân thủ một cách mù quáng theo mô hình của nhóm thượng nguồn.
+* Anticorruption Layer (Tầng Chống suy thoái / ACL): Các tầng phiên dịch có thể đơn giản, thậm chí thanh lịch, khi bắc cầu nối giữa các Bounded Contexts được thiết kế tốt với các đội ngũ có tinh thần hợp tác. Nhưng khi sự kiểm soát hoặc giao tiếp không đủ tốt để tạo dựng một mối quan hệ Shared Kernel, Partner hay Customer-Supplier, việc phiên dịch sẽ trở nên phức tạp hơn rất nhiều. Tầng phiên dịch lúc này sẽ mang sắc thái phòng thủ rõ nét hơn. Với tư cách là một client hạ nguồn, hãy tạo ra một tầng cách ly để cung cấp cho hệ thống của bạn các chức năng của hệ thống thượng nguồn dưới dạng chính domain model của bạn. Tầng này giao tiếp với hệ thống kia thông qua giao diện sẵn có của nó, đòi hỏi rất ít hoặc không cần sửa đổi đối với hệ thống kia. Ở bên trong nội bộ, tầng này sẽ thực hiện việc phiên dịch theo một hoặc cả hai hướng khi cần thiết giữa hai mô hình.
+* Open Host Service (Dịch vụ Máy chủ Mở / OHS): Hãy định nghĩa một giao thức cho phép truy cập vào hệ thống con của bạn dưới dạng một tập hợp các dịch vụ. Hãy mở rộng giao thức này để tất cả những ai cần tích hợp với bạn đều có thể sử dụng. Nâng cấp và mở rộng giao thức để xử lý các yêu cầu tích hợp mới, ngoại trừ trường hợp một nhóm đơn lẻ có những nhu cầu mang tính đặc dị (idiosyncratic). Khi đó, hãy sử dụng một bộ phiên dịch dùng một lần (one-off translator) để tăng cường cho giao thức phục vụ trường hợp đặc biệt đó, nhằm giúp giao thức dùng chung luôn giữ được sự đơn giản và mạch lạc.
+* Published Language (Ngôn ngữ Công bố / PL): Việc phiên dịch giữa các mô hình của hai Bounded Contexts đòi hỏi một ngôn ngữ chung. Hãy sử dụng một ngôn ngữ chia sẻ được lập tài liệu đầy đủ có thể biểu đạt các thông tin miền cần thiết như một phương tiện giao tiếp chung, thực hiện phiên dịch khi cần thiết sang và ra khỏi ngôn ngữ đó. Published Language thường được kết hợp cùng với Open Host Service.
+* Separate Ways (Đường ai nấy đi): Chúng ta bắt buộc phải tàn nhẫn khi định nghĩa các yêu cầu. Nếu hai tập hợp chức năng không có mối quan hệ ý nghĩa nào với nhau, chúng có thể được cắt đứt hoàn toàn khỏi nhau. Việc tích hợp luôn luôn tốn kém, và đôi khi lợi ích thu về lại rất nhỏ nhoi. Hãy tuyên bố một Bounded Context hoàn toàn không có bất kỳ kết nối nào với các ngữ cảnh khác, cho phép các lập trình viên tìm ra các giải pháp chuyên biệt, đơn giản bên trong phạm vi thu hẹp này.
+* Big Ball of Mud (Kiến trúc Búi bùn lớn): Khi khảo sát các hệ thống hiện có, chúng ta nhận thấy rằng trên thực tế có những phần của hệ thống, thường là những phần rất lớn, nơi các mô hình bị trộn lẫn hỗn tạp và ranh giới hoàn toàn thiếu nhất quán. Hãy vẽ một ranh giới bao quanh toàn bộ mớ hỗn độn đó và định danh nó là một Big Ball of Mud. Tuyệt đối không cố gắng áp dụng việc mô hình hóa tinh vi bên trong Context này. Hãy luôn cảnh giác cao độ trước xu hướng bành trướng của những hệ thống như vậy sang các Contexts khác.
+
+Bằng cách tích hợp với Identity and Access Context, cả Collaboration Context lẫn Agile Project Management Context đều tránh được việc phải chọn giải pháp Separate Ways đối với vấn đề bảo mật và phân quyền. Đúng là Separate Ways có thể được áp dụng trên toàn Context cho một hệ thống cụ thể, nhưng nó cũng có thể được vận dụng theo từng trường hợp riêng lẻ. Ví dụ, một nhóm có thể từ chối sử dụng hệ thống bảo mật tập trung nhưng vẫn có thể chọn tích hợp với một số tiện ích tiêu chuẩn doanh nghiệp khác.
+
+Các nhóm sẽ hợp tác với nhau theo các vai trò Customer-Supplier. Ban lãnh đạo của SaaSOvation chắc chắn sẽ không bao giờ cho phép một nhóm ép buộc các nhóm khác phải trở thành Conformists. Không phải mối quan hệ Conformist lúc nào cũng tiêu cực. Đúng hơn, Customer-Supplier đòi hỏi sự cam kết từ phía Nhà cung cấp (Supplier) trong việc hỗ trợ cho Khách hàng (Customer), điều này thúc đẩy mối quan hệ liên nhóm tích cực mà SaaSOvation tin rằng họ cần có để đạt được thành công trọn vẹn. Đương nhiên, không phải lúc nào Khách hàng cũng luôn đúng, vì vậy sự nhượng bộ và thỏa hiệp qua lại bắt buộc phải tồn tại. Xét về tổng thể, chính mối quan hệ tổ chức tích cực mới là điều các nhóm cần duy trì.
+
+Các mối tích hợp của các nhóm sẽ tận dụng Open Host Service và Published Language. Có thể gây đôi chút ngạc nhiên là họ cũng sẽ sử dụng cả Anticorruption Layer. Đây không phải là một sự mâu thuẫn, ngay cả khi họ đang thiết lập các tiêu chuẩn mở giữa các Bounded Contexts của mình. Họ vẫn có thể hiện thực hóa các lợi ích của việc phiên dịch biệt lập bằng cách sử dụng các nguyên lý nền tảng của nó trong các Contexts hạ nguồn, nhưng với độ phức tạp ít hơn nhiều so với khi phải tiêu thụ một Big Ball of Mud. Các tầng phiên dịch sẽ rất đơn giản và thanh lịch.
+
+Các bản vẽ Context Map tiếp theo sẽ sử dụng các chữ viết tắt sau để chỉ ra các mẫu hình được áp dụng tại mỗi đầu của một mối quan hệ:
+
+* ACL cho Anticorruption Layer
+* OHS cho Open Host Service
+* PL cho Published Language
+
+Khi bạn xem xét các Context Maps mẫu và phần văn bản giải thích đi kèm dưới đây, có thể sẽ rất hữu ích nếu bạn liếc nhìn lại Chương 2, "Domains, Subdomains, and Bounded Contexts". Các sơ đồ của từng Bounded Context trong số ba ngữ cảnh mẫu cũng rất hữu ích tại đây. Vì chúng vẫn ở mức độ tương đối khái quát, các sơ đồ đó hoàn toàn có thể được đưa vào làm một phần của Maps cho từng Context, mặc dù chúng không được lặp lại tại đây.
+
+## Lập Bản đồ cho Ba Ngữ cảnh (Mapping the Three Contexts)
+
+Bây giờ hãy cùng bước vào trải nghiệm thực tế của đội ngũ để chúng ta có thể học hỏi từ những gì họ đã làm . . .
+
+Khi đội ngũ CollabOvation nhận ra sự hỗn độn mà họ đã tạo ra, họ đã đào sâu vào cuốn sách [Evans] để tìm lối thoát. Trong số những phát hiện có giá trị to lớn thuộc các mẫu hình thiết kế chiến lược, họ đã tìm thấy một công cụ thực tiễn mang tên Context Maps. Họ cũng tìm thấy một bài viết trực tuyến rất hữu ích của [Brandolini] đào sâu thêm về kỹ thuật này. Vì chỉ dẫn của công cụ này chỉ ra rằng họ nên lập bản đồ địa hình hiện có, đó chính là bước đầu tiên họ thực hiện. Hình 3.2 cho thấy các kết quả thu được.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000069_5eb63d44060691cf96448a0aff00d2a938de488c18742f6772f94f5a2ed5fb81.png)
+
+Tấm Bản đồ đầu tiên do nhóm tạo ra làm nổi bật sự nhận biết ban đầu của họ về sự tồn tại của một Bounded Context mà họ đặt tên là Collaboration Context. Bằng hình dạng kỳ dị của ranh giới hiện có, họ đã truyền tải rất thỏa đáng khả năng tồn tại của một Context thứ hai, nhưng lại là một ngữ cảnh chưa có sự phân tách sạch sẽ và rõ ràng khỏi Core Domain.
+
+Figure 3.2 Sự hỗn độn bên trong Collaboration Context gây ra bởi các khái niệm không mong muốn được vạch trần bởi Map này. Biển báo nguy hiểm chỉ ra khu vực không thuần khiết.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000070_40340c9868bfabe67213d8905b71a9481869c3c13813925f8d1f17afda2f47f0.png)
+
+A narrow passage near the top allows foreign concepts to migrate back and forth almost without censure, as the caution sign indicates.
+
+Một lối đi hẹp gần phía trên cùng cho phép các khái niệm ngoại lai di chuyển qua lại gần như không bị kiểm duyệt, đúng như biển báo nguy hiểm chỉ ra. Không phải các ranh giới Context bắt buộc phải hoàn toàn bất khả xâm phạm. Giống như bất kỳ ranh giới nào, nhóm muốn Collaboration Context phải kiểm soát với sự hiểu biết đầy đủ về những gì được phép bước qua biên giới của nó và vì mục đích gì. Nếu không, vùng lãnh thổ sẽ bị xâm lấn bởi những vị khách không rõ danh tính và có thể không được chào đón. Trong trường hợp của một mô hình, những vị khách không mời này thường mang lại sự nhầm lẫn và lỗi bọ (bugs). Những người làm mô hình nên hòa nhã và thậm chí chào đón, nhưng phải dưới những điều kiện ủng hộ trật tự và sự hòa hợp. Bất kỳ khái niệm ngoại lai nào bước vào ranh giới đều phải chứng minh được quyền được hiện diện ở đó, thậm chí phải khoác lên mình những đặc tính tương thích với vùng lãnh thổ bên trong.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000071_949dcdc98b13da25f8a94162ae7667e9f8ae919627267ea532a4abdfa972b23f.png)
+
+Phân tích này không chỉ dẫn đến một sự hiểu biết tốt hơn về tình trạng hiện tại của mô hình, mà còn chỉ ra dự án cần phải đi theo hướng nào. Một khi đội ngũ dự án nhận ra rằng các khái niệm như bảo mật, người dùng và phân quyền không thuộc về bên trong Collaboration Context, họ đã phản ứng một cách tương ứng. Nhóm buộc phải tách biệt những khái niệm này ra khỏi Core Domain và chỉ cho phép chúng bước vào dưới những điều khoản được chấp thuận.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000072_92da81d662bead46cdfd346c8c4a6ed37be40badd2539f1648f8f2e088a2cd84.png)
+
+Đây là một cam kết mang tính sống còn của dự án DDD. Ngôn ngữ của từng Bounded Context bắt buộc phải được tôn trọng để mọi mô hình luôn giữ được sự thuần khiết. Sự phân tách ngôn ngữ và việc tuân thủ nghiêm ngặt nó sẽ giúp mỗi đội ngũ tham gia dự án tập trung vào Bounded Context của chính họ và giữ cho tầm nhìn luôn hướng trúng vào công việc của mình.
+
+Việc áp dụng phân tích Subdomain, hay đánh giá không gian bài toán, đã dẫn dắt nhóm tới sơ đồ được minh họa trong Hình 3.3. Hai Subdomains đã được bóc tách ra từ một Bounded Context đơn lẻ. Vì việc căn chỉnh các Subdomains theo tỷ lệ một-đối-một với các Bounded Contexts là một mục tiêu tốt, phân tích này đã chỉ ra sự cần thiết phải chia Bounded Context đơn lẻ này thành hai.
+
+Figure 3.3 Phân tích Subdomain của nhóm đã dẫn đến việc phát hiện ra hai miền: một Collaboration Core Domain và một Security Generic Subdomain.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000073_86f4f29e3b1d778ef778ad93d58d37ff8a50fce7c8d1a28cf065f49235624028.png)
+
+Phân tích Subdomain và ranh giới đã dẫn đến các quyết định dứt khoát. Khi những người dùng con người của CollabOvation tương tác với các tính năng sẵn có, họ làm điều đó với tư cách là Participants, Authors, Moderators, v.v. Hàng loạt các sự phân tách ngữ cảnh khác sẽ được thảo luận sau, nhưng điều này mang lại một hình dung rõ ràng về các sự phân chia cần thiết đã được tạo ra. Với tri thức đó, các ranh giới rõ ràng và sắc nét được chỉ định trên Context Map cấp cao trong Hình 3.4 đã ra đời. Nhóm đã sử dụng mẫu hình Segregated Core [Evans] để tái cấu trúc nhằm đạt đến điểm sáng tỏ này. Các hình dạng dễ nhận diện của các ranh giới đóng vai trò như các biểu tượng hoặc tín hiệu thị giác cho từng Context. Việc giữ nguyên các hình dạng tương đối qua các sơ đồ khác nhau có thể hỗ trợ rất tốt cho khả năng nhận thức.
+
+Figure 3.4 Core Domain ban đầu được đánh dấu bằng ranh giới đậm và các điểm tích hợp. Tại đây IdOvation đóng vai trò là một Generic Subdomain cho CollabOvation ở hạ nguồn.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000074_2be65921b530b7767138651a76a50950a473ede809dbfcbfe64ee6380e0cc503.png)
+
+Các Context Maps thường không xuất hiện cùng một lúc như các bản phác thảo khác nhau có thể khiến bạn lầm tưởng, mặc dù khi đã thực sự hiểu ra, chúng không hề khó tạo ra. Tư duy và thảo luận giúp tinh chỉnh một Map thông qua các vòng lặp nhanh chóng. Một số cải tiến có thể đến dưới dạng các điểm tích hợp, vốn mô tả các mối quan hệ giữa các Contexts.
+
+Hai tấm Maps đầu tiên chỉ ra những thành quả gặt hái được sau khi áp dụng thiết kế chiến lược. Sau khi dự án CollabOvation ban đầu đã đi đúng hướng, nhóm đã bóc tách thành công các mối bận tâm về định danh và truy cập ra ngoài. Khi tiến triển, họ đã tạo ra Context Map trong Hình 3.4. Nhóm chỉ phác thảo Core Domain, Collaboration Context, cùng với Generic Subdomain mới, Identity and Access Context. Họ không hề vẽ bất kỳ mô hình nào trong tương lai, chẳng hạn như Agile Project Management Context. Việc nhảy cóc quá xa về phía trước sẽ chẳng giúp ích gì cho nhóm. Họ chỉ cần sửa chữa các khiếm khuyết với những gì đang tồn tại. Các biến đổi hỗ trợ các hệ thống sắp tới sẽ sớm trở nên cần thiết, và tấm Map đó thuộc về trách nhiệm của đội ngũ tương lai.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000075_741dbddbe5ddd05b4c36dfc8b630d45c982fceefb4378e0cf34ec541056e4fea.png)
+
+## Giờ Làm việc với Bảng trắng (Whiteboard Time)
+
+* Nghĩ về Bounded Context của chính bạn, bạn có thể nhận diện các khái niệm không thuộc về nó không? Nếu có, hãy vẽ một Context Map mới thể hiện các Contexts mong muốn và mối quan hệ giữa chúng.
+* Bạn sẽ chọn mối quan hệ nào trong số chín mối quan hệ tổ chức và tích hợp của DDD, và tại sao?
+
+Khi dự án tiếp theo liên quan đến ProjectOvation bắt đầu khởi động, đã đến lúc mở rộng Map hiện có với Core Domain mới, Agile Project Management Context. Kết quả của đợt lập bản đồ đó được thể hiện trong Hình 3.5. Việc ghi nhận những gì đang nằm trong kế hoạch hoàn toàn không phải là quá sớm —
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000076_82fba0bfaff3b4f84e8e0fb9c04d573163b1ff6fba20ecb2ae987af1db7e5a04.png)
+
+mặc dù nó chưa hề được chuyển thành mã nguồn. Các chi tiết bên trong Context mới chưa được hiểu tường tận, nhưng điều đó sẽ dần sáng tỏ qua các cuộc thảo luận. Việc áp dụng thiết kế chiến lược cấp cao ở giai đoạn sớm này sẽ giúp tất cả các đội ngũ hiểu rõ trách nhiệm của họ nằm ở đâu. Vì tấm Map thứ ba trong số ba Maps cấp cao chỉ là một sự mở rộng của bản đồ trước đó, chúng ta sẽ tập trung vào nó. Đó chính là nơi SaaSOvation đang hướng tới. Công ty đã chỉ định các lập trình viên trưởng giàu kinh nghiệm cho dự án mới. Là ngữ cảnh phong phú nhất trong số ba Contexts và là định hướng hiện tại, Core Domain mới chính là nơi các lập trình viên giỏi nhất nên cống hiến.
+
+Một số sự phân tách thiết yếu đã được hiểu rất rõ ràng. Tương tự như Collaboration Context, khi người dùng của ProjectOvation tạo sản phẩm, lập kế hoạch phát hành, lên lịch sprint và xử lý các tác vụ của backlog items, họ làm điều đó với tư cách là Product Owners và Team Members. Identity and Access Context được tách biệt hoàn toàn khỏi Core Domain. Điều tương tự cũng diễn ra đối với việc họ sử dụng Collaboration Context. Giờ đây nó là một Supporting Subdomain. Bất kỳ sự tiêu thụ nào của mô hình mới cũng sẽ được bảo vệ bởi các ranh giới và các cơ chế phiên dịch sang các khái niệm của Core Domain.
+
+Hãy xem xét các chi tiết tinh tế hơn của những biểu đồ này. Chúng không phải là các sơ đồ kiến trúc hệ thống. Nếu đúng là như vậy, xét thấy Agile Project Management Context là Core Domain mới của chúng ta, chúng ta sẽ kỳ vọng nó nằm ở trên cùng hoặc ở vị trí trung tâm của biểu đồ. Tuy nhiên, tại đây, nó lại nằm ở dưới cùng. Đặc điểm có vẻ kỳ lạ này đóng vai trò chỉ dẫn trực quan rằng mô hình cốt lõi nằm ở hạ nguồn (downstream) của các mô hình khác.
+
+Figure 3.5 Core Domain hiện tại được đánh dấu bằng ranh giới đậm và các điểm tích hợp. CollabOvation Supporting Subdomain và IdOvation Generic Subdomain nằm ở thượng nguồn.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000077_144d51fbe8b3f091023926fdcbe2cad6d39629acf8ac2bd44fbbb1e43a444931.png)
+
+Nét tinh tế này đóng vai trò như một tín hiệu thị giác khác. Các mô hình thượng nguồn có tầm ảnh hưởng tới các mô hình hạ nguồn, giống như các hoạt động diễn ra ở thượng nguồn một con sông thường có xu hướng tác động tới các quần thể dân cư ở hạ nguồn, dù là tích cực hay tiêu cực. Hãy nghĩ đến các chất ô nhiễm bị một thành phố lớn xả thẳng xuống sông. Những chất ô nhiễm đó có thể ít ảnh hưởng đến chính thành phố đó, nhưng các thành phố ở hạ nguồn có thể phải đối mặt với những hậu quả thảm khốc. Vị trí theo chiều dọc của các mô hình trên biểu đồ giúp nhận diện các ảnh hưởng từ thượng nguồn lên các mô hình hạ nguồn. Các nhãn U (Upstream) và D (Downstream) chỉ rõ điều này giữa từng mô hình liên kết. Những nhãn này khiến việc định vị vị trí theo chiều dọc của từng Context trở nên ít quan trọng hơn, dẫu vậy việc bố trí trực quan như vậy vẫn mang lại tính thẩm mỹ cao.
+
+## Triết lý Cao bồi (Cowboy Logic)
+
+LB:    'Khi cậu thấy khát khô cả họng, hãy luôn uống nước ở phía trên đầu nguồn của đàn bò.'
+
+> 💡 **Giải thích thêm:** "Always drink upstream from the herd" (khi khát, luôn uống nước phía trên đầu nguồn của đàn gia súc) là câu châm ngôn kinh điển của các cao bồi miền Tây. Đàn gia súc lội qua sông sẽ khuấy đục bùn cát và thải chất bẩn xuống nước; do đó kẻ khôn ngoan phải lấy nước ở thượng nguồn (upstream). Trong kiến trúc phần mềm DDD, hệ thống thượng nguồn (Upstream - U) nắm quyền kiểm soát mô hình và giao diện; hệ thống hạ nguồn (Downstream - D) phải hứng chịu mọi thay đổi từ thượng nguồn. Nếu hạ nguồn không muốn bị "ô nhiễm" bởi mô hình của thượng nguồn, nó bắt buộc phải xây dựng Tầng Chống suy thoái (Anticorruption Layer - ACL) để lọc sạch dữ liệu.
+> Nguồn tham khảo: (Không có nguồn trích dẫn xác thực — cần tự kiểm chứng thêm)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000078_8fb9d264406a5c65a1cf9dcd18021d39e225102e6c790950887c405d92004b55.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000079_843d24f1eb51368b58f7446a5818b29b86f03933d89afc66334c269ec388acf7.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000080_c5d7aa592b50e560cac8f272d1f0fc0b7f6de320d6db1e1b74e722a005db0398.png)
+
+Identity and Access Context nằm ở vị trí xa nhất về phía thượng nguồn. Nó tạo ra tác động lên cả Collaboration Context lẫn Agile Project Management Context. Collaboration Context của chúng ta cũng nằm ở thượng nguồn đối với Agile Project Management Context bởi vì mô hình agile phụ thuộc vào mô hình và các dịch vụ cộng tác. Như đã lưu ý trong chương Bounded Contexts (2), ProjectOvation sẽ vận hành một cách tự chủ nhất có thể trong thực tế. Hoạt động của nó bắt buộc phải tiếp diễn phần lớn độc lập với tính sẵn sàng của các hệ thống xung quanh. Điều này không có nghĩa là các dịch vụ tự trị có thể hoạt động hoàn toàn độc lập khỏi các mô hình thượng nguồn. Chúng ta bắt buộc phải thiết kế theo những phương thức giúp hạn chế tối đa các phụ thuộc trực tiếp theo thời gian thực. Dù tự trị, Agile Project Management Context của chúng ta vẫn nằm ở hạ nguồn của các ngữ cảnh khác.
+
+Việc trang bị cho một ứng dụng các dịch vụ tự trị không đồng nghĩa với việc các cơ sở dữ liệu từ các Contexts thượng nguồn chỉ đơn thuần được sao chép (replicated) sang Context phụ thuộc. Sự sao chép dữ liệu sẽ buộc hệ thống cục bộ phải gánh vác nhiều trách nhiệm không mong muốn. Điều đó sẽ đòi hỏi phải tạo ra một Shared Kernel, thứ vốn không thực sự mang lại sự tự trị đích thực.
+
+Trên tấm Map mới nhất, hãy chú ý các hộp kết nối ở phía thượng nguồn của mỗi kết nối. Cả hai hộp kết nối đều được gắn nhãn OHS/PL, chữ viết tắt nhận diện Open Host Service (Dịch vụ Máy chủ Mở) và Published Language (Ngôn ngữ Công bố). Cả ba hộp kết nối ở phía hạ nguồn đều được gắn nhãn ACL, chữ viết tắt của Anticorruption Layer (Tầng Chống suy thoái). Các cách triển khai kỹ thuật cụ thể được trình bày trong chương Tích hợp các Bounded Contexts (Integrating Bounded Contexts) (13). Tóm lại, các mẫu hình tích hợp này có các đặc tính kỹ thuật sau:
+
+* Open Host Service: Mẫu hình này có thể được triển khai dưới dạng các tài nguyên dựa trên REST mà các client Bounded Contexts tương tác cùng. Chúng ta thường nghĩ Open Host Service như một API gọi thủ tục từ xa (RPC - Remote Procedure Call), nhưng nó hoàn toàn có thể được triển khai bằng cơ chế trao đổi thông điệp (message exchange).
+* Published Language: Điều này có thể được triển khai theo một vài cách khác nhau nhưng thường được thực hiện dưới dạng một lược đồ XML (XML schema). Khi được thể hiện với các dịch vụ dựa trên REST, Published Language được kết xuất dưới dạng các biểu diễn (representations) của các khái niệm miền. Các biểu diễn có thể bao gồm cả XML và JSON, ví dụ như vậy. Người ta cũng hoàn toàn có thể kết xuất các biểu diễn dưới dạng Google Protocol Buffers. Nếu bạn đang xuất bản các giao diện người dùng Web, nó cũng có thể bao gồm các biểu diễn HTML. Một lợi thế của việc sử dụng REST là mỗi client có thể chỉ định Published Language ưu tiên của mình, và các tài nguyên sẽ kết xuất các biểu diễn theo đúng kiểu nội dung (content type) được yêu cầu. REST cũng có lợi thế trong việc tạo ra các biểu diễn siêu phương tiện (hypermedia representations), tạo điều kiện thuận lợi cho HATEOAS (Hypermedia as the Engine of Application State - Siêu phương tiện đóng vai trò động cơ điều hướng trạng thái ứng dụng). Siêu phương tiện làm cho Published Language trở nên vô cùng năng động và có tính tương tác cao, cho phép các client điều hướng đến các tập hợp tài nguyên được liên kết. Ngôn ngữ có thể được xuất bản bằng cách sử dụng các kiểu phương tiện (media types) tiêu chuẩn và/hoặc tùy biến. Published Language cũng được sử dụng trong một Event-Driven Architecture (4), nơi các Domain Events (8) được chuyển phát dưới dạng các thông điệp tới các bên quan tâm đã đăng ký.
+
+* Anticorruption Layer: Một Domain Service (7) có thể được định nghĩa trong Context hạ nguồn cho từng loại Anticorruption Layer. Bạn cũng có thể đặt một Anticorruption Layer đằng sau một giao diện Repository (12). Nếu sử dụng REST, một hiện thực hóa Domain Service phía client sẽ truy cập vào một Open Host Service từ xa. Các phản hồi của máy chủ tạo ra các biểu diễn dưới dạng một Published Language. Tầng Anticorruption Layer ở hạ nguồn sẽ phiên dịch các biểu diễn này thành các đối tượng miền của chính Context cục bộ của nó. Đây chính là nơi mà, ví dụ, Collaboration Context yêu cầu Identity and Access Context cung cấp một tài nguyên User-trong-vai-trò-Moderator. Nó có thể nhận được tài nguyên được yêu cầu dưới dạng XML hoặc JSON, rồi sau đó phiên dịch thành một Moderator — vốn là một Value Object. Thể hiện Moderator mới này phản ánh một khái niệm theo các thuật ngữ của mô hình hạ nguồn, chứ không phải mô hình thượng nguồn.
+
+Các mẫu hình được lựa chọn đều là những mẫu hình phổ biến. Việc giới hạn các lựa chọn giúp giữ cho phạm vi tích hợp được thảo luận trong cuốn sách này ở mức có thể kiểm soát được. Chúng ta sẽ thấy, ngay cả giữa số ít các mẫu hình được chọn lọc này, vẫn có sự đa dạng lớn trong cách thức áp dụng chúng vào thực tế.
+
+Câu hỏi vẫn còn đó: Liệu đó có phải là tất cả những gì cần có để tạo ra một Context Map? Có thể. Góc nhìn cấp cao mang lại một lượng tri thức rất tốt về toàn bộ dự án nói chung. Dẫu vậy, chúng ta có thể tò mò về những gì thực sự diễn ra bên trong các kết nối và các mối quan hệ được định danh trên từng Context. Sự tò mò giữa các thành viên trong nhóm thôi thúc chúng ta tạo ra nhiều chi tiết hơn một chút. Khi chúng ta phóng to vào bên trong, bức tranh có phần mờ ảo về ba mẫu hình tích hợp sẽ trở nên sắc nét và rõ ràng hơn bao giờ hết.
+
+Hãy lùi lại một chút về quá khứ. Vì Collaboration Context (Ngữ cảnh Cộng tác) là Core Domain (Miền Lõi) đầu tiên, hãy cùng nhìn sâu vào bên trong nó. Trước tiên, chúng ta sẽ giới thiệu kỹ thuật "phóng to" (zooming) với các tích hợp đơn giản hơn, sau đó tiến dần tới các tích hợp nâng cao.
+
+## Collaboration Context
+
+Bây giờ, hãy quay trở lại với trải nghiệm của nhóm phát triển Collaboration . . .
+
+Collaboration Context từng là mô hình và hệ thống đầu tiên — Core Domain (Miền Lõi - phần mang lại giá trị cạnh tranh cốt lõi nhất của doanh nghiệp) đầu tiên — và cơ chế hoạt động của nó hiện đã được hiểu rất rõ. Các tích hợp được áp dụng ở đây tương đối dễ triển khai nhưng lại kém vững chắc hơn xét về độ tin cậy và tính tự trị (autonomy). Việc xây dựng một Context Map (Bản đồ Ngữ cảnh - sơ đồ biểu diễn ranh giới và mối quan hệ giữa các Bounded Context) dạng phóng to được thực hiện khá dễ dàng.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000081_16199bc37a90797f5a635a78f3d3363aaddf323a405920cdd3e5b42fafec963f.png)
+
+Với tư cách là một client (bên tiêu thụ dịch vụ) của các dịch vụ REST-based (dựa trên kiến trúc REST) do Identity and Access Context (Ngữ cảnh Định danh và Truy cập) phát hành, Collaboration Context tiếp cận tài nguyên theo phong cách tương tự như RPC (Remote Procedure Call - gọi thủ tục từ xa) truyền thống. Context này không lưu trữ vĩnh viễn bất kỳ dữ liệu nào từ Identity and Access Context để có thể tham chiếu tái sử dụng cục bộ sau đó. Thay vào đó, mỗi khi cần thông tin, nó lại gửi yêu cầu đến hệ thống từ xa. Context này hiển nhiên phụ thuộc rất lớn vào các dịch vụ từ xa, không hề có tính tự trị. Đây là thực tế mà SaaSOvation tạm thời chấp nhận sống chung ở thời điểm hiện tại. Việc phải tích hợp với một Generic Subdomain (Phân vùng miền Chung - phân vùng phụ trợ giải quyết bài toán nghiệp vụ phổ biến, không đặc thù) hoàn toàn nằm ngoài dự tính ban đầu. Nhằm đáp ứng lịch bàn giao dự án vô cùng gấp gáp, nhóm không thể đầu tư thời gian vào một thiết kế tự trị phức tạp hơn. Tại thời điểm đó, lợi thế thiết kế đơn giản, nhanh chóng từ đầu là một đặc quyền không thể bỏ lỡ. Sau khi ProjectOvation được triển khai thành công và tích lũy được nhiều kinh nghiệm về tính tự trị, các kỹ thuật tương tự có thể sẽ được áp dụng lại cho CollabOvation.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000082_01e66e3acfde39eee28b998735e189c2067120b94834901386a08e40f878e8ce.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000083_3ab52c7cba3fa7a8cbd68da71ad95e5e83e78c5ca93d1f0c11ffcf43e035bf96.png)
+
+Các boundary objects (đối tượng ranh giới - đối tượng chịu trách nhiệm giao tiếp xuyên biên giới Context) trong Bản đồ phóng to được chụp ở Hình 3.6 gửi yêu cầu tài nguyên một cách đồng bộ (synchronously). Khi nhận được representation (biểu diễn dữ liệu) từ mô hình từ xa, các đối tượng ranh giới sẽ trích xuất nội dung cần quan tâm ra khỏi representation và thực hiện chuyển dịch (translate), từ đó tạo ra thực thể Value Object (Đối tượng Giá trị - đối tượng được định danh bằng thuộc tính chứ không có ID riêng) phù hợp. Một Translation Map (Bản đồ Chuyển dịch - lược đồ ánh xạ dữ liệu giữa hai mô hình) dùng để biến đổi representation thành một Value Object được thể hiện trong Hình 3.7. Tại đây, một User với Role (Vai trò) là Moderator trong Identity and Access Context sẽ được chuyển dịch thành Value Object Moderator trong Collaboration Context.
+
+Hình 3.6 Phóng to vào Anticorruption Layer và Open Host Service trong phần tích hợp giữa Collaboration Context và Identity and Access Context
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000084_7f5d8c808b8cf15432613136a51951ed589c5f5eb76d549a59726814cb215233.png)
+
+Hình 3.7 Một Translation Map ở mức logic thể hiện cách một trạng thái biểu diễn (ở đây là XML) được ánh xạ thành một Value Object trong mô hình cục bộ.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000085_9b739c792152222c96ab8148660b90fbedbd09c78c26c77c9e9d95d08eaa5e4d.png)
+
+## Whiteboard Time
+
+Hãy tạo một Translation Map cho một trong những khía cạnh tích hợp thú vị xuất hiện trong Bounded Context (Ngữ cảnh Ranh giới - ranh giới tường minh nơi một mô hình miền cụ thể được áp dụng) của dự án bạn.
+
+Điều gì xảy ra nếu bạn nhận thấy các phép chuyển dịch quá phức tạp, đòi hỏi sao chép và đồng bộ hóa lượng dữ liệu khổng lồ, khiến đối tượng sau khi chuyển dịch trông giống hệt đối tượng từ mô hình ngoại lai? Rất có thể bạn đang phụ thuộc quá nhiều vào Bounded Context ngoại lai đó, tiếp nhận quá nhiều khái niệm từ mô hình của họ, và từ đó gây ra sự xung đột, rối loạn ngay bên trong mô hình của chính mình.
+
+Thật không may, nếu yêu cầu đồng bộ bị thất bại do hệ thống từ xa không khả dụng, toàn bộ luồng thực thi cục bộ cũng bắt buộc phải thất bại theo. Người dùng sẽ được thông báo về sự cố và được yêu cầu thử lại sau.
+
+Việc tích hợp giữa các hệ thống thường phụ thuộc vào RPC. Ở góc nhìn trừu tượng cấp cao, RPC trông rất giống một lệnh gọi hàm hay thủ tục lập trình thông thường. Các thư viện và công cụ khiến nó trở nên hấp dẫn và dễ sử dụng. Tuy nhiên, khác với việc gọi một thủ tục cư trú ngay trong cùng không gian tiến trình (process space), một lệnh gọi từ xa tiềm ẩn nguy cơ rất cao về độ trễ (latency) làm suy giảm hiệu năng hoặc hỏng hóc hoàn toàn. Tải của mạng và hệ thống từ xa có thể làm chậm trễ quá trình hoàn tất RPC. Khi hệ thống đích của RPC không khả dụng, yêu cầu của người dùng gửi đến hệ thống của bạn sẽ không thể hoàn thành thành công.
+
+Mặc dù việc sử dụng tài nguyên dựa trên REST không hoàn toàn giống RPC, nó vẫn mang những đặc tính tương tự. Dù việc hệ thống sập hoàn toàn là tương đối hiếm, đây vẫn là một hạn chế tiềm ẩn gây phiền toái. Nhóm phát triển rất mong muốn sớm cải thiện tình trạng này ngay khi có thể.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000086_d91ebfe0645ea86d30a7c6fd6e096b5bb4ef5521147ff5232590e9eb544947ef.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000087_0f3415cc1c1714a7bec6b651e85b3af02d138ee1293e8212edf46e5c3bccf499.png)
+
+## Agile Project Management Context
+
+Vì Agile Project Management Context (Ngữ cảnh Quản lý Dự án Linh hoạt) là Core Domain mới, hãy dành sự quan tâm đặc biệt kỹ lưỡng cho nó. Hãy cùng phóng to vào nó và các liên kết giữa nó với những mô hình khác.
+
+Để đạt được mức độ tự trị cao hơn so với những gì RPC mang lại, nhóm phát triển Agile Project Management Context cần phải hạn chế việc sử dụng RPC một cách cẩn trọng. Do đó, việc xử lý sự kiện bất đồng bộ hoặc ngoài luồng (out-of-band) được ưu tiên về mặt chiến lược.
+
+Một mức độ tự trị cao hơn có thể đạt được khi trạng thái phụ thuộc (dependent state) đã sẵn sàng tồn tại ngay trong hệ thống cục bộ của chúng ta. Một số người có thể coi đây như một bộ nhớ đệm (cache) chứa toàn bộ các đối tượng phụ thuộc, nhưng khi áp dụng DDD (Domain-Driven Design - Thiết kế Hướng Miền), thực tế thường không phải như vậy. Thay vào đó, chúng ta tạo ra các domain objects (đối tượng miền) cục bộ được chuyển dịch từ mô hình ngoại lai, chỉ duy trì lượng trạng thái tối thiểu mà mô hình cục bộ thực sự cần. Để có được trạng thái này ngay từ đầu, chúng ta có thể thực hiện một số lệnh gọi RPC giới hạn và được tính toán kỹ lưỡng, hoặc các yêu cầu tương tự đối với các tài nguyên REST. Tuy nhiên, bất kỳ sự đồng bộ hóa cần thiết nào đối với các thay đổi từ mô hình từ xa thường được thực hiện tốt nhất thông qua các thông báo hướng thông điệp (message-oriented notifications) do hệ thống từ xa phát hành. Các thông báo này có thể được gửi qua một service bus, message queue (hàng đợi thông điệp), hoặc phát hành qua REST.
+
+## Think Minimalistic
+
+Trạng thái được đồng bộ hóa chỉ là các thuộc tính giới hạn, tối thiểu từ các mô hình từ xa mà mô hình cục bộ thực sự cần. Điều này không chỉ nhằm hạn chế nhu cầu đồng bộ dữ liệu, mà còn là vấn đề mô hình hóa các khái niệm sao cho chuẩn xác.
+
+Việc hạn chế sử dụng trạng thái từ xa luôn đem lại lợi ích, ngay cả khi cân nhắc thiết kế cho chính các thành phần mô hình hóa cục bộ. Ví dụ, chúng ta không bao giờ muốn ProductOwner và TeamMember trên thực tế lại biến thành bản sao phản chiếu của UserOwner và UserMember chỉ vì chúng tiếp nhận quá nhiều đặc tính từ đối tượng User từ xa, dẫn đến việc bị lai tạp (hybridization) một cách vô thức.
+
+## Integration with the Identity and Access Context
+
+Quan sát Bản đồ phóng to trong Hình 3.8, chúng ta thấy rằng các URI (Uniform Resource Identifier - chuỗi định danh tài nguyên) tài nguyên cung cấp các thông báo về các Domain Events (Sự kiện Miền - sự kiện nghiệp vụ quan trọng đã xảy ra trong quá khứ của miền nghiệp vụ) quan trọng đã phát sinh trong Identity and Access Context. Những thông báo này được cung cấp thông qua nhà cung cấp NotificationResource — nơi phát hành một RESTful resource. Các tài nguyên thông báo là các nhóm chứa những Domain Event đã phát hành. Mọi Event từng được công bố đều luôn sẵn sàng để tiêu thụ theo đúng thứ tự phát sinh, nhưng mỗi client phải tự chịu trách nhiệm ngăn chặn việc tiêu thụ trùng lặp (duplicate consumption).
+
+Một custom media type (kiểu định dạng phương tiện tùy chỉnh) cho biết có hai tài nguyên có thể được yêu cầu:
+
+application/vnd.saasovation.idovation+json
+
+//iam/notifications
+
+//iam/notifications/{notificationId}
+
+Hình 3.8 Phóng to vào Anticorruption Layer và Open Host Service trong tích hợp giữa Agile Project Management Context và Identity and Access Context
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000088_d4be8e79a6fa569ab42996c2f28282d82ab2ef52e15bc2a56e1d605a72d1daed.png)
+
+URI tài nguyên đầu tiên cho phép các client lấy về (theo đúng nghĩa HTTP GET) notification log (nhật ký thông báo) hiện tại (một tập hợp cố định các thông báo riêng lẻ). Theo custom media type đã được tài liệu hóa:
+
+application/vnd.saasovation.idovation+json
+
+URI này được coi là đã được đúc cố định (minted) và có tính ổn định cao vì nó không bao giờ thay đổi. Bất kể log thông báo hiện tại bao gồm những gì, URI này đều cung cấp nó. Log hiện tại là tập hợp các sự kiện gần đây nhất vừa xảy ra trong mô hình Identity and Access. URI tài nguyên thứ hai cho phép client lấy và duyệt theo chuỗi tất cả các thông báo dựa trên sự kiện trước đó đã được lưu trữ (archived). Tại sao chúng ta lại cần một log hiện tại và một số lượng tùy ý các log thông báo lưu trữ riêng biệt? Xem Domain Events (Chương 8) và Integrating Bounded Contexts (Chương 13) để biết chi tiết về cách thức hoạt động của các thông báo dạng nguồn cấp (feed-based notifications).
+
+Thực tế, tại thời điểm này, nhóm ProjectOvation chưa hoàn toàn cam kết sử dụng REST trong mọi trường hợp. Ví dụ, họ hiện đang đàm phán với nhóm CollabOvation về việc liệu có nên sử dụng hạ tầng messaging (truyền thông điệp) thay thế hay không.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000089_a8d26a05f2d2bc628ea24c053528e8a3b814e5582d4c9e82ba5ba9526c62fe53.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000090_e149e8269e955cf50f43413a1ef54b07a64b8f9c3b9b5a8515bf9fe501ef8a3a.png)
+
+Phương án sử dụng RabbitMQ đang được đưa ra cân nhắc. Mặc dù vậy, ở thời điểm hiện tại, các tích hợp của họ với Identity and Access Context vẫn sẽ dựa trên REST.
+
+Tạm thời gác lại hầu hết các chi tiết công nghệ, hãy cùng xem xét vai trò của từng đối tượng tương tác trong Bản đồ phóng to. Dưới đây là phần giải thích cho các bước tích hợp được minh họa trực quan trong biểu đồ tuần tự (sequence diagram) ở Hình 3.9:
+
+- MemberService là một Domain Service (Dịch vụ Miền - dịch vụ thực thi logic nghiệp vụ không thuộc về một Entity hay Value Object cụ thể nào) chịu trách nhiệm cung cấp các đối tượng ProductOwner và TeamMember cho mô hình cục bộ của nó. Nó đóng vai trò là interface (giao diện) của Anticorruption Layer (Lớp Chống Tha hóa - lớp trung gian cô lập và biên dịch giúp mô hình nội bộ không bị ảnh hưởng bởi mô hình bên ngoài) cơ bản. Cụ thể, phương thức maintainMembers() được gọi định kỳ để kiểm tra các thông báo mới từ Identity and Access Context. Phương thức này không được gọi bởi các client thông thường của mô hình. Khi một chu kỳ hẹn giờ (timer interval) kích hoạt, thành phần nhận thông báo sẽ sử dụng MemberService bằng cách gọi phương thức maintainMembers(). Hình 3.9 thể hiện thành phần nhận sự kiện hẹn giờ là MemberSynchronizer, đối tượng này ủy quyền xử lý cho MemberService.
+- MemberService ủy quyền cho IdentityAccessNotificationAdapter, đóng vai trò là Adapter (bộ chuyển đổi) giữa Domain Service và Open Host Service (Dịch vụ Máy chủ Mở - giao thức/giao diện công khai chuẩn hóa cho phép các hệ thống khác tích hợp) của hệ thống từ xa. Adapter đóng vai trò như một client đối với hệ thống từ xa. Sự tương tác với NotificationResource từ xa không được hiển thị trong sơ đồ.
+- Khi Adapter nhận được phản hồi từ Open Host Service từ xa, nó ủy quyền cho MemberTranslator để chuyển dịch Published Language (Ngôn ngữ Xuất bản - định dạng dữ liệu chuẩn dùng chung để trao đổi giữa các ngữ cảnh) sang các khái niệm của hệ thống cục bộ. Nếu thực thể Member cục bộ đã tồn tại, quá trình chuyển dịch sẽ cập nhật đối tượng miền hiện có. Điều này được thể hiện bằng việc MemberService tự ủy quyền nội bộ tới phương thức updateMember() của chính nó. Các lớp con của Member là ProductOwner và TeamMember, phản ánh chính xác các khái niệm trong ngữ cảnh cục bộ.
+
+Hình 3.9 Góc nhìn về cơ chế hoạt động bên trong của Anticorruption Layer giữa Agile Project Management Context và Identity and Access Context
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000091_b4493904ee096207e88a28bd88b93686475fe21ffff71a193381cf9fc30f1333.png)
+
+Chúng ta không nên quá tập trung vào các công nghệ hay sản phẩm tích hợp liên quan. Thay vào đó, bằng cách phân tách rành mạch các Bounded Context, chúng ta có thể giữ cho mỗi Context luôn thuần khiết, trong khi vẫn tiếp nhận dữ liệu từ các Context khác để biểu đạt các khái niệm trong mô hình của chính mình.
+
+Các sơ đồ và văn bản bổ trợ là ví dụ điển hình về cách chúng ta tạo lập các tài liệu Context Map. Tài liệu này không cần quá đồ sộ, nhưng phải cung cấp đủ bối cảnh nền tảng và lời giải thích để giúp một thành viên mới của dự án nhanh chóng nắm bắt công việc. Tuy nhiên, chỉ nên tạo tài liệu nếu nó thực sự mang lại giá trị hữu ích cho nhóm.
+
+Tích hợp với Collaboration Context: Tiếp theo, hãy xem xét cách Agile Project Management Context tương tác với Collaboration Context. Ở đây, chúng ta cũng nỗ lực hướng tới tính tự trị, nhưng yêu cầu này đã nâng tiêu chuẩn lên cao hơn, đặt ra một số thách thức thú vị để đạt được mục tiêu độc lập giữa các hệ thống.
+
+ProjectOvation có các tính năng mở rộng (add-on) được cung cấp bởi CollabOvation. Một số tính năng có thể kể đến như thảo luận diễn đàn theo dự án và lập lịch chia sẻ lịch biểu. Người dùng sẽ không tương tác trực tiếp với CollabOvation. ProjectOvation phải xác định xem các tùy chọn đó có khả dụng cho một tenant (khách thuê/đơn vị thuê bao hệ thống đa người dùng) nhất định hay không, và nếu có, nó phải tự mình điều phối việc khởi tạo tài nguyên bên trong CollabOvation.
+
+Hãy xem xét một phần của use case (trường hợp sử dụng) Create a Product (Tạo Sản phẩm) dưới đây:
+
+Điều kiện tiên quyết: Tính năng cộng tác đã được kích hoạt (tùy chọn này đã được mua).
+
+1. Người dùng cung cấp thông tin mô tả Sản phẩm (Product).
+2. Người dùng bày tỏ mong muốn có một cuộc thảo luận nhóm.
+3. Người dùng yêu cầu tạo Sản phẩm đã định nghĩa.
+4. Hệ thống tạo Sản phẩm kèm theo một Diễn đàn (Forum) và Cuộc thảo luận (Discussion).
+
+Một Forum và một Discussion phải được tạo bên trong Collaboration Context thay mặt cho Product. Ngược lại, điều này hoàn toàn khác với Identity and Access Context — nơi một tenant vốn đã được cấp phát, người dùng, nhóm và vai trò đã được định nghĩa từ trước, và các thông báo về các sự kiện đó luôn có sẵn. Trong trường hợp đó, các đối tượng đã tồn tại từ trước. Nhưng trong trường hợp này, Agile Project Management Context cần những đối tượng chưa hề tồn tại và sẽ không thể tồn tại cho đến khi nó gửi yêu cầu tạo. Đó là một trở ngại tiềm tàng đối với tính tự trị vì chúng ta phụ thuộc vào tính sẵn sàng của Collaboration Context để tạo tài nguyên từ xa. Với mong muốn đạt được tính tự trị, điều này đặt ra một thách thức rất đáng quan tâm.
+
+## Why Is Discussion Used in Both Contexts?
+
+Đây là một tình huống rất thú vị vì tên của khái niệm — Discussion — hoàn toàn giống nhau ở cả hai Bounded Context, nhưng chúng là các kiểu (types) khác nhau, các đối tượng khác nhau, và do đó mang trạng thái cùng hành vi hoàn toàn khác nhau.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000092_199ca21c5e687641fda97b800dcc917ff54834563db0b5a1c54c384c9e2a3176.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000093_096f296c186f753ae93a7dc733fd07332958add5f389f5aac7c8cd3d585779f3.png)
+
+Trong Collaboration Context, một Discussion là một Aggregate (Cụm Tổng hợp - một nhóm các thực thể và đối tượng giá trị gắn kết chặt chẽ được coi như một đơn vị đồng nhất khi thay đổi dữ liệu) và nó quản lý một tập hợp các Post (Bài đăng) — các đối tượng con ngầm định mà bản thân chúng cũng là các Aggregate. Còn trong Agile PM Context, Discussion chỉ là một Value Object và nó chỉ nắm giữ một tham chiếu tới Discussion thực sự chứa các Post nằm ở Context ngoại lai kia. Tuy nhiên, cần lưu ý rằng trong Chương 13, khi nhóm bắt tay triển khai phần tích hợp, họ phát hiện ra rằng họ nên tạo các kiểu strongly typed (định kiểu mạnh) cho các loại Discussion khác nhau trong Agile PM Context.
+
+Chúng ta cần tận dụng tính nhất quán sau cùng (eventual consistency) thông qua việc sử dụng Domain Events (Chương 8) và Event-Driven Architecture (Kiến trúc Hướng Sự kiện - Chương 4). Không có bất kỳ quy định nào bắt buộc rằng chỉ các hệ thống từ xa mới được phép tiêu thụ các thông báo do hệ thống cục bộ phát ra. Khi một Domain Event có tên ProductInitiated được mô hình của chúng ta xuất bản, nó sẽ được xử lý bởi chính hệ thống của chúng ta. Handler (bộ xử lý) cục bộ sẽ yêu cầu Forum và Discussion được khởi tạo từ xa. Việc này có thể được thực hiện qua RPC hoặc messaging, tùy thuộc vào những gì CollabOvation hỗ trợ. Nếu sử dụng RPC mà hệ thống cộng tác từ xa lúc đó lại không khả dụng, handler cục bộ sẽ chỉ đơn giản tiếp tục thử lại định kỳ cho đến khi thành công. Nếu messaging được hỗ trợ thay vì RPC, handler cục bộ sẽ gửi một message đến hệ thống cộng tác. Đổi lại, hệ thống cộng tác sẽ phản hồi bằng một message của chính nó khi quá trình tạo tài nguyên hoàn tất. Khi Event handler phía ProjectOvation nhận được thông báo này, nó sẽ cập nhật Product với một định danh tham chiếu (identity reference) trỏ tới cuộc thảo luận vừa được tạo.
+
+Điều gì xảy ra nếu product owner hoặc các thành viên trong nhóm cố gắng sử dụng cuộc thảo luận trước khi nó thực sự tồn tại? Liệu một cuộc thảo luận chưa khả dụng có bị coi là một lỗi (bug) trong mô hình hay không? Liệu nó có khiến hệ thống rơi vào trạng thái thiếu tin cậy? Hãy cân nhắc thực tế rằng một thuê bao bất kỳ có thể ngay từ đầu đã không trả phí để sử dụng gói mở rộng cộng tác. Đó là một lý do phi kỹ thuật hoàn toàn chính đáng để thiết kế tính năng không khả dụng của tài nguyên. Việc xử lý tương thích với tính nhất quán sau cùng hoàn toàn không phải là một giải pháp chắp vá tạm bợ (kludge). Đó đơn giản chỉ là một trạng thái hợp lệ khác cần được đưa vào mô hình hóa.
+
+Một cách thanh lịch để xử lý tất cả các kịch bản không khả dụng có thể xảy ra là biểu đạt chúng một cách tường minh. Hãy xem xét Standard Type (Kiểu Chuẩn) này được triển khai dưới dạng State (Mẫu Trạng thái) [Gamma et al.], như được mô tả trong Value Objects (Chương 6):
+
+```java
 public enum DiscussionAvailability {
     ADD_ON_NOT_ENABLED,
     NOT_REQUESTED,
@@ -1812,7 +2546,13 @@ Tại thời điểm này, nhóm phát triển vẫn chưa chắc chắn phươn
 
 Nhóm hiện đã có thể hiểu được một phần mô hình của mình. Ví dụ, điều gì sẽ xảy ra khi một cuộc thảo luận đã được tạo và kết quả được truyền đạt lại cho Context cục bộ? Thành phần bất đồng bộ — có thể là RPC client hoặc message handler — sẽ gọi lệnh attachDiscussion() trên Product, truyền vào một thực thể Value mới của Discussion. Tất cả các Aggregate cục bộ đang chờ đợi tài nguyên từ xa đều sẽ được chăm sóc và xử lý theo cùng một cơ chế như vậy.
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000094_d8e360f94fdf150686ebdd35fb34767265318dde0773d0dd336266cb025b7aeb.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000095_1332e1b5f33f31b1c8588a8a1aa99945e7d2a72ecb645171c4fcf0e635f870aa.png)
+
 Hình 3.10 Phóng to vào một Anticorruption Layer và Open Host Service thuộc các thành phần tích hợp khả dĩ giữa Agile Project Management Context và Collaboration Context
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000096_319392cf0160f8840a14e98a62e6e713bec753188f3b5fba8c9a604a2e9b6aed.png)
 
 Khảo sát này đã đi sâu vào một số chi tiết hữu ích về Context Map. Tuy nhiên, chúng ta cần phải biết kiềm chế, bởi vì chúng ta có thể nhanh chóng chạm tới điểm giới hạn mà lợi ích thu về giảm dần (diminishing returns). Có lẽ chúng ta đã có thể đưa cả Modules (Mô-đun - Chương 9) vào đây, nhưng chúng đã được bố trí trong một chương chuyên biệt riêng. Hãy chỉ đưa vào bất kỳ yếu tố cấp cao nào có liên quan giúp thúc đẩy sự giao tiếp sống còn trong nhóm. Mặt khác, hãy kiên quyết đẩy lùi những chi tiết mang nặng tính hình thức rườm rà.
 
@@ -1833,6 +2573,10 @@ Hãy tạo ra những Context Map mà bạn có thể in ra và dán ngay lên t
 
 Không phải dự án nào cũng cần mức độ chi tiết như được trình bày ở đây. Một số dự án khác có thể đòi hỏi nhiều hơn. Bí quyết nằm ở chỗ cân bằng giữa nhu cầu thấu hiểu với tính thực tế, không nhồi nhét quá nhiều chi tiết vụn vặt vào cấp độ này. Hãy nhớ rằng chúng ta nhiều khả năng sẽ không duy trì một Bản đồ đồ họa quá chi tiết trong suốt chặng đường dài của dự án. Chúng ta sẽ hưởng lợi nhiều nhất từ những gì có thể dán lên tường, giúp các thành viên trong nhóm có thể chỉ tay vào đó trong các cuộc thảo luận. Nếu chúng ta từ chối sự lễ nghi hình thức và đón nhận sự đơn giản cùng tính linh hoạt (agility), chúng ta sẽ tạo ra những Context Map hữu ích, giúp dự án tiến bước thay vì bị sa lầy.
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000097_763821da2dc668f93e792c38b9e2f181e31501452a0d9e3833f3d1b92d5e65d6.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000098_dcdf334bcab59567ceb638822604c11adc7c51eb46179add29b50554284f96b5.png)
+
 Trang này được cố tình để trống
 
 ## Chapter 4
@@ -1850,6 +2594,8 @@ Khả năng chứng minh tính hợp lý khi lựa chọn bất kỳ phong cách
 
 [^1]: Chương này bàn về các phong cách kiến trúc (architectural styles), kiến trúc ứng dụng (application architectures), và các mẫu kiến trúc (architecture patterns). Một phong cách sẽ mô tả cách thức hiện thực hóa một kiến trúc cụ thể, trong khi một mẫu kiến trúc giải thích cách giải quyết một mối bận tâm cụ thể bên trong kiến trúc nhưng có phạm vi rộng lớn hơn một mẫu thiết kế (design pattern). Tôi khuyên bạn không nên quá câu nệ vào sự khác biệt giữa các khái niệm này, mà chỉ cần hiểu rằng DDD có thể nằm ở vị trí trung tâm của rất nhiều ảnh hưởng kiến trúc bao bọc xung quanh.
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000099_d2719ff7e77ddc31a7d0ed285d455cdec2f11b8f92de6693338813cac1587761.png)
+
 ## Road Map to This Chapter
 
 * Lắng nghe buổi phỏng vấn nhìn lại chặng đường đã qua với Giám đốc Thông tin (CIO) của SaaSOvation.
@@ -1864,6 +2610,8 @@ Khả năng chứng minh tính hợp lý khi lựa chọn bất kỳ phong cách
 Các phong cách và mẫu kiến trúc sau đây không phải là một túi đồ chơi công nghệ hấp dẫn để chúng ta tiện tay áp dụng bừa bãi vào mọi nơi có thể. Thay vào đó, hãy chỉ sử dụng chúng ở những nơi thực sự thích hợp, nơi chúng giúp giảm thiểu một rủi ro cụ thể mà nếu không giải quyết sẽ làm tăng khả năng thất bại của dự án hoặc hệ thống.
 
 [Evans] tập trung vào Layers Architecture. Chính vì vậy, SaaSOvation thoạt đầu đã vội vã kết luận rằng DDD chỉ có thể phát huy hiệu quả khi sử dụng mẫu kiến trúc nổi tiếng đó. Các nhóm đã phải mất một thời gian mới hiểu ra rằng DDD có khả năng thích ứng linh hoạt hơn thế rất nhiều, mặc dù Layers là mẫu thịnh hành nhất vào thời điểm cuốn sách của [Evans] được viết.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000100_71b5d40adb3d20ae593f4990a35395268a6e4f74e28391858b3ba73f52a5ee3d.png)
 
 Các nguyên lý của Layers Architecture vẫn có thể được vận dụng để định hướng cho những quyết định đúng đắn. Tuy nhiên, chúng ta không cần dừng lại ở đó, bởi vì chúng ta sẽ xem xét một số kiến trúc và mẫu hiện đại hơn có thể được tận dụng khi cần. Điều này sẽ chứng minh tính đa năng và khả năng áp dụng rộng rãi của DDD.
 
@@ -1892,6 +2640,10 @@ Mitchell: Chắc chắn là như vậy rồi. Chúng tôi thực tế đã bắt
 Maria: Thú vị thật. Mọi thứ nghe rất mộc mạc và thực tế từ gốc rễ. Những quyết định đó đã dẫn các anh đến đâu?
 
 Mitchell: Khi độ phức tạp của phần mềm tăng lên, chúng tôi cần quản lý chất lượng bằng cách đưa vào các công cụ unit test (kiểm thử đơn vị) và feature test (kiểm thử tính năng). Để làm được điều đó, chúng tôi gần như đã đảo lộn hoàn toàn mô hình Layers bằng cách áp dụng Dependency Inversion Principle (Nguyên lý Đảo ngược Phụ thuộc), hay DIP. Việc này rất quan trọng vì nhóm có thể dễ dàng kiểm thử bằng cách tạo stub (mô phỏng dữ liệu phản hồi) cho User Interface Layer và Infrastructure Layer để tập trung kiểm thử Application Layer và Domain Layer. Trên thực tế, chúng tôi có thể phát triển giao diện người dùng (UI) một cách độc lập hoàn toàn và trì hoãn các quyết định về công nghệ lưu trữ dữ liệu (persistence) trong một thời gian khá dài. Và điều này thực ra không phải là một bước nhảy quá xa rời khỏi Layers. Nhóm cảm thấy rất thoải mái và tự tin.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000101_9a9846241849e24560f62ddcbe898144d1708713956b9ef84ac3762d82aebf5f.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000102_08d810112272525510218b39c53795f5b45b05489f0cf79b8387a3c31233ecfb.png)
 
 Maria: Chà, hoán đổi cả UI lẫn tầng lưu trữ dữ liệu! Nghe có vẻ rủi ro đấy chứ. Việc đó có khó khăn lắm không?
 
@@ -1943,6 +2695,10 @@ Maria: Nhưng đó vẫn chưa phải là điểm dừng trên con đường đ�
 
 Mitchell: Haha. Không, không đâu. Dường như chuyện đó chẳng bao giờ dừng lại. Tuy nhiên, khi cô sở hữu một đội ngũ kỹ sư thông minh, con đường đầy rẫy phức tạp bỗng nhẹ nhàng như một chuyến dạo chơi trong công viên. Trên thực tế, Kiến trúc Hướng Sự kiện đã đơn giản hóa rất nhiều khu vực trong bộ hệ thống đang ngày càng mở rộng.
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000103_c017e61e56fdeca9a8720a002f6c0b97b680f64936e8c8a787c8436097d361f6.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000104_fba362b48617f9b573c1fbf4d9f2cdb576e035255a139d26df3d2dd13039f517.png)
+
 Maria: Chuẩn quá rồi. Kể tiếp đi anh. Đó rõ ràng là một thời cơ tuyệt vời. Chúng ta đang tiến tới phần câu chuyện mà tôi yêu thích nhất rồi đây. Anh biết đấy . . . [mắt ánh lên vẻ lấp lánh của những con số $$$]
 
 Mitchell: Kiến trúc của chúng tôi cho phép hệ thống mở rộng quy mô (scale) nhanh chóng và quản trị sự thay đổi xuất sắc đến mức RoaringCloud đã quyết định thâu tóm SaaSOvation với mức giá, ừm . . . tất cả những con số đó đều đã được công bố công khai trên hồ sơ tài chính rồi.
@@ -1983,7 +2739,11 @@ Hình 4.1 thể hiện các tầng phổ biến trong một ứng dụng DDD s�
 
 Hình 4.1 Kiến trúc Phân tầng (Layers Architecture) truyền thống trong đó áp dụng DDD
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000105_d4993e7f4c02f4dc75ba7e3319f12c93ae739649230c1ccb4ebf6983c9559df6.png)
+
 119
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000106_6f24723144776bc4ee1888739d75631f851eddad8ed6b04c03f554e20bf06c36.png)
 
 trong kiến trúc. Nằm phía trên nó là User Interface Layer và Application Layer. Nằm bên dưới nó là Infrastructure Layer.
 
@@ -2025,6 +2785,10 @@ Vì mô hình miền nắm giữ toàn bộ business logic đã được thảo 
 
 Ví dụ, các interface Repository đòi hỏi các implementation phải sử dụng các thành phần, chẳng hạn như cơ chế lưu trữ dữ liệu, vốn được đặt tại Infrastructure. Điều gì sẽ xảy ra nếu chúng ta chỉ đơn thuần triển khai các interface Repository ngay trong Infrastructure? Vì Infrastructure Layer nằm bên dưới Domain Layer, các tham chiếu từ Infrastructure ngược lên Domain sẽ vi phạm các quy tắc của Layers Architecture. Dẫu vậy, việc tránh điều đó không có nghĩa là các đối tượng miền chính sẽ liên kết với Infrastructure. Để tránh điều đó, chúng ta có thể sử dụng các Module (Chương 9) triển khai để che giấu các lớp kỹ thuật:
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000107_36916302071c845c2445380beb39142b050ad2dab5fe960590ab8fc6559cca59.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000108_432cd48632c23c9bc9f731097cf2df77d2e3f0eea9a666cfb82d143a2eb81b6a.png)
+
 com.saasovation.agilepm.domain.model.product.impl
 
 Như được chỉ ra trong Modules (Chương 9), MongoProductRepository có thể được đặt trong package đó. Tuy nhiên, đây không phải là cách duy nhất để giải quyết thách thức này. Chúng ta có thể quyết định triển khai các interface như vậy ngay trong Application Layer, điều này sẽ giữ vững các nguyên tắc của Layers. Hình 4.2 phác họa một góc nhìn về cách tiếp cận này. Nhưng làm như vậy có vẻ hơi gượng ép và khó chịu.
@@ -2035,7 +2799,11 @@ Trong một Layers Architecture truyền thống, Infrastructure nằm ở đáy
 
 Hình 4.2 Application Layer có thể chứa một số triển khai kỹ thuật của các interface được định nghĩa bởi Domain Layer.
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000109_89f86183e2edbee8be75e17e114b84eb7976d16e384f7e627bf78e5c6b5ca772.png)
+
 Các nhóm phát triển của SaaSOvation nhận thấy rằng việc đặt Infrastructure Layer ở dưới đáy cùng đã bộc lộ một số nhược điểm. Thứ nhất, nó khiến việc triển khai các khía cạnh kỹ thuật theo yêu cầu của Domain Layer trở nên khá đắng chát vì các nguyên tắc của Layers buộc phải bị vi phạm. Và trên thực tế, mã nguồn của họ rất khó kiểm thử. Làm thế nào họ có thể vượt qua bất lợi này?
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000110_8bca670e7b19e0afa80f53d7176eccb3d85719d39eeb63f4e671074e62a9cf03.png)
 
 Liệu chúng ta có thể nhào nặn ra điều gì đó ngọt ngào hơn nếu chúng ta điều chỉnh lại thứ tự của các Tầng?
 
@@ -2052,7 +2820,13 @@ Bản chất của định nghĩa này muốn truyền đạt rằng một thàn
 
 Một số người sẽ kết luận rằng DIP thực chất chỉ có hai tầng: một tầng ở trên đỉnh và một tầng ở dưới đáy. Tầng ở trên đỉnh sẽ triển khai các interface trừu tượng được định nghĩa trong tầng ở đáy. Điều chỉnh Hình 4.3 cho khớp với nhận định này, Infrastructure Layer sẽ là tầng nằm trên đỉnh, còn User Interface Layer, Application Layer, và Domain Layer sẽ hợp thành tầng nằm dưới đáy. Bạn có thể thích hoặc không thích góc nhìn này về một kiến trúc DIP. Đừng lo lắng; Hexagonal [Cockburn] hay Kiến trúc Ports and Adapters chính là đích đến của toàn bộ quá trình tiến hóa này.
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000111_ed814c4bf33e89aaafff6bb3bcb338610f70bec95942ced0a2f0d533571f5c17.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000112_8dd2e36f56da9f8afde774331e39836c674224a06ffd96e8ae6a345ce28c3a1e.png)
+
 Hình 4.3 Các Tầng khả dĩ khi áp dụng Dependency Inversion Principle. Chúng ta chuyển Infrastructure Layer lên phía trên tất cả các tầng khác, cho phép nó triển khai các interface cho tất cả các Tầng bên dưới.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000113_bf0ddf7c657784885e307c03bb5d0ace4272d4937dadfd0fa55e4cfa7e7ead7a.png)
 
 Từ kiến trúc trong Hình 4.3, chúng ta sẽ có một Repository được triển khai trong Infrastructure cho một interface được định nghĩa bên trong Domain:
 
@@ -2078,8 +2852,60 @@ public class HibernateBacklogItemRepository implements BacklogItemRepository {
     ...
 }
 
-<!-- ⚠️ CẢNH BÁO chunk 8: số ảnh/heading/code-block KHÔNG khớp bản gốc (gốc={'images': 33, 'headings': 15, 'fences': 8}, dịch={'images': 0, 'headings': 9, 'fences': 6}). Xem lại đoạn này bằng tay. -->
+```
 
+Tập trung vào Domain Layer (Tầng Miền), việc áp dụng DIP (Dependency Inversion Principle - Nguyên lý Đảo ngược Phụ thuộc) cho phép cả Domain và Infrastructure (Tầng Hạ tầng) đều phụ thuộc vào abstractions (các trừu tượng hóa/interface) được định nghĩa bởi mô hình miền. Vì Application Layer (Tầng Ứng dụng) là client (bên tiêu thụ dịch vụ) trực tiếp của Domain, nó phụ thuộc vào các interface của Domain và truy cập gián tiếp tới Repository (Kho lưu trữ - đối tượng trừu tượng hóa việc truy xuất tập hợp thực thể) cùng bất kỳ lớp triển khai kỹ thuật nào của Domain Service (Dịch vụ Miền) do Infrastructure cung cấp. Tầng này có thể sử dụng một trong vài cách thức để tiếp nhận các triển khai này, bao gồm Dependency Injection (Tiêm phụ thuộc), Service Factory (Nhà máy Dịch vụ), và Plug In (Trình cắm) [Fowler, P of EAA]. Các ví dụ xuyên suốt cuốn sách này sử dụng Dependency Injection được cung cấp bởi Spring Framework và đôi khi sử dụng Service Factory thông qua lớp DomainRegistry. Trên thực tế, DomainRegistry sử dụng Spring để tra cứu các tham chiếu tới các bean hiện thực hóa những interface được định nghĩa bởi mô hình miền, bao gồm cả các Repository và Domain Service.
+
+Một điều rất thú vị là khi suy ngẫm về sức ảnh hưởng của DIP đối với kiến trúc này, chúng ta có thể kết luận rằng thực chất không còn bất kỳ tầng nào tồn tại nữa. Cả các mối bận tâm cấp cao lẫn cấp thấp đều chỉ phụ thuộc duy nhất vào abstractions, điều này dường như đã lật đổ hoàn toàn cấu trúc xếp tầng (stack). Sẽ ra sao nếu chúng ta thực sự nghĩ đến việc đảo ngược hoàn toàn kiến trúc này và bổ sung thêm một chút tính đối xứng? Tiếp theo, hãy cùng xem cơ chế đó hoạt động như thế nào.
+
+## Hexagonal or Ports and Adapters
+
+Với Hexagonal Architecture (Kiến trúc Lục giác) [^2], Alistair Cockburn đã hệ thống hóa một phong cách kiến trúc nhằm tạo ra tính đối xứng [Cockburn]. Nó thúc đẩy mục tiêu này bằng cách cho phép nhiều loại client khác nhau có thể tương tác với hệ thống trên một vị thế hoàn toàn bình đẳng. Cần thêm một client mới? Không thành vấn đề. Chỉ cần bổ sung một Adapter (Bộ chuyển đổi) để chuyển đổi dữ liệu đầu vào của bất kỳ client nào thành dạng mà API nội bộ của ứng dụng có thể hiểu được. Đồng thời, các cơ chế đầu ra (output mechanisms) được hệ thống sử dụng, chẳng hạn như giao diện đồ họa, lưu trữ dữ liệu (persistence), và truyền thông điệp (messaging), cũng có thể đa dạng và dễ dàng hoán đổi cho nhau. Điều đó hoàn toàn khả thi vì một Adapter được tạo ra để chuyển đổi kết quả xử lý của ứng dụng thành định dạng mà một cơ chế đầu ra cụ thể chấp nhận.
+
+Khi chúng ta đi sâu thảo luận về nó, bạn có thể sẽ đồng tình rằng kiến trúc này mang trong mình tiềm năng trường tồn vượt thời gian.
+
+[^2]: Chúng tôi gọi kiến trúc này bằng cái tên Hexagonal, mặc dù tên gọi của nó dường như đã được đổi thành Ports and Adapters (Cổng và Bộ chuyển đổi). Bất chấp sự thay đổi tên gọi này, cộng đồng vẫn quen gọi nó là Hexagonal. Onion Architecture (Kiến trúc Củ hành) cũng đã xuất hiện sau đó. Tuy nhiên, đối với nhiều người, có vẻ như Onion chỉ là một tên gọi thay thế (đáng tiếc) cho Hexagonal. Chúng ta có thể an tâm coi chúng là một và giữ nguyên định nghĩa của [Cockburn].
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000114_9d9a44c04b680402062c07664b07dd0dbc99efb0aa991087cb1167e0adf20b87.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000115_7aeeb3fe42f3824bf9eafb991c3f60e3fe5d47c23685941188ffb1edb44e9916.png)
+
+Ngày nay, nhiều nhóm phát triển tuyên bố rằng họ đang sử dụng Layers Architecture nhưng thực chất lại đang dùng Hexagonal. Điều này một phần xuất phát từ số lượng dự án hiện đang áp dụng một dạng Dependency Injection nào đó. Không phải cứ dùng Dependency Injection là tự động biến thành Hexagonal. Chỉ là nó khuyến khích một cách thức tổ chức kiến trúc nghiêng một cách tự nhiên về phía phong cách Ports and Adapters. Dù trong trường hợp nào, một sự hiểu biết thấu đáo hơn sẽ làm sáng tỏ điểm này.
+
+Chúng ta thường nghĩ nơi mà các client tương tác với hệ thống là "front end" (đầu trước). Tương tự, chúng ta coi nơi ứng dụng truy xuất dữ liệu đã lưu, lưu trữ dữ liệu mới, hoặc gửi kết quả đầu ra là "back end" (đầu sau). Nhưng Hexagonal thúc đẩy một cách nhìn nhận hoàn toàn khác về các khu vực của một hệ thống, như được minh họa trong Hình 4.4. Có hai khu vực chính: bên ngoài (the outside) và bên trong (the inside). Phía bên ngoài cho phép các client khác nhau gửi dữ liệu đầu vào, đồng thời cung cấp các cơ chế để truy xuất dữ liệu lưu trữ, ghi lại kết quả đầu ra của ứng dụng (ví dụ: cơ sở dữ liệu), hoặc gửi nó tới những nơi khác trên hành trình xử lý (ví dụ: hệ thống messaging).
+
+Hình 4.4 Kiến trúc Hexagonal còn được biết đến với tên gọi Ports and Adapters. Có các Adapter cho từng loại thành phần bên ngoài. Phía bên ngoài tiếp cận phía bên trong thông qua API của ứng dụng.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000116_09e481e2ab5556af1310637d9e9ad5329794412fec5c8afb24701df9f9c4ccbd.png)
+
+## Cowboy Logic
+
+AJ: "Lũ ngựa của tôi chắc chắn rất thích cái chuồng hình lục giác mới của chúng. Nó cho chúng nhiều góc hơn để chạy trốn mỗi khi tôi vác yên ngựa bước vào."
+
+> 💡 **Giải thích thêm:** Câu đùa "Cowboy Logic" mang tính ẩn dụ châm biếm: chuồng ngựa truyền thống thường là hình tròn để ngựa không có góc kẹt/chạy trốn khi người chăn ngựa muốn bắt chúng đeo yên. Khi làm chuồng hình lục giác (nhiều cạnh/góc), lũ ngựa lại có thêm chỗ trốn. Trong phần mềm, tác giả chơi chữ liên hệ tới việc hình lục giác mang lại nhiều "cạnh/góc" (Ports) độc lập giúp hệ thống bên trong dễ dàng tiếp nhận hoặc cô lập các kết nối bên ngoài mà không bị phụ thuộc cứng.  
+> (Không có nguồn trích dẫn xác thực — cần tự kiểm chứng thêm)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000117_c04bc509531bb24469148cabc32bca90a5cafecac212bada8fb94215dfc9b898.png)
+
+Trong Hình 4.4, mỗi loại client có một Adapter riêng [Gamma et al.], có nhiệm vụ chuyển đổi các giao thức đầu vào thành định dạng tương thích với API của ứng dụng — tức là phía bên trong. Mỗi cạnh của hình lục giác đại diện cho một loại Port (Cổng) khác nhau, dành cho đầu vào hoặc đầu ra. Ba trong số các yêu cầu của client đến thông qua cùng một loại Port đầu vào (Adapter A, B, và C), và một yêu cầu sử dụng một loại Port khác biệt (Adapter D). Có thể ba yêu cầu kia sử dụng HTTP (trình duyệt, REST, SOAP, v.v.) còn yêu cầu kia sử dụng AMQP (Advanced Message Queuing Protocol - ví dụ: RabbitMQ). Không có một định nghĩa cứng nhắc nào về ý nghĩa của một Port, biến nó thành một khái niệm vô cùng linh hoạt. Bất kể các Port được phân chia theo cách nào, khi yêu cầu của client đến, Adapter tương ứng sẽ chuyển đổi đầu vào của chúng. Sau đó, nó gọi một thao tác trên ứng dụng hoặc gửi cho ứng dụng một event (sự kiện). Quyền kiểm soát nhờ đó được chuyển giao vào phía bên trong.
+
+## We Probably Are Not Implementing the Ports Ourselves
+
+Chúng ta thực tế thường không tự mình triển khai các Port. Hãy coi một Port giống như HTTP và Adapter là một Java Servlet hoặc một lớp được gắn annotation JAX-RS có nhiệm vụ nhận các lệnh gọi phương thức từ một container (JEE) hoặc framework (RESTEasy hoặc Jersey). Hoặc chúng ta có thể tạo một message listener (bộ lắng nghe thông điệp) cho NServiceBus hoặc RabbitMQ. Trong trường hợp đó, Port ít nhiều chính là cơ chế messaging, còn Adapter là message listener, bởi vì trách nhiệm của message listener là trích xuất dữ liệu từ message và chuyển dịch nó thành các tham số phù hợp để truyền vào API của Ứng dụng (client của mô hình miền).
+
+## Design the Application Inside per Functional Requirements
+
+Khi sử dụng Hexagonal, chúng ta thiết kế ứng dụng dựa trên các use cases (trường hợp sử dụng), chứ không dựa trên số lượng client được hỗ trợ. Bất kỳ số lượng và loại client nào cũng có thể gửi yêu cầu thông qua các Port khác nhau, nhưng mỗi Adapter đều ủy quyền xử lý vào ứng dụng thông qua cùng một API duy nhất.
+
+Ứng dụng tiếp nhận các yêu cầu thông qua API công khai của nó. Ranh giới của ứng dụng, hay hình lục giác bên trong, cũng chính là ranh giới của use case (hoặc user story). Nói cách khác, chúng ta nên xây dựng các use cases dựa trên các yêu cầu chức năng của ứng dụng, chứ không phải dựa trên số lượng client đa dạng hay các cơ chế đầu ra. Khi ứng dụng nhận được một yêu cầu qua API của nó, nó sử dụng mô hình miền để đáp ứng tất cả các yêu cầu liên quan đến việc thực thi logic nghiệp vụ. Vì vậy, API của ứng dụng được công bố dưới dạng một tập hợp các Application Service. Ở đây một lần nữa, các Application Service là client trực tiếp của mô hình miền, tương tự như khi áp dụng mô hình Layers.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000118_48c7499ab813d5d063e6cd29dcb9bf9634c53b435bc7fd0d9607e4962d64d911.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000119_86511c15721d4fba06d3584619ee112ced3d56a2d157c485e7adda966a5ccdc5.png)
+
+Đoạn mã sau đây đại diện cho một tài nguyên RESTful được công bố bằng cách sử dụng JAX-RS. Một yêu cầu đến thông qua Port đầu vào HTTP, và bộ xử lý đóng vai trò là một Adapter, ủy quyền xử lý cho một Application Service:
+
+```java
 @Path("/tenants/{tenantId}/products")
 public class ProductResource extends Resource {
     private ProductService productService;
@@ -2120,7 +2946,13 @@ Nếu đang sử dụng mô hình Layers thuần túy, hãy cân nhắc những 
 
 Khi các nhóm phát triển tại SaaSOvation cân nhắc những ưu điểm của việc sử dụng Hexagonal Architecture, họ đã quyết định chuyển dịch từ Layers sang. Việc đó thực ra không hề khó khăn. Nó chỉ đòi hỏi việc áp dụng một tư duy hơi khác một chút khi sử dụng Spring Framework quen thuộc.
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000120_b882ef08cae45102efbdfaf5120215464920843a80cca51e72eb41463af2de33.png)
+
 Bởi vì Hexagonal Architecture rất đa năng, nó hoàn toàn có thể trở thành nền tảng nâng đỡ các kiến trúc khác mà hệ thống yêu cầu. Chẳng hạn, chúng ta có thể tích hợp Service-Oriented (Hướng Dịch vụ), REST, hoặc Event-Driven Architecture (Kiến trúc Hướng Sự kiện); áp dụng CQRS; sử dụng Data Fabric (Mạng lưới Dữ liệu) hoặc Grid-Based Distributed Cache (Bộ nhớ đệm phân tán dạng lưới); hoặc gắn thêm cơ chế xử lý song song và phân tán Map-Reduce, hầu hết những điều này sẽ được thảo luận ở phần sau của chương. Phong cách Hexagonal tạo nên nền tảng vững chắc để hỗ trợ bất kỳ và tất cả các lựa chọn kiến trúc bổ sung đó. Còn có những cách tiếp cận khác, nhưng trong phần còn lại của chương này, hãy mặc định rằng Ports and Adapters được sử dụng để hỗ trợ phát triển xung quanh từng chủ đề còn lại được thảo luận.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000121_0867c7a2dfe2dd474fdcb26bdaa43d44b2cc76e27980d9228855665326ab3fa2.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000122_35ac98ddbd6406a66f7970645aed11964b244892e2960245a2b96422d2066efc.png)
 
 ## Service-Oriented
 
@@ -2141,11 +2973,17 @@ Bảng 4.1 Các Nguyên lý Thiết kế Dịch vụ
 
 Hình 4.5 Kiến trúc Hexagonal hỗ trợ SOA, với các dịch vụ REST, SOAP, và messaging
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000123_d441c6e3d912f6cfcb2810c7cbda35f337f8cf1b9d725b9f812aa4996197a904.png)
+
 Chúng ta có thể kết hợp các nguyên lý này với Hexagonal Architecture, với ranh giới dịch vụ nằm ở góc ngoài cùng bên trái và mô hình miền nằm ở vị trí trung tâm. Kiến trúc cơ bản được trình bày trong Hình 4.5, nơi các bên tiêu thụ tiếp cận dịch vụ bằng REST, SOAP, và messaging. Lưu ý rằng một hệ thống dựa trên Hexagonal có thể hỗ trợ nhiều endpoint (điểm cuối) dịch vụ kỹ thuật. Điều này có ảnh hưởng trực tiếp đến cách DDD được áp dụng bên trong một kiến trúc SOA.
 
 Vì quan điểm còn rất khác nhau về việc SOA thực chất là gì và nó mang lại giá trị gì, sẽ không có gì đáng ngạc nhiên nếu bạn không đồng tình với những gì được trình bày ở đây. Martin Fowler gọi tình huống này là "sự mơ hồ hướng dịch vụ" (service-oriented ambiguity) [Fowler, SOA]. Do đó, tôi sẽ không cố gắng làm sáng tỏ toàn bộ SOA ở đây. Tuy nhiên, tôi sẽ đưa ra một góc nhìn về cách thức DDD khớp nối vào tập hợp các ưu tiên được công bố trong Tuyên ngôn SOA (SOA Manifesto) [^3].
 
 [^3]: Bản thân Tuyên ngôn SOA đã phải nhận khá nhiều chỉ trích tiêu cực, nhưng chúng ta vẫn có thể chắt lọc được một số giá trị từ nó.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000124_a52bfd977984334c98582818a927c22b1dc25945e6d72c90aa22bfd41effa74.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000125_fdf26d2e1ae6e2646722a81c7a384ad89d61d97799c6838c91967068e317fae4.png)
 
 Trước hết, việc xem xét các góc nhìn thực tế được bày tỏ bởi một trong những người đóng góp cho bản Tuyên ngôn [Tilkov, Manifesto] sẽ cung cấp một bối cảnh quan trọng. Bình luận về bản Tuyên ngôn, ông đưa chúng ta tiến gần hơn ít nhất một hoặc hai bước tới việc hiểu các dịch vụ SOA có thể là gì:
 
@@ -2166,6 +3004,8 @@ Nếu chấp nhận những điều này như những giá trị đáng giá, ch
 
 Các nhóm phát triển của SaaSOvation đã phải học một bài học khó khăn nhưng quan trọng: lắng nghe các yếu tố dẫn dắt về mặt ngôn ngữ sẽ phù hợp hơn với DDD. Mỗi Bounded Context trong số ba ngữ cảnh của họ đều phản ánh các mục tiêu của SOA — cả về mặt kinh doanh lẫn trong các dịch vụ kỹ thuật.
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000126_e70cfad5564efc1a1c64bad5a992f8c8d679b305fbf6076214395c13fa93d03b.png)
+
 Ba mô hình mẫu được thảo luận trong Bounded Contexts (Chương 2), Context Maps (Chương 3), và Integrating Bounded Contexts (Chương 13) lần lượt đại diện cho từng mô hình miền đơn lẻ được định nghĩa chặt chẽ về mặt ngôn ngữ. Mỗi mô hình miền được bao bọc bởi một tập hợp các dịch vụ mở triển khai một SOA nhằm đáp ứng các mục tiêu kinh doanh.
 
 ## Representational State Transfer-REST
@@ -2177,6 +3017,10 @@ REST đã trở thành một trong những buzzword (từ ngữ thông dụng th
 ## REST as an Architectural Style
 
 Điều đầu tiên cần nắm bắt khi cố gắng hiểu thấu đáo về REST là khái niệm về phong cách kiến trúc (architectural styles). Một phong cách kiến trúc có vai trò đối với kiến trúc tương tự như một design pattern (mẫu thiết kế) đối với một thiết kế cụ thể. Nó là sự trừu tượng hóa những khía cạnh chung của các cách triển khai cụ thể khác nhau, cho phép thảo luận về những lợi ích liên quan của chúng mà không bị sa đà vào các chi tiết kỹ thuật. Có rất nhiều phong cách kiến trúc hệ thống phân tán khác nhau, bao gồm client-server và distributed objects (đối tượng phân tán). Một vài chương đầu trong luận án của Fielding giải thích một số phong cách trong số đó, bao gồm cả các ràng buộc (constraints) mà chúng bắt buộc phải có đối với một kiến trúc tuân thủ từng phong cách. Khái niệm về các phong cách kiến trúc và các ràng buộc do chúng áp đặt có thể khiến bạn cảm thấy hơi mang tính lý thuyết, và bạn nhận định hoàn toàn đúng. Chúng tạo nên nền tảng lý thuyết cho một phong cách kiến trúc (vào thời điểm đó là) hoàn toàn mới mà Fielding giới thiệu. Đó chính là REST — phong cách kiến trúc mà kiến trúc của Web được kỳ vọng sẽ tuân theo.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000127_49bf1ec1618f546b7d3396db6be4d5571d094b6afe51c0ebba684eeba56bd1b4.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000128_0e874702383cfae3c57bdc00e20319cb29ad480d185a560a7efd877880b6e9e9.png)
 
 Tất nhiên, Web — vốn được định hình bởi các tiêu chuẩn quan trọng nhất của nó là URI, HTTP và HTML — đã ra đời trước công trình nghiên cứu tiến sĩ của Fielding. Nhưng ông từng là một trong những nhân tố chủ chốt trong việc chuẩn hóa HTTP 1.1, và có tầm ảnh hưởng to lớn đến nhiều quyết định thiết kế dẫn tới diện mạo của Web như chúng ta biết ngày nay [^4]. Nhìn theo góc độ này, REST là một phép ngoại suy lý thuyết (theoretical extrapolation), được tạo ra sau thực tế, đúc kết từ chính kiến trúc của Web.
 
@@ -2197,6 +3041,10 @@ Khía cạnh then chốt tiếp theo là ý tưởng về giao tiếp phi trạn
 Nếu bạn coi các tài nguyên như các đối tượng — và hoàn toàn hợp lý khi làm như vậy — thì việc đặt câu hỏi chúng nên có loại interface nào là hoàn toàn xác đáng. Câu trả lời chính là một khía cạnh rất quan trọng khác giúp phân biệt REST với bất kỳ phong cách kiến trúc hệ thống phân tán nào khác. Tập hợp các phương thức mà bạn có thể gọi là cố định. Mọi đối tượng đều hỗ trợ cùng một interface duy nhất. Trong RESTful HTTP, các phương thức chính là các động từ HTTP (HTTP verbs) — quan trọng nhất là GET, PUT, POST, DELETE — có thể được áp dụng lên các tài nguyên.
 
 Mặc dù thoạt nhìn có vẻ giống, các phương thức này không hoàn toàn chuyển dịch tương đương sang các thao tác CRUD (Create, Read, Update, Delete). Việc tạo ra các tài nguyên không đại diện cho bất kỳ thực thể bền vững nào mà thay vào đó đóng gói hành vi được kích hoạt khi một động từ thích hợp được áp dụng lên chúng là điều rất phổ biến. Mỗi phương thức HTTP đều có một định nghĩa rất rõ ràng trong đặc tả kỹ thuật của HTTP. Ví dụ, phương thức GET chỉ được sử dụng cho các thao tác "an toàn" (safe operations): (1) nó không được thực hiện các hành động tạo ra tác động mà client có thể không yêu cầu; (2) nó luôn luôn chỉ đọc dữ liệu; (3) nó có tiềm năng được lưu vào bộ nhớ đệm (caching - nếu máy chủ chỉ định rõ điều này thông qua các tiêu đề phản hồi thích hợp).
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000129_3d138d6615a1b4e5c71a9d86c4e37f28f23033b7e1eb32779bc6865455aaeb6c.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000130_556f1680bf05397f593097e1dd0e4e4333c65e00d878bad8a84943e4f5160829.png)
 
 Phương thức GET của HTTP đã được Don Box — một trong những nhân vật chủ chốt đứng sau các Web service kiểu SOAP — gọi là "phần hạ tầng đường ống hệ thống phân tán được tối ưu hóa tốt nhất trên thế giới". Lời nhận xét của ông nhấn mạnh rằng rất nhiều hiệu năng và khả năng mở rộng của Web mà chúng ta coi là hiển nhiên ngày nay có được là nhờ các tối ưu hóa của HTTP cho trường hợp sử dụng cụ thể, cực kỳ phổ biến này.
 
@@ -2228,6 +3076,8 @@ Một cách tiếp cận khác phù hợp hơn khi sự nhấn mạnh được �
 
 Điều này phản ánh một cách tiếp cận từ ngoài vào trong (outside-in) và mang tính xuyên suốt (crosscutting). Trong miền quản lý nhóm làm việc và nhiệm vụ đã đề cập trước đó, có rất nhiều định dạng phổ biến. Hãy lấy định dạng `ical` làm ví dụ. Đây là một định dạng chung có thể được sử dụng bởi nhiều ứng dụng khác nhau. Trong trường hợp này, chúng ta sẽ bắt đầu bằng việc chọn một media type (`ical`) và sau đó tạo một mô hình miền cho định dạng này. Mô hình này sau đó có thể được sử dụng bởi bất kỳ hệ thống nào cần hiểu định dạng này — ví dụ như ứng dụng máy chủ của chúng ta, nhưng cũng có thể là các hệ thống khác (chẳng hạn như một Android client). Đương nhiên, với cách tiếp cận này, một máy chủ có thể cần xử lý nhiều media type khác nhau, và cùng một media type có thể được sử dụng bởi nhiều máy chủ.
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000131_8d35ede2ac2f15f49692da519546389a79ae226acffd5176721b3b620ca6ddf3.png)
+
 Việc lựa chọn cách tiếp cận nào trong hai cách tiếp cận này phụ thuộc phần lớn vào mục tiêu của nhà thiết kế hệ thống xét về khả năng tái sử dụng. Giải pháp càng mang tính chuyên biệt hóa cao thì cách tiếp cận đầu tiên càng chứng tỏ được tính hữu ích. Giải pháp càng mang tính hữu dụng phổ quát, với mức độ cực hạn là việc chuẩn hóa bởi một tổ chức tiêu chuẩn chính thức, thì việc đi theo cách tiếp cận thứ hai lấy media type làm trung tâm lại càng trở nên hợp lý.
 
 ## Why REST?
@@ -2257,6 +3107,8 @@ Hãy hình dung một mô hình miền, chẳng hạn như một trong những m
 
 Bây giờ, hãy nghĩ đến việc tách biệt toàn bộ các trách nhiệm truy vấn thuần túy truyền thống trong một mô hình ra khỏi toàn bộ các trách nhiệm thực thi các lệnh thuần túy trên chính mô hình đó. Các Aggregate sẽ không có các phương thức truy vấn (getters), mà chỉ có các phương thức command. Các Repository sẽ được tinh giản chỉ còn một phương thức `add()` hoặc `save()` (hỗ trợ lưu cho cả việc tạo mới lẫn cập nhật) và duy nhất một phương thức truy vấn, chẳng hạn như `fromId()`. Phương thức truy vấn duy nhất này nhận vào định danh duy nhất của một Aggregate và trả về chính Aggregate đó. Một Repository sẽ không thể được sử dụng để tìm kiếm một Aggregate bằng bất kỳ phương thức nào khác, chẳng hạn như lọc theo một số thuộc tính bổ sung. Với tất cả những phần đó đã được loại bỏ khỏi mô hình truyền thống, chúng ta gọi nó là command model (mô hình lệnh/mô hình ghi). Chúng ta vẫn cần một cách để hiển thị dữ liệu cho người dùng. Để làm điều đó, chúng ta tạo ra một mô hình thứ hai, mô hình được tinh chỉnh tối ưu cho các truy vấn. Đó chính là query model (mô hình truy vấn/mô hình đọc).
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000132_4572468518b4845527c5287dfe36a22d3975d99c75b01b4c3dccaaa4290a3a47.png)
+
 ## Isn't This Accidental Complexity?
 
 Ấn tượng ban đầu của bạn có thể là phong cách được đề xuất này đòi hỏi quá nhiều công sức và chúng ta chỉ đơn thuần đang thay thế một tập hợp vấn đề này bằng một tập hợp vấn đề khác, đồng thời phải viết thêm rất nhiều mã nguồn để thực hiện nó.
@@ -2278,6 +3130,8 @@ Hãy cùng đi qua từng khu vực chính của mẫu kiến trúc này. Chúng
 
 Hình 4.6 Với CQRS, các command từ client truyền đi một chiều tới command model. Các query được thực thi trên một nguồn dữ liệu riêng biệt được tối ưu hóa cho việc trình diễn và chuyển giao tới giao diện người dùng hoặc các báo cáo.
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000133_5e779ac44416911bb9c911efa5ba44f888b74f2e34c95926521c673e85747ba9.png)
+
 ## Client and Query Processor
 
 Client (ở ngoài cùng bên trái trong sơ đồ) có thể là một trình duyệt Web hoặc một giao diện người dùng desktop tùy biến. Nó sử dụng một tập hợp các query processor (bộ xử lý truy vấn) chạy trên máy chủ. Sơ đồ không biểu diễn sự phân chia tầng mang ý nghĩa kiến trúc giữa các bậc (tiers) trên (các) máy chủ. Bất kể có những tầng nào tồn tại, query processor đại diện cho một thành phần đơn giản chỉ biết cách thực thi các truy vấn cơ bản trên một cơ sở dữ liệu, chẳng hạn như một kho lưu trữ SQL.
@@ -2295,6 +3149,8 @@ Query model là một mô hình dữ liệu phi chuẩn hóa (denormalized data 
 Điều đáng lưu ý là các view dựa trên CQRS có thể vừa có chi phí thấp vừa dễ dàng thay thế/vứt bỏ (cả trong quá trình phát triển lẫn khi bảo trì). Điều này đặc biệt đúng nếu bạn sử dụng một dạng Event Sourcing đơn giản (xem phần 'Event Sourcing' ở phần sau của chương và Phụ lục A) và lưu trữ tất cả các Event vào một kho lưu trữ bền vững, nơi chúng có thể được xuất bản lại bất kỳ lúc nào để tạo ra dữ liệu view bền vững mới. Nhờ làm như vậy, bất kỳ view đơn lẻ nào cũng có thể được viết lại từ đầu một cách độc lập hoặc toàn bộ query model có thể được chuyển đổi sang một công nghệ lưu trữ dữ liệu hoàn toàn khác. Điều này giúp dễ dàng tạo và duy trì các view liên tục đáp ứng các nhu cầu giao diện người dùng không ngừng thay đổi. Nó có thể dẫn đến những trải nghiệm người dùng trực quan hơn, thoát khỏi mô hình bảng dữ liệu truyền thống để trở nên phong phú hơn rất nhiều.
 
 141
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000134_87d9d403639dc9e25939be8aed92d535a6bcf17bdb1e338f6f5c32e5a91db138.png)
 
 Ví dụ, một bảng có thể được thiết kế với đầy đủ dữ liệu để hiển thị giao diện người dùng cho người dùng thông thường, người quản lý, và quản trị viên. Nếu một database table view tương ứng được tạo ra cho từng loại người dùng đó, dữ liệu cho từng vai trò bảo mật sẽ được phân chia một cách thích hợp. Điều này tích hợp sẵn tính bảo mật vào dữ liệu hiển thị theo từng loại người dùng. Một thành phần giao diện của người dùng thông thường sẽ chọn tất cả các cột từ table view của người dùng thông thường. Một thành phần giao diện của người quản lý sẽ chọn tất cả các cột từ table view của người quản lý. Bằng cách đó, người dùng thông thường sẽ không thể nhìn thấy những gì mà người quản lý có thể thấy.
 
@@ -2333,6 +3189,8 @@ Chúng ta có thể tạo ra một handler theo phong cách chuyên biệt (dedi
 
 Điều này dẫn tới phong cách hướng thông điệp (messaging style) của Command Handler. Mỗi command được gửi đi như một thông điệp bất đồng bộ và được chuyển phát tới một handler được thiết kế theo phong cách chuyên biệt. Điều này không chỉ cho phép mỗi thành phần xử lý lệnh nhận được các thông điệp có kiểu định danh cụ thể, mà các bộ xử lý của một loại nhất định còn có thể được bổ sung thêm để giải quyết tải xử lý command. Cách tiếp cận này không nên được sử dụng làm mặc định, vì nó có thiết kế phức tạp hơn. Thay vào đó, hãy bắt đầu bằng một trong hai phong cách kia dưới dạng các bộ xử lý command đồng bộ. Chỉ chuyển sang bất đồng bộ khi các yêu cầu về khả năng mở rộng quy mô thực sự đòi hỏi. Dẫu vậy, một số người sẽ đi đến kết luận rằng cách tiếp cận bất đồng bộ cung cấp sự tách rời về mặt thời gian (temporal decoupling) sẽ dẫn đến các hệ thống có khả năng phục hồi tốt hơn. Góc nhìn đó thường sẽ dẫn tới xu hướng ưu tiên triển khai các Command Handler theo phong cách messaging.
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000135_07192f965b8bdc7d3361512d0d9f4443a7b078c0d246e440089d92332b88687e.png)
+
 Bất kể loại handler nào được sử dụng, hãy tách rời từng handler khỏi tất cả các handler khác. Không cho phép bất kỳ handler nào phụ thuộc vào (sử dụng) bất kỳ handler nào khác. Điều này sẽ cho phép bất kỳ loại handler nào cũng có thể được triển khai lại một cách độc lập mà không gây ảnh hưởng đến các handler khác.
 
 Các Command Handler nhìn chung chỉ thực hiện một vài công việc. Nếu một handler có khía cạnh khởi tạo, nó sẽ khởi tạo một thực thể Aggregate mới và thêm thực thể mới đó vào Repository của nó. Thông thường nhất, nó sẽ lấy một thực thể Aggregate từ Repository của nó và thực thi một hành vi phương thức command trên thực thể đó:
@@ -2353,8 +3211,15 @@ public void commitBacklogItemToSprint(
     backlogItem.commitTo(sprint);
 }
 
-<!-- ⚠️ CẢNH BÁO chunk 9: số ảnh/heading/code-block KHÔNG khớp bản gốc (gốc={'images': 22, 'headings': 25, 'fences': 6}, dịch={'images': 0, 'headings': 21, 'fences': 4}). Xem lại đoạn này bằng tay. -->
+```
 
+﻿Khi Command Handler (bộ xử lý lệnh) hoàn tất, một thực thể Aggregate (Cụm Tổng hợp) đơn lẻ đã được cập nhật và một Domain Event (Sự kiện Miền) đã được công bố bởi command model (mô hình lệnh). Điều này đóng vai trò thiết yếu nhằm đảm bảo rằng query model (mô hình truy vấn) được cập nhật. Cũng cần lưu ý rằng, như đã được thảo luận trong Domain Events (Chương 8) và Aggregates (Chương 10), Event vừa công bố cũng có thể được sử dụng để kích hoạt sự đồng bộ hóa của các thực thể Aggregate khác bị ảnh hưởng bởi command duy nhất này, nhưng sự sửa đổi của các thực thể Aggregate bổ sung đó sẽ đạt được tính nhất quán sau cùng (eventual consistency) với thực thể đã được commit (chấp thuận lưu) bởi giao dịch này.
+
+## Command Model (or Write Model) Executes Behavior
+
+Khi mỗi phương thức command trên command model được thực thi, nó kết thúc bằng việc công bố một Event như được mô tả trong Domain Events (Chương 8). Sử dụng ví dụ xuyên suốt này, BacklogItem sẽ hoàn tất phương thức command của nó như sau:
+
+```java
 public class BacklogItem extends ConcurrencySafeEntity {
     ...
     public void commitTo(Sprint aSprint) {
@@ -2393,6 +3258,10 @@ Một subscriber (bên đăng ký nhận tin) đặc biệt đăng ký để ti�
 
 Các bản cập nhật này nên được thực hiện đồng bộ (synchronously) hay bất đồng bộ (asynchronously)? Điều đó phụ thuộc vào mức tải thông thường của hệ thống, và có thể phụ thuộc cả vào vị trí lưu trữ cơ sở dữ liệu của query model. Các ràng buộc về tính nhất quán dữ liệu và các yêu cầu về hiệu năng sẽ chi phối quyết định này.
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000136_8693c7ff48c18158ac92411fd16ca55b3d44a29a35e314e452e2aa2c86960155.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000137_9e4f1c6f30246914808af133e035942e76ad140962aad170600bf2178e0678bd.png)
+
 Để cập nhật một cách đồng bộ, query model và command model thông thường sẽ dùng chung một cơ sở dữ liệu (hoặc cùng một schema), và chúng ta sẽ cập nhật cả hai mô hình trong cùng một giao dịch (transaction). Điều đó giữ cho cả hai mô hình hoàn toàn nhất quán. Tuy nhiên, điều này sẽ đòi hỏi nhiều thời gian xử lý hơn cho việc cập nhật nhiều bảng, điều có thể không đáp ứng được SLA (Service-Level Agreement - Cam kết Mức Dịch vụ). Nếu hệ thống thường xuyên chịu tải nặng và quy trình cập nhật query model kéo dài, hãy sử dụng cơ chế cập nhật bất đồng bộ thay thế. Điều này có thể dẫn đến những thách thức về tính nhất quán sau cùng, nơi giao diện người dùng sẽ không phản ánh ngay lập tức những thay đổi gần đây nhất trong command model. Thời gian trễ (lag time) là không thể dự đoán trước, nhưng đó là một sự đánh đổi (trade-off) có thể cần thiết để đáp ứng các SLA khác.
 
 Điều gì sẽ xảy ra khi một giao diện hiển thị (view) mới được tạo ra trên giao diện người dùng nhưng dữ liệu của nó bắt buộc phải được tạo mới? Hãy thiết kế bảng và bất kỳ table view nào như đã mô tả trước đó. Điền dữ liệu trạng thái hiện tại vào bảng mới này bằng một trong vài kỹ thuật sau. Nếu command model được lưu trữ bằng Event Sourcing, hoặc nếu có một Event Store (Kho lưu trữ Sự kiện) chứa đầy đủ lịch sử, hãy phát lại (replay) các Event lịch sử để tạo ra các bản cập nhật. Điều này chỉ khả thi nếu các loại Event phù hợp đã tồn tại sẵn trong kho lưu trữ. Nếu không, bảng có thể sẽ phải được điền dữ liệu dần dần khi các command trong tương lai đi vào hệ thống. Ngoài ra, vẫn còn có một lựa chọn khác.
@@ -2419,6 +3288,10 @@ Giống như mọi pattern khác, CQRS đưa vào một số yếu tố xung đ�
 
 Hexagonal Architecture (Kiến trúc Lục giác) được thể hiện trong Hình 4.4 có thể đại diện cho khái niệm về một hệ thống tham gia vào một EDA thông qua các message gửi đến và gửi đi. Một EDA không nhất thiết phải sử dụng Hexagonal, nhưng đó là một cách tiếp cận thỏa đáng để trình bày các khái niệm ở đây. Đối với một dự án làm mới từ đầu (greenfield project), việc cân nhắc sử dụng Hexagonal làm phong cách bao quát tổng thể là rất đáng giá.
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000138_04d2d39e6492fef9a3ac127cee3d36233584817c56a4bb5eac1c022cb57c74e7.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000139_03db5ddfcc4069ec2c6367e56fa7cdef490330edaef95f4399a3aef17ca1c6d8.png)
+
 Quan sát Hình 4.4, giả sử client hình tam giác và cơ chế đầu ra hình tam giác tương ứng đại diện cho cơ chế messaging được sử dụng bởi Bounded Context (Ngữ cảnh Ranh giới). Các sự kiện đầu vào đi vào qua một Port (Cổng) riêng biệt so với Port được ba client kia sử dụng. Các sự kiện đầu ra tương tự cũng đi qua một Port khác. Như đã đề xuất trước đây, các Port riêng biệt này có thể đại diện cho việc vận chuyển message qua AMQP (Advanced Message Queuing Protocol - Giao thức Hàng đợi Thông điệp Nâng cao), như được sử dụng bởi RabbitMQ, thay vì giao thức HTTP phổ biến hơn mà các client khác sử dụng. Bất kể cơ chế messaging thực tế nào đang được sử dụng, chúng ta sẽ giả định rằng các sự kiện đi vào và đi ra khỏi hệ thống thông qua các hình tam giác mang tính biểu tượng này.
 
 Có thể có một số loại sự kiện khác nhau đi vào và đi ra khỏi một hình lục giác. Chúng ta đặc biệt quan tâm đến các Domain Event. Ứng dụng cũng có thể đăng ký nhận các sự kiện hệ thống, sự kiện doanh nghiệp hoặc các loại sự kiện khác. Có thể những sự kiện đó xử lý tình trạng và giám sát hệ thống, ghi log, cấp phát tài nguyên động và những tác vụ tương tự. Dẫu vậy, chính các Domain Event mới là thứ truyền tải những diễn biến đòi hỏi sự chú ý trong mô hình hóa của chúng ta.
@@ -2428,6 +3301,8 @@ Chúng ta có thể nhân bản hệ thống trong khung nhìn Hexagonal Archite
 Các Domain Event được công bố bởi một hệ thống như vậy thông qua Port đầu ra sẽ được chuyển phát tới các subscriber được đại diện ở những hệ thống khác thông qua Port đầu vào của chúng. Các Domain Event khác nhau nhận được mang một ý nghĩa cụ thể trong từng Bounded Context tiếp nhận, hoặc có thể hoàn toàn không mang ý nghĩa nào cả. [^5] Nếu loại Event đó được một Context cụ thể quan tâm, các thuộc tính của nó sẽ được chuyển đổi cho phù hợp với API của ứng dụng và được sử dụng để thực thi một thao tác tại đó. Thao tác command được thực thi trên API của ứng dụng sau đó sẽ được phản ánh vào mô hình miền theo đúng giao thức của nó.
 
 Hình 4.7 Ba hệ thống sử dụng Kiến trúc Hướng Sự kiện với phong cách Hexagonal bao quát. Phong cách EDA tách rời mọi sự phụ thuộc của các hệ thống ngoại trừ sự phụ thuộc vào chính cơ chế messaging và các kiểu Event mà chúng đăng ký nhận tin.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000140_409c7f73e00848fe24e830a6bf11a0d25f6e9980eb9f06c949803f3d5bd71993.png)
 
 Hoàn toàn có khả năng một Domain Event cụ thể nhận được chỉ đại diện cho một phần của một quy trình đa tác vụ (multitask process). Cho đến khi tất cả các Domain Event dự kiến đến đủ, quy trình đa tác vụ đó mới được coi là hoàn tất. Nhưng quy trình đó bắt đầu như thế nào? Nó được phân tán trên toàn doanh nghiệp ra sao? Và làm cách nào chúng ta theo dõi tiến độ cho đến khi quy trình hoàn thành? Câu trả lời sẽ được thảo luận ở phần sau trong mục về các tiến trình chạy lâu dài (long-running processes). Nhưng trước tiên, việc đặt nền tảng ban đầu là cần thiết. Các hệ thống dựa trên thông điệp thường phản ánh phong cách Pipes and Filters (Ống dẫn và Bộ lọc).
 
@@ -2447,6 +3322,10 @@ $cat phone_numbers.txt \vert{} grep 303 \vert{} wc -l 3$
 3. Cuối cùng, `wc` đọc luồng đầu vào tiêu chuẩn của nó, vốn được dẫn từ luồng đầu ra tiêu chuẩn của `grep`. Đối số dòng lệnh truyền cho `wc` là `-l`, yêu cầu nó đếm số dòng mà nó đọc được. Nó xuất ra kết quả, trong trường hợp này
 
 [^5]: Nếu sử dụng các bộ lọc thông điệp (message filters) hoặc các routing key (khóa định tuyến), các subscriber có thể tránh được việc nhận các Event vô nghĩa đối với chúng.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000141_743228c006af2e6099d12f3da07772b4c207750e64b0fe78d0a8698975393a16.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000142_7ff5450e93b521bb669adc286984bf43497bf7d3b7c61d42e5727c9fb6239.png)
 
 là `3`, bởi vì có ba dòng đã được xuất ra bởi `grep`. Lưu ý rằng giờ đây đầu ra tiêu chuẩn được hiển thị ra console vì lần này không còn Pipe nào dẫn tới một lệnh bổ sung nào khác nữa.
 
@@ -2489,10 +3368,15 @@ Dưới đây là cách thức một giải pháp Pipes and Filters dựa trên 
 2. Một component xử lý message có tên `PhoneNumberFinder` được cấu hình để đăng ký nhận `AllPhoneNumbersListed` và tiếp nhận nó. Component xử lý message này là Filter đầu tiên trong pipeline. Filter này được cấu hình để tìm kiếm chuỗi văn bản `303`. Component này xử lý Event bằng cách tìm kiếm chuỗi ký tự `303` trên từng dòng. Sau đó, nó tạo một Event mới có tên `PhoneNumbersMatched`, đưa toàn bộ các dòng kết quả khớp vào Event. Message Event này được gửi đi, tiếp tục chu trình của pipeline.
 3. Một component xử lý message có tên `MatchedPhoneNumberCounter` được cấu hình để đăng ký nhận `PhoneNumbersMatched` và tiếp nhận nó. Component xử lý message này là Filter thứ hai trong pipeline. Trách nhiệm duy nhất của nó
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000143_1d3d77d06ca408e61f1d8a34ac5bd450f2ee8dc7d4406d4cdcc99079dc050001.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000144_eb3d73ba8f832c10082175cfacfd66173102c9e47258248450121c28f30f4162.png)
+
 Hình 4.8 Một pipeline được tạo thành bằng cách gửi các Event mà các Filter sẽ xử lý.
 
-là đếm các số điện thoại có trong Event và sau đó chuyển tiếp kết quả trong một Event mới. Trong trường hợp này, nó đếm được tổng cộng ba dòng chứa số điện thoại. Filter hoàn tất bằng cách tạo ra Event `MatchedPhoneNumbersCounted`, gán thuộc tính `count` thành `3`. Message Event này được gửi đi, tiếp tục chu trình của pipeline.
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000145_a981e7587740ff5daed7fada9d840a127e12a0d8fb669ef4ab79fe7d8e923068.png)
 
+là đếm các số điện thoại có trong Event và sau đó chuyển tiếp kết quả trong một Event mới. Trong trường hợp này, nó đếm được tổng cộng ba dòng chứa số điện thoại. Filter hoàn tất bằng cách tạo ra Event `MatchedPhoneNumbersCounted`, gán thuộc tính `count` thành `3`. Message Event này được gửi đi, tiếp tục chu trình của pipeline.
 4. Cuối cùng, một component xử lý message đã đăng ký nhận `MatchedPhoneNumbersCounted` sẽ tiếp nhận nó. Component này có tên là `PhoneNumberExecutive`. Trách nhiệm duy nhất của nó là ghi log kết quả ra tệp, bao gồm thuộc tính `count` của Event cùng ngày giờ nhận được. Trong trường hợp này, nó ghi:
 5. 3 phone numbers matched on July 15, 2012 at 11:15 PM (3 số điện thoại khớp vào ngày 15 tháng 7 năm 2012 lúc 11:15 CH)
 
@@ -2512,6 +3396,8 @@ Như đã giải thích trong Domain Events (Chương 8), đây không chỉ là
 
 Ví dụ tổng hợp về Pipes and Filters có thể được mở rộng để minh họa một pattern xử lý song song, phân tán, hướng sự kiện khác, cụ thể là: Long-Running Processes (Các Tiến trình Chạy Lâu dài). Một Long-Running Process đôi khi được gọi là một Saga, nhưng tùy thuộc vào nền tảng của bạn, tên gọi đó có thể xung đột với một pattern đã tồn tại từ trước. Mô tả ban đầu về Saga được trình bày trong [Garcia-Molina & Salem]. Nhằm nỗ lực tránh sự nhầm lẫn và mơ hồ, tôi chọn sử dụng tên gọi Long-Running Process, và đôi khi tôi dùng tên Process cho ngắn gọn.
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000146_61f96fc7e1d47095ec52ba374e14a9c235e8fe16fd3e6c7230004064bb80d6bb.png)
+
 ## Cowboy Logic
 
 * LB: 'Dallas và Dynasty, đó mới đích thị là những gì tôi gọi là các saga (phim dài tập trường thiên)!'
@@ -2520,9 +3406,13 @@ Ví dụ tổng hợp về Pipes and Filters có thể được mở rộng đ�
 > 💡 **Giải thích thêm:** "Dallas" và "Dynasty" là hai bộ phim truyền hình dài tập (soap operas) kinh điển của Mỹ phát sóng vào thập niên 1980, kể về những mâu thuẫn gia tộc và thương trường kéo dài hàng trăm tập qua nhiều năm. Tại Đức, phim "Dynasty" được phát sóng dưới tên "Der Denver Clan". Đây là phép chơi chữ dí dỏm giữa từ "saga" trong văn hóa đại chúng (phim truyền hình dài tập, trường thiên kịch nhiều kỳ) và thuật ngữ kỹ thuật "Saga / Long-Running Process" trong hệ thống phân tán (tiến trình nghiệp vụ phức tạp kéo dài qua nhiều bước và nhiều hệ thống).
 > Nguồn tham khảo: [Wikipedia - Dynasty (1981 TV series)](https://en.wikipedia.org/wiki/Dynasty_(1981_TV_series))
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000147_b25b49625e45e2b7d14d2a32881bb7415c4b6a2d50e4cd403896c0b6080872b5.png)
+
 Mở rộng ví dụ trước, chúng ta có thể tạo ra các pipeline song song bằng cách chỉ cần thêm một Filter mới duy nhất, `TotalPhoneNumbersCounter`, làm subscriber bổ sung cho `AllPhoneNumbersListed`. Nó nhận Event `AllPhoneNumbersListed` gần như song song với `PhoneNumberFinder`. Filter mới này có một mục tiêu rất đơn giản: đếm tất cả các liên hệ hiện có. Tuy nhiên, lần này `PhoneNumberExecutive` vừa khởi động Long-Running Process vừa theo dõi nó cho đến khi hoàn tất. Thành phần executive có thể tái sử dụng hoặc không tái sử dụng `PhoneNumbersPublisher`, nhưng điều quan trọng là điểm mới của nó. Executive, được triển khai dưới dạng một Application Service hoặc Command Handler, theo dõi tiến độ của Long-Running Process, thấu hiểu khi nào nó hoàn thành và phải làm gì khi điều đó xảy ra. Hãy tham khảo Hình 4.9 khi chúng ta đi qua từng bước của Long-Running Process mẫu này.
 
 Hình 4.9 Thành phần executive của Long-Running Process đơn lẻ khởi tạo quá trình xử lý song song và theo dõi nó đến khi hoàn tất. Các mũi tên rộng hơn chỉ ra nơi tính song song bắt đầu khi hai Filter nhận cùng một Event.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000148_889d37c15b7da80b4fb2849fdf8001b8fa108f4135f1ffee298841c647d871e5.png)
 
 ## Different Ways to Design a Long-Running Process
 
@@ -2539,8 +3429,142 @@ Bây giờ trách nhiệm của `PhoneNumberExecutive` là đăng ký nhận c�
 ```
 3 of 15 phone numbers matched on July 15, 2012 at 11:27 PM
 
-<!-- ⚠️ CẢNH BÁO chunk 10: số ảnh/heading/code-block KHÔNG khớp bản gốc (gốc={'images': 24, 'headings': 16, 'fences': 10}, dịch={'images': 0, 'headings': 9, 'fences': 8}). Xem lại đoạn này bằng tay. -->
+```
 
+Kết quả đầu ra của log được bổ sung thêm tổng số lượng số điện thoại bên cạnh thông tin về kết quả khớp, ngày và giờ trước đó. Mặc dù các tác vụ được thực hiện để mang lại kết quả rất đơn giản, chúng đã được thực hiện song song. Và nếu ít nhất một số component đăng ký được triển khai trên các node máy tính khác nhau, thì quá trình xử lý song song đó cũng mang tính phân tán.
+
+Tuy nhiên, có một vấn đề với Long-Running Process này. `PhoneNumberExecutive` hiện không có cách nào biết được rằng nó đã nhận được hai Domain Event hoàn tất gắn liền với các tiến trình song song cụ thể tương ứng. Nếu nhiều tiến trình như vậy được khởi động song song và các Event hoàn tất của từng tiến trình được nhận không theo thứ tự, làm thế nào executive biết được tiến trình song song nào đang kết thúc? Đối với ví dụ tổng hợp của chúng ta, việc ghi log với các event không khớp nhau hầu như không gây hậu quả nghiêm trọng. Nhưng khi xử lý các miền nghiệp vụ của doanh nghiệp, một Long-Running Process bị sai lệch trật tự có thể dẫn đến thảm họa.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000149_dc2ccad4a04733c14b996005399bd8d5b3b2d2ce3bb51b48c3be4fa460ff71cb.png)
+
+Bước đầu tiên trong giải pháp cho tình huống nan giải này là gán một định danh Process duy nhất được mang theo bởi mỗi Domain Event liên quan. Đây có thể là cùng một định danh được gán cho Domain Event khởi nguồn kích hoạt Long-Running Process bắt đầu (ví dụ: `AllPhoneNumbersListed`). Chúng ta có thể sử dụng một định danh duy nhất toàn cầu (UUID - Universally Unique Identifier) được cấp phát riêng cho Process. Xem Entities (Chương 5) và Domain Events (Chương 8) để biết phần thảo luận về việc cung cấp định danh duy nhất. `PhoneNumberExecutive` giờ đây sẽ chỉ ghi đầu ra vào log khi nhận được các Event hoàn tất có định danh trùng khớp nhau. Tuy nhiên, chúng ta không thể mong đợi executive cứ đứng chờ cho đến khi nhận đủ tất cả các Event hoàn tất. Bản thân nó cũng là một subscriber tiếp nhận Event, xuất hiện và biến mất theo việc tiếp nhận và xử lý của từng lượt chuyển phát.
+
+## Executive and Tracker?
+
+Một số người nhận thấy rằng việc hợp nhất các khái niệm executive và tracker (bộ theo dõi) thành một đối tượng duy nhất — một Aggregate — là cách tiếp cận đơn giản nhất. Việc triển khai một Aggregate như vậy như một phần của mô hình miền vốn tự nhiên theo dõi một phần của Process tổng thể có thể là một kỹ thuật giải phóng tư duy. Thứ nhất, chúng ta tránh được việc phải phát triển một tracker riêng biệt dưới dạng máy trạng thái (state machine), bên cạnh các Aggregate bắt buộc phải tồn tại. Trên thực tế, các Long-Running Process cơ bản nhất được triển khai tốt nhất theo đúng cách đó.
+
+Trong một Hexagonal Architecture, một bộ xử lý message dạng Port-Adapter chỉ đơn giản điều phối tới một Application Service (hoặc Command Handler), nơi sẽ tải Aggregate mục tiêu và ủy quyền cho phương thức command thích hợp của nó. Vì Aggregate sau đó sẽ kích hoạt một Domain Event, Event này sẽ được công bố một phần như một chỉ dấu cho thấy Aggregate đã hoàn thành vai trò của nó trong Process.
+
+Cách tiếp cận này bám sát phương pháp do Pat Helland đề xuất, mà ông gọi là các hoạt động đối tác (partner activities) [Helland], và là cách tiếp cận thứ hai được mô tả trong khung thông tin 'Different Ways to Design a Long-Running Process'. Tuy nhiên, về mặt lý tưởng, việc thảo luận về một executive và một tracker riêng biệt là một cách hiệu quả hơn để giảng dạy kỹ thuật tổng thể, và là một cách trực quan hơn để tiếp thu nó.
+
+Hình 4.10 Một PhoneNumberStateTracker đóng vai trò là một đối tượng trạng thái của Long-Running Process để theo dõi tiến độ. Tracker được triển khai dưới dạng một Aggregate.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000150_742f071f76132bbcb3e13bb1cc20bdb4935625372f864a803c7a92559e363bb0.png)
+
+Trong một miền thực tế, mỗi thực thể của một Process executive tạo ra một đối tượng trạng thái mới tương tự như Aggregate để theo dõi sự hoàn tất sau cùng của nó. Đối tượng trạng thái được tạo ra khi Process bắt đầu, liên kết với cùng một định danh duy nhất mà mỗi Domain Event liên quan bắt buộc phải mang theo. Việc nó lưu giữ một mốc thời gian (timestamp) ghi nhận thời điểm Process bắt đầu cũng có thể rất hữu ích (lý do sẽ được thảo luận ở phần sau của chương). Đối tượng theo dõi trạng thái Process được minh họa trong Hình 4.10.
+
+Khi mỗi pipeline trong quá trình xử lý song song hoàn tất, executive sẽ nhận được một Event hoàn tất tương ứng. Executive truy xuất thực thể theo dõi trạng thái bằng cách khớp định danh Process duy nhất được mang theo bởi Event nhận được và thiết lập một thuộc tính đại diện cho bước vừa hoàn thành.
+
+Thực thể trạng thái Process thường có một phương thức chẳng hạn như `isCompleted()`. Khi mỗi bước được hoàn thành và ghi nhận trên bộ theo dõi trạng thái này, executive sẽ kiểm tra `isCompleted()`. Phương thức này kiểm tra xem tất cả các tiến trình song song bắt buộc đã được ghi nhận hoàn tất hay chưa. Khi phương thức trả về `true`, executive có tùy chọn công bố một Domain Event cuối cùng nếu phía nghiệp vụ yêu cầu. Event này có thể cần thiết nếu Process vừa hoàn tất chỉ là một nhánh trong một tiến trình song song lớn hơn, chẳng hạn.
+
+Một cơ chế messaging nhất định có thể thiếu các tính năng đảm bảo chuyển phát duy nhất một lần cho mỗi Event. [^7] Nếu cơ chế messaging có khả năng chuyển phát một message Domain Event hai hoặc nhiều lần, chúng ta có thể sử dụng đối tượng trạng thái Process để khử trùng lặp (de-duplicate). Điều này có đòi hỏi các tính năng đặc biệt phải được cung cấp bởi cơ chế messaging không? Hãy xem xét cách xử lý mà không cần đến chúng.
+
+[^7]: Điều này không có nghĩa là chuyển phát được đảm bảo (guaranteed delivery), mà là đảm bảo chuyển phát duy nhất một lần (guaranteed single delivery), hay chính xác một lần duy nhất (once and only once).
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000151_862da500abe98875fed9eb57d08a931a28d2f55c82727934735da055e9734d59.png)
+
+Khi nhận được mỗi Event hoàn tất, executive kiểm tra đối tượng trạng thái xem đã có bản ghi hoàn tất nào cho Event cụ thể đó từ trước hay chưa. Nếu cờ báo hiệu hoàn tất đã được thiết lập, Event đó được coi là bản sao trùng lặp và bị bỏ qua, nhưng vẫn gửi xác nhận đã nhận (acknowledged). [^8] Một lựa chọn khác là thiết kế đối tượng trạng thái có tính lũy đẳng (idempotent). Bằng cách đó, nếu executive nhận phải các message trùng lặp, đối tượng trạng thái sẽ hấp thụ các lượt ghi nhận trùng lặp đó như nhau mà không làm sai lệch kết quả. Mặc dù chỉ có lựa chọn thứ hai mới thiết kế bản thân state tracker có tính lũy đẳng, cả hai cách tiếp cận này đều hỗ trợ cơ chế truyền tin lũy đẳng (idempotent messaging). Xem Domain Events (Chương 8) để thảo luận sâu hơn về việc khử trùng lặp Event.
+
+Một số tác vụ theo dõi hoàn tất Process có thể nhạy cảm về mặt thời gian. Chúng ta có thể xử lý việc hết hạn thời gian (time-out) của Process một cách bị động (passively) hoặc chủ động (actively). Hãy nhớ lại rằng state tracker của Process có thể lưu giữ timestamp ghi lại thời điểm khởi tạo của nó. Cộng thêm vào đó một giá trị hằng số (hoặc cấu hình) về tổng thời gian cho phép tối đa, executive có thể quản lý các Long-Running Process có tính nhạy cảm về thời gian.
+
+Việc kiểm tra time-out bị động được thực hiện mỗi khi executive nhận được một Event hoàn tất của quá trình xử lý song song. Executive truy xuất state tracker và hỏi xem time-out đã xảy ra hay chưa. Một phương thức như `hasTimedOut()` có thể phục vụ mục đích đó. Nếu kiểm tra time-out bị động cho thấy ngưỡng thời gian cho phép đã bị vượt quá, state tracker của Process có thể được đánh dấu là đã bị hủy bỏ (abandoned). Hoàn toàn có thể công bố một Domain Event báo lỗi thất bại tương ứng. Lưu ý rằng nhược điểm của việc kiểm tra time-out bị động là Process có thể tiếp tục duy trì trạng thái hoạt động vượt quá ngưỡng thời gian của nó nếu một hoặc nhiều Event hoàn tất vì lý do nào đó không bao giờ được chuyển phát tới executive. Điều này có thể không thể chấp nhận được nếu một tiến trình song song lớn hơn phụ thuộc vào kết quả thành công hay thất bại chắc chắn của Process này.
+
+Việc kiểm tra time-out Process chủ động có thể được quản lý bằng cách sử dụng một bộ đếm giờ bên ngoài (external timer). Ví dụ, một thực thể `TimerMBean` của JMX là một cách để có được một bộ đếm giờ do Java quản lý. Bộ đếm giờ được đặt cho ngưỡng time-out tối đa ngay khi Process bắt đầu. Khi bộ đếm giờ kích hoạt (fires), listener sẽ truy cập vào state tracker của Process. Nếu trạng thái chưa hoàn tất (luôn phải kiểm tra phòng trường hợp bộ đếm giờ kích hoạt đúng lúc một Event bất đồng bộ vừa kịp hoàn tất Process), nó sẽ được đánh dấu là đã bị hủy bỏ, và một Event báo lỗi thất bại tương ứng sẽ được công bố. Nếu state tracker đã được đánh dấu là hoàn tất trước khi bộ đếm giờ kích hoạt, bộ đếm giờ có thể được hủy bỏ. Một nhược điểm của việc kiểm tra time-out chủ động là nó đòi hỏi nhiều tài nguyên hệ thống hơn, điều này có thể gây gánh nặng cho một môi trường có lưu lượng truy cập cao. Ngoài ra, điều kiện tương tranh (race condition) giữa bộ đếm giờ và Event hoàn tất đang gửi tới có thể gây ra lỗi thất bại không chính xác.
+
+[^8]: Khi cơ chế messaging cuối cùng nhận được xác nhận đã nhận (acknowledgment of receipt), message sẽ không bị chuyển phát lại nữa.
+
+Các Long-Running Process thường gắn liền với xử lý song song phân tán nhưng hoàn toàn không liên quan gì đến các giao dịch phân tán (distributed transactions). Chúng đòi hỏi một tư duy sẵn sàng đón nhận tính nhất quán sau cùng. Chúng ta phải bước vào bất kỳ nỗ lực thiết kế một Long-Running Process nào một cách tỉnh táo, với nhận thức rõ ràng rằng khi hạ tầng hoặc bản thân các tác vụ gặp lỗi, cơ chế phục hồi lỗi (error recovery) được thiết kế tốt là điều thiết yếu. Mọi hệ thống tham gia vào một thực thể đơn lẻ của một Long-Running Process phải được coi là không nhất quán với tất cả các bên tham gia khác cho đến khi executive nhận được thông báo hoàn tất cuối cùng. Đúng là một số Long-Running Process có thể thành công khi chỉ mới hoàn thành một phần, hoặc chúng có thể trì hoãn thậm chí trong vài ngày trước khi hoàn tất toàn bộ. Nhưng nếu Process rơi vào bế tắc (runs aground) và các hệ thống tham gia bị bỏ lại trong các trạng thái không nhất quán, các hành động bù trừ (compensation) có thể là bắt buộc. Nếu bồi hoàn/bù trừ là bắt buộc, nó có thể phức tạp vượt xa cả việc thiết kế luồng thành công. Có lẽ các quy trình nghiệp vụ có thể cho phép xảy ra thất bại và đưa ra các giải pháp quy trình làm việc (workflow) thay thế.
+
+Các nhóm phát triển SaaSOvation áp dụng Kiến trúc Hướng Sự kiện xuyên suốt các Bounded Context, và nhóm ProjectOvation sẽ sử dụng dạng đơn giản nhất của một Long-Running Process để quản lý việc tạo ra các Discussion được gán cho các thực thể Product. Phong cách bao quát là Hexagonal để quản lý việc truyền thông điệp ra bên ngoài và công bố các Domain Event xung quanh doanh nghiệp.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000152_9408e8e9b9b0cfc46ea281a49a4d7bc5a429c1c2049ad4b0975befb7e8301f6d.png)
+
+Một điều không thể bỏ qua là executive của Long-Running Process có thể công bố một, hai hoặc nhiều Event để khởi tạo quá trình xử lý song song. Cũng có thể có không chỉ hai, mà là ba hoặc nhiều subscriber cho bất kỳ Event hoặc các Event khởi tạo nào. Nói cách khác, một Long-Running Process có thể dẫn đến nhiều hoạt động quy trình nghiệp vụ riêng biệt được thực thi đồng thời. Do đó, ví dụ tổng hợp của chúng ta chỉ được giới hạn về độ phức tạp nhằm mục đích truyền đạt các khái niệm cơ bản của một Long-Running Process.
+
+Các Long-Running Process thường hữu ích khi việc tích hợp với các hệ thống cũ (legacy systems) có thể có độ trễ cao. Ngay cả khi độ trễ và hệ thống cũ không phải là mối bận tâm hàng đầu, chúng ta vẫn hưởng lợi từ tính phân tán và song song một cách thanh lịch, điều có thể dẫn đến các hệ thống nghiệp vụ có tính sẵn sàng cao và khả năng mở rộng quy mô lớn.
+
+Một số cơ chế messaging có hỗ trợ tích hợp sẵn cho Long-Running Process, điều này có thể đẩy nhanh đáng kể việc áp dụng. Một trong số đó là [NServiceBus], nơi gọi chúng một cách cụ thể là các Saga. Một triển khai Saga khác được cung cấp bởi [MassTransit].
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000153_5f91a173d67a97a969e3229f184878e6418a45a6953fd4f57a0f213bddf1e31a.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000154_6fd93cbffbe971b1e39478f01b23debc3ab4ce5cc2f691e785c1422ad6a9045e.png)
+
+## Event Sourcing
+
+Đôi khi phía nghiệp vụ quan tâm đến việc theo dõi những thay đổi diễn ra đối với các đối tượng trong một mô hình miền. Có nhiều mức độ quan tâm đến việc theo dõi thay đổi khác nhau, và cũng có nhiều cách thức để hỗ trợ từng mức độ đó. Thông thường, các doanh nghiệp chọn cách chỉ theo dõi thời điểm một thực thể nào đó được tạo ra và sửa đổi lần cuối, cùng với người thực hiện. Đó là một cách tiếp cận tương đối đơn giản và trực diện để theo dõi thay đổi. Tuy nhiên, điều này không cung cấp bất kỳ thông tin nào về các thay đổi riêng lẻ cụ thể bên trong mô hình.
+
+Với mong muốn theo dõi thay đổi ngày càng sâu sắc hơn, phía nghiệp vụ đòi hỏi nhiều siêu dữ liệu hơn. Họ bắt đầu quan tâm cả đến các thao tác riêng lẻ đã được thực thi theo thời gian. Thậm chí có thể họ muốn hiểu một số thao tác nhất định mất bao lâu để thực thi. Những mong muốn đó dẫn đến nhu cầu duy trì một nhật ký kiểm toán (audit log) hoặc nhật ký ghi chép (journal) về các số liệu use case có độ hạt mịn hơn. Nhưng một audit log hay journal đều có những giới hạn của nó. Nó có thể truyền đạt một số thông tin về những gì đã xảy ra trong hệ thống, thậm chí có thể hỗ trợ một phần việc gỡ lỗi (debugging). Nhưng nó không cho phép chúng ta kiểm tra trạng thái của từng đối tượng miền riêng lẻ trước và sau các loại thay đổi cụ thể. Sẽ ra sao nếu chúng ta có thể khai thác được nhiều giá trị hơn nữa từ việc theo dõi thay đổi?
+
+Là những nhà phát triển, tất cả chúng ta đều đã từng trải nghiệm việc theo dõi thay đổi ở độ hạt mịn dưới hình thức này hay hình thức khác. Ví dụ phổ biến nhất là việc sử dụng một kho lưu trữ mã nguồn (source code repository), chẳng hạn như CVS, Subversion, Git, hoặc Mercurial. Điểm chung của tất cả các biến thể hệ thống quản lý phiên bản mã nguồn này là chúng đều biết cách theo dõi những thay đổi xảy ra trên một tệp mã nguồn. Khả năng theo dõi thay đổi được cung cấp bởi thể loại công cụ này cho phép chúng ta quay ngược trở lại toàn bộ thời gian trong quá khứ, xem xét một cấu phần mã nguồn từ phiên bản đầu tiên của nó, và sau đó tiến dần từng phiên bản một, cho đến tận phiên bản mới nhất. Khi commit tất cả các tệp mã nguồn vào hệ thống kiểm soát phiên bản, nó có thể theo dõi các thay đổi của toàn bộ vòng đời phát triển.
+
+Bây giờ, nếu chúng ta nghĩ đến việc áp dụng khái niệm này cho một Entity đơn lẻ, sau đó cho một Aggregate, rồi cho mọi Aggregate trong mô hình, chúng ta có thể hiểu được sức mạnh của việc theo dõi thay đổi đối tượng và giá trị mà nó có thể tạo ra trong hệ thống của chúng ta. Với suy nghĩ đó, chúng ta muốn phát triển một phương tiện để biết điều gì đã diễn ra trong mô hình dẫn đến việc tạo ra một thực thể Aggregate bất kỳ, và cả những gì đã xảy ra với thực thể Aggregate đó xuyên suốt thời gian, qua từng thao tác một. Với lịch sử của tất cả những gì đã xảy ra, chúng ta thậm chí có thể hỗ trợ các mô hình thời gian (temporal models). Mức độ theo dõi thay đổi này chính là hạt nhân cốt lõi của một pattern mang tên Event Sourcing. [^9] Hình 4.11 thể hiện góc nhìn cấp cao về pattern này.
+
+Có nhiều định nghĩa khác nhau về Event Sourcing, vì vậy một sự làm rõ là rất thích hợp. Chúng ta đang thảo luận về trường hợp sử dụng trong đó mỗi command thao tác được thực thi trên bất kỳ thực thể Aggregate nào trong mô hình miền sẽ công bố ít nhất một Domain Event mô tả kết quả thực thi. Mỗi event được lưu vào một Event Store (Chương 8) theo đúng thứ tự mà nó đã diễn ra. Khi mỗi Aggregate được truy xuất từ Repository của nó, thực thể đó được tái thiết lập (reconstituted) bằng cách phát lại (playing back) các Event theo đúng thứ tự mà chúng đã từng xảy ra trước đó. [^10] Nói cách khác, đầu tiên Event sớm nhất sẽ được phát lại, và Aggregate sẽ áp dụng Event đó lên chính nó, làm thay đổi trạng thái của nó. Tiếp theo, Event lâu đời thứ hai được phát lại theo cách tương tự. Quá trình này tiếp tục cho đến khi tất cả các Event, từ cũ nhất đến mới nhất, được phát lại và áp dụng hoàn toàn. Tại thời điểm đó, Aggregate tồn tại ở đúng trạng thái mà nó có được sau lần thực thi hành vi command gần đây nhất.
+
+[^9]: Phần thảo luận về Event Sourcing nhìn chung đòi hỏi sự hiểu biết về CQRS, vốn đã được đề cập trong phần trước về chủ đề đó.
+
+Hình 4.11 Góc nhìn cấp cao về Event Sourcing, nơi các Aggregate công bố các Event được lưu trữ và sử dụng để theo dõi các thay đổi trạng thái của mô hình. Repository đọc các Event từ Store và áp dụng chúng để tái thiết lập trạng thái của Aggregate.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000155_aba1ff7d91306db8433843a70a8b11e690a5e1b1c3bd2756de454a519f0e31b3.png)
+
+## A Moving Target?
+
+Định nghĩa về Event Sourcing đã trải qua một số cuộc xem xét kỹ lưỡng và tinh chỉnh, và tại thời điểm cuốn sách này được viết, nó vẫn chưa hoàn toàn ổn định tuyệt đối. Giống như hầu hết các kỹ thuật tiên phong hàng đầu, sự tinh chỉnh là điều cần thiết. Những gì được mô tả ở đây nắm bắt được bản chất cốt lõi của pattern này khi được áp dụng cùng với DDD và có lẽ ở mức độ lớn sẽ phản ánh cách thức mà nó nhìn chung sẽ được sử dụng trong tương lai.
+
+Sau một thời gian dài với rất nhiều thay đổi đối với bất kỳ và tất cả các thực thể Aggregate, liệu việc phát lại hàng trăm, hàng nghìn, hay thậm chí hàng triệu Event có gây ra độ trễ nghiêm trọng và chi phí phụ trội (overhead) trong việc xử lý mô hình không? Ít nhất đối với một số mô hình có lưu lượng truy cập cao hơn thì điều đó chắc chắn sẽ xảy ra.
+
+Để tránh điểm nghẽn cổ chai (bottleneck) này, chúng ta có thể áp dụng một giải pháp tối ưu hóa sử dụng các ảnh chụp nhanh trạng thái Aggregate (Aggregate state snapshots). Một tiến trình được xây dựng để tạo ra, ở chế độ chạy nền, một snapshot ghi lại trạng thái trong bộ nhớ của Aggregate tại một thời điểm cụ thể trong lịch sử của Event Store. Để làm được điều này, Aggregate được tải vào bộ nhớ bằng cách áp dụng tất cả các Event trước đó tính đến thời điểm hiện tại. Trạng thái của Aggregate sau đó được tuần tự hóa, và hình ảnh snapshot đã tuần tự hóa đó sẽ được lưu vào Event Store. Từ thời điểm đó trở đi, Aggregate trước tiên sẽ được khởi tạo bằng cách sử dụng snapshot gần đây nhất, và sau đó tất cả các Event mới hơn snapshot đó sẽ được phát lại trên Aggregate như đã mô tả trước đây.
+
+[^10]: Trạng thái của Aggregate là sự kết hợp (conflation) của các Event trước đó, nhưng chỉ bằng cách áp dụng chúng theo đúng thứ tự mà chúng đã xảy ra.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000156_4b74695826a2ca3a8a4b40f5c0bd4bc27bb7da7b8d05f5107d8c64803dfd46b2.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000157_add9ade71682afeba7fa3c79443eab9dc0a9c80ee23cb83ed85ec6eea7a94d53.png)
+
+Các snapshot không được tạo ra một cách ngẫu nhiên. Thay vào đó, chúng có thể được tạo tại các thời điểm mà một số lượng Event mới được xác định trước đã xảy ra. Nhóm phát triển sẽ xác định con số này dựa trên các phỏng đoán kinh nghiệm (heuristics) của miền hoặc các quan sát khác. Ví dụ, chúng ta có thể nhận thấy rằng việc truy xuất Aggregate đạt hiệu năng tối ưu khi không có quá 50 hoặc khoảng 100 Event giữa các snapshot.
+
+Event Sourcing nghiêng rất nhiều về hướng giải pháp kỹ thuật. Chúng ta hoàn toàn có thể xây dựng các mô hình miền công bố Domain Event mà không cần thiết phải hỗ trợ Event Sourcing. Với tư cách là một cơ chế lưu trữ dữ liệu, Event Sourcing thay thế và khác biệt rất xa so với việc sử dụng một công cụ ORM. Bởi vì các Event thường được lưu trữ trong một Event Store dưới dạng các biểu diễn nhị phân, chúng không thể (hoặc không tối ưu để) được sử dụng cho các truy vấn. Trên thực tế, các Repository được thiết kế cho một mô hình Event Sourcing chỉ yêu cầu duy nhất một thao tác get/find, và phương thức đó chỉ nhận tham số duy nhất là định danh của Aggregate. Hơn nữa, theo thiết kế, các Aggregate không có bất kỳ phương thức truy vấn nào (getters). Do đó, chúng ta cần một phương thức khác để truy vấn, điều này nhìn chung dẫn tới việc áp dụng CQRS (đã thảo luận ở trước) gắn kết chặt chẽ như hình với bóng (hand-in-glove) cùng với Event Sourcing. [^11]
+
+Vì Event Sourcing dẫn dắt chúng ta đi theo con đường tư duy hoàn toàn khác biệt về cách thiết kế các mô hình miền, chúng ta cần phải chứng minh được tính xác đáng khi sử dụng nó. Ở mức độ cơ bản nhất, lịch sử Event có thể hé lộ giải pháp cho các lỗi trong hệ thống. Việc gỡ lỗi với sự trợ giúp của một lịch sử tường minh về tất cả những gì từng xảy ra với mô hình mang lại một lợi thế vô cùng to lớn. Event Sourcing có thể mang lại các mô hình miền có thông lượng cao, mở rộng quy mô lên tới số lượng cực lớn các giao dịch mỗi giây. Ví dụ, việc chỉ ghi nối thêm (appending) vào một bảng cơ sở dữ liệu duy nhất là cực kỳ nhanh chóng. Hơn nữa, nó cho phép query model của CQRS được mở rộng theo chiều ngang (scale out), bởi vì các bản cập nhật cho nguồn dữ liệu đó được thực hiện ở chế độ chạy nền sau khi Event Store được cập nhật các Event mới. Điều này bổ sung thêm khả năng sao chép (replicate) query model sang nhiều thực thể nguồn dữ liệu hơn để phục vụ số lượng client ngày càng tăng.
+
+Nhưng các lợi thế kỹ thuật không phải lúc nào cũng thuyết phục được phía kinh doanh. Do đó, hãy xem xét chỉ một vài lợi thế kinh doanh của việc sử dụng Event Sourcing có được nhờ vào việc triển khai kỹ thuật:
+
+[^11]: Mặc dù chúng ta có thể sử dụng CQRS mà không cần dùng Event Sourcing, điều ngược lại thường không mang tính thực tiễn.
+
+* Vá lỗi Event Store bằng các Event mới hoặc đã sửa đổi để khắc phục sự cố. Điều này có thể kéo theo các hệ lụy kinh doanh, nhưng nếu hợp pháp trong một tình huống nhất định, bản vá có thể cứu hệ thống khỏi những sự cố nghiêm trọng xảy ra do lỗi trong mô hình. Vì các bản vá có sẵn dấu vết kiểm toán (audit trail), việc sử dụng các bản vá có thể làm giảm bớt mọi hệ lụy pháp lý bằng cách làm cho chúng trở nên tường minh và có thể truy vết được.
+* Bên cạnh việc vá lỗi, chúng ta cũng có thể hoàn tác (undo) và làm lại (redo) các thay đổi trong mô hình bằng cách phát lại các tập hợp Event khác nhau. Điều này có thể có những hệ lụy kỹ thuật và hệ lụy kinh doanh và có thể không phải lúc nào cũng hỗ trợ được trong mọi trường hợp.
+* Với một lịch sử chuẩn xác về mọi thứ đã diễn ra trong mô hình miền, phía kinh doanh có thể xem xét các câu hỏi "điều gì sẽ xảy ra nếu...?" (what if?). Tức là, bằng cách phát lại các Event đã lưu trữ trên một tập hợp các Aggregate có những cải tiến mang tính thử nghiệm, phía kinh doanh có thể nhận được câu trả lời chính xác cho các câu hỏi giả định. Liệu doanh nghiệp có được hưởng lợi nếu họ có thể mô phỏng các kịch bản mang tính khái niệm bằng cách sử dụng dữ liệu lịch sử thực tế hay không? Rất có thể câu trả lời là có. Đó là một cách tiếp cận thay thế đối với trí tuệ kinh doanh (BI - Business Intelligence).
+
+Liệu doanh nghiệp có được hưởng lợi từ một hoặc nhiều lợi thế kỹ thuật và phi kỹ thuật này hay không?
+
+Phụ lục A cung cấp chi tiết phong phú về việc triển khai các Aggregate với Event Sourcing và thảo luận về cách các view có thể được chiếu (projected) cho CQRS. Để biết thêm chi tiết, xem [Dahan, CQRS] và [Nijof, CQRS].
+
+## Data Fabric and Grid-Based Distributed Computing
+
+## Contributed by Wes Williams
+
+Khi các hệ thống phần mềm ngày càng trở nên phức tạp và tinh vi hơn, với tệp người dùng không ngừng mở rộng và các yêu cầu xoay quanh "dữ liệu lớn" (big data), các giải pháp cơ sở dữ liệu truyền thống có thể trở thành những điểm nghẽn cổ chai về mặt hiệu năng. Các tổ chức đối mặt với thực tế của những hệ thống thông tin quy mô khổng lồ không có giải pháp nào khác ngoài việc tìm kiếm những giải pháp tương xứng với các thách thức điện toán. Data Fabrics (Mạng lưới Dữ liệu) — đôi khi còn được gọi là Grid Computing (Điện toán Lưới) [^12] — cung cấp hiệu năng cùng các năng lực mở rộng đàn hồi (elastic scalability) mà những tình huống kinh doanh như vậy đòi hỏi.
+
+[^12]: Điều này không có nghĩa Fabrics và Grids là những khái niệm hoàn toàn đồng nhất, nhưng đối với những ai nhìn nhận kiến trúc này một cách khái quát, những thuật ngữ này thường mang cùng một ý nghĩa. Chắc chắn bộ phận tiếp thị và bán hàng thường giới hạn chúng về cùng một ý nghĩa. Dù sao đi nữa, phần này sử dụng thuật ngữ Data Fabric vì nó nhìn chung đại diện cho một tập hợp các năng lực phong phú hơn so với Grid Computing.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000158_19b56e28b4c9394bd6a0990b00b04986aac2e01f0ea33ad8e8fd578d7c83cefe.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000159_d23b251bad2f075513f18de2800a28041f5820adfc3834bcffc95407378d5f25.png)
+
+<!-- ⚠️ CẢNH BÁO chunk 10: số ảnh/heading/code-block KHÔNG khớp bản gốc (gốc={'images': 24, 'headings': 16, 'fences': 10}, dịch={'images': 24, 'headings': 15, 'fences': 10}). Xem lại đoạn này bằng tay. -->
+
+﻿- AJ:    'Anh có muốn đổi chút thông tin lấy một ly đồ uống không?'
+
+LB:    'Xin lỗi nhé, J. Ở đây chúng tôi chỉ nhận cache thôi.'
+
+> 💡 **Giải thích thêm:** Đây là một màn chơi chữ kinh điển trong giới công nghệ. Từ "cache" (bộ nhớ đệm) trong tiếng Anh có phát âm đồng âm với "cash" (tiền mặt) (/kæʃ/). Câu thoại vừa mang nghĩa hài hước đời thường (quán bar không nhận thông tin mà chỉ nhận tiền mặt), vừa ám chỉ về mặt kỹ thuật: hệ thống Data Fabric đang đề cập chỉ chấp nhận và thao tác trực tiếp trên bộ nhớ đệm (cache).
+> Nguồn tham khảo: (Không có nguồn trích dẫn xác thực — cần tự kiểm chứng thêm)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000160_b25b49625e45e2b7d14d2a32881bb7415c4b6a2d50e4cd403896c0b6080872b5.png)
+
+Một ưu điểm lớn của Data Fabric (hạ tầng dữ liệu phân tán trên bộ nhớ) là khả năng hỗ trợ các domain model (mô hình miền nghiệp vụ) một cách tự nhiên, gần như xóa bỏ hoàn toàn hiện tượng impedance mismatch (sự bất tương thích trở kháng giữa mô hình đối tượng và mô hình lưu trữ dữ liệu quan hệ). Trên thực tế, các distributed cache (bộ nhớ đệm phân tán) của Data Fabric dễ dàng đáp ứng việc duy trì trạng thái bền vững (persistence) cho các đối tượng miền nói chung, và đóng vai trò như các Aggregate Store (kho lưu trữ khối kết tập) nói riêng. 13 Nói một cách đơn giản, một Aggregate (khối kết tập — tập hợp các thực thể và đối tượng giá trị ràng buộc thành một khối nhất quán) được lưu trữ trong cache dạng map của Fabric 14 chính là phần giá trị (value) trong một cặp key-value. Khóa (key) được tạo từ định danh duy nhất toàn cục của Aggregate, còn bản thân trạng thái của Aggregate được tuần tự hóa (serialized) thành biểu diễn nhị phân hoặc chuỗi văn bản để đóng vai trò làm giá trị:
+
+```java
 String key = product.productId().id();
 byte[] value = Serializer.serialize(product);
 
@@ -3157,8 +4181,23 @@ CREATE TABLE `tbl_user` (
     PRIMARY KEY (`id`)
 ) ENGINE=InnoDB;
 
-<!-- ⚠️ CẢNH BÁO chunk 11: số ảnh/heading/code-block KHÔNG khớp bản gốc (gốc={'images': 28, 'headings': 18, 'fences': 58}, dịch={'images': 0, 'headings': 18, 'fences': 56}). Xem lại đoạn này bằng tay. -->
+```
 
+Cột đầu tiên, `id`, chính là surrogate identity. Dòng định nghĩa cột cuối cùng khai báo `id` là khóa chính của bảng. Chúng ta hoàn toàn có thể phân biệt rạch ròi giữa surrogate identity và định danh của miền nghiệp vụ. Có hai cột, `tenant_id_id` và `username`, cùng cung cấp định danh duy nhất cho miền nghiệp vụ. Chúng được kết hợp lại để tạo thành một khóa duy nhất có tên là `k_tenant_id_username`.
+
+Không cần thiết phải bắt định danh miền nghiệp vụ đóng vai trò là khóa chính của cơ sở dữ liệu. Chúng ta cho phép trường `id` thay thế đóng vai trò là khóa chính của cơ sở dữ liệu, điều này giúp Hibernate vận hành trơn tru và dễ chịu nhất.
+
+<!-- ⚠️ CẢNH BÁO chunk 11: số ảnh/heading/code-block KHÔNG khớp bản gốc (gốc={'images': 28, 'headings': 18, 'fences': 58}, dịch={'images': 1, 'headings': 18, 'fences': 58}). Xem lại đoạn này bằng tay. -->
+
+﻿Các surrogate primary key (khóa chính thay thế - khóa nhân tạo trong cơ sở dữ liệu không mang ý nghĩa nghiệp vụ) có thể được sử dụng xuyên suốt mô hình dữ liệu làm khóa ngoại (foreign keys) trong các bảng khác, đảm bảo tính toàn vẹn tham chiếu (referential integrity). Đây có thể là một yêu cầu đối với việc quản trị dữ liệu trong doanh nghiệp của bạn (chẳng hạn như phục vụ kiểm toán) hoặc để hỗ trợ các công cụ. Tính toàn vẹn tham chiếu cũng rất quan trọng đối với Hibernate khi kết nối các bảng lại với nhau để triển khai các kiểu ánh xạ đa dạng (chẳng hạn như 1:M - một-nhiều). Chúng cũng hỗ trợ các phép join (kết nối) bảng nhằm tối ưu hóa các truy vấn khi đọc các Aggregate (Cụm Tổng hợp) ra khỏi cơ sở dữ liệu.
+
+## Identity Stability
+
+Trong hầu hết các trường hợp, unique identity (định danh duy nhất) phải được bảo vệ khỏi sự chỉnh sửa, duy trì tính ổn định xuyên suốt vòng đời của Entity (Thực thể - đối tượng được phân biệt bằng định danh duy nhất) mà nó được gán vào.
+
+Các biện pháp đơn giản có thể được áp dụng để ngăn chặn việc sửa đổi định danh. Chúng ta có thể ẩn các phương thức setter của định danh khỏi các client (bên gọi). Chúng ta cũng có thể tạo các guard (bộ bảo vệ - điều kiện kiểm tra tiền đề) bên trong các setter để ngăn chính Entity tự ý thay đổi trạng thái của định danh nếu nó đã tồn tại. Các guard được viết dưới dạng các assertion (xác thực khẳng định) trong các setter của Entity. Dưới đây là một ví dụ về một setter của định danh:
+
+```java
 public class User extends Entity {
     ...
     protected void setUsername(String aUsername) {
@@ -3677,8 +4716,33 @@ public final class EmailAddress {
     ...
 }
 
-<!-- ⚠️ CẢNH BÁO chunk 12: số ảnh/heading/code-block KHÔNG khớp bản gốc (gốc={'images': 31, 'headings': 13, 'fences': 28}, dịch={'images': 0, 'headings': 11, 'fences': 26}). Xem lại đoạn này bằng tay. -->
+```
 
+Có bốn precondition đối với hợp đồng phương thức của `setAddress()`. Tất cả các guard của precondition đều xác nhận một điều kiện của đối số `anAddress`:
+
+* Tham số không được phép là null.
+* Tham số không được phép là một chuỗi rỗng.
+* Tham số phải có độ dài từ 100 ký tự trở xuống (nhưng không được là 0 ký tự).
+* Tham số phải khớp với định dạng cơ bản của một địa chỉ email.
+
+Nếu tất cả các precondition này đều vượt qua, thuộc tính `address` sẽ được gán bằng giá trị của `anAddress`. Nếu có một điều kiện không được thỏa mãn, một ngoại lệ `IllegalArgumentException` sẽ được ném ra.
+
+Lớp `EmailAddress` không phải là một Entity. Nó là một Value Object. Chúng ta sử dụng nó ở đây vì một vài lý do. Thứ nhất, nó là một ví dụ điển hình về việc triển khai các mức độ khác nhau của các guard precondition, từ kiểm tra null cho đến định dạng giá trị (sẽ nói thêm về điều này tiếp theo). Thứ hai, Value này được nắm giữ bởi Entity `Person` như một trong những thuộc tính của nó, một cách gián tiếp thông qua Value `ContactInformation`. Vì vậy, thực chất, đây là một phần của một Entity theo cùng một cách mà một thuộc tính đơn giản được khai báo trên một lớp Entity cũng là một phần của nó. Chúng ta sử dụng chính xác cùng một loại guard precondition khi triển khai các setter cho các thuộc tính đơn giản. Khi một Whole Value được gán cho một thuộc tính của Entity, không có cách nào để bảo vệ khỏi việc thiết lập trạng thái bất hợp lý (insane state) trừ khi các thuộc tính nhỏ hơn bên trong Value đó được bảo vệ cẩn mật.
+
+## Cowboy Logic
+
+* LB: 'Tôi cứ tưởng mình có một lập luận xác đáng (valid argument) khi tranh luận với bà xã, nhưng rồi đột nhiên bà ấy ném ngay một ngoại lệ đối số không hợp lệ (illegal argument exception) vào mặt tôi.'
+
+> 💡 **Giải thích thêm:** Đây là một câu đùa chơi chữ kinh điển trong lập trình. Từ "argument" trong tiếng Anh vừa có nghĩa là "lập luận/lý lẽ trong một cuộc tranh cãi", vừa có nghĩa là "đối số truyền vào hàm". LB tưởng mình có "valid argument" (lập luận có lý / đối số hợp lệ), nhưng bà vợ lại ném ra một "illegal argument exception" (sự phản đối quyết liệt vô lý / ngoại lệ `IllegalArgumentException` trong Java khi đối số không thỏa mãn điều kiện).
+> (Không có nguồn trích dẫn xác thực — cần tự kiểm chứng thêm)
+
+<!-- ⚠️ CẢNH BÁO chunk 12: số ảnh/heading/code-block KHÔNG khớp bản gốc (gốc={'images': 31, 'headings': 13, 'fences': 28}, dịch={'images': 0, 'headings': 13, 'fences': 28}). Xem lại đoạn này bằng tay. -->
+
+﻿Một số nhà phát triển gọi các loại kiểm tra tiền điều kiện (precondition check) này là lập trình phòng thủ (defensive programming). Việc dựng rào chắn để ngăn chặn các giá trị hoàn toàn không hợp lệ xâm nhập vào mô hình của bạn chắc chắn là lập trình phòng thủ. Tuy nhiên, một số người có thể không đồng tình với mức độ chi tiết ngày càng tăng của các chốt chặn này. Một vài lập trình viên theo trường phái phòng thủ đồng ý với việc kiểm tra giá trị rỗng (null), thậm chí kiểm tra chuỗi rỗng (empty string), nhưng lại e ngại việc kiểm tra các điều kiện như độ dài chuỗi, khoảng giá trị số, định dạng dữ liệu và những thứ tương tự. Chẳng hạn, một số người cho rằng việc phó mặc việc kiểm tra kích thước giá trị cho cơ sở dữ liệu là cách tốt nhất. Họ coi những việc như giới hạn độ dài tối đa của chuỗi là mối bận tâm của một thành phần nào đó ngoài các đối tượng mô hình. Dẫu vậy, các tiền điều kiện này hoàn toàn có thể được xem là các bước kiểm tra tính hợp lý (sanity check) hết sức chính đáng.
+
+Có thể có những trường hợp việc kiểm tra độ dài chuỗi là không cần thiết. Điều này có thể hợp lý khi sử dụng một cơ sở dữ liệu mà kích thước tối đa của cột `NVARCHAR` không bao giờ bị chạm tới. Các cột văn bản của Microsoft SQL Server có thể được khai báo bằng từ khóa `max`:
+
+```sql
 CREATE TABLE PERSON (
     ...
     CONTACT_INFORMATION_EMAIL_ADDRESS_ADDRESS NVARCHAR(max) NOT NULL,
@@ -4219,8 +5283,72 @@ Dựa trên phân tích này, chúng ta thực sự chưa cải thiện được
 float priority =
     businessPriority.priority(product.businessPriorityTotals());
 
-<!-- ⚠️ CẢNH BÁO chunk 13: số ảnh/heading/code-block KHÔNG khớp bản gốc (gốc={'images': 23, 'headings': 25, 'fences': 46}, dịch={'images': 0, 'headings': 21, 'fences': 48}). Xem lại đoạn này bằng tay. -->
+```
 
+Ở đây, chúng ta chỉ đơn giản yêu cầu `Product` cung cấp một thể hiện của Value `BusinessPriorityTotals`. Bạn có thể cho rằng `priority()` nên trả về một kiểu dữ liệu khác thay vì kiểu `float`. Điều đó sẽ đặc biệt đúng nếu việc thể hiện một mức độ ưu tiên cần phải là một phần chính thức hơn trong Ubiquitous Language, trong trường hợp đó một kiểu giá trị tùy biến sẽ là lựa chọn phù hợp. Những quyết định như thế này xuất hiện như một kết quả của quá trình liên tục tinh chỉnh mô hình. Thật vậy, sau khi phân tích, đội ngũ SaaSOvation nhận thấy rằng Entity `Product` không nên tự mình tính toán tổng mức độ ưu tiên kinh doanh. Công việc đó cuối cùng sẽ được thực hiện bởi một Domain Service (7), và bạn sẽ thấy giải pháp tốt hơn trong chương đó.
+
+Nếu bạn quyết định không thiết kế một Value Object chuyên biệt hóa mà chọn sử dụng một kiểu Value cơ bản của ngôn ngữ thay thế (kiểu nguyên thủy primitive hoặc kiểu bao bọc wrapper), bạn có thể đang làm suy giảm giá trị mô hình của mình. Bạn sẽ không có cơ hội gán các Side-Effect-Free Function đặc thù của miền nghiệp vụ cho kiểu Value cơ bản của ngôn ngữ đó. Mọi hành vi chuyên biệt sẽ bị tách rời khỏi Value. Và ngay cả khi ngôn ngữ lập trình của bạn cho phép bạn vá (patch) thêm hành vi mới vào kiểu cơ bản, liệu điều đó có thực sự giúp bạn nắm bắt được những hiểu biết sâu sắc về miền nghiệp vụ hay không?
+
+## Thách thức các giả định của bạn (Challenge Your Assumptions)
+
+Nếu bạn nghĩ rằng một phương thức cụ thể không thể không gây tác dụng phụ và buộc phải làm biến đổi trạng thái của chính thể hiện của nó, hãy thách thức những giả định của bạn. Liệu có cách nào để áp dụng cơ chế thay thế thay vì biến đổi trạng thái hay không? Ví dụ trước đó cung cấp một cách tiếp cận rất đơn giản để tạo ra một Value mới bằng cách tái sử dụng các phần của Value hiện có và chỉ thay thế những phần thực sự bị thay đổi. Rất hiếm khi mọi đối tượng trong hệ thống đều là một Value. Một số đối tượng gần như chắc chắn sẽ là Entity. Hãy so sánh cẩn trọng các tiêu chuẩn đặc tính của Value với các tiêu chuẩn của Entity. Một lượng thời gian suy nghĩ và thảo luận hợp lý trong nhóm sẽ dẫn tới những kết luận chính xác.
+
+Một khi các đội ngũ tại SaaSOvation đọc được những chỉ dẫn của [Evans] về các Hàm Không Gây Tác dụng phụ, cùng các tài liệu khác về Whole Value, họ đã nhận ra rằng mình nên sử dụng các Value Object thường xuyên hơn rất nhiều. Các đội ngũ kể từ đó đã nhận thức được rằng việc thấu hiểu các đặc tính của Value nêu trên đã thực sự giúp họ khám phá ra nhiều kiểu Value tự nhiên hơn trong miền nghiệp vụ của mình.
+
+## Có phải mọi thứ đều là Value Object? (Is Everything a Value Object?)
+
+Đến lúc này, có thể bạn đã bắt đầu nghĩ rằng mọi thứ trông đều giống như một Value Object. Suy nghĩ đó vẫn tốt hơn là việc nghĩ rằng mọi thứ trông đều giống như một Entity. Nơi bạn có thể cần một chút thận trọng là khi gặp phải những thuộc tính thực sự đơn giản mà hoàn toàn không cần bất kỳ sự xử lý đặc biệt nào. Có lẽ đó là các biến kiểu Boolean hoặc bất kỳ giá trị số nào thực sự độc lập, không cần thêm sự hỗ trợ chức năng nào, và không liên quan đến bất kỳ thuộc tính nào khác trong cùng một Entity. Đứng một mình, các thuộc tính đơn giản đó đã là một Meaningful Whole. Dẫu vậy, bạn hoàn toàn có thể phạm phải "sai lầm" khi bao bọc không cần thiết một thuộc tính đơn lẻ vào trong một kiểu Value mà không có chức năng đặc biệt nào, và bạn vẫn ở vị thế tốt hơn nhiều so với những người không bao giờ thèm đoái hoài đến việc thiết kế Value. Nếu nhận thấy mình đã làm hơi quá tay một chút, bạn luôn có thể tái cấu trúc lại đôi chút.
+
+## Tích hợp theo phong cách tối giản (Integrate with Minimalism)
+
+Luôn có nhiều Bounded Context trong mỗi sáng kiến áp dụng DDD, điều đó đồng nghĩa với việc chúng ta phải tìm ra những phương thức thích hợp để tích hợp chúng. Bất cứ nơi nào có thể, hãy sử dụng các Value Object để mô hình hóa các khái niệm trong Context xuôi dòng (downstream Context) khi các đối tượng từ Context ngược dòng (upstream Context) truyền vào. Bằng cách làm như vậy, bạn có thể tích hợp với ưu tiên đặt vào tính tối giản, tức là tối thiểu hóa số lượng thuộc tính mà bạn phải chịu trách nhiệm quản lý trong mô hình xuôi dòng của mình. Việc sử dụng các Value bất biến đồng nghĩa với việc bạn gánh vác ít trách nhiệm hơn.
+
+## Tại sao lại phải gánh vác quá nhiều trách nhiệm? (Why Be So Responsible?)
+
+Việc sử dụng các Value bất biến đồng nghĩa với việc bạn gánh vác ít trách nhiệm hơn.
+
+Sử dụng lại một ví dụ từ chương Bounded Contexts (2), hãy nhớ lại rằng hai Aggregate trong *Identity and Access Context* ở thượng nguồn có tác động tới *Collaboration Context* ở hạ nguồn, như được minh họa trong Hình 6.1. Trong Identity and Access Context, hai Aggregate đó là `User` và `Role`. Collaboration Context quan tâm đến việc liệu một `User` cụ thể có đóng một `Role` cụ thể hay không, cụ thể là Moderator (Điều hành viên). Collaboration Context sử dụng Anticorruption Layer (Lớp Chống Tha hóa) (3) của mình để truy vấn Open Host Service (Dịch vụ Máy chủ Mở) (3) của Identity and Access Context. Nếu truy vấn tích hợp cho thấy vai trò Moderator đang được đảm nhiệm bởi người dùng cụ thể đó, Collaboration Context sẽ tạo ra một đối tượng đại diện, cụ thể là một `Moderator`.
+
+Hình 6.1 Đối tượng Moderator trong Context của nó dựa trên trạng thái của một User và Role trong một Context khác. User và Role là các Aggregate, nhưng Moderator lại là một Value Object.
+
+<!-- ⚠️ CẢNH BÁO chunk 13: số ảnh/heading/code-block KHÔNG khớp bản gốc (gốc={'images': 23, 'headings': 25, 'fences': 46}, dịch={'images': 0, 'headings': 25, 'fences': 50}). Xem lại đoạn này bằng tay. -->
+
+﻿Trong số các lớp con của Collaborator được hiển thị ở Hình 6.2, Moderator được mô hình hóa dưới dạng một Value Object (đối tượng giá trị). Các thể hiện (instances) được tạo tĩnh và liên kết với một Forum Aggregate (cụm thực thể Diễn đàn), điểm mấu chốt ở đây là giảm thiểu tối đa tác động mà nhiều Aggregate ở Context thượng nguồn (upstream Identity and Access Context - Ngữ cảnh Định danh và Truy cập), vốn sở hữu rất nhiều thuộc tính, có thể gây ra cho Collaboration Context (Ngữ cảnh Cộng tác). Chỉ với một vài thuộc tính riêng, Moderator đã mô hình hóa một khái niệm cốt lõi của Ubiquitous Language (ngôn ngữ chung / ngôn ngữ toàn hiện) được sử dụng trong Collaboration Context. Hơn nữa, lớp Moderator không chứa bất kỳ thuộc tính đơn lẻ nào từ Role Aggregate. Thay vào đó, chính tên lớp đã thể hiện vai trò Moderator mà người dùng đảm nhận. Bằng việc chủ động lựa chọn thiết kế này, Moderator là một thể hiện Value được tạo tĩnh và không nhằm mục đích giữ đồng bộ với Context nguồn ở xa. Bản hợp đồng chất lượng dịch vụ (quality-of-service contract) được cân nhắc kỹ lưỡng này đã trút bỏ một gánh nặng tiềm tàng cho Context tiêu thụ (consuming Context).
+
+Dĩ nhiên, cũng có những lúc một đối tượng trong Context hạ nguồn (downstream Context) phải đạt trạng thái eventual consistency (nhất quán cuối cùng) với một phần trạng thái của một hoặc nhiều Aggregate ở Context từ xa. Trong trường hợp đó, chúng ta sẽ thiết kế một Aggregate ở Context tiêu thụ hạ nguồn, bởi vì các Entity (thực thể) được dùng để duy trì một chuỗi liên tục các thay đổi (thread of continuity of change). Tuy nhiên, chúng ta nên cố gắng tránh lựa chọn mô hình hóa này nếu có thể. Bất cứ khi nào có thể, hãy chọn Value Object để mô hình hóa các tích hợp. Lời khuyên này có thể áp dụng trong nhiều trường hợp khi tiêu thụ các Standard Type (kiểu chuẩn) từ xa.
+
+Hình 6.2 Hệ thống phân cấp lớp Collaborator của các Value Object. Chỉ một vài thuộc tính của User được giữ lại từ Context thượng nguồn, với tên lớp làm rõ ràng các vai trò.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000242_135adaa14e34cf34fc2e92829b576f777ee78938339b78dc4e5834bee3104607.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000243_ab9fe3ac36204f699ab9d1001cd9ebff5916eb4812e4d3a2f2a33bf45963e133.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000244_ec3a5fa9f293d8dec8c0262ea1b2e825ecdfef17fff5d1d89302f2c348e3ff69.png)
+
+## Standard Types Expressed as Values
+
+Trong nhiều hệ thống và ứng dụng, luôn tồn tại nhu cầu về thứ mà tôi gọi là Standard Types (các kiểu chuẩn). Standard Types là các đối tượng mô tả biểu thị cho các phân loại của sự vật. Luôn có chính sự vật đó (Entity) hoặc phần mô tả (Value), đồng thời cũng có các Standard Types để phân biệt chúng với các phân loại khác của cùng sự vật. Tôi không rõ tên gọi chuẩn của ngành cho khái niệm này là gì, nhưng tôi cũng từng nghe người ta gọi nó là một type code (mã loại) hay một lookup (bảng tra cứu). Cái tên type code không nói lên được nhiều điều. Còn lookup thì là tra cứu của cái gì? Tôi thích cái tên Standard Types hơn vì nó mang tính mô tả rõ ràng hơn. Để làm rõ khái niệm này, hãy xem xét một vài trường hợp sử dụng. Trong một số trường hợp, chúng được mô hình hóa dưới dạng Power Types (kiểu siêu hình / kiểu phân loại cấp cao).
+
+> 💡 **Giải thích thêm:** *Power Type* là một mẫu thiết kế phân tích (do James Martin và James Odell khởi xướng, được Martin Fowler phổ biến trong tài liệu mô hình phân tích), trong đó một đối tượng biểu diễn một loại/phân loại của các đối tượng khác, cho phép hệ thống mở rộng hoặc thay đổi các loại thực thể linh hoạt tại thời điểm chạy mà không cần sửa cấu trúc lớp kế thừa.
+> Nguồn tham khảo: [Martin Fowler - Power Type](https://martinfowler.com/apsupp/powerType.pdf)
+
+Ubiquitous Language của bạn định nghĩa một PhoneNumber (Value), và nó cũng đòi hỏi bạn phải mô tả loại của từng số điện thoại. Chuyên gia nghiệp vụ (domain expert) của bạn hỏi: "Số điện thoại này là số nhà riêng, di động, cơ quan, hay loại khác?". Liệu các loại số điện thoại khác nhau có nên được mô hình hóa thành một hệ thống phân cấp lớp (class hierarchy) không? Việc tạo một lớp riêng cho từng loại sẽ khiến các client (phía gọi mã nguồn) khó phân biệt giữa chúng hơn. Ở đây, nhiều khả năng bạn sẽ muốn dùng một Standard Type để mô tả loại điện thoại, có thể là Home, Mobile, Work, hoặc Other. Những phần mô tả này đại diện cho các Standard Types của điện thoại.
+
+Như tôi đã thảo luận trước đây, trong một miền nghiệp vụ tài chính, hoàn toàn có khả năng xuất hiện một kiểu Currency (Value) để ràng buộc một MonetaryValue (giá trị tiền tệ) vào một số tiền thuộc một loại tiền tệ cụ thể trên thế giới. Trong trường hợp này, Standard Type sẽ cung cấp một Value cho từng loại tiền tệ trên thế giới: AUD, CAD, CNY, EUR, GBP, JPY, USD, v.v. Việc sử dụng một Standard Type ở đây giúp bạn tránh được các loại tiền tệ giả mạo/không hợp lệ. Mặc dù một loại tiền tệ không chính xác vẫn có thể bị gán nhầm cho MonetaryValue, nhưng một loại tiền tệ không tồn tại thì không thể nào được gán vào. Nếu sử dụng thuộc tính dạng chuỗi ký tự (string), bạn có thể đẩy mô hình vào trạng thái không hợp lệ. Hãy thử nghĩ xem từ sai chính tả `doolars` sẽ gây ra những rắc rối như thế nào.
+
+Bạn cũng có thể đang làm việc trong lĩnh vực dược phẩm và thiết kế cho các loại thuốc có nhiều đường dùng thuốc (administration routes) khác nhau. Một loại thuốc cụ thể (Entity) có vòng đời dài và các thay đổi được quản lý theo thời gian — nó được hình thành ý tưởng, nghiên cứu, phát triển, thử nghiệm, sản xuất, cải tiến và cuối cùng là ngừng lưu hành. Bạn có thể quyết định quản lý các giai đoạn vòng đời này bằng Standard Types hoặc không. Những bước chuyển dịch vòng đời này hoàn toàn có lý do chính đáng để được quản lý trong một vài Bounded Context (ngữ cảnh giới hạn) khác nhau. Mặt khác, đường dùng thuốc chỉ định cho bệnh nhân của từng loại thuốc có thể được phân loại bằng các mô tả Standard Type, chẳng hạn như IV (tiêm tĩnh mạch), Oral (uống), hoặc Topical (dùng ngoài da).
+
+Tùy thuộc vào mức độ chuẩn hóa, các kiểu này có thể chỉ được duy trì ở cấp độ ứng dụng, hoặc được nâng tầm quan trọng lên các cơ sở dữ liệu dùng chung của doanh nghiệp, hoặc có sẵn thông qua các cơ quan tiêu chuẩn quốc gia hoặc quốc tế.
+
+Mức độ chuẩn hóa đôi khi có thể ảnh hưởng đến cách Standard Types được truy xuất và sử dụng bên trong một mô hình.
+
+Chúng ta có thể xem những đối tượng này là các Entity vì chúng có vòng đời riêng trong một Bounded Context chuyên biệt, bản địa (native). Bất kể chúng được tạo ra và duy trì như thế nào bởi bất kỳ cơ quan tiêu chuẩn nào, nếu có thể, chúng ta nên nỗ lực xem chúng như các Value trong Context tiêu thụ của mình. Cách này hoạt động hiệu quả vì chúng đo lường và mô tả các phân loại của sự vật, mà các phép đo lường và mô tả thì tốt nhất nên được mô hình hóa thành Value. Hơn nữa, chẳng hạn một thể hiện của {IV} cũng hoàn toàn giống hệt như bất kỳ thể hiện nào khác của {IV}. Chúng rõ ràng có thể hoán đổi cho nhau, điều đó cũng có nghĩa là chúng có thể thay thế được và có thể áp dụng tính bằng nhau theo giá trị (Value equality). Do đó, nếu không cần phải duy trì tính liên tục của sự thay đổi qua vòng đời của các kiểu mang tính mô tả trong Bounded Context của bạn, hãy mô hình hóa chúng thành các Value.
+
+Vì mục đích bảo trì, thông thường Standard Types sẽ cư trú nguyên bản (natively reside) trong một Context tách biệt với các mô hình tiêu thụ chúng. Ở đó, chúng là các Entity và có vòng đời lưu trữ bền vững (persistent life cycle) với các thuộc tính như `identity` (danh tính), `name` (tên) và `description` (mô tả). Cũng có thể có các thuộc tính khác, nhưng những thuộc tính vừa nêu là phổ biến nhất để sử dụng trong một Context tiêu thụ. Chúng ta thường chỉ sử dụng một thuộc tính duy nhất. Điều này tuân thủ mục tiêu tích hợp với sự tối giản (integrate with minimalism).
+
+Để lấy một ví dụ rất đơn giản, hãy xem xét một Standard Type mô hình hóa một thành viên của một nhóm (group) mà ở đó tồn tại hai loại thành viên. Có thể có các thành viên là người dùng (user) và các thành viên bản thân chúng lại là các nhóm (các nhóm lồng nhau - nested groups). Enum trong Java này đại diện cho một cách để hỗ trợ một Standard Type:
+
+```java
 package com.saasovation.identityaccess.domain.model.identity;
 
 public enum GroupMemberType {
@@ -4684,8 +5812,33 @@ Cùng với nhau, cấu hình ánh xạ Hibernate và định nghĩa bảng cơ 
 ```
 businessPriority.ratings.benefit trở thành business_priority_ratings_benefit
 
-<!-- ⚠️ CẢNH BÁO chunk 14: số ảnh/heading/code-block KHÔNG khớp bản gốc (gốc={'images': 25, 'headings': 15, 'fences': 32}, dịch={'images': 0, 'headings': 13, 'fences': 30}). Xem lại đoạn này bằng tay. -->
+```
 
+Do đó, mặc dù có sự bất đối xứng rõ rệt giữa các đối tượng và cơ sở dữ liệu quan hệ (impedance mismatch), chúng ta đã hiện thực hóa được một trong những phương thức ánh xạ hiệu quả và tối ưu nhất có thể.
+
+## ORM and Many Values Serialized into a Single Column
+
+Có những thách thức đặc thù liên quan đến việc ánh xạ một tập hợp (collection) gồm nhiều Value Object vào một cơ sở dữ liệu quan hệ bằng ORM. Nói cho rõ ràng, khi tôi nói tập hợp nghĩa là tôi đang đề cập đến một `List` hoặc `Set` được giữ bởi một Entity và chứa không, một, hoặc nhiều thể hiện Value. Những thách thức này không phải là không thể vượt qua, nhưng sự bất đối xứng đối tượng - quan hệ (object-relational impedance mismatch) trở nên hiển hiện rõ mồn một ở đây.
+
+<!-- ⚠️ CẢNH BÁO chunk 14: số ảnh/heading/code-block KHÔNG khớp bản gốc (gốc={'images': 25, 'headings': 15, 'fences': 32}, dịch={'images': 3, 'headings': 15, 'fences': 32}). Xem lại đoạn này bằng tay. -->
+
+﻿Một lựa chọn có sẵn với cơ chế ánh xạ đối tượng - quan hệ (object-relational mapping) của Hibernate (framework ORM phổ biến trong Java) là serialize (tuần tự hóa đối tượng thành chuỗi ký tự) toàn bộ collection (tập hợp) các đối tượng thành một biểu diễn dạng văn bản rồi persist (lưu trữ bền vững vào cơ sở dữ liệu) biểu diễn đó vào một cột đơn lẻ. Cách tiếp cận này tồn tại một số nhược điểm. Tuy nhiên, trong một số trường hợp, các nhược điểm này không quá phiền toái và có thể bỏ qua ngay để tận dụng những ưu điểm mà lựa chọn này mang lại. Trong các tình huống đó, bạn có thể quyết định áp dụng tùy chọn lưu trữ Value collection (tập hợp các Value Object - đối tượng giá trị) này. Dưới đây là các nhược điểm tiềm ẩn cần cân nhắc:
+
+- **Độ rộng cột (Column width).** Đôi khi bạn không thể xác định trước số lượng phần tử Value tối đa trong collection, hoặc kích thước tối đa của mỗi Value sau khi đã serialize. Ví dụ, một số collection đối tượng có thể chứa số lượng phần tử tùy ý mà không có giới hạn trên xác định. Ngoài ra, mỗi phần tử Value trong collection có thể có độ dài ký tự chuỗi biểu diễn sau khi serialize không cố định. Điều này thường xảy ra khi một hoặc nhiều thuộc tính của kiểu Value có kiểu String với độ dài ký tự lớn hoặc không giới hạn. Trong một hoặc cả hai tình huống kể trên, hoàn toàn có khả năng dạng thức tuần tự hóa của từng phần tử hoặc của toàn bộ collection sẽ vượt quá độ rộng tối đa cho phép của một cột kiểu ký tự. Vấn đề này có thể còn trầm trọng hơn nếu các cột ký tự có độ rộng tối đa tương đối hẹp, hoặc do tổng dung lượng byte tối đa cho phép để lưu trữ một hàng dữ liệu bị giới hạn. Chẳng hạn, dù storage engine (công cụ lưu trữ) InnoDB của MySQL cho phép độ rộng tối đa của VARCHAR lên tới 65.535 ký tự, nó cũng đồng thời áp đặt giới hạn tổng cộng 65.535 byte lưu trữ cho một hàng đơn lẻ. Bạn phải chừa đủ dung lượng cho các cột khác để lưu trữ toàn bộ một Entity (thực thể, có định danh duy nhất). Hệ quản trị cơ sở dữ liệu Oracle Database lại giới hạn độ rộng tối đa của VARCHAR2 / NVARCHAR2 ở mức 4.000 ký tự. Nếu không thể xác định trước độ rộng tối đa cần thiết để lưu trữ biểu diễn tuần tự hóa của một Value collection và/hoặc độ rộng tối đa của cột có nguy cơ bị tràn, bạn nên tránh dùng lựa chọn này.
+- **Bắt buộc phải truy vấn (Must query).** Vì theo phong cách này, các Value collection được tuần tự hóa thành một chuỗi văn bản phẳng, các thuộc tính của từng phần tử Value riêng lẻ sẽ không thể đưa vào biểu thức truy vấn SQL. Nếu bất kỳ thuộc tính nào của Value bắt buộc phải hỗ trợ truy vấn, bạn không thể sử dụng phương án này. Tuy nhiên, đây có thể là lý do ít gặp hơn để phải né tránh giải pháp này, bởi vì nhu cầu truy vấn một hoặc nhiều thuộc tính từ các đối tượng nằm bên trong một collection nội bộ vốn khá hiếm hoi.
+- **Yêu cầu kiểu người dùng tùy biến (Requires custom user type).** Để áp dụng cách tiếp cận này, bạn phải tự phát triển một Hibernate custom user type (kiểu người dùng tùy biến trong Hibernate) nhằm quản lý việc serialization (tuần tự hóa) và deserialization (giải tuần tự hóa từ chuỗi về đối tượng) cho từng collection. Về mặt cá nhân, tôi thấy điều này ít gây phiền toái hơn các mối bận tâm kể trên, bởi vì chỉ cần một triển khai custom user type duy nhất được thiết kế chỉn chu là đã có thể hỗ trợ collection của mọi kiểu Value Object (theo tiêu chí "một giải pháp dùng chung cho tất cả" - one size fits all).
+
+Tôi không cung cấp sẵn mã nguồn của một Hibernate custom user type để quản lý việc tuần tự hóa collection vào một cột duy nhất ở đây, nhưng cộng đồng Hibernate đã chia sẻ rất nhiều tài liệu hướng dẫn giúp bạn tự triển khai phiên bản của riêng mình.
+
+## ORM và nhiều Value được lưu dưới dạng một Entity trong cơ sở dữ liệu
+
+Một cách tiếp cận rất trực diện để lưu trữ bền vững một collection các thể hiện Value bằng Hibernate (hoặc các ORM khác) cùng một cơ sở dữ liệu quan hệ là xem kiểu Value như một entity trong data model (mô hình dữ liệu). Để nhắc lại điều tôi từng khẳng định trong phần "Từ chối ảnh hưởng không đáng có của việc rò rỉ mô hình dữ liệu" (Reject Undue Influence of Data Model Leakage), cách tiếp cận này tuyệt đối không được dẫn đến việc mô hình hóa sai lệch một khái niệm thành Entity trong domain model (mô hình miền nghiệp vụ) chỉ vì nó được biểu diễn tốt nhất dưới dạng một database entity nhằm phục vụ mục đích lưu trữ. Chính sự object-relational impedance mismatch (sự lệch pha kiến trúc giữa lập trình hướng đối tượng và cơ sở dữ liệu quan hệ) trong một số trường hợp đã đòi hỏi cách tiếp cận này, chứ không phải do một nguyên lý DDD (Domain-Driven Design - Thiết kế hướng miền) nào quy định. Nếu có sẵn một phong cách lưu trữ hoàn toàn tương thích, bạn chắc chắn sẽ mô hình hóa khái niệm đó như một kiểu Value mà không cần phải đắn đo suy nghĩ về các đặc tính của một database entity. Tư duy theo cách này sẽ giúp định hình tư duy mô hình hóa miền của chúng ta một cách đúng đắn.
+
+Để đạt được mục tiêu này, chúng ta có thể áp dụng mẫu thiết kế Layer Supertype (tầng siêu kiểu - lớp cha dùng chung cho các lớp trong cùng một tầng kiến trúc) [Fowler, P of EAA]. Về mặt cá nhân, tôi cảm thấy an tâm hơn khi giấu kín surrogate identity (khóa thay thế / khóa giả lập sinh tự động, hay primary key) cần thiết này đi. Tuy nhiên, vì mọi Object trong Java (cũng như các ngôn ngữ khác) đều đã sở hữu một định danh duy nhất nội bộ chỉ do máy ảo sử dụng, bạn hoàn toàn có thể cảm thấy việc gắn thêm một định danh chuyên biệt trực tiếp vào Value là hợp lý. Tôi cho rằng dù nghiêng về cách tiếp cận nào, khi xử lý bài toán lệch pha giữa đối tượng và quan hệ, chúng ta đều cần xây dựng một lý do thuyết phục trong tư duy kỹ thuật để giải thích cho lựa chọn của mình. Sở thích của tôi sẽ được trình bày ngay sau đây.
+
+Dưới đây là một ví dụ về cách tiếp cận surrogate key mà tôi ưa thích, sử dụng hai lớp Layer Supertype:
+
+```java
 public abstract class IdentifiedDomainObject
 
 ```
@@ -5410,8 +6563,17 @@ public class BusinessPriorityCalculator {
     }
 }
 
-<!-- ⚠️ CẢNH BÁO chunk 15: số ảnh/heading/code-block KHÔNG khớp bản gốc (gốc={'images': 28, 'headings': 16, 'fences': 70}, dịch={'images': 0, 'headings': 15, 'fences': 68}). Xem lại đoạn này bằng tay. -->
+```
 
+`BacklogItemRepository` được sử dụng để lấy tất cả các thể hiện `BacklogItem` còn tồn đọng. Một `BacklogItem` còn tồn đọng là hạng mục có trạng thái thuộc kiểu `Planned`, `Scheduled`, hoặc `Committed`, chứ không phải là `Done` hay `Removed`. Một Service trong miền hoàn toàn có thể tự do sử dụng các Repository khi cần, nhưng việc truy cập Repository từ bên trong một thể hiện Aggregate lại là một thực hành không được khuyến khích.
+
+<!-- ⚠️ CẢNH BÁO chunk 15: số ảnh/heading/code-block KHÔNG khớp bản gốc (gốc={'images': 28, 'headings': 16, 'fences': 70}, dịch={'images': 0, 'headings': 16, 'fences': 70}). Xem lại đoạn này bằng tay. -->
+
+﻿Đối với toàn bộ các hạng mục tồn đọng (outstanding items) của một sản phẩm nhất định, chúng ta sẽ duyệt lặp qua từng mục và tính tổng từng xếp hạng trong thuộc tính `BusinessPriority` (Độ ưu tiên nghiệp vụ) của chúng. Các giá trị tổng thu được từ quá trình tính toán lặp này được dùng để khởi tạo một đối tượng `BusinessPriorityTotals` (Tổng các chỉ số ưu tiên nghiệp vụ) mới rồi trả về cho phía client (phía gọi dịch vụ). Bản thân quy trình tính toán của một Service (Dịch vụ miền / Domain Service) không nhất thiết phải luôn phức tạp, dù trong một số trường hợp sự phức tạp là điều bắt buộc. Trường hợp cụ thể này tình cờ lại khá đơn giản.
+
+Hãy lưu ý từ ví dụ này rằng bạn hoàn toàn không muốn logic này nằm trong một Application Service (Dịch vụ ứng dụng). Ngay cả khi bạn coi phép tính tổng trong vòng lặp `for` là tầm thường, nó vẫn là business logic (logic nghiệp vụ). Nhưng vẫn còn một lý do khác:
+
+```java
 BusinessPriorityTotals businessPriorityTotals =
     new BusinessPriorityTotals(
         totalBenefit,
@@ -6087,8 +7249,119 @@ public class BacklogItemApplicationService ... {
     }
 }
 
-<!-- ⚠️ CẢNH BÁO chunk 16: số ảnh/heading/code-block KHÔNG khớp bản gốc (gốc={'images': 33, 'headings': 23, 'fences': 40}, dịch={'images': 0, 'headings': 20, 'fences': 38}). Xem lại đoạn này bằng tay. -->
+```
 
+Trong ví dụ (mang tính dàn dựng có chủ ý) này, `BacklogItemApplicationService` là một Application Service, với một phương thức dịch vụ là `commitBacklogItem()`. Phương thức này khởi tạo một thực thể của lớp ẩn danh `DomainEventSubscriber`. Điều phối viên tác vụ của Application Service sau đó sẽ đăng ký subscriber này với `DomainEventPublisher`. Cuối cùng, phương thức dịch vụ sử dụng các Repository để lấy các thực thể của `BacklogItem` và `Sprint`, rồi thực thi hành vi `commitTo()` của backlog item. Khi hoàn thành, phương thức `commitTo()` sẽ phát hành một Event có kiểu `BacklogItemCommitted`.
+
+Những gì subscriber làm với Event không được thể hiện trong ví dụ này. Nó có thể gửi một email thông báo về việc một `BacklogItemCommitted` vừa diễn ra, nếu điều đó có ý nghĩa nghiệp vụ. Nó có thể lưu trữ Event vào một Event Store. Nó cũng có thể chuyển tiếp Event thông qua cơ sở hạ tầng nhắn tin. Thông thường trong hai trường hợp sau cùng này—lưu vào Event Store và chuyển tiếp bằng messaging infrastructure—chúng ta sẽ không tạo ra một Application Service dành riêng cho từng use case để xử lý Event theo cách này. Thay vào đó, chúng ta sẽ thiết kế một thành phần subscriber đơn nhiệm duy nhất (single subscriber component) đảm nhận việc đó. Một ví dụ về thành phần đơn trách nhiệm thực hiện việc lưu vào Event Store sẽ được trình bày trong phần 'Event Store'.
+
+## Be Careful about What the Event Handler Does
+
+Hãy nhớ rằng, Application Service kiểm soát transaction. Đừng sử dụng thông báo Event để chỉnh sửa một thực thể Aggregate thứ hai. Làm như vậy là vi phạm nguyên tắc vàng (rule of thumb): chỉ chỉnh sửa một thực thể Aggregate duy nhất trên mỗi giao dịch.
+
+Một điều mà subscriber không bao giờ nên làm là lấy ra một thực thể Aggregate khác rồi thực thi hành vi command sửa đổi dữ liệu trên đó. Điều này sẽ vi phạm nguyên tắc vàng về việc chỉ chỉnh sửa một thực thể Aggregate duy nhất trong một transaction đơn lẻ, như đã được thảo luận trong chương Aggregates (Chương 10). Như [Evans] đã chỉ ra, tính nhất quán của mọi thực thể Aggregate khác ngoài thực thể được thao tác trong một giao dịch duy nhất đều phải được thực thi bằng các biện pháp bất đồng bộ (asynchronous means).
+
+Việc chuyển tiếp Event qua một cơ sở hạ tầng nhắn tin sẽ cho phép phân phối bất đồng bộ tới các subscriber ngoài luồng (out-of-band subscribers). Mỗi subscriber bất đồng bộ đó có thể sắp xếp để chỉnh sửa một thực thể Aggregate bổ sung trong một hoặc nhiều giao dịch riêng biệt. Các thực thể Aggregate bổ sung này có thể nằm trong cùng một Bounded Context hoặc ở các Bounded Context khác. Việc phát hành Event ra bên ngoài tới số lượng tùy ý các Bounded Context thuộc các Subdomain (Phân miền nghiệp vụ, Chương 2) khác sẽ nhấn mạnh từ *Domain* trong thuật ngữ *Domain Event*. Nói cách khác, Event là một khái niệm mang tính toàn miền (domain-wide), chứ không chỉ bó hẹp trong một Bounded Context đơn lẻ. Bản hợp đồng (contract) của việc phát hành Event cần có tiềm năng mở rộng ít nhất là trên toàn bộ quy mô doanh nghiệp, hoặc thậm chí rộng hơn thế. Dẫu vậy, việc phát quảng bá rộng rãi không hề cấm việc phân phối Event cho các consumer (bên tiêu thụ) trong cùng một Bounded Context. Hãy xem lại Hình 8.1.
+
+Đôi khi các Domain Service cũng cần phải đăng ký các subscriber. Động lực để làm điều đó cũng tương tự như lý do của Application Service, nhưng trong trường hợp này sẽ xuất phát từ các lý do mang tính đặc thù của miền nghiệp vụ (domain-specific) để lắng nghe các Event.
+
+## Spreading the News to Remote Bounded Contexts
+
+Có một vài cách khả thi để các Bounded Context từ xa nhận biết được các Event diễn ra trong Bounded Context của bạn. Ý tưởng cốt lõi là cần phải có một hình thức nhắn tin (messaging) nào đó diễn ra, và một cơ chế nhắn tin cấp doanh nghiệp (enterprise messaging mechanism) là điều cần thiết. Cần nói rõ rằng, cơ chế được đề cập ở đây vượt xa khỏi các thành phần Publish-Subscribe dạng lightweight, đơn giản vừa thảo luận ở trên. Tại đây, chúng ta đang bàn về thứ sẽ tiếp quản công việc tại điểm mà cơ chế lightweight dừng lại.
+
+Có rất nhiều thành phần nhắn tin như vậy hiện có, và chúng thường được phân loại là middleware (phần mềm trung gian). Từ các sản phẩm mã nguồn mở như ActiveMQ, RabbitMQ, Akka, NServiceBus và MassTransit, cho đến các sản phẩm thương mại có bản quyền khác nhau, có vô số sự lựa chọn. Chúng ta cũng có thể tự phát triển nội bộ (home-grow) một hình thức nhắn tin dựa trên các REST resource (tài nguyên REST), trong đó các hệ thống tự trị đóng vai trò là các bên quan tâm chủ động kết nối tới hệ thống phát hành, yêu cầu lấy toàn bộ các thông báo Event mà chúng chưa từng tiêu thụ trước đó. Tất cả những giải pháp này đều nằm dưới chiếc ô chung của mẫu Publish-Subscribe [Gamma et al.], với các mức độ ưu nhược điểm khác nhau. Phần lớn sẽ phụ thuộc vào ngân sách, sở thích kỹ thuật, yêu cầu chức năng cũng như các phẩm chất phi chức năng (nonfunctional qualities) mà các nhóm liên quan hướng tới.
+
+Việc sử dụng bất kỳ cơ chế nhắn tin nào như vậy giữa các Bounded Context đòi hỏi chúng ta phải chấp nhận cam kết với tính nhất quán cuối cùng (eventual consistency). Đó là điều không thể né tránh. Các thay đổi trong một mô hình tác động đến các thay đổi trong một hoặc nhiều mô hình khác sẽ không thể đạt trạng thái hoàn toàn nhất quán trong một khoảng thời gian nhất định trôi qua. Thêm vào đó, tùy thuộc vào lưu lượng truy cập (traffic) vào từng hệ thống riêng lẻ và tác động của chúng đối với những hệ thống khác, rất có thể toàn bộ hệ thống tổng thể sẽ không bao giờ hoàn toàn nhất quán tại bất kỳ một thời điểm tức thời nào.
+
+## Messaging Infrastructure Consistency
+
+Giữa tất cả những bàn luận sôi nổi về eventual consistency, bạn có thể sẽ ngạc nhiên khi biết rằng có ít nhất hai cơ chế trong một giải pháp nhắn tin bắt buộc phải luôn luôn nhất quán với nhau: kho dữ liệu lưu trữ (persistence store) được sử dụng bởi domain model, và kho dữ liệu lưu trữ làm nền tảng cho messaging infrastructure dùng để chuyển tiếp các Event do mô hình phát hành. Điều này là bắt buộc để đảm bảo rằng khi các thay đổi của mô hình được lưu bền vững (persisted), việc phân phối Event cũng được bảo đảm; đồng thời, nếu một Event được phân phối qua hệ thống nhắn tin, nó biểu thị một sự việc có thật được phản ánh chính xác bởi mô hình đã phát hành ra nó. Nếu một trong hai cơ chế này lệch nhịp (out of lockstep) với cơ chế còn lại, nó sẽ dẫn đến các trạng thái sai lệch trong một hoặc nhiều mô hình phụ thuộc lẫn nhau.
+
+Tính nhất quán trong việc lưu trữ dữ liệu giữa mô hình và Event được hoàn thành như thế nào? Có ba cách cơ bản:
+
+<!-- ⚠️ CẢNH BÁO chunk 16: số ảnh/heading/code-block KHÔNG khớp bản gốc (gốc={'images': 33, 'headings': 23, 'fences': 40}, dịch={'images': 0, 'headings': 23, 'fences': 40}). Xem lại đoạn này bằng tay. -->
+
+﻿1. Domain model (mô hình miền) và hạ tầng messaging (truyền tin nhắn) của bạn dùng chung một persistence store (kho lưu trữ dữ liệu bền vững, chẳng hạn như cùng một data source). Cách tiếp cận này cho phép các thay đổi trên mô hình và thao tác ghi nhận tin nhắn mới được commit trong cùng một local transaction (giao dịch cục bộ). Ưu điểm của nó là hiệu năng tương đối tốt. Nhược điểm tiềm ẩn là các vùng lưu trữ của hệ thống tin nhắn (như các bảng cơ sở dữ liệu) phải nằm trong cùng một cơ sở dữ liệu (hoặc schema) với mô hình của bạn — điều này tùy thuộc vào gu thiết kế của từng đội ngũ. Dĩ nhiên, đây sẽ không phải là một lựa chọn khả thi nếu kho lưu trữ của mô hình và kho lưu trữ của cơ chế tin nhắn không thể chia sẻ chung với nhau.
+2. Persistence store của domain model và persistence store của hệ thống tin nhắn được kiểm soát dưới một global transaction chuẩn XA (giao dịch phân tán với cơ chế two-phase commit — cam kết hai pha). Ưu điểm ở đây là bạn có thể tách rời hoàn toàn nơi lưu trữ mô hình và nơi lưu trữ tin nhắn. Tuy nhiên, nhược điểm là các global transaction đòi hỏi sự hỗ trợ chuyên biệt từ hệ thống, điều mà không phải persistence store hay hệ thống tin nhắn nào cũng đáp ứng được. Các global transaction thường gây tốn kém tài nguyên và có hiệu năng kém. Ngoài ra, cũng có khả năng kho lưu trữ của mô hình hoặc kho lưu trữ của cơ chế tin nhắn (hoặc cả hai) không tương thích với chuẩn XA.
+3. Bạn tạo một vùng lưu trữ đặc biệt (ví dụ: một bảng cơ sở dữ liệu) dành cho các Event (sự kiện) trong cùng persistence store được dùng để lưu trữ domain model. Đây chính là một Event Store (kho lưu trữ sự kiện), như sẽ được thảo luận kỹ hơn ở phần sau của chương này. Cách này tương tự như phương án 1; tuy nhiên, vùng lưu trữ này không do cơ chế truyền tin nhắn sở hữu và kiểm soát, mà thuộc quyền quản lý của chính Bounded Context (ngữ cảnh giới hạn) của bạn. Một thành phần out-of-band (ngoài luồng xử lý chính) do bạn tự tạo sẽ đọc Event Store để xuất bản (publish) toàn bộ các Event đã lưu nhưng chưa được gửi qua cơ chế tin nhắn. Ưu điểm ở đây là mô hình và các Event của bạn được đảm bảo tính nhất quán tuyệt đối trong phạm vi một local transaction duy nhất. Nó còn mang lại các lợi ích đặc trưng khác của Event Store, bao gồm khả năng cung cấp các REST-based notification feed (luồng cấp phát thông báo dựa trên REST). Cách tiếp cận này cho phép sử dụng một hạ tầng tin nhắn có kho lưu trữ tin nhắn hoàn toàn riêng biệt. Tuy vậy, do cơ chế tin nhắn trung gian (middleware) chỉ được kích hoạt sau khi Event đã được lưu trữ, nhược điểm của giải pháp này là bạn phải tự phát triển bộ chuyển tiếp Event (Event forwarder) để đẩy dữ liệu qua hệ thống tin nhắn, đồng thời các client (phía nhận) bắt buộc phải được thiết kế để có khả năng de-duplicate (khử trùng lặp tin nhắn) khi nhận (xem mục 'Event Store').
+
+Trong các ví dụ của mình, tôi sử dụng cách tiếp cận thứ ba. Mặc dù vẫn có những nhược điểm nhất định, giải pháp này mang lại nhiều ưu điểm vượt trội sẽ được làm rõ trong mục 'Event Store'. Việc tôi lựa chọn hướng tiếp cận này hoàn toàn không phủ nhận giá trị của những đánh đổi (trade-offs) khác. Bạn và đội ngũ của mình cần cân nhắc để đưa ra lựa chọn phù hợp nhất giữa các phương án.
+
+## Autonomous Services and Systems
+
+Việc sử dụng Domain Events (sự kiện miền) cho phép xây dựng bất kỳ hệ thống doanh nghiệp nào theo định hướng autonomous services and systems (các dịch vụ và hệ thống tự trị). Tôi sử dụng thuật ngữ *autonomous service* (dịch vụ tự trị) để đại diện cho bất kỳ dịch vụ nghiệp vụ mức hạt thô (coarse-grained business service) nào — có thể xem như một hệ thống hoặc một ứng dụng — vận hành phần lớn độc lập với các "dịch vụ" khác trong doanh nghiệp. Dịch vụ tự trị có thể sở hữu nhiều endpoint giao diện dịch vụ, nghĩa là nó cung cấp nhiều giao diện dịch vụ kỹ thuật cho các remote client. Mức độ độc lập cao đối với các hệ thống khác đạt được nhờ việc loại bỏ hoàn toàn các lệnh gọi thủ tục từ xa nội luồng (in-band RPC - Remote Procedure Call), nơi mà một yêu cầu từ người dùng chỉ được xem là hoàn tất khi yêu cầu gọi API sang một hệ thống từ xa thành công.
+
+Vì sẽ có những thời điểm hệ thống từ xa bị gián đoạn hoàn toàn hoặc rơi vào trạng thái quá tải, RPC có thể trực tiếp đe dọa đến khả năng thành công của hệ thống phụ thuộc. Rủi ro này sẽ nhân lên theo cấp số nhân khi số lượng hệ thống tích hợp qua RPC API mà nó phụ thuộc gia tăng. Do đó, việc tránh sử dụng in-band RPC giúp giải tỏa đáng kể sự phụ thuộc cũng như hạn chế các sự cố sập toàn diện hoặc suy giảm hiệu năng nghiêm trọng bắt nguồn từ các hệ thống từ xa chậm chạp hoặc không khả dụng.
+
+Thay vì gọi trực tiếp sang các hệ thống khác, hãy sử dụng cơ chế truyền tin nhắn bất đồng bộ (asynchronous messaging) để đạt được tính tự trị và mức độ độc lập cao hơn giữa các hệ thống. Khi nhận được tin nhắn mang theo Domain Event từ các Bounded Context khác trong doanh nghiệp, hãy kích hoạt hành vi nghiệp vụ trên chính mô hình của bạn sao cho phản ánh đúng ý nghĩa của các Event đó trong phạm vi Bounded Context của mình. Điều này không đồng nghĩa với việc bạn chỉ đơn giản là sao chép dữ liệu (replicate data) hay tạo ra các bản sao y hệt của các đối tượng từ dịch vụ khác vào dịch vụ của mình. Đúng là một số dữ liệu có thể được sao chép giữa các hệ thống — tối thiểu sẽ bao gồm định danh duy nhất (unique identity) của các Aggregate (cụm thực thể / cốt lõi nghiệp vụ) bên ngoài. Nhưng các đối tượng ở hệ thống này hiếm khi, hoặc gần như không bao giờ, là bản sao nguyên xi của các đối tượng từ các hệ thống lân cận. Nếu sai lầm mô hình hóa này xảy ra, hãy tham khảo chương Bounded Contexts (2) và Context Maps (3) để hiểu lý do vì sao nó có hại và cách khắc phục. Trên thực tế, nếu Domain Event được thiết kế chuẩn xác, chúng rất hiếm khi mang toàn bộ đối tượng như một phần trạng thái của mình.
+
+Event sẽ chỉ chứa một lượng giới hạn các tham số lệnh và/hoặc trạng thái của Aggregate đủ để truyền tải ý nghĩa nghiệp vụ, giúp các Bounded Context đăng ký nhận tin có thể phản ứng chính xác. Dĩ nhiên, nếu một Event không cung cấp đủ thông tin cho một bên nhận cụ thể, bản hợp đồng (contract) trên toàn domain của Event đó sẽ phải được điều chỉnh để cung cấp những dữ liệu cần thiết. Điều này thường đồng nghĩa với việc phải thiết kế một phiên bản mới tường minh cho Event hoặc tạo ra một Event hoàn toàn khác.
+
+Cũng phải thừa nhận rằng trong một số trường hợp, việc sử dụng RPC rất khó tránh khỏi. Một số hệ thống di sản (legacy system) chỉ có khả năng cung cấp giao tiếp qua RPC. Thêm vào đó, khi việc chuyển ngữ một khái niệm hoặc một nhóm khái niệm từ Bounded Context bên ngoài về Bounded Context nội bộ quá phức tạp, việc suy luận ngữ nghĩa đầy đủ từ nhiều Event có thể làm tăng độ phức tạp của hệ thống. Nếu bạn buộc phải tái tạo gần như toàn bộ các khái niệm, đối tượng và mối quan hệ của mô hình bên ngoài vào mô hình của mình, bạn có thể phải cân nhắc tiếp tục dùng RPC. Điều này cần được xem xét trên từng trường hợp cụ thể, và lời khuyên của tôi là không nên nhượng bộ chuyển sang dùng RPC quá dễ dàng. Nếu thực sự bất khả kháng, bạn có thể chấp nhận dùng RPC hoặc cố gắng tác động để đội ngũ sở hữu mô hình bên ngoài tìm cách đơn giản hóa thiết kế của họ — dù phải thừa nhận rằng việc tác động này rất khó, nếu không muốn nói là bất khả thi.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000328_08b8c915925784180a89c4959f27fc2b3954d9ca09e505ce56bc87548f36505d.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000329_e1beadadedd0b2806e35313ce293664cf6fe08a97c8c262bea7804e7144780f5.png)
+
+## Latency Tolerances
+
+Liệu những khoảng thời gian trễ tiềm ẩn trước khi nhận được tin nhắn — khi mà tính nhất quán sau cùng (eventual consistency) gây ra độ trễ lớn hơn vài mili-giây — có gây ra vấn đề không? Chắc chắn đây là một khía cạnh cần được cân nhắc kỹ lưỡng, bởi dữ liệu không đồng bộ có thể dẫn đến những hành động sai sót, thậm chí gây thiệt hại. Chúng ta phải tự hỏi: khoảng thời gian trễ giữa các trạng thái nhất quán bao lâu là chấp nhận được, và mức trễ bao nhiêu thì vượt quá giới hạn? Các chuyên gia miền (domain expert) thường nắm rất rõ đâu là độ trễ chấp nhận được và đâu là không. Các lập trình viên có thể sẽ ngạc nhiên khi biết rằng trong phần lớn trường hợp, độ trễ vài giây, vài phút, vài giờ, hay thậm chí vài ngày giữa các trạng thái nhất quán là hoàn toàn có thể dung thứ được. Điều này không có nghĩa là nó luôn đúng cho mọi tình huống. Nhưng chúng ta không được mặc định cho rằng trong bất kỳ domain nào, việc đạt được trạng thái nhất quán tức thì cũng là yêu cầu bắt buộc.
+
+Đôi khi, câu hỏi sau sẽ mở ra một câu trả lời mang nhiều giá trị thông tin: Trước khi có máy tính thì nghiệp vụ vận hành như thế nào, hoặc nếu bây giờ không có máy tính thì nó sẽ chạy ra sao? Có lẽ ngay cả hệ thống vận hành trên giấy tờ đơn giản nhất cũng không bao giờ đạt được tính nhất quán tức thì. Do đó, việc các hệ thống máy tính tự động hóa có thể chấp nhận, thậm chí vận hành hiệu quả dựa trên mô hình nhất quán sau cùng, là điều hoàn toàn hợp lý. Chúng ta có thể kết luận rằng tính nhất quán sau cùng mang lại ý nghĩa kinh doanh thực tế hơn.
+
+Hãy tưởng tượng một Subdomain (miền con) được dùng để lập kế hoạch cho các hoạt động tương lai của đội ngũ. Khi bất kỳ hoạt động riêng lẻ nào được phê duyệt, một Domain Event phản ánh sự phê duyệt đó sẽ được xuất bản: `TeamActivityApproved`. Event này tiếp nối hàng loạt các Event khác đã được xuất bản trước đó về sự hình thành và định nghĩa của các hoạt động nay đã được duyệt. Một Bounded Context khác phản ứng với việc phê duyệt này bằng cách lên lịch cho hoạt động vừa sẵn sàng bắt đầu vào một thời điểm thích hợp tương quan với tất cả các hoạt động đã được phê duyệt khác.
+
+Chúng ta biết rằng bất kỳ hoạt động nào cũng được lên kế hoạch và phê duyệt trước khi diễn ra ít nhất vài tuần. Đã như vậy thì liệu việc Event dùng để đưa hoạt động đã duyệt vào lịch trình đến trễ vài phút, vài giờ, hay thậm chí vài ngày sau khi phê duyệt có thực sự thành vấn đề không? Có thể vài ngày là không ổn. Tuy nhiên, nếu một sự cố sập hệ thống khiến Event bị trễ vài tiếng đồng hồ — một tình huống hiếm khi xảy ra — thì việc thiếu hoạt động đó trên lịch trong vài giờ có phải là độ trễ hoàn toàn không thể chấp nhận được không? Không hề, bởi vì sự cố hệ thống hy hữu này là điều hoàn toàn có thể khắc phục được, và dù sao thì hoạt động đó cũng phải vài tuần nữa mới bắt đầu. Do đó, một độ trễ điển hình khoảng vài giây — ở mức tối đa — để Event được gửi đến trong điều kiện vận hành bình thường không những có thể dung thứ được, mà còn hoàn toàn chấp nhận được. Trên thực tế, người dùng thậm chí còn không nhận ra được độ trễ đó.
+
+## Cowboy Logic
+
+AJ: "Đó là 'chút xíu' kiểu Kentucky à?"
+
+LB: "Có khi lại là một 'phút' kiểu New York đấy."
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000330_cbf05381213c364c959251bd074d4e9eda5d2c4db79b96a4a876d2ac0b674fdb.png)
+
+> 💡 **Giải thích thêm:** Tác giả dùng phép ẩn dụ mang tính văn hóa Mỹ để nói về mức độ chịu trễ (latency tolerance) trong tính nhất quán sau cùng (eventual consistency):
+> - *"Kentucky shortly"* ám chỉ lối sống thư thái miền quê ở bang Kentucky, nơi người ta bảo "sắp xong rồi / chờ một lát" nhưng có thể là vài giờ hoặc cả ngày sau.
+> - *"New York minute"* là thành ngữ chỉ nhịp sống hối hả tại New York, nơi "một phút" diễn ra chớp nhoáng trong tích tắc (vài phần giây).
+> Đoạn đối thoại nhấn mạnh rằng: trong nghiệp vụ thực tế, "nhất quán sau cùng" không nhất thiết phải nhanh như chớp mắt (New York minute), mà đôi khi hoàn toàn có thể thong thả kéo dài vài giờ hay vài ngày (Kentucky shortly) mà vẫn đáp ứng hoàn hảo yêu cầu bài toán.
+> Nguồn tham khảo: [Wiktionary: New York minute](https://en.wiktionary.org/wiki/New_York_minute)
+
+Dù ví dụ trên là hoàn toàn thực tế, các dịch vụ nghiệp vụ khác vẫn có thể đòi hỏi thông lượng (throughput) cao hơn nhiều. Mức chịu trễ tối đa cần phải được thấu hiểu rõ ràng, và các hệ thống phải sở hữu các đặc tính kiến trúc đủ để đáp ứng, thậm chí vượt trên các tiêu chuẩn đó. Tính sẵn sàng cao (high availability) và khả năng mở rộng (scalability) phải được thiết kế ngay từ đầu vào các dịch vụ tự trị cùng hạ tầng truyền tin nhắn hỗ trợ để đáp ứng chuẩn xác các phi chức năng (nonfunctional requirements) khắt khe của doanh nghiệp.
+
+## Event Store
+
+Việc duy trì một kho lưu trữ chứa toàn bộ các Domain Event cho một Bounded Context đơn lẻ đem lại nhiều lợi ích tiềm năng. Hãy thử hình dung bạn có thể làm được những gì nếu lưu lại từng Event riêng biệt cho mọi hành vi lệnh (command) từng được thực thi trên mô hình. Bạn có thể:
+
+1. Sử dụng Event Store như một hàng đợi (queue) để xuất bản tất cả các Domain Event thông qua một hạ tầng tin nhắn. Đây là một trong những mục đích sử dụng chính trong cuốn sách này. Nó cho phép tích hợp giữa các Bounded Context, nơi các remote subscriber (bên nhận từ xa) phản ứng với các Event dựa theo nhu cầu ngữ cảnh của riêng họ. (Xem mục trước, 'Spreading the News to Remote Bounded Contexts.')
+2. Sử dụng chính Event Store đó để cấp phát các thông báo Event dưới dạng REST cho các client truy vấn dạng kéo (polling). (Về mặt logic, điều này tương tự như điểm 1, nhưng khác biệt trong cách thức sử dụng thực tế.)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000331_fdc7fc2aa2ba77af09f25784dc6b5a226a478ff9ce57653413d22e467f3dbb03.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000332_d3bb7fecf152999942e1358363396c9ba2bc29b85ebbadf2784b1a094570c750.png)
+
+3. Kiểm tra bản ghi lịch sử kết quả của mọi lệnh từng được thực thi trên mô hình. Điều này hỗ trợ truy vết lỗi (bug), không chỉ trong mô hình mà còn ở phía client. Cần nắm rõ rằng Event Store không đơn thuần là một bản log kiểm toán (audit log). Nhật ký kiểm toán có thể hữu ích cho việc gỡ lỗi, nhưng chúng hiếm khi ghi lại đầy đủ toàn bộ kết quả sau mỗi lệnh của Aggregate.
+4. Sử dụng dữ liệu phục vụ việc phân tích xu hướng, dự báo và các nghiệp vụ phân tích kinh doanh (business analytics) khác. Nhiều khi doanh nghiệp không biết cách tận dụng nguồn dữ liệu lịch sử này cho đến khi nhận ra họ thực sự cần nó trong tương lai. Trừ khi Event Store được duy trì ngay từ đầu, dữ liệu lịch sử sẽ không có sẵn khi nhu cầu phát sinh.
+5. Sử dụng các Event để tái lập (reconstitute) trạng thái của từng phiên bản Aggregate khi nó được truy xuất từ Repository (kho chứa thực thể). Đây là phần bắt buộc trong kiến trúc Event Sourcing (mô hình lưu trữ trạng thái dựa trên chuỗi sự kiện). Kỹ thuật này được thực hiện bằng cách áp dụng tuần tự toàn bộ các Event đã lưu trữ trước đó lên một thể hiện Aggregate theo đúng thứ tự thời gian. Bạn có thể tạo snapshot (bản chụp trạng thái) sau một số lượng Event nhất định (chẳng hạn mỗi cụm 100 Event) để tối ưu hóa tốc độ tái lập đối tượng.
+6. Dựa trên ứng dụng của điểm số 5, bạn có thể hoàn tác (undo) các khối thay đổi trên Aggregate. Điều này khả thi bằng cách ngăn chặn (có thể thông qua việc xóa bỏ hoặc đánh dấu là lỗi thời) một số Event nhất định không được áp dụng khi tái lập thể hiện Aggregate. Bạn cũng có thể vá (patch) Event hoặc chèn thêm Event để sửa lỗi trong luồng sự kiện (event stream).
+
+Tùy thuộc vào mục đích xây dựng Event Store, nó sẽ mang các đặc tính tương ứng. Vì các ví dụ trong tài liệu này chủ yếu hướng đến lợi ích 1 và 2, Event Store của chúng ta về cơ bản chỉ tập trung vào việc lưu trữ các Event đã được tuần tự hóa (serialized) theo đúng thứ tự phát sinh. Điều này không có nghĩa là chúng ta không thể dùng các Event này để hiện thực hóa toàn bộ 4 lợi ích đầu tiên, bởi vì hai lợi ích tiếp theo hoàn toàn khả thi khi chúng ta đã ghi lại toàn bộ các sự kiện quan trọng trong miền nghiệp vụ. Do đó, đạt được lợi ích 3 và 4 chính là ứng dụng mở rộng từ những gì đã thực hiện ở hai mục đầu. Tuy nhiên, chúng ta sẽ không đi sâu vào việc khai thác Event Store cho điểm 5 và 6 trong chương này.
+
+Cần thực hiện một số bước để hiện thực hóa lợi ích 1 và 2. Các bước này được tóm tắt trong Hình 8.3. Trước tiên, hãy thảo luận về các bước trong biểu đồ tuần tự (sequence diagram) đó cùng các thành phần liên quan thông qua trải nghiệm thực tế từ dự án SaaSOvation.
+
+Bất kể lý do sử dụng Event Store là gì, một trong những việc đầu tiên cần làm là tạo ra một subscriber (bên lắng nghe) để tiếp nhận mọi Event được xuất bản từ mô hình. Đội ngũ phát triển quyết định thực hiện việc đó bằng cách dùng một hook hướng khía cạnh (AOP - Aspect-Oriented Programming) có khả năng can thiệp vào luồng thực thi của mọi Application Service (dịch vụ tầng ứng dụng) trong hệ thống.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000333_1fa9ca6e441a84417735e9c456c8f8c88b0d1974cdb14dfbfa0153f2bb981e13.png)
+
+Hình 8.3 `IdentityAccessEventProcessor` đăng ký nhận tin nặc danh cho tất cả các Event của mô hình. Nó ủy quyền cho `EventStore`, nơi sẽ tuần tự hóa từng Event thành một `StoredEvent` và lưu trữ lại.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000334_6806d50d6126a5a2c98328d72e91252d6a18e113e3bf8702ea19f4eea87f7745.png)
+
+Dưới đây là cách đội ngũ SaaSOvation triển khai cho `Identity and Access Context`. Thành phần sau mang trách nhiệm duy nhất là đảm bảo tất cả các Domain Event đều được lưu trữ:
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000335_6e0df3093024052db014127944a0dc8353ba82ecc3c41f0a5418c4b363cd95fe.png)
+
+```java
 @Aspect
 public class IdentityAccessEventProcessor {
     ...
@@ -6757,8 +8030,23 @@ public class NotificationService {
     ...
 }
 
-<!-- ⚠️ CẢNH BÁO chunk 17: số ảnh/heading/code-block KHÔNG khớp bản gốc (gốc={'images': 27, 'headings': 13, 'fences': 58}, dịch={'images': 0, 'headings': 9, 'fences': 56}). Xem lại đoạn này bằng tay. -->
+```
 
+3. Các lớp `Exchange`, `ConnectionSettings`, `MessageProducer`, `MessageParameters` và các lớp khác nằm trong một thư viện đóng vai trò là một lớp trừu tượng (abstraction layer) bọc quanh RabbitMQ. Tôi cung cấp thư viện này — giúp việc sử dụng RabbitMQ trở nên thân thiện và mang tính hướng đối tượng hơn nhiều — kèm theo các đoạn mã nguồn mẫu khác của cuốn sách.
+
+<!-- ⚠️ CẢNH BÁO chunk 17: số ảnh/heading/code-block KHÔNG khớp bản gốc (gốc={'images': 27, 'headings': 13, 'fences': 58}, dịch={'images': 8, 'headings': 13, 'fences': 58}). Xem lại đoạn này bằng tay. -->
+
+﻿![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000355_1cc3c05d39bf6fa98e195a4ec1966dc0716058e706674d93425c9d1d547342bd.png)
+
+Phương thức `publishNotifications()` sử dụng `messageProducer()` để đảm bảo `exchange` (thành phần định tuyến thông điệp trong RabbitMQ) tồn tại, sau đó lấy thể hiện (instance) của `MessageProducer` (đối tượng sản sinh thông điệp) dùng để xuất bản. RabbitMQ hỗ trợ tính lũy thỏa (`exchange idempotence` - tính chất tạo lập nhiều lần vẫn cho kết quả như lần đầu), vì vậy trong lần đầu tiên bạn yêu cầu, exchange sẽ được khởi tạo, còn ở tất cả các lần tiếp theo bạn sẽ nhận lại exchange đã tồn tại từ trước đó. Chúng tôi không duy trì một instance mở sẵn của `MessageProducer` nhằm phòng ngừa trường hợp phát sinh sự cố với `channel` (kênh truyền thông) của `broker` (máy chủ điều phối thông điệp) bên dưới. Việc tái lập kết nối mỗi khi thực thi thao tác xuất bản (`publish`) giúp ngăn ngừa nguy cơ bên phát hành (`publisher`) bị tê liệt hoàn toàn. Chúng ta có thể cần lưu ý tới các vấn đề tiềm ẩn về hiệu năng nếu việc liên tục kết nối lại trở thành nút thắt cổ chai (`bottleneck`). Tuy nhiên ở thời điểm hiện tại, chúng ta sẽ dựa vào khoảng thời gian tạm dừng (`pauses`) đã được cấu hình giữa các lần xuất bản để giảm tải chi phí phụ trội (`overhead`) do việc kết nối lại gây ra.
+
+Nhắc đến khoảng thời gian tạm dừng giữa các lần xuất bản, không có đoạn mã nào ở phần trước chỉ ra cách các Event (`Domain Events` - sự kiện miền nghiệp vụ) được xuất bản tới exchange theo định kỳ và lặp lại. Việc này có thể được thực hiện theo vài cách khác nhau tùy thuộc vào môi trường vận hành của bạn. Một trong số đó là sử dụng `JMX TimerMBean` (thành phần quản lý tác vụ định kỳ trong Java Management Extensions) để quản trị các khoảng thời gian lặp lại.
+
+Trước khi trình bày giải pháp bộ đếm thời gian (`timer`) dưới đây, cần lưu ý một bối cảnh quan trọng: Tiêu chuẩn Java MBean cũng sử dụng thuật ngữ `notification` (thông báo), nhưng khái niệm này không giống với notification trong tiến trình xuất bản sự kiện của chúng ta. Trong trường hợp của JMX, một trình lắng nghe (`listener`) sẽ nhận được thông báo mỗi khi bộ đếm thời gian kích hoạt. Bạn chỉ cần phân biệt rạch ròi hai khái niệm này trong đầu.
+
+Bất kể khoảng thời gian phù hợp nào được xác định và cấu hình cho một timer nhất định, một `NotificationListener` (trình lắng nghe thông báo) sẽ được đăng ký để `MBeanServer` có thể phát thông báo mỗi khi chạm đến mốc thời gian định kỳ:
+
+```java
 mbeanServer.addNotificationListener(
     timer.getObjectName(),
     new NotificationListener() {
@@ -7254,8 +8542,11 @@ public class Product extends ConcurrencySafeEntity {
     private ProductId productId;
     private Set<Release> releases;
 
-<!-- ⚠️ CẢNH BÁO chunk 18: số ảnh/heading/code-block KHÔNG khớp bản gốc (gốc={'images': 26, 'headings': 20, 'fences': 42}, dịch={'images': 0, 'headings': 20, 'fences': 40}). Xem lại đoạn này bằng tay. -->
+```
 
+<!-- ⚠️ CẢNH BÁO chunk 18: số ảnh/heading/code-block KHÔNG khớp bản gốc (gốc={'images': 26, 'headings': 20, 'fences': 42}, dịch={'images': 1, 'headings': 20, 'fences': 42}). Xem lại đoạn này bằng tay. -->
+
+﻿```java
 private Set<Sprint> sprints;
 private TenantId tenantId;
 ...
@@ -7703,8 +8994,141 @@ public class ProductBacklogItemService ... {
 ...
 }
 
-<!-- ⚠️ CẢNH BÁO chunk 19: số ảnh/heading/code-block KHÔNG khớp bản gốc (gốc={'images': 32, 'headings': 25, 'fences': 34}, dịch={'images': 0, 'headings': 17, 'fences': 32}). Xem lại đoạn này bằng tay. -->
+```
 
+Điều này có gây ra vấn đề gì đối với việc quản lý các invariant hay không? Trong trường hợp này là không, vì việc chúng được tạo từng cái một hay tạo theo lô đều không tạo ra sự khác biệt. Các đối tượng đang được khởi tạo là các Aggregate hoàn chỉnh, và bản thân chúng tự duy trì các invariant của riêng mình. Do đó, nếu việc tạo hàng loạt các instance của Aggregate cùng một lúc về mặt ngữ nghĩa không hề khác biệt so với việc tạo từng đối tượng một cách lặp đi lặp lại, thì đây là một lý do cho phép bạn phá vỡ quy tắc kinh nghiệm mà không phải chịu bất kỳ hậu quả tiêu cực nào.
+
+## Lý do thứ hai: Thiếu thốn các cơ chế kỹ thuật hỗ trợ
+
+Tính nhất quán sau cùng đòi hỏi phải sử dụng một dạng năng lực xử lý ngoài luồng (out-of-band processing), chẳng hạn như hệ thống truyền thông điệp (messaging), bộ định thời (timer), hoặc các tiến trình nền (background thread). Điều gì sẽ xảy ra nếu dự án bạn đang làm việc hoàn toàn không có sự chuẩn bị hay hỗ trợ cho bất kỳ cơ chế nào như vậy? Mặc dù hầu hết chúng ta sẽ thấy điều đó thật kỳ lạ, nhưng bản thân tôi đã từng đối mặt với đúng sự hạn chế này. Khi không có cơ chế truyền thông điệp, không có timer chạy ngầm và cũng không có bất kỳ năng lực xử lý đa luồng tự xây dựng nào, chúng ta có thể làm gì?
+
+Nếu không cẩn thận, tình huống này có thể kéo chúng ta quay trở lại việc thiết kế các Aggregate dạng cụm lớn. Mặc dù điều đó có thể mang lại cho chúng ta cảm giác như mình đang tuân thủ quy tắc một giao dịch duy nhất, nhưng như đã thảo luận trước đó, nó cũng sẽ làm suy giảm hiệu năng và hạn chế khả năng mở rộng. Để tránh điều đó, có lẽ chúng ta có thể thay đổi hoàn toàn các Aggregate của hệ thống, buộc mô hình phải tự giải quyết các thách thức kỹ thuật của chúng ta. Chúng ta cũng đã xem xét khả năng các bản đặc tả của dự án có thể bị bảo vệ một cách cứng nhắc, khiến chúng ta có rất ít không gian để thương lượng về những khái niệm miền nghiệp vụ chưa từng được hình dung trước đó. Đó thực sự không phải là cách làm chuẩn của DDD, nhưng đôi khi điều đó vẫn xảy ra trong thực tế. Các điều kiện khách quan có thể không cho phép có bất kỳ giải pháp hợp lý nào để xoay chuyển hoàn cảnh mô hình hóa theo hướng có lợi cho chúng ta. Trong những trường hợp như vậy, thực tế vận hành dự án có thể buộc chúng ta phải sửa đổi từ hai instance của Aggregate trở lên trong một giao dịch. Dù quyết định này có vẻ hiển nhiên đến đâu, bạn cũng không nên đưa ra một cách quá vội vàng.
+
+## Tư duy cao bồi
+
+AJ: "Nếu bạn nghĩ rằng luật lệ sinh ra là để bị phá vỡ, tốt hơn hết bạn nên quen biết một thợ sửa chữa lành nghề."
+
+> 💡 **Giải thích thêm:** Câu nói này là lời cảnh tỉnh sắc sảo về việc thỏa hiệp kiến trúc: việc phá vỡ nguyên tắc thiết kế (như sửa đổi nhiều Aggregate trong cùng một transaction) luôn để lại những khoản nợ kỹ thuật (technical debt) và rủi ro tranh chấp tài nguyên nghiêm trọng. Nếu quyết định phá lệ, bạn bắt buộc phải có kiến thức chuyên sâu và phương án phòng ngừa sự cố vững chắc ("thợ sửa chữa giỏi") để khắc phục hậu quả.
+> (Không có nguồn trích dẫn xác thực — cần tự kiểm chứng thêm)
+
+Hãy cân nhắc thêm một yếu tố bổ sung có thể củng cố thêm cho việc phá lệ: user-aggregate affinity (mức độ gắn kết giữa người dùng và Aggregate). Liệu các luồng công việc nghiệp vụ có đảm bảo rằng tại bất kỳ thời điểm nào cũng chỉ có duy nhất một người dùng tập trung thao tác trên một tập hợp các instance của Aggregate hay không? Việc đảm bảo tính gắn kết giữa người dùng và Aggregate làm cho quyết định thay đổi nhiều instance của Aggregate trong một giao dịch trở nên hợp lý hơn, vì nó có xu hướng ngăn ngừa sự vi phạm các invariant và hạn chế va chạm giao dịch. Ngay cả khi có sự gắn kết giữa người dùng và Aggregate, trong những tình huống hiếm hoi, người dùng vẫn có thể đối mặt với các xung đột đồng thời. Tuy nhiên, mỗi Aggregate vẫn sẽ được bảo vệ khỏi điều đó bằng cách sử dụng cơ chế optimistic concurrency. Dù sao đi nữa, xung đột đồng thời có thể xảy ra trong bất kỳ hệ thống nào, và thậm chí còn thường xuyên hơn khi sự gắn kết người dùng - Aggregate không đứng về phía chúng ta. Hơn nữa, việc phục hồi sau các xung đột đồng thời là tương đối đơn giản nếu chúng chỉ xảy ra với tần suất rất hiếm. Do đó, khi thiết kế rơi vào thế bắt buộc, đôi khi việc sửa đổi nhiều instance của Aggregate trong một giao dịch vẫn mang lại kết quả tốt.
+
+## Lý do thứ ba: Giao dịch toàn cục
+
+Một yếu tố ảnh hưởng khác cần được xem xét là tác động từ các công nghệ kế thừa (legacy technology) và các chính sách của doanh nghiệp. Một trong số đó có thể là yêu cầu bắt buộc phải tuân thủ nghiêm ngặt việc sử dụng các giao dịch toàn cục (global transaction) với cơ chế commit hai pha (two-phase commit). Đây là một trong những tình huống gần như không thể bác bỏ hay từ chối, ít nhất là trong ngắn hạn.
+
+Ngay cả khi bắt buộc phải sử dụng một giao dịch toàn cục, bạn cũng không nhất thiết phải sửa đổi nhiều instance của Aggregate cùng lúc trong Bounded Context cục bộ của mình. Nếu bạn có thể tránh được điều đó, tối thiểu bạn vẫn ngăn ngừa được sự tranh chấp giao dịch trong Core Domain của mình và thực sự tuân thủ các quy tắc của Aggregate trong phạm vi tối đa có thể. Mặt trái của các giao dịch toàn cục là hệ thống của bạn nhiều khả năng sẽ không bao giờ có thể mở rộng được như kỳ vọng nếu bạn không thể loại bỏ cơ chế commit hai pha cùng tính nhất quán tức thời đi kèm với chúng.
+
+## Lý do thứ tư: Hiệu năng truy vấn
+
+Có những thời điểm mà việc nắm giữ các tham chiếu đối tượng trực tiếp tới các Aggregate khác lại là giải pháp tốt nhất. Điều này có thể được sử dụng để giảm thiểu các vấn đề về hiệu năng truy vấn của Repository. Những trường hợp này phải được cân nhắc hết sức cẩn trọng dưới lăng kính về kích thước tiềm ẩn và sự đánh đổi hiệu năng tổng thể. Một ví dụ về việc phá vỡ quy tắc tham chiếu theo định danh sẽ được trình bày ở phần sau của chương này.
+
+## Tuân thủ các quy tắc
+
+Bạn có thể gặp phải các quyết định thiết kế giao diện người dùng, các giới hạn kỹ thuật, các chính sách cứng nhắc, hoặc những yếu tố khác trong môi trường doanh nghiệp buộc bạn phải đưa ra một số thỏa hiệp. Chắc chắn chúng ta không chủ động đi tìm kiếm những cái cớ để phá vỡ bộ "Nguyên tắc kinh nghiệm cho Aggregate". Xét về lâu dài, việc tuân thủ các quy tắc sẽ mang lại lợi ích to lớn cho các dự án của chúng ta. Chúng ta sẽ có được tính nhất quán ở những nơi thực sự cần thiết, đồng thời nâng đỡ cho những hệ thống đạt hiệu năng tối ưu và khả năng mở rộng vượt trội.
+
+## Thu nhận hiểu biết sâu sắc thông qua quá trình khám phá
+
+Khi các quy tắc của Aggregate được đưa vào áp dụng, chúng ta sẽ thấy việc tuân thủ chúng tác động như thế nào đến thiết kế của mô hình SaaSOvation Scrum. Chúng ta sẽ thấy đội ngũ dự án tư duy lại thiết kế của họ một lần nữa, áp dụng những kỹ thuật mới vừa được khám phá. Nỗ lực đó dẫn đến việc khám phá ra những góc nhìn sâu sắc mới về mô hình. Nhiều ý tưởng khác nhau của họ lần lượt được thử nghiệm và sau đó được thay thế bởi những giải pháp tối ưu hơn.
+
+## Tái tư duy thiết kế, một lần nữa
+
+Sau vòng lặp tái cấu trúc giúp chia nhỏ cụm lớn `Product`, giờ đây `BacklogItem` đứng độc lập như một Aggregate của riêng mình. Nó phản ánh mô hình được trình bày trong Hình 10.7. Đội ngũ đã gom một tập hợp các instance của `Task` vào bên trong Aggregate `BacklogItem`. Mỗi `BacklogItem` đều sở hữu một định danh duy nhất toàn cục: `BacklogItemId`. Mọi liên kết đến các Aggregate khác đều được suy luận thông qua định danh. Điều đó có nghĩa là `Product` cha của nó, `Release` mà nó được lên lịch, và `Sprint` mà nó được cam kết đều được tham chiếu qua các ID. Trông nó có vẻ khá nhỏ gọn.
+
+Với việc đội ngũ hiện đang vô cùng hào hứng với việc thiết kế các Aggregate nhỏ, liệu họ có khả năng làm quá tay theo hướng đó hay không?
+
+Bất chấp cảm giác tích cực có được từ vòng lặp trước đó, vẫn còn một số mối lo ngại tồn tại. Ví dụ, thuộc tính `story` cho phép chứa một lượng văn bản khá lớn. Các nhóm phát triển user story theo Agile sẽ không viết những đoạn văn dài dòng. Dẫu vậy, hệ thống lại có một thành phần soạn thảo tùy chọn hỗ trợ việc viết các định nghĩa use case phong phú. Những văn bản đó có thể lên tới nhiều nghìn byte. Đây là điều rất đáng để cân nhắc về chi phí phụ trội tiềm ẩn.
+
+Hình 10.7 Aggregate BacklogItem cấu thành hoàn chỉnh
+
+Trước chi phí phụ trội tiềm tàng này cùng với những sai lầm đã gặp phải khi thiết kế cụm `Product` khổng lồ trong Hình 10.1 và Hình 10.3, đội ngũ dự án lúc này đặt ra sứ mệnh phải cắt giảm kích thước của mọi Aggregate trong Bounded Context. Những câu hỏi cốt tử bắt đầu xuất hiện. Liệu có tồn tại một invariant thực sự giữa `BacklogItem` và `Task` mà mối quan hệ này bắt buộc phải duy trì hay không? Hay đây lại là một trường hợp khác mà mối liên kết có thể tiếp tục được phân tách sâu hơn, để hình thành nên hai Aggregate riêng biệt một cách an toàn? Tổng cái giá phải trả nếu giữ nguyên thiết kế hiện tại sẽ là bao nhiêu?
+
+Chìa khóa giúp họ đưa ra quyết định đúng đắn nằm ở chính Ubiquitous Language. Đây là nơi mà một invariant đã được phát biểu rõ:
+
+* Khi có tiến độ đạt được trên một nhiệm vụ (task) của backlog item, thành viên trong nhóm sẽ ước tính số giờ còn lại của task đó.
+* Khi một thành viên ước tính rằng số giờ còn lại của một task cụ thể bằng 0, backlog item sẽ kiểm tra lại tất cả các task xem còn giờ tồn đọng nào không. Nếu không còn giờ nào trên bất kỳ task nào, trạng thái của backlog item sẽ tự động được chuyển thành đã xong (done).
+* Khi một thành viên ước tính rằng vẫn còn một hoặc nhiều giờ trên một task cụ thể trong khi trạng thái của backlog item vốn đã là done, trạng thái đó sẽ tự động bị thụt lùi (regressed).
+
+Điều này chắc chắn có vẻ như là một invariant thực sự. Trạng thái chính xác của backlog item được tự động điều chỉnh và hoàn toàn phụ thuộc vào tổng số giờ còn lại trên tất cả các task của nó. Nếu tổng số giờ task và trạng thái của backlog item phải luôn nhất quán với nhau, dường như Hình 10.7 đã quy định đúng ranh giới nhất quán của Aggregate. Tuy nhiên, đội ngũ phát triển vẫn nên xác định xem cụm hiện tại có thể phải trả giá những gì xét về mặt hiệu năng và khả năng mở rộng. Chi phí đó sẽ được đặt lên bàn cân so sánh với những gì họ có thể tiết kiệm được nếu trạng thái của backlog item có thể đạt tính nhất quán sau cùng với tổng số giờ task còn lại.
+
+Một số người sẽ xem đây là cơ hội kinh điển để áp dụng tính nhất quán sau cùng, nhưng chúng ta sẽ không vội vàng nhảy ngay tới kết luận đó. Hãy cùng phân tích cách tiếp cận dựa trên tính nhất quán giao dịch, sau đó khảo sát những gì có thể đạt được nếu sử dụng tính nhất quán sau cùng. Khi đó, chúng ta có thể tự rút ra kết luận xem phương pháp tiếp cận nào được ưu tiên hơn.
+
+## Ước tính chi phí của Aggregate
+
+Như Hình 10.7 minh họa, mỗi `Task` nắm giữ một tập hợp các instance của `EstimationLogEntry`. Các bản ghi log này mô hình hóa những thời điểm cụ thể khi một thành viên trong nhóm nhập vào một ước lượng mới về số giờ còn lại. Xét về mặt thực tế, mỗi `BacklogItem` sẽ chứa bao nhiêu phần tử `Task`, và một `Task` nhất định sẽ chứa bao nhiêu phần tử `EstimationLogEntry`? Rất khó để nói chính xác. Điều đó phần lớn phụ thuộc vào độ phức tạp của từng task cụ thể và thời gian kéo dài của một sprint. Tuy nhiên, một vài phép tính nhẩm phỏng đoán (back-of-the-envelope - BOTE) có thể giúp ích [Bentley].
+
+Số giờ của task thường được ước tính lại mỗi ngày sau khi một thành viên trong nhóm hoàn thành công việc trên task đó. Giả sử rằng hầu hết các sprint đều kéo dài 2 hoặc 3 tuần. Sẽ có những sprint dài hơn, nhưng khoảng thời gian 2 đến 3 tuần là đủ phổ biến. Vì vậy, chúng ta hãy chọn một số ngày nằm trong khoảng từ 10 đến 15 ngày. Không cần phải quá chính xác, con số 12 ngày là một ước lượng phù hợp vì trên thực tế số lượng sprint 2 tuần có thể nhiều hơn số lượng sprint 3 tuần.
+
+<!-- ⚠️ CẢNH BÁO chunk 19: số ảnh/heading/code-block KHÔNG khớp bản gốc (gốc={'images': 32, 'headings': 25, 'fences': 34}, dịch={'images': 0, 'headings': 25, 'fences': 33}). Xem lại đoạn này bằng tay. -->
+
+﻿Tiếp theo, hãy xem xét số giờ được phân bổ cho từng task (nhiệm vụ công việc). Cần ghi nhớ rằng các task phải được chia nhỏ thành những đơn vị khả thi để quản lý; thông thường chúng ta áp dụng khoảng thời gian từ 4 đến 16 giờ. Thông thường, nếu một task vượt quá mức ước lượng 12 giờ, các chuyên gia Scrum thường khuyến nghị nên chia nhỏ hơn nữa. Tuy nhiên, việc sử dụng mốc 12 giờ làm phép thử ban đầu sẽ giúp mô phỏng khối lượng công việc phân bổ đồng đều hơn. Ta có thể giả định rằng các task được triển khai 1 giờ mỗi ngày trong suốt 12 ngày của sprint (chu kỳ phát triển ngắn hạn trong Scrum). Cách làm này sẽ tạo điều kiện thuận lợi hơn cho các task phức tạp. Do đó, chúng ta sẽ tính toán 12 lần ước lượng lại (reestimation) cho mỗi task, với giả định ban đầu mỗi task được phân bổ 12 giờ.
+
+Vấn đề đặt ra là: Cần bao nhiêu task cho mỗi backlog item (hạng mục công việc tồn đọng)? Đây cũng là một câu hỏi không dễ trả lời. Sẽ ra sao nếu ta tư duy theo hướng cần từ 2 đến 3 task cho mỗi Layer (tầng kiến trúc) (4) hoặc Hexagonal Port-Adapter (kiến trúc lục giác Cổng - Bộ điều hợp) (4) trên một lát cắt tính năng (feature slice) cụ thể? Chẳng hạn, ta có thể tính 3 task cho User Interface Layer (Tầng giao diện người dùng) (14), 2 task cho Application Layer (Tầng ứng dụng) (14), 3 task cho Domain Layer (Tầng miền nghiệp vụ), và 3 task cho Infrastructure Layer (Tầng hạ tầng) (14). Cách phân bổ này đưa tổng số lên 11 task. Con số này có thể vừa vặn hoặc hơi ít, nhưng vì chúng ta đã chủ ý chọn con số ước lượng task tương đối dồi dào, hãy nâng con số này lên 12 task cho mỗi backlog item để dự trù thoải mái hơn. Như vậy, chúng ta có 12 task, mỗi task có 12 nhật ký ước lượng (estimation log), tương đương tổng cộng 144 đối tượng được thu thập cho mỗi backlog item. Dù con số này có thể cao hơn mức thông thường, nó cung cấp cho chúng ta một phép tính BOTE calculation đủ cụ thể để làm việc.
+
+> 💡 **Giải thích thêm:** BOTE (viết tắt của *Back-Of-The-Envelope calculation*) là thuật ngữ chỉ các phép tính nhẩm nhanh, ước lượng thô sơ mang tính phác thảo (như tính vội trên mặt sau của phong bì thư) nhằm định lượng quy mô vấn đề kỹ thuật trước khi bắt tay đo đạc chi tiết.
+> Nguồn tham khảo: https://en.wikipedia.org/wiki/Back-of-the-envelope_calculation
+
+Vẫn còn một biến số khác cần cân nhắc. Nếu khuyến nghị của chuyên gia Scrum về việc chia nhỏ các task được tuân thủ phổ biến, cục diện sẽ thay đổi đôi chút. Việc tăng gấp đôi số lượng task (24) và giảm một nửa số lượng mục nhật ký ước lượng (6) vẫn tạo ra tổng cộng 144 đối tượng. Tuy nhiên, điều này sẽ khiến nhiều task bị tải lên bộ nhớ hơn (24 thay vì 12) trong suốt tất cả các yêu cầu ước lượng, làm tiêu tốn nhiều bộ nhớ hơn cho mỗi yêu cầu. Nhóm phát triển sẽ thử nghiệm nhiều phương án kết hợp khác nhau để xem liệu có bất kỳ tác động đáng kể nào đến các bài kiểm thử hiệu năng hay không. Nhưng trước mắt, họ sẽ bắt đầu với mô hình 12 task, mỗi task 12 giờ.
+
+## Common Usage Scenarios
+
+Bây giờ, việc xem xét các kịch bản sử dụng phổ biến là rất quan trọng. Tần suất một yêu cầu từ người dùng cần nạp đồng thời toàn bộ 144 đối tượng vào bộ nhớ là bao nhiêu? Liệu điều đó có bao giờ xảy ra không? Dường như là không, nhưng nhóm phát triển vẫn cần kiểm tra lại. Nếu không, con số tối đa các đối tượng có khả năng xuất hiện là bao nhiêu? Ngoài ra, liệu có thường xuyên xảy ra tình trạng nhiều client cùng sử dụng gây ra tranh chấp đồng thời (concurrency contention) trên các backlog item hay không? Hãy cùng xem xét.
+
+Các kịch bản sau đây dựa trên việc sử dụng Hibernate (framework ORM cho Java) để thực hiện persistence (lưu trữ dữ liệu bền vững). Đồng thời, mỗi kiểu Entity (thực thể có danh tính định danh) đều sở hữu thuộc tính version phục vụ optimistic concurrency (kiểm soát đồng thời lạc quan) của riêng mình. Cơ chế này hoàn toàn khả thi bởi vì invariant (bất biến nghiệp vụ — điều kiện logic nghiệp vụ luôn phải thỏa mãn) về việc thay đổi trạng thái được quản lý trực tiếp trên Root Entity (Thực thể Gốc) của BacklogItem. Khi trạng thái tự động thay đổi (chuyển sang *done* hoặc quay trở lại *committed*), version của Root Entity sẽ tăng lên. Nhờ đó, các thay đổi đối với các task có thể diễn ra độc lập với nhau mà không tác động đến Root Entity mỗi khi có một task bị chỉnh sửa, trừ phi kết quả của thao tác đó dẫn đến thay đổi trạng thái. (Phân tích dưới đây có thể sẽ cần được đánh giá lại nếu bạn sử dụng các cơ sở dữ liệu dạng tài liệu - document store, bởi vì trên thực tế Root Entity sẽ bị chỉnh sửa mỗi khi một thành phần bên trong nó thay đổi.)
+
+Khi một backlog item vừa được tạo mới, nó không chứa bất kỳ task nào bên trong. Thông thường, phải đến buổi họp lập kế hoạch sprint (sprint planning) thì các task mới được định nghĩa. Trong cuộc họp đó, các task sẽ được cả nhóm xác định. Khi từng task được nêu ra, một thành viên trong nhóm sẽ thêm nó vào backlog item tương ứng. Không hề có lý do gì để hai thành viên phải tranh giành quyền truy cập vào Aggregate (tập hợp các đối tượng nghiệp vụ ràng buộc theo ranh giới nhất quán), giống như đang thi xem ai nhập task mới nhanh hơn. Hành động đó sẽ gây ra xung đột dữ liệu (collision), và một trong hai yêu cầu sẽ thất bại (tương tự như nguyên nhân việc đồng thời thêm các thành phần khác nhau vào Product trước đây từng thất bại). Dù vậy, hai thành viên này có lẽ sẽ sớm nhận ra công việc trùng lặp của họ phản tác dụng đến mức nào.
+
+Nếu các lập trình viên nhận thấy rằng trên thực tế nhiều người dùng thường xuyên muốn cùng lúc thêm các task, điều đó sẽ làm thay đổi đáng kể cục diện phân tích. Nhận thức này có thể ngay lập tức làm nghiêng cán cân về phía việc tách BacklogItem và Task thành hai Aggregate riêng biệt. Mặt khác, đây cũng có thể là thời điểm hoàn hảo để tinh chỉnh cấu hình ánh xạ của Hibernate bằng cách đặt tùy chọn `optimistic-lock` thành `false`. Việc cho phép số lượng task tăng lên đồng thời hoàn toàn có thể hợp lý trong trường hợp này, đặc biệt là nếu chúng không gây ra các vấn đề về hiệu năng và khả năng mở rộng quy mô.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000413_bca29d377b602faa7ae8a2bc71788065a5baec32746f683356a881bb133dd616.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000414_b49bb2aef352733b108a86726b4949f8f0d6184ae78cfb12e6a186aec384ce4c.png)
+
+Nếu ban đầu các task được ước lượng là 0 giờ và sau đó mới được cập nhật thành con số chính xác, chúng ta thường vẫn không gặp phải tình trạng tranh chấp đồng thời, mặc dù việc này sẽ bổ sung thêm một mục nhật ký ước lượng, nâng tổng số tính toán BOTE lên 13. Việc truy cập đồng thời ở đây không làm thay đổi trạng thái của backlog item. Xin nhắc lại, trạng thái chỉ chuyển sang *done* khi số giờ đi từ lớn hơn 0 về 0, hoặc quay ngược về *committed* nếu vốn đã *done* mà số giờ lại bị đổi từ 0 thành 1 hoặc nhiều hơn — đây là hai trường hợp rất hiếm khi xảy ra.
+
+Liệu việc ước lượng hằng ngày có gây ra vấn đề không? Vào ngày đầu tiên của sprint, thông thường sẽ có 0 nhật ký ước lượng trên một task nhất định của backlog item. Đến cuối ngày thứ nhất, mỗi thành viên đảm nhận task đó sẽ giảm bớt 1 giờ ước lượng. Thao tác này bổ sung một nhật ký ước lượng mới cho mỗi task, nhưng trạng thái của backlog item vẫn không bị ảnh hưởng. Hoàn toàn không có xung đột xảy ra trên một task vì chỉ có duy nhất một thành viên phụ trách điều chỉnh giờ của nó. Phải đến ngày thứ 12, chúng ta mới chạm tới ngưỡng chuyển đổi trạng thái. Tuy nhiên, khi mỗi task trong số 11 task bất kỳ được giảm về 0 giờ, trạng thái của backlog item vẫn giữ nguyên. Chỉ duy nhất lần ước lượng cuối cùng — lần thứ 144 trên task thứ 12 — mới kích hoạt việc tự động chuyển đổi trạng thái sang *done*.
+
+Phân tích này đã dẫn nhóm nghiên cứu đến một nhận thức quan trọng. Ngay cả khi họ thay đổi kịch bản sử dụng, tăng tốc độ hoàn thành task lên gấp đôi (6 ngày) hoặc thậm chí xáo trộn hoàn toàn, điều đó cũng không thay đổi được bản chất vấn đề. Luôn luôn là lần ước lượng cuối cùng thực hiện chuyển đổi trạng thái, và chính lần đó mới làm thay đổi Root Entity. Đây dường như là một thiết kế an toàn, mặc dù chi phí bộ nhớ (memory overhead) vẫn còn là một dấu hỏi.
+
+## Memory Consumption
+
+Bây giờ hãy giải quyết vấn đề tiêu thụ bộ nhớ. Điểm cốt lõi ở đây là các ước lượng được ghi lại theo ngày dưới dạng các Value Objects (đối tượng giá trị). Nếu một thành viên ước lượng lại bao nhiêu lần đi chăng nữa trong cùng một ngày, chỉ có giá trị ước lượng gần nhất được giữ lại. Giá trị mới nhất trong cùng ngày sẽ thay thế giá trị trước đó trong tập hợp. Tại thời điểm này, hệ thống không yêu cầu phải theo dõi các sai sót trong quá trình ước lượng task. Chúng ta đang dựa trên giả định rằng một task sẽ không bao giờ có số lượng mục nhật ký ước lượng nhiều hơn số ngày mà sprint đang diễn ra. Giả định này sẽ thay đổi nếu các task được định nghĩa từ một hoặc nhiều ngày trước cuộc họp lập kế hoạch sprint, và số giờ được ước lượng lại vào bất kỳ ngày nào sớm hơn đó. Khi đó sẽ có thêm một nhật ký phụ cho mỗi ngày phát sinh thêm.
+
+Thế còn tổng số lượng task và ước lượng nằm trong bộ nhớ cho mỗi lần ước lượng lại thì sao? Khi áp dụng lazy loading (cơ chế trì hoãn nạp dữ liệu cho đến khi cần thiết) cho các task và các nhật ký ước lượng, chúng ta sẽ có tối đa 12 cộng 12 đối tượng trong tập hợp được đưa vào bộ nhớ tại một thời điểm cho mỗi yêu cầu. Điều này là do toàn bộ 12 task sẽ được nạp khi truy cập vào tập hợp đó. Để thêm mục nhật ký ước lượng mới nhất vào một trong các task này, chúng ta phải nạp tập hợp các mục nhật ký ước lượng của task đó. Thao tác này có thể kéo thêm tối đa 12 đối tượng nữa. Cuối cùng, thiết kế Aggregate này đòi hỏi một backlog item, 12 task và 12 mục nhật ký, tương đương tối đa tổng cộng 25 đối tượng. Con số đó không hề lớn; đây vẫn là một Aggregate nhỏ. Một yếu tố khác là mức chạm ngưỡng tối đa (chẳng hạn 25 đối tượng) chỉ xuất hiện vào ngày cuối cùng của sprint. Trong phần lớn thời gian diễn ra sprint, Aggregate thậm chí còn nhỏ hơn thế nhiều.
+
+Liệu thiết kế này có gây ra các vấn đề về hiệu năng do lazy load hay không? Khả năng là có, bởi vì trên thực tế nó đòi hỏi tới hai lần lazy load: một lần cho danh sách task và một lần cho các mục nhật ký ước lượng của một trong các task đó. Nhóm sẽ phải tiến hành kiểm thử để khảo sát chi phí phụ phát sinh từ các lần nạp dữ liệu liên tiếp này.
+
+Còn một yếu tố nữa. Scrum cho phép các nhóm thử nghiệm để tìm ra mô hình lập kế hoạch phù hợp nhất với thực tiễn của họ. Như được giải thích bởi [Sutherland], các nhóm giàu kinh nghiệm với vận tốc (velocity) ổn định có thể ước lượng bằng story points (điểm câu chuyện) thay vì tính theo giờ của task. Khi định nghĩa từng task, họ có thể chỉ gán 1 giờ cho mỗi task. Trong suốt sprint, họ sẽ chỉ ước lượng lại duy nhất một lần cho mỗi task: chuyển từ 1 giờ về 0 giờ khi task đó hoàn thành. Xét về khía cạnh thiết kế Aggregate, việc sử dụng story point giúp giảm tổng số nhật ký ước lượng cho mỗi task xuống chỉ còn 1 và gần như triệt tiêu hoàn toàn chi phí bộ nhớ.
+
+Sau này, các lập trình viên của ProjectOvation sẽ có thể xác định bằng phương pháp phân tích (trên mức trung bình) xem có bao nhiêu task và mục nhật ký ước lượng thực tế tồn tại trên mỗi backlog item bằng cách khảo sát dữ liệu thực tế trên môi trường production.
+
+Những phân tích phía trên đã đủ để thôi thúc nhóm tiến hành kiểm thử dựa trên các tính toán BOTE của mình. Tuy nhiên, sau khi thu được các kết quả chưa thực sự thuyết phục, họ nhận thấy vẫn còn quá nhiều biến số khiến họ chưa thể an tâm rằng thiết kế này đã giải quyết triệt để các mối lo ngại. Vẫn còn đủ các yếu tố chưa rõ ràng để họ phải cân nhắc đến một phương án thiết kế thay thế.
+
+## Exploring Another Alternative Design
+
+Liệu có một thiết kế nào khác có thể giúp định hình ranh giới Aggregate phù hợp hơn với các kịch bản sử dụng thực tế hay không?
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000415_d6514b2652a481f4b06aa562b27c9fdd694bcaca995db85c87314009647428c2.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000416_d5a2caea8d4a55a871a7e66cd9d15236516e46c0f5e750992c6c1106e5abb3de.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000417_c6b0a13aa93ddc6251fe496703b663c1cdedd89fd2d6ad29b80dd3ec77b45f69.png)
+
+Hình 10.8 BacklogItem và Task được mô hình hóa thành các Aggregate riêng biệt
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000418_f58298c0534be85683303436a7e5ae2ba2357668679c24db6e2010d0e9c23eb3.png)
+
+Để có cái nhìn thấu đáo, nhóm muốn suy xét cẩn thận xem họ sẽ phải làm gì để biến Task thành một Aggregate độc lập, và liệu điều đó có thực sự mang lại lợi ích cho họ hay không. Những gì họ hình dung được thể hiện trong Hình 10.8. Làm như vậy sẽ giảm bớt chi phí cấu thành thành phần (part composition overhead) đi 12 đối tượng và giảm chi phí lazy load. Trên thực tế, thiết kế này mang lại cho họ tùy chọn nạp sẵn (eagerly load) các mục nhật ký ước lượng trong mọi trường hợp nếu cách đó đem lại hiệu năng tốt nhất.
+
+Các lập trình viên đã thống nhất không chỉnh sửa các Aggregate riêng biệt — cả Task lẫn BacklogItem — trong cùng một transaction. Họ cần xác định xem liệu có thể thực hiện việc tự động chuyển đổi trạng thái cần thiết trong một khung thời gian chấp nhận được hay không. Họ sẽ phải chấp nhận giảm bớt tính nhất quán của invariant, bởi vì trạng thái không thể đạt được tính nhất quán ngay trong cùng một transaction. Liệu điều đó có được chấp nhận? Họ đã thảo luận vấn đề này với các chuyên gia nghiệp vụ (domain experts) và biết được rằng việc có một độ trễ nhất định giữa lần ước lượng 0 giờ cuối cùng và thời điểm trạng thái được gán thành *done* (và ngược lại) là hoàn toàn có thể chấp nhận được.
+
+## Implementing Eventual Consistency
+
+Dường như đây là một trường hợp hoàn toàn hợp lý để áp dụng eventual consistency (tính nhất quán cuối cùng) giữa các Aggregate riêng biệt. Dưới đây là cách cơ chế này có thể vận hành.
+
+Khi một Task xử lý command `estimateHoursRemaining()`, nó sẽ publish một Domain Event (sự kiện miền nghiệp vụ) tương ứng. Hiện tại nó đã làm điều đó rồi, nhưng nhóm phát triển giờ đây sẽ tận dụng chính Event này để đạt được eventual consistency. Event này được mô hình hóa với các thuộc tính sau:
+
+```java
 public class TaskHoursRemainingEstimated implements DomainEvent {
     private Date occurredOn;
     private TenantId tenantId;
@@ -8122,8 +9546,21 @@ public class Calendar extends Entity {
     ...
 }
 
-<!-- ⚠️ CẢNH BÁO chunk 20: số ảnh/heading/code-block KHÔNG khớp bản gốc (gốc={'images': 28, 'headings': 23, 'fences': 24}, dịch={'images': 0, 'headings': 19, 'fences': 22}). Xem lại đoạn này bằng tay. -->
+```
 
+<!-- ⚠️ CẢNH BÁO chunk 20: số ảnh/heading/code-block KHÔNG khớp bản gốc (gốc={'images': 28, 'headings': 23, 'fences': 24}, dịch={'images': 6, 'headings': 23, 'fences': 24}). Xem lại đoạn này bằng tay. -->
+
+﻿Calendar sẽ khởi tạo một Aggregate (cụm đối tượng liên kết có ranh giới nhất quán) mới, cụ thể là CalendarEntry. Instance mới này sẽ được trả về cho client sau khi Event (sự kiện) CalendarEntryScheduled được phát hành (publish). (Chi tiết về Event được phát hành không mang nhiều ý nghĩa đối với nội dung thảo luận này.) Bạn có thể nhận thấy phương thức này không có các guard (điều kiện bảo vệ / kiểm tra tính hợp lệ trước khi thực thi) ở đầu hàm. Việc đặt guard cho chính Factory Method (phương thức khởi tạo đối tượng) là không cần thiết, bởi vì constructor của từng tham số Value Object (đối tượng giá trị) và constructor của CalendarEntry, cũng như các phương thức setter mà constructor tự ủy quyền (self-delegate) tới, đều đã cung cấp đầy đủ các guard cần thiết. (Xem Chương 5: Entities để biết thêm chi tiết về self-delegation và guard.) Nếu muốn cẩn thận hơn nữa, bạn vẫn có thể bổ sung thêm các guard tại đây.
+
+Đội ngũ phát triển đã đặt tên phương thức bám sát theo Ubiquitous Language (ngôn ngữ chung / toàn hiện). Các chuyên gia nghiệp vụ (domain experts) cùng với các thành viên khác trong nhóm đã thảo luận về kịch bản sau:
+
+Lịch sẽ lên lịch cho các mục lịch (Calendars schedule calendar entries).
+
+Nếu thiết kế chỉ hỗ trợ một public constructor trên CalendarEntry, tính biểu đạt của mô hình sẽ bị suy giảm và chúng ta sẽ không thể mô hình hóa rõ ràng phần ngôn ngữ nghiệp vụ đó. Áp dụng thiết kế này đòi hỏi constructor toàn diện của Aggregate phải được ẩn hoàn toàn khỏi các client. Chúng tôi khai báo constructor với phạm vi protected, buộc client phải sử dụng Factory Method scheduleCalendarEntry() trên Calendar:
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000441_e20911c0804f01adf87dff3ef77b3d5defee61e1348f15c1b9c35b0c897546b4.png)
+
+```java
 public class CalendarEntry extends Entity {
     ...
     protected CalendarEntry(
@@ -8832,8 +10269,41 @@ public Calendar editingCopy(Calendar aCalendar) {
 }
 ...
 
-<!-- ⚠️ CẢNH BÁO chunk 21: số ảnh/heading/code-block KHÔNG khớp bản gốc (gốc={'images': 25, 'headings': 12, 'fences': 64}, dịch={'images': 0, 'headings': 12, 'fences': 64}). Xem lại đoạn này bằng tay. -->
+```
 
+Cách này phản ánh cách thức hoạt động của phương thức `registerObject()` bên dưới. Dễ hiểu là điều này có thể không thực sự lý tưởng, nhưng đây là một cách tiếp cận rõ ràng và không mang nặng tư duy về việc lưu trữ dữ liệu.
+
+Cách tiếp cận thứ hai là đưa Repository vào chế độ chỉnh sửa thông qua `useEditingMode()`. Sau khi thực hiện thao tác này, tất cả các finder method tiếp theo sẽ tự động đăng ký mọi đối tượng mà chúng truy vấn với một UnitOfWork phía sau và trả về các bản clone. Về cơ bản, điều này sẽ khóa Repository vào mục đích phục vụ cho các sửa đổi Aggregate. Dù sao đi nữa, đó cũng chính là cách thức Repository thường được sử dụng: hoặc là chỉ đọc (read-only), hoặc là đọc để sửa đổi. Nó cũng phản ánh việc sử dụng Repository cho các Aggregate vốn có các ranh giới được thiết kế chuẩn xác, hướng tới sự thành công của các giao dịch.
+
+Có thể có những cách khác để thiết kế một collection-oriented repository cho TopLink, nhưng những giải pháp trên cung cấp một vài lựa chọn rất đáng để cân nhắc.
+
+<!-- ⚠️ CẢNH BÁO chunk 21: số ảnh/heading/code-block KHÔNG khớp bản gốc (gốc={'images': 25, 'headings': 12, 'fences': 64}, dịch={'images': 1, 'headings': 12, 'fences': 66}). Xem lại đoạn này bằng tay. -->
+
+﻿![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000466_0852593b00852e5adb26dbeb3d4428f00137cc7fdb1062e98f1edcad5301b874.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000467_19f77fb8d13fa4de282d7533bbfb6cf792ce64305770ea1efde18c963d212d9d.png)
+
+## Repository hướng lưu trữ (Persistence-Oriented Repositories)
+
+Trong những tình huống mà phong cách collection-oriented (hướng tập hợp) không phát huy tác dụng, bạn sẽ cần sử dụng một Repository (kho lưu trữ đối tượng miền) theo kiểu persistence-oriented (hướng lưu trữ) dựa trên thao tác lưu (`save()`). Trường hợp này xảy ra khi cơ chế lưu trữ bền vững của bạn không tự động phát hiện và theo dõi các thay đổi của đối tượng (dù là ngầm định hay tường minh). Điều này thường thấy khi sử dụng một Data Fabric (4) (lưới dữ liệu trong bộ nhớ), hay một tên gọi khác là NoSQL key-value data store (kho lưu trữ dữ liệu khóa - giá trị NoSQL). Mỗi khi tạo mới một instance (thực thể thể hiện) của Aggregate (cụm tập hợp các thực thể và đối tượng giá trị có cùng ranh giới nhất quán) hoặc chỉnh sửa một instance đã có từ trước, bạn sẽ phải đưa nó vào kho dữ liệu bằng cách sử dụng phương thức `save()` hoặc một phương thức tương tự của Repository.
+
+Còn có một yếu tố cân nhắc khác khi lựa chọn hướng tiếp cận persistence-oriented, ngay cả khi bạn đang sử dụng một ORM (Object-Relational Mapping - công cụ ánh xạ đối tượng - quan hệ) có hỗ trợ phong cách collection-oriented. Điều gì sẽ xảy ra nếu bạn thiết kế các Repository theo hướng collection-oriented rồi sau đó lại quyết định thay thế cơ sở dữ liệu quan hệ bằng một kho lưu trữ key-value? Bạn sẽ gặp phải hiệu ứng gợn sóng (ripple effect) lan rộng khắp Application Layer (tầng ứng dụng), bởi vì tầng này sẽ phải sửa đổi để gọi `save()` ở tất cả những nơi diễn ra việc cập nhật Aggregate. Bạn cũng sẽ muốn loại bỏ các phương thức `add()` và `addAll()` khỏi các Repository của mình, vì chúng không còn phù hợp nữa. Trong những trường hợp mà khả năng thay đổi cơ chế lưu trữ trong tương lai là rất thực tế, tốt nhất bạn nên thiết kế với một interface (giao diện lập trình) linh hoạt hơn ngay từ đầu. Mặt trái là ORM hiện tại có thể khiến bạn bỏ sót những lệnh gọi `save()` cần thiết, điều mà bạn chỉ có thể phát hiện ra sau này khi không còn một Unit of Work (3) (đơn vị công việc theo dõi thay đổi) hỗ trợ phía sau. Ưu điểm là pattern (mẫu thiết kế) Repository sẽ cho phép bạn thay thế hoàn toàn cơ chế lưu trữ bền vững với tác động tiềm tàng ở mức tối thiểu lên ứng dụng của bạn.
+
+## Điểm cốt lõi của Repository hướng lưu trữ
+
+Chúng ta phải gọi lệnh `put()` một cách tường minh cho cả đối tượng mới lẫn đối tượng bị thay đổi vào kho lưu trữ, hành động này sẽ thay thế hoàn toàn bất kỳ giá trị nào đã liên kết trước đó với khóa (key) tương ứng. Việc sử dụng các loại kho dữ liệu này giúp đơn giản hóa đáng kể các thao tác đọc và ghi cơ bản của Aggregate. Vì lý do này, đôi khi chúng còn được gọi là Aggregate Store (kho lưu trữ Aggregate) hoặc Aggregate-Oriented Database (cơ sở dữ liệu hướng Aggregate).
+
+Khi sử dụng một in-memory Data Fabric, chẳng hạn như GemFire hoặc Oracle Coherence, hệ thống lưu trữ thực chất là một triển khai của `Map` trong bộ nhớ mô phỏng lại `java.util.HashMap`, trong đó mỗi phần tử được ánh xạ được coi là một entry (mục nhập). Tương tự, khi sử dụng một kho lưu trữ NoSQL như MongoDB hoặc Riak, việc lưu trữ đối tượng tạo cảm giác giống như một collection (tập hợp), thay vì các bảng, hàng và cột.
+
+3. Bạn có thể tạo các bài kiểm thử cho Application Service (14) (dịch vụ ứng dụng) để kiểm tra việc gọi lưu khi cập nhật khi cần thiết. Một triển khai Repository trong bộ nhớ (xem phần nội dung chính ở phần sau của chương) có thể được thiết kế nhằm kiểm tra tính triệt để của các thao tác lưu.
+
+Các hệ thống này lưu trữ các cặp key-value (khóa - giá trị). Về bản chất, đây là một kho lưu trữ tương tự như `Map`, nhưng sử dụng đĩa cứng thay vì bộ nhớ làm phương tiện lưu trữ chính.
+
+Mặc dù cả hai phong cách cơ chế lưu trữ này đều mô phỏng gần đúng một collection kiểu `Map`, nhưng thật không may, chúng ta buộc phải gọi `put()` một cách tường minh cho cả đối tượng mới lẫn đối tượng bị thay đổi vào kho lưu trữ, qua đó thay thế giá trị đã liên kết trước đó với khóa đã cho. Điều này đúng ngay cả khi một đối tượng bị thay đổi về mặt logic vẫn chính là đối tượng đã được lưu trữ, bởi vì các hệ thống này thường không cung cấp một Unit of Work để theo dõi các thay đổi hoặc hỗ trợ phân định ranh giới transaction (giao dịch) nhằm kiểm soát việc ghi dữ liệu mang tính nguyên tử (atomic write). Thay vào đó, mỗi lệnh `put()` và `putAll()` lại đại diện cho một transaction logic riêng biệt.
+
+Việc sử dụng bất kỳ loại kho dữ liệu nào trong số này đều giúp đơn giản hóa đáng kể các thao tác đọc và ghi cơ bản của Aggregate. Ví dụ, hãy xem xét sự đơn giản khi thêm Product (trong Agile Project Management Context - Ngữ cảnh Quản lý Dự án Agile) này vào một data grid (lưới dữ liệu) Coherence, rồi sau đó đọc lại nó ra:
+
+```java
 cache.put(product.productId(), product);
 
 ```
@@ -9567,8 +11037,38 @@ public class ServiceProvider {
     ...
 }
 
-<!-- ⚠️ CẢNH BÁO chunk 22: số ảnh/heading/code-block KHÔNG khớp bản gốc (gốc={'images': 24, 'headings': 10, 'fences': 76}, dịch={'images': 0, 'headings': 7, 'fences': 74}). Xem lại đoạn này bằng tay. -->
+```
 
+Nếu việc điều phối nội bộ trở nên rườm rà, chúng ta luôn có thể thiết kế một cây phân cấp nhỏ hơn khác để xử lý vấn đề đó. Trên thực tế, bản thân Standard Type hoàn toàn có thể được thiết kế dưới dạng một mẫu State (trạng thái) [Gamma et al.], giả sử bạn ưa thích cách tiếp cận đó. Khi đó, các kiểu khác nhau sẽ triển khai hành vi chuyên biệt của riêng mình. Điều này, dĩ nhiên, cũng đồng nghĩa với việc chúng ta sẽ có một `ServiceProviderRepository` duy nhất, đáp ứng được mong muốn lưu trữ các kiểu khác nhau trong cùng một Repository và sử dụng chúng với hành vi chung.
+
+Tình huống này cũng có thể được giải quyết khéo léo thông qua việc sử dụng các interface dựa trên vai trò (role-based interface). Ở đây, chúng ta có thể quyết định thiết kế một interface `SchedulableService` để nhiều kiểu Aggregate khác nhau cùng triển khai. Hãy xem phần thảo luận về vai trò và trách nhiệm trong chương Entities (5). Ngay cả khi tính kế thừa được sử dụng, hành vi đa hình của Aggregate trong hầu hết các trường hợp đều có thể được thiết kế cẩn trọng sao cho không làm lộ bất kỳ trường hợp ngoại lệ đặc biệt nào ra phía client.
+
+## Phân biệt Repository và Data Access Object
+
+Đôi khi khái niệm Repository bị đánh đồng là đồng nghĩa với Data Access Object (đối tượng truy cập dữ liệu), hay DAO. Đúng là cả hai đều cung cấp một sự trừu tượng hóa trên cơ chế lưu trữ bền vững. Tuy nhiên, một công cụ ánh xạ đối tượng - quan hệ (ORM) cũng cung cấp một sự trừu tượng hóa trên cơ chế lưu trữ bền vững, nhưng nó không phải là Repository cũng chẳng phải là DAO. Vì vậy, chúng ta không thể gọi bừa bất kỳ sự trừu tượng hóa lưu trữ nào là DAO. Thay vào đó, chúng ta phải xác định xem liệu pattern DAO có thực sự đang được triển khai hay không.
+
+Tôi cho rằng nhìn chung có sự khác biệt rõ rệt giữa Repository và DAO. Về cơ bản, một DAO được thể hiện dựa trên các bảng cơ sở dữ liệu và cung cấp các interface CRUD (Create - Read - Update - Delete / Tạo - Đọc - Cập nhật - Xóa) thao tác trên các bảng đó. Martin Fowler trong cuốn [Fowler, P of EAA] đã phân tách việc sử dụng các cơ chế kiểu DAO khỏi những cơ chế được sử dụng cùng với domain model. Ông xác định Table Module (mô-đun bảng), Table Data Gateway (cổng dữ liệu bảng) và Active Record (bản ghi chủ động) là những pattern thường được sử dụng trong một ứng dụng viết theo Transaction Script (kịch bản giao dịch). Đó là bởi vì DAO và các pattern liên quan có xu hướng đóng vai trò như các lớp vỏ bọc (wrapper) bao quanh các bảng cơ sở dữ liệu. Ngược lại, Repository và Data Mapper (bộ ánh xạ dữ liệu), với đặc tính gắn kết chặt chẽ với đối tượng (object affinity), mới là những pattern điển hình được sử dụng với một domain model.
+
+<!-- ⚠️ CẢNH BÁO chunk 22: số ảnh/heading/code-block KHÔNG khớp bản gốc (gốc={'images': 24, 'headings': 10, 'fences': 76}, dịch={'images': 2, 'headings': 10, 'fences': 76}). Xem lại đoạn này bằng tay. -->
+
+﻿Vì bạn có thể sử dụng DAO (Data Access Object - đối tượng truy cập dữ liệu) và các pattern (mẫu thiết kế) liên quan để thực hiện những thao tác CRUD (Create, Read, Update, Delete - các thao tác cơ bản: Tạo, Đọc, Cập nhật, Xóa) chi tiết ở mức tinh thể trên dữ liệu mà đáng lẽ ra phải được coi là các phần cấu thành của một Aggregate (tập hợp các đối tượng nghiệp vụ ràng buộc theo một ranh giới nhất quán), nên đây là một pattern cần tránh đối với một domain model (mô hình miền nghiệp vụ). Trong điều kiện bình thường, bạn luôn muốn chính Aggregate tự quản lý logic nghiệp vụ cùng các thành phần nội bộ của nó và ngăn chặn mọi sự can thiệp từ bên ngoài.
+
+Trước đây tôi từng chỉ ra rằng, đôi khi một stored procedure (thủ tục lưu trữ trong cơ sở dữ liệu) hoặc một data grid entry processor (bộ xử lý mục nhập trong lưới dữ liệu phân tán) là điều thiết yếu để đáp ứng một số nonfunctional requirement (yêu cầu phi chức năng) khắt khe. Tùy thuộc vào domain cụ thể của bạn, điều này có thể là quy luật chung hơn là ngoại lệ. Tuy nhiên, nếu một yêu cầu phi chức năng của hệ thống không bắt buộc điều đó, tôi khuyên bạn nên tránh sử dụng. Việc đặt và thực thi logic nghiệp vụ ngay trong data store (kho lưu trữ dữ liệu) nhiều khi đi ngược lại hoàn toàn với tinh thần của DDD (Domain-Driven Design - thiết kế hướng miền). Tôi có thể kết luận rằng việc sử dụng một Data Fabric Function/Entry Processor (hàm/bộ xử lý mục nhập của cấu trúc dữ liệu hợp nhất) thực chất không hề gây cản trở các mục tiêu của mô hình hóa miền. Phần triển khai Function/Entry Processor này có thể được viết bằng Java chẳng hạn, và vẫn hoàn toàn tuân thủ Ubiquitous Language (ngôn ngữ chung thống nhất) (1) cùng các mục tiêu của domain. Khác biệt duy nhất so với mô hình cốt lõi nằm ở nơi Function/Entry Processor được thực thi, và điều này không gây phá vỡ cấu trúc. Ngược lại, việc lạm dụng tràn lan các stored procedure lại tiềm ẩn nguy cơ phá vỡ DDD rất lớn, bởi vì ngôn ngữ lập trình của cơ sở dữ liệu thường không được nhóm mô hình hóa hiểu rõ, và các triển khai này thường được "giấu kỹ" khỏi tầm mắt của họ. Nếu như vậy, điều đó hoàn toàn trái ngược với những gì mà DDD đang nỗ lực đạt được.
+
+> 💡 **Giải thích thêm:** Trong toán học và kỹ thuật phần mềm, cụm từ "runs orthogonal to" (chạy trực giao với) mang nghĩa là vuông góc, tách rời độc lập hoặc đi ngược lại hướng đi chính. Ở đây, tác giả muốn nhấn mạnh rằng việc đẩy logic nghiệp vụ xuống cơ sở dữ liệu đi ngược hoàn toàn với tôn chỉ của DDD — nơi logic miền phải là trung tâm và được thể hiện tường minh trong mã nguồn của ứng dụng.
+> (Không có nguồn trích dẫn xác thực — cần tự kiểm chứng thêm)
+
+Bạn có thể xem Repository (kho lưu trữ đối tượng miền nghiệp vụ) như một DAO theo nghĩa khái quát. Tuy nhiên, điều quan trọng cốt lõi cần ghi nhớ là hãy luôn cố gắng thiết kế các Repository theo định hướng tập hợp (collection orientation) thay vì định hướng truy cập dữ liệu (data access orientation). Điều đó sẽ giúp bạn duy trì sự tập trung vào domain dưới góc độ một mô hình, thay vì bị cuốn vào dữ liệu và các thao tác CRUD diễn ra ở hậu trường để phục vụ mục đích persistence (lưu trữ dữ liệu bền vững).
+
+## Testing Repositories
+
+Có hai góc độ khi xem xét việc kiểm thử Repository. Bạn phải kiểm thử chính bản thân các Repository để chứng minh rằng chúng hoạt động chính xác. Bạn cũng phải kiểm thử phần mã nguồn sử dụng Repository để lưu trữ các Aggregate vừa được tạo cũng như tìm kiếm các Aggregate đã tồn tại từ trước. Đối với loại kiểm thử thứ nhất, bạn bắt buộc phải sử dụng các triển khai hoàn chỉnh đạt chất lượng production (môi trường vận hành thực tế). Nếu không, bạn sẽ không thể biết được liệu mã nguồn production của mình có hoạt động hay không. Đối với loại kiểm thử thứ hai, bạn có thể sử dụng các triển khai production, hoặc thay thế bằng các triển khai in-memory (lưu trữ trong bộ nhớ). Lúc này tôi sẽ thảo luận về các bài kiểm thử cho triển khai production, và sẽ đề cập đến các bài kiểm thử in-memory ngay sau đó.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000490_9df635afd1abff62a7130e56334b0b6845d056abe7ee9dd1c1ddea4b08479a11.png)
+
+Hãy cùng xem xét các bài kiểm thử cho phần triển khai Coherence của `ProductRepository` đã được trình bày trước đó:
+
+```java
 public class CoherenceProductRepositoryTest extends DomainTest {
 
     private ProductRepository productRepository;
@@ -10216,8 +11716,25 @@ Content-Type: application/vnd.saasovation.idovation+json
   "emailAddress": "zoe@saasovation.com"
 }
 
-<!-- ⚠️ CẢNH BÁO chunk 23: số ảnh/heading/code-block KHÔNG khớp bản gốc (gốc={'images': 27, 'headings': 17, 'fences': 38}, dịch={'images': 0, 'headings': 15, 'fences': 32}). Xem lại đoạn này bằng tay. -->
+```
 
+Như bạn sẽ thấy tiếp theo, consumer tích hợp của tài nguyên RESTful này có thể dịch nó thành kiểu đối tượng miền cụ thể mà Bounded Context của nó yêu cầu.
+
+## Implementing the REST Client Using an Anticorruption Layer
+
+Mặc dù biểu diễn JSON do Identity and Access Context tạo ra rất hữu ích cho các bên tích hợp, nhưng khi chúng ta tập trung vào các mục tiêu của DDD, biểu diễn này sẽ không được tiêu thụ nguyên trạng bên trong Bounded Context của client. Như đã thảo luận trong các chương trước, nếu bên tiêu thụ là Collaboration Context, nhóm phát triển sẽ không bận tâm đến các khái niệm người dùng và vai trò mang tính tổng quát, sơ khai. Thay vào đó, nhóm phát triển mô hình cộng tác chỉ quan tâm đến các vai trò đặc thù của domain. Việc ở một mô hình khác có một tập hợp các đối tượng `User` có thể được gán cho một hoặc nhiều vai trò được mô hình hóa bởi một đối tượng `Role` thực sự không nằm trong trọng tâm (sweet spot) của bối cảnh cộng tác.
+
+Vậy làm thế nào để biến biểu diễn user-in-role này phục vụ cho các mục đích cộng tác cụ thể của chúng ta? Hãy cùng nhìn lại một Context Map đã vẽ trước đó, lần này xuất hiện trong Hình 13.1. Các thành phần quan trọng của Adapter `UserResource` đã được hiển thị trong tiểu mục trước. Phần còn lại là các interface và class cần được phát triển chuyên biệt cho Collaboration Context. Đó là `CollaboratorService`, `UserInRoleAdapter`, và `CollaboratorTranslator`. Ngoài ra còn có `HttpClient`, nhưng thành phần đó được cung cấp sẵn bởi triển khai JAX-RS thông qua các lớp `ClientRequest` và `ClientResponse`.
+
+Hình 13.1 Open Host Service của Identity and Access Context và Anticorruption Layer của Collaboration Context được sử dụng để tích hợp giữa hai ngữ cảnh
+
+Bộ ba gồm `CollaboratorService`, `UserInRoleAdapter`, và `CollaboratorTranslator` được sử dụng để hình thành nên một Anticorruption Layer (tầng chống làm hỏng mô hình) (3), đây là phương tiện giúp Collaboration Context tương tác với Identity and Access Context và chuyển đổi biểu diễn user-in-role thành một Value Object đại diện cho một loại `Collaborator` cụ thể.
+
+<!-- ⚠️ CẢNH BÁO chunk 23: số ảnh/heading/code-block KHÔNG khớp bản gốc (gốc={'images': 27, 'headings': 17, 'fences': 38}, dịch={'images': 1, 'headings': 17, 'fences': 34}). Xem lại đoạn này bằng tay. -->
+
+﻿Dưới đây là interface `CollaboratorService`, định nghĩa các thao tác đơn giản của Anticorruption Layer (ACL - lớp chống tha hóa, giúp bảo vệ mô hình miền khỏi sự xâm nhập của mô hình ngoại lai):
+
+```java
 public interface CollaboratorService {
     public Author authorFrom(Tenant aTenant, String anIdentity);
     public Creator creatorFrom(Tenant aTenant, String anIdentity);
@@ -11191,8 +12708,21 @@ public class ProductDiscussionRequestedListener extends ExchangeListener {
     ...
 }
 
-<!-- ⚠️ CẢNH BÁO chunk 24: số ảnh/heading/code-block KHÔNG khớp bản gốc (gốc={'images': 25, 'headings': 11, 'fences': 76}, dịch={'images': 0, 'headings': 11, 'fences': 74}). Xem lại đoạn này bằng tay. -->
+```
 
+Đối với cả hai kiểu Event là `ProductCreated` hay `ProductDiscussionRequested`, nếu thuộc tính `requestingDiscussion` mang giá trị `false`, chúng ta sẽ bỏ qua Event. Ngược lại, chúng ta sẽ xây dựng một command `CreateExclusiveDiscussion` từ trạng thái của Event và gửi command đó tới message exchange của Collaboration Context.
+
+Đây là thời điểm thích hợp để tạm dừng và suy ngẫm về cách tiến trình này được thiết kế. Liệu Agile Project Management Context có thực sự nên thiết lập một listener để lắng nghe một Event do chính Aggregate cục bộ của nó phát hành hay không? Liệu có tốt hơn nếu tạo một listener lắng nghe Event `ProductCreated` ngay bên trong Collaboration Context? Nếu làm như vậy, chúng ta chỉ cần để listener trong Collaboration Context quản lý việc tạo `Forum` và `Discussion` độc quyền, đồng thời cắt giảm được một phần mã nguồn trong Agile Project Management Context. Việc xác định xem cách tiếp cận nào tốt hơn đòi hỏi chúng ta phải cân nhắc một số yếu tố.
+
+Liệu việc một Bounded Context thượng nguồn (upstream) lại đi lắng nghe các Event do một Context hạ nguồn (downstream) phát hành có hợp lý không? Hoặc giả, trong một Event-Driven Architecture (kiến trúc hướng sự kiện) (4), các hệ thống có thực sự bị phân định rạch ròi theo quan hệ upstream và downstream hay không? Liệu chúng có nhất thiết phải bị đóng khung vào khuôn mẫu đó? Có lẽ yếu tố quan trọng hơn cần xem xét là: liệu có đúng đắn không khi một Event `ProductCreated` lại được diễn giải bên trong Collaboration Context như một chỉ thị báo hiệu rằng một `Forum` và `Discussion` độc quyền cần phải được tạo ra? Trên thực tế, liệu `ProductCreated` có mang bất kỳ ý nghĩa nghiệp vụ nào đối với Collaboration Context hay không? Sẽ có thêm bao nhiêu Context khác trong tương lai cũng muốn nhận được sự hỗ trợ tự động tương tự cho chính tính năng này dựa trên các kiểu Event đặc thù của riêng họ? Liệu có nên đặt gánh nặng phải hỗ trợ vô số Event ngoại lai dưới dạng các lệnh khởi tạo lên vai Collaboration Context hay không? Tuy nhiên, vẫn còn một yếu tố khác cần xem xét, đòi hỏi chúng ta phải quản lý sự thành công của các Long-Running Process một cách cẩn trọng hơn. Chủ đề này, được thảo luận ngay sau đây, có thể sẽ giúp làm sáng tỏ lý do tại sao chúng tôi lại tiếp cận theo cách thức cụ thể này.
+
+Bây giờ, hãy quay trở lại với ví dụ . . . Sau khi được tiếp nhận trong Collaboration Context, command sẽ được điều chỉnh để chuyển tiếp tới `ForumService`, một Application Service. Lưu ý rằng API này chưa được thiết kế để sử dụng các tham số dạng command mà vẫn nhận các tham số thuộc tính riêng lẻ:
+
+<!-- ⚠️ CẢNH BÁO chunk 24: số ảnh/heading/code-block KHÔNG khớp bản gốc (gốc={'images': 25, 'headings': 11, 'fences': 76}, dịch={'images': 0, 'headings': 11, 'fences': 76}). Xem lại đoạn này bằng tay. -->
+
+﻿![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000542_cb54814c38ab5233fe33f16971a406f3e6e012889ccc601fe7fedbb6cfcbd80c.png)
+
+```java
 package com.saasovation.collaboration.infrastructure.messaging;
 ...
 public class ExclusiveDiscussionCreationListener extends ExchangeListener {
@@ -11964,8 +13494,59 @@ public class BacklogItem ... {
     ...
 }
 
-<!-- ⚠️ CẢNH BÁO chunk 25: số ảnh/heading/code-block KHÔNG khớp bản gốc (gốc={'images': 26, 'headings': 18, 'fences': 58}, dịch={'images': 0, 'headings': 17, 'fences': 56}). Xem lại đoạn này bằng tay. -->
+```
 
+Các bên cung cấp mối quan tâm (interest providers) khác nhau có thể được triển khai bởi các lớp khác, tương tự như cách mà các Entity (Chương 5) mô tả việc ủy quyền thẩm định (validation) cho các lớp validator riêng biệt.
+
+Hãy lưu ý rằng một số người sẽ coi cách tiếp cận này hoàn toàn nằm ngoài phạm vi trách nhiệm của một Aggregate. Những người khác lại coi đó là một sự mở rộng hoàn toàn tự nhiên của một domain model được thiết kế tốt. Như mọi khi, những đánh đổi như vậy phải được các thành viên trong nhóm kỹ thuật của bạn thảo luận kỹ lưỡng.
+
+## Render Aggregate Instances from a Domain Payload Object
+
+<!-- ⚠️ CẢNH BÁO chunk 25: số ảnh/heading/code-block KHÔNG khớp bản gốc (gốc={'images': 26, 'headings': 18, 'fences': 58}, dịch={'images': 1, 'headings': 18, 'fences': 58}). Xem lại đoạn này bằng tay. -->
+
+﻿Có một cách tiếp cận mang lại cải tiến khả thi khi các DTO (Data Transfer Object - đối tượng truyền tải dữ liệu) trở nên không cần thiết. Cách này tập hợp toàn bộ các thể hiện (instance) của nhiều Aggregate (cụm đối tượng có tính toàn vẹn trong DDD) cho việc hiển thị khung nhìn (view) vào trong một Domain Payload Object [Vernon, DPO] (đối tượng tải trọng miền) duy nhất. DPO có động lực tương tự như DTO nhưng tận dụng được lợi thế của kiến trúc ứng dụng chạy trên một Virtual Machine (máy ảo) đơn lẻ. Nó được thiết kế để chứa các tham chiếu đến toàn bộ thể hiện Aggregate chứ không phải từng thuộc tính riêng lẻ. Các cụm thể hiện Aggregate có thể được luân chuyển giữa các tầng logic (tier hoặc layer) thông qua một đối tượng chứa Payload (tải trọng/dữ liệu thực tải) đơn giản. Application Service (xem mục 'Application Services') (dịch vụ ứng dụng) sử dụng các Repository (kho lưu trữ đối tượng miền) để truy xuất các thể hiện Aggregate cần thiết, sau đó khởi tạo DPO để nắm giữ tham chiếu tới từng thể hiện đó. Các thành phần ở tầng Presentation (hiển thị / trình diễn) sẽ yêu cầu đối tượng DPO cung cấp các tham chiếu thể hiện Aggregate, rồi sau đó yêu cầu chính các Aggregate này cung cấp các thuộc tính có thể hiển thị.
+
+## Cowboy Logic
+
+LB: 'Nếu bạn chưa từng bị ngã ngựa, thì tức là bạn cưỡi chưa đủ lâu.'
+
+> 💡 **Giải thích thêm:** "Cowboy Logic" và ngạn ngữ "Nếu bạn chưa từng ngã ngựa, bạn cưỡi chưa đủ lâu" là triết lý thực tế của giới cao bồi miền Tây nước Mỹ, hàm ý rằng khi làm việc thực tế với hệ thống phần mềm phức tạp, việc vấp phải sai sót, ngoại lệ hoặc sự cố biên là điều không thể tránh khỏi; người chưa từng gặp sự cố thường chỉ là do chưa trải nghiệm thực tế đủ lâu.  
+> Nguồn tham khảo: (Không có nguồn trích dẫn xác thực — cần tự kiểm chứng thêm)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000568_e554bb9492e6172ff1754b9d956e7d8e3c141cd75225f55cf239a1dab5d3ef8a.png)
+
+Cách tiếp cận này có ưu điểm là đơn giản hóa việc thiết kế các đối tượng dùng để luân chuyển các cụm dữ liệu giữa các tầng logic. Các DPO thường dễ thiết kế hơn nhiều và chiếm dụng bộ nhớ (memory footprint) nhỏ hơn. Vì dù sao các thể hiện Aggregate cũng bắt buộc phải được đọc vào bộ nhớ, nên chúng ta tận dụng luôn việc chúng đã tồn tại sẵn.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000569_8229e711e138d11dfcd96cbc6495e73989967b1773e4eb18cf123dcce250356f.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000570_c6252b95e2433b70dad6753fe9d2613987ed486e6b97527107680f1af4bddd0c.png)
+
+Tuy nhiên, có một vài hệ quả tiêu cực tiềm ẩn cần cân nhắc. Do tính chất tương đồng với DTO, cách tiếp cận này cũng đòi hỏi các Aggregate phải cung cấp phương thức để đọc trạng thái của chúng. Để tránh việc giao diện người dùng (UI) bị phụ thuộc chặt chẽ (tight coupling) vào mô hình, chúng ta cũng có thể áp dụng các giải pháp như Mediator (mẫu thiết kế trung gian), Double-Dispatch (kỹ thuật phân phối kép), hoặc giao diện truy vấn trên Aggregate Root (gốc cụm đối tượng) – những kỹ thuật từng được đề xuất trước đó cho DTO Assembler.
+
+Vẫn còn một tình huống khác cần xử lý. Do DPO nắm giữ các tham chiếu đến toàn bộ các thể hiện Aggregate, nên bất kỳ đối tượng hoặc tập hợp (collection) nào được nạp theo cơ chế lazy loading (nạp lười / trì hoãn nạp khi cần) đều chưa được phân giải (unresolved). Không có lý do gì để phải truy cập vào tất cả các thuộc tính Aggregate cần thiết chỉ để tạo ra Domain Payload Object. Do ngay cả các giao dịch (transaction) chỉ đọc (read-only) cũng thường được commit khi phương thức của Application Service kết thúc, bất kỳ thành phần hiển thị nào tham chiếu đến các đối tượng lazy-loaded chưa được phân giải sẽ gây ra ngoại lệ (exception). 3
+
+Để xử lý triệt để các lazy load cần thiết, chúng ta có thể chọn chiến lược eager loading (nạp dữ liệu sớm / nạp ngay lập tức), hoặc có thể dùng một Domain Dependency Resolver [Vernon, DDR] (bộ phân giải phụ thuộc miền). Đây là một biến thể của Strategy [Gamma et al.] (mẫu thiết kế chiến lược), thường áp dụng một Strategy cho mỗi luồng use case. Mỗi Strategy sẽ ép buộc việc truy cập vào toàn bộ các thuộc tính lazy-loaded của Aggregate được sử dụng bởi luồng use case cụ thể đó. Việc ép buộc truy cập này diễn ra trước khi Application Service commit transaction và trả Domain Payload Object về cho client của nó. Strategy có thể được hard-code (viết mã cứng) để truy cập thủ công các thuộc tính lazy-loaded, hoặc có thể sử dụng một ngôn ngữ biểu thức (expression language) đơn giản mô tả cách thức điều hướng nội quan (introspectively) và phản xạ (reflectively) qua các thể hiện Aggregate. Bộ thu thập điều hướng dựa trên reflection này có ưu điểm là có thể tác động được lên cả các thuộc tính ẩn (hidden attributes). Dù vậy, bạn có thể sẽ cảm thấy thoải mái hơn khi tùy biến truy vấn để fetch sớm (eager fetch) các đối tượng vốn thường được lazy load, nếu tùy chọn đó khả dụng.
+
+## State Representations of Aggregate Instances
+
+Nếu ứng dụng của bạn cung cấp các tài nguyên dựa trên REST (Representational State Transfer - kiến trúc truyền trạng thái đại diện) như đã thảo luận trong chương REST (4), chúng sẽ cần tạo ra các biểu diễn trạng thái (state representation) của các đối tượng miền cho client. Việc tạo ra các biểu diễn dựa trên use case chứ không phải dựa trên các thể hiện Aggregate là điều tối quan trọng. Điều này xuất phát từ động lực rất tương đồng với DTO – vốn cũng được tinh chỉnh cho các use case. Tuy nhiên, sẽ chính xác hơn nếu xem tập hợp các tài nguyên RESTful như một mô hình độc lập thực thụ – một View Model hoặc Presentation Model [Fowler, PM] (mô hình hiển thị / trình bày). Hãy cưỡng lại cám dỗ tạo ra các biểu diễn phản chiếu 1-1 trạng thái của các Aggregate trong mô hình miền, có thể đi kèm các liên kết để điều hướng tới trạng thái sâu hơn. Nếu không, các client của bạn sẽ buộc phải hiểu cặn kẽ cả mô hình miền lẫn bản thân các Aggregate. Khi đó, client sẽ phải nắm rõ mọi ngóc ngách tinh tế trong các hành vi và sự chuyển đổi trạng thái, và bạn sẽ đánh mất toàn bộ lợi ích của tính trừu tượng hóa (abstraction).
+
+3. Một số người thích dùng Open Session In View (OSIV - kỹ thuật mở session tầng hiển thị) để kiểm soát transaction ở cấp độ request-response (yêu cầu - phản hồi), tức là ở vị trí rất cao trên giao diện người dùng. Vì nhiều lý do khác nhau, tôi coi OSIV là có hại, nhưng YMMV ('Your Mileage May Vary').
+
+> 💡 **Giải thích thêm:** Thành ngữ "Your Mileage May Vary" (YMMV) vốn bắt nguồn từ các quảng cáo xe hơi tại Mỹ cảnh báo rằng mức tiêu hao nhiên liệu thực tế có thể khác nhau tùy người lái. Trong giới kỹ thuật phần mềm, câu này mang hàm ý: "đây là nhận định mang tính trải nghiệm cá nhân của tác giả, còn trong thực tế dự án của bạn thì hiệu quả có thể sẽ khác nhau tùy bối cảnh".  
+> Nguồn tham khảo: (Không có nguồn trích dẫn xác thực — cần tự kiểm chứng thêm)
+
+## Use Case Optimal Repository Queries
+
+Thay vì phải đọc nhiều thể hiện Aggregate hoàn chỉnh thuộc các kiểu khác nhau rồi dùng mã lập trình để gom chúng vào một container duy nhất (DTO hoặc DPO), bạn có thể sử dụng giải pháp gọi là truy vấn tối ưu theo use case (use case optimal query). Đây là cách bạn thiết kế Repository của mình với các phương thức truy vấn tìm kiếm (finder method) có khả năng tổng hợp một đối tượng tùy chỉnh dưới dạng một tập cha (superset) chứa dữ liệu từ một hoặc nhiều thể hiện Aggregate. Truy vấn sẽ tự động đưa kết quả vào một Value Object (6) (đối tượng giá trị) được thiết kế chuyên biệt để đáp ứng nhu cầu của use case đó. Bạn thiết kế một Value Object chứ không phải DTO, bởi vì truy vấn này mang tính đặc thù của miền (domain-specific), chứ không mang tính đặc thù của ứng dụng (application-specific như DTO). Value Object tùy chỉnh tối ưu theo use case này sau đó sẽ được bộ hiển thị khung nhìn (view renderer) sử dụng trực tiếp.
+
+Cách tiếp cận truy vấn tối ưu theo use case có động lực tương tự như CQRS (4) (Command Query Responsibility Segregation - phân tách trách nhiệm dòng lệnh và truy vấn). Tuy nhiên, truy vấn tối ưu theo use case sử dụng một Repository thao tác trên kho lưu trữ dữ liệu bền vững (persistence store) hợp nhất của mô hình miền, thay vì dùng một truy vấn cơ sở dữ liệu thô (chẳng hạn như SQL) thao tác trên một kho lưu trữ truy vấn/đọc (query/read store) riêng biệt. Để hiểu rõ sự đánh đổi giữa cách tiếp cận này so với CQRS, hãy xem thảo luận liên quan trong phần Repositories (12). Dẫu vậy, một khi bạn đã bắt đầu đi theo con đường truy vấn tối ưu theo use case này, bạn đã ở rất gần với CQRS đến mức có lẽ việc chuyển hẳn sang hướng CQRS sẽ đáng giá hơn.
+
+## Dealing with Multiple, Disparate Clients
+
+Bạn sẽ làm gì nếu ứng dụng của mình bắt buộc phải hỗ trợ nhiều loại client khác biệt nhau? Danh sách này có thể bao gồm RIA (Rich Internet Application - ứng dụng internet đa tính năng), một thick client (ứng dụng client đồ họa dày), các dịch vụ nền tảng REST, và cả cơ chế messaging (truyền thông điệp). Bạn có thể cũng sẽ xem các bộ điều khiển kiểm thử (test driver) khác nhau như các loại client riêng biệt. Như sẽ được thảo luận chi tiết hơn ở phần sau, bạn có thể thiết kế các Application Service của mình để tiếp nhận một Data Transformer (bộ chuyển đổi dữ liệu), trong đó mỗi client sẽ chỉ định cụ thể loại Data Transformer tương ứng. Application Service sau đó sẽ thực hiện double-dispatch trên tham số Data Transformer, từ đó tạo ra định dạng dữ liệu theo yêu cầu. Dưới đây là cách mà phía giao diện người dùng có thể hiển thị cho một client nền REST:
+
+```java
 ...
 CalendarWeekData calendarWeekData =
     calendarAppService.calendarWeek(date, new CalendarWeekXMLDataTransformer());
@@ -12558,8 +14139,94 @@ Một loại registry bean tương tự cũng được cung cấp để truy c�
     </bean>
 </beans>
 
-<!-- ⚠️ CẢNH BÁO chunk 26: số ảnh/heading/code-block KHÔNG khớp bản gốc (gốc={'images': 28, 'headings': 16, 'fences': 48}, dịch={'images': 0, 'headings': 8, 'fences': 46}). Xem lại đoạn này bằng tay. -->
+```
 
+Bằng cách sử dụng `DomainRegistry`, chúng ta có thể truy cập vào bất kỳ bean nào trong số các bean đã được đăng ký này của Spring. Tất cả các bean cũng đều sẵn sàng để được tiêm phụ thuộc vào các bean Spring khác. Như vậy, các Application Service có thể chọn sử dụng Service Factory hoặc Dependency Injection. Hãy xem phần Services (7) để có cuộc thảo luận chuyên sâu hơn về việc sử dụng hai cách tiếp cận này so với thiết lập phụ thuộc dựa trên constructor.
+
+## Wrap-Up
+
+Trong chương này, chúng ta đã tìm hiểu cách thức ứng dụng hoạt động bên ngoài mô hình miền.
+
+* Bạn đã xem xét một số kỹ thuật để render dữ liệu của mô hình lên các giao diện người dùng.
+* Bạn đã thấy các cách tiếp nhận dữ liệu đầu vào của người dùng để áp dụng vào mô hình miền.
+* Bạn đã học được nhiều tùy chọn đa dạng để truyền tải dữ liệu của mô hình, ngay cả khi có thể có rất nhiều loại giao diện người dùng khác nhau.
+* Bạn đã tìm hiểu sâu về các Application Service và những gì chúng chịu trách nhiệm.
+* Bạn đã được giới thiệu một tùy chọn để phân tách đầu ra khỏi các loại client cụ thể.
+* Bạn đã học được những cách sử dụng tầng hạ tầng để tách rời các phần triển khai kỹ thuật ra khỏi mô hình miền.
+
+* Bạn đã xem xét cách áp dụng DIP để làm cho các client ở mọi khía cạnh của ứng dụng đều phụ thuộc vào các trừu tượng thay vì các chi tiết triển khai, giúp thúc đẩy tính liên kết lỏng.
+* Cuối cùng, bạn đã thấy cách mà các máy chủ ứng dụng phổ thông và các enterprise component container có thể tiếp thêm sức mạnh vận hành thực tế cho các ứng dụng của bạn (give legs to your applications).
+
+> 💡 **Giải thích thêm:** Thành ngữ tiếng Anh "give legs to [something]" (nghĩa đen: "gắn thêm đôi chân cho...") có nghĩa là tiếp thêm khả năng vận hành thực tế, sự bền bỉ và sức sống để hệ thống có thể tự đứng vững, mở rộng quy mô và chạy ổn định trong môi trường doanh nghiệp thực tế (production).
+> Nguồn tham khảo: (Không có nguồn trích dẫn xác thực — cần tự kiểm chứng thêm)
+
+Giờ đây, bạn đã có một nền tảng vững chắc để triển khai DDD từ mô hình miền được chăm chút kỹ lưỡng cho đến các thành phần của toàn bộ ứng dụng.
+
+## Appendix A
+
+## Aggregates and Event Sourcing: A+ES
+
+## Contributed by Rinat Abdullin
+
+Khái niệm Event Sourcing (nguồn sự kiện / kiến trúc lưu vết sự kiện) đã được sử dụng trong nhiều thập kỷ, nhưng gần đây đã được Greg Young phổ biến rộng rãi hơn nhờ việc áp dụng nó vào DDD [Young, ES].
+
+Event Sourcing có thể được dùng để biểu diễn toàn bộ trạng thái của một Aggregate (10) dưới dạng một chuỗi các Event (8) (sự kiện) đã xảy ra kể từ thời điểm nó được tạo. Các Event này được dùng để tái tạo lại trạng thái của Aggregate bằng cách phát lại (replay) chúng theo đúng thứ tự mà chúng đã diễn ra. Tiền đề ở đây là cách tiếp cận này sẽ đơn giản hóa việc lưu trữ dữ liệu bền vững và cho phép nắm bắt trọn vẹn các khái niệm có các thuộc tính hành vi phức tạp.
+
+Tập hợp các Event đại diện cho trạng thái của từng Aggregate được lưu lại trong một Event Stream (luồng sự kiện) chỉ cho phép ghi thêm (append-only). Trạng thái của Aggregate này sẽ tiếp tục biến đổi qua các thao tác kế tiếp bằng cách nối thêm các Event mới vào cuối Event Stream, như được minh họa trong Hình A.1. (Trong phụ lục này, các Event được thể hiện dưới dạng các hình chữ nhật màu xám nhạt để giúp chúng nổi bật hơn so với các khái niệm khác.)
+
+Event Stream của mỗi Aggregate thường được lưu trữ bền vững trong các Event Store (8) (kho lưu trữ sự kiện), nơi chúng được phân biệt duy nhất, thông thường là dựa theo danh tính (identity) của Entity (5) (thực thể) gốc. Cách xây dựng một Event Store chuyên biệt dùng cho Event Sourcing sẽ được đề cập chi tiết hơn ở phần sau của phụ lục này.
+
+Kể từ đây trở đi, chúng ta hãy gọi cách tiếp cận sử dụng Event Sourcing để duy trì trạng thái của các Aggregate và lưu trữ bền vững chúng là A+ES.
+
+Một số lợi ích chính của A+ES là:
+
+* Event Sourcing đảm bảo rằng lý do đằng sau mỗi thay đổi đối với một thể hiện Aggregate sẽ không bao giờ bị mất đi. Khi sử dụng cách tiếp cận truyền thống là
+
+Hình A.1 Một Event Stream chứa các Domain Event theo thứ tự xảy ra
+
+<!-- ⚠️ CẢNH BÁO chunk 26: số ảnh/heading/code-block KHÔNG khớp bản gốc (gốc={'images': 28, 'headings': 16, 'fences': 48}, dịch={'images': 3, 'headings': 16, 'fences': 48}). Xem lại đoạn này bằng tay. -->
+
+﻿![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000596_fdb9125e2dbe86ae3c0769de2ae2c7e08ea0023483afa9fcb94c63b044dfee06.png)
+
+Khi tuần tự hóa (serialize) trạng thái hiện tại của một Aggregate (Cụm đối tượng nghiệp vụ) vào cơ sở dữ liệu, chúng ta luôn ghi đè lên trạng thái đã tuần tự hóa trước đó và không bao giờ có thể khôi phục lại được. Tuy nhiên, việc lưu giữ lý do dẫn đến từng thay đổi kể từ khi khởi tạo một thực thể (instance) Aggregate xuyên suốt toàn bộ vòng đời của nó lại có giá trị vô giá đối với doanh nghiệp. Như đã thảo luận trong Chương Kiến trúc (Architecture - Chương 4), những lợi ích mang lại có thể rất sâu rộng: độ tin cậy, thông tin nghiệp vụ thông minh (business intelligence) trong ngắn hạn và dài hạn, các khám phá phân tích dữ liệu, nhật ký kiểm toán (audit log) đầy đủ, và khả năng quay ngược thời gian để phục vụ mục đích gỡ lỗi (debugging).
+
+- Bản chất chỉ ghi thêm (append-only) của các Event Stream (Luồng sự kiện) mang lại hiệu năng vượt trội và hỗ trợ hàng loạt tùy chọn sao chép dữ liệu (data replication). Việc áp dụng các phương pháp tương tự đã giúp những công ty như LMAX xây dựng các hệ thống giao dịch chứng khoán có độ trễ cực thấp (very low-latency).
+- Cách tiếp cận lấy sự kiện làm trung tâm (Event-centric) trong thiết kế Aggregate cho phép các nhà phát triển tập trung nhiều hơn vào các hành vi được thể hiện thông qua Ngôn ngữ chung (Ubiquitous Language - Chương 1) nhờ việc tránh được sự bất tương thích trở kháng (impedance mismatch - sự lệch pha giữa mô hình đối tượng và cơ sở dữ liệu quan hệ) tiềm ẩn của cơ chế ánh xạ đối tượng - quan hệ (ORM - Object-Relational Mapping), đồng thời mang lại các hệ thống vững chắc hơn và thích ứng tốt hơn với sự thay đổi.
+
+> 💡 **Giải thích thêm về "Impedance mismatch":**
+> Khái niệm "Object-relational impedance mismatch" chỉ sự khác biệt căn bản giữa hai mô hình tư duy: mô hình lập trình hướng đối tượng (OOP) tập trung vào hành vi, đóng gói, đa hình và các mối quan hệ đồ thị; trong khi cơ sở dữ liệu quan hệ (RDBMS) lại dựa trên đại số quan hệ, các bảng hai chiều và khóa ngoại. Khi cố gắng ép các đối tượng nghiệp vụ phức tạp vào bảng CSDL, lập trình viên thường phải trả giá bằng hiệu năng và sự phức tạp của tầng ORM.
+> (Nguồn tham khảo: https://martinfowler.com/bliki/OrmHate.html)
+
+Dù vậy, chớ nên nhầm lẫn: A+ES (Aggregate + Event Sourcing - kết hợp Aggregate với Lưu trữ hướng sự kiện) không phải là một "viên đạn bạc" (silver bullet - giải pháp vạn năng giải quyết mọi vấn đề). Hãy cân nhắc một vài nhược điểm thực tế:
+
+> 💡 **Giải thích thêm về "Silver bullet":**
+> "Silver bullet" (viên đạn bạc) là thành ngữ bắt nguồn từ văn hóa dân gian (vũ khí duy nhất diệt được người sói), được Frederick Brooks đưa vào ngành công nghệ qua bài tiểu luận kinh điển *"No Silver Bullet — Essence and Accident in Software Engineering"* (1986). Thuật ngữ này ám chỉ một công nghệ hay kỹ thuật kỳ diệu có thể giải quyết dứt điểm mọi khó khăn trong phát triển phần mềm. Trong kỹ thuật phần mềm, không có giải pháp nào hoàn hảo cho mọi bài toán mà luôn đi kèm sự đánh đổi (trade-offs).
+> (Nguồn tham khảo: https://en.wikipedia.org/wiki/No_Silver_Bullet)
+
+- Việc định nghĩa các Event (Sự kiện) cho A+ES đòi hỏi sự thấu hiểu sâu sắc về miền nghiệp vụ (business domain). Như trong bất kỳ dự án DDD (Domain-Driven Design - Thiết kế hướng miền) nào, mức độ nỗ lực này thường chỉ xứng đáng đầu tư cho các mô hình phức tạp giúp tổ chức tạo ra lợi thế cạnh tranh.
+- Tại thời điểm viết cuốn sách này, hệ thống công cụ (tooling) cũng như một hệ tri thức nhất quán trong lĩnh vực này vẫn còn thiếu hụt. Điều này làm gia tăng chi phí và rủi ro khi triển khai phương pháp tiếp cận này cho các nhóm phát triển chưa có nhiều kinh nghiệm.
+- Số lượng lập trình viên có kinh nghiệm thực tế còn hạn chế.
+- Việc triển khai A+ES gần như chắc chắn đòi hỏi phải áp dụng một hình thức nào đó của CQRS (Command-Query Responsibility Segregation - Tách biệt trách nhiệm giữa lệnh thay đổi và truy vấn - Chương 4), bởi các Event Stream rất khó để truy vấn trực tiếp. Điều này làm tăng gánh nặng nhận thức (cognitive load) và độ dốc đường cong học tập (learning curve) của nhà phát triển.
+
+Với những ai không nản lòng trước các thách thức này, việc triển khai với A+ES có thể mang lại vô vàn lợi ích. Hãy cùng xem xét một số cách thức hiện thực hóa phương pháp tiếp cận mạnh mẽ này trong thế giới hướng đối tượng (object-oriented world).
+
+## Bên trong một Application Service
+
+Việc quan sát A+ES bên trong một Application Service (Dịch vụ ứng dụng - Chương 4, 14) sẽ giúp làm rõ bức tranh tổng thể. Thông thường, các Aggregate sẽ cư trú bên trong một mô hình miền (domain model), nằm phía sau các Application Service — vốn đóng vai trò là các client (bên gọi) trực tiếp của domain model.
+
+Khi một Application Service nhận quyền điều khiển, nó sẽ tải một Aggregate và lấy ra bất kỳ Domain Service (Dịch vụ miền - Chương 7) hỗ trợ nào cần thiết cho nghiệp vụ của Aggregate đó. Khi Application Service ủy quyền cho nghiệp vụ của Aggregate thực thi, phương thức của Aggregate sẽ sinh ra các Event làm kết quả đầu ra. Những Event này làm thay đổi trạng thái (mutate state) của Aggregate, đồng thời cũng được xuất bản (publish) dưới dạng thông báo đến tất cả các bên đăng ký nhận tin (subscribers). Phương thức nghiệp vụ của Aggregate có thể yêu cầu truyền vào một hoặc nhiều Domain Service dưới dạng tham số. Việc sử dụng các Domain Service này có thể tính toán ra các giá trị tạo nên hiệu ứng phụ (side effects) tác động lên trạng thái của Aggregate. Một số thao tác của Domain Service như vậy có thể bao gồm việc gọi tới cổng thanh toán (payment gateway), yêu cầu cấp một định danh duy nhất (unique identity), hoặc truy vấn dữ liệu từ một hệ thống từ xa. Hình A.2 minh họa cách thức hoạt động này.
+
+Hình A.2 Một Application Service kiểm soát việc truy cập và sử dụng Aggregate.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000597_84890c962fbf366354cf113b6b435af7bbe69052b83e5c7d6ebf53912222976a.png)
+
+541
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000598_1feda9505e38e4050d29b2f88b9fe60c6a43413cf0bb92ce024c4c49844a40ee.png)
+
+Đoạn mã Application Service triển khai bằng C# dưới đây minh họa cách thức hỗ trợ các bước trong Hình A.2:
+
+```csharp
 public class CustomerApplicationService 
 { 
     // event store for accessing event streams
@@ -13580,8 +15247,76 @@ public IEnumerable<DataWithVersion> ReadRecords(
     } 
 }
 
-<!-- ⚠️ CẢNH BÁO chunk 27: số ảnh/heading/code-block KHÔNG khớp bản gốc (gốc={'images': 42, 'headings': 16, 'fences': 76}, dịch={'images': 0, 'headings': 13, 'fences': 74}). Xem lại đoạn này bằng tay. -->
+```
 
+Bạn sẽ tìm thấy mã nguồn đầy đủ cho Event Store dựa trên MySQL này cùng phần mã nguồn mẫu còn lại. Một bản triển khai tương tự cũng được cung cấp cho Microsoft SQL Server.
+
+## Lưu Trữ Dưới Dạng BLOB
+
+Tận dụng một máy chủ cơ sở dữ liệu (chẳng hạn như MySQL hay MS SQL Server) sẽ giúp bạn tiết kiệm rất nhiều công sức. Nó giúp giảm thiểu đáng kể nỗ lực trong việc xử lý quản lý đồng thời (concurrency management), phân mảnh tập tin (file fragmentation), lưu bộ nhớ đệm (caching), và tính nhất quán dữ liệu (data consistency). Vì vậy, hiển nhiên là nếu không sử dụng một sản phẩm cơ sở dữ liệu thì chúng ta sẽ phải tự mình giải quyết nhiều mối bận tâm trong số đó.
+
+Tuy nhiên, nếu chúng ta quyết định dấn thân vào con đường gập ghềnh hơn để tự xây dựng các Event Store, chúng ta vẫn có được một số sự trợ giúp. Ví dụ, dịch vụ Windows Azure Blob storage và bộ lưu trữ tệp tin đơn giản (file system) đều có sẵn để sử dụng, và dự án mẫu cũng bao gồm các bản triển khai cho cả hai phương án này.
+
+Hãy cùng xem xét một số chỉ dẫn thiết kế để xây dựng một Event Store không cần cơ sở dữ liệu, một vài trong số đó được tóm tắt qua Hình A.15:
+
+1. Hệ thống lưu trữ tùy biến của chúng ta bao gồm một tập hợp chứa một hoặc nhiều tệp tin nhị phân lớn chỉ ghi thêm (append-only BLOB files - Binary Large Object) hoặc các thành phần tương đương. Thành phần thực hiện ghi vào bộ lưu trữ sẽ khóa độc quyền (exclusive lock) trong quá trình ghi thêm, nhưng vẫn cho phép các thao tác đọc đồng thời (concurrent reads).
+2. Tùy thuộc vào chiến lược của bạn, bạn có thể chỉ sử dụng một kho lưu trữ BLOB duy nhất cho tất cả các loại và thực thể Aggregate thuộc một Bounded Context. Hoặc bạn có thể tạo một kho BLOB cho từng loại Aggregate, nơi lưu trữ toàn bộ các thực thể của loại đó. Hoặc bạn có thể chia tách các kho BLOB cho từng loại Aggregate theo từng thực thể riêng biệt, nơi mà Event Stream của một thực thể đơn lẻ sẽ được lưu trữ độc lập.
+3. Khi thành phần ghi tiến hành ghi thêm, nó mở kho BLOB phù hợp, ghi dữ liệu vào đó, và duy trì một chỉ mục (index) dẫn vào kho lưu trữ.
+
+Hình A.15 Lưu trữ BLOB dựa trên hệ thống tệp tin sử dụng chiến lược mỗi thực thể Aggregate là một tệp riêng, chứa một bản ghi cho mỗi Event
+
+4. Bất kể chiến lược lưu trữ BLOB nào được sử dụng, toàn bộ các Event mới đều được ghi nối tiếp vào phần cuối. Mỗi bản ghi bao gồm các trường: tên (name), phiên bản (version), và dữ liệu nhị phân (binary data). Điều này tương tự như cách chúng ta lưu các bản ghi Event vào một cơ sở dữ liệu quan hệ. Tuy nhiên, với một kho lưu trữ BLOB, chúng ta phải thêm tiền tố độ dài byte vào trước các trường có độ dài thay đổi (variable-length fields), đồng thời gắn thêm một mã băm (hash code) hoặc kiểm tra dư thừa vòng (CRC - Cyclic Redundancy Check) để xác minh tính toàn vẹn của dữ liệu khi đọc các bản ghi.
+5. Bộ lưu trữ chỉ ghi thêm dựa trên BLOB cho phép liệt kê toàn bộ các Event trên tất cả các Event Stream đơn giản bằng cách duyệt qua toàn bộ các tệp tin và nội dung của chúng. Để tăng tốc độ tìm kiếm trên đĩa (disk seeks) và việc đọc các Event cho một Stream cụ thể, chúng ta sẽ cần duy trì một chỉ mục riêng trong bộ nhớ (in-memory index) và/hoặc lưu bộ đệm các Event Stream trong bộ nhớ. Nếu sử dụng cơ chế lưu đệm trong bộ nhớ, mỗi lần ghi thêm sẽ đòi hỏi bộ nhớ đệm phải được làm mới (refreshed). Hơn nữa, việc chụp snapshot trạng thái Aggregate và chống phân mảnh tập tin (file defragmentation) cũng có thể giúp cải thiện hiệu năng.
+6. Đương nhiên, chúng ta có thể tránh được nhiều vấn đề phân mảnh ổ đĩa của hệ thống tệp tin bằng cách cấp phát trước (preallocating) các vùng dung lượng lớn của tệp BLOB ngay khi từng Event Stream dạng tệp tin được tạo ra.
+
+Thiết kế này được lấy cảm hứng từ mô hình Bitcask của Riak. Bạn có thể đọc thêm chi tiết và giải thích trong tài liệu kiến trúc Riak Bitcask: http://downloads.basho.com/papers/bitcask-intro.pdf.
+
+> 💡 **Giải thích thêm về "Riak Bitcask model":**
+> Bitcask là một bộ máy lưu trữ (storage engine) log-structured key/value do Basho phát triển cho cơ sở dữ liệu Riak. Ý tưởng cốt lõi của nó là chỉ ghi dữ liệu tuần tự nối tiếp vào cuối tệp (append-only log files), đồng thời duy trì một bảng băm chỉ mục trong RAM (Keydir) trỏ trực tiếp đến vị trí offset của dữ liệu trên đĩa. Kiến trúc này mang lại thông lượng ghi cực cao, độ trễ đọc rất thấp (chỉ mất đúng một lần tìm kiếm trên đĩa), và khả năng phục hồi dữ liệu sau sự cố rất đơn giản.
+> (Nguồn tham khảo: https://riak.com/assets/bitcask-intro.pdf)
+
+## Các Aggregate Tập Trung
+
+<!-- ⚠️ CẢNH BÁO chunk 27: số ảnh/heading/code-block KHÔNG khớp bản gốc (gốc={'images': 42, 'headings': 16, 'fences': 76}, dịch={'images': 3, 'headings': 16, 'fences': 76}). Xem lại đoạn này bằng tay. -->
+
+﻿Khi phát triển các Aggregate (cụm thực thể / tập hợp đối tượng nhất quán trong DDD) với cơ chế persistence (lưu trữ dữ liệu bền vững) truyền thống (chẳng hạn như cơ sở dữ liệu quan hệ mà không sử dụng Event Sourcing - mô hình lưu trữ trạng thái dựa trên chuỗi sự kiện), sự trở ngại trong quá trình phát triển khi đưa một Entity (thực thể có định danh) mới vào hệ thống hoặc bổ sung dữ liệu cho một Entity sẵn có có thể thấy rất rõ ràng. Chúng ta cần phải tạo các bảng mới, định nghĩa các mapping schemata (lược đồ ánh xạ dữ liệu / ORM mapping) mới cùng các phương thức Repository (kho lưu trữ đối tượng nghiệp vụ) mới. Nếu xu hướng của chúng ta là ngại những chi phí phát sinh (overhead) phát triển như vậy, điều đó có thể khiến chúng ta làm phình to các Aggregate do dồn thêm nhiều cấu trúc trạng thái và hành vi vào từng Aggregate. Việc bổ sung thêm vào một Aggregate sẵn có thường dễ dàng hơn nhiều so với việc tạo ra một Aggregate mới.
+
+Tuy nhiên, thiên kiến của chúng ta có thể thay đổi nếu các Aggregate được thiết kế mới một cách dễ dàng hơn, và tôi khẳng định điều này hoàn toàn đúng khi áp dụng Event Sourcing. Theo kinh nghiệm của tôi, các Aggregate được thiết kế bằng mô hình A+ES (Aggregates và Event Sourcing) thường có xu hướng nhỏ gọn hơn, và đây chính là một trong những Aggregate Rules of Thumb (nguyên tắc kinh nghiệm cốt lõi khi thiết kế Aggregate).
+
+Chẳng hạn, đối với một công ty cung cấp phần mềm dạng dịch vụ (SaaS), một khách hàng ngoài đời thực có thể được biểu diễn bằng các Aggregate riêng biệt tập trung vào các khía cạnh hành vi khác nhau:
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000638_a41bb89d670873b41e7094443b58af01a462a7f6aceafff80e633cf861495dd8.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000639_b6320297582b352995194736747f8dd1708909cd65003b9c08ab66af47e0f1d8.png)
+
+- Customer:505 đảm nhận các hành vi thanh toán, xuất hóa đơn và quản lý tài khoản chung.
+- Security-Account:505 duy trì nhiều người dùng cùng các quyền truy cập tương ứng cho từng người.
+- Consumer:505 theo dõi mức tiêu thụ dịch vụ thực tế.
+
+Mỗi loại Aggregate này có thể được triển khai trong một Bounded Context (ngữ cảnh giới hạn) khác nhau, và mỗi Bounded Context lại sử dụng các công nghệ cùng phương pháp tiếp cận kiến trúc khác nhau. Ví dụ, khía cạnh Consumer có thể cần đáp ứng khả năng mở rộng quy mô cao và xử lý việc tiêu thụ hàng nghìn thông điệp cho khách hàng mỗi giây. Nếu đúng như vậy, một Event Stream (luồng sự kiện) như thế nên được lưu trữ và vận hành trên nền tảng đám mây tự động co giãn (autoscaling cloud fabric). Các khía cạnh khác có thể đòi hỏi ít tài nguyên hơn, cho phép chúng được triển khai trong một môi trường vận hành nhẹ nhàng hơn.
+
+Dĩ nhiên, Aggregate không bao giờ nên bị thu nhỏ một cách tùy tiện. Chúng ta luôn muốn thiết kế Aggregate sao cho bảo vệ được các business invariants (bất biến / quy tắc toàn vẹn nghiệp vụ) thực sự, và việc làm này có thể khiến cho bất kỳ Aggregate nào cũng được cấu thành từ nhiều Entity cùng một số Value Objects (đối tượng giá trị). Dẫu vậy, sự tiện lợi khi sử dụng A+ES mang lại cho chúng ta cơ hội lớn hơn để hướng tới những thiết kế đơn giản và hiệu quả. Đây là một lợi thế cần được nắm bắt bất cứ khi nào có thể.
+
+Trên thực tế, đôi khi việc bắt đầu mô hình hóa miền nghiệp vụ (domain modeling) bằng cách xác định phần cốt lõi của Ubiquitous Language (ngôn ngữ chung / ngôn ngữ toàn hiện) thông qua các Commands (lệnh thực thi) gửi đến và các Events (sự kiện) phát sinh ra, cũng như các hành vi được thực thi, lại rất hữu ích. Chỉ ở giai đoạn sau đó, chúng ta mới thực sự nhóm một số khái niệm lại thành Aggregate, dựa trên sự tương đồng, tính liên quan và các quy tắc nghiệp vụ. Cách tiếp cận này—ngay cả khi nó chỉ là một development spike (bước thử nghiệm kỹ thuật ngắn hạn) tạm thời dùng trong bài tập mô hình hóa miền nghiệp vụ—cũng có thể mang lại sự hiểu biết sâu sắc hơn về các khái niệm nghiệp vụ cốt lõi của chúng ta.
+
+> 💡 **Giải thích thêm:** Trong phát triển phần mềm (đặc biệt là Extreme Programming và Agile), "spike" (hay "development spike") là một thử nghiệm kỹ thuật ngắn hạn nhằm mục đích nghiên cứu, trả lời một câu hỏi kỹ thuật cụ thể hoặc giảm thiểu rủi ro kiến trúc trước khi triển khai chính thức, không nhằm tạo ra mã nguồn hoàn chỉnh cho sản phẩm.  
+> Nguồn tham khảo: https://en.wikipedia.org/wiki/Spike_(software_development)
+
+## Read Model Projections
+
+Một trong những mối bận tâm phổ biến đối với hướng thiết kế A+ES là làm thế nào để truy vấn các Aggregate dựa trên các thuộc tính của chúng. Event Sourcing không cung cấp một cách thức đơn giản nào để trả lời một câu hỏi như: "Tổng giá trị của tất cả các đơn hàng của khách hàng trong tháng vừa qua là bao nhiêu?" Trên thực tế, chúng ta sẽ cần phải tải lên bộ nhớ từng phiên bản (instance) Customer, duyệt qua tất cả các phiên bản Order trong tháng gần nhất của từng khách hàng, rồi tính tổng của chúng — điều này sẽ cực kỳ kém hiệu quả.
+
+Đây chính là nơi Read Model Projections (các phép chiếu mô hình đọc dữ liệu) có thể hỗ trợ. Read Model Projections có thể được hiện thực hóa thông qua một tập hợp đơn giản các đối tượng đăng ký nhận Domain Event (sự kiện nghiệp vụ / sự kiện miền) được dùng để tạo và cập nhật một Read Model (mô hình phục vụ truy vấn dữ liệu) bền vững. Nói cách khác, chúng chiếu (project) các Event sang một Read Model bền vững. Khi các đối tượng đăng ký nhận Event tiếp nhận các Event mới, chúng sẽ tính toán các kết quả truy vấn và lưu trữ chúng vào Read Model để sử dụng sau này.
+
+Tóm lại, một Projection rất tương đồng với một phiên bản Aggregate. Khi các Event được tiếp nhận và xử lý, chúng ta sử dụng dữ liệu từ chúng để xây dựng trạng thái của Projection. Read Model Projections được lưu trữ bền vững sau mỗi lần cập nhật và có thể được truy cập bởi nhiều bên đọc dữ liệu, cả bên trong lẫn bên ngoài Bounded Context.
+
+## Projection Samples Are Available
+
+Thông tin chi tiết hơn về việc sử dụng Projection, bao gồm mã nguồn cho các kịch bản lưu trữ dữ liệu khác nhau và cơ chế tự động xây dựng lại Read Model, hiện có sẵn trong dự án mẫu tại: http://lokad.github.com/lokad-cqrs/.
+
+Dưới đây là cách chúng ta có thể định nghĩa một Projection để ghi nhận toàn bộ các giao dịch cho từng Customer:
+
+```csharp
 public class CustomerTransactionsProjection {
     IDocumentWriter<CustomerId, CustomerTransactions> _store;
 
@@ -13972,7 +15707,495 @@ Expectations:
   [ok] Tx 1: payment 10 EUR 'unlock' (none)
   [ok] Customer unlocked
 
-<!-- ⚠️ CẢNH BÁO chunk 28: số ảnh/heading/code-block KHÔNG khớp bản gốc (gốc={'images': 21, 'headings': 16, 'fences': 42}, dịch={'images': 0, 'headings': 8, 'fences': 40}). Xem lại đoạn này bằng tay. -->
+```
+
+Nếu bạn quan tâm đến cách tiếp cận này, việc tìm kiếm trên web với từ khóa 'Event Sourcing Specifications' sẽ mang lại những hướng dẫn chi tiết.
+
+## Event Sourcing in Functional Languages
+
+Các mẫu triển khai được phác thảo trước đó tập trung vào phương pháp hướng đối tượng, vốn rất phù hợp cho các ngôn ngữ lập trình như Java và C#. Tuy nhiên, bản chất của Event Sourcing vốn dĩ mang tính hàm (functional). Vì vậy, nó có thể được triển khai rất thành công với các ngôn ngữ lập trình hàm như F# và Clojure. Làm như vậy có khả năng mang lại mã nguồn cô đọng hơn và đạt hiệu năng tối ưu.
+
+Dưới đây là một số đặc thù khi chuyển từ phương pháp tiếp cận hướng đối tượng sang hướng hàm đối với các bản triển khai Aggregate:
+
+* Chúng ta phải chuyển từ việc dùng một đối tượng trạng thái Aggregate có thể biến đổi (mutable) trong hướng đối tượng sang việc thiết kế một bản ghi trạng thái bất biến (immutable state record) đơn giản cùng một tập hợp các hàm biến đổi. Các hàm biến đổi này chỉ đơn giản nhận vào một bản ghi trạng thái và các đối số Event, rồi trả về một bản ghi trạng thái mới dưới dạng kết quả. Điều này rất giống với thiết kế của một Value Object bất biến, nơi mà các Side-Effect-Free Functions (hàm không gây tác dụng phụ) chỉ tạo ra các Giá trị mới dựa trên trạng thái của chính nó và các đối số của hàm. Những hàm như vậy có dạng `Func<State, Event, State>`.
+* Trạng thái hiện tại của Aggregate có thể được định nghĩa như một phép left fold (phép gập trái / tích lũy từ trái sang phải) của tất cả các Event trong quá khứ được truyền vào các hàm biến đổi.
+* Các phương thức Aggregate cũng có thể được biến đổi thành một tập hợp các hàm không lưu trạng thái (stateless functions), nhận vào các tham số Command, Domain Services và một trạng thái. Các hàm như vậy trả về không hoặc nhiều Event và có dạng `Func<TArg1, TArg2..., State, Event[]>`.
+* Một Event Store có thể được nhìn nhận và diễn đạt như một cơ sở dữ liệu hàm (functional database), bởi vì nó lưu trữ bền vững các đối số truyền vào các hàm có nhiệm vụ làm biến đổi trạng thái của Aggregate. Việc hỗ trợ snapshot (ảnh chụp trạng thái nhanh) trong một Event Store dạng hàm là khái niệm quen thuộc đối với các lập trình viên hàm dưới tên gọi memoization (kỹ thuật ghi nhớ kết quả tính toán).
+
+> 💡 **Giải thích thêm:** "Left fold" (hay `foldl`/`reduce`) trong lập trình hàm là phép toán duyệt tuần tự một danh sách từ trái qua phải, áp dụng một hàm tích lũy lên giá trị tích lũy hiện tại và từng phần tử để sinh ra giá trị kết quả duy nhất. Trong ngữ cảnh Event Sourcing, toàn bộ lịch sử các sự kiện trong quá khứ chính là một danh sách: bắt đầu từ trạng thái khởi tạo rỗng (`initial state`), mỗi sự kiện được áp dụng tuần tự qua hàm biến đổi để "tích lũy" và tái tạo chính xác trạng thái hiện tại của Aggregate.
+> Nguồn tham khảo: https://en.wikipedia.org/wiki/Fold_(higher-order_function)
+
+Một development spike nhằm nắm bắt các khái niệm nghiệp vụ cốt lõi bằng A+ES trong một ngôn ngữ lập trình hàm có thể thúc đẩy nhanh chóng những nỗ lực mô hình hóa miền của chúng ta. Hơn thế nữa, nó buộc chúng ta phải chuyển trọng tâm khám phá miền từ cấu trúc của Aggregate sang việc phản ánh chặt chẽ Ubiquitous Language của miền được thể hiện thông qua các hành vi của nó. Bất kỳ điều gì có thể giúp chúng ta chú trọng nhiều hơn vào Core Domain và ít phụ thuộc hơn vào công nghệ đều có khả năng mang lại nhiều giá trị hơn cho doanh nghiệp và giúp doanh nghiệp đạt được lợi thế cạnh tranh lớn hơn nữa.
+
+This page intentionally left blank
+
+## Bibliography
+
+[Appleton, LoD] Appleton, Brad. n.d. 'Introducing Demeter and Its Laws.' www.bradapp.com/docs/demeter-intro.html.
+
+[Bentley] Bentley, Jon. 2000. Programming Pearls, Second Edition. Boston, MA: Addison-Wesley.
+
+http://cs.bell-labs.com/cm/cs/pearls/bote.html.
+
+[Brandolini] Brandolini, Alberto. 2009. 'Strategic Domain-Driven Design with Context Mapping.'
+
+www.infoq.com/articles/ddd-contextmapping.
+
+[Buschmann et al.] Buschmann, Frank, et al. 1996. Pattern-Oriented Software Architecture, Volume 1: A System of Patterns . New York: Wiley.
+
+[Cockburn] Cockburn, Alastair. 2012. 'Hexagonal Architecture.'
+
+http://alistair.cockburn.us/Hexagonal+architecture.
+
+[Crupi et al.] Crupi, John, et al. n.d. 'Core J2EE Patterns.'
+
+http://corej2eepatterns.com/Patterns2ndEd/DataAccessObject.htm.
+
+[Cunningham, Checks] Cunningham, Ward. 1994. 'The CHECKS Pattern Language of Information Integrity.'
+
+http://c2.com/ppr/checks.html.
+
+[Cunningham, Whole Value] Cunningham, Ward. 1994. '1. Whole Value.' http://c2.com/ppr/checks.html#1.
+
+[Cunningham, Whole Value aka Value Object] Cunningham, Ward. 2005. 'Whole Value.'
+
+http://fit.c2.com/wiki.cgi?WholeValue.
+
+[Dahan, CQRS] Dahan, Udi. 2009. 'Clarified CQRS.'
+
+www.udidahan.com/2009/12/09/clarified-cqrs/.
+
+[Dahan, Roles] Dahan, Udi. 2009. 'Making Roles Explicit.' www.infoq.com/presentations/Making-Roles-Explicit-Udi-Dahan.
+
+[Deutsch] Deutsch, Peter. 2012. 'Fallacies of Distributed Computing.' http://en.wikipedia.org/wiki/Fallacies_of_Distributed_Computing.
+
+[Dolphin] Object Arts. 2000. 'Dolphin Smalltalk; Twisting the Triad.' www.object-arts.com/downloads/papers/TwistingTheTriad.PDF.
+
+[Erl] Erl, Thomas. 2012. 'SOA Principles: An Introduction to the ServiceOriented Paradigm.'
+
+http://serviceorientation.com/index.php/serviceorientation/index.
+
+[Evans] Evans, Eric. 2004. Domain-Driven Design: Tackling the Complexity in the Heart of Software. Boston, MA: Addison-Wesley.
+
+[Evans, Ref] Evans, Eric. 2012. 'Domain-Driven Design Reference.' http://domainlanguage.com/ddd/patterns/DDD_Reference_2011-01-31.pdf.
+
+[Evans & Fowler, Spec] Evans, Eric, and Martin Fowler. 2012. 'Specifications.' http://martinfowler.com/apsupp/spec.pdf.
+
+[Fairbanks] Fairbanks, George. 2011. Just Enough Software Architecture . Marshall & Brainerd.
+
+[Fowler, Anemic] Fowler, Martin. 2003. 'AnemicDomainModel.' http://martinfowler.com/bliki/AnemicDomainModel.html.
+
+[Fowler, CQS] Fowler, Martin. 2005. 'CommandQuerySeparation.' http://martinfowler.com/bliki/CommandQuerySeparation.html.
+
+[Fowler, DI] Fowler, Martin. 2004. 'Inversion of Control Containers and the Dependency Injection Pattern.'
+
+http://martinfowler.com/articles/injection.html.
+
+[Fowler, P of EAA] Fowler, Martin. 2003. Patterns of Enterprise Application Architecture . Boston, MA: Addison-Wesley.
+
+[[Fowler, PM] Fowler, Martin. 2004. 'Presentation Model.'](http://martinfowler.com/eaaDev/PresentationModel.html)
+
+http://martinfowler.com/eaaDev/PresentationModel.html.
+
+[Fowler, Self Encap] Fowler, Martin. 2012. 'SelfEncapsulation.' http://martinfowler.com/bliki/SelfEncapsulation.html.
+
+[Fowler, SOA] Fowler, Martin. 2005. 'ServiceOrientedAmbiguity.' http://martinfowler.com/bliki/ServiceOrientedAmbiguity.html.
+
+[Freeman et al.] Freeman, Eric, Elisabeth Robson, Bert Bates, and Kathy Sierra. 2004. Head First Design Patterns . Sebastopol, CA: O'Reilly Media.
+
+[Gamma et al.] Gamma, Erich, Richard Helm, Ralph Johnson, and John Vlissides. 1994. Design Patterns . Reading, MA: Addison-Wesley.
+
+[Garcia-Molina & Salem] Garcia-Molina, Hector, and Kenneth Salem. 1987. 'Sagas.' ACM, Department of Computer Science, Princeton University, Prince ton, NJ.
+
+www.amundsen.com/downloads/sagas.pdf.
+
+[[GemFire Functions] 2012. VMware vFabric 5 Documentation Center. http://pubs.vmware.com/vfabric5/index.jsp?topic=/com.vmware.vfabric .gemfire.6.6/developing/function_exec/chapter_overview.html.](http://pubs.vmware.com/vfabric5/index.jsp?topic=/com.vmware.vfabric.gemfire.6.6/developing/function_exec/chapter_overview.html)
+
+[Gson] 2012. A Java JSON library hosted on Google Code. http://code.google.com/p/google-gson/.
+
+[Helland] Helland, Pat. 2007. 'Life beyond Distributed Transactions: An Apostate's Opinion.' Third Biennial Conference on Innovative DataSystems Research (CIDR), January 7-10, Asilomar, CA.
+
+www.ics.uci.edu/~cs223/papers/cidr07p15.pdf.
+
+[Hohpe & Woolf] Hohpe, Gregor, and Bobby Woolf. 2004. Enterprise Integration Patterns: Designing, Building, and Deploying Messaging Systems . Boston, MA: Addison-Wesley.
+
+[Inductive UI] 2001. Microsoft Inductive User Interface Guidelines. http://msdn.microsoft.com/en-us/library/ms997506.aspx.
+
+[Jezequel et al.] Jezequel, Jean-Marc, Michael Train, and Christine Mingins. 2000. Design Patterns and Contract. Reading, MA: Addison-Wesley.
+
+[Keith & Stafford] Keith, Michael, and Randy Stafford. 2008. 'Exposing the ORM Cache.' ACM , May 1.
+
+http://queue.acm.org/detail.cfm?id=1394141.
+
+[Liskov] Liskov, Barbara. 1987. Conference Keynote: 'Data Abstraction and Hierarchy.' http://en.wikipedia.org/wiki/Liskov_substitution_principle. 'The Liskov Substitution Principle.'
+
+www.objectmentor.com/resources/articles/lsp.pdf.
+
+[Martin, DIP] Martin, Robert. 1996. 'The Dependency Inversion Principle.' www.objectmentor.com/resources/articles/dip.pdf.
+
+[Martin, SRP] Martin, Robert. 2012. 'SRP: The Single Responsibility Principle.' www.objectmentor.com/resources/articles/srp.pdf.
+
+[[MassTransit] Patterson, Chris. 2008. 'Managing Long-Lived Transactions with MassTransit.Saga.'](http://lostechies.com/chrispatterson/2008/08/29/managing-long-lived-transactions-with-masstransit-saga/)
+
+http://lostechies.com/chrispatterson/2008/08/29/managing-long-livedtransactions-with-masstransit-saga/.
+
+[[MSDN Assemblies] 2012.](http://msdn.microsoft.com/en-us/library/51ket42z%28v=vs.71%29.aspx)
+
+http://msdn.microsoft.com/en-us/library/51ket42z%28v=vs.71%29.aspx.
+
+[Nilsson] Nilsson, Jimmy. 2006. Applying Domain-Driven Design and Patterns: With Examples in C# and .NET. Boston, MA: Addison-Wesley.
+
+[Nijof, CQRS] Nijof, Mark. 2009. 'CQRS à la Greg Young.' http://cre8ivethought.com/blog/2009/11/12/cqrs--la-greg-young.
+
+[[NServiceBus] 2012.](http://www.nservicebus.com/)
+
+www.nservicebus.com/.
+
+[Öberg] Öberg, Rickard. 2012. 'What Is Qi4j™?' http://qi4j.org/.
+
+[Parastatidis et al., RiP] Webber, Jim, Savas Parastatidis, and Ian Robinson. 2011. REST in Practice . Sebastopol, CA: O'Reilly Media.
+
+[[PragProg, TDA] The Pragmatic Programmer. 'Tell, Don't Ask.'](http://pragprog.com/articles/tell-dont-ask)
+
+http://pragprog.com/articles/tell-dont-ask.
+
+[Quartz] 2012. Terracotta Quartz Scheduler. http://terracotta.org/products/quartz-scheduler.
+
+[Seovi þ ] Seovi þ , Aleksandar, Mark Falco, and Patrick Peralta. 2010. Oracle Coherence 3.5: Creating Internet-Scale Applications Using Oracle's High-Performance Data Grid . Birmingham, England: Packt Publishing.
+
+[[SOA Manifesto] 2009. SOA Manifesto.](http://www.soa-manifesto.org/)
+
+www.soa-manifesto.org/.
+
+[[Sutherland] Sutherland, Jeff. 2010. 'Story Points: Why Are They Better than Hours?'](http://scrum.jeffsutherland.com/2010/04/story-points-why-are-they-better-than.html)
+
+http://scrum.jeffsutherland.com/2010/04/story-points-why-are-they-betterthan.html.
+
+[Tilkov, Manifesto] Tilkov, Stefan. 2009. 'Comments on the SOA Manifesto.' www.innoq.com/blog/st/2009/10/comments_on_the_soa_manifesto.html.
+
+[Tilkov, RESTful Doubts] Tilkov, Stefan. 2012. 'Addressing Doubts about REST.' www.infoq.com/articles/tilkov-rest-doubts.
+
+[Vernon, DDR] Vernon, Vaughn. n.d. 'Architecture and Domain-Driven Design.' http://vaughnvernon.co/?page_id=38.
+
+[Vernon, DPO] Vernon, Vaughn. n.d. 'Architecture and Domain-Driven Design.' http://vaughnvernon.co/?page_id=40.
+
+[Vernon, RESTful DDD] Vernon, Vaughn. 2010. 'RESTful SOA or DomainDriven Design-A Compromise?' QCon SF 2010. www.infoq.com/presentations/RESTful-SOA-DDD.
+
+[[Webber, REST & DDD] Webber, Jim. 'REST and DDD.'](http://skillsmatter.com/podcast/design-architecture/rest-and-ddd)
+
+http://skillsmatter.com/podcast/design-architecture/rest-and-ddd.
+
+[Wiegers] Wiegers, Karl E. 2012. 'First Things First: Prioritizing Requirements.'
+
+www.processimpact.com/articles/prioritizing.html.
+
+[Wikipedia, CQS] 2012. 'Command-Query Separation.' http://en.wikipedia.org/wiki/Command-query_separation.
+
+[[Wikipedia, EDA] 2012. 'Event-Driven Architecture.'](http://en.wikipedia.org/wiki/Event-driven_architecture)
+
+http://en.wikipedia.org/wiki/Event-driven_architecture.
+
+[Young, ES] Young, Greg. 2010. 'Why Use Event Sourcing?' http://codebetter.com/gregyoung/2010/02/20/why-use-event-sourcing/.
+
+## Index
+
+## A
+
+| Abstract classes, in modules, 338<br>
+
+<br>Abstract Factory pattern, 389<br>
+
+<br>Abstraction, Dependency Inversion Principle and, 123<br>
+
+<br>Access management, identity and, 91-92<br>
+
+<br>ACID databases, 521<br>
+
+<br>ACL. See Anticorruption Layer (ACL)<br>
+
+<br>Active Record, in Transaction Scripts, 441<br>
+
+<br>ActiveMQ, as messaging middleware, 303<br>
+
+<br>Actor Model, 295<br>
+
+<br>Adapters. See also Hexagonal Architecture<br>
+
+<br>Domain Services use for integration, 280<br>
+
+<br>handling client output types, 529-530<br>
+
+<br>Hexagonal Architecture and, 126-127<br>
+
+<br>Presentation Model as, 519<br>
+
+<br>for REST client implementation, 465-466<br>
+
+<br>Aggregate Root query interface, 516<br>
+
+<br>Aggregate Stores<br>
+
+<br>distributed caches of Data Fabrics as, 164<br>
+
+<br>persistence-oriented repositories and, 418<br>
+
+<br>Aggregate-Oriented Databases, 418<br>
+
+<br>Aggregates. See also A+ES (Aggregates and Event Sourcing)<br>
+
+<br>Application Services and, 120-121<br>
+
+<br>avoiding dependency Injection, 387<br>
+
+<br>behavioral focus of, 569-570<br>
+
+<br>Context Maps and, 90<br>
+
+<br>cost estimates of memory overhead, 372-373<br>
+
+<br>creating and publishing Events, 287<br>
+
+<br>decision process in designing, 379-380<br>
+
+<br>designing, 573<br>
+
+<br>designing based on usage scenarios, 375-376<br>
+
+<br>Domain Events with Aggregate characteristics, 294-295<br>
+
+<br>Event Sourcing and, 160-162, 539<br>
+
+<br>eventual consistency, 364-367, 376-378<br>
+
+<br>executives and trackers merged in, 156<br>
+
+<br>factories on Aggregate Root, 391-392<br>
+
+<br>global transactions as reason to break design rules, 369<br>
+
+<br>implementing, 380 | information hiding (Law of Demeter and Tell, Don't Ask), 382-384<br>
+
+<br>invariant determination in creating clusters, 353-355<br>
+
+<br>lack of technical mechanisms as reason to break design rules, 368-369<br>
+
+<br>local identity of Entities and, 177<br>
+
+<br>mediators publishing internal state of, 514-515<br>
+
+<br>memory consumption and, 374-375<br>
+
+<br>model navigation and, 362-363<br>
+
+<br>motivations for Factory use, 389<br>
+
+<br>as object collections, 203<br>
+
+<br>optimistic concurrency, 385-387<br>
+
+<br>organizing into large clusters, 349-351<br>
+
+<br>organizing into smaller units, 351-353<br>
+
+<br>overview of, 347-348<br>
+
+<br>placing in repository, 401<br>
+
+<br>query performance as reason to break design rules, 369-370<br>
+
+<br>querying repositories and, 138<br>
+
+<br>references between, 359-362<br>
+
+<br>removing from repository, 409<br>
+
+<br>rendering Data Transfer Objects, 513-514<br>
+
+<br>rendering Domain Payload Objects, 515-516<br>
+
+<br>rendering properties of multiple instances, 512-513<br>
+
+<br>rethinking design, 370-372<br>
+
+<br>review, 388<br>
+
+<br>Root Entity and, 380-382<br>
+
+<br>scalability and distribution of, 363-364<br>
+
+<br>in Scrum Core Domain, 348-349<br>
+
+<br>single-aggregate-instance-in-single- transaction rule of thumb, 302<br>
+
+<br>size of Bounded Contexts and, 68<br>
+
+<br>small Aggregate design, 355-358<br>
+
+<br>snapshots of, 559-561<br>
+
+<br>as Standard Type, 237<br>
+
+<br>state of, 516-517<br>
+
+<br>storing in Data Fabrics, 164<br>
+
+<br>synchronizing instances in local Bounded Context, 287 |
+| --- | --- |
+
+
+Aggregates (tiếp theo) tactical modeling tools, 29 results of asking whose job it is, 378-379 usage scenarios applied to designing, 373-374 use cases and, 358-359 user interface convenience as reason to break design rules, 367-368 Value Objects preferred over Entities when possible, 382 Aggregates and Event Sourcing (A+ES) advantages of, 539-540 Aggregate design, 573 BLOB persistence, 568-569 Command Handlers, 549-553 concurrency control, 554-558 contract generation and maintenance, 580-581 drawbacks of, 540 event enrichment, 573-575 event immutability, 577 event serializers, 576-577 event sourcing in functional languages, 583 focusing Aggregates on different behavioral aspects, 569-570 implementing event stores, 561-565 inside Application Services, 541-549 lambda syntax, 553-554 overview of, 539 performance issues, 558-561 Read Model Projections, 570-572 relational persistence, 565-567 structural freedom with, 558 tools and patterns supporting, 576 unit tests and specifications, 582-583 Value Objects and, 577-580 Agile Manifesto, 82 Agile modeling benefits of DDD, 28 design and, 55 Agile Project Management (APM), 177 Agile Project Management Context calculation process from, 277 Context Maps and, 104 as Core Domain, 98 integrating with Collaboration Context, 107-110 integrating with Identity and Access Context, 104-107 modeling Domain Event from, 288-289 modules, 340-343 overview of, 82-84
+
+ProjectOvation as example of, 92 Value Objects and, 239 Ajax Push (Comet), 147 Akka, as messaging middleware, 303 Anemia, 14-16 Anemia-induced memory loss, 16-20 Anemic Domain Model avoiding, 426 causes of, 14-15 determining health of Domain Model and, 13 DTOs mimicking, 532 overuse of services resulting in, 268 overview of, 13 presence of anemia everywhere, 15-16 what anemia does to your model, 16-17 Anticorruption Layer (ACL) Bounded Context relationships, 93-94 built-in, 532 defined, 101 implementing, 469 implementing REST clients and, 463-469 synchronizing team members with identities and roles, 340-341 APIs (application programming interfaces) creating products, 482-483 integration basics and, 450-451 opening services and, 510 APM (Agile Project Management), 177. See also Agile Project Management Context Application Layer composing multiple Bounded Contexts and, 531-532 creating and naming modules of nonmodel components, 343-344 DIP (Dependency Inversion Principle) and, 124 in Layers Architecture, 119-121 managing transactions in, 433-434 Application programming interfaces. See APIs (application programming interfaces) Application Services, 68 controlling access and use of Aggregates, 541-549 decoupling service output, 528-530 delegation of, 461-462 Domain Services compared with, 267 enterprise component containers, 534-537 example, 522-528 Hexagonal Architecture and, 126-128
+
+infrastructure and, 509, 532-534
+
+in Layers Architecture, 120-121
+
+message handler, 293
+
+overview of, 521
+
+passing commands to, 550
+
+performing business operations, 545
+
+reasons for not wanting business logic in,
+279-280
+
+registering subscribers to Domain Events, 300-302
+
+transactional service in multipleAggregate design, 352-353
+
+Applications
+
+Bounded Contexts and, 66-68 composing multiple Bounded Contexts,
+531-532
+
+dealing with multiple, disparate clients, 517-518
+
+defined, 510
+
+enterprise component containers, 534-537
+
+generating identity of Entities, 175-178
+
+infrastructure and, 532-534
+
+mediators, 514-515
+
+overview of, 509-511
+
+rendering Aggregates, 515-516
+
+rendering domain objects, 512-513
+
+rendering DTOs, 513-514
+
+rendition adapters and user edit handling, 518-521
+
+representing state of Aggregate instances, 516-517
+
+review, 534-537
+
+task management for, 549
+
+use case optimal repository queries, 517
+
+user interface, 512
+
+Architects, benefits of DDD to, 5-6
+
+## Architecture
+
+Application Services and, 521
+
+benefits of Aggregates, 540
+
+Bounded Contexts and architectural issues, 68
+
+Context Maps for, 90
+
+CQRS. See CQRS (Command-Query Responsibility Segregation)
+
+creating and naming modules of nonmodel components, 343-344
+
+data fabric and grid-based distributed computing. See Data fabrics
+
+decision process (in fictitious interview), 115-119
+
+DIP (Dependency Inversion Principle) and, 123-125
+
+event driven. See EDA (event-driven architecture)
+
+Layers Architecture pattern, 119-123 overview of, 113-114
+
+Ports and Adapters. See Hexagonal Architecture
+
+REST. See REST (Representational State Transfer)
+
+review, 168-169
+
+SOA (Service-Oriented Architecture), 130-133
+
+Archived logs
+
+finding notification, 315 publishing NotificationLog what they are, 313
+, 319-323
+
+Assertions, design-by-contract approach and, 208
+
+Assessment view, for understanding problem space, 57
+
+Attributes, validating Entities, 208-211
+
+Audit logs, 308
+
+Authentication
+
+deciding where to place technical components, 272-275
+
+example of where to use a Domain Service, 269-271
+
+testing authentication service, 281-284 of users, 198
+
+Autonomous services and systems, Domain Events and, 305-306
+
+## B
+
+Behaviors
+
+essential Entity behaviors, 196-200 focusing Aggregates on different behavioral aspects, 569-570
+
+modeling Domain Events, 291-293 naming object behaviors, 31-32 patching classes with specialized behaviors, 225-226
+
+repositories and, 430-432
+
+Big Ball of Mud
+
+Bounded Contexts, 93-94
+
+collaboration issues and, 76
+
+failure from not using strategic design, 55
+
+interfacing with, 88-89
+
+Binary JSON (BSON), 426
+
+Bitcask model, Riak, 569
+
+BLOB (binary large object) persistence, 568-569
+
+Boundaries
+
+Context Maps and, 90
+
+exchanging information across system
+boundaries, 452-458
+
+modules and, 344
+
+<!-- ⚠️ CẢNH BÁO chunk 28: số ảnh/heading/code-block KHÔNG khớp bản gốc (gốc={'images': 21, 'headings': 16, 'fences': 42}, dịch={'images': 2, 'headings': 16, 'fences': 42}). Xem lại đoạn này bằng tay. -->
 
 ﻿
 

@@ -84,7 +84,7 @@ QUY TẮC BẮT BUỘC — VI PHẠM LÀ SAI:
    - VỀ ẢNH (làm trước khi dịch): ĐẾM chính xác số lượng thẻ ảnh dạng ![...](...) trong đoạn gốc bên dưới. Output PHẢI có ĐÚNG số lượng thẻ ảnh đó, không được thiếu một cái nào — kể cả ảnh không có caption, không rõ ngữ cảnh, hay trông như ảnh trang trí/lặp lại. Copy nguyên URL 100%, không sửa, không rút gọn, không thay bằng mô tả text.
    - Giữ cấp độ heading (#, ##, ###...), giữ đúng số lượng heading.
    - Giữ cấu trúc bảng (số cột, số hàng, alignment, header row).
-   - Giữ code block (```lang ... ```) — KHÔNG dịch code; comment được dịch tại chỗ; **được phép reformat code, tự động xuống dòng/indent chuẩn, không giữ nguyên code 1 dòng; không đổi logic/cú pháp**.
+   - Giữ code block (```lang ... ```) — KHÔNG dịch code, comment trong code có dịch nhưng giữ nguyên vị trí/cú pháp. Giữ đúng số lượng dòng ```.
    - Giữ blockquote, callout/note/warning (>, [!NOTE], [!WARNING]...).
    - Giữ list, nested list, checkbox (- [ ]).
    - Giữ nguyên link thường ([text](url)) — chỉ dịch phần text hiển thị, TUYỆT ĐỐI giữ nguyên URL.
@@ -161,19 +161,43 @@ def extract_markdown(response_text):
     """
     Tách nội dung markdown ra khỏi câu trả lời của chatbot.
 
-    QUAN TRỌNG: chunk có thể chứa sẵn code block (```python...```) BÊN TRONG.
-    Nếu dùng regex non-greedy tìm ``` đầu tiên -> ``` gần nhất, nó sẽ dừng nhầm
-    ở fence code NỘI BỘ thay vì fence bao NGOÀI. Vì vậy: lấy vị trí fence MỞ ĐẦU
-    đầu tiên, rồi lấy vị trí fence ĐÓNG cuối cùng trong toàn bộ text (rfind) —
-    đảm bảo luôn bao trọn vẹn mọi fence lồng bên trong.
+    BUG ĐÃ SỬA (quan trọng): bản cũ lấy "fence mở đầu tiên" -> "fence đóng cuối
+    cùng trong TOÀN VĂN BẢN". Nếu chatbot KHÔNG bọc cả câu trả lời trong một
+    cặp ```markdown...``` bao ngoài — mà chỉ trả về markdown thô, tự nó đã có
+    sẵn vài code block riêng (Java/SQL...) nằm giữa — thì "fence mở đầu tiên"
+    thực ra là fence NỘI BỘ của code block đầu tiên, và "fence đóng cuối cùng"
+    là fence NỘI BỘ của code block cuối cùng. Hệ quả: MẤT TRẮNG mọi nội dung
+    (ảnh, heading, đoạn văn) nằm TRƯỚC code block đầu và SAU code block cuối,
+    dù bản dịch trên thực tế đầy đủ. Đây chính là nguyên nhân gây đếm thiếu
+    ảnh/heading/fence dù bản dịch không hề sai.
+
+    CÁCH SỬA: chỉ tin có fence bao NGOÀI thật khi đồng thời thoả:
+      (a) fence đóng của nó nằm ở SÁT CUỐI toàn văn bản (neo bằng $) — không
+          phải một fence đóng nội bộ nào đó nằm giữa chừng, và
+      (b) phần văn bản đứng TRƯỚC fence mở phải NGẮN (dưới ~200 ký tự) — tức
+          chỉ có thể là 1 câu dẫn kiểu "Đây là bản dịch:", không phải nội dung
+          dịch thật bị lọt ra ngoài fence.
+    Không thoả cả 2 điều kiện -> KHÔNG chắc chắn đâu là fence bao ngoài thật
+    -> AN TOÀN HƠN LÀ TRẢ VỀ NGUYÊN VĂN TOÀN BỘ, không cắt mất bất cứ gì (đổi
+    lại có thể vẫn còn dư 1-2 dòng ``` chữ trong output, gây lệch fence-count
+    và bị flag mismatch — chấp nhận được, vì không mất nội dung thật, chỉ cần
+    xem lại tay).
+    CẠM BẪY THỨ 2 ĐÃ XỬ LÝ: nếu cả chunk gốc chỉ là ĐÚNG 1 code block (VD chunk
+    chỉ có mỗi đoạn ```python...```), và chatbot trả lời y nguyên KHÔNG bọc thêm
+    ```markdown bao ngoài (dù prompt có yêu cầu) — thì "fence mở đầu" và "fence
+    đóng cuối" trùng luôn vào CHÍNH code block đó, dễ hiểu lầm nó là wrapper rồi
+    bóc mất cặp ``` thật (làm hụt fence-count). Để phân biệt: CHỈ tin là wrapper
+    khi ngôn ngữ khai báo đúng là "markdown"/"md" (đúng như prompt yêu cầu model
+    dùng) — "python", "java", "sql", hay để trống thì coi là code block THẬT,
+    không bóc.
     """
     text = response_text.strip()
-    first_fence = re.search(r'```[a-zA-Z]*[ \t]*\n', text)
-    if first_fence:
-        start = first_fence.end()
-        last_close = text.rfind('```')
-        if last_close > start:
-            return text[start:last_close].rstrip('\n')
+    m = re.search(r'```([a-zA-Z]*)[ \t]*\n(.*)\n```[ \t]*$', text, re.DOTALL)
+    if m:
+        lang = m.group(1).strip().lower()
+        prefix_len = m.start()
+        if lang in ('markdown', 'md') and prefix_len < 200:
+            return m.group(2)
     return text
 
 
@@ -459,6 +483,8 @@ def cmd_auto(args):
     translated_chunks = []
     failed_indices = []
     flagged_indices = []
+    consecutive_fail = 0
+    aborted_early = False
     for i, chunk in enumerate(chunks, 1):
         translated, ok = translate_chunk_api(
             chunk, i, total, args.provider, args.model, api_key, args.max_retries,
@@ -478,6 +504,30 @@ def cmd_auto(args):
         translated_chunks.append(translated)
         if not ok:
             failed_indices.append(i)
+            consecutive_fail += 1
+        else:
+            consecutive_fail = 0
+
+        if args.abort_after > 0 and consecutive_fail >= args.abort_after:
+            print(f"\nDỪNG SỚM: {consecutive_fail} chunk LIÊN TIẾP đều lỗi giống nhau — nhiều khả năng "
+                  f"đây là lỗi hệ thống (sai tên --model, model không hỗ trợ --web-search/tool đang bật, "
+                  f"hết quota, key sai, hoặc API đang sập) chứ không phải lỗi ngẫu nhiên từng chunk.\n"
+                  f"Dừng lại ở chunk {i}/{total} để khỏi tốn thời gian/quota cho {total - i} chunk còn lại "
+                  f"khi khả năng cao chúng cũng sẽ lỗi y hệt.\n"
+                  f"Gợi ý kiểm tra: chạy thử với --chunk-size lớn để chỉ có 1-2 chunk và xem lỗi đầy đủ; "
+                  f"thử bỏ --web-search xem có phải do tool đó không; kiểm tra lại --model có đúng và "
+                  f"còn khả dụng không; kiểm tra quota trên aistudio.google.com.", file=sys.stderr)
+            # Cac chunk con lai CHUA DUOC THU — giu nguyen ban goc, danh dau ro,
+            # khong de mat noi dung dù dung som.
+            for j in range(i + 1, total + 1):
+                untried_chunk = chunks[j - 1]
+                translated_chunks.append(
+                    f"<!-- ⏭️ CHƯA THỬ DỊCH (dừng sớm ở chunk {i} do lỗi liên tiếp). "
+                    f"GIỮ NGUYÊN BẢN GỐC (TIẾNG ANH) Ở DƯỚI. -->\n\n" + untried_chunk
+                )
+            aborted_early = True
+            break
+
         if args.sleep_between > 0 and i < total:
             time.sleep(args.sleep_between)
 
@@ -485,12 +535,15 @@ def cmd_auto(args):
     with open(args.output, 'w', encoding='utf-8') as f:
         f.write(final_text)
 
-    print(f"\nXONG. Đã ghi file: {args.output}", file=sys.stderr)
+    print(f"\nXONG (dừng sớm)." if aborted_early else "\nXONG.", file=sys.stderr)
+    print(f"Đã ghi file: {args.output}", file=sys.stderr)
     if failed_indices:
-        print(f"CẢNH BÁO: {len(failed_indices)}/{total} chunk KHÔNG qua được verify tự động.\n"
+        print(f"CẢNH BÁO: {len(failed_indices)}/{total} chunk KHÔNG qua được verify tự động"
+              + (" (trong đó phần cuối bị dừng sớm, xem lý do ở trên)" if aborted_early else "") + ".\n"
               f"Các chunk này vẫn còn nguyên bản tiếng Anh trong file output, đánh dấu bằng\n"
-              f"comment '<!-- ⚠️ TỰ ĐỘNG DỊCH THẤT BẠI ... -->'. Số chunk lỗi: {failed_indices}",
-              file=sys.stderr)
+              f"comment '<!-- ⚠️ TỰ ĐỘNG DỊCH THẤT BẠI ... -->'"
+              + (" hoặc '<!-- ⏭️ CHƯA THỬ DỊCH ... -->'" if aborted_early else "")
+              + f". Số chunk lỗi: {failed_indices}", file=sys.stderr)
     else:
         print("Tất cả chunk đều qua verify (khớp số ảnh/heading/code-block với bản gốc).",
               file=sys.stderr)
@@ -506,6 +559,8 @@ def cmd_auto(args):
 
 
 
+
+
 # ----------------------------------------------------------------------------
 # Chế độ "prep" + "status" + "merge" — dịch tay qua web free, không cần cài/trả gì
 # ----------------------------------------------------------------------------
@@ -517,7 +572,20 @@ def load_manifest_or_die(chunks_dir):
               f"Bạn đã chạy lệnh 'prep' trước chưa?", file=sys.stderr)
         sys.exit(1)
     with open(manifest_path, 'r', encoding='utf-8') as f:
-        return json.load(f)
+        manifest = json.load(f)
+
+    chunks_list = manifest.get("chunks") or []
+    if chunks_list and "original_text" not in chunks_list[0]:
+        print(f"LỖI: manifest.json trong {chunks_dir} được tạo bởi bản translate_md.py CŨ "
+              f"(thiếu dữ liệu 'original_text' — bản mới gộp bản gốc thẳng vào manifest.json "
+              f"thay vì tạo file original_XXX.md riêng). Không đọc tiếp được để tránh báo sai.\n"
+              f"Cách sửa: chạy lại 'prep' với ĐÚNG --input và --chunk-size như lúc đầu (cùng thư "
+              f"mục --chunks-dir này) để tạo lại manifest.json theo cấu trúc mới — các file "
+              f"result_XXX.md bạn đã lưu vẫn giữ nguyên, không mất, không cần dịch lại.",
+              file=sys.stderr)
+        sys.exit(1)
+
+    return manifest
 
 
 def scan_results(chunks_dir, manifest):
@@ -762,6 +830,10 @@ def main():
                          help="Context window cho Ollama, giảm --chunk-size nếu model bị tràn ngữ cảnh")
     p_auto.add_argument('--chunk-size', type=int, default=6000)
     p_auto.add_argument('--max-retries', type=int, default=2)
+    p_auto.add_argument('--abort-after', type=int, default=3,
+                         help="Dừng cả job sớm nếu bấy nhiêu chunk LIÊN TIẾP cùng lỗi (nghi lỗi hệ thống "
+                              "chứ không phải ngẫu nhiên) — tránh chạy mù hết cả trăm chunk lỗi giống nhau. "
+                              "Đặt 0 để tắt, chạy hết bất kể lỗi liên tiếp bao nhiêu.")
     p_auto.add_argument('--sleep-between', type=float, default=0.0,
                          help="Số giây nghỉ giữa các chunk — đặt >0 (vd 4-6) khi dùng free tier để tránh 429")
     p_auto.add_argument('--web-search', action='store_true',

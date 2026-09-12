@@ -219,6 +219,7 @@ mở bằng bất kỳ trình đọc Markdown nào (hoặc trình soạn thảo 
 | `--sleep-between` | không | `0` | Giây nghỉ giữa các phần (dùng cho free tier) |
 | `--web-search` | không | tắt | Bật tra web thật (chỉ gemini/anthropic) |
 | `--double-check` | không | tắt | Gọi thêm 1 lượt phản biện chấm lại bản dịch |
+| `--abort-after` | không | `3` | Dừng cả job nếu bấy nhiêu chunk liên tiếp cùng lỗi (nghi lỗi hệ thống). `0` = tắt, chạy hết dù lỗi bao nhiêu |
 
 ### `prep` (chuẩn bị chunk để dịch tay)
 
@@ -250,6 +251,23 @@ mở bằng bất kỳ trình đọc Markdown nào (hoặc trình soạn thảo 
 → Free tier bị giới hạn số request/phút. Tăng `--sleep-between` (VD: 8–10
 giây), hoặc chuyển sang model `gemini-2.5-flash` (quota rộng hơn `pro`).
 
+**Lỗi `HTTP 500: Internal error encountered` liên tục ngay từ chunk đầu**
+→ Đây là lỗi từ phía Google trả về, không phải bug của script. Từ 3 chunk
+liên tiếp lỗi trở lên, script tự **dừng sớm** cả job (mặc định, xem
+`--abort-after`) thay vì chạy mù hết cả trăm chunk cùng lỗi — phần chưa thử
+vẫn được giữ nguyên bản gốc, đánh dấu rõ trong file output, không mất gì.
+Cách cô lập nguyên nhân:
+  1. Thử lại với `--chunk-size` lớn (VD 50000) để chỉ tạo 1-2 chunk, dễ đọc
+     lỗi đầy đủ hơn.
+  2. Thử bỏ `--web-search` — một số model (đặc biệt bản Gemma phục vụ qua
+     Gemini API) có thể chưa hỗ trợ ổn định tool tra web, gây lỗi 500 thay
+     vì lỗi rõ ràng hơn.
+  3. Kiểm tra lại `--model` gõ đúng chính tả, còn khả dụng (model có thể bị
+     deprecate/đổi tên).
+  4. Kiểm tra quota/trạng thái key tại aistudio.google.com.
+  5. Nếu vẫn không rõ nguyên nhân, thử đổi sang model khác (VD
+     `gemini-2.5-flash`) để xác định lỗi do model cụ thể hay do tài khoản.
+
 **Ollama báo lỗi tràn ngữ cảnh / bị cắt nội dung giữa chừng**
 → Giảm `--chunk-size` xuống 3000–4000, hoặc tăng `--ollama-num-ctx` nếu máy
 đủ RAM/VRAM (mỗi lần tăng gấp đôi tốn thêm bộ nhớ đáng kể).
@@ -258,6 +276,14 @@ giây), hoặc chuyển sang model `gemini-2.5-flash` (quota rộng hơn `pro`).
 → Bình thường — đó là phần chưa dịch hoặc dịch bị lệch số lượng mà script cố
 ý giữ lại thay vì xoá mất. Xem `TRANG_THAI.md` để biết chính xác phần nào,
 sửa tay rồi chạy lại `merge`.
+
+**`status`/`merge` báo lệch số ảnh/heading dù bạn nhìn bằng mắt thấy bản dịch đủ**
+→ Đã từng có bug: nếu chatbot trả lời **không bọc** toàn bộ câu trả lời trong
+cặp ` ```markdown ... ``` ` bao ngoài (chỉ trả markdown thô, có sẵn code block
+riêng ở giữa như Java/SQL), script cũ hiểu nhầm fence code đó là fence bao
+ngoài, cắt mất nội dung trước/sau nó. Đã sửa. Nếu vẫn gặp: mở `result_XXX.md`
+đó lên, đảm bảo toàn bộ câu trả lời được bọc trong đúng một cặp
+` ```markdown` ở đầu và ` ``` ` ở cuối, không có chữ nào lọt ra ngoài cặp đó.
 
 **Không biết mình còn thiếu chunk nào giữa cả trăm file**
 → Đừng tự đếm — chạy `python3 translate_md.py status --chunks-dir ./chunks`
