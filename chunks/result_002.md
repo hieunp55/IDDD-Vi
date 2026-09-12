@@ -1,37 +1,38 @@
-﻿
-| Biểu diễn Trạng thái của các Thể hiện Aggregate (State Representations of Aggregate | Instances) . . . . . . . . . 516 |
-|---|---|
-| Truy vấn Repository Tối ưu cho Từng Use Case (Use Case Optimal Repository Queries) . . . . . . . . . . . . | . . . . . . 517 |
-| Xử lý Nhiều Loại Client Khác biệt (Dealing with Multiple, Disparate Clients) | . . . . . . 517 |
-| Các Bộ điều hợp Hiển thị và Xử lý Thao tác Chỉnh sửa của Người dùng (Rendition Adapters and Handling | User Edits) . . . . . . . . . 518 |
-| Application Services (Dịch vụ Ứng dụng) . . . . . . . . | . . . . . . . . . . . . . . . 521 |
-| Ví dụ về Application Service (Sample Application Service) . . | . . . . . . . . . . . . . . . . 522 |
-| Đầu ra Dịch vụ Phi ghép nối (Decoupled Service Output) . | . . . . . . . . . . . . . . . . . 528 |
-| Hợp thành Nhiều Bounded Contexts (Composing Multiple Bounded Contexts) | . . . . . . . . . . . . . 531 |
-| Hạ tầng (Infrastructure) . . . . | . . . . . . . . . . . . . . . . . . . . . . 532 |
-| Container Chứa Thành phần Doanh nghiệp (Enterprise Component Containers) | . . . . . . . . . . . . . . . . 534 |
-| Tổng kết (Wrap-Up) . . . . . . . . . . . | . . . . . . . . . . . . . . . . . . 537 |
-| Phụ lục A: Aggregates và Event Sourcing: A+ES (Appendix A Aggregates and Event Sourcing: A+ES) . . . . . . . . . . . 539 | Phụ lục A: Aggregates và Event Sourcing: A+ES (Appendix A Aggregates and Event Sourcing: A+ES) . . . . . . . . . . . 539 |
-| Bên trong một Application Service (Inside an Application Service) . | . . . . . . . . . . . . . . . . . 541 |
-| Các Bộ xử lý Lệnh (Command Handlers) . . . . . | . . . . . . . . . . . . . . . . . . 549 |
-| Cú pháp Lambda (Lambda Syntax) . . . . . . . | . . . . . . . . . . . . . . . . . . 553 |
-| Kiểm soát Đồng thời (Concurrency Control) . . . . . | . . . . . . . . . . . . . . . . . . 554 |
-| Sự Tự do về Cấu trúc với A+ES (Structural Freedom with A+ES) | . . . . . . . . . . . . . . . . . . 558 |
-| Hiệu năng (Performance) . . . . . . . . . | . . . . . . . . . . . . . . . . . . 558 |
-| Hiện thực hóa một Event Store (Implementing an Event Store) | . . . . . . . . . . . . . . . . . . . 561 |
-| Lưu trữ Bền vững Quan hệ (Relational Persistence) . . . | . . . . . . . . . . . . . . . . . . . 565 |
-| Lưu trữ Bền vững BLOB (BLOB Persistence) . . . . . | . . . . . . . . . . . . . . . . . . . 568 |
-| Các Aggregate Tập trung (Focused Aggregates) . . | . . . . . . . . . . . . . . . . . . . . . 569 |
-| Các Phép chiếu Mô hình Đọc (Read Model Projections) . . . | . . . . . . . . . . . . . . . . . . 570 |
-| Ứng dụng cùng Thiết kế Aggregate (Use with Aggregate Design) | . . . . . . . . . . . . . . . . . . . 573 |
-| Làm giàu Sự kiện (Events Enrichment) . | . . . . . . . . . . . . . . . . . . . . . . . 573 |
-| Các Công cụ và Mẫu hình Hỗ trợ (Supporting Tools and Patterns) | . . . . . . . . . . . . . . . . . . 576 |
-| Bộ tuần tự hóa Sự kiện (Event Serializers) . . . . . . | . . . . . . . . . . . . . . . . . . 576 |
-| Tính Bất biến của Sự kiện (Event Immutability) . . . . | . . . . . . . . . . . . . . . . . . 577 |
-| | . . 577 |
-| Value Objects . . | . . . . . . . . . . . . . . . . . . . . . |
-| Sinh Hợp đồng (Contract Generation) . . . . . Kiểm thử Đơn vị và (Unit Testing and) | . . . . . . . . . . . . . . . . . . 580 Đặc tả (Specifications) . . . . . . . . . . . . . . . . . 582 |
-| Tài liệu Tham khảo về Event Sourcing (Event Sourcing Bibliography) . . . . . . . . . . . . . Chỉ mục (Index) . . . . . . . . . . . . . . . . . | trong các Ngôn ngữ Lập trình Hàm (in Functional Languages) . . . . . . . . . . . . . 583 . . . . . . . . . . . . . . . . . . 585 . . . . . . . . . . . . . . . . . . 589 |
+﻿| ├── Giao diện Người dùng (User Interface) |  |
+| │ ├── Biểu diễn Trạng thái của các Thể hiện Aggregate (State Representations of Aggregate Instances) | 516 |
+| │ ├── Truy vấn Repository Tối ưu cho Từng Use Case (Use Case Optimal Repository Queries) | 517 |
+| │ ├── Xử lý Nhiều Loại Client Khác biệt (Dealing with Multiple, Disparate Clients) | 517 |
+| │ └── Các Bộ điều hợp Hiển thị và Xử lý Thao tác Chỉnh sửa của Người dùng (Rendition Adapters and Handling User Edits) | 518 |
+| ├── Application Services (Dịch vụ Ứng dụng) | 521 |
+| │ ├── Ví dụ về Application Service (Sample Application Service) | 522 |
+| │ └── Đầu ra Dịch vụ Phi ghép nối (Decoupled Service Output) | 528 |
+| ├── Hợp thành Nhiều Bounded Contexts (Composing Multiple Bounded Contexts) | 531 |
+| ├── Hạ tầng (Infrastructure) | 532 |
+| │ └── Container Chứa Thành phần Doanh nghiệp (Enterprise Component Containers) | 534 |
+| └── Tổng kết (Wrap-Up) | 537 |
+| **Phụ lục A: Aggregates và Event Sourcing: A+ES (Appendix A Aggregates and Event Sourcing: A+ES)** | **539** |
+| ├── Bên trong một Application Service (Inside an Application Service) | 541 |
+| ├── Các Bộ xử lý Lệnh (Command Handlers) | 549 |
+| ├── Cú pháp Lambda (Lambda Syntax) | 553 |
+| ├── Kiểm soát Đồng thời (Concurrency Control) | 554 |
+| ├── Sự Tự do về Cấu trúc với A+ES (Structural Freedom with A+ES) | 558 |
+| ├── Hiệu năng (Performance) | 558 |
+| ├── Hiện thực hóa một Event Store (Implementing an Event Store) | 561 |
+| │ ├── Lưu trữ Bền vững Quan hệ (Relational Persistence) | 565 |
+| │ ├── Lưu trữ Bền vững BLOB (BLOB Persistence) | 568 |
+| │ ├── Các Aggregate Tập trung (Focused Aggregates) | 569 |
+| │ ├── Các Phép chiếu Mô hình Đọc (Read Model Projections) | 570 |
+| │ ├── Ứng dụng cùng Thiết kế Aggregate (Use with Aggregate Design) | 573 |
+| │ └── Làm giàu Sự kiện (Events Enrichment) | 573 |
+| ├── Các Công cụ và Mẫu hình Hỗ trợ (Supporting Tools and Patterns) | 576 |
+| │ ├── Bộ tuần tự hóa Sự kiện (Event Serializers) | 576 |
+| │ ├── Tính Bất biến của Sự kiện (Event Immutability) | 577 |
+| │ ├── Value Objects | 577 |
+| │ ├── Sinh Hợp đồng (Contract Generation) | 580 |
+| │ └── Kiểm thử Đơn vị và Đặc tả (Unit Testing and Specifications) | 582 |
+| ├── Event Sourcing trong các Ngôn ngữ Lập trình Hàm (Event Sourcing in Functional Languages) | 583 |
+| └── Tài liệu Tham khảo về Event Sourcing (Event Sourcing Bibliography) | 585 |
+| **Chỉ mục (Index)** | **589** |
 
 ## Lời tựa (Foreword)
 

@@ -91,278 +91,264 @@ Trang này được chủ ý để trống
 
 ## Contents
 
-| Lời tựa (Foreword) . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . | . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . xvii |
-|---|---|
-| Lời nói đầu (Preface) . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . | . . . . . . . . . . . . . . . . . . . . . xix |
-| Lời cảm ơn (Acknowledgments) . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . | . . . . . . . . . . . . . . . . . . . xxix |
-| Về tác giả (About the Author) . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . | . . . . . . . . . . . . . . . . . . xxxiii |
-| Hướng dẫn đọc sách (Guide to This Book) . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . | . . . . . . . . . . . . . . . . . . . xxxv |
-| Chương 1 Bắt đầu với DDD (Chapter 1 Getting Started with DDD) . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . | . . . . . . . . . . . . . . . . . . . 1 |
-| Tôi có thể áp dụng DDD không? (Can I DDD?) . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . | . . . . . . . . . . . . . . . . . . . . 2 |
-| Vì sao bạn nên làm DDD (Why You Should Do DDD) . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . | . . . . . . . . . . . . . . . . . . 6 |
-| Cách triển khai DDD (How to Do DDD) . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . | . . . . . . . . . . . . . . . . . . . . 20 |
-| Giá trị Kinh doanh của việc Ứng dụng DDD (The Business Value of Using DDD) . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . | . . . . . . . . . . . . . . . . . 25 |
-| 1. Doanh nghiệp Đạt được một Mô hình Hữu ích về | Miền nghiệp vụ của mình (Its Domain) . . . 26 |
-| 2. Định nghĩa và Hiểu biết Tinh tế, Chính xác về Nghiệp vụ Được Phát triển . . . . . . . . . . . . . . . | (the Business Is Developed) . . . . . 27 |
-| 3. Các Chuyên gia Miền đóng góp vào Thiết kế | Phần mềm (Software Design) . . . . . . . 27 |
-| 4. Đạt được Trải nghiệm Người dùng | Tốt hơn (A Better User Experience Is Gained) . . . . . . . . . . . . . 27 |
-| 5. Thiết lập Ranh giới Rõ ràng bao quanh các Mô hình | Thuần túy (Pure Models) . . . . . . 28 |
-| 6. Kiến trúc | Doanh nghiệp Được Tổ chức Tốt hơn . . . . . . . . . 28 |
-| 7. Mô hình hóa Linh hoạt, Lặp đi lặp lại và Liên tục | Được Ứng dụng . . . . . . . . 28 |
-| 8. Các Công cụ Mới, | Cả Chiến lược lẫn Chiến thuật, Được Triển khai . . . 28 |
-| Những Thách thức | khi Áp dụng DDD . . . . . . . . . . . . . . . . . 29 |
-| Tình huống Hư cấu đan xen Thực tế Phong phú . | . . . . . . . . . . . . . . . . 38 |
-| Tổng kết (Wrap-Up) . . . . . . . . . . | . . . . . . . . . . . . . . . . . . . . 41 |
+| Mục lục / Nội dung | Trang |
+| --- | --- |
+| **Lời tựa (Foreword)** | **xvii** |
+| **Lời nói đầu (Preface)** | **xix** |
+| **Lời cảm ơn (Acknowledgments)** | **xxix** |
+| **Về tác giả (About the Author)** | **xxxiii** |
+| **Hướng dẫn đọc sách (Guide to This Book)** | **xxxv** |
+| **Chương 1: Bắt đầu với DDD (Chapter 1 Getting Started with DDD)** | **1** |
+| ├── Tôi có thể áp dụng DDD không? (Can I DDD?) | 2 |
+| ├── Vì sao bạn nên làm DDD (Why You Should Do DDD) | 6 |
+| ├── Cách triển khai DDD (How to Do DDD) | 20 |
+| ├── Giá trị Kinh doanh của việc Ứng dụng DDD (The Business Value of Using DDD) | 25 |
+| │ ├── 1. Doanh nghiệp Đạt được một Mô hình Hữu ích về Miền nghiệp vụ của mình (Its Domain) | 26 |
+| │ ├── 2. Định nghĩa và Hiểu biết Tinh tế, Chính xác về Nghiệp vụ Được Phát triển (the Business Is Developed) | 27 |
+| │ ├── 3. Các Chuyên gia Miền đóng góp vào Thiết kế Phần mềm (Software Design) | 27 |
+| │ ├── 4. Đạt được Trải nghiệm Người dùng Tốt hơn (A Better User Experience Is Gained) | 27 |
+| │ ├── 5. Thiết lập Ranh giới Rõ ràng bao quanh các Mô hình Thuần túy (Pure Models) | 28 |
+| │ ├── 6. Kiến trúc Doanh nghiệp Được Tổ chức Tốt hơn | 28 |
+| │ ├── 7. Mô hình hóa Linh hoạt, Lặp đi lặp lại và Liên tục Được Ứng dụng | 28 |
+| │ └── 8. Các Công cụ Mới, Cả Chiến lược lẫn Chiến thuật, Được Triển khai | 28 |
+| ├── Những Thách thức khi Áp dụng DDD | 29 |
+| ├── Tình huống Hư cấu đan xen Thực tế Phong phú | 38 |
+| └── Tổng kết (Wrap-Up) | 41 |
+| **Chương 2: Domains, Subdomains và Bounded Contexts** | **43** |
+| ├── Bức tranh Toàn cảnh (Big Picture) | 43 |
+| ├── Subdomains và Bounded Contexts trong Thực tế | 44 |
+| ├── Tập trung vào Core Domain (Miền Cốt lõi) | 50 |
+| ├── Vì sao Thiết kế Chiến lược lại Vô cùng Cần thiết | 53 |
+| ├── Các Miền và Miền con trong Thực tế | 56 |
+| ├── Hiểu đúng về Bounded Contexts | 62 |
+| ├── Không gian cho những thứ Ngoài Mô hình | 66 |
+| ├── Quy mô của Bounded Contexts | 68 |
+| ├── Điều chỉnh Khớp với các Thành phần Kỹ thuật | 71 |
+| ├── Các Ngữ cảnh Mẫu | 72 |
+| │ ├── Ngữ cảnh Cộng tác (Collaboration Context) | 73 |
+| │ ├── Ngữ cảnh Định danh và Truy cập (Identity and Access Context) | 80 |
+| │ └── Ngữ cảnh Quản lý Dự án Agile (Agile Project Management Context) | 82 |
+| └── Tổng kết | 84 |
+| **Chương 3: Context Maps** | **87** |
+| ├── Vì sao Context Maps lại Thiết yếu đến vậy | 87 |
+| ├── Vẽ Context Maps | 89 |
+| ├── Các Mối quan hệ Dự án và Tổ chức | 91 |
+| ├── Lập Bản đồ cho Ba Ngữ cảnh | 95 |
+| └── Tổng kết | 111 |
+| **Chương 4: Kiến trúc (Architecture)** | **113** |
+| ├── Phỏng vấn vị CIO Thành công | 114 |
+| ├── Các Tầng kiến trúc (Layers) | 119 |
+| ├── Nguyên lý Đảo ngược Phụ thuộc (Dependency Inversion Principle) | 123 |
+| ├── Kiến trúc Lục giác hoặc Cổng và Bộ điều hợp (Hexagonal or Ports and Adapters) | 125 |
+| ├── Hướng Dịch vụ (Service-Oriented) | 130 |
+| ├── Chuyển trạng thái đại diện REST (Representational State Transfer - REST) như một Phong cách Kiến trúc | 133 |
+| │ ├── Các Khía cạnh Cốt lõi của một RESTful HTTP Server | 135 |
+| │ ├── Các Khía cạnh Cốt lõi của một RESTful HTTP Client | 136 |
+| │ ├── REST và DDD | 136 |
+| │ └── Vì sao lại là REST? | 138 |
+| ├── Phân tách Trách nhiệm Lệnh - Truy vấn, hay CQRS (Command-Query Responsibility Segregation, or CQRS) | 138 |
+| │ ├── Khảo sát các Khía cạnh của CQRS | 140 |
+| │ └── Xử lý Mô hình Truy vấn Nhất quán Cuối cùng | 146 |
+| ├── Kiến trúc Hướng sự kiện (Event-Driven Architecture) | 147 |
+| │ ├── Đường ống và Bộ lọc (Pipes and Filters) | 149 |
+| │ ├── Các Tiến trình Kéo dài, hay còn gọi là Sagas (Long-Running Processes, aka Sagas) | 153 |
+| │ └── Event Sourcing | 160 |
+| ├── Data Fabric và Điện toán Phân tán trên nền Grid (Grid-Based Distributed Computing) | 163 |
+| │ ├── Sao chép Dữ liệu (Data Replication) | 164 |
+| │ ├── Fabric Hướng sự kiện và Domain Events | 165 |
+| │ ├── Truy vấn Liên tục (Continuous Queries) | 166 |
+| │ └── Xử lý Phân tán (Distributed Processing) | 167 |
+| └── Tổng kết | 168 |
+| **Chương 5: Entities (Chapter 5 Entities)** | **171** |
+| ├── Vì sao Chúng ta Sử dụng Entities | 171 |
+| ├── Định danh Duy nhất (Unique Identity) | 173 |
+| │ ├── Người dùng Cung cấp Định danh | 174 |
+| │ ├── Ứng dụng Tự sinh Định danh | 175 |
+| │ ├── Cơ chế Lưu trữ Dữ liệu Sinh Định danh | 179 |
+| │ ├── Một Bounded Context Khác Gán Định danh | 182 |
+| │ ├── Khi Thời điểm Sinh Định danh Trở nên Quan trọng | 184 |
+| │ ├── Định danh Thay thế (Surrogate Identity) | 186 |
+| │ └── Tính Bền vững của Định danh (Identity Stability) | 188 |
+| ├── Khám phá Entities và Đặc tính Bản chất của Chúng | 191 |
+| │ ├── Bóc tách Entities và Thuộc tính | 192 |
+| │ ├── Đi sâu Khám phá Hành vi Thiết yếu | 196 |
+| │ ├── Vai trò và Trách nhiệm | 200 |
+| │ ├── Khởi tạo (Construction) | 205 |
+| │ ├── Kiểm thực Dữ liệu (Validation) | 208 |
+| │ └── Theo dõi Biến động Dữ liệu (Change Tracking) | 216 |
+| └── Tổng kết | 217 |
+| **Chương 6: Value Objects (Chapter 6 Value Objects)** | **219** |
+| ├── Đặc tính của Value (Value Characteristics) | 221 |
+| │ ├── Đo lường, Định lượng hoặc Mô tả | 221 |
+| │ ├── Tính Bất biến (Immutable) | 221 |
+| │ ├── Tính Toàn vẹn Khái niệm (Conceptual Whole) | 223 |
+| │ ├── Khả năng Thay thế (Replaceability) | 226 |
+| │ ├── So sánh Bằng theo Giá trị (Value Equality) | 227 |
+| │ └── Hành vi Không gây Tác dụng phụ (Side-Effect-Free Behavior) | 228 |
+| ├── Tích hợp theo Phong cách Tối giản (Integrate with Minimalism) | 232 |
+| ├── Các Kiểu Chuẩn Thể hiện dưới dạng Values | 234 |
+| ├── Kiểm thử Value Objects | 239 |
+| ├── Hiện thực hóa (Implementation) | 243 |
+| ├── Lưu trữ Bền vững Value Objects | 248 |
+| │ ├── Khước từ Tác động Tiêu cực từ việc Rò rỉ Mô hình Dữ liệu (Data Model Leakage) | 249 |
+| │ ├── ORM và Single Value Objects | 251 |
+| │ ├── ORM và Nhiều Values Được Tuần tự hóa vào một Cột Đơn (a Single Column) | 253 |
+| │ ├── ORM và Nhiều Values Được Hỗ trợ bởi một Database Entity | 255 |
+| │ ├── ORM và Nhiều Values Được Hỗ trợ bởi một Join Table | 260 |
+| │ └── ORM và các Đối tượng Enum Đóng vai trò Trạng thái (Enum-as-State Objects) | 261 |
+| └── Tổng kết | 263 |
+| **Chương 7: Services (Chapter 7 Services)** | **265** |
+| ├── Bản chất của một Domain Service (nhưng Trước hết, Nó Không phải là gì) | 267 |
+| ├── Hãy Chắc chắn Rằng Bạn Cần một Service | 268 |
+| ├── Mô hình hóa một Service trong Miền | 272 |
+| │ ├── Tách riêng Interface có Phải là điều Bắt buộc? | 275 |
+| │ ├── Một Quy trình Tính toán | 277 |
+| │ └── Các Service Chuyển đổi (Transformation Services) | 280 |
+| ├── Sử dụng một Phân tầng Nhỏ chứa các Domain Services | 281 |
+| ├── Kiểm thử Services | 281 |
+| └── Tổng kết | 284 |
+| **Chương 8: Domain Events (Chapter 8 Domain Events)** | **285** |
+| ├── Thời điểm và Lý do Cần tới Domain Events | 285 |
+| ├── Mô hình hóa Events | 288 |
+| │ ├── Mang Đặc tính của Aggregate | 294 |
+| │ └── Định danh (Identity) | 295 |
+| ├── Phát hành Events từ Domain Model | 296 |
+| │ ├── Bên phát hành (Publisher) | 297 |
+| │ └── Bên nhận đăng ký (Subscribers) | 300 |
+| ├── Lan truyền Thông tin đến các Bounded Contexts ở Xa | 303 |
+| │ ├── Tính Nhất quán của Hạ tầng (Infrastructure Consistency) | 303 |
+| │ ├── Các Dịch vụ và Hệ thống Tự trị | 305 |
+| │ └── Mức Độ trễ Chấp nhận được | 306 |
+| ├── Kho Lưu trữ Sự kiện (Event Store) | 307 |
+| ├── Các Phong cách Kiến trúc để Chuyển tiếp Sự kiện Đã lưu (Stored Events) | 312 |
+| │ ├── Phát hành Thông báo dưới dạng Tài nguyên RESTful (RESTful Resources) | 312 |
+| │ └── Phát hành Thông báo qua Phần mềm Trung gian Tin nhắn (Messaging Middleware) | 317 |
+| ├── Hiện thực hóa | 318 |
+| │ ├── Phát hành NotificationLog | 319 |
+| │ └── Thông báo Dựa trên Tin nhắn | 324 |
+| └── Tổng kết | 331 |
+| **Chương 9: Modules** | **333** |
+| ├── Thiết kế với Modules | 333 |
+| ├── Các Quy ước Đặt tên Module Cơ bản | 336 |
+| ├── Quy ước Đặt tên Module cho Mô hình (the Model) | 337 |
+| ├── Các Module thuộc Ngữ cảnh Quản lý Dự án Agile (Agile Project Management Context) | 340 |
+| ├── Các Module trong các Tầng khác | 343 |
+| ├── Module trước Bounded Context | 344 |
+| └── Tổng kết | 345 |
+| **Chương 10: Aggregates** | **347** |
+| ├── Sử dụng Aggregates trong Scrum Core Domain | 348 |
+| │ ├── Lần thử thứ nhất: Cụm Aggregate Lớn (Large-Cluster Aggregate) | 349 |
+| │ └── Lần thử thứ hai: Nhiều Aggregates | 351 |
+| ├── Quy tắc: Mô hình hóa các Bất biến Thực sự trong Ranh giới Nhất quán (Consistency Boundaries) | 353 |
+| ├── Quy tắc: Thiết kế các Aggregate Nhỏ | 355 |
+| │ └── Đừng vội Tin vào Mọi Use Case | 358 |
+| ├── Quy tắc: Tham chiếu các Aggregate Khác thông qua Định danh (Identity) | 359 |
+| │ ├── Phối hợp các Aggregate với nhau thông qua Tham chiếu Định danh (Identity References) | 361 |
+| │ ├── Điều hướng Mô hình (Model Navigation) | 362 |
+| │ └── Khả năng Mở rộng và Quy tắc Phân tán | 363 |
+| ├── Quy tắc: Sử dụng Tính Nhất quán Cuối cùng Bên ngoài Ranh giới (Boundary) | 364 |
+| │ └── Hãy Hỏi Xem Đó là Trách nhiệm của Ai (Whose Job It Is) | 366 |
+| ├── Những Lý do để Phá vỡ Quy tắc (Reasons to Break the Rules) | 367 |
+| │ ├── Lý do thứ nhất: Tiện ích cho Giao diện Người dùng | 367 |
+| │ ├── Lý do thứ hai: Sự Thiếu hụt về Cơ chế Kỹ thuật | 368 |
+| │ ├── Lý do thứ ba: Giao dịch Toàn cục (Global Transactions) | 369 |
+| │ ├── Lý do thứ tư: Hiệu năng Truy vấn | 369 |
+| │ └── Tuân thủ Quy tắc | 370 |
+| ├── Tiếp nhận Thấu suốt qua Khám phá Đột phá (Gaining Insight through Discovery) | 370 |
+| │ ├── Tư duy lại về Thiết kế, một Lần nữa | 370 |
+| │ ├── Ước tính Chi phí Aggregate | 372 |
+| │ ├── Các Kịch bản Sử dụng Phổ biến | 373 |
+| │ ├── Mức Tiêu thụ Bộ nhớ | 374 |
+| │ ├── Khám phá một Thiết kế Thay thế Khác | 375 |
+| │ ├── Hiện thực hóa Tính Nhất quán Cuối cùng | 376 |
+| │ ├── Liệu Đó có Phải là Nhiệm vụ của Thành viên Nhóm? | 378 |
+| │ └── Thời điểm Đưa ra Quyết định | 379 |
+| ├── Hiện thực hóa | 380 |
+| │ ├── Tạo một Root Entity với Unique Identity | 380 |
+| │ ├── Ưu tiên các Thành phần là Value Object | 382 |
+| │ ├── Ứng dụng Định luật Demeter và Nguyên lý Tell, Don't Ask | 382 |
+| │ ├── Kiểm soát Đồng thời Lạc quan (Optimistic Concurrency) | 385 |
+| │ └── Tránh Dependency Injection (Tiêm phụ thuộc) | 387 |
+| └── Tổng kết | 388 |
+| **Chương 11: Factories (Chapter 11 Factories)** | **389** |
+| ├── Factories trong Domain Model | 389 |
+| ├── Phương thức Factory (Factory Method) trên Aggregate Root | 391 |
+| │ ├── Tạo các Thể hiện CalendarEntry | 392 |
+| │ └── Các Thể hiện Discussion | 395 |
+| ├── Tạo Factory trên Service | 397 |
+| └── Tổng kết | 400 |
+| **Chương 12: Repositories (12 Repositories)** | **401** |
+| ├── Repositories Hướng Tập hợp (Collection-Oriented Repositories) | 402 |
+| │ ├── Hiện thực hóa bằng Hibernate | 407 |
+| │ └── Những Cân nhắc khi Hiện thực hóa bằng TopLink | 416 |
+| ├── Repositories Hướng Lưu trữ Bền vững (Persistence-Oriented Repositories) | 418 |
+| │ ├── Hiện thực hóa với Coherence | 420 |
+| │ └── Hiện thực hóa với MongoDB | 425 |
+| ├── Hành vi Bổ sung | 430 |
+| ├── Quản lý Giao dịch (Managing Transactions) | 432 |
+| │ └── Một Lời cảnh báo | 437 |
+| ├── Phân cấp Kiểu dữ liệu (Type Hierarchies) | 437 |
+| ├── So sánh giữa Repository và Data Access Object (DAO) | 440 |
+| ├── Kiểm thử Repositories | 441 |
+| │ └── Kiểm thử với các Hiện thực hóa Trong Bộ nhớ (In-Memory) | 445 |
+| └── Tổng kết | 448 |
+| **Chương 13: Tích hợp các Bounded Contexts** | **449** |
+| ├── Nền tảng Tích hợp (Integration Basics) | 450 |
+| │ ├── Các Hệ thống Phân tán về Căn bản là Hoàn toàn Khác biệt | 451 |
+| │ └── Trao đổi Thông tin vượt qua Ranh giới Hệ thống | 452 |
+| ├── Tích hợp Sử dụng các Tài nguyên RESTful (RESTful Resources) | 458 |
+| │ ├── Hiện thực hóa Tài nguyên RESTful | 459 |
+| │ └── Hiện thực hóa REST Client Sử dụng một Anticorruption Layer (Tầng Chống suy thoái / ACL) | 463 |
+| ├── Tích hợp Sử dụng Hệ thống Tin nhắn (Messaging) | 469 |
+| │ ├── Luôn Cập nhật Thông tin về các Product Owner và Thành viên Nhóm (and Team Members) | 469 |
+| │ ├── Bạn có Đảm đương nổi Trách nhiệm này? | 476 |
+| │ ├── Các Tiến trình Kéo dài, và Cách Tránh Né Trách nhiệm | 481 |
+| │ ├── Máy Trạng thái Tiến trình và Bộ Theo dõi Hết hạn (Time-out Trackers) | 493 |
+| │ ├── Thiết kế một Tiến trình Tinh vi và Chặt chẽ hơn | 503 |
+| │ └── Khi Hệ thống Tin nhắn hoặc Hệ thống của Bạn Bị gián đoạn | 507 |
+| └── Tổng kết | 508 |
+| **Chương 14: Tầng Ứng dụng (Chapter 14 Application)** | **509** |
+| └── Giao diện Người dùng (User Interface) | 512 |
+|   ├── Hiển thị Domain Objects | 512 |
+|   ├── Dựng hình Data Transfer Object từ các Thể hiện Aggregate (from Aggregate Instances) | 513 |
+|   ├── Sử dụng Mediator để Phát hành Trạng thái Nội bộ của Aggregate (Aggregate Internal State) | 514 |
+|   └── Hiển thị các Thể hiện Aggregate từ một Domain Object Payload (Tải trọng Dữ liệu) | 515 |
 
-| Chương 2 Domains, Subdomains và Bounded Contexts | Chương 2 Domains, Subdomains và Bounded Contexts | Chương 2 Domains, Subdomains và Bounded Contexts |
-|---|---|---|
-| | Bức tranh Toàn cảnh (Big Picture) . . . . . . . . . . . . | . . . . . . . . 43 . . . . . . . . . . . . . . . . . 43 |
-| | Subdomains và Bounded Contexts trong Thực tế | . . . . . . . . . . 44 |
-| | Tập trung vào Core Domain (Miền Cốt lõi) . | . . . . . . . . . . . . . . . . . . 50 |
-| | Vì sao Thiết kế Chiến lược lại Vô cùng Cần thiết | . . . . . . . . . . 53 |
-| | Các Miền và Miền con trong Thực tế | . . . . . . . . . . . . . . . 56 |
-| | Hiểu đúng về Bounded Contexts | . . . . . . . . . . . . . . . . 62 |
-| | Không gian cho những thứ Ngoài Mô hình . | . . . . . . . . . . . . . . . . 66 |
-| | Quy mô của Bounded Contexts . . . | . . . . . . . . . . . . . . . . . 68 |
-| | Điều chỉnh Khớp với các Thành phần Kỹ thuật | . . . . . . . . . . . . . 71 |
-| | Các Ngữ cảnh Mẫu . . . . . . . . . . | . . . . . . . . . . . . . . . . 72 |
-| | Ngữ cảnh Cộng tác (Collaboration Context). . . . . | . . . . . . . . . . . . . . . . . 73 |
-| | Ngữ cảnh Định danh và Truy cập (Identity and Access Context) . . | . . . . . . . . . . . . . . . . . 80 |
-| | Ngữ cảnh Quản lý Dự án Agile (Agile Project Management Context) | . . . . . . . . . . . . . . . 82 |
-| | Tổng kết . . . . . . . . . . . | . . . . . . . . . . . . . . . . . . . 84 |
-| Chương 3 Context Maps . . . . . . . . . . . . . . . . . . . . . . . . . 87 | Chương 3 Context Maps . . . . . . . . . . . . . . . . . . . . . . . . . 87 | Chương 3 Context Maps . . . . . . . . . . . . . . . . . . . . . . . . . 87 |
-| | Vì sao Context Maps lại Thiết yếu đến vậy | . . . . . . . . . . . . . . . 87 |
-| | Vẽ Context Maps . . . . . | . . . . . . . . . . . . . . . . 89 |
-| | Các Mối quan hệ Dự án và Tổ chức | . . . . . . . . . . . 91 |
-| | Lập Bản đồ cho Ba Ngữ cảnh . . | . . . . . . . . . . . . . . . . 95 |
-| | Tổng kết . . . . . . . . . . . . . . . | . |
-| | . . | . . . . . . . . . . . 111 |
-| | Chương 4 Kiến trúc (Architecture) . . . . . . . . Phỏng vấn vị CIO Thành công . . . . | . . . . . . . . . . . . . . . . . . 113 . . . . . . . . . . . . . 114 |
-| | Các Tầng kiến trúc (Layers) . . . . . . . . . . . . . . . | . . . . . . . . . . . . . . . 119 |
-| | Nguyên lý Đảo ngược Phụ thuộc (Dependency Inversion Principle) . | . . . . . . . . . . . . . . . 123 |
-| | | . |
-| | Kiến trúc Lục giác hoặc Cổng và Bộ điều hợp (Hexagonal or Ports and Adapters) . Hướng Dịch vụ (Service-Oriented) . . . . . . . | . . . . . . . . . . . . . . 125 . . . . . . . . . . . . . . . . . . 130 |
-| | Chuyển trạng thái đại diện REST (Representational State Transfer-REST) như một Phong cách Kiến trúc . . . | REST như một Phong cách Kiến trúc . . . . . . . . . . . . . 133 . . 133 |
-| | . | . . . . . . . . . . . . . . . . . . . . |
-| | Các Khía cạnh Cốt lõi của một RESTful HTTP Server | . 135 . . . . . . . . . . 136 |
-| | Các Khía cạnh Cốt lõi của một RESTful HTTP Client . REST và DDD . . . . . . . . . . . . . | . . . . . . . . . . . |
-| | | 136 . . . . |
-| | . | . . . . . . . . |
-| | . | |
-| | | 138 |
-| | Vì sao lại là REST? . . . . . . . . . . . . | |
-
-| Phân tách Trách nhiệm Lệnh - Truy vấn, hay CQRS (Command-Query Responsibility Segregation, or CQRS) . . . . . 138 |
-|---|
-| Khảo sát các Khía cạnh của CQRS . . . . . . . . . . . . . . . . . . 140 |
-| Xử lý Mô hình Truy vấn Nhất quán Cuối cùng . . . . . 146 |
-| Kiến trúc Hướng sự kiện (Event-Driven Architecture) . . . . . . . . . . . . . . . . . . 147 |
-| Đường ống và Bộ lọc (Pipes and Filters) . . . . . . . . . . . . . . . . . . 149 |
-| Các Tiến trình Kéo dài, hay còn gọi là Sagas (Long-Running Processes, aka Sagas) . . . . . . . . . . . . . 153 |
-| Event Sourcing . . . . . . . . . . . . . . . . . . . . . . . . 160 |
-| Data Fabric và Điện toán Phân tán trên nền Grid (Grid-Based Distributed Computing) . . . . . . 163 |
-| Sao chép Dữ liệu (Data Replication) . . . . . . . . . . . . . . . . . . . . . . . 164 |
-| Fabric Hướng sự kiện và Domain Events . . . . . . . . . . . 165 |
-| Truy vấn Liên tục (Continuous Queries) . . . . . . . . . . . . . . . . . . . . . . 166 |
-| Xử lý Phân tán (Distributed Processing) . . . . . . . . . . . . . . . . . . . . 167 |
-| Tổng kết . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 168 |
-| Chương 5 Entities (Chapter 5 Entities) . . . . . . . . . . . . . . . . . . . . . . . . . . . . 171 |
-| Vì sao Chúng ta Sử dụng Entities . . . . . . . . . . . . . . . . . . . . . . . 171 |
-| Định danh Duy nhất (Unique Identity) . . . . . . . . . . . . . . . . . . . . 173 |
-| Người dùng Cung cấp Định danh . . . . . . . . . . . . . . . . . . . . . 174 |
-| Ứng dụng Tự sinh Định danh . . . . . . . . . . . . . . . . 175 |
-| Cơ chế Lưu trữ Dữ liệu Sinh Định danh . . . . . . . . . . 179 |
-| Một Bounded Context Khác Gán Định danh . . . . . . . . . . 182 |
-| Khi Thời điểm Sinh Định danh Trở nên Quan trọng . . . . . . . 184 |
-| Định danh Thay thế (Surrogate Identity) . . . . . . . . . . . . . . . . . . . . . . . 186 |
-| Tính Bền vững của Định danh (Identity Stability) . . . . . . . . . . . . . . . . . . 188 |
-| Khám phá Entities và Đặc tính Bản chất của Chúng . . . . . 191 |
-| Bóc tách Entities và Thuộc tính . . . . . . . . . . . . . 192 |
-| Đi sâu Khám phá Hành vi Thiết yếu . . . . . . . . . . . . . . . . 196 |
-| Vai trò và Trách nhiệm . . . . . . . . . . . . . . . . . . 200 |
-| Khởi tạo (Construction) . . . . . . . . . . . . . . . . . . . . . . . . . 205 |
-| Kiểm thực Dữ liệu (Validation) . . . . . . . . . . . . . . . . . . . . . . . . . . . 208 |
-| Theo dõi Biến động Dữ liệu (Change Tracking) . . . . . . . . . . . . . . . . . . . . . . . 216 |
-| Tổng kết . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 217 |
-| Chương 6 Value Objects (Chapter 6 Value Objects) . . . . . . . . . . . . . . . . . . . . . . . . . 219 |
-| Đặc tính của Value (Value Characteristics) . . . . . . . . . . . . . . . . . . . . . . . 221 |
-| Đo lường, Định lượng hoặc Mô tả . . . . . . . . . . . . . 221 |
-| Tính Bất biến (Immutable) . . . . . . . . . . . . . . . . . . . . . 221 |
-
-| Tính Toàn vẹn Khái niệm (Conceptual Whole) . . . . . . . . . . . . | . . . . . . . . . . 223 |
-|---|---|
-| Khả năng Thay thế (Replaceability) . . . . . . . . . . . . | . . . . . . . . . . . . . 226 |
-| So sánh Bằng theo Giá trị (Value Equality) . . . . . . . . . . . . | . . . . . . . . . . . . . 227 |
-| Hành vi Không gây Tác dụng phụ (Side-Effect-Free Behavior) . . . . . . | . . . . . . . . . . . . . 228 |
-| Tích hợp theo Phong cách Tối giản (Integrate with Minimalism). . . . . . . | . . . . . . . . . . . . . 232 |
-| Các Kiểu Chuẩn Thể hiện dưới dạng Values . . | . . . . . . . . . . . . . 234 |
-| Kiểm thử Value Objects . . . . . . . . . | . . . . . . . . . . . . . 239 |
-| Hiện thực hóa (Implementation). . . . . . . . . . . . . | . . . . . . . . . . . . . 243 |
-| Lưu trữ Bền vững Value Objects . . . . . . . . | . . . . . . . . . . . . . 248 |
-| Khước từ Tác động Tiêu cực từ việc Rò rỉ Mô hình Dữ liệu . . . | (Data Model Leakage). . . . . 249 |
-| ORM và Single Value Objects . . . | . . . . . . . . . . . . . 251 |
-| ORM và Nhiều Values Được Tuần tự hóa vào một Cột Đơn . . | (a Single Column) . 253 |
-| ORM và Nhiều Values Được Hỗ trợ bởi một Database | Entity. . . . . 255 |
-| ORM và Nhiều Values Được Hỗ trợ bởi một Join | Table. . . . . . . . 260 |
-| ORM và các Đối tượng Enum Đóng vai trò Trạng thái (Enum-as-State Objects) . . | . . . . . . . . . . . . . 261 |
-| Tổng kết . . . . . . . . . . . . . . . . | . . . . . . . . . . . . . 263 |
-| Chương 7 Services (Chapter 7 Services) . . . . . . . . . . . . . . . | . . . . . . . . . . . . . 265 |
-| Bản chất của một Domain Service (nhưng Trước hết, | Nó Không phải là gì) . . . . . . 267 |
-| Hãy Chắc chắn Rằng Bạn Cần một Service . . . . . | . . . . . . . . . . . . . 268 |
-| Mô hình hóa một Service trong Miền . . . | . . . . . . . . . . . . . 272 |
-| Tách riêng Interface có Phải là điều Bắt buộc? . | . . . . . . . . . . . . |
-| Một Quy trình Tính toán . . . . . . . . | . 275 . . . . |
-| Các Service Chuyển đổi (Transformation Services) . . . . . . . | . . . . . . . . . 277 . . . . . . . . . . . . . 280 |
-| Sử dụng một Phân tầng Nhỏ chứa các Domain Services | . . . . . . . . . . . 281 |
-| Kiểm thử Services. . . . . . . . . . . . . | . . . . . . . . . . . . . 281 |
-| Tổng kết . . . . . . . . . . . . . . . . | . . . . . . . . . . . . . 284 |
-| Chương 8 Domain Events (Chapter 8 Domain Events) . . . . . . . . . . . | . . . . . . . . . . . . . 285 |
-| Thời điểm và Lý do Cần tới Domain Events | . . . . . . . . . . . . . 285 |
-| Mô hình hóa Events . . . . . . . . . . . . | . . . . . . . . . . . . . 288 |
-| Mang Đặc tính của Aggregate . . . | . . . . . . . . . . . . . 294 |
-| Định danh (Identity) . . . . . . . . . . . . . . . | . . . . . . . . . . . . . 295 |
-| Phát hành Events từ Domain Model | . . . . . . . . . . . 296 297 |
-| Bên phát hành (Publisher) . . . . . . . . . . . . . . . | . . . . . . . . . . . . |
-| Bên nhận đăng ký (Subscribers) . . . . . . . . . . . . . | . . . . . . . . . . . . . 300 |
-
-| | Lan truyền Thông tin đến các Bounded Contexts ở Xa . . . . . . . 303 |
-|---|---|
-| Phát hành Tin nhắn (Messaging Publishing) | Tính Nhất quán của Hạ tầng (Infrastructure Consistency) . . . . . . . . . . . . 303 |
-| Các Dịch vụ và Hệ thống Tự trị | . . . . . . . . . . . . . . 305 |
-| Mức Độ trễ Chấp nhận được . . . . | . . . . . . . . . . . . . . . . . . 306 |
-| Kho Lưu trữ Sự kiện (Event Store) . . . . . . . . . | . . . . . . . . . . . . . . . . . . . 307 |
-| Các Phong cách Kiến trúc để Chuyển tiếp | Sự kiện Đã lưu (Stored Events) . . . . . . . . 312 |
-| Phát hành Thông báo dưới dạng | Tài nguyên RESTful (RESTful Resources) . . . . . . . . 312 |
-| Phát hành Thông báo qua Phần mềm Trung gian | Tin nhắn (Messaging Middleware) . . 317 |
-| Hiện thực hóa | . . . . . . . . . . . . . . . . . . . . . . . . . 318 |
-| Phát hành NotificationLog | . . . . . . . . . . . . . . 319 |
-| Thông báo Dựa trên Tin nhắn | . . . . . . . . . . . 324 |
-| Tổng kết . | . . . . . . . . . . . . . . . . . . . . . . . . . . . . 331 |
-| Chương 9 | Modules . . . . . . . . . . . . . . . . . . . . . . . . . . . 333 |
-| Thiết kế với Modules . . . . | . . . . . . . . . . . . . . . . . 333 |
-| Các Quy ước Đặt tên Module Cơ bản | . . . . . . . . . . . . . . . 336 |
-| Quy ước Đặt tên Module cho | Mô hình (the Model) . . . . . . . . . . . 337 |
-| Các Module thuộc Ngữ cảnh Quản lý Dự án Agile | (Agile Project Management Context) . . . . . . . 340 |
-| Các Module trong các Tầng khác . | . . . . . . . . . . . . . . . . . . . 343 |
-| Module trước Bounded Context | . . . . . . . . . . . . . . . . 344 |
-| Tổng kết . . . . . . . . . . | . . . . . . . . . . . . . . . . . . . 345 |
-| Chương 10 Aggregates . . . . . . | . . . . . . . . . . . . . . . . . . . . 347 |
-| Sử dụng Aggregates trong Scrum Core | Domain . . . . . . . . . . 348 |
-| Lần thử thứ nhất: Cụm Aggregate | Lớn (Large-Cluster Aggregate) . . . . . . . . . . . . 349 |
-| Lần thử thứ hai: Nhiều | Aggregates . . . . . . . . . . . . . 351 |
-| Quy tắc: Mô hình hóa các Bất biến Thực sự trong | Ranh giới Nhất quán (Consistency Boundaries) . . . . . 353 |
-| Quy tắc: Thiết kế các Aggregate Nhỏ . . | . . . . . . . . . . . . . . . . 355 |
-| Đừng vội Tin vào Mọi Use Case | . . . . . . . . . . . . . . . . . . 358 |
-| Quy tắc: Tham chiếu các Aggregate Khác thông qua | Định danh (Identity) . . . . . . . . . . 359 |
-| Phối hợp các Aggregate với nhau thông qua . . . . . . . | Tham chiếu |
-| Định danh (Identity References) . . . . . . . . . . . | . . . . . . . 361 |
-| Điều hướng | Mô hình (Model Navigation) . . . . . . . . . . . . . . . . . . . . . . . 362 |
-| Khả năng Mở rộng và Quy tắc Phân tán: Sử dụng Tính Nhất quán Cuối cùng Bên ngoài | . . . . . . . . . . . . . . . . . . 363 Ranh giới (Boundary) . . . . . 364 |
-| Hãy Hỏi Xem Đó là Trách nhiệm | của Ai (Whose Job It Is) . . . . . . . . . . . . . . . . . . . . . . 366 |
-
-| Những Lý do để Phá vỡ Quy tắc (Reasons to Break the Rules) . . . . . . . . . . . . . . . . . . . 367 |
-|---|
-| Lý do thứ nhất: Tiện ích cho Giao diện Người dùng . . . . . . . . . . . 367 |
-| Lý do thứ hai: Sự Thiếu hụt về Cơ chế Kỹ thuật . . . . . . . . . 368 |
-| Lý do thứ ba: Giao dịch Toàn cục (Global Transactions) . . . . . . . . . . . . . . 369 |
-| Lý do thứ tư: Hiệu năng Truy vấn . . . . . . . . . . . . . . . 369 |
-| Tuân thủ Quy tắc . . . . . . . . . . . . . . . . . . . . . 370 |
-| Tiếp nhận Thấu suốt qua Khám phá Đột phá (Gaining Insight through Discovery). . . . . . . . . . . . . . . . 370 |
-| Tư duy lại về Thiết kế, một Lần nữa . . . . . . . . . . . . . . . . . 370 |
-| Ước tính Chi phí Aggregate . . . . . . . . . . . . . . . . . . 372 |
-| Các Kịch bản Sử dụng Phổ biến . . . . . . . . . . . . . . . . . . 373 |
-| Mức Tiêu thụ Bộ nhớ . . . . . . . . . . . . . . . . . . . . 374 |
-| Khám phá một Thiết kế Thay thế Khác . . . . . . . . . . . . 375 |
-| Hiện thực hóa Tính Nhất quán Cuối cùng . . . . . . . . . . . . . . 376 |
-| Liệu Đó có Phải là Nhiệm vụ của Thành viên Nhóm? . . . . . . . . . . . . . . . . . 378 |
-| Thời điểm Đưa ra Quyết định . . . . . . . . . . . . . . . . . . . . . . 379 |
-| Hiện thực hóa . . . . . . . . . . . . . . . . . . . . . . . . . 380 Root Entity với Unique Identity . . . . . . . . . . 380 |
-| Tạo một |
-| Ưu tiên các Thành phần là Value Object . . . . . . . . . . . . . . . . . . . 382 |
-| Ứng dụng Định luật Demeter và Nguyên lý Tell, Don't Ask . . . . . . . . . . 382 |
-| Kiểm soát Đồng thời Lạc quan (Optimistic Concurrency) . . . . . . . . . . . . . . . . . . . . 385 |
-| Tránh Dependency Injection (Tiêm phụ thuộc) . . . . . . . . . . . . 387 Tổng kết . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 388 |
-| Chương 11 Factories (Chapter 11 Factories) . . . . . . . . . . . . . . . . . . . . . . . . . . . 389 |
-| Factories trong Domain Model . . . . . . . . . . . . . . . . . 389 |
-| Phương thức Factory (Factory Method) trên Aggregate Root . . . . . . . . . . . . . . . 391 |
-| Tạo các Thể hiện CalendarEntry . . . . . . . . . . . . . 392 |
-| Các Thể hiện Discussion . . . . . . . . . . . . . . . 395 |
-| Tạo Factory trên Service . . . . . . . . . . . . . . . . . . . . . . . . 397 |
-| . . . . . . . . . . . . . . . . . . . . . . . . . . . 400 |
-| Tổng kết . . |
-| Chương 12 Repositories (12 Repositories) . . . . . . . . . . . . . . . . . . . . . . . . . 401 Repositories Hướng Tập hợp (Collection-Oriented Repositories) . . . . . . . . . . . . . . |
-| . . 402 |
-| Hiện thực hóa bằng Hibernate . . . . . . . . . . . . . . . . . . 407 |
-| Những Cân nhắc khi Hiện thực hóa bằng TopLink . . . . . . . . 416 |
-
-| Repositories Hướng Lưu trữ Bền vững (Persistence-Oriented | Repositories) . . . . . . . . . . . . . . . . 418 |
-|---|---|
-| Hiện thực hóa | với Coherence . . . . . . . . . . . . . . . . . . 420 |
-| Hiện thực hóa với MongoDB . | . . . . . . . . . . . . . . . . . 425 |
-| Hành vi Bổ sung . | . . . . . . . . . . . . . . . . . . . . . . 430 |
-| Quản lý Giao dịch (Managing Transactions) . . . . | . . . . . . . . . . . . . . . . . 432 |
-| Một Lời cảnh báo . . . . . . . . | . . . . . . . . . . . . . . . . . . 437 |
-| Phân cấp Kiểu dữ liệu (Type Hierarchies) . . . . . . | . . . . . . . . . . . . . . . . . . . 437 |
-| So sánh giữa Repository và Data Access | Object (DAO) . . . . . . . . . . . . . . 440 |
-| Kiểm thử Repositories . . . . . | . . . . . . . . . . . . . . . . . . 441 |
-| Kiểm thử với các Hiện thực hóa | Trong Bộ nhớ (In-Memory) . . . . . . . . . . 445 |
-| Tổng kết . . . . . . . . . . . | . . . . . . . . . . . . . . . . . . 448 |
-| Chương 13 Tích hợp các Bounded Contexts . . . . . . . . | . . . . . . . . 449 |
-| Nền tảng | Tích hợp (Integration Basics) . . . . . . . . . . . . . . . . . . 450 |
-| Các Hệ thống Phân tán về Căn bản là | Hoàn toàn Khác biệt . . . . . . 451 |
-| Trao đổi Thông tin vượt qua | Ranh giới Hệ thống . . . . . . 452 |
-| Tích hợp Sử dụng các Tài nguyên RESTful (RESTful Resources) | . . . . . . . . . . . . . . 458 |
-| Hiện thực hóa Tài nguyên RESTful | . . . . . . . . . . . . . 459 |
-| Hiện thực hóa REST Client Sử dụng một Anticorruption Layer (Tầng Chống suy thoái / ACL) . . . . . . . . . . . . . . . . . . . . | . . . . . . . . 463 |
-| Tích hợp Sử dụng Hệ thống Tin nhắn (Messaging) . . . . . | . . . . . . . . . . . . . . 469 |
-| Luôn Cập nhật Thông tin về các Product Owner | và Thành viên Nhóm (and Team Members) . . . . . . . . . . . . . . 469 |
-| Bạn có Đảm đương nổi Trách nhiệm này? | . . . . . . . . . . . . . 476 |
-| Các Tiến trình Kéo dài, và | Cách Tránh Né Trách nhiệm . . . . 481 |
-| Máy Trạng thái Tiến trình | và Bộ Theo dõi Hết hạn (Time-out Trackers) . . . . . . . . 493 |
-| Thiết kế một Tiến trình | Tinh vi và Chặt chẽ hơn . . . . . . . . . . . 503 |
-| Khi Hệ thống Tin nhắn hoặc Hệ thống của Bạn Bị gián đoạn | . . . . . . . 507 |
-| Tổng kết . . . . . . . . . . . | . . . . . . . . . . . . . . . . . . 508 |
-| Chương 14 Tầng Ứng dụng (Chapter 14 Application). . . . . . . . . . . . | . . . . . . . . . . . . . . 509 |
-| Giao diện Người dùng (User Interface) . . . . . . . . | . . . . . . . . . . . . . . . . . . 512 |
-| | từ các Thể hiện Aggregate (from Aggregate Instances) . . . 513 |
-| Hiển thị Domain Objects Dựng hình Data Transfer | . . . . . . . . . . . . . . . . . . 512 Object |
-| Sử dụng Mediator để Phát hành Hiển thị các Thể hiện Aggregate từ một Domain | Trạng thái Nội bộ của Aggregate (Aggregate Internal State) . . . . . . 514 Object |
-| Payload (Tải trọng Dữ liệu) | 515 |
-
-﻿
-| Biểu diễn Trạng thái của các Thể hiện Aggregate (State Representations of Aggregate | Instances) . . . . . . . . . 516 |
-|---|---|
-| Truy vấn Repository Tối ưu cho Từng Use Case (Use Case Optimal Repository Queries) . . . . . . . . . . . . | . . . . . . 517 |
-| Xử lý Nhiều Loại Client Khác biệt (Dealing with Multiple, Disparate Clients) | . . . . . . 517 |
-| Các Bộ điều hợp Hiển thị và Xử lý Thao tác Chỉnh sửa của Người dùng (Rendition Adapters and Handling | User Edits) . . . . . . . . . 518 |
-| Application Services (Dịch vụ Ứng dụng) . . . . . . . . | . . . . . . . . . . . . . . . 521 |
-| Ví dụ về Application Service (Sample Application Service) . . | . . . . . . . . . . . . . . . . 522 |
-| Đầu ra Dịch vụ Phi ghép nối (Decoupled Service Output) . | . . . . . . . . . . . . . . . . . 528 |
-| Hợp thành Nhiều Bounded Contexts (Composing Multiple Bounded Contexts) | . . . . . . . . . . . . . 531 |
-| Hạ tầng (Infrastructure) . . . . | . . . . . . . . . . . . . . . . . . . . . . 532 |
-| Container Chứa Thành phần Doanh nghiệp (Enterprise Component Containers) | . . . . . . . . . . . . . . . . 534 |
-| Tổng kết (Wrap-Up) . . . . . . . . . . . | . . . . . . . . . . . . . . . . . . 537 |
-| Phụ lục A: Aggregates và Event Sourcing: A+ES (Appendix A Aggregates and Event Sourcing: A+ES) . . . . . . . . . . . 539 | Phụ lục A: Aggregates và Event Sourcing: A+ES (Appendix A Aggregates and Event Sourcing: A+ES) . . . . . . . . . . . 539 |
-| Bên trong một Application Service (Inside an Application Service) . | . . . . . . . . . . . . . . . . . 541 |
-| Các Bộ xử lý Lệnh (Command Handlers) . . . . . | . . . . . . . . . . . . . . . . . . 549 |
-| Cú pháp Lambda (Lambda Syntax) . . . . . . . | . . . . . . . . . . . . . . . . . . 553 |
-| Kiểm soát Đồng thời (Concurrency Control) . . . . . | . . . . . . . . . . . . . . . . . . 554 |
-| Sự Tự do về Cấu trúc với A+ES (Structural Freedom with A+ES) | . . . . . . . . . . . . . . . . . . 558 |
-| Hiệu năng (Performance) . . . . . . . . . | . . . . . . . . . . . . . . . . . . 558 |
-| Hiện thực hóa một Event Store (Implementing an Event Store) | . . . . . . . . . . . . . . . . . . . 561 |
-| Lưu trữ Bền vững Quan hệ (Relational Persistence) . . . | . . . . . . . . . . . . . . . . . . . 565 |
-| Lưu trữ Bền vững BLOB (BLOB Persistence) . . . . . | . . . . . . . . . . . . . . . . . . . 568 |
-| Các Aggregate Tập trung (Focused Aggregates) . . | . . . . . . . . . . . . . . . . . . . . . 569 |
-| Các Phép chiếu Mô hình Đọc (Read Model Projections) . . . | . . . . . . . . . . . . . . . . . . 570 |
-| Ứng dụng cùng Thiết kế Aggregate (Use with Aggregate Design) | . . . . . . . . . . . . . . . . . . . 573 |
-| Làm giàu Sự kiện (Events Enrichment) . | . . . . . . . . . . . . . . . . . . . . . . . 573 |
-| Các Công cụ và Mẫu hình Hỗ trợ (Supporting Tools and Patterns) | . . . . . . . . . . . . . . . . . . 576 |
-| Bộ tuần tự hóa Sự kiện (Event Serializers) . . . . . . | . . . . . . . . . . . . . . . . . . 576 |
-| Tính Bất biến của Sự kiện (Event Immutability) . . . . | . . . . . . . . . . . . . . . . . . 577 |
-| | . . 577 |
-| Value Objects . . | . . . . . . . . . . . . . . . . . . . . . |
-| Sinh Hợp đồng (Contract Generation) . . . . . Kiểm thử Đơn vị và (Unit Testing and) | . . . . . . . . . . . . . . . . . . 580 Đặc tả (Specifications) . . . . . . . . . . . . . . . . . 582 |
-| Tài liệu Tham khảo về Event Sourcing (Event Sourcing Bibliography) . . . . . . . . . . . . . Chỉ mục (Index) . . . . . . . . . . . . . . . . . | trong các Ngôn ngữ Lập trình Hàm (in Functional Languages) . . . . . . . . . . . . . 583 . . . . . . . . . . . . . . . . . . 585 . . . . . . . . . . . . . . . . . . 589 |
+﻿| ├── Giao diện Người dùng (User Interface) |  |
+| │ ├── Biểu diễn Trạng thái của các Thể hiện Aggregate (State Representations of Aggregate Instances) | 516 |
+| │ ├── Truy vấn Repository Tối ưu cho Từng Use Case (Use Case Optimal Repository Queries) | 517 |
+| │ ├── Xử lý Nhiều Loại Client Khác biệt (Dealing with Multiple, Disparate Clients) | 517 |
+| │ └── Các Bộ điều hợp Hiển thị và Xử lý Thao tác Chỉnh sửa của Người dùng (Rendition Adapters and Handling User Edits) | 518 |
+| ├── Application Services (Dịch vụ Ứng dụng) | 521 |
+| │ ├── Ví dụ về Application Service (Sample Application Service) | 522 |
+| │ └── Đầu ra Dịch vụ Phi ghép nối (Decoupled Service Output) | 528 |
+| ├── Hợp thành Nhiều Bounded Contexts (Composing Multiple Bounded Contexts) | 531 |
+| ├── Hạ tầng (Infrastructure) | 532 |
+| │ └── Container Chứa Thành phần Doanh nghiệp (Enterprise Component Containers) | 534 |
+| └── Tổng kết (Wrap-Up) | 537 |
+| **Phụ lục A: Aggregates và Event Sourcing: A+ES (Appendix A Aggregates and Event Sourcing: A+ES)** | **539** |
+| ├── Bên trong một Application Service (Inside an Application Service) | 541 |
+| ├── Các Bộ xử lý Lệnh (Command Handlers) | 549 |
+| ├── Cú pháp Lambda (Lambda Syntax) | 553 |
+| ├── Kiểm soát Đồng thời (Concurrency Control) | 554 |
+| ├── Sự Tự do về Cấu trúc với A+ES (Structural Freedom with A+ES) | 558 |
+| ├── Hiệu năng (Performance) | 558 |
+| ├── Hiện thực hóa một Event Store (Implementing an Event Store) | 561 |
+| │ ├── Lưu trữ Bền vững Quan hệ (Relational Persistence) | 565 |
+| │ ├── Lưu trữ Bền vững BLOB (BLOB Persistence) | 568 |
+| │ ├── Các Aggregate Tập trung (Focused Aggregates) | 569 |
+| │ ├── Các Phép chiếu Mô hình Đọc (Read Model Projections) | 570 |
+| │ ├── Ứng dụng cùng Thiết kế Aggregate (Use with Aggregate Design) | 573 |
+| │ └── Làm giàu Sự kiện (Events Enrichment) | 573 |
+| ├── Các Công cụ và Mẫu hình Hỗ trợ (Supporting Tools and Patterns) | 576 |
+| │ ├── Bộ tuần tự hóa Sự kiện (Event Serializers) | 576 |
+| │ ├── Tính Bất biến của Sự kiện (Event Immutability) | 577 |
+| │ ├── Value Objects | 577 |
+| │ ├── Sinh Hợp đồng (Contract Generation) | 580 |
+| │ └── Kiểm thử Đơn vị và Đặc tả (Unit Testing and Specifications) | 582 |
+| ├── Event Sourcing trong các Ngôn ngữ Lập trình Hàm (Event Sourcing in Functional Languages) | 583 |
+| └── Tài liệu Tham khảo về Event Sourcing (Event Sourcing Bibliography) | 585 |
+| **Chỉ mục (Index)** | **589** |
 
 ## Lời tựa (Foreword)
 
@@ -908,18 +894,45 @@ Hầu như mọi framework trên thị trường ngày nay đều đòi hỏi, v
 
 Được rồi, hãy giả sử chúng ta đều đồng ý rằng điều này vừa là sự thật vừa gây phiền toái lớn cho chúng ta. Vậy tình trạng thiếu máu khắp mọi nơi thì có liên quan gì đến chứng mất trí nhớ (memory loss)? Khi bạn đọc qua mã nguồn client của một Anemic Domain Model (Mô hình Miền Thiếu máu) — ví dụ như một Application Service (Dịch vụ Ứng dụng) (4, 14) mạo danh, vận hành theo phong cách Transaction Script (Kịch bản Giao dịch) — chúng ta thường thấy những gì? Dưới đây là một ví dụ sơ đẳng:
 
+```java
+@Transactional
+public void saveCustomer(
+        String customerId,
+        String customerFirstName,
+        String customerLastName,
+        String streetAddress1,
+        String streetAddress2,
+        String city,
+        String stateOrProvince,
+        String postalCode,
+        String country,
+        String homePhone,
+        String mobilePhone,
+        String primaryEmailAddress,
+        String secondaryEmailAddress) {
 
-```
+    Customer customer = customerDao.readCustomer(customerId);
 
-@Transactional public void saveCustomer( String customerId, String customerFirstName, String customerLastName, String streetAddress1, String streetAddress2, String city, String stateOrProvince, String postalCode, String country, String homePhone, String mobilePhone, String primaryEmailAddress, String secondaryEmailAddress) { Customer customer = customerDao.readCustomer(customerId); if (customer == null) { customer = new Customer(); customer.setCustomerId(customerId); } customer.setCustomerFirstName(customerFirstName); customer.setCustomerLastName(customerLastName); customer.setStreetAddress1(streetAddress1); customer.setStreetAddress2(streetAddress2); customer.setCity(city); customer.setStateOrProvince(stateOrProvince); customer.setPostalCode(postalCode); customer.setCountry(country); customer.setHomePhone(homePhone); customer.setMobilePhone(mobilePhone);
+    if (customer == null) {
+        customer = new Customer();
+        customer.setCustomerId(customerId);
+    }
 
-```
+    customer.setCustomerFirstName(customerFirstName);
+    customer.setCustomerLastName(customerLastName);
+    customer.setStreetAddress1(streetAddress1);
+    customer.setStreetAddress2(streetAddress2);
+    customer.setCity(city);
+    customer.setStateOrProvince(stateOrProvince);
+    customer.setPostalCode(postalCode);
+    customer.setCountry(country);
+    customer.setHomePhone(homePhone);
+    customer.setMobilePhone(mobilePhone);
+    customer.setPrimaryEmailAddress(primaryEmailAddress);
+    customer.setSecondaryEmailAddress(secondaryEmailAddress);
 
-
-```
-
-customer.setPrimaryEmailAddress(primaryEmailAddress); customer.setSecondaryEmailAddress (secondaryEmailAddress); customerDao.saveCustomer(customer); }
-
+    customerDao.saveCustomer(customer);
+}
 ```
 
 ## Ví dụ Được Chủ ý Giữ ở Mức Đơn giản (Example Purposely Kept Simple)
@@ -930,22 +943,75 @@ Phải thừa nhận rằng ví dụ này không bắt nguồn từ một miền
 
 Hay thực ra không phải vậy? Thực tế là, chúng ta hoàn toàn không biết phương thức saveCustomer() này được sử dụng trong những tình huống nghiệp vụ nào — ít nhất là không thể biết một cách chính xác. Tại sao phương thức này lại được tạo ra ngay từ đầu? Liệu có ai còn nhớ ý đồ ban đầu của nó, cùng toàn bộ những động cơ thúc đẩy việc thay đổi nó để phục vụ cho hàng loạt mục tiêu kinh doanh khác nhau không? Những ký ức đó rất có thể đã bị lãng quên chỉ vài tuần hoặc vài tháng sau khi phương thức này được tạo ra và liên tục bị chắp vá sửa đổi. Và mọi chuyện thậm chí còn tồi tệ hơn thế. Bạn không tin tôi ư? Hãy nhìn vào phiên bản tiếp theo của chính phương thức này:
 
+```java
+@Transactional
+public void saveCustomer(
+        String customerId,
+        String customerFirstName,
+        String customerLastName,
+        String streetAddress1,
+        String streetAddress2,
+        String city,
+        String stateOrProvince,
+        String postalCode,
+        String country,
+        String homePhone,
+        String mobilePhone,
+        String primaryEmailAddress,
+        String secondaryEmailAddress) {
 
-```
+    Customer customer = customerDao.readCustomer(customerId);
 
-@Transactional public void saveCustomer( String customerId, String customerFirstName, String customerLastName, String streetAddress1, String streetAddress2, String city, String stateOrProvince, String postalCode, String country, String homePhone, String mobilePhone, String primaryEmailAddress, String secondaryEmailAddress) { Customer customer = customerDao.readCustomer(customerId); if (customer == null) { customer = new Customer(); customer.setCustomerId(customerId); }
-
+    if (customer == null) {
+        customer = new Customer();
+        customer.setCustomerId(customerId);
+    }
 ```
 
 ![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000011_3c278de4902b4c455f72af13e274d5a21452e69ef8eb37ec0d8528a9be4e07c0.png)
 
 ![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000012_71c1d3da411602291a52df6a625bf692a358f41178cd87dfae5034535d2d53e3.png)
 
+```java
+    if (customerFirstName != null) {
+        customer.setCustomerFirstName(customerFirstName);
+    }
+    if (customerLastName != null) {
+        customer.setCustomerLastName(customerLastName);
+    }
+    if (streetAddress1 != null) {
+        customer.setStreetAddress1(streetAddress1);
+    }
+    if (streetAddress2 != null) {
+        customer.setStreetAddress2(streetAddress2);
+    }
+    if (city != null) {
+        customer.setCity(city);
+    }
+    if (stateOrProvince != null) {
+        customer.setStateOrProvince(stateOrProvince);
+    }
+    if (postalCode != null) {
+        customer.setPostalCode(postalCode);
+    }
+    if (country != null) {
+        customer.setCountry(country);
+    }
+    if (homePhone != null) {
+        customer.setHomePhone(homePhone);
+    }
+    if (mobilePhone != null) {
+        customer.setMobilePhone(mobilePhone);
+    }
+    if (primaryEmailAddress != null) {
+        customer.setPrimaryEmailAddress(primaryEmailAddress);
+    }
+    if (secondaryEmailAddress != null) {
+        customer.setSecondaryEmailAddress(secondaryEmailAddress);
+    }
 
-```
-
-if (customerFirstName != null) { customer.setCustomerFirstName(customerFirstName); } if (customerLastName != null) { customer.setCustomerLastName(customerLastName); } if (streetAddress1 != null) { customer.setStreetAddress1(streetAddress1); } if (streetAddress2 != null) { customer.setStreetAddress2(streetAddress2); } if (city != null) { customer.setCity(city); } if (stateOrProvince != null) { customer.setStateOrProvince(stateOrProvince); } if (postalCode != null) { customer.setPostalCode(postalCode); } if (country != null) { customer.setCountry(country); } if (homePhone != null) { customer.setHomePhone(homePhone); } if (mobilePhone != null) { customer.setMobilePhone(mobilePhone); } if (primaryEmailAddress != null) { customer.setPrimaryEmailAddress(primaryEmailAddress); } if (secondaryEmailAddress != null) { customer.setSecondaryEmailAddress (secondaryEmailAddress); } customerDao.saveCustomer(customer); }
-
+    customerDao.saveCustomer(customer);
+}
 ```
 
 Tôi phải lưu ý tại đây rằng ví dụ này vẫn chưa phải là tình huống tồi tệ nhất. Rất nhiều lần mã nguồn ánh xạ dữ liệu (data-mapping code) trở nên cực kỳ phức tạp, và hàng tá logic nghiệp vụ bị nhồi nhét, che giấu bên trong đó. Tôi đã lược bớt những phần tệ hại nhất trong ví dụ này, nhưng có lẽ chính bạn cũng đã từng tận mắt chứng kiến điều đó rồi.
@@ -1050,11 +1116,18 @@ Vì lời nói của cả nhóm và mã nguồn sẽ là biểu đạt trường
 
 Với hiểu biết này, chúng ta có thể thiết kế lại ví dụ saveCustomer(). Sẽ ra sao nếu chúng ta chọn cách biến Customer phản ánh trọn vẹn từng mục tiêu kinh doanh khả dĩ mà nó bắt buộc phải hỗ trợ?
 
-
-```
-
-public interface Customer { public void changePersonalName( String firstName, String lastName); public void postalAddress(PostalAddress postalAddress); public void relocateTo(PostalAddress changedPostalAddress); public void changeHomeTelephone(Telephone telephone); public void disconnectHomeTelephone(); public void changeMobileTelephone(Telephone telephone); public void disconnectMobileTelephone(); public void primaryEmailAddress(EmailAddress emailAddress); public void secondaryEmailAddress(EmailAddress emailAddress); }
-
+```java
+public interface Customer {
+    public void changePersonalName(String firstName, String lastName);
+    public void postalAddress(PostalAddress postalAddress);
+    public void relocateTo(PostalAddress changedPostalAddress);
+    public void changeHomeTelephone(Telephone telephone);
+    public void disconnectHomeTelephone();
+    public void changeMobileTelephone(Telephone telephone);
+    public void disconnectMobileTelephone();
+    public void primaryEmailAddress(EmailAddress emailAddress);
+    public void secondaryEmailAddress(EmailAddress emailAddress);
+}
 ```
 
 Chúng ta có thể tranh luận rằng đây chưa phải là mô hình tối ưu nhất cho một Customer, nhưng khi triển khai DDD, việc hoài nghi và đặt dấu hỏi về thiết kế là điều luôn được mong đợi. Với tư cách là một đội ngũ, chúng ta có toàn quyền giằng co, tranh luận xem đâu là mô hình tốt nhất và chỉ chốt lại sau khi đã khám phá ra một Ubiquitous Language nhận được sự đồng thuận. Dẫu sao, giao diện ở trên đã phản ánh một cách tường minh các mục tiêu nghiệp vụ khác nhau mà một Customer bắt buộc phải hỗ trợ, ngay cả khi Ngôn ngữ đó hoàn toàn có thể được cải tiến thông qua việc tinh chỉnh lặp đi lặp lại nhiều lần.
@@ -1065,11 +1138,21 @@ Chúng ta có thể tranh luận rằng đây chưa phải là mô hình tối �
 
 Một điều quan trọng nữa cần hiểu là bản thân Application Service cũng sẽ được tái cấu trúc để phản ánh các chủ đích tường minh của những mục tiêu nghiệp vụ trước mắt. Mỗi phương thức của Application Service sẽ được sửa đổi để chỉ xử lý một luồng trường hợp sử dụng (use case flow) hoặc một câu chuyện người dùng (user story) duy nhất:
 
+```java
+@Transactional
+public void changeCustomerPersonalName(
+        String customerId,
+        String customerFirstName,
+        String customerLastName) {
 
-```
+    Customer customer = customerRepository.customerOfId(customerId);
 
-@Transactional public void changeCustomerPersonalName( String customerId, String customerFirstName, String customerLastName) { Customer customer = customerRepository.customerOfId(customerId); if (customer == null) { throw new IllegalStateException("Customer does not exist."); } customer.changePersonalName(customerFirstName, customerLastName); }
+    if (customer == null) {
+        throw new IllegalStateException("Customer does not exist.");
+    }
 
+    customer.changePersonalName(customerFirstName, customerLastName);
+}
 ```
 
 Cách làm này hoàn toàn khác biệt so với ví dụ ban đầu, bởi trong đoạn mã cũ đó, một phương thức đơn lẻ bị đem ra để xử lý quá nhiều luồng use case hoặc user story khác nhau. Trong ví dụ mới, chúng ta đã giới hạn một phương thức Application Service duy nhất chỉ phục vụ cho việc đổi tên cá nhân của Customer, và không làm gì khác ngoài việc đó. Do vậy, khi áp dụng DDD, nhiệm vụ của chúng ta là tinh chỉnh các Application Services theo đúng tinh thần đó. Điều này ngụ ý rằng giao diện người dùng tương ứng cũng sẽ phản ánh một mục tiêu hẹp hơn của người dùng — điều mà trước đây có thể đã đúng. Tuy nhiên, giờ đây phương thức Application Service cụ thể này không còn bắt client của nó phải truyền vào mười giá trị null đằng sau hai tham số họ và tên nữa.
@@ -1221,20 +1304,30 @@ Một lần nữa, điều gì sẽ xảy ra nếu chúng ta chỉ đơn thuần
 
 Ví dụ đầu tiên, như cách người ta vẫn thường làm phổ biến ngày nay, sử dụng các bộ truy cập thuộc tính:
 
+```java
+public class BacklogItem extends Entity {
+    private SprintId sprintId;
+    private BacklogItemStatusType status;
+    ...
 
-```
+    public void setSprintId(SprintId sprintId) {
+        this.sprintId = sprintId;
+    }
 
-public class BacklogItem extends Entity { private SprintId sprintId; private BacklogItemStatusType status; ... public void setSprintId(SprintId sprintId) { this.sprintId = sprintId; } public void setStatus(BacklogItemStatusType status) { this.status = status; } ... }
-
+    public void setStatus(BacklogItemStatusType status) {
+        this.status = status;
+    }
+    ...
+}
 ```
 
 ## Về phía client của mô hình này: (As for the client of this model:)
 
-
-```
-
-// client commit backlog item vào một sprint // bằng cách thiết lập sprintId và status của nó backlogItem.setSprintId(sprintId); backlogItem.setStatus(BacklogItemStatusType.COMMITTED);
-
+```java
+// client commit backlog item vào một sprint
+// bằng cách thiết lập sprintId và status của nó
+backlogItem.setSprintId(sprintId);
+backlogItem.setStatus(BacklogItemStatusType.COMMITTED);
 ```
 
 Ví dụ thứ hai sử dụng một hành vi của đối tượng miền thể hiện đúng Ubiquitous Language của miền nghiệp vụ:
@@ -1243,20 +1336,43 @@ Ví dụ thứ hai sử dụng một hành vi của đối tượng miền thể
 
 ![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000023_0419b355ecddc49d3bd5201f0db34656b7710722b281496279f0e20a4def5de9.png)
 
+```java
+public class BacklogItem extends Entity {
+    private SprintId sprintId;
+    private BacklogItemStatusType status;
+    ...
 
-```
+    public void commitTo(Sprint aSprint) {
+        if (!this.isScheduledForRelease()) {
+            throw new IllegalStateException("Must be scheduled for release to commit to sprint.");
+        }
 
-public class BacklogItem extends Entity { private SprintId sprintId; private BacklogItemStatusType status; ... public void commitTo(Sprint aSprint) { if (!this.isScheduledForRelease()) { throw new IllegalStateException( "Must be scheduled for release to commit to sprint."); } if (this.isCommittedToSprint()) { if (!aSprint.sprintId().equals(this.sprintId())) { this.uncommitFromSprint(); } } this.elevateStatusWith(BacklogItemStatus.COMMITTED); this.setSprintId(aSprint.sprintId()); DomainEventPublisher .instance() .publish(new BacklogItemCommitted( this.tenant(), this.backlogItemId(), this.sprintId())); } ... }
+        if (this.isCommittedToSprint()) {
+            if (!aSprint.sprintId().equals(this.sprintId())) {
+                this.uncommitFromSprint();
+            }
+        }
 
+        this.elevateStatusWith(BacklogItemStatus.COMMITTED);
+        this.setSprintId(aSprint.sprintId());
+
+        DomainEventPublisher
+            .instance()
+            .publish(new BacklogItemCommitted(
+                this.tenant(),
+                this.backlogItemId(),
+                this.sprintId()));
+    }
+    ...
+}
 ```
 
 Client của mô hình tường minh này dường như đang hoạt động trên một vùng đất an toàn hơn rất nhiều:
 
-
-```
-
-// client commit backlog item vào một sprint // bằng cách sử dụng hành vi đặc thù của miền backlogItem.commitTo(sprint);
-
+```java
+// client commit backlog item vào một sprint
+// bằng cách sử dụng hành vi đặc thù của miền
+backlogItem.commitTo(sprint);
 ```
 
 Ví dụ đầu tiên sử dụng một cách tiếp cận mang nặng tính hướng dữ liệu (data-centric). Trọng trách lúc này bị đẩy hoàn toàn về phía client trong việc phải biết làm thế nào để commit backlog item vào sprint một cách chuẩn xác. Mô hình này — vốn không thực sự là một domain model — hoàn toàn không giúp ích được gì. Sẽ ra sao nếu client sơ suất chỉ thay đổi mỗi sprintId mà quên cập nhật status, hoặc ngược lại? Hay điều gì sẽ xảy ra nếu trong tương lai có thêm một thuộc tính khác bắt buộc phải được thiết lập? Mã nguồn của client sẽ phải được phân tích kỹ lưỡng để đảm bảo ánh xạ chuẩn xác các giá trị dữ liệu vào các thuộc tính thích hợp trên BacklogItem.
@@ -1316,7 +1432,9 @@ Bản thân loại hình của miền nghiệp vụ không tự động trở th
 - Liệu việc phát triển có thực sự đơn giản hơn và đòi hỏi ít mã nguồn hơn nếu bạn sử dụng Transaction Script hay không? (Kinh nghiệm thực tế với cả hai cách tiếp cận chứng minh rằng rất nhiều lần Transaction Script đòi hỏi lượng mã nguồn tương đương hoặc thậm chí nhiều hơn. Điều này có lẽ là do độ phức tạp của miền và tính đổi mới của mô hình chưa được thấu hiểu thấu đáo trong giai đoạn lập kế hoạch dự án. Việc đánh giá thấp độ phức tạp của miền và tính đột phá liên quan là điều diễn ra rất thường xuyên.)
 - Liệu đường găng (critical path) và tiến độ thời gian của dự án có cho phép dành ra những chi phí gián tiếp (overhead) cần thiết cho khoản đầu tư chiến thuật hay không?
 
-[1]: Ở đây tôi đang khái quát hóa các thuật ngữ. Trong danh sách này, tôi sử dụng Transaction Script để đại diện cho một số cách tiếp cận không sử dụng mô hình miền (non-domain-model approaches).
+[^1]: Ở đây tôi đang khái quát hóa các thuật ngữ. Trong danh sách này, tôi sử dụng Transaction Script để đại diện cho một số cách tiếp cận không sử dụng mô hình miền (non-domain-model approaches).
+
+<!-- ⚠️ CẢNH BÁO chunk 4: số ảnh/heading/code-block KHÔNG khớp bản gốc (gốc={'images': 15, 'headings': 27, 'fences': 20}, dịch={'images': 15, 'headings': 27, 'fences': 18}). Xem lại đoạn này bằng tay. -->
 
 ﻿- Liệu khoản đầu tư chiến thuật vào một Core Domain (Miền cốt lõi) có giúp bảo vệ hệ thống khỏi những ảnh hưởng biến đổi của kiến trúc hay không? Transaction Script (Kịch bản Giao dịch) có thể khiến hệ thống bị phơi nhiễm trước những tác động này. (Các mô hình miền thường bền bỉ theo thời gian, trong khi những ảnh hưởng từ kiến trúc lại có xu hướng gây xáo trộn nhiều hơn tới các tầng khác.)
 - Liệu các khách hàng/người tiêu dùng (clients/customers) có hưởng lợi từ một phương pháp tiếp cận thiết kế và phát triển sạch sẽ, bền vững hơn không, hay ứng dụng của họ có thể bị thay thế bởi một giải pháp đóng gói sẵn (off-the-shelf solution - giải pháp mua sẵn thương mại) vào ngày mai? Nói cách khác, ngay từ đầu, cớ sao chúng ta lại phải phát triển giải pháp này dưới dạng một ứng dụng/dịch vụ tùy biến riêng (custom application/service)?
@@ -3570,7 +3688,6 @@ byte[] value = Serializer.serialize(product);
 
 // region (đối với GemFire) hoặc cache (đối với Coherence)
 region.put(key, value);
-
 ```
 
 Do đó, việc sử dụng một Data Fabric với các tính năng gắn liền mật thiết với các khía cạnh kỹ thuật của một domain model mang lại một hệ quả tích cực: khả năng rút ngắn đáng kể chu kỳ phát triển phần mềm. 15
@@ -3599,6 +3716,10 @@ Dẫu vậy, với một Fabric hỗ trợ kiến trúc mở, chắc chắn ph�
 
 Vậy trên thực tế, bạn sẽ sử dụng các Domain Event trong một Fabric như thế nào? Như đã thảo luận trong chương Domain Events (8), các Aggregate của bạn sẽ sử dụng một component (thành phần) `DomainEventPublisher` đơn giản. Trong bộ nhớ đệm của Fabric, bộ xuất bản này có thể chỉ cần đẩy các Event đã phát vào một cache/region chuyên biệt. Các Event được lưu tạm này sau đó sẽ được phân phối tới những đối tượng đăng ký (subscriber / listener), theo hình thức đồng bộ hoặc bất đồng bộ. Để tránh lãng phí dung lượng bộ nhớ quý giá trong vùng cache/region dành riêng cho Event này, khi mỗi Event đã được tất cả các subscriber xác nhận xử lý thành công (fully acknowledged), bản ghi của nó sẽ bị xóa khỏi map. Dĩ nhiên, một Event chỉ được coi là đã xác nhận hoàn tất khi nó đã được một hoặc nhiều subscriber đẩy lên một message queue (hàng đợi thông điệp) hoặc bus, và/hoặc được sử dụng để làm mới query model (mô hình truy vấn) của CQRS.
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000161_5d4a3099a7c6d1544b963ac05f8ae06d43c13db9ce7a28f187967894f4ff845e.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000162_c2662666f1892bf86d2ae00e39d2bcb5eaadeb487b37c00424d7d52339ba0363.png)
+
 Vì các bên đăng ký Domain Event cũng có thể sử dụng những sự kiện này để thực hiện việc đồng bộ hóa các Aggregate phụ thuộc khác, nên tính nhất quán sau cùng (eventual consistency) hoàn toàn được đảm bảo thông qua cấu trúc kiến trúc.
 
 ## Truy vấn liên tục (Continuous Queries)
@@ -3618,7 +3739,6 @@ String query = "select * from /queryModelBacklogItem qmbli " +
 
 CqQuery backlogItemWatcher =
     queryService.newCq(continuousQueryName, query, factory.create());
-
 ```
 
 Giờ đây, Data Fabric sẽ phân phối các cập nhật của CQRS query model (dựa trên các sửa đổi ở Aggregate) tới đối tượng callback phía client do `CqListener` cung cấp, kèm theo các metadata (siêu dữ liệu) về những dữ liệu đã được thêm, cập nhật hoặc xóa bỏ khi các tiêu chí so khớp được thỏa mãn.
@@ -3652,15 +3772,17 @@ public class PhoneNumberCountSaga extends FunctionAdapter {
         //   một kết quả tổng hợp duy nhất cho client.
     }
 }
-
 ```
 
 Dưới đây là đoạn mã mẫu cho một client thực thi một Long-Running Process song song trên vùng cache phân tán đã được sao chép:
 
 ```java
 PhoneNumberCountProcess phoneNumberCountProcess = new PhoneNumberCountProcess();
-
 ```
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000163_9c36e3a97cc3a50024a7243898f9f9392bfbdd6ec166ecbc220f2fa7c3b0b214.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000164_000d2d4541e993a0a84cd1baafed8288e84e0d087999af4aa960a241eefe2107.png)
 
 ```java
 String phoneNumberFilterQuery =
@@ -3677,10 +3799,11 @@ PhoneNumberCountResultCollector resultCollector =
     execution.execute(phoneNumberCountProcess);
 
 List allPhoneNumberCountResults = (List) resultsCollector.getResult();
-
 ```
 
 Dĩ nhiên, quy trình thực tế có thể phức tạp hơn rất nhiều hoặc đơn giản hơn ví dụ này. Điều này cũng chứng minh rằng một Process không nhất thiết phải là một khái niệm thuần túy hướng sự kiện, mà nó còn có thể tương thích với các cách tiếp cận xử lý đồng thời, phân tán khác. Để nắm được thảo luận toàn diện về việc xử lý song song và phân tán dựa trên Fabric, hãy xem [GemFire Functions].
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000165_b6c4234b4b3bf9ca85dcee3c132cf5c2a90cbf9a8c2422f6400660d99883be28.png)
 
 ## Tổng kết (Wrap-Up)
 
@@ -3721,6 +3844,8 @@ Các lập trình viên thường có xu hướng tập trung vào dữ liệu t
 
 Chúng ta thiết kế một khái niệm nghiệp vụ dưới dạng một Entity khi chúng ta quan tâm đến tính cá thể (individuality) của nó, tức là khi việc phân biệt nó với tất cả các đối tượng khác trong hệ thống là một ràng buộc bắt buộc. Một Entity là một thực thể độc nhất và có khả năng biến đổi liên tục trong suốt một khoảng thời gian dài. Những thay đổi có thể sâu rộng đến mức đối tượng trông dường như khác hoàn toàn so với trạng thái ban đầu của nó. Tuy nhiên, xét về mặt định danh, nó vẫn chính là đối tượng đó.
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000166_cd94ad58c7261f1e53b6375bcb0ceba093a83873750f2d3b913cd467b16ac5c8.png)
+
 Khi đối tượng thay đổi, chúng ta có thể quan tâm đến việc theo vết xem các thay đổi được thực hiện khi nào, như thế nào và bởi ai. Hoặc chúng ta có thể chỉ cần trạng thái hiện tại của nó phản ánh đủ về các bước chuyển trạng thái trước đó mà không cần theo dõi thay đổi một cách tường minh. Ngay cả khi không quyết định theo dõi từng chi tiết trong lịch sử thay đổi, chúng ta vẫn có thể lập luận và thảo luận về chuỗi các thay đổi hợp lệ có thể diễn ra với những đối tượng này trong suốt vòng đời của chúng. Chính định danh duy nhất và đặc tính có thể biến đổi (mutability) là những yếu tố phân biệt Entity với Value Object (đối tượng giá trị) (6).
 
 Có những thời điểm Entity không phải là công cụ mô hình hóa phù hợp để lựa chọn. Việc lạm dụng hoặc sử dụng sai mục đích xảy ra thường xuyên hơn nhiều so với những gì mọi người tưởng. Thông thường, một khái niệm nên được mô hình hóa dưới dạng một Value (Giá trị). Nếu bạn cảm thấy bất đồng với quan điểm này, rất có thể DDD không phù hợp với nhu cầu nghiệp vụ của bạn. Hoàn toàn có khả năng một hệ thống thuần CRUD (Create, Read, Update, Delete) sẽ thích hợp hơn. Nếu đúng như vậy, quyết định chọn CRUD sẽ tiết kiệm cho dự án của bạn cả thời gian lẫn tiền bạc. Vấn đề là việc theo đuổi các giải pháp thay thế dựa trên CRUD không phải lúc nào cũng bảo toàn được những nguồn tài nguyên quý giá đó.
@@ -3739,14 +3864,14 @@ Các doanh nghiệp thường xuyên dồn quá nhiều công sức vào việc 
 > 2. Chơi chữ từ **Cow pie**: Tiếng lóng chỉ bãi phân bò khô trên đồng cỏ có hình dạng tròn dẹt giống chiếc bánh nướng (pie).
 > 3. Thành ngữ *"Never kick a cow pie on a hot day"* (Đừng bao giờ đá vào bãi phân bò vào ngày trời nắng): Vào ngày nắng gắt, bãi phân bò se khô lớp vỏ bên ngoài nhưng bên trong vẫn ướt mềm; nếu đá vào, nó sẽ vỡ toang làm bẩn người đá. Trong kỹ thuật phần mềm, tác giả mượn ẩn dụ này để cảnh báo: Đừng vội vàng can thiệp hay "đụng chạm" vào một hệ thống mã nguồn legacy/CRUD trông có vẻ khô ráo, ổn định bên ngoài nhưng bên trong đầy rẫy rắc rối, nếu bạn chưa thực sự hiểu rõ bản chất.
 > Nguồn tham khảo: (Không có nguồn trích dẫn xác thực — cần tự kiểm chứng thêm)
-> 
-> 
 
 Mặt khác, nếu chúng ta áp dụng CRUD cho những hệ thống không phù hợp — những hệ thống phức tạp hơn, xứng đáng với sự chuẩn xác của DDD — chúng ta có thể sẽ phải hối hận. Khi độ phức tạp gia tăng, chúng ta sẽ nếm trải những hạn chế do việc chọn sai công cụ. Các hệ thống CRUD không thể tạo ra một mô hình nghiệp vụ tinh tế nếu chỉ đơn thuần ghi nhận dữ liệu.
 
 Nếu DDD là một khoản đầu tư chính đáng mang lại lợi ích thiết thực cho doanh nghiệp, chúng ta hãy sử dụng Entity đúng như mục đích vốn có của nó.
 
 Khi một đối tượng được phân biệt bởi định danh thay vì các thuộc tính của nó, hãy đặt điều này làm trọng tâm hàng đầu trong định nghĩa của đối tượng trong mô hình. Giữ cho định nghĩa lớp đơn giản và tập trung vào tính liên tục của vòng đời cùng định danh của nó. Hãy xác định một phương thức để phân biệt từng đối tượng bất kể hình thức hay lịch sử biến đổi của nó. . . . Mô hình phải định nghĩa rõ thế nào là hai đối tượng cùng là một thực thể. [Evans, tr. 92]
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000167_99352665b200b50d5211491a841c488b9096885f945c4a749a76a9b23e5303da.png)
 
 Chương này sẽ hướng dẫn cách đặt sự chú trọng đúng mực vào các Entity và chỉ cho bạn thấy những kỹ thuật thiết kế Entity khác nhau.
 
@@ -3766,6 +3891,10 @@ Hãy xem xét một số chiến lược tạo định danh phổ biến, từ n
 
 * Người dùng cung cấp một hoặc nhiều giá trị duy nhất ban đầu dưới dạng đầu vào cho ứng dụng. Ứng dụng phải đảm bảo rằng chúng là duy nhất.
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000168_d665ef5835a3397b6ac7f51e51587c05b76df0ca57a39ec1d530e97642ce9300.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000169_bb0537aec83db24add96306db598cb68efebb495a092e56ac00b3fc9aed3b871.png)
+
 * Ứng dụng tự sinh định danh nội bộ bằng một thuật toán đảm bảo tính độc nhất. Chúng ta có thể nhờ một thư viện hoặc framework làm việc này thay mình, nhưng bản thân ứng dụng hoàn toàn có thể tự xử lý.
 * Ứng dụng dựa vào một kho lưu trữ dữ liệu (persistence store), chẳng hạn như cơ sở dữ liệu, để sinh định danh duy nhất.
 * Một Bounded Context (ngữ cảnh giới hạn) (2) khác (hệ thống hoặc ứng dụng khác) đã xác định sẵn định danh duy nhất. Giá trị này được người dùng nhập vào hoặc lựa chọn từ một tập danh sách có sẵn.
@@ -3782,6 +3911,8 @@ Việc ngăn ngừa vấn đề này bắt đầu từ các cuộc thảo luận
 
 Hình 5.1 Tiêu đề diễn đàn bị sai chính tả và tiêu đề cuộc thảo luận chưa thực sự phù hợp.
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000170_9aaf076f861bd37ccd2003bb59b6183afe8fb423ead49fd950f48081cc74ef70.png)
+
 Chúng ta luôn có tùy chọn lưu giữ các giá trị do người dùng nhập dưới dạng các thuộc tính của Entity phục vụ mục đích tìm kiếm, đối soát, nhưng không dùng chúng làm định danh duy nhất. Các thuộc tính đơn giản sẽ dễ dàng chỉnh sửa hơn như một phần trạng thái vận hành bình thường của Entity vốn thay đổi theo thời gian. Trong trường hợp đó, chúng ta sẽ cần sử dụng phương thức khác để thu thập định danh duy nhất.
 
 ## Ứng dụng tự sinh định danh (Application Generates Identity)
@@ -3795,23 +3926,24 @@ Có những cách thức vô cùng tin cậy để tự động sinh định dan
 
 Cách này tạo ra một giá trị duy nhất 128-bit. Nó thường được biểu diễn dưới dạng một chuỗi văn bản mã hóa thập lục phân (hexadecimal) dài 32-byte hoặc 36-byte. Định dạng chuỗi văn bản sẽ dài 36 byte nếu bạn sử dụng dấu gạch nối thông thường để phân tách các đoạn theo định dạng `f36ab21c-67dc-5274-c642-1de2f4d5e72a`. Nếu không có dấu gạch nối, nó dài 32 byte. Dù theo cách nào, định danh này cũng có kích thước lớn và không được xem là thân thiện với con người.
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000171_c02b608d52908894e5f11b73641e86cad899e90d8a99d2ccfae552bcaca32235.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000172_4bd2baffd66d2551633e4fe41afe97c36107affd28f0c80420ee30a181f22d7a.png)
+
 Trong thế giới Java, công thức này đã được thay thế bằng bộ sinh UUID tiêu chuẩn có sẵn kể từ Java 1.5. Nó được cung cấp bởi lớp `java.util.UUID`. Bản triển khai này hỗ trợ bốn thuật toán sinh khác nhau dựa trên biến thể Leach-Salz. Sử dụng API tiêu chuẩn của Java, chúng ta có thể dễ dàng tạo ra một định danh duy nhất giả ngẫu nhiên:
 
 ```java
 String rawId = java.util.UUID.randomUUID().toString();
-
 ```
 
 Lệnh này sử dụng UUID loại 4 (type 4), vận dụng một bộ sinh số giả ngẫu nhiên mạnh về mặt mật mã học (cryptographically strong), dựa trên bộ sinh `java.security.SecureRandom`. Loại 3 (type 3) sử dụng phương pháp mã hóa theo tên, vận dụng `java.security.MessageDigest`. Chúng ta có thể tạo một UUID dựa trên tên như sau:
 
 ```java
 String rawId = java.util.UUID.nameUUIDFromBytes(
-
 ```
 
 ```java
     "Some text".getBytes()).toString();
-
 ```
 
 Chúng ta cũng có thể kết hợp việc sinh số giả ngẫu nhiên với mã hóa:
@@ -3821,12 +3953,10 @@ SecureRandom randomGenerator = new SecureRandom();
 int randomNumber = randomGenerator.nextInt();
 String randomDigits = new Integer(randomNumber).toString();
 MessageDigest encryptor = MessageDigest.getInstance("SHA-1");
-
 ```
 
 ```java
 byte[] rawIdBytes = encryptor.digest(randomDigits.getBytes());
-
 ```
 
 Bây giờ nhiệm vụ còn lại duy nhất là chuyển đổi mảng `rawIdBytes` thành dạng biểu diễn chuỗi văn bản thập lục phân. Chúng ta có thể tận dụng việc chuyển đổi này mà không tốn công sức. Sau khi sinh số ngẫu nhiên và chuyển nó thành một `String`, chúng ta truyền chuỗi văn bản đó vào phương thức Factory [Gamma et al.] `nameUUIDFromBytes()` của lớp `UUID`.
@@ -3841,7 +3971,6 @@ Xem xét ví dụ dưới đây, hoàn toàn dễ hiểu khi thông thường ch
 
 ```
 f36ab21c-67dc-5274-c642-1de2f4d5e72a
-
 ```
 
 Một chuỗi UUID đầy đủ thường chỉ phù hợp khi nó có thể được ẩn đi khỏi tầm mắt người dùng và thay thế bằng các kỹ thuật tham chiếu thân thiện với con người. Ví dụ, chúng ta có thể thiết kế các tài nguyên hypermedia (siêu phương tiện) với URI có thể gửi qua email hoặc chuyển tiếp qua các hình thức nhắn tin giữa người dùng với nhau. Phần văn bản liên kết có thể được dùng để ngụy trang cho chuỗi UUID trông có phần bí ẩn, tương tự như cách đoạn text trong thẻ `<a>text</a>` che đi các liên kết kỹ thuật trong HTML.
@@ -3857,8 +3986,11 @@ String rawId = "APM-P-08-14-2012-F36AB21C"; // sẽ được tự động sinh
 ProductId productId = new ProductId(rawId);
 ...
 Date productCreationDate = productId.creationDate();
-
 ```
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000173_16549b78b377a22a6191f79f0703d810960d15083b636dcf62323a1d2c38d09d.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000174_5b61f1b00459bbd21318c9bb3e4cc206699cb0e7efb7af1bdac57c0dbdd94fec.png)
 
 Client có thể truy vấn các thông tin chi tiết về định danh, chẳng hạn như ngày sản phẩm được tạo, và thông tin đó sẽ được cung cấp một cách tiện lợi. Phía client không cần phải hiểu định dạng chuỗi thô của định danh. Giờ đây, Aggregate Root `Product` có thể cung cấp ngày tạo của nó mà không cần để lộ cho client biết cách thức lấy thông tin đó ra sao:
 
@@ -3871,7 +4003,6 @@ public class Product extends Entity {
     }
     ...
 }
-
 ```
 
 Bạn có thể tìm thấy các cơ chế sinh định danh trong các thư viện và framework của bên thứ ba. Dự án Apache Commons có thành phần Commons Id (sandbox), cung cấp năm bộ sinh định danh khác nhau.
@@ -3880,7 +4011,6 @@ Một số kho lưu trữ persistence, chẳng hạn như các cơ sở dữ li�
 
 ```
 PUT /riak/bucket/key [object serialization]
-
 ```
 
 Thay vào đó, bạn có thể dùng `POST` mà không cần cung cấp key, buộc Riak phải tự tạo một định danh duy nhất. Dẫu vậy, chúng ta vẫn cần phải cân nhắc giữa việc sinh định danh sớm (early) hay sinh định danh muộn (late), như sẽ được thảo luận ở phần sau của chương này.
@@ -3896,7 +4026,6 @@ public class HibernateProductRepository implements ProductRepository {
     }
     ...
 }
-
 ```
 
 Đây có vẻ là một vị trí hoàn toàn tự nhiên để thực hiện việc sinh định danh.
@@ -3917,7 +4046,6 @@ Việc phân bổ trước và lưu cache sẽ không thành vấn đề nếu m
         <param name="sequence">product_seq</param>
     </generator>
 </id>
-
 ```
 
 Dưới đây là ví dụ về cách tiếp cận tương tự, nhưng sử dụng cột tự tăng (auto-increment) của MySQL:
@@ -3926,10 +4054,13 @@ Dưới đây là ví dụ về cách tiếp cận tương tự, nhưng sử d�
 <id name="id" type="long" column="product_id">
     <generator class="native"/>
 </id>
-
 ```
 
 Cách này mang lại hiệu năng tốt và khá dễ cấu hình trong định nghĩa ánh xạ của Hibernate. Vấn đề có thể nằm ở thời điểm sinh định danh, điều sẽ được thảo luận ngay sau đây. Phần còn lại của mục này sẽ bàn về yêu cầu sinh định danh sớm (early identity generation).
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000175_75fd8026263adc91d2b698c321dfcb1fb2ac87dbbf2d3789473042cb869a28f6.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000176_250a2b2b4bd31103e6678f2bc4e4e34c6fd62d702a3bdbb73a497977e02a517c.png)
 
 ## Thứ tự sinh định danh có thể mang tính quyết định (Order May Matter)
 
@@ -3950,7 +4081,6 @@ public ProductId nextIdentity() {
 
     return new ProductId(rawProductId);
 }
-
 ```
 
 Vì Oracle trả về các giá trị sequence mà Hibernate mặc định ánh xạ thành các thể hiện `BigDecimal`, nên chúng ta phải thông báo cho Hibernate biết rằng chúng ta muốn kết quả `product_id` được chuyển đổi sang kiểu `Long`.
@@ -3975,7 +4105,6 @@ mysql> SELECT LAST_INSERT_ID();
 |                1 |
 +------------------+
 1 row in set (0.06 sec)
-
 ```
 
 ```sql
@@ -3986,7 +4115,6 @@ mysql> SELECT * FROM product_seq;
 |       1 |
 +---------+
 1 row in set (0.00 sec)
-
 ```
 
 Chúng ta đã tạo một bảng trong cơ sở dữ liệu MySQL có tên là `product_seq`. Tiếp theo, chúng ta chèn một dòng duy nhất vào bảng, khởi tạo giá trị của cột duy nhất, `nextval`, về `0`. Hai bước đầu tiên này thiết lập bộ giả lập sequence cho Entity `Product`. Hai câu lệnh tiếp theo minh họa việc sinh ra một giá trị sequence đơn lẻ. Chúng ta cập nhật dòng duy nhất này bằng cách tăng giá trị cột `nextval` lên `1`. Câu lệnh update sử dụng hàm `LAST_INSERT_ID()` của MySQL để tăng giá trị `INT` của cột. Biểu thức tham số được thực thi trước, sau đó kết quả được gán cho cột `nextval`. Kết quả của biểu thức tham số `nextval + 1` được giữ ổn định trong hàm `LAST_INSERT_ID()`, sao cho khi câu lệnh `SELECT LAST_INSERT_ID()` tiếp theo được đánh giá, giá trị của `nextval` sinh ra từ chính lần thực thi đó sẽ được trả về trong tập kết quả. Cuối cùng, để kiểm tra, chúng ta có thể thực thi `SELECT * FROM product_seq` nhằm chứng minh rằng giá trị hiện tại của `nextval` khớp đúng với kết quả hàm trả về.
@@ -4009,8 +4137,11 @@ public ProductId nextIdentity() {
         } finally {
             try {
                 rs.close();
-
 ```
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000177_1886d9ba13e21827658e9f15eaee2932b766067d0eb878a103e4e02eab2a2d90.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000178_94098a344b12e6c3890dfd190702d46bbeab8d9708a9bb6589dd71f714c20654.png)
 
 ```java
             } catch(Throwable t) {
@@ -4024,7 +4155,6 @@ public ProductId nextIdentity() {
 
     return new ProductId(rawId);
 }
-
 ```
 
 Khi sử dụng JDBC, không cần thiết phải thực thi câu truy vấn thứ hai lên cơ sở dữ liệu để lấy kết quả của hàm `LAST_INSERT_ID()`. Câu truy vấn update đã đảm đương toàn bộ. Chúng ta lấy giá trị kiểu `long` từ `ResultSet` và sử dụng nó để khởi tạo `ProductId`.
@@ -4038,7 +4168,6 @@ private Connection connection() {
     ConnectionProvider cp = sfi.getConnectionProvider();
     return cp.getConnection();
 }
-
 ```
 
 Nếu không có đối tượng `Connection`, chúng ta không thể thu được `ResultSet` bằng cách thực thi `PreparedStatement`. Và nếu thiếu điều đó, việc sử dụng một portable sequence là bất khả thi.
@@ -4055,11 +4184,17 @@ Thông thường, quá trình đối soát đòi hỏi việc tìm kiếm mờ (
 
 Hình 5.2 Kết quả tìm kiếm từ việc so khớp với một hệ thống bên ngoài để tìm định danh. Giao diện người dùng cho bước lựa chọn có thể hiển thị hoặc không hiển thị định danh. Ví dụ này có hiển thị định danh.
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000179_0b2bf6fb7c4c2e268b7a52921e8e24f46654ba647f484c49ad9fa1768ea960ab.png)
+
 Điều này kéo theo những hệ lụy về mặt đồng bộ hóa. Điều gì sẽ xảy ra nếu các đối tượng được tham chiếu từ bên ngoài chuyển đổi trạng thái theo cách gây ảnh hưởng tới các Entity cục bộ? Làm sao chúng ta biết được đối tượng liên quan đã thay đổi? Vấn đề này có thể được giải quyết bằng cách sử dụng Event-Driven Architecture (4) kết hợp với Domain Event (8). Bounded Context cục bộ của chúng ta sẽ đăng ký nhận các Domain Event được xuất bản bởi các hệ thống bên ngoài. Khi nhận được một thông báo phù hợp, hệ thống cục bộ sẽ chuyển đổi trạng thái của các Aggregate Entity của chính nó để phản ánh trạng thái của đối tượng trong hệ thống bên ngoài. Đôi khi, việc đồng bộ hóa phải do chính Bounded Context cục bộ khởi xướng bằng cách đẩy các thay đổi ngược trở lại hệ thống bên ngoài gốc.
 
 Việc này hiếm khi dễ thực hiện, nhưng nó giúp hệ thống đạt được tính tự chủ (autonomous) cao hơn. Khi đã đạt được tính tự chủ, phạm vi tìm kiếm trên thực tế có thể thu hẹp vào các đối tượng cục bộ. Đây không đơn thuần là việc lưu tạm (cache) các đối tượng ngoại lai ở cục bộ, mà nó bao gồm việc diễn dịch các khái niệm ngoại lai sang các khái niệm của Bounded Context cục bộ, như đã được giải thích trong phần Context Mapping (3).
 
 Đây là chiến lược tạo định danh phức tạp nhất. Việc duy trì Entity cục bộ không chỉ phụ thuộc vào các bước chuyển trạng thái do hành vi nghiệp vụ cục bộ gây ra, mà còn có thể phụ thuộc vào những biến động diễn ra trong một hoặc nhiều hệ thống bên ngoài. Hãy áp dụng phương pháp này một cách thận trọng và chừng mực nhất có thể.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000180_8c58557b258afbe52714989c8a6f0188a16bc9c43be01b34015e2568f2faebfe.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000181_4094bb2fb0e11d4174d38b6519daccaea88682a59b69a71add920f1d0a2b507a.png)
 
 ## Khi thời điểm sinh định danh mang tính quyết định (When the Timing of Identity Generation Matters)
 
@@ -4071,7 +4206,11 @@ Vậy tại sao thời điểm sinh định danh lại có thể mang tính quy�
 
 Hình 5.3 Cách đơn giản nhất để phân bổ định danh duy nhất là để kho dữ liệu tự sinh ra nó vào lần đầu tiên đối tượng được lưu trữ.
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000182_509a7440c296f0593aa85d5fd52dd316673f81838e5f474b5bc9bf024e2bdce2.png)
+
 Hình 5.4 Ở đây, định danh duy nhất được truy vấn từ Repository và được gán ngay trong quá trình khởi tạo đối tượng. Sự phức tạp của việc sinh định danh được ẩn giấu đằng sau bản triển khai của Repository.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000183_962a18d37ed703410fcdc1e9532df9977933c18e61cf92c2fc401b8f5273bc20.png)
 
 Còn một vấn đề khác có thể nảy sinh khi việc sinh định danh bị trì hoãn cho đến khi Entity được lưu trữ. Nó xuất hiện khi hai hoặc nhiều Entity mới phải được thêm vào một tập hợp `java.util.Set`, nhưng định danh của chúng vẫn chưa được gán, khiến chúng bị coi là bằng nhau giống như các đối tượng mới khác (ví dụ: giá trị định danh đều là `null`, `0`, hoặc `-1`). Nếu phương thức `equals()` của Entity so sánh dựa trên định danh, thì những đối tượng mới được thêm vào `Set` sẽ trông giống hệt như cùng một đối tượng. Kết quả là chỉ có đối tượng đầu tiên được thêm vào được giữ lại, còn tất cả các đối tượng khác sẽ bị loại trừ. Điều này gây ra một lỗi rất khó hiểu (dubious bug) mà nguyên nhân gốc rễ ban đầu rất khó phát hiện và sửa chữa.
 
@@ -4088,8 +4227,11 @@ public class User extends Entity {
             User typedObject = (User) anObject;
             equalObjects =
                 this.tenantId().equals(typedObject.tenantId()) &&
-
 ```
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000184_8c2ea5c27239a876cd3c66a0ad3f6c0252fe264d6a218d6d507eaf0f8bef1f1e.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000185_3e66cd0b6cee43eaab3c95389733f8928d785e30b5445681d54f1e5da7acb1ec.png)
 
 ```java
                 this.username().equals(typedObject.username()));
@@ -4109,7 +4251,6 @@ public class User extends Entity {
     }
     ...
 }
-
 ```
 
 Trong trường hợp môi trường đa người thuê (multitenancy), thể hiện `TenantId` cũng được xem là một phần của định danh duy nhất. Không thể có hai đối tượng `User` thuộc hai khách thuê `Tenant` khác nhau mà lại bị coi là bằng nhau.
@@ -4142,7 +4283,6 @@ public abstract class IdentifiedDomainObject implements Serializable {
         this.id = anId;
     }
 }
-
 ```
 
 Layer Supertype này chính là `IdentifiedDomainObject`, một abstract base class (lớp cơ sở trừu tượng) giúp che giấu khóa chính thay thế khỏi tầm nhìn của các client thông qua các phương thức truy xuất có phạm vi `protected`. Phía client sẽ không bao giờ phải băn khoăn liệu những phương thức đó có dành cho mình sử dụng hay không, bởi chúng không hiển thị bên ngoài Module (9) của Entity kế thừa lớp cơ sở này. Thậm chí chúng ta có thể khai báo phạm vi `private`. Hibernate hoàn toàn không gặp bất kỳ trở ngại nào khi sử dụng cơ chế phản xạ (reflection) trên phương thức hoặc trường dữ liệu ở bất kỳ mức độ hiển thị nào, từ `public` cho tới `private`. Các Layer Supertype bổ sung khác cũng có thể mang lại nhiều giá trị, chẳng hạn như hỗ trợ cơ chế khóa lạc quan (optimistic concurrency), như được đề cập trong chương Aggregates (10).
@@ -4153,8 +4293,11 @@ Chúng ta cần ánh xạ thuộc tính surrogate `id` vào cột cơ sở dữ 
 <hibernate-mapping default-cascade="all">
     <class name="com.saasovation.identityaccess.domain.model.identity.User" table="tbl_user" lazy="true">
         <id name="id" type="long" column="id" unsaved-value="-1">
-
 ```
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000186_3ddccc27a91779bdc6ae8caac63628a3880c4ae664ba9cf3cf4263726fcde58c.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000187_0e3202f19d45f1f9afcdda9ef914331ec91682d985cf5ef2df05b0b466bc56c1.png)
 
 ```xml
             <generator class="native"/>
@@ -4162,7 +4305,6 @@ Chúng ta cần ánh xạ thuộc tính surrogate `id` vào cột cơ sở dữ 
         ...
     </class>
 </hibernate-mapping>
-
 ```
 
 Dưới đây là định nghĩa bảng MySQL dùng để lưu trữ các đối tượng `User`:
@@ -4180,14 +4322,11 @@ CREATE TABLE `tbl_user` (
     UNIQUE KEY `k_tenant_id_username` (`tenant_id_id`,`username`),
     PRIMARY KEY (`id`)
 ) ENGINE=InnoDB;
-
 ```
 
 Cột đầu tiên, `id`, chính là surrogate identity. Dòng định nghĩa cột cuối cùng khai báo `id` là khóa chính của bảng. Chúng ta hoàn toàn có thể phân biệt rạch ròi giữa surrogate identity và định danh của miền nghiệp vụ. Có hai cột, `tenant_id_id` và `username`, cùng cung cấp định danh duy nhất cho miền nghiệp vụ. Chúng được kết hợp lại để tạo thành một khóa duy nhất có tên là `k_tenant_id_username`.
 
 Không cần thiết phải bắt định danh miền nghiệp vụ đóng vai trò là khóa chính của cơ sở dữ liệu. Chúng ta cho phép trường `id` thay thế đóng vai trò là khóa chính của cơ sở dữ liệu, điều này giúp Hibernate vận hành trơn tru và dễ chịu nhất.
-
-<!-- ⚠️ CẢNH BÁO chunk 11: số ảnh/heading/code-block KHÔNG khớp bản gốc (gốc={'images': 28, 'headings': 18, 'fences': 58}, dịch={'images': 1, 'headings': 18, 'fences': 58}). Xem lại đoạn này bằng tay. -->
 
 ﻿Các surrogate primary key (khóa chính thay thế - khóa nhân tạo trong cơ sở dữ liệu không mang ý nghĩa nghiệp vụ) có thể được sử dụng xuyên suốt mô hình dữ liệu làm khóa ngoại (foreign keys) trong các bảng khác, đảm bảo tính toàn vẹn tham chiếu (referential integrity). Đây có thể là một yêu cầu đối với việc quản trị dữ liệu trong doanh nghiệp của bạn (chẳng hạn như phục vụ kiểm toán) hoặc để hỗ trợ các công cụ. Tính toàn vẹn tham chiếu cũng rất quan trọng đối với Hibernate khi kết nối các bảng lại với nhau để triển khai các kiểu ánh xạ đa dạng (chẳng hạn như 1:M - một-nhiều). Chúng cũng hỗ trợ các phép join (kết nối) bảng nhằm tối ưu hóa các truy vấn khi đọc các Aggregate (Cụm Tổng hợp) ra khỏi cơ sở dữ liệu.
 
@@ -4211,7 +4350,6 @@ public class User extends Entity {
     }
     ...
 }
-
 ```
 
 Trong ví dụ này, thuộc tính `username`, đóng vai trò là domain identity (định danh miền) của Entity `User`, chỉ có thể thay đổi duy nhất một lần, và chỉ từ nội bộ. Setter, phương thức `setUsername()`, cung cấp tính tự đóng gói (self-encapsulation) được ẩn giấu khỏi các client. Khi một hành vi công khai của Entity tự ủy quyền tới setter, phương thức này sẽ kiểm tra thuộc tính `username` xem nó đã mang giá trị khác null (`nonnull`) hay chưa. Nếu nó đã là nonnull, biểu thị một trạng thái invariant (bất biến nghiệp vụ - quy tắc nghiệp vụ luôn phải đúng trong suốt vòng đời của đối tượng) không thể thay đổi, ngoại lệ `IllegalStateException` sẽ được ném ra. Ngoại lệ này chỉ ra rằng `username` bắt buộc phải được duy trì như một trạng thái chỉ sửa đổi một lần (modify-once).
@@ -4223,6 +4361,10 @@ Trong ví dụ này, thuộc tính `username`, đóng vai trò là domain identi
 Unique identity của chúng là gì, xét cả domain identity lẫn surrogate identity? Liệu có bất kỳ định danh nào sẽ được phục vụ tốt hơn bằng một phương thức sinh định danh khác, hoặc thời điểm gán định danh khác hay không?
 
 * Hãy ghi chú bên cạnh mỗi Entity xem bạn có nên sử dụng một phương thức gán định danh khác — người dùng tự nhập, ứng dụng sinh ra, cơ sở dữ liệu sinh ra, hay do Bounded Context (Ngữ cảnh Ranh giới) khác cung cấp — và giải thích lý do tại sao (ngay cả khi bạn không thể thay đổi nó vào lúc này).
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000188_60b97247a0414ea8a79610e0ef9079e73c93315ca2d430eeed6faab942b3cb1f.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000189_817d87867f10e263a063dceed0d82b34cc4e8cedbe3ec752bc84ad64c87b4b3e.png)
 
 * Hãy lưu ý bên cạnh mỗi Entity xem nó cần cơ chế sinh định danh sớm (early identity generation) hay có thể đáp ứng tốt với cơ chế sinh định danh muộn (late identity generation), và giải thích lý do.
 
@@ -4246,7 +4388,6 @@ public class UserTest extends IdentityTest {
     }
     ...
 }
-
 ```
 
 Bài kiểm thử mẫu mực này chứng minh cách thức mô hình vận hành. Khi hoàn thành thành công, nó chứng minh rằng phương thức `setUsername()` bảo vệ định danh nonnull hiện có không bị thay đổi. (Chúng ta sẽ thảo luận kỹ lưỡng hơn về các guard và các bài kiểm thử Entity trong phần xác thực - validation).
@@ -4257,11 +4398,17 @@ Bây giờ hãy cùng xem xét một số bài học kinh nghiệm từ các nh�
 
 Ban đầu, nhóm CollabOvation đã sa vào cái bẫy mô hình hóa thực thể - quan hệ (ER - entity-relationship modeling) quá nhiều ngay trong mã nguồn Java. Họ đặt quá nhiều sự tập trung vào cơ sở dữ liệu, các bảng, các cột, và cách chúng được phản ánh vào các đối tượng. Điều đó đã dẫn tới một Anemic Domain Model (Mô hình Miền Suy dinh dưỡng - mô hình chỉ chứa các thuộc tính và getter/setter mà không có hành vi nghiệp vụ) [Fowler, Anemic] bao gồm rất nhiều getter và setter. Đáng lẽ họ phải tư duy nhiều hơn về DDD (Domain-Driven Design - Thiết kế Hướng Miền). Đến
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000190_bfb3bdd24ad92638c7a2cc1d076cde1de438b2f031954d99268e7e34e830d46b.png)
+
 thời điểm họ cần phải bóc tách mớ bòng bong bảo mật phức tạp ra, như đã mô tả trong Bounded Contexts (Chương 2), họ đã học được cách tập trung nhiều hơn vào việc mô hình hóa Ubiquitous Language (Ngôn ngữ Toàn diện - ngôn ngữ chung thống nhất giữa chuyên gia nghiệp vụ và đội ngũ phát triển). Điều đó đã mang lại những kết quả tích cực. Trong phần này, chúng ta sẽ thấy nhóm phát triển mới của Identity and Access Context đã hưởng lợi như thế nào từ những bài học kinh nghiệm đó.
 
 Ubiquitous Language trong một Bounded Context được phân tách rõ ràng cung cấp cho chúng ta các khái niệm và thuật ngữ cần thiết để thiết kế mô hình miền. Ngôn ngữ không tự nhiên xuất hiện. Nó phải được bồi đắp thông qua các cuộc thảo luận kỹ lưỡng với các domain expert (chuyên gia miền) và thông qua việc khai phá các yêu cầu. Một số thuật ngữ được phát hiện sẽ là các danh từ gọi tên các sự vật, tính từ mô tả chúng, và động từ biểu thị những gì sự vật đó thực hiện. Sẽ là một sai lầm nếu nghĩ rằng các đối tượng chỉ đơn thuần chắt lọc thành một tập hợp các danh từ để đặt tên cho các class và động từ để đặt tên cho các thao tác nổi bật, và rằng chúng ta có thể nắm bắt được tri thức sâu sắc mà không cần bận tâm đến điều gì khác. Việc tự giới hạn bản thân theo cách đó có thể bóp nghẹt sự mượt mà và phong phú mà mô hình xứng đáng có được. Đầu tư nhiều thời gian vào các cuộc thảo luận và rà soát các đặc tả yêu cầu sẽ giúp phát triển một Ngôn ngữ phản ánh sự suy ngẫm, nỗ lực, đồng thuận và thỏa hiệp đáng kể. Cuối cùng, cả nhóm sẽ nói Ngôn ngữ đó bằng những câu hoàn chỉnh, và mô hình sẽ phản ánh rõ ràng Ngôn ngữ được sử dụng.
 
 Nếu điều quan trọng là các kịch bản miền đặc biệt này phải được lưu giữ lâu dài sau các cuộc thảo luận nhóm, hãy ghi lại chúng trong một tài liệu mỏng nhẹ. Ở dạng sơ khai, Ubiquitous Language của bạn có thể mang hình thức của một bảng thuật ngữ (glossary) và một tập hợp các kịch bản sử dụng đơn giản. Dẫu vậy, sẽ lại là một sai lầm nữa nếu chỉ coi Ngôn ngữ đơn thuần là bảng thuật ngữ và các kịch bản. Sau cùng, Ngôn ngữ được mô hình hóa bởi chính mã nguồn của bạn, và việc giữ cho tài liệu luôn đồng bộ với mã nguồn có thể là điều rất khó khăn hoặc thậm chí bất khả thi.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000191_59f1248ddbb5587d5d35a6587ff9ccf952ef7b50041a0768e247a725f80fb0b5.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000192_b942e5c077731e7c32548ffa655a29c8e8e856667a43d00590b1c5afa7192236.png)
 
 ## Uncovering Entities and Properties
 
@@ -4274,6 +4421,8 @@ Dưới đây là những gì nhóm đã nắm được về `User` thông qua c
 * Người dùng sở hữu thông tin cá nhân, bao gồm tên và thông tin liên hệ.
 * Thông tin cá nhân của người dùng có thể được thay đổi bởi chính họ hoặc bởi một người quản lý.
 * Thông tin xác thực bảo mật của người dùng (mật khẩu) có thể được thay đổi.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000193_397c03340c8af5f117d89629553bb3b4442a482a3639ab7b2ef355b8247b2ddd.png)
 
 Nhóm đã phải đọc và lắng nghe rất cẩn thận. Ngay khi họ nhìn thấy/nghe thấy các biến thể của từ "thay đổi" (change) được sử dụng, họ khá chắc chắn rằng mình đang xử lý ít nhất một Entity. Đúng là từ "thay đổi" cũng có thể mang nghĩa "thay thế Giá trị" (replace the Value) thay vì "thay đổi Thực thể" (change the Entity). Liệu có điều gì khác củng cố thêm lựa chọn của nhóm về việc sử dụng building block (khối xây dựng) nào hay không? Có đấy. Thuật ngữ then chốt ở đây là "được xác thực" (authenticated), đây là một chỉ dấu mạnh mẽ cho nhóm thấy rằng một cơ chế tìm kiếm phân giải nào đó cần phải được cung cấp. Nếu bạn có một tập hợp nhiều đối tượng, và một trong số các đối tượng đó cần phải được tìm ra từ số đông, bạn cần unique identity để phân biệt đối tượng đó với tất cả các đối tượng còn lại. Một lượt tìm kiếm sẽ cần phải giải quyết từ nhiều người dùng thuộc một tenant (khách thuê/đơn vị thuê bao) để chọn ra chính xác một người dùng duy nhất.
 
@@ -4302,6 +4451,10 @@ Họ đã xác định được một cặp Entity đã biết, như được th
 
 Hình 5.5 Hai Entity, Tenant và User, sau quá trình khám phá ban đầu
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000194_c521c2412ce55428f4c750c3b44361a57060bc97aa0f2bd7edc9ec5e1b6636dc.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000195_441886947d92dfac1c51795ae09ae3524ef9cfc5faee1d0487b85733757e6414.png)
+
 Nhóm đã quyết định rằng họ sẽ sử dụng một chuỗi UUID đầy đủ để định danh duy nhất cho mỗi `Tenant`, đây là trường hợp ứng dụng tự sinh định danh. Giá trị chuỗi văn bản dài này hoàn toàn có lý do chính đáng để sử dụng, không chỉ vì tính duy nhất được đảm bảo, mà còn vì nó bổ sung thêm một mức độ bảo mật tốt cho mỗi khách hàng thuê bao. Sẽ rất khó để bất kỳ ai có thể đoán ngẫu nhiên ra một UUID để xâm nhập trái phép ở cấp độ đầu tiên vào dữ liệu độc quyền. Họ cũng nhận thấy sự cần thiết phải phân tách rạch ròi các Entity thuộc về từng `Tenant` với các Entity thuộc về tất cả các tenant khác. Một yêu cầu như thế này được đưa ra để giải quyết các vấn đề bảo mật bổ sung mà các khách hàng thuê bao — vốn là các doanh nghiệp cạnh tranh với nhau — quan ngại đối với các ứng dụng và dịch vụ được lưu trữ tập trung (hosted). Do đó, mọi Entity trong toàn bộ các hệ thống sẽ được "đánh dấu phân vùng" (striped) bằng định danh duy nhất này, và mọi truy vấn sẽ bắt buộc phải có định danh duy nhất đó để tìm thấy bất kỳ Entity nào, bất kể trường hợp nào.
 
 Định danh tenant duy nhất không phải là một Entity. Nó là một loại Value (Đối tượng Giá trị). Câu hỏi đặt ra là: Định danh này nên có một kiểu chuyên biệt (specialized type), hay nó có thể chỉ là một `String` đơn giản?
@@ -4314,6 +4467,8 @@ Các thuộc tính khác có thể gắn liền với mỗi khách hàng thuê b
 
 Hình 5.6 Sau khi một Entity được khám phá và đặt tên, hãy tìm ra các thuộc tính/đặc tính giúp định danh duy nhất cho nó và cho phép nó được tìm thấy.
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000196_9ddcbeb6dff8d16514ad636f16ffcfb7992fa3f8144bf5ff2cd18e9de67b5e45.png)
+
 Hỗ trợ kỹ thuật sẽ được quản lý bởi một Context khác. Sau khi tìm thấy tenant theo tên, phần mềm có thể sử dụng `TenantId` duy nhất của nó. `TenantId` sau đó sẽ được sử dụng để truy cập vào Support Context (Ngữ cảnh Hỗ trợ), ví dụ như vậy, hoặc Billing Context (Ngữ cảnh Thanh toán), hoặc Customer Relationship Management Context (Ngữ cảnh Quản trị Quan hệ Khách hàng). Các hợp đồng hỗ trợ, địa điểm kinh doanh, và thông tin liên hệ khách hàng hầu như không có hoặc có rất ít mối liên hệ với bảo mật. Dẫu vậy, việc liên kết tên của khách hàng thuê bao với `Tenant` sẽ giúp nhân viên hỗ trợ nhanh chóng cung cấp sự trợ giúp cần thiết. Tên gọi này hoàn toàn thuộc về nơi đây.
 
 Sau khi đã hoàn thành những gì dường như là bản chất cốt lõi của `Tenant`, nhóm đã chuyển sự chú ý sang Entity `User` trong một khoảng thời gian. Điều gì sẽ đóng vai trò là unique identity của nó? Hầu hết các hệ thống định danh đều hỗ trợ một username duy nhất. Việc username bao gồm những gì không quá quan trọng, miễn là nó duy nhất trong phạm vi tenant. (Username không nhất thiết phải duy nhất xuyên biên giới giữa các tenant khác nhau.) Việc xác định username của chính mình sẽ được trao quyền cho người dùng tự quyết định. Nếu doanh nghiệp thuê bao có các tiêu chí chính sách nhất định cho username, hoặc nếu tên sẽ được xác định bởi một tích hợp bảo mật liên kết (federated security), việc tuân thủ sẽ thuộc trách nhiệm của người dùng đăng ký. Nhóm chỉ đơn giản khai báo một thuộc tính `username` trên lớp `User`.
@@ -4325,6 +4480,10 @@ Một yêu cầu chỉ rõ rằng phải tồn tại một thông tin xác thự
 * Encryption Service: Cung cấp phương tiện để mã hóa mật khẩu và các dữ liệu khác không thể lưu trữ và sử dụng dưới dạng văn bản rõ.
 
 Một câu hỏi vẫn còn bỏ ngỏ: Liệu mật khẩu có nên được coi là một phần của unique identity của `User` hay không? Suy cho cùng, nó được sử dụng để tìm một `User`. Nếu đúng như vậy, có lẽ chúng ta sẽ muốn kết hợp cả hai thuộc tính thành một Whole Value (Giá trị Hoàn chỉnh - mẫu thiết kế gom cụm các trường dữ liệu liên quan thành một đối tượng giá trị duy nhất), đặt tên cho nó đại loại như `SecurityPrincipal`. Điều đó sẽ làm cho khái niệm này trở nên tường minh hơn nhiều. Đó là một ý tưởng thú vị, nhưng nó đã bỏ sót một yêu cầu quan trọng: Mật khẩu có thể được thay đổi. Cũng có những thời điểm các dịch vụ sẽ cần tìm một `User` mà không được cung cấp mật khẩu. Việc này không phải để phục vụ xác thực. (Hãy xem xét kịch bản chúng ta cần kiểm tra xem một `User` có đang đảm nhận một Role bảo mật nào đó hay không. Chúng ta không thể yêu cầu mật khẩu để tìm một `User` mỗi lần chúng ta cần kiểm tra quyền truy cập). Mật khẩu không phải là định danh. Chúng ta vẫn có thể đưa cả username và password vào trong một truy vấn xác thực duy nhất.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000197_1dbd509b1d32781c660c1317bee8d199d1046582cda0610840b98b06f61c44b3.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000198_9aa0e5df966d34e4f8f392f9a6e1a4cfdfdc81530bce28a1413de74d3b51c34f.png)
 
 Ý tưởng về việc tạo ra một Value type `SecurityPrincipal` đã đưa ra một đề xuất mô hình hóa đầy hấp dẫn. Nó đã được ghi lại để xem xét sau. Cũng có một số khái niệm khác chưa được khám phá, chẳng hạn như các thư mời đăng ký sẽ được cung cấp như thế nào, cùng các chi tiết về tên cá nhân và thông tin liên hệ. Nhóm sẽ giải quyết những điều đó trong vòng lặp phát triển nhanh tiếp theo.
 
@@ -4340,19 +4499,19 @@ Khi chúng ta nghĩ về việc kích hoạt và vô hiệu hóa một `Tenant`,
 
 ```java
 public class Tenant extends Entity {
-
 ```
 
 ```java
     ...
     private boolean active;
     ...
-
 ```
 
 Có lẽ là không hoàn toàn. Và ban đầu chúng ta chỉ muốn tập trung duy nhất vào các thuộc tính giúp cung cấp định danh và cho phép khớp nối trên các truy vấn. Chúng ta sẽ bổ sung các chi tiết hỗ trợ như vậy sau.
 
 Nhóm có thể đã nghiêng về quyết định khai báo phương thức `setActive(boolean)`, mặc dù điều đó sẽ không thực sự giải quyết được thuật ngữ của yêu cầu. Không phải là các phương thức setter công khai không bao giờ phù hợp, nhưng chúng chỉ nên được sử dụng khi Ngôn ngữ cho phép
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000199_5b7d848709e04b47faf02d1d200684088c399f0c8f3c4069a54f889064c3ef73.png)
 
 ## DISCOVERING ENTITIES AND THEIR INTRINSIC CHARACTERISTICS
 
@@ -4373,7 +4532,6 @@ public class Tenant extends Entity {
         // TODO: implement
     }
     ...
-
 ```
 
 Để hiện thực hóa các ý tưởng của mình, trước tiên nhóm đã phát triển một bài kiểm thử để cảm nhận xem việc sử dụng các hành vi mới này sẽ như thế nào:
@@ -4389,7 +4547,6 @@ public class TenantTest ... {
         assertTrue(tenant.isActive());
     }
 }
-
 ```
 
 Sau bài kiểm thử này, nhóm cảm thấy tự tin vào chất lượng của interface. Việc viết bài kiểm thử đã giúp họ nhận ra rằng một phương thức khác, `isActive()`, là cần thiết. Họ đã thống nhất với ba phương thức mới này, như được thấy trong Hình 5.7. Bảng thuật ngữ của Ubiquitous Language cũng phong phú thêm:
@@ -4397,7 +4554,13 @@ Sau bài kiểm thử này, nhóm cảm thấy tự tin vào chất lượng c�
 * Kích hoạt tenant (Activate tenant): Tạo điều kiện thuận lợi cho việc kích hoạt một tenant bằng thao tác này, và trạng thái hiện tại có thể được xác nhận.
 * Vô hiệu hóa tenant (Deactivate tenant): Tạo điều kiện thuận lợi cho việc vô hiệu hóa một tenant bằng thao tác này. Người dùng không thể được xác thực khi tenant bị vô hiệu hóa.
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000200_ce3caa429250fe072b90930e21472713db76911bfad574c2c0c71e03b16176c0.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000201_7264c29c74a58c20ce84397a0d0e433f7b5b91813818561869e93b10b60725f9.png)
+
 Hình 5.7 Hành vi không thể thiếu được gán cho Tenant trong vòng lặp phát triển nhanh đầu tiên. Một số hành vi bị lược bỏ do tính phức tạp nhưng có thể được thêm vào sớm.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000202_8b7e87c8903e80403d0f4280a1372182b611b57a75bffc0c2d777a17fa6ae298.png)
 
 * Authentication Service: Điều phối việc xác thực người dùng, trước tiên đảm bảo rằng tenant sở hữu người dùng đó đang hoạt động.
 
@@ -4433,7 +4596,13 @@ Thay vào đó, nếu họ mô hình hóa hành vi cá nhân ngay trên `User`, 
 
 Hình 5.8 Hành vi nền tảng của User thúc đẩy thêm nhiều liên kết. Không cần quá chi tiết, nhóm đã mô hình hóa thêm một vài đối tượng cùng các thao tác.
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000203_70261ed7a63e99ad08fda95e6afed7a9af39aeefc08df4d498c92538bb474c97.png)
+
 [^1]: Xem các mẫu thiết kế đã xuất bản của tôi: http://vaughnvernon.co/.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000204_ff5ff04953f29a3c66dd5fd2b8d6e5092883124e53f36760cd3d9129a6a4539c.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000205_50966df4e42821bf65119a8fb7188973a495a5bc210d30328457c6ad6bade57d.png)
 
 Còn có những cân nhắc khác. Liệu nhóm có nên phơi bày `Person` ra ngoài hay không, hay ẩn giấu nó khỏi tất cả các client? Hiện tại họ quyết định giữ cho `Person` được hiển thị cho mục đích truy vấn thông tin. Phương thức truy cập (accessor) sau đó có thể được thiết kế lại để phục vụ một interface `Principal`, trong đó `Person` và `System` mỗi bên sẽ là một `Principal` chuyên biệt. Nhóm sẽ có thể tái cấu trúc điều này khi họ đạt được sự hiểu biết sâu sắc hơn.
 
@@ -4473,7 +4642,6 @@ public interface Person {
 public class HumanUser implements User, Person {
     ...
 }
-
 ```
 
 Điều này có hợp lý không? Có thể, nhưng nó cũng có thể làm phức tạp hóa mọi thứ. Nếu cả hai interface đều phức tạp, có thể sẽ rất khó để triển khai cả hai trong một đối tượng duy nhất. Ngoài ra, một `User` có thể là một hệ thống, điều này sẽ làm tăng số lượng interface cần thiết lên con số ba. Việc thiết kế một đối tượng đơn lẻ đảm nhận các vai trò của `User`, `Person`, và `System` sẽ còn khó khăn hơn nữa. Có lẽ chúng ta có thể đơn giản hóa điều này bằng cách tạo ra một `Principal` đa năng:
@@ -4490,8 +4658,11 @@ public interface Principal {
 public class UserPrincipal implements User, Principal {
     ...
 }
-
 ```
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000206_f44974492ab6da283e5b6e049bf4048ad19970a7406e36cfad0539fe522f5295.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000207_b5e91bf490cfce394d4feca730beecbb2415df379e4b8d8c50a146dfd1f84cf9.png)
 
 Với thiết kế này, chúng ta đang cố gắng xác định kiểu chủ thể thực tế tại thời điểm thực thi (late binding - liên kết muộn). Một chủ thể dạng con người và một chủ thể dạng hệ thống có các cách triển khai khác nhau. Các hệ thống không cần loại thông tin liên hệ giống như một con người có. Dẫu vậy, chúng ta vẫn có thể thử, bằng cách thiết kế một triển khai ủy quyền chuyển tiếp (forwarding delegation). Để làm được điều đó, chúng ta sẽ kiểm tra sự tồn tại của kiểu này hay kiểu kia tại thời điểm thực thi và ủy quyền cho đối tượng đang tồn tại:
 
@@ -4528,7 +4699,6 @@ public class UserPrincipal implements User, Principal {
     }
     ...
 }
-
 ```
 
 Thiết kế này làm phát sinh nhiều vấn đề khác nhau. Thứ nhất, nó mắc phải hội chứng gọi là object schizophrenia (tâm thần phân liệt đối tượng) [^2]. Hành vi được ủy quyền bằng một kỹ thuật gọi là chuyển tiếp (forwarding) hoặc điều phối (dispatching). Cả `personPrincipal` lẫn `systemPrincipal` đều không mang định danh của Entity `UserPrincipal` — nơi mà hành vi ban đầu được thực thi trên đó. Thuật ngữ object schizophrenia mô tả tình huống trong đó các đối tượng được ủy quyền không hề biết định danh của đối tượng gốc khởi tạo ra chúng. Có sự hoang mang rối loạn bên trong các đối tượng được ủy quyền về việc thực chất chúng là ai. Không phải mọi phương thức ủy quyền trong hai lớp cụ thể đều bắt buộc phải tiếp nhận định danh của đối tượng cơ sở, nhưng một số phương thức có thể sẽ cần tới nó. Chúng ta có thể truyền vào một tham chiếu tới `UserPrincipal`. Nhưng điều đó làm phức tạp thiết kế và thực tế đòi hỏi interface `Principal` phải thay đổi. Điều đó không tốt chút nào. Như [Gamma et al.] khẳng định: "Ủy quyền chỉ là một lựa chọn thiết kế tốt khi nó mang lại sự đơn giản nhiều hơn là sự phức tạp."
@@ -4551,6 +4721,12 @@ Như đã thảo luận trong Aggregates (Chương 10), thông thường chúng 
 
 Hình 5.9 Sử dụng quy ước đặt tên của C#.NET, Entity Customer triển khai hai vai trò đối tượng, IAddOrdersToCustomer và IMakeCustomerPreferred.
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000208_d9029a33f34b68be216eff942aae8228ee830b2987dbc6a09080a62b5b53d07e.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000209_61893e1943aae9949550da58904bb25b04a328e068eb57d1ecb879fc1715f586.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000210_c92d1e7a64410d7bba0f52f3cc87a3753e3269f9469e7fb6fe374d0a52fa9513.png)
+
 Tiền tố `I` trong tên interface là một quy ước được sử dụng rộng rãi trong lập trình .NET. Bên cạnh việc tuân theo cách tiếp cận của .NET nói chung, một số người cho rằng nó làm tăng khả năng đọc hiểu: "Tôi thêm đơn hàng vào khách hàng" (I add orders to customer) và "Tôi biến khách hàng thành khách hàng ưu đãi" (I make customer preferred). Nếu không có tiền tố `I`, các tên gọi dựa trên động từ thu được có thể kém hấp dẫn hơn: `AddOrdersToCustomer` và `MakeCustomerPreferred`. Chúng ta có thể đã quen hơn với việc đặt tên interface bằng các danh từ hoặc tính từ, và tiêu chuẩn đó chắc chắn hoàn toàn có thể được áp dụng ở đây thay thế.
 
 Hãy xem xét một số ưu điểm mà phong cách này thúc đẩy. Vai trò của một Entity có thể thay đổi từ use case này sang use case khác. Khi một client cần thêm một thực thể `Order` mới vào một `Customer`, vai trò đó khác biệt so với khi họ muốn biến `Customer` đó thành khách hàng ưu tiên. Ngoài ra còn có một lợi thế kỹ thuật. Các use case khác nhau có thể yêu cầu các chiến lược nạp dữ liệu (fetching strategies) chuyên biệt:
@@ -4561,7 +4737,6 @@ customer.MakePreferred();
 ...
 IAddOrdersToCustomer customer = session.Get<IAddOrdersToCustomer>(customerId);
 customer.AddOrder(order);
-
 ```
 
 Cơ chế lưu trữ dữ liệu bền vững sẽ truy vấn tên kiểu tham số hóa `T` của phương thức `Get<T>()`. Nó sử dụng kiểu này để tra cứu một chiến lược nạp dữ liệu liên quan đã được đăng ký với hạ tầng. Nếu interface tình cờ không có chiến lược nạp dữ liệu đặc biệt nào, chiến lược mặc định sẽ được sử dụng. Bằng cách thực thi chiến lược nạp dữ liệu, đối tượng `Customer` được xác định sẽ được tải lên theo đúng hình dạng cấu trúc cần thiết cho use case cụ thể đó.
@@ -4576,6 +4751,8 @@ Hoàn toàn công bằng khi đặt câu hỏi liệu có lợi thế mô hình 
 
 Hình 5.10 Ở đây Customer được mô hình hóa với các thao tác trước đây nằm trên các interface khác nhau nay được gộp chung lại vào interface duy nhất của lớp Entity.
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000211_507534f56eb61d6185c92a1ac22985bc9f190f5cc0e96aec1d8c3512dbb84ba5.png)
+
 một client vô tình gọi nhầm phương thức `AddOrder()` khi đáng lẽ nó phải gọi `MakePreferred()` hay không? Có lẽ là không. Nhưng chúng ta không nên chỉ đánh giá cách tiếp cận này dựa trên mỗi yếu tố đó.
 
 Có lẽ cách sử dụng thực tế nhất của các interface vai trò cũng chính là cách đơn giản nhất. Chúng ta có thể tận dụng các interface để che giấu các chi tiết triển khai mà chúng ta không muốn bị rò rỉ ra ngoài mô hình tới các client. Hãy thiết kế một interface để phơi bày chính xác những gì chúng ta muốn cho phép các client sử dụng, và không gì khác ngoài điều đó. Lớp triển khai có thể phức tạp hơn rất nhiều so với interface. Nó có thể có đủ loại thuộc tính hỗ trợ với các getter và setter, cùng hành vi triển khai mà các client sẽ không bao giờ có cơ hội nhìn thấy. Ví dụ, có thể một công cụ hoặc framework bắt buộc phải tạo ra các phương thức công khai mà chúng ta không hề muốn các client sử dụng. Ngay cả như vậy, interface của mô hình miền cũng không hề bị chi phối bởi các chi tiết triển khai kỹ thuật khó chịu vốn bắt buộc phải có. Điều này mang lại một lợi thế rõ rệt cho việc mô hình hóa miền.
@@ -4587,6 +4764,10 @@ Cùng với bất kỳ lựa chọn thiết kế nào, hãy đảm bảo rằng 
 Khi chúng ta khởi tạo mới một Entity, chúng ta muốn sử dụng một constructor nắm bắt đủ trạng thái để định danh đầy đủ cho nó và cho phép các client có thể tìm thấy nó. Khi sử dụng cơ chế sinh định danh sớm, một constructor được thiết kế đúng đắn sẽ nhận ít nhất là unique identity làm tham số. Nếu Entity được truy vấn bằng các phương tiện khác, chẳng hạn như bằng tên hoặc phần mô tả, chúng ta cũng sẽ đưa tất cả những thông tin đó vào làm tham số constructor.
 
 Đôi khi một Entity duy trì một hoặc nhiều invariant. Một invariant là một trạng thái bắt buộc phải duy trì tính nhất quán về mặt giao dịch xuyên suốt vòng đời của Entity. Invariant là mối bận tâm của các Aggregate, nhưng vì Aggregate Root luôn luôn là một Entity, nên nó được đề cập ở đây. Nếu một Entity có một invariant được thỏa mãn bởi trạng thái nonnull của một đối tượng chứa bên trong, hoặc được tính toán bằng cách sử dụng một trạng thái nào đó khác, thì trạng thái đó bắt buộc phải được cung cấp thông qua một hoặc nhiều tham số constructor.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000212_f743ee2ca8f413c80933330b73ec31ead2e233216cf12af29d22873034dca8a7.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000213_2505faadf37f4651818540fcc895591951449b850c10e368c7f8580323c704b1.png)
 
 Mỗi đối tượng `User` bắt buộc phải chứa một `tenantId`, `username`, `password`, và `person`. Nói cách khác, sau khi khởi tạo thành công, các tham chiếu tới các biến thực thể (instance variables) được khai báo này tuyệt đối không bao giờ được phép mang giá trị `null`. Constructor của `User` cùng các setter của biến thực thể của nó đảm bảo điều này:
 
@@ -4634,7 +4815,6 @@ public class User extends Entity {
         if (aUsername == null) {
             throw new IllegalArgumentException("The username may not be set to null.");
         }
-
 ```
 
 ```java
@@ -4642,7 +4822,6 @@ public class User extends Entity {
     }
     ...
 }
-
 ```
 
 Thiết kế của lớp `User` thể hiện sức mạnh của tính tự đóng gói (self-encapsulation). Constructor ủy quyền việc gán biến thực thể cho chính các setter thuộc tính nội bộ của nó, vốn cung cấp cơ chế tự đóng gói cho các biến. Tính tự đóng gói cho phép mỗi setter xác định các điều kiện hợp đồng thích hợp cho việc thiết lập một phần của trạng thái. Từng setter riêng lẻ sẽ xác nhận một ràng buộc nonnull thay mặt cho Entity, từ đó thực thi hợp đồng của thực thể. Các xác nhận này được gọi là các guard (xem phần 'Validation'). Như đã chỉ ra trước đây trong phần 'Identity Stability', các kỹ thuật tự đóng gói của các phương thức setter này có thể phức tạp hơn tùy theo nhu cầu.
@@ -4666,10 +4845,13 @@ public class Tenant extends Entity {
     }
     ...
 }
-
 ```
 
 Ở đây, phương thức `registerUser()` chính là Factory. Factory này đơn giản hóa việc khởi tạo trạng thái mặc định của `User` và đảm bảo rằng `TenantId` cho cả hai Entity `User` và `Person` luôn luôn chính xác. Tất cả điều này diễn ra dưới sự kiểm soát của một phương thức Factory đáp ứng Ubiquitous Language.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000214_e04640c225b04998fe28c0649546d00bb19e7d30d7baca37230f147340c8eab3.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000215_eec8397c98458f7659b8757e212d390d543ac8b50e1b8b0bea3dcaf4e6caf0a1.png)
 
 ## Validation
 
@@ -4715,7 +4897,6 @@ public final class EmailAddress {
     }
     ...
 }
-
 ```
 
 Có bốn precondition đối với hợp đồng phương thức của `setAddress()`. Tất cả các guard của precondition đều xác nhận một điều kiện của đối số `anAddress`:
@@ -4729,14 +4910,18 @@ Nếu tất cả các precondition này đều vượt qua, thuộc tính `addre
 
 Lớp `EmailAddress` không phải là một Entity. Nó là một Value Object. Chúng ta sử dụng nó ở đây vì một vài lý do. Thứ nhất, nó là một ví dụ điển hình về việc triển khai các mức độ khác nhau của các guard precondition, từ kiểm tra null cho đến định dạng giá trị (sẽ nói thêm về điều này tiếp theo). Thứ hai, Value này được nắm giữ bởi Entity `Person` như một trong những thuộc tính của nó, một cách gián tiếp thông qua Value `ContactInformation`. Vì vậy, thực chất, đây là một phần của một Entity theo cùng một cách mà một thuộc tính đơn giản được khai báo trên một lớp Entity cũng là một phần của nó. Chúng ta sử dụng chính xác cùng một loại guard precondition khi triển khai các setter cho các thuộc tính đơn giản. Khi một Whole Value được gán cho một thuộc tính của Entity, không có cách nào để bảo vệ khỏi việc thiết lập trạng thái bất hợp lý (insane state) trừ khi các thuộc tính nhỏ hơn bên trong Value đó được bảo vệ cẩn mật.
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000216_4e626eb269613487384a36d7998a8b2f57665684634e8c201a861cb3f94f264d.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000217_8f7b5db14b31d20e9c1116591f1e71de76474299b1242e4332866d9a883d0392.png)
+
 ## Cowboy Logic
 
 * LB: 'Tôi cứ tưởng mình có một lập luận xác đáng (valid argument) khi tranh luận với bà xã, nhưng rồi đột nhiên bà ấy ném ngay một ngoại lệ đối số không hợp lệ (illegal argument exception) vào mặt tôi.'
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000218_d6b405e58716e872f15a058ff9116bd56bac3e082c795e6b21f56c4ea495369d.png)
+
 > 💡 **Giải thích thêm:** Đây là một câu đùa chơi chữ kinh điển trong lập trình. Từ "argument" trong tiếng Anh vừa có nghĩa là "lập luận/lý lẽ trong một cuộc tranh cãi", vừa có nghĩa là "đối số truyền vào hàm". LB tưởng mình có "valid argument" (lập luận có lý / đối số hợp lệ), nhưng bà vợ lại ném ra một "illegal argument exception" (sự phản đối quyết liệt vô lý / ngoại lệ `IllegalArgumentException` trong Java khi đối số không thỏa mãn điều kiện).
 > (Không có nguồn trích dẫn xác thực — cần tự kiểm chứng thêm)
-
-<!-- ⚠️ CẢNH BÁO chunk 12: số ảnh/heading/code-block KHÔNG khớp bản gốc (gốc={'images': 31, 'headings': 13, 'fences': 28}, dịch={'images': 0, 'headings': 13, 'fences': 28}). Xem lại đoạn này bằng tay. -->
 
 ﻿Một số nhà phát triển gọi các loại kiểm tra tiền điều kiện (precondition check) này là lập trình phòng thủ (defensive programming). Việc dựng rào chắn để ngăn chặn các giá trị hoàn toàn không hợp lệ xâm nhập vào mô hình của bạn chắc chắn là lập trình phòng thủ. Tuy nhiên, một số người có thể không đồng tình với mức độ chi tiết ngày càng tăng của các chốt chặn này. Một vài lập trình viên theo trường phái phòng thủ đồng ý với việc kiểm tra giá trị rỗng (null), thậm chí kiểm tra chuỗi rỗng (empty string), nhưng lại e ngại việc kiểm tra các điều kiện như độ dài chuỗi, khoảng giá trị số, định dạng dữ liệu và những thứ tương tự. Chẳng hạn, một số người cho rằng việc phó mặc việc kiểm tra kích thước giá trị cho cơ sở dữ liệu là cách tốt nhất. Họ coi những việc như giới hạn độ dài tối đa của chuỗi là mối bận tâm của một thành phần nào đó ngoài các đối tượng mô hình. Dẫu vậy, các tiền điều kiện này hoàn toàn có thể được xem là các bước kiểm tra tính hợp lý (sanity check) hết sức chính đáng.
 
@@ -4769,6 +4954,10 @@ Chúng ta cũng có thể phải cân nhắc việc thiết lập các chốt ch
 Ngay cả khi chúng ta có một Entity với các thuộc tính/đặc tính hoàn toàn hợp lệ, điều đó không nhất thiết đồng nghĩa với việc toàn bộ Entity đó đã hợp lệ. Để xác thực toàn bộ một Entity, chúng ta cần có quyền truy cập vào trạng thái của toàn bộ đối tượng — tức là tất cả các thuộc tính/đặc tính của nó. Chúng ta cũng cần một mẫu thiết kế Specification (đặc tả) [Evans & Fowler, Spec] hoặc Strategy (chiến lược) [Gamma et al.] cho việc xác thực này.
 
 Trong ngôn ngữ mẫu (pattern language) Checks của mình, Ward Cunningham [Cunningham, Checks] đã đề cập đến một số phương pháp tiếp cận việc xác thực. Một phương pháp hữu ích cho toàn bộ đối tượng là Xác thực Trì hoãn (Deferred Validation). Ward cho biết đây là "một loại kiểm tra nên được trì hoãn cho đến thời điểm muộn nhất có thể." Nó bị trì hoãn vì đây là một loại xác thực rất chi tiết, một quy trình mà chúng ta sẽ chạy trên ít nhất một đối tượng phức tạp, hoặc thậm chí là một tổ hợp các đối tượng. Vì lý do đó, chúng ta sẽ thảo luận về Deferred Validation ở phần sau như một phương tiện để giải quyết các cấu trúc tổng hợp đối tượng lớn hơn. Trong tiểu mục này, tôi giới hạn phạm vi xác thực trong những gì Ward gọi là "các bước kiểm tra của những hoạt động đơn giản hơn."
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000219_b01e809077de1fbadacdb993273e3017912d4efad6056a734696da01d292c345.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000220_5f2e2c9d51eecfcec8a10d1a19b4d268eb1e4949a2bfcfb2bea77322a23979c9.png)
 
 Bởi vì toàn bộ trạng thái của Entity phải sẵn sàng cho quá trình xác thực, một số người có thể xem đây là thời điểm thích hợp để nhúng trực tiếp logic xử lý xác thực vào bên trong chính Entity đó. Hãy hết sức thận trọng ở điểm này. Nhiều khi, logic xác thực của một đối tượng miền thay đổi thường xuyên hơn chính bản thân đối tượng miền đó. Việc nhúng logic xác thực vào bên trong một Entity cũng gán cho nó quá nhiều trách nhiệm. Bản thân nó vốn đã gánh vác trách nhiệm xử lý hành vi nghiệp vụ của miền trong khi duy trì trạng thái của chính mình.
 
@@ -4844,6 +5033,10 @@ class WarbleValidator extends Validator {
 }
 
 ```
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000221_8b3d290d9fc45d0a8fd7864eeabe45e0b0c34d37af36530cb2c88e2d2b449a7c.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000222_09160f4047ba47845d9b9e844147bc4de020d0fe3b2f2e4cc70c73144dc4b443.png)
 
 Cách này có ưu điểm là không làm ràng buộc (coupling) các thông điệp lỗi, hoặc các khóa thuộc tính thông điệp (message property key), hay bất kỳ điều gì mang tính đặc thù của việc thông báo, vào tiến trình xác thực. Tuyệt vời hơn nữa, hãy đặt việc xử lý thông báo vào bên trong phương thức kiểm tra:
 
@@ -4925,6 +5118,10 @@ Chúng ta có thể sử dụng Deferred Validation cho những trường hợp 
 
 Hãy quyết định xem liệu việc xác thực có phù hợp ở mọi thời điểm hay không. Đôi khi, một Aggregate hoặc một tập hợp các Aggregate lại đang nằm ở một trạng thái trung gian, tạm thời. Có lẽ chúng ta có thể mô hình hóa một trường trạng thái (status) trên một Aggregate để biểu thị điều này, nhằm ngăn chặn việc kích hoạt xác thực vào những thời điểm không thích hợp. Khi các điều kiện đã chín muồi cho việc xác thực, mô hình có thể thông báo cho các client bằng cách phát đi một Domain Event (sự kiện miền):
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000223_0dc27fb0ec7477d03cf4337a4e986def079973bf72204ed71f080ff9a37e64fc.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000224_c8edd9e43ed4b6f60724dfe5ce9ee15ea9161eeef1207cbf682d2bf170039e9b.png)
+
 ```java
 public class SomeApplicationService ... {
     ...
@@ -4960,6 +5157,8 @@ Cách thiết thực nhất để đạt được khả năng theo dõi thay đ�
 
 Các chuyên gia nghiệp vụ có thể không bận tâm đến từng thay đổi nhỏ nhặt trong mô hình, nhưng đội ngũ kỹ thuật có thể vẫn quan tâm. Điều này thường xuất phát từ các lý do kỹ thuật, bằng cách áp dụng một mẫu thiết kế có tên là Event Sourcing (nguồn sự kiện) (4).
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000225_9b7f540b04fd2edf533187b7e9cb8462332c8ea87054dc0b8e7fe0921046c116.png)
+
 ## Tổng kết (Wrap-Up)
 
 Chúng ta đã đi qua toàn bộ các chủ đề liên quan đến Entity. Dưới đây là phần tóm lược những gì bạn đã tìm hiểu:
@@ -4972,6 +5171,8 @@ Chúng ta đã đi qua toàn bộ các chủ đề liên quan đến Entity. Dư
 * Cuối cùng, bạn đã đi sâu vào chi tiết cách khởi tạo Entity, cách xác thực chúng, và cách theo dõi các thay đổi của chúng khi cần thiết.
 
 Tiếp theo, chúng ta sẽ cùng tìm hiểu về một khối xây dựng vô cùng quan trọng trong số các công cụ mô hình hóa chiến thuật (tactical modeling tools): Value Object (đối tượng giá trị).
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000226_6fc599744fe7b80c45c6d61300c97101eed47f1ba5ad743d54fcd6378f32f56b.png)
 
 Trang này được chủ ý để trống
 
@@ -4998,7 +5199,11 @@ Có thể bạn sẽ ngạc nhiên khi biết rằng chúng ta nên cố gắng 
 * Xem xét bài học mà SaaSOvation đã rút ra về tầm quan trọng của Value.
 * Tìm hiểu cách các đội ngũ tại SaaSOvation kiểm thử, triển khai và lưu trữ bền vững (persist) các kiểu Value của họ.
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000227_8e14e581e74a097a1e3188bb68d845786497a999bf601d499ca7f290c72f92bd.png)
+
 Ban đầu, các đội ngũ tại SaaSOvation đã lạm dụng quá mức việc sử dụng Entity. Tình trạng này thực tế đã bắt đầu diễn ra từ rất lâu trước khi các khái niệm `User` và `Permission` bị đan xen chằng chéo với hoạt động cộng tác (collaboration). Ngay từ khi dự án mới khởi động, họ đã đi theo lối tư duy phổ biến cho rằng mọi thành phần trong domain model của họ đều cần phải được ánh xạ sang một bảng cơ sở dữ liệu riêng, và rằng tất cả các thuộc tính đều phải dễ dàng
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000228_6bd5cbdf9579874520827d0a7a503f698fc50e069c8af67b393b68582fa505a6.png)
 
 được thiết lập và truy xuất thông qua các phương thức accessor công khai (public). Vì mỗi đối tượng đều sở hữu một khóa chính (primary key) trong cơ sở dữ liệu, mô hình đã bị khâu chặt lại với nhau thành một đồ thị đối tượng khổng lồ và phức tạp. Ý niệm đó chủ yếu xuất phát từ góc nhìn mô hình hóa dữ liệu mà hầu hết các nhà phát triển thường mắc phải khi bị chi phối quá mức bởi các cơ sở dữ liệu quan hệ, nơi mọi thứ đều được chuẩn hóa (normalized) và tham chiếu thông qua các khóa ngoại (foreign key). Như sau này họ đã nhận ra, việc bị cuốn theo làn sóng tư duy thiên về thực thể không chỉ không cần thiết, mà còn gây tốn kém nhiều thời gian và công sức phát triển hơn.
 
@@ -5038,6 +5243,10 @@ Khi bạn có một Value Object thực thụ trong mô hình của mình, dù b
 Một đối tượng là một Value thì không thể thay đổi được sau khi nó đã được tạo ra. 1 Khi lập trình bằng Java hoặc C#, chẳng hạn, bạn sử dụng một trong các hàm khởi tạo (constructor) của lớp Value để tạo ra một thể hiện, truyền vào dưới dạng tham số tất cả các đối tượng mà trạng thái của nó sẽ dựa vào. Các tham số này có thể là các đối tượng sẽ trực tiếp đóng vai trò làm thuộc tính của Value, hoặc chúng có thể là các đối tượng được sử dụng để suy ra một hoặc nhiều thuộc tính mới được cấu thành trong quá trình khởi tạo. Dưới đây là một ví dụ về một kiểu Value Object giữ một tham chiếu tới một Value Object khác:
 
 1. Đôi khi một Value Object có thể được thiết kế ở dạng có thể biến đổi (mutable), nhưng nhu cầu này thường rất hiếm gặp. Tôi không đi sâu vào các Value khả biến ở đây. Nếu bạn quan tâm đến thời điểm nên sử dụng một kiểu Value khả biến, vui lòng xem khung ghi chú ở trang 101 của cuốn sách [Evans].
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000229_90b985c96e17dc6d4ed8b7e8e2b18e0c512137c5d5cc880d9da95a6586ab9b3c.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000230_c3d05f5625e41601eeff02ff5fcf1fe1c9b86eda96d3dba20818470a0219846a.png)
 
 ```java
 package com.saasovation.agilepm.domain.model.product;
@@ -5087,6 +5296,10 @@ public class ThingOfWorth {
 Trong ví dụ này, mô hình và các client của nó phải tự biết khi nào và làm thế nào để sử dụng kết hợp `amount` và `currency` với nhau, bởi vì chúng không tạo thành một chỉnh thể khái niệm. Điều này đòi hỏi một cách tiếp cận tốt hơn.
 
 3. Còn được gọi là Meaningful Whole (Chỉnh thể Có ý nghĩa).
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000231_04a99fda6f30e063a579d0decaa370e00800aea36b395050ad3077497dbf7c27.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000232_d901a99aa225e365c7e0fd8695e27dbd7feabadf3438bbfb205b93681ea4a30d.png)
 
 Để mô tả đúng đắn giá trị của một sự vật, nó không được xem như hai thuộc tính tách rời, mà phải được đối xử như một giá trị toàn vẹn: `{50.000.000 đô la}`. Dưới đây là cách nó được mô hình hóa dưới dạng một Whole Value:
 
@@ -5140,6 +5353,10 @@ Dưới đây là một góc nhìn khác về việc lạm dụng các kiểu d�
 > 💡 **Giải thích thêm:** Tác giả sử dụng thuật ngữ ẩn dụ từ môn bóng chày: *"Strike one... Strike two... Big swing and a miss. Strike three"* (Lần đánh bóng trượt thứ nhất, thứ hai, và thứ ba — dẫn đến việc cầu thủ bị loại khỏi lượt đánh / "strike out"). Ẩn dụ này nhằm nhấn mạnh rằng việc monkey-patch (vá nóng mã nguồn) kiểu `Double` để xử lý tiền tệ mắc phải 3 sai lầm chết người liên tiếp, và đến sai lầm thứ 3 (không phản ánh Ubiquitous Language) thì thiết kế này hoàn toàn thất bại.
 > Nguồn tham khảo: (Không có nguồn trích dẫn xác thực — cần tự kiểm chứng thêm)
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000233_ae5150a89533fb1e5d096776baedc5ab826ebb5a37ca36f398fc7c8818baf8a5.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000234_1bd6c303c6f0a30a2109e60f5d4359c36b051334057f299440fd941c358d06f1.png)
+
 ## Thách thức các giả định của bạn (Challenge Your Assumptions)
 
 Nếu bạn đang bị cám dỗ bởi việc đặt nhiều thuộc tính lên một Entity mà kết quả là làm suy yếu mối liên kết giữa các thuộc tính đó với nhau, thì rất có khả năng các thuộc tính đó nên được gom lại thành một kiểu Value duy nhất, hoặc nhiều kiểu Value. Mỗi kiểu Value nên tạo thành một chỉnh thể khái niệm phản ánh tính gắn kết cao, được đặt tên một cách thích hợp theo Ubiquitous Language của bạn. Nếu dù chỉ một thuộc tính gắn liền với một khái niệm mang tính mô tả, rất có thể việc tập trung hóa tất cả các mối bận tâm của khái niệm này sẽ nâng cao sức mạnh cho mô hình. Nếu một hoặc nhiều thuộc tính buộc phải thay đổi theo thời gian, hãy cân nhắc việc hoán đổi toàn bộ Whole Value thay vì duy trì một Entity xuyên suốt một vòng đời dài đằng đẵng.
@@ -5191,6 +5408,10 @@ public boolean equals(Object anObject) {
         FullName typedObject = (FullName) anObject;
 
 ```
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000235_6d3ccc114eb64b1d476acc9a6456245b572c0d3c5a23259ddbc9c12bfafb1e2d.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000236_1f6a9ede83f6d2d479cca3cd306d8f2b776dbcf63cec9487d2fd868e51a429d8.png)
 
 ```java
         equalObjects =
@@ -5258,6 +5479,10 @@ public FullName withMiddleInitial(String aMiddleNameOrInitial) {
 
 ```
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000237_fa2ffaaf1d0ae4e561537c8a5ac8b1c566b8d506ab356c78393980bcbc051160.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000238_f54a2018a99c1b85611719095d4dbc8da4eda0f7ac4eabde34dc6a799bc426df.png)
+
 Trong ví dụ này, phương thức `withMiddleInitial()` không hề làm biến đổi trạng thái của chính bản thân thể hiện Value của nó, và do đó, nó hoàn toàn không gây tác dụng phụ. Thay vào đó, nó khởi tạo một thể hiện Value mới được cấu thành từ một số thành phần sẵn có của chính nó kết hợp với chữ cái đầu của tên đệm được cung cấp. Phương thức này đã đóng gói logic nghiệp vụ quan trọng của miền vào ngay bên trong mô hình thay vì để nó bị rò rỉ ra ngoài mã nguồn của client, điều vốn rất dễ xảy ra như trong ví dụ trước đó.
 
 ## Khi một Value tham chiếu tới một Entity (When a Value References an Entity)
@@ -5295,6 +5520,10 @@ Nếu bạn nghĩ rằng một phương thức cụ thể không thể không g�
 
 Một khi các đội ngũ tại SaaSOvation đọc được những chỉ dẫn của [Evans] về các Hàm Không Gây Tác dụng phụ, cùng các tài liệu khác về Whole Value, họ đã nhận ra rằng mình nên sử dụng các Value Object thường xuyên hơn rất nhiều. Các đội ngũ kể từ đó đã nhận thức được rằng việc thấu hiểu các đặc tính của Value nêu trên đã thực sự giúp họ khám phá ra nhiều kiểu Value tự nhiên hơn trong miền nghiệp vụ của mình.
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000239_3a8a0b8e557326f6c989bd4872bc989a1c75de11feeff96c5f24a006c2bf7cd6.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000240_9fd2a4909f97db32464d607e69828ec0288bbc14f41a744be39940c169081f09.png)
+
 ## Có phải mọi thứ đều là Value Object? (Is Everything a Value Object?)
 
 Đến lúc này, có thể bạn đã bắt đầu nghĩ rằng mọi thứ trông đều giống như một Value Object. Suy nghĩ đó vẫn tốt hơn là việc nghĩ rằng mọi thứ trông đều giống như một Entity. Nơi bạn có thể cần một chút thận trọng là khi gặp phải những thuộc tính thực sự đơn giản mà hoàn toàn không cần bất kỳ sự xử lý đặc biệt nào. Có lẽ đó là các biến kiểu Boolean hoặc bất kỳ giá trị số nào thực sự độc lập, không cần thêm sự hỗ trợ chức năng nào, và không liên quan đến bất kỳ thuộc tính nào khác trong cùng một Entity. Đứng một mình, các thuộc tính đơn giản đó đã là một Meaningful Whole. Dẫu vậy, bạn hoàn toàn có thể phạm phải "sai lầm" khi bao bọc không cần thiết một thuộc tính đơn lẻ vào trong một kiểu Value mà không có chức năng đặc biệt nào, và bạn vẫn ở vị thế tốt hơn nhiều so với những người không bao giờ thèm đoái hoài đến việc thiết kế Value. Nếu nhận thấy mình đã làm hơi quá tay một chút, bạn luôn có thể tái cấu trúc lại đôi chút.
@@ -5311,7 +5540,9 @@ Sử dụng lại một ví dụ từ chương Bounded Contexts (2), hãy nhớ 
 
 Hình 6.1 Đối tượng Moderator trong Context của nó dựa trên trạng thái của một User và Role trong một Context khác. User và Role là các Aggregate, nhưng Moderator lại là một Value Object.
 
-<!-- ⚠️ CẢNH BÁO chunk 13: số ảnh/heading/code-block KHÔNG khớp bản gốc (gốc={'images': 23, 'headings': 25, 'fences': 46}, dịch={'images': 0, 'headings': 25, 'fences': 50}). Xem lại đoạn này bằng tay. -->
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000241_d04333eb041a7f254606b5537a7bc24752c7c3c121b68aeebeda48e912bc80a9.png)
+
+<!-- ⚠️ CẢNH BÁO chunk 13: số ảnh/heading/code-block KHÔNG khớp bản gốc (gốc={'images': 23, 'headings': 25, 'fences': 46}, dịch={'images': 23, 'headings': 25, 'fences': 50}). Xem lại đoạn này bằng tay. -->
 
 ﻿Trong số các lớp con của Collaborator được hiển thị ở Hình 6.2, Moderator được mô hình hóa dưới dạng một Value Object (đối tượng giá trị). Các thể hiện (instances) được tạo tĩnh và liên kết với một Forum Aggregate (cụm thực thể Diễn đàn), điểm mấu chốt ở đây là giảm thiểu tối đa tác động mà nhiều Aggregate ở Context thượng nguồn (upstream Identity and Access Context - Ngữ cảnh Định danh và Truy cập), vốn sở hữu rất nhiều thuộc tính, có thể gây ra cho Collaboration Context (Ngữ cảnh Cộng tác). Chỉ với một vài thuộc tính riêng, Moderator đã mô hình hóa một khái niệm cốt lõi của Ubiquitous Language (ngôn ngữ chung / ngôn ngữ toàn hiện) được sử dụng trong Collaboration Context. Hơn nữa, lớp Moderator không chứa bất kỳ thuộc tính đơn lẻ nào từ Role Aggregate. Thay vào đó, chính tên lớp đã thể hiện vai trò Moderator mà người dùng đảm nhận. Bằng việc chủ động lựa chọn thiết kế này, Moderator là một thể hiện Value được tạo tĩnh và không nhằm mục đích giữ đồng bộ với Context nguồn ở xa. Bản hợp đồng chất lượng dịch vụ (quality-of-service contract) được cân nhắc kỹ lưỡng này đã trút bỏ một gánh nặng tiềm tàng cho Context tiêu thụ (consuming Context).
 
@@ -5371,8 +5602,11 @@ public enum GroupMemberType {
         return false;
     }
 }
-
 ```
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000245_0304db097907f8889611c813ca4b13a525d05ae30c34fbf88d2b09031397ad5d.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000246_6a8aeb6e1091a7b30f479b6703a8221851e93d6104f9c0925985320da681978b.png)
 
 Một thể hiện Value của GroupMember được khởi tạo với một GroupMemberType cụ thể. Để minh họa, khi một User hoặc một Group được gán vào một Group, Aggregate được gán sẽ được yêu cầu tạo ra một GroupMember tương ứng với chính nó. Dưới đây là phần hiện thực phương thức `toGroupMember()` của lớp User:
 
@@ -5385,7 +5619,6 @@ protected GroupMember toGroupMember() {
 
     return groupMember;
 }
-
 ```
 
 Việc sử dụng một enum trong Java là một cách rất đơn giản để hỗ trợ một Standard Type. Enum cung cấp một số lượng hữu hạn các Value được định nghĩa rõ ràng (trong trường hợp này là hai), rất nhẹ và theo quy ước nó sở hữu Side-Effect-Free Behavior (hành vi không gây tác dụng phụ). Nhưng phần mô tả bằng văn bản của Value nằm ở đâu? Có hai câu trả lời khả dĩ. Thông thường, không cần thiết phải cung cấp mô tả cho kiểu, mà chỉ cần tên của nó là đủ. Tại sao? Các mô tả bằng văn bản thường chỉ hợp lệ ở Tầng Giao diện Người dùng (User Interface Layer) (14) và có thể được cung cấp bằng cách ánh xạ tên kiểu với một thuộc tính hướng giao diện (view-centric property). Nhiều khi thuộc tính hướng giao diện này phải được bản địa hóa (như trong điện toán đa ngôn ngữ), khiến việc hỗ trợ nó trong mô hình trở nên không phù hợp. Thông thường, chỉ riêng tên của Standard Type đã là thuộc tính tốt nhất để sử dụng trong mô hình. Câu trả lời thứ hai là có các mô tả giới hạn được tích hợp ngay trong tên trạng thái enum là `GROUP` và `USER`. Bạn có thể xuất ra các tên mô tả bằng hành vi `toString()` của từng kiểu. Tuy nhiên, nếu cần thiết, văn bản mô tả của từng kiểu cũng có thể được mô hình hóa cùng.
@@ -5406,6 +5639,10 @@ Nếu bạn quyết định không thích dùng enum trong Java để hỗ trợ
 
 Như một giải pháp thay thế, bạn có thể sử dụng một Aggregate làm một Standard Type với một thể hiện của Aggregate cho mỗi kiểu. Hãy nghĩ kỹ trước khi vội vã làm theo cách này. Các kiểu chuẩn nhìn chung không nên được duy trì bên trong chính Bounded Context tiêu thụ chúng. Các Standard Type được sử dụng rộng rãi thông thường nên được duy trì trong một Context tách biệt với các bản cập nhật được lên kế hoạch rất cẩn thận gửi tới các bên tiêu thụ. Thay vào đó, bạn có thể chọn hiển thị các Aggregate Standard Type dưới dạng bất biến (immutable) trong các Context tiêu thụ. Nhưng hãy tự hỏi liệu một Entity bất biến thì theo định nghĩa có thực sự là một Entity hay không. Nếu bạn nghĩ là không, bạn nên cân nhắc mô hình hóa nó thành một Value Object bất biến dùng chung.
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000247_a20d3af92c177f7e2a09ea8d2fd08fb2338f1d39be3e04d20da22d56be8ef567.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000248_3bbc330703b1ab772ed61cf71814cbe8d2e0ec868f691edb4485a5ba88769042.png)
+
 Một Value Object bất biến dùng chung có thể được lấy từ một kho lưu trữ bền vững (persistence store) ẩn. Đây là một lựa chọn khả thi nếu được lấy từ một Standard Type Service (Dịch vụ Kiểu Chuẩn) (7) hoặc Factory (Nhà máy) (11). Nếu áp dụng, bạn có thể nên có một Service hoặc Factory provider cho mỗi tập hợp Standard Type (một cho các loại số điện thoại, một cái khác cho các loại địa chỉ bưu điện, một cho các loại tiền tệ), như được mô tả trong Hình 6.3. Trong cả hai trường hợp, các hiện thực cụ thể của một Service hoặc Factory sẽ truy cập kho lưu trữ bền vững để lấy các Value dùng chung khi cần, nhưng các client sẽ không bao giờ biết rằng các Value đó được lưu trữ trong một cơ sở dữ liệu chuẩn. Việc sử dụng Service hoặc Factory để cung cấp các kiểu cũng cho phép bạn áp dụng một số chiến lược bộ nhớ đệm (caching) khả thi một cách dễ dàng và an toàn vì các Value là chỉ đọc (read-only) từ kho lưu trữ và bất biến trong hệ thống.
 
 Sau cùng, tôi nghĩ tốt nhất là nên ưu tiên dùng enum cho Standard Types dù bạn có thực sự xem nó là một State hay không. Nếu bạn có nhiều thể hiện Standard Type khả dĩ trong một danh mục duy nhất, hãy xem xét việc sinh mã (code generation) để tạo ra enum. Chẳng hạn, một cách tiếp cận sinh mã có thể đọc qua tất cả các Standard Type hiện có trong kho lưu trữ bền vững tương ứng của chúng (system of record - hệ thống nguồn chân lý) và tạo ra một kiểu/trạng thái duy nhất cho mỗi dòng dữ liệu.
@@ -5413,6 +5650,8 @@ Sau cùng, tôi nghĩ tốt nhất là nên ưu tiên dùng enum cho Standard Ty
 Nếu bạn quyết định sử dụng các Value Object kinh điển làm Standard Types, bạn có thể thấy hữu ích khi giới thiệu một Service hoặc Factory để tạo các thể hiện tĩnh khi cần. Điều này cũng có các động lực tương tự như đã thảo luận trước đó nhưng sẽ khác biệt trong cách hiện thực so với những cơ chế tạo ra các Value dùng chung. Trong trường hợp này, Service hoặc Factory của bạn sẽ cung cấp các thể hiện Value bất biến được tạo tĩnh của từng Standard Type riêng lẻ. Bất kỳ thay đổi nào đối với các thực thể cơ sở dữ liệu Standard Type bên dưới trong hệ thống nguồn chân lý sẽ không tự động được phản ánh trong các thể hiện biểu diễn đã được tạo tĩnh từ trước. Nếu bạn muốn giữ cho các thể hiện Value được tạo tĩnh như vậy đồng bộ với hệ thống nguồn chân lý, bạn sẽ cần cung cấp một giải pháp tùy chỉnh để tìm kiếm và cập nhật trạng thái của chúng trong mô hình của mình. Điều này có thể triệt tiêu tính hữu ích tiềm năng của cách tiếp cận này. ⁴ Do đó, ngay từ khi bắt đầu thiết kế, bạn có thể xác định rằng tất cả các Value Standard Type được tạo tĩnh như vậy sẽ không bao giờ được cập nhật trong Bounded Context tiêu thụ. Mọi yếu tố cạnh tranh (competing forces) đều phải được cân nhắc kỹ lưỡng.
 
 Hình 6.3 Một Domain Service có thể được sử dụng để cung cấp các Standard Type. Trong trường hợp này, Service đi tới cơ sở dữ liệu để đọc trạng thái của một CurrencyType được yêu cầu.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000249_b03ac73335b984f96922d50bb5a492b2a2856df64d4bb2cf95de891bb7697307.png)
 
 ## Testing Value Objects
 
@@ -5430,7 +5669,13 @@ Value Object được chọn là một ví dụ đại diện toàn diện tốt
 
 ⁴. Đây sẽ là thời điểm thích hợp để mô hình hóa một Aggregate ở Context thượng nguồn cũng thành một Aggregate ở Context hạ nguồn. Chúng sẽ không cùng một lớp hoặc nhất thiết phải chứa tất cả các thuộc tính giống nhau, nhưng việc mô hình hóa khái niệm hạ nguồn dưới dạng một Aggregate sẽ cho phép đạt được tính nhất quán cuối cùng và các cập nhật tại một điểm duy nhất.
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000250_46cfbf8f47960c971bbe7e887423b1e650fb0772f114066b3c6733fa3f4a4905.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000251_4a18c9aa6fbfb1d06a31b2bccbb423059e7c0fe2d9fad30f2418fafabafa4869.png)
+
 Trong Bounded Context này, các chuyên gia nghiệp vụ nhắc đến 'mức độ ưu tiên nghiệp vụ của các hạng mục tồn đọng' (business priority of backlog items). Để đáp ứng phần này của Ubiquitous Language, chúng tôi mô hình hóa khái niệm này thành một `BusinessPriority`. Nó cung cấp đầu ra đã được tính toán phù hợp để hỗ trợ phân tích kinh doanh về giá trị của việc phát triển từng hạng mục tồn đọng của sản phẩm (product backlog item) [Wiegers]. Các đầu ra bao gồm tỷ lệ phần trăm chi phí (cost percentage) — tức là chi phí phát triển một hạng mục tồn đọng cụ thể so với chi phí phát triển tất cả các hạng mục khác; tổng giá trị (total value) — tức là tổng giá trị thu được bằng cách phát triển một hạng mục tồn đọng cụ thể; và phần trăm giá
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000252_0441b5b8050dc196d3f3e6fc5de4cfb8c00975ba517e848967dc2dbc6d692bb7.png)
 
 trị (value percentage) — tức là giá trị phát triển một hạng mục tồn đọng cụ thể so với giá trị phát triển bất kỳ hạng mục nào khác; và mức độ ưu tiên (priority) — tức là mức độ ưu tiên đã tính toán mà nghiệp vụ nên cân nhắc dành cho hạng mục tồn đọng này khi so sánh với tất cả các hạng mục khác.
 
@@ -5465,7 +5710,6 @@ public class BusinessPriorityTest extends DomainTest {
         return fmt;
     }
 }
-
 ```
 
 Lớp này có một số hàm trợ giúp kiểm thử (fixture helpers). Vì nhóm cần kiểm tra độ chính xác của các phép tính toán khác nhau, họ đã viết các phương thức để cung cấp các thể hiện `NumberFormat` cho các giá trị phân số có một hoặc hai chữ số ở bên phải dấu thập phân. Bạn sẽ thấy ngay sau đây lý do tại sao chúng lại hữu ích:
@@ -5489,7 +5733,6 @@ public void testCostPercentageCalculation() throws Exception {
     assertEquals(this.oneDecimal().format(cost), "2.7");
     assertEquals(businessPriority, businessPriorityCopy);
 }
-
 ```
 
 Nhóm đã nảy ra một ý tưởng hay để kiểm thử tính bất biến (immutability). Mỗi bài kiểm thử trước tiên tạo ra một thể hiện của `BusinessPriority`, sau đó tạo ra một bản sao tương đương của nó bằng cách sử dụng copy constructor (hàm khởi tạo sao chép). Khẳng định kiểm thử (assertion) đầu tiên trong bài test đảm bảo rằng hàm khởi tạo sao chép tạo ra một bản sao bằng với bản gốc.
@@ -5506,8 +5749,11 @@ public void testPriorityCalculation() throws Exception {
 
     BusinessPriority businessPriorityCopy =
         new BusinessPriority(businessPriority);
-
 ```
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000253_aad1f479aafe499fa6c6e7d5e67f01b67ad51fca95e1a2fb0961eecdead7863e.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000254_735b5bedd14202d8150b3010d14b27e711da17bf17e4b0f985815af7fb6b9d5c.png)
 
 ## Chapter 6 VALUE OBJECTS
 
@@ -5557,7 +5803,6 @@ public void testValuePercentageCalculation() throws Exception {
     assertEquals("5.9", this.oneDecimal().format(valuePercentage));
     assertEquals(businessPriorityCopy, businessPriority);
 }
-
 ```
 
 ## Tests Should Have Domain Meaning
@@ -5573,6 +5818,8 @@ Quan trọng hơn, trạng thái của Value Object được đảm bảo là b�
 Tôi thích ví dụ về `BusinessPriority` này vì nó thể hiện tất cả các đặc tính của một Value và thậm chí còn nhiều hơn thế. Bên cạnh việc chỉ ra cách thiết kế hướng tới tính bất biến, tính toàn vẹn khái niệm (conceptual wholeness), tính có thể thay thế (replaceability), tính bằng nhau theo giá trị (Value equality) và Side-Effect-Free Behavior, nó còn chứng minh cách bạn có thể sử dụng một kiểu Value như một Strategy (chiến lược) [Gamma et al.] (còn gọi là Policy - chính sách).
 
 Khi từng phương thức kiểm thử được phát triển, nhóm đã hiểu rõ hơn về cách một client sẽ sử dụng một `BusinessPriority`, cho phép họ hiện thực hóa nó để hành xử đúng như những gì các bài kiểm thử đã khẳng định. Dưới đây là định nghĩa lớp cơ bản cùng với các hàm khởi tạo mà nhóm đã viết mã:
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000255_bd35ed753190c8be40cfc22ad26b788bdbbf9b55b0c83a8a78b3c703fd9e9430.png)
 
 ```java
 public final class BusinessPriority implements Serializable {
@@ -5590,8 +5837,11 @@ public final class BusinessPriority implements Serializable {
     public BusinessPriority(BusinessPriority aBusinessPriority) {
         this(aBusinessPriority.ratings());
     }
-
 ```
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000256_ace7b74e169d939d9047c1c81b5c59b1f8233110971375fa7bcef58265575753.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000257_f5e7b3c1b61ddcc280cc4b1d85e6ce6067f07d6f076e5bab9140eb0e206208a9.png)
 
 Nhóm đã quyết định khai báo các kiểu Value của họ có khả năng tuần tự hóa (`Serializable`). Có những thời điểm một thể hiện Value cần phải được tuần tự hóa, chẳng hạn như khi nó được truyền đến một hệ thống từ xa, và điều này cũng có thể hữu ích cho một số chiến lược lưu trữ bền vững.
 
@@ -5634,7 +5884,6 @@ public float valuePercentage(BusinessPriorityTotals aTotals) {
 public BusinessPriorityRatings ratings() {
     return this.ratings;
 }
-
 ```
 
 Một số hành vi tính toán yêu cầu một tham số thuộc kiểu `BusinessPriorityTotals`. Value này cung cấp một mô tả về tổng chi phí - rủi ro trên tất cả các hạng mục tồn đọng của sản phẩm. Các giá trị tổng là cần thiết khi tính toán tỷ lệ phần trăm và mức độ ưu tiên kinh doanh tổng thể so với tất cả các hạng mục tồn đọng khác. Không có hành vi nào trong số này sửa đổi trạng thái thể hiện của chính nó. Chúng ta khẳng định điều này từ bên ngoài trong các bài kiểm thử bằng cách so sánh trạng thái đã sao chép với trạng thái hiện tại sau khi thực thi mỗi hành vi.
@@ -5642,6 +5891,10 @@ Một số hành vi tính toán yêu cầu một tham số thuộc kiểu `Busin
 Hiện tại không có Separated Interface (Giao diện Tách biệt) [Fowler, P of EAA] cho Strategy vì hiện tại chỉ có một hiện thực duy nhất. Chắc chắn theo thời gian điều đó sẽ thay đổi, và khách hàng của sản phẩm Agile PM SaaS sẽ được cung cấp các tùy chọn tính toán mức độ ưu tiên kinh doanh khác, mỗi tùy chọn có một hiện thực Strategy riêng.
 
 Tên phương thức của các Side-Effect-Free Functions (hàm không gây tác dụng phụ) rất quan trọng. Mặc dù các phương thức này đều trả về các Value (vì chúng là các phương thức truy vấn CQS - Command-Query Separation / Phân tách Lệnh và Truy vấn), chúng cố tình tránh việc sử dụng quy ước đặt tên JavaBean với tiền tố `get-`. Cách tiếp cận đơn giản nhưng hiệu quả này trong thiết kế đối tượng giúp Value Object luôn trung thành với Ubiquitous Language. Việc sử dụng `getValuePercentage()` là một câu lệnh kỹ thuật của máy tính, nhưng `valuePercentage()` lại là một cách diễn đạt ngôn ngữ lưu loát, dễ đọc đối với con người.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000258_2283d74f9ea51abcc4dab0e529aaddee03899a578a47ffe7fa2a06f3965d3715.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000259_4a85423f605a809b7366dfeda368ef3bede354df0454846b9980a193583ad296.png)
 
 ## Where Did My Fluent Java Go?
 
@@ -5682,7 +5935,6 @@ public String toString() {
     return "BusinessPriority"
         + " ratings = " + this.ratings();
 }
-
 ```
 
 Phương thức `equals()` đáp ứng yêu cầu của Value Object về việc kiểm tra tính bằng nhau theo giá trị, một trong năm đặc tính của Value. Ở đây chúng tôi luôn loại bỏ các tham số `null` khỏi phép so sánh bằng. Lớp của tham số phải cùng một lớp với Value. Nếu chúng cùng lớp, từng thuộc tính sẽ được so sánh trong cả hai Value. Nếu từng thuộc tính được xác nhận là bằng với thuộc tính tương ứng của nó, thì Whole Values (toàn thể các giá trị) được coi là bằng nhau.
@@ -5700,8 +5952,11 @@ protected BusinessPriority() {
 
 private void setRatings(BusinessPriorityRatings aRatings) {
     if (aRatings == null) {
-
 ```
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000260_6f2ac0863d2d6136f41a6639acf565907a16742a83cab397e8301015c9b57890.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000261_938a779c42faaa5fc5a2c8936db040a92f1ec06f0fa41cc85462016253cb6bd0.png)
 
 ```java
         throw new IllegalArgumentException(
@@ -5711,7 +5966,6 @@ private void setRatings(BusinessPriorityRatings aRatings) {
     this.ratings = aRatings;
 }
 }
-
 ```
 
 Hàm khởi tạo không tham số (zero-argument constructor) được cung cấp vì lợi ích của các công cụ framework yêu cầu nó, chẳng hạn như Hibernate. Vì hàm khởi tạo không tham số luôn được ẩn đi, nên không có nguy cơ các client của mô hình tạo ra các thể hiện không hợp lệ. Hibernate hoạt động hoàn hảo với các hàm khởi tạo và các accessor bị ẩn. Hàm khởi tạo này cho phép Hibernate và các công cụ khác tạo ra các thể hiện của kiểu khi chúng đang được tái tạo (reconstituted) từ, ví dụ, kho lưu trữ bền vững. Các công cụ sử dụng hàm khởi tạo không tham số để tạo ra một thể hiện rỗng ban đầu và sau đó gọi từng setter của thuộc tính để nạp dữ liệu (hydrate) cho đối tượng. Tùy chọn khác là bạn có thể bảo Hibernate bỏ qua các phương thức setter và thiết lập trực tiếp các thuộc tính, như trường hợp của mô hình này vì nó không cung cấp một giao diện JavaBean hoàn chỉnh. Xin nhắc lại một lần nữa, các client của mô hình chỉ sử dụng các hàm khởi tạo công khai (public constructors), không bao giờ dùng hàm khởi tạo ẩn.
@@ -5735,6 +5989,8 @@ Có lẽ phần lớn các lần một Value Object được lưu trữ bền v�
 Tuy nhiên, có những lúc một Value Object trong mô hình bắt buộc phải được lưu trữ như một Entity xét theo góc độ của một kho lưu trữ bền vững quan hệ. Nói cách khác, khi được lưu trữ bền vững, một thể hiện của một kiểu Value Object cụ thể sẽ chiếm một hàng riêng trong một bảng cơ sở dữ liệu quan hệ tồn tại dành riêng cho kiểu của nó, và nó sẽ có cột khóa chính (primary key) cơ sở dữ liệu của riêng mình. Điều này xảy ra, ví dụ, khi hỗ trợ một tập hợp (collection) các thể hiện Value Object bằng ORM. Trong những trường hợp như vậy, dữ liệu lưu trữ bền vững của kiểu Value được mô hình hóa như một thực thể cơ sở dữ liệu.
 
 Liệu đây có phải là dấu hiệu cho thấy đối tượng mô hình miền nên phản ánh thiết kế của mô hình dữ liệu và trở thành một Entity thay vì một Value hay không? Không. Khi bạn đối mặt với hậu quả của sự bất đối xứng này (impedance mismatch - sự lệch pha giữa mô hình đối tượng và quan hệ), điều quan trọng là phải duy trì góc nhìn của mô hình miền thay vì góc nhìn của việc lưu trữ bền vững. Để giữ vững góc nhìn của bạn trên mô hình miền, bạn có thể tự hỏi bản thân những câu hỏi sau:
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000262_b2414d293177091a8f848981a22a472fca674629a493391fb5701f709d8563f7.png)
 
 1. Khái niệm tôi đang mô hình hóa là một sự vật trong miền nghiệp vụ hay nó đo lường, định lượng hoặc mô tả một sự vật như một trong những thuộc tính của sự vật đó?
 2. Nếu được mô hình hóa chính xác để mô tả một phần tử của miền nghiệp vụ, khái niệm mô hình này có phải sở hữu tất cả hoặc hầu hết các đặc tính của giá trị đã được nêu ra trước đây không?
@@ -5764,8 +6020,11 @@ Khi sử dụng Hibernate để lưu trữ bền vững một thể hiện đơn
     <component name="ratings" class="com.saasovation.agilepm.domain.model.product.BusinessPriorityRatings">
         <property name="benefit" column="business_priority_ratings_benefit" type="int" update="true" insert="true" lazy="false" />
         <property name="cost" column="business_priority_ratings_cost"
-
 ```
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000263_6f5a92af5ddb99d5162510c774085bb6e2120f82a19b444d80998d90885c2c12.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000264_749f5ca0e92f7eb39e6c504ed59569d4213420dd1ceccf348f704731ff9aecda.png)
 
 ```xml
                   type="int" update="true" insert="true" lazy="false" />
@@ -5773,7 +6032,6 @@ Khi sử dụng Hibernate để lưu trữ bền vững một thể hiện đơn
         <property name="risk" column="business_priority_ratings_risk" type="int" update="true" insert="true" lazy="false" />
     </component>
 </component>
-
 ```
 
 Đây là một ví dụ điển hình vì nó thể hiện một cấu hình ánh xạ Value Object đơn giản, nhưng lại chứa một thể hiện Value Object con bên trong. Hãy nhớ lại rằng `BusinessPriority` có một thuộc tính Value duy nhất là `ratings` và không có thêm thuộc tính nào khác. Do đó, trong phần mô tả ánh xạ, phần tử `component` bên ngoài có một phần tử `component` lồng bên trong. Điều này được sử dụng để phi chuẩn hóa thuộc tính Value `ratings` chứa bên trong thuộc kiểu `BusinessPriorityRatings`. Vì `BusinessPriority` không có thuộc tính nào của riêng nó, nên không có thuộc tính nào được ánh xạ trong `component` bên ngoài. Thay vào đó, chúng tôi lồng ngay phần ánh xạ thuộc tính Value `ratings` của nó. Cuối cùng, chúng tôi thực sự chỉ lưu trữ bốn thuộc tính số nguyên của thể hiện `BusinessPriorityRatings` vào bốn cột riêng biệt của bảng `tbl_backlog_item`. Vì vậy, chúng tôi ánh xạ hai Value Object phần tử `component`: một đối tượng không có thuộc tính riêng và một Value bên trong có bốn thuộc tính.
@@ -5782,7 +6040,6 @@ Lưu ý cách sử dụng quy ước đặt tên cột chuẩn cho từng phần
 
 ```
 businessPriority.ratings.benefit
-
 ```
 
 Để biểu diễn đường dẫn điều hướng này thành một tên cột quan hệ duy nhất, tôi sử dụng như sau:
@@ -5804,14 +6061,12 @@ CREATE TABLE `tbl_backlog_item` (
     `business_priority_ratings_risk` int NOT NULL,
     ...
 ) ENGINE=InnoDB;
-
 ```
 
 Cùng với nhau, cấu hình ánh xạ Hibernate và định nghĩa bảng cơ sở dữ liệu quan hệ cung cấp một đối tượng lưu trữ bền vững vừa tối ưu vừa có thể truy vấn được. Bởi vì các thuộc tính của Value được phi chuẩn hóa vào hàng trong bảng của Entity cha của chúng, cơ sở dữ liệu không cần sử dụng các phép kết nối bảng (join) để truy xuất ngay cả một thể hiện Value lồng nhau sâu. Khi bạn chỉ định một truy vấn HQL (Hibernate Query Language), Hibernate có thể dễ dàng ánh xạ từ biểu thức đối tượng của một thuộc tính đối tượng thành một biểu thức truy vấn SQL tối ưu sử dụng một cột, nơi:
 
 ```
 businessPriority.ratings.benefit trở thành business_priority_ratings_benefit
-
 ```
 
 Do đó, mặc dù có sự bất đối xứng rõ rệt giữa các đối tượng và cơ sở dữ liệu quan hệ (impedance mismatch), chúng ta đã hiện thực hóa được một trong những phương thức ánh xạ hiệu quả và tối ưu nhất có thể.
@@ -5820,7 +6075,9 @@ Do đó, mặc dù có sự bất đối xứng rõ rệt giữa các đối tư
 
 Có những thách thức đặc thù liên quan đến việc ánh xạ một tập hợp (collection) gồm nhiều Value Object vào một cơ sở dữ liệu quan hệ bằng ORM. Nói cho rõ ràng, khi tôi nói tập hợp nghĩa là tôi đang đề cập đến một `List` hoặc `Set` được giữ bởi một Entity và chứa không, một, hoặc nhiều thể hiện Value. Những thách thức này không phải là không thể vượt qua, nhưng sự bất đối xứng đối tượng - quan hệ (object-relational impedance mismatch) trở nên hiển hiện rõ mồn một ở đây.
 
-<!-- ⚠️ CẢNH BÁO chunk 14: số ảnh/heading/code-block KHÔNG khớp bản gốc (gốc={'images': 25, 'headings': 15, 'fences': 32}, dịch={'images': 3, 'headings': 15, 'fences': 32}). Xem lại đoạn này bằng tay. -->
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000265_dac50871ad69e8af7e8af8b3e31cadb73497acbfc05ceadf865833b8300714d8.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000266_d03acfdb385e3d7d7784d0fcfa8f1facea37b62bd3c19e894505616b72a30b6c.png)
 
 ﻿Một lựa chọn có sẵn với cơ chế ánh xạ đối tượng - quan hệ (object-relational mapping) của Hibernate (framework ORM phổ biến trong Java) là serialize (tuần tự hóa đối tượng thành chuỗi ký tự) toàn bộ collection (tập hợp) các đối tượng thành một biểu diễn dạng văn bản rồi persist (lưu trữ bền vững vào cơ sở dữ liệu) biểu diễn đó vào một cột đơn lẻ. Cách tiếp cận này tồn tại một số nhược điểm. Tuy nhiên, trong một số trường hợp, các nhược điểm này không quá phiền toái và có thể bỏ qua ngay để tận dụng những ưu điểm mà lựa chọn này mang lại. Trong các tình huống đó, bạn có thể quyết định áp dụng tùy chọn lưu trữ Value collection (tập hợp các Value Object - đối tượng giá trị) này. Dưới đây là các nhược điểm tiềm ẩn cần cân nhắc:
 
@@ -5861,6 +6118,10 @@ implements Serializable {
 }
 
 ```
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000267_6d6eeae6de5481291d053c857f7c99c0958a08a70d87d3fe2701d53f843af578.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000268_1aa54b23830a23bd1b66328a26d6d19da38df3cdc7bed0226e7a61a813dff02e.png)
 
 Lớp Layer Supertype đầu tiên tham gia vào đây là `IdentifiedDomainObject`. Lớp cơ sở trừu tượng này cung cấp một surrogate primary key cơ bản được ẩn hoàn toàn khỏi tầm nhìn của các lớp client. Vì các accessor method (phương thức truy cập getter/setter) được khai báo với phạm vi `protected`, client sẽ không bao giờ phải băn khoăn liệu các phương thức đó có dành cho mình sử dụng hay không. Tất nhiên, bạn còn có thể triệt tiêu hoàn toàn sự hiện diện của các phương thức này bằng cách khai báo phạm vi `private`. Hibernate hoàn toàn có khả năng sử dụng cơ chế reflection (phản chiếu) trên phương thức hoặc trường dữ liệu ở bất kỳ phạm vi truy cập nào ngoài `public`.
 
@@ -5948,6 +6209,10 @@ public void replaceMembers(Set<GroupMember> aReplacementMembers) {
 
 ```
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000269_9b7201e3672ca386355f3cd3f218a1900ce21a01bb0edab5668cc9ef9520f7b0.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000270_bb74dfc8e1ce06fe843555afd8c22be24fabab713d055e431bcc564685282ec1.png)
+
 Tôi cho rằng sự rò rỉ cơ chế ORM vào domain model như thế này không gây phiền toái vì nó tận dụng tiện ích `Collection` chuẩn mực phổ biến, và hơn nữa phía client hoàn toàn không nhìn thấy nó. Việc đồng bộ nội dung collection với cơ sở dữ liệu không phải lúc nào cũng đòi hỏi sự tính toán phức tạp. Hành động xóa một phần tử Value đơn lẻ trong kho dữ liệu đã được tự động xử lý khi sử dụng phương thức `remove()` của `Collection`, do đó trong tình huống này hoàn toàn không có sự rò rỉ ORM nào xảy ra.
 
 Tiếp theo, chúng ta quan tâm đến đoạn cấu hình ánh xạ của `Group` dùng để ánh xạ collection:
@@ -6006,6 +6271,10 @@ CREATE TABLE `tbl_group_member` (
 ```
 
 Khi nhìn vào cấu hình ánh xạ và định nghĩa bảng cơ sở dữ liệu của `GroupMember`, chúng ta có cảm giác rất rõ ràng rằng mình đang làm việc với một entity. Có một khóa chính tên là `id`. Có một bảng riêng biệt cần được join (liên kết) với bảng `tbl_group`. Có một khóa ngoại (foreign key) trỏ ngược lại `tbl_group`. Dù gọi bằng bất kỳ tên nào khác thì đây thực chất vẫn là một entity, nhưng *chỉ xét thuần túy dưới góc độ của data model*. Trong domain model, `GroupMember` rõ ràng là một Value Object. Các biện pháp thích hợp đã được triển khai trong domain model nhằm che giấu cẩn thận mọi mối bận tâm về lưu trữ bền vững. Tôi không để lộ bất kỳ dấu hiệu nào cho các client của domain model biết rằng đã có sự rò rỉ tầng lưu trữ xảy ra. Thậm chí hơn thế nữa, ngay cả các lập trình viên làm việc trực tiếp trên domain model cũng phải quan sát rất kỹ mới nhận ra dấu vết của sự rò rỉ này.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000271_c798088ac4adf6860b52991b93ea8b44a3597d9decbe000b010f4268502f69bd.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000272_bb48c2928a15b64d15839f1e2272d7fe4c4b06afd6c0ad73e09ca8a4de3930a9.png)
 
 ## ORM và nhiều Value được lưu thông qua một Join Table
 
@@ -6069,6 +6338,10 @@ public enum GroupMemberType {
 
 ```
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000273_70c43d99f11017c5871d4663fa14a17c0093085b2334f73f5071c2f3a7bb484c.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000274_d3f88ff63ab6e306e11a14064b6f05926b42fbfeb40ac978a7148b0d1ed61592.png)
+
 ```java
     public boolean isUser() {
         return false;
@@ -6077,7 +6350,7 @@ public enum GroupMemberType {
 
 ```
 
-Câu trả lời đơn giản nhất để lưu trữ một Java enum Value là lưu biểu diễn văn bản của nó. Tuy nhiên, câu trả lời đơn giản này lại dẫn tới việc triển khai một kỹ thuật phức tạp hơn đôi chút: tạo một Hibernate custom user type. Thay vì liệt kê toàn bộ các cách tiếp cận khác nhau đối với lớp `EnumUserType` do cộng đồng Hibernate cung cấp tại đây, tôi xin dẫn lại liên kết bài viết wiki: http://community.jboss.org/wiki/Java5EnumUserType.
+Câu trả lời đơn giản nhất để lưu trữ một Java enum Value là lưu biểu diễn văn bản của nó. Tuy nhiên, câu trả lời đơn giản này lại dẫn tới việc triển khai một kỹ thuật phức tạp hơn đôi chút: tạo một Hibernate custom user type. Thay vì liệt kê toàn bộ các cách tiếp cận khác nhau đối với lớp `EnumUserType` do cộng đồng Hibernate cung cấp tại đây, tôi xin dẫn lại liên kết bài viết wiki: [http://community.jboss.org/wiki/Java5EnumUserType](http://community.jboss.org/wiki/Java5EnumUserType).
 
 Tại thời điểm viết cuốn sách này, bài viết wiki trên đã cung cấp rất nhiều giải pháp đa dạng. Có các mẫu triển khai một lớp custom user type riêng cho từng kiểu enum; cách sử dụng các parameterized type (kiểu tham số hóa) của Hibernate 3 để tránh phải viết custom user type cho từng enum (rất đáng dùng); giải pháp hỗ trợ không chỉ chuỗi ký tự mà cả biểu diễn dạng số cho giá trị enum; và thậm chí là một bản triển khai nâng cao của Gavin King. Bản triển khai nâng cao của Gavin King cho phép sử dụng enum làm type discriminator (cột phân biệt kiểu dữ liệu) hoặc làm identity (`id`) cho bảng dữ liệu.
 
@@ -6106,6 +6379,8 @@ CREATE TABLE `tbl_group_member` (
 
 Cột `type` có kiểu `VARCHAR` với dung lượng tối đa 5 ký tự, vừa đủ để lưu biểu diễn văn bản dài nhất của kiểu: `GROUP` hoặc `USER`.
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000275_82f14fa1d60393c419b5d372257c673919df050174e9ef90d19942e6f7057329.png)
+
 ## Tổng kết
 
 Trong chương này, bạn đã thấy được tầm quan trọng của việc ưu tiên sử dụng Value Object bất cứ khi nào có thể, bởi vì chúng đơn giản là dễ phát triển, kiểm thử và bảo trì hơn.
@@ -6117,6 +6392,8 @@ Trong chương này, bạn đã thấy được tầm quan trọng của việc 
 * Bạn đã tích lũy kinh nghiệm về cách kiểm thử, triển khai và lưu trữ bền vững các kiểu Value thông qua các dự án thực tế của SaaSOvation.
 
 Tiếp theo, chúng ta sẽ tìm hiểu về Domain Services, các thao tác phi trạng thái (stateless operations) thực sự là một phần cốt lõi của mô hình miền.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000276_db5159855d913c7fc2bd1ccb6c1e9d7da0a98091ab5c6698292c3340602cc5fc.png)
 
 Trang này cố ý để trống
 
@@ -6138,6 +6415,10 @@ Một Service trong miền nghiệp vụ là một thao tác không lưu trạng
 Mã nguồn bốc mùi (code smell)? Đó chính xác là những gì các lập trình viên của SaaSOvation đã trải qua sau khi refactor (tái cấu trúc) một Aggregate. Hãy cùng xem xét cách họ điều chỉnh chiến thuật. Đây là những gì đã diễn ra . . .
 
 Vào giai đoạn đầu của dự án, nhóm đã mô hình hóa collection các thể hiện `BacklogItem` như một phần cấu thành nội bộ (composed Aggregate part) của `Product`. Cách mô hình hóa đó cho phép việc tính toán tổng giá trị ưu tiên nghiệp vụ (business priority value) của tất cả các hạng mục backlog trong sản phẩm trở thành một phương thức thể hiện (instance method) đơn giản trên lớp `Product`:
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000277_5efcaed0a0080218e7581abfe2a45bc3ab4a16788f2596a0831e4391029e3209.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000278_3088a0c360c1f501d32d5140640565989bc9171ee3e235a84a90707890309d8c.png)
 
 ```java
 public class Product extends ConcurrencySafeEntity {
@@ -6192,12 +6473,18 @@ Chỉ vì một Domain Service có chứa từ *service* trong tên gọi không
 
 LB: "Luôn quan sát thật kỹ thứ mình chuẩn bị ăn. Biết nó *là cái gì* không quan trọng bằng việc biết chắc nó *từng là cái gì*."
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000279_53eae23f4fa8c83fd4c8a4dd1c4786fe775d1b40a1927e4209d0153d67342ed0.png)
+
 > 💡 **Giải thích thêm:** Câu thoại châm biếm này mượn hình ảnh cuộc sống hoang dã của các chàng cao bồi để nhấn mạnh tầm quan trọng của nguồn gốc bản chất. Trong phần mềm, khi tiếp cận một thành phần mang tên "Service", điều tối quan trọng là bạn phải hiểu rõ bản chất cốt lõi của nó xuất phát từ tầng nào (hạ tầng, ứng dụng hay nghiệp vụ thuần túy), thay vì chỉ nhìn vào cái nhãn "Service" chung chung mà đánh đồng cách sử dụng.
 > (Không có nguồn trích dẫn xác thực — cần tự kiểm chứng thêm)
 
 Các Service thuộc về miền nghiệp vụ một cách đặc thù là công cụ mô hình hóa hoàn hảo để sử dụng khi nhu cầu của bạn chạm đúng điểm tối ưu (sweet spot) của chúng. Vậy thì, sau khi đã biết Domain Service *không phải là gì*, chúng ta hãy cùng xem xét xem nó *là gì*.
 
 [^1]: Đôi khi một Domain Service có liên quan đến việc gọi từ xa tới một Bounded Context (ngữ cảnh giới hạn trong DDD, Chương 2) bên ngoài. Tuy nhiên, trọng tâm ở đây lại khác: bản thân Domain Service không tự cung cấp một giao diện gọi thủ tục từ xa, mà nó đóng vai trò là một client gọi tới RPC đó.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000280_8fca4cdf3e5310e6da53f0fa8e946f65aff9e9a048acd65512bc4f6841246329.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000281_3de1b859bd7c3c5c9dd90c667be709e3743cc0bc8fc3df19bcf38be9abea9116.png)
 
 > Đôi khi, nó đơn giản không phải là một vật thể. . . . Khi một quy trình hay sự biến đổi quan trọng trong miền nghiệp vụ không thuộc về trách nhiệm tự nhiên của một ENTITY hay VALUE OBJECT, hãy thêm một thao tác vào mô hình dưới dạng một interface độc lập được khai báo là SERVICE. Hãy định nghĩa interface đó theo thuật ngữ của ngôn ngữ mô hình và đảm bảo tên thao tác là một phần của UBIQUITOUS LANGUAGE (ngôn ngữ chung / ngôn ngữ toàn hiện giữa lập trình viên và chuyên gia nghiệp vụ). Hãy biến SERVICE đó thành phi trạng thái (stateless). [Evans, tr. 104, 106]
 
@@ -6216,7 +6503,7 @@ Trường hợp cuối cùng — một phép tính toán — có thể xếp và
 Đừng lạm dụng hoặc quá thiên vị việc mô hình hóa một khái niệm miền thành Service. Chỉ làm điều đó khi hoàn cảnh thực sự phù hợp. Nếu không cẩn thận, chúng ta có thể bắt đầu coi Service như một "viên đạn bạc" (silver bullet) trong mô hình hóa. Việc sử dụng Service một cách thái quá thường dẫn đến hậu quả tiêu cực là tạo ra một Anemic Domain Model (mô hình miền thiếu máu - chỉ có dữ liệu getter/setter mà thiếu logic nghiệp vụ) [Fowler, Anemic], nơi toàn bộ logic nghiệp vụ bị dồn vào các Service thay vì được phân bổ chủ yếu trên các Entity và Value Object. Phân tích sau đây sẽ chứng minh tầm quan trọng của việc suy nghĩ thấu đáo về các chiến thuật bạn nên áp dụng cho từng tình huống mô hình hóa. Tuân theo hướng dẫn này sẽ giúp bạn đưa ra những quyết định đúng đắn về việc có nên tạo một Service hay không.
 
 > 💡 **Giải thích thêm:** Khái niệm "viên đạn bạc" (silver bullet) bắt nguồn từ văn hóa dân gian phương Tây (vũ khí duy nhất tiêu diệt được người sói), được Frederick Brooks đưa vào ngành phần mềm qua bài tiểu luận kinh điển "No Silver Bullet". Nó ám chỉ sự ảo tưởng rằng có một công nghệ hay mô thức thiết kế kỳ diệu nào đó có thể giải quyết được mọi vấn đề phức tạp trong lập trình chỉ bằng một đòn duy nhất.
-> Nguồn tham khảo: https://en.wikipedia.org/wiki/No_Silver_Bullet
+> Nguồn tham khảo: [https://en.wikipedia.org/wiki/No_Silver_Bullet](https://en.wikipedia.org/wiki/No_Silver_Bullet)
 
 Chúng ta hãy cùng xem xét một ví dụ về việc nhận diện nhu cầu cần mô hình hóa một Service. Hãy nghĩ đến bài toán xác thực một `User` trong Identity and Access Context của chúng ta.
 
@@ -6253,6 +6540,10 @@ boolean authentic = false;
 
 ```
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000282_f41929a92c28d458e3360183303f0fc37ba75cc4cefdd3f4e34aeda97c4a4afb.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000283_d27867a57f0c916a7a08acfe65a5f42434196e18cf8e4cbac1f652e6e3faa2ad.png)
+
 ```java
 Tenant tenant = DomainRegistry
     .tenantRepository()
@@ -6288,8 +6579,10 @@ Không có đề xuất nào trong số này mang lại hiệu quả thực sự
 
 AJ: "Khi nhận ra mình đang ở dưới hố, việc đầu tiên cần làm là ngừng đào bới."
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000284_5695eb29fc9d2044dda345fe736a32d6bd9c565eae8af298f28e4cb74d5f21c8.png)
+
 > 💡 **Giải thích thêm:** "Luật về cái hố" (Law of Holes) là một câu ngạn ngữ tiếng Anh: "If you find yourself in a hole, stop digging." Trong kỹ nghệ phần mềm, điều này nhắc nhở rằng khi phát hiện một giải pháp thiết kế đang dẫn hệ thống vào ngõ cụt và tạo ra hàng loạt sự chắp vá tồi tệ, hành động khôn ngoan nhất là dừng ngay cách tiếp cận đó lại để tìm một mô thức đúng đắn, thay vì tiếp tục viết thêm code chắp vá khiến hệ thống lún sâu hơn vào nợ kỹ thuật.
-> Nguồn tham khảo: https://en.wikipedia.org/wiki/Law_of_holes
+> Nguồn tham khảo: [https://en.wikipedia.org/wiki/Law_of_holes](https://en.wikipedia.org/wiki/Law_of_holes)
 
 Thực tế, trách nhiệm nghiệp vụ duy nhất mà client nên có chỉ là điều phối việc sử dụng một thao tác đặc thù duy nhất của miền, nơi xử lý toàn bộ các chi tiết còn lại của bài toán nghiệp vụ:
 
@@ -6307,6 +6600,10 @@ UserDescriptor userDescriptor = DomainRegistry
 ```
 
 Trong giải pháp đơn giản và thanh thoát này, client chỉ cần lấy một tham chiếu tới một thể hiện phi trạng thái của `AuthenticationService` rồi yêu cầu nó thực hiện `authenticate()`. Cách này đẩy toàn bộ các chi tiết về xác thực ra khỏi client Application Service và đưa trọn vẹn vào bên trong Domain Service. Bất kỳ số lượng đối tượng miền nào cũng có thể được Service sử dụng khi cần. Điều này bao gồm cả việc đảm bảo quá trình mã hóa mật khẩu được thực thi một cách phù hợp. Phía client không cần phải hiểu bất kỳ chi tiết nào trong số đó. Ubiquitous Language trong Bounded Context được đáp ứng trọn vẹn vì các thuật ngữ chuẩn mực được thể hiện bởi chính phần mềm mô hình hóa miền quản lý định danh, thay vì bị phân mảnh một nửa ở mô hình và một nửa ở client.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000285_118ad3c7d3d1fd4a15097342540e25765b336060b73f2074374290dfda1594c8.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000286_26ed82a6f2516ba6303f112359361d3669a7d60d74ea4b8a95cf520508ce7792.png)
 
 Một Value Object, `UserDescriptor`, được trả về từ phương thức của Service. Đối tượng này nhỏ gọn và an toàn. Không giống như một `User` hoàn chỉnh, nó chỉ bao gồm một vài thuộc tính thiết yếu để tham chiếu tới một `User`:
 
@@ -6391,6 +6688,10 @@ public class DefaultEncryptionAuthenticationService implements AuthenticationSer
 
 ```
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000287_d0ceb5def829065a0a7576913fccaa89dfe4ba9720abef47b7701ecd6b12beec.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000288_f9eb514bc8a112d62311383dfedd4f0ac44e48dedd69da2c47b435e325cc81b7.png)
+
 ```java
         Tenant tenant = DomainRegistry
             .tenantRepository()
@@ -6453,6 +6754,10 @@ Sẽ chẳng có vấn đề gì sai sót với cách làm này. Bạn thậm ch
 
 Trong thế giới Java, việc đặt tên cho lớp cài đặt bằng cách lấy tên của interface làm tiền tố và thêm hậu tố `Impl` đã trở nên rất phổ biến. Trong ví dụ của chúng ta, cách làm đó sẽ tạo ra cái tên `AuthenticationServiceImpl`. Hơn nữa, interface và lớp triển khai thường được đặt chung trong cùng một package. Liệu đây có phải là một điều tốt?
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000289_50b7218c160aa8a0bb3083b804581eb1355eeda3b6d97af2584b9e1d5fb51064.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000290_205977bb955c81b73cc1e605c01a67b0be466d4c395276add49f80da6b47548b.png)
+
 Thực tế, nếu lớp cài đặt của bạn được đặt tên theo cách này, đó có lẽ là dấu hiệu rất rõ ràng cho thấy bạn không hề cần đến một Separated Interface, hoặc bạn cần phải suy nghĩ cẩn trọng hơn về tên của lớp cài đặt. Vì vậy, câu trả lời là không, cái tên `AuthenticationServiceImpl` không thực sự là một cái tên tốt. Nhưng xét lại thì cái tên `DefaultEncryptionAuthenticationService` cũng chẳng hữu ích hơn là bao. Chính vì lý do đó, nhóm SaaSOvation đã quyết định loại bỏ Separated Interface ở thời điểm này và chỉ sử dụng `AuthenticationService` như một lớp thông thường.
 
 Nếu lớp cài đặt của bạn phục vụ các mục tiêu tách rời (decoupling) cụ thể vì bạn cung cấp nhiều bản triển khai chuyên biệt khác nhau, hãy đặt tên lớp theo đúng đặc tính chuyên biệt của nó. Nhu cầu phải đặt tên cẩn thận cho từng bản triển khai chuyên biệt chính là bằng chứng cho thấy các đặc tính chuyên biệt đó thực sự tồn tại trong miền nghiệp vụ của bạn.
@@ -6494,10 +6799,16 @@ Rõ ràng, một số người rất có ác cảm với cả Service Factory l�
 
 Dưới đây là một ví dụ khác, lần này lấy từ Core Domain (miền cốt lõi, Chương 2) hiện tại: Agile Project Management Context. Service này tính toán một kết quả từ các Value nằm trên một số lượng tùy ý các Aggregate thuộc một kiểu cụ thể. Ở đây, tôi nghĩ không có lý do thỏa đáng nào để sử dụng một Separated Interface, ít nhất là tại thời điểm hiện tại. Các phép tính toán luôn được thực hiện theo cùng một cách thức. Trừ khi tình huống đó thay đổi, chúng ta không nên bận tâm tách biệt interface khỏi lớp cài đặt làm gì.
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000291_b2410852bdb2700a9a033c2546c71c400d59e66095639d9564b6c9eff01b009f.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000292_c698cdc379c0ab032159198b8e145eb1520075bc8c9cef7eeca06567d67a2987.png)
+
 ## Tư duy Cao bồi (Cowboy Logic)
 
 * LB: "Con ngựa giống của tôi kiếm được 5.000 đô mỗi lượt phối (service), và đàn ngựa cái đang xếp hàng dài chờ sẵn."
 * AJ: "Thế thì con ngựa đó đang ở đúng lãnh địa (domain) của nó rồi đấy."
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000293_b25b49625e45e2b7d14d2a32881bb7415c4b6a2d50e4cd403896c0b6080872b5.png)
 
 > 💡 **Giải thích thêm:** Đoạn hội thoại này là một pha chơi chữ (pun) đầy hóm hỉnh dựa trên hai thuật ngữ phần mềm:
 > 1. Từ **"service"**: Trong chăn nuôi gia súc, "service" mang nghĩa là một lượt phối giống của con đực giống; trong phần mềm, nó là một dịch vụ xử lý tác vụ.
@@ -6510,6 +6821,8 @@ Dưới đây là một ví dụ khác, lần này lấy từ Core Domain (miề
 Hãy nhớ lại rằng các lập trình viên của SaaSOvation ban đầu đã tạo ra các phương thức static hạt mịn trên `Product` để thực hiện các phép tính toán mong muốn. Đây là những gì đã diễn ra tiếp theo . . .
 
 Lập trình viên cố vấn của nhóm cũng chỉ ra sự cần thiết của việc sử dụng một Domain Service thay vì một static method. Ý tưởng đằng sau Service này sẽ rất giống với thiết kế hiện tại: tính toán và trả về một thể hiện Value `BusinessPriorityTotals`. Nhưng Service này sẽ phải đảm đương thêm một chút công việc. Điều này bao gồm việc tìm kiếm toàn bộ các hạng mục backlog còn tồn đọng (outstanding backlog items) của một sản phẩm Scrum cụ thể, sau đó cộng tổng từng giá trị `BusinessPriority` riêng lẻ của chúng lại. Dưới đây là phần triển khai mã nguồn:
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000294_f2679726fd28f7f1252a31d8c7f689d90284b8fbd2eee89d4a03096a2d156f59.png)
 
 ```java
 package com.saasovation.agilepm.domain.model.product;
@@ -6566,8 +6879,6 @@ public class BusinessPriorityCalculator {
 ```
 
 `BacklogItemRepository` được sử dụng để lấy tất cả các thể hiện `BacklogItem` còn tồn đọng. Một `BacklogItem` còn tồn đọng là hạng mục có trạng thái thuộc kiểu `Planned`, `Scheduled`, hoặc `Committed`, chứ không phải là `Done` hay `Removed`. Một Service trong miền hoàn toàn có thể tự do sử dụng các Repository khi cần, nhưng việc truy cập Repository từ bên trong một thể hiện Aggregate lại là một thực hành không được khuyến khích.
-
-<!-- ⚠️ CẢNH BÁO chunk 15: số ảnh/heading/code-block KHÔNG khớp bản gốc (gốc={'images': 28, 'headings': 16, 'fences': 70}, dịch={'images': 0, 'headings': 16, 'fences': 70}). Xem lại đoạn này bằng tay. -->
 
 ﻿Đối với toàn bộ các hạng mục tồn đọng (outstanding items) của một sản phẩm nhất định, chúng ta sẽ duyệt lặp qua từng mục và tính tổng từng xếp hạng trong thuộc tính `BusinessPriority` (Độ ưu tiên nghiệp vụ) của chúng. Các giá trị tổng thu được từ quá trình tính toán lặp này được dùng để khởi tạo một đối tượng `BusinessPriorityTotals` (Tổng các chỉ số ưu tiên nghiệp vụ) mới rồi trả về cho phía client (phía gọi dịch vụ). Bản thân quy trình tính toán của một Service (Dịch vụ miền / Domain Service) không nhất thiết phải luôn phức tạp, dù trong một số trường hợp sự phức tạp là điều bắt buộc. Trường hợp cụ thể này tình cờ lại khá đơn giản.
 

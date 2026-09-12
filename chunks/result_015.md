@@ -38,6 +38,10 @@ implements Serializable {
 
 ```
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000267_6d6eeae6de5481291d053c857f7c99c0958a08a70d87d3fe2701d53f843af578.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000268_1aa54b23830a23bd1b66328a26d6d19da38df3cdc7bed0226e7a61a813dff02e.png)
+
 Lớp Layer Supertype đầu tiên tham gia vào đây là `IdentifiedDomainObject`. Lớp cơ sở trừu tượng này cung cấp một surrogate primary key cơ bản được ẩn hoàn toàn khỏi tầm nhìn của các lớp client. Vì các accessor method (phương thức truy cập getter/setter) được khai báo với phạm vi `protected`, client sẽ không bao giờ phải băn khoăn liệu các phương thức đó có dành cho mình sử dụng hay không. Tất nhiên, bạn còn có thể triệt tiêu hoàn toàn sự hiện diện của các phương thức này bằng cách khai báo phạm vi `private`. Hibernate hoàn toàn có khả năng sử dụng cơ chế reflection (phản chiếu) trên phương thức hoặc trường dữ liệu ở bất kỳ phạm vi truy cập nào ngoài `public`.
 
 Tiếp theo, tôi cung cấp thêm một Layer Supertype chuyên biệt dành riêng cho các Value Object:
@@ -124,6 +128,10 @@ public void replaceMembers(Set<GroupMember> aReplacementMembers) {
 
 ```
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000269_9b7201e3672ca386355f3cd3f218a1900ce21a01bb0edab5668cc9ef9520f7b0.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000270_bb74dfc8e1ce06fe843555afd8c22be24fabab713d055e431bcc564685282ec1.png)
+
 Tôi cho rằng sự rò rỉ cơ chế ORM vào domain model như thế này không gây phiền toái vì nó tận dụng tiện ích `Collection` chuẩn mực phổ biến, và hơn nữa phía client hoàn toàn không nhìn thấy nó. Việc đồng bộ nội dung collection với cơ sở dữ liệu không phải lúc nào cũng đòi hỏi sự tính toán phức tạp. Hành động xóa một phần tử Value đơn lẻ trong kho dữ liệu đã được tự động xử lý khi sử dụng phương thức `remove()` của `Collection`, do đó trong tình huống này hoàn toàn không có sự rò rỉ ORM nào xảy ra.
 
 Tiếp theo, chúng ta quan tâm đến đoạn cấu hình ánh xạ của `Group` dùng để ánh xạ collection:
@@ -182,6 +190,10 @@ CREATE TABLE `tbl_group_member` (
 ```
 
 Khi nhìn vào cấu hình ánh xạ và định nghĩa bảng cơ sở dữ liệu của `GroupMember`, chúng ta có cảm giác rất rõ ràng rằng mình đang làm việc với một entity. Có một khóa chính tên là `id`. Có một bảng riêng biệt cần được join (liên kết) với bảng `tbl_group`. Có một khóa ngoại (foreign key) trỏ ngược lại `tbl_group`. Dù gọi bằng bất kỳ tên nào khác thì đây thực chất vẫn là một entity, nhưng *chỉ xét thuần túy dưới góc độ của data model*. Trong domain model, `GroupMember` rõ ràng là một Value Object. Các biện pháp thích hợp đã được triển khai trong domain model nhằm che giấu cẩn thận mọi mối bận tâm về lưu trữ bền vững. Tôi không để lộ bất kỳ dấu hiệu nào cho các client của domain model biết rằng đã có sự rò rỉ tầng lưu trữ xảy ra. Thậm chí hơn thế nữa, ngay cả các lập trình viên làm việc trực tiếp trên domain model cũng phải quan sát rất kỹ mới nhận ra dấu vết của sự rò rỉ này.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000271_c798088ac4adf6860b52991b93ea8b44a3597d9decbe000b010f4268502f69bd.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000272_bb48c2928a15b64d15839f1e2272d7fe4c4b06afd6c0ad73e09ca8a4de3930a9.png)
 
 ## ORM và nhiều Value được lưu thông qua một Join Table
 
@@ -245,6 +257,10 @@ public enum GroupMemberType {
 
 ```
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000273_70c43d99f11017c5871d4663fa14a17c0093085b2334f73f5071c2f3a7bb484c.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000274_d3f88ff63ab6e306e11a14064b6f05926b42fbfeb40ac978a7148b0d1ed61592.png)
+
 ```java
     public boolean isUser() {
         return false;
@@ -253,7 +269,7 @@ public enum GroupMemberType {
 
 ```
 
-Câu trả lời đơn giản nhất để lưu trữ một Java enum Value là lưu biểu diễn văn bản của nó. Tuy nhiên, câu trả lời đơn giản này lại dẫn tới việc triển khai một kỹ thuật phức tạp hơn đôi chút: tạo một Hibernate custom user type. Thay vì liệt kê toàn bộ các cách tiếp cận khác nhau đối với lớp `EnumUserType` do cộng đồng Hibernate cung cấp tại đây, tôi xin dẫn lại liên kết bài viết wiki: http://community.jboss.org/wiki/Java5EnumUserType.
+Câu trả lời đơn giản nhất để lưu trữ một Java enum Value là lưu biểu diễn văn bản của nó. Tuy nhiên, câu trả lời đơn giản này lại dẫn tới việc triển khai một kỹ thuật phức tạp hơn đôi chút: tạo một Hibernate custom user type. Thay vì liệt kê toàn bộ các cách tiếp cận khác nhau đối với lớp `EnumUserType` do cộng đồng Hibernate cung cấp tại đây, tôi xin dẫn lại liên kết bài viết wiki: [http://community.jboss.org/wiki/Java5EnumUserType](http://community.jboss.org/wiki/Java5EnumUserType).
 
 Tại thời điểm viết cuốn sách này, bài viết wiki trên đã cung cấp rất nhiều giải pháp đa dạng. Có các mẫu triển khai một lớp custom user type riêng cho từng kiểu enum; cách sử dụng các parameterized type (kiểu tham số hóa) của Hibernate 3 để tránh phải viết custom user type cho từng enum (rất đáng dùng); giải pháp hỗ trợ không chỉ chuỗi ký tự mà cả biểu diễn dạng số cho giá trị enum; và thậm chí là một bản triển khai nâng cao của Gavin King. Bản triển khai nâng cao của Gavin King cho phép sử dụng enum làm type discriminator (cột phân biệt kiểu dữ liệu) hoặc làm identity (`id`) cho bảng dữ liệu.
 
@@ -282,6 +298,8 @@ CREATE TABLE `tbl_group_member` (
 
 Cột `type` có kiểu `VARCHAR` với dung lượng tối đa 5 ký tự, vừa đủ để lưu biểu diễn văn bản dài nhất của kiểu: `GROUP` hoặc `USER`.
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000275_82f14fa1d60393c419b5d372257c673919df050174e9ef90d19942e6f7057329.png)
+
 ## Tổng kết
 
 Trong chương này, bạn đã thấy được tầm quan trọng của việc ưu tiên sử dụng Value Object bất cứ khi nào có thể, bởi vì chúng đơn giản là dễ phát triển, kiểm thử và bảo trì hơn.
@@ -293,6 +311,8 @@ Trong chương này, bạn đã thấy được tầm quan trọng của việc 
 * Bạn đã tích lũy kinh nghiệm về cách kiểm thử, triển khai và lưu trữ bền vững các kiểu Value thông qua các dự án thực tế của SaaSOvation.
 
 Tiếp theo, chúng ta sẽ tìm hiểu về Domain Services, các thao tác phi trạng thái (stateless operations) thực sự là một phần cốt lõi của mô hình miền.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000276_db5159855d913c7fc2bd1ccb6c1e9d7da0a98091ab5c6698292c3340602cc5fc.png)
 
 Trang này cố ý để trống
 
@@ -314,6 +334,10 @@ Một Service trong miền nghiệp vụ là một thao tác không lưu trạng
 Mã nguồn bốc mùi (code smell)? Đó chính xác là những gì các lập trình viên của SaaSOvation đã trải qua sau khi refactor (tái cấu trúc) một Aggregate. Hãy cùng xem xét cách họ điều chỉnh chiến thuật. Đây là những gì đã diễn ra . . .
 
 Vào giai đoạn đầu của dự án, nhóm đã mô hình hóa collection các thể hiện `BacklogItem` như một phần cấu thành nội bộ (composed Aggregate part) của `Product`. Cách mô hình hóa đó cho phép việc tính toán tổng giá trị ưu tiên nghiệp vụ (business priority value) của tất cả các hạng mục backlog trong sản phẩm trở thành một phương thức thể hiện (instance method) đơn giản trên lớp `Product`:
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000277_5efcaed0a0080218e7581abfe2a45bc3ab4a16788f2596a0831e4391029e3209.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000278_3088a0c360c1f501d32d5140640565989bc9171ee3e235a84a90707890309d8c.png)
 
 ```java
 public class Product extends ConcurrencySafeEntity {
@@ -368,12 +392,18 @@ Chỉ vì một Domain Service có chứa từ *service* trong tên gọi không
 
 LB: "Luôn quan sát thật kỹ thứ mình chuẩn bị ăn. Biết nó *là cái gì* không quan trọng bằng việc biết chắc nó *từng là cái gì*."
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000279_53eae23f4fa8c83fd4c8a4dd1c4786fe775d1b40a1927e4209d0153d67342ed0.png)
+
 > 💡 **Giải thích thêm:** Câu thoại châm biếm này mượn hình ảnh cuộc sống hoang dã của các chàng cao bồi để nhấn mạnh tầm quan trọng của nguồn gốc bản chất. Trong phần mềm, khi tiếp cận một thành phần mang tên "Service", điều tối quan trọng là bạn phải hiểu rõ bản chất cốt lõi của nó xuất phát từ tầng nào (hạ tầng, ứng dụng hay nghiệp vụ thuần túy), thay vì chỉ nhìn vào cái nhãn "Service" chung chung mà đánh đồng cách sử dụng.
 > (Không có nguồn trích dẫn xác thực — cần tự kiểm chứng thêm)
 
 Các Service thuộc về miền nghiệp vụ một cách đặc thù là công cụ mô hình hóa hoàn hảo để sử dụng khi nhu cầu của bạn chạm đúng điểm tối ưu (sweet spot) của chúng. Vậy thì, sau khi đã biết Domain Service *không phải là gì*, chúng ta hãy cùng xem xét xem nó *là gì*.
 
 [^1]: Đôi khi một Domain Service có liên quan đến việc gọi từ xa tới một Bounded Context (ngữ cảnh giới hạn trong DDD, Chương 2) bên ngoài. Tuy nhiên, trọng tâm ở đây lại khác: bản thân Domain Service không tự cung cấp một giao diện gọi thủ tục từ xa, mà nó đóng vai trò là một client gọi tới RPC đó.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000280_8fca4cdf3e5310e6da53f0fa8e946f65aff9e9a048acd65512bc4f6841246329.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000281_3de1b859bd7c3c5c9dd90c667be709e3743cc0bc8fc3df19bcf38be9abea9116.png)
 
 > Đôi khi, nó đơn giản không phải là một vật thể. . . . Khi một quy trình hay sự biến đổi quan trọng trong miền nghiệp vụ không thuộc về trách nhiệm tự nhiên của một ENTITY hay VALUE OBJECT, hãy thêm một thao tác vào mô hình dưới dạng một interface độc lập được khai báo là SERVICE. Hãy định nghĩa interface đó theo thuật ngữ của ngôn ngữ mô hình và đảm bảo tên thao tác là một phần của UBIQUITOUS LANGUAGE (ngôn ngữ chung / ngôn ngữ toàn hiện giữa lập trình viên và chuyên gia nghiệp vụ). Hãy biến SERVICE đó thành phi trạng thái (stateless). [Evans, tr. 104, 106]
 
@@ -392,7 +422,7 @@ Trường hợp cuối cùng — một phép tính toán — có thể xếp và
 Đừng lạm dụng hoặc quá thiên vị việc mô hình hóa một khái niệm miền thành Service. Chỉ làm điều đó khi hoàn cảnh thực sự phù hợp. Nếu không cẩn thận, chúng ta có thể bắt đầu coi Service như một "viên đạn bạc" (silver bullet) trong mô hình hóa. Việc sử dụng Service một cách thái quá thường dẫn đến hậu quả tiêu cực là tạo ra một Anemic Domain Model (mô hình miền thiếu máu - chỉ có dữ liệu getter/setter mà thiếu logic nghiệp vụ) [Fowler, Anemic], nơi toàn bộ logic nghiệp vụ bị dồn vào các Service thay vì được phân bổ chủ yếu trên các Entity và Value Object. Phân tích sau đây sẽ chứng minh tầm quan trọng của việc suy nghĩ thấu đáo về các chiến thuật bạn nên áp dụng cho từng tình huống mô hình hóa. Tuân theo hướng dẫn này sẽ giúp bạn đưa ra những quyết định đúng đắn về việc có nên tạo một Service hay không.
 
 > 💡 **Giải thích thêm:** Khái niệm "viên đạn bạc" (silver bullet) bắt nguồn từ văn hóa dân gian phương Tây (vũ khí duy nhất tiêu diệt được người sói), được Frederick Brooks đưa vào ngành phần mềm qua bài tiểu luận kinh điển "No Silver Bullet". Nó ám chỉ sự ảo tưởng rằng có một công nghệ hay mô thức thiết kế kỳ diệu nào đó có thể giải quyết được mọi vấn đề phức tạp trong lập trình chỉ bằng một đòn duy nhất.
-> Nguồn tham khảo: https://en.wikipedia.org/wiki/No_Silver_Bullet
+> Nguồn tham khảo: [https://en.wikipedia.org/wiki/No_Silver_Bullet](https://en.wikipedia.org/wiki/No_Silver_Bullet)
 
 Chúng ta hãy cùng xem xét một ví dụ về việc nhận diện nhu cầu cần mô hình hóa một Service. Hãy nghĩ đến bài toán xác thực một `User` trong Identity and Access Context của chúng ta.
 
@@ -429,6 +459,10 @@ boolean authentic = false;
 
 ```
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000282_f41929a92c28d458e3360183303f0fc37ba75cc4cefdd3f4e34aeda97c4a4afb.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000283_d27867a57f0c916a7a08acfe65a5f42434196e18cf8e4cbac1f652e6e3faa2ad.png)
+
 ```java
 Tenant tenant = DomainRegistry
     .tenantRepository()
@@ -464,8 +498,10 @@ Không có đề xuất nào trong số này mang lại hiệu quả thực sự
 
 AJ: "Khi nhận ra mình đang ở dưới hố, việc đầu tiên cần làm là ngừng đào bới."
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000284_5695eb29fc9d2044dda345fe736a32d6bd9c565eae8af298f28e4cb74d5f21c8.png)
+
 > 💡 **Giải thích thêm:** "Luật về cái hố" (Law of Holes) là một câu ngạn ngữ tiếng Anh: "If you find yourself in a hole, stop digging." Trong kỹ nghệ phần mềm, điều này nhắc nhở rằng khi phát hiện một giải pháp thiết kế đang dẫn hệ thống vào ngõ cụt và tạo ra hàng loạt sự chắp vá tồi tệ, hành động khôn ngoan nhất là dừng ngay cách tiếp cận đó lại để tìm một mô thức đúng đắn, thay vì tiếp tục viết thêm code chắp vá khiến hệ thống lún sâu hơn vào nợ kỹ thuật.
-> Nguồn tham khảo: https://en.wikipedia.org/wiki/Law_of_holes
+> Nguồn tham khảo: [https://en.wikipedia.org/wiki/Law_of_holes](https://en.wikipedia.org/wiki/Law_of_holes)
 
 Thực tế, trách nhiệm nghiệp vụ duy nhất mà client nên có chỉ là điều phối việc sử dụng một thao tác đặc thù duy nhất của miền, nơi xử lý toàn bộ các chi tiết còn lại của bài toán nghiệp vụ:
 
@@ -483,6 +519,10 @@ UserDescriptor userDescriptor = DomainRegistry
 ```
 
 Trong giải pháp đơn giản và thanh thoát này, client chỉ cần lấy một tham chiếu tới một thể hiện phi trạng thái của `AuthenticationService` rồi yêu cầu nó thực hiện `authenticate()`. Cách này đẩy toàn bộ các chi tiết về xác thực ra khỏi client Application Service và đưa trọn vẹn vào bên trong Domain Service. Bất kỳ số lượng đối tượng miền nào cũng có thể được Service sử dụng khi cần. Điều này bao gồm cả việc đảm bảo quá trình mã hóa mật khẩu được thực thi một cách phù hợp. Phía client không cần phải hiểu bất kỳ chi tiết nào trong số đó. Ubiquitous Language trong Bounded Context được đáp ứng trọn vẹn vì các thuật ngữ chuẩn mực được thể hiện bởi chính phần mềm mô hình hóa miền quản lý định danh, thay vì bị phân mảnh một nửa ở mô hình và một nửa ở client.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000285_118ad3c7d3d1fd4a15097342540e25765b336060b73f2074374290dfda1594c8.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000286_26ed82a6f2516ba6303f112359361d3669a7d60d74ea4b8a95cf520508ce7792.png)
 
 Một Value Object, `UserDescriptor`, được trả về từ phương thức của Service. Đối tượng này nhỏ gọn và an toàn. Không giống như một `User` hoàn chỉnh, nó chỉ bao gồm một vài thuộc tính thiết yếu để tham chiếu tới một `User`:
 
@@ -567,6 +607,10 @@ public class DefaultEncryptionAuthenticationService implements AuthenticationSer
 
 ```
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000287_d0ceb5def829065a0a7576913fccaa89dfe4ba9720abef47b7701ecd6b12beec.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000288_f9eb514bc8a112d62311383dfedd4f0ac44e48dedd69da2c47b435e325cc81b7.png)
+
 ```java
         Tenant tenant = DomainRegistry
             .tenantRepository()
@@ -629,6 +673,10 @@ Sẽ chẳng có vấn đề gì sai sót với cách làm này. Bạn thậm ch
 
 Trong thế giới Java, việc đặt tên cho lớp cài đặt bằng cách lấy tên của interface làm tiền tố và thêm hậu tố `Impl` đã trở nên rất phổ biến. Trong ví dụ của chúng ta, cách làm đó sẽ tạo ra cái tên `AuthenticationServiceImpl`. Hơn nữa, interface và lớp triển khai thường được đặt chung trong cùng một package. Liệu đây có phải là một điều tốt?
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000289_50b7218c160aa8a0bb3083b804581eb1355eeda3b6d97af2584b9e1d5fb51064.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000290_205977bb955c81b73cc1e605c01a67b0be466d4c395276add49f80da6b47548b.png)
+
 Thực tế, nếu lớp cài đặt của bạn được đặt tên theo cách này, đó có lẽ là dấu hiệu rất rõ ràng cho thấy bạn không hề cần đến một Separated Interface, hoặc bạn cần phải suy nghĩ cẩn trọng hơn về tên của lớp cài đặt. Vì vậy, câu trả lời là không, cái tên `AuthenticationServiceImpl` không thực sự là một cái tên tốt. Nhưng xét lại thì cái tên `DefaultEncryptionAuthenticationService` cũng chẳng hữu ích hơn là bao. Chính vì lý do đó, nhóm SaaSOvation đã quyết định loại bỏ Separated Interface ở thời điểm này và chỉ sử dụng `AuthenticationService` như một lớp thông thường.
 
 Nếu lớp cài đặt của bạn phục vụ các mục tiêu tách rời (decoupling) cụ thể vì bạn cung cấp nhiều bản triển khai chuyên biệt khác nhau, hãy đặt tên lớp theo đúng đặc tính chuyên biệt của nó. Nhu cầu phải đặt tên cẩn thận cho từng bản triển khai chuyên biệt chính là bằng chứng cho thấy các đặc tính chuyên biệt đó thực sự tồn tại trong miền nghiệp vụ của bạn.
@@ -670,10 +718,16 @@ Rõ ràng, một số người rất có ác cảm với cả Service Factory l�
 
 Dưới đây là một ví dụ khác, lần này lấy từ Core Domain (miền cốt lõi, Chương 2) hiện tại: Agile Project Management Context. Service này tính toán một kết quả từ các Value nằm trên một số lượng tùy ý các Aggregate thuộc một kiểu cụ thể. Ở đây, tôi nghĩ không có lý do thỏa đáng nào để sử dụng một Separated Interface, ít nhất là tại thời điểm hiện tại. Các phép tính toán luôn được thực hiện theo cùng một cách thức. Trừ khi tình huống đó thay đổi, chúng ta không nên bận tâm tách biệt interface khỏi lớp cài đặt làm gì.
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000291_b2410852bdb2700a9a033c2546c71c400d59e66095639d9564b6c9eff01b009f.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000292_c698cdc379c0ab032159198b8e145eb1520075bc8c9cef7eeca06567d67a2987.png)
+
 ## Tư duy Cao bồi (Cowboy Logic)
 
 * LB: "Con ngựa giống của tôi kiếm được 5.000 đô mỗi lượt phối (service), và đàn ngựa cái đang xếp hàng dài chờ sẵn."
 * AJ: "Thế thì con ngựa đó đang ở đúng lãnh địa (domain) của nó rồi đấy."
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000293_b25b49625e45e2b7d14d2a32881bb7415c4b6a2d50e4cd403896c0b6080872b5.png)
 
 > 💡 **Giải thích thêm:** Đoạn hội thoại này là một pha chơi chữ (pun) đầy hóm hỉnh dựa trên hai thuật ngữ phần mềm:
 > 1. Từ **"service"**: Trong chăn nuôi gia súc, "service" mang nghĩa là một lượt phối giống của con đực giống; trong phần mềm, nó là một dịch vụ xử lý tác vụ.
@@ -686,6 +740,8 @@ Dưới đây là một ví dụ khác, lần này lấy từ Core Domain (miề
 Hãy nhớ lại rằng các lập trình viên của SaaSOvation ban đầu đã tạo ra các phương thức static hạt mịn trên `Product` để thực hiện các phép tính toán mong muốn. Đây là những gì đã diễn ra tiếp theo . . .
 
 Lập trình viên cố vấn của nhóm cũng chỉ ra sự cần thiết của việc sử dụng một Domain Service thay vì một static method. Ý tưởng đằng sau Service này sẽ rất giống với thiết kế hiện tại: tính toán và trả về một thể hiện Value `BusinessPriorityTotals`. Nhưng Service này sẽ phải đảm đương thêm một chút công việc. Điều này bao gồm việc tìm kiếm toàn bộ các hạng mục backlog còn tồn đọng (outstanding backlog items) của một sản phẩm Scrum cụ thể, sau đó cộng tổng từng giá trị `BusinessPriority` riêng lẻ của chúng lại. Dưới đây là phần triển khai mã nguồn:
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000294_f2679726fd28f7f1252a31d8c7f689d90284b8fbd2eee89d4a03096a2d156f59.png)
 
 ```java
 package com.saasovation.agilepm.domain.model.product;

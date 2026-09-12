@@ -91,240 +91,225 @@ Trang này được chủ ý để trống
 
 ## Contents
 
-| Lời tựa (Foreword) . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . | . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . xvii |
-|---|---|
-| Lời nói đầu (Preface) . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . | . . . . . . . . . . . . . . . . . . . . . xix |
-| Lời cảm ơn (Acknowledgments) . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . | . . . . . . . . . . . . . . . . . . . xxix |
-| Về tác giả (About the Author) . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . | . . . . . . . . . . . . . . . . . . xxxiii |
-| Hướng dẫn đọc sách (Guide to This Book) . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . | . . . . . . . . . . . . . . . . . . . xxxv |
-| Chương 1 Bắt đầu với DDD (Chapter 1 Getting Started with DDD) . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . | . . . . . . . . . . . . . . . . . . . 1 |
-| Tôi có thể áp dụng DDD không? (Can I DDD?) . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . | . . . . . . . . . . . . . . . . . . . . 2 |
-| Vì sao bạn nên làm DDD (Why You Should Do DDD) . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . | . . . . . . . . . . . . . . . . . . 6 |
-| Cách triển khai DDD (How to Do DDD) . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . | . . . . . . . . . . . . . . . . . . . . 20 |
-| Giá trị Kinh doanh của việc Ứng dụng DDD (The Business Value of Using DDD) . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . | . . . . . . . . . . . . . . . . . 25 |
-| 1. Doanh nghiệp Đạt được một Mô hình Hữu ích về | Miền nghiệp vụ của mình (Its Domain) . . . 26 |
-| 2. Định nghĩa và Hiểu biết Tinh tế, Chính xác về Nghiệp vụ Được Phát triển . . . . . . . . . . . . . . . | (the Business Is Developed) . . . . . 27 |
-| 3. Các Chuyên gia Miền đóng góp vào Thiết kế | Phần mềm (Software Design) . . . . . . . 27 |
-| 4. Đạt được Trải nghiệm Người dùng | Tốt hơn (A Better User Experience Is Gained) . . . . . . . . . . . . . 27 |
-| 5. Thiết lập Ranh giới Rõ ràng bao quanh các Mô hình | Thuần túy (Pure Models) . . . . . . 28 |
-| 6. Kiến trúc | Doanh nghiệp Được Tổ chức Tốt hơn . . . . . . . . . 28 |
-| 7. Mô hình hóa Linh hoạt, Lặp đi lặp lại và Liên tục | Được Ứng dụng . . . . . . . . 28 |
-| 8. Các Công cụ Mới, | Cả Chiến lược lẫn Chiến thuật, Được Triển khai . . . 28 |
-| Những Thách thức | khi Áp dụng DDD . . . . . . . . . . . . . . . . . 29 |
-| Tình huống Hư cấu đan xen Thực tế Phong phú . | . . . . . . . . . . . . . . . . 38 |
-| Tổng kết (Wrap-Up) . . . . . . . . . . | . . . . . . . . . . . . . . . . . . . . 41 |
-
-| Chương 2 Domains, Subdomains và Bounded Contexts | Chương 2 Domains, Subdomains và Bounded Contexts | Chương 2 Domains, Subdomains và Bounded Contexts |
-|---|---|---|
-| | Bức tranh Toàn cảnh (Big Picture) . . . . . . . . . . . . | . . . . . . . . 43 . . . . . . . . . . . . . . . . . 43 |
-| | Subdomains và Bounded Contexts trong Thực tế | . . . . . . . . . . 44 |
-| | Tập trung vào Core Domain (Miền Cốt lõi) . | . . . . . . . . . . . . . . . . . . 50 |
-| | Vì sao Thiết kế Chiến lược lại Vô cùng Cần thiết | . . . . . . . . . . 53 |
-| | Các Miền và Miền con trong Thực tế | . . . . . . . . . . . . . . . 56 |
-| | Hiểu đúng về Bounded Contexts | . . . . . . . . . . . . . . . . 62 |
-| | Không gian cho những thứ Ngoài Mô hình . | . . . . . . . . . . . . . . . . 66 |
-| | Quy mô của Bounded Contexts . . . | . . . . . . . . . . . . . . . . . 68 |
-| | Điều chỉnh Khớp với các Thành phần Kỹ thuật | . . . . . . . . . . . . . 71 |
-| | Các Ngữ cảnh Mẫu . . . . . . . . . . | . . . . . . . . . . . . . . . . 72 |
-| | Ngữ cảnh Cộng tác (Collaboration Context). . . . . | . . . . . . . . . . . . . . . . . 73 |
-| | Ngữ cảnh Định danh và Truy cập (Identity and Access Context) . . | . . . . . . . . . . . . . . . . . 80 |
-| | Ngữ cảnh Quản lý Dự án Agile (Agile Project Management Context) | . . . . . . . . . . . . . . . 82 |
-| | Tổng kết . . . . . . . . . . . | . . . . . . . . . . . . . . . . . . . 84 |
-| Chương 3 Context Maps . . . . . . . . . . . . . . . . . . . . . . . . . 87 | Chương 3 Context Maps . . . . . . . . . . . . . . . . . . . . . . . . . 87 | Chương 3 Context Maps . . . . . . . . . . . . . . . . . . . . . . . . . 87 |
-| | Vì sao Context Maps lại Thiết yếu đến vậy | . . . . . . . . . . . . . . . 87 |
-| | Vẽ Context Maps . . . . . | . . . . . . . . . . . . . . . . 89 |
-| | Các Mối quan hệ Dự án và Tổ chức | . . . . . . . . . . . 91 |
-| | Lập Bản đồ cho Ba Ngữ cảnh . . | . . . . . . . . . . . . . . . . 95 |
-| | Tổng kết . . . . . . . . . . . . . . . | . |
-| | . . | . . . . . . . . . . . 111 |
-| | Chương 4 Kiến trúc (Architecture) . . . . . . . . Phỏng vấn vị CIO Thành công . . . . | . . . . . . . . . . . . . . . . . . 113 . . . . . . . . . . . . . 114 |
-| | Các Tầng kiến trúc (Layers) . . . . . . . . . . . . . . . | . . . . . . . . . . . . . . . 119 |
-| | Nguyên lý Đảo ngược Phụ thuộc (Dependency Inversion Principle) . | . . . . . . . . . . . . . . . 123 |
-| | | . |
-| | Kiến trúc Lục giác hoặc Cổng và Bộ điều hợp (Hexagonal or Ports and Adapters) . Hướng Dịch vụ (Service-Oriented) . . . . . . . | . . . . . . . . . . . . . . 125 . . . . . . . . . . . . . . . . . . 130 |
-| | Chuyển trạng thái đại diện REST (Representational State Transfer-REST) như một Phong cách Kiến trúc . . . | REST như một Phong cách Kiến trúc . . . . . . . . . . . . . 133 . . 133 |
-| | . | . . . . . . . . . . . . . . . . . . . . |
-| | Các Khía cạnh Cốt lõi của một RESTful HTTP Server | . 135 . . . . . . . . . . 136 |
-| | Các Khía cạnh Cốt lõi của một RESTful HTTP Client . REST và DDD . . . . . . . . . . . . . | . . . . . . . . . . . |
-| | | 136 . . . . |
-| | . | . . . . . . . . |
-| | . | |
-| | | 138 |
-| | Vì sao lại là REST? . . . . . . . . . . . . | |
-
-| Phân tách Trách nhiệm Lệnh - Truy vấn, hay CQRS (Command-Query Responsibility Segregation, or CQRS) . . . . . 138 |
-|---|
-| Khảo sát các Khía cạnh của CQRS . . . . . . . . . . . . . . . . . . 140 |
-| Xử lý Mô hình Truy vấn Nhất quán Cuối cùng . . . . . 146 |
-| Kiến trúc Hướng sự kiện (Event-Driven Architecture) . . . . . . . . . . . . . . . . . . 147 |
-| Đường ống và Bộ lọc (Pipes and Filters) . . . . . . . . . . . . . . . . . . 149 |
-| Các Tiến trình Kéo dài, hay còn gọi là Sagas (Long-Running Processes, aka Sagas) . . . . . . . . . . . . . 153 |
-| Event Sourcing . . . . . . . . . . . . . . . . . . . . . . . . 160 |
-| Data Fabric và Điện toán Phân tán trên nền Grid (Grid-Based Distributed Computing) . . . . . . 163 |
-| Sao chép Dữ liệu (Data Replication) . . . . . . . . . . . . . . . . . . . . . . . 164 |
-| Fabric Hướng sự kiện và Domain Events . . . . . . . . . . . 165 |
-| Truy vấn Liên tục (Continuous Queries) . . . . . . . . . . . . . . . . . . . . . . 166 |
-| Xử lý Phân tán (Distributed Processing) . . . . . . . . . . . . . . . . . . . . 167 |
-| Tổng kết . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 168 |
-| Chương 5 Entities (Chapter 5 Entities) . . . . . . . . . . . . . . . . . . . . . . . . . . . . 171 |
-| Vì sao Chúng ta Sử dụng Entities . . . . . . . . . . . . . . . . . . . . . . . 171 |
-| Định danh Duy nhất (Unique Identity) . . . . . . . . . . . . . . . . . . . . 173 |
-| Người dùng Cung cấp Định danh . . . . . . . . . . . . . . . . . . . . . 174 |
-| Ứng dụng Tự sinh Định danh . . . . . . . . . . . . . . . . 175 |
-| Cơ chế Lưu trữ Dữ liệu Sinh Định danh . . . . . . . . . . 179 |
-| Một Bounded Context Khác Gán Định danh . . . . . . . . . . 182 |
-| Khi Thời điểm Sinh Định danh Trở nên Quan trọng . . . . . . . 184 |
-| Định danh Thay thế (Surrogate Identity) . . . . . . . . . . . . . . . . . . . . . . . 186 |
-| Tính Bền vững của Định danh (Identity Stability) . . . . . . . . . . . . . . . . . . 188 |
-| Khám phá Entities và Đặc tính Bản chất của Chúng . . . . . 191 |
-| Bóc tách Entities và Thuộc tính . . . . . . . . . . . . . 192 |
-| Đi sâu Khám phá Hành vi Thiết yếu . . . . . . . . . . . . . . . . 196 |
-| Vai trò và Trách nhiệm . . . . . . . . . . . . . . . . . . 200 |
-| Khởi tạo (Construction) . . . . . . . . . . . . . . . . . . . . . . . . . 205 |
-| Kiểm thực Dữ liệu (Validation) . . . . . . . . . . . . . . . . . . . . . . . . . . . 208 |
-| Theo dõi Biến động Dữ liệu (Change Tracking) . . . . . . . . . . . . . . . . . . . . . . . 216 |
-| Tổng kết . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 217 |
-| Chương 6 Value Objects (Chapter 6 Value Objects) . . . . . . . . . . . . . . . . . . . . . . . . . 219 |
-| Đặc tính của Value (Value Characteristics) . . . . . . . . . . . . . . . . . . . . . . . 221 |
-| Đo lường, Định lượng hoặc Mô tả . . . . . . . . . . . . . 221 |
-| Tính Bất biến (Immutable) . . . . . . . . . . . . . . . . . . . . . 221 |
-
-| Tính Toàn vẹn Khái niệm (Conceptual Whole) . . . . . . . . . . . . | . . . . . . . . . . 223 |
-|---|---|
-| Khả năng Thay thế (Replaceability) . . . . . . . . . . . . | . . . . . . . . . . . . . 226 |
-| So sánh Bằng theo Giá trị (Value Equality) . . . . . . . . . . . . | . . . . . . . . . . . . . 227 |
-| Hành vi Không gây Tác dụng phụ (Side-Effect-Free Behavior) . . . . . . | . . . . . . . . . . . . . 228 |
-| Tích hợp theo Phong cách Tối giản (Integrate with Minimalism). . . . . . . | . . . . . . . . . . . . . 232 |
-| Các Kiểu Chuẩn Thể hiện dưới dạng Values . . | . . . . . . . . . . . . . 234 |
-| Kiểm thử Value Objects . . . . . . . . . | . . . . . . . . . . . . . 239 |
-| Hiện thực hóa (Implementation). . . . . . . . . . . . . | . . . . . . . . . . . . . 243 |
-| Lưu trữ Bền vững Value Objects . . . . . . . . | . . . . . . . . . . . . . 248 |
-| Khước từ Tác động Tiêu cực từ việc Rò rỉ Mô hình Dữ liệu . . . | (Data Model Leakage). . . . . 249 |
-| ORM và Single Value Objects . . . | . . . . . . . . . . . . . 251 |
-| ORM và Nhiều Values Được Tuần tự hóa vào một Cột Đơn . . | (a Single Column) . 253 |
-| ORM và Nhiều Values Được Hỗ trợ bởi một Database | Entity. . . . . 255 |
-| ORM và Nhiều Values Được Hỗ trợ bởi một Join | Table. . . . . . . . 260 |
-| ORM và các Đối tượng Enum Đóng vai trò Trạng thái (Enum-as-State Objects) . . | . . . . . . . . . . . . . 261 |
-| Tổng kết . . . . . . . . . . . . . . . . | . . . . . . . . . . . . . 263 |
-| Chương 7 Services (Chapter 7 Services) . . . . . . . . . . . . . . . | . . . . . . . . . . . . . 265 |
-| Bản chất của một Domain Service (nhưng Trước hết, | Nó Không phải là gì) . . . . . . 267 |
-| Hãy Chắc chắn Rằng Bạn Cần một Service . . . . . | . . . . . . . . . . . . . 268 |
-| Mô hình hóa một Service trong Miền . . . | . . . . . . . . . . . . . 272 |
-| Tách riêng Interface có Phải là điều Bắt buộc? . | . . . . . . . . . . . . |
-| Một Quy trình Tính toán . . . . . . . . | . 275 . . . . |
-| Các Service Chuyển đổi (Transformation Services) . . . . . . . | . . . . . . . . . 277 . . . . . . . . . . . . . 280 |
-| Sử dụng một Phân tầng Nhỏ chứa các Domain Services | . . . . . . . . . . . 281 |
-| Kiểm thử Services. . . . . . . . . . . . . | . . . . . . . . . . . . . 281 |
-| Tổng kết . . . . . . . . . . . . . . . . | . . . . . . . . . . . . . 284 |
-| Chương 8 Domain Events (Chapter 8 Domain Events) . . . . . . . . . . . | . . . . . . . . . . . . . 285 |
-| Thời điểm và Lý do Cần tới Domain Events | . . . . . . . . . . . . . 285 |
-| Mô hình hóa Events . . . . . . . . . . . . | . . . . . . . . . . . . . 288 |
-| Mang Đặc tính của Aggregate . . . | . . . . . . . . . . . . . 294 |
-| Định danh (Identity) . . . . . . . . . . . . . . . | . . . . . . . . . . . . . 295 |
-| Phát hành Events từ Domain Model | . . . . . . . . . . . 296 297 |
-| Bên phát hành (Publisher) . . . . . . . . . . . . . . . | . . . . . . . . . . . . |
-| Bên nhận đăng ký (Subscribers) . . . . . . . . . . . . . | . . . . . . . . . . . . . 300 |
-
-| | Lan truyền Thông tin đến các Bounded Contexts ở Xa . . . . . . . 303 |
-|---|---|
-| Phát hành Tin nhắn (Messaging Publishing) | Tính Nhất quán của Hạ tầng (Infrastructure Consistency) . . . . . . . . . . . . 303 |
-| Các Dịch vụ và Hệ thống Tự trị | . . . . . . . . . . . . . . 305 |
-| Mức Độ trễ Chấp nhận được . . . . | . . . . . . . . . . . . . . . . . . 306 |
-| Kho Lưu trữ Sự kiện (Event Store) . . . . . . . . . | . . . . . . . . . . . . . . . . . . . 307 |
-| Các Phong cách Kiến trúc để Chuyển tiếp | Sự kiện Đã lưu (Stored Events) . . . . . . . . 312 |
-| Phát hành Thông báo dưới dạng | Tài nguyên RESTful (RESTful Resources) . . . . . . . . 312 |
-| Phát hành Thông báo qua Phần mềm Trung gian | Tin nhắn (Messaging Middleware) . . 317 |
-| Hiện thực hóa | . . . . . . . . . . . . . . . . . . . . . . . . . 318 |
-| Phát hành NotificationLog | . . . . . . . . . . . . . . 319 |
-| Thông báo Dựa trên Tin nhắn | . . . . . . . . . . . 324 |
-| Tổng kết . | . . . . . . . . . . . . . . . . . . . . . . . . . . . . 331 |
-| Chương 9 | Modules . . . . . . . . . . . . . . . . . . . . . . . . . . . 333 |
-| Thiết kế với Modules . . . . | . . . . . . . . . . . . . . . . . 333 |
-| Các Quy ước Đặt tên Module Cơ bản | . . . . . . . . . . . . . . . 336 |
-| Quy ước Đặt tên Module cho | Mô hình (the Model) . . . . . . . . . . . 337 |
-| Các Module thuộc Ngữ cảnh Quản lý Dự án Agile | (Agile Project Management Context) . . . . . . . 340 |
-| Các Module trong các Tầng khác . | . . . . . . . . . . . . . . . . . . . 343 |
-| Module trước Bounded Context | . . . . . . . . . . . . . . . . 344 |
-| Tổng kết . . . . . . . . . . | . . . . . . . . . . . . . . . . . . . 345 |
-| Chương 10 Aggregates . . . . . . | . . . . . . . . . . . . . . . . . . . . 347 |
-| Sử dụng Aggregates trong Scrum Core | Domain . . . . . . . . . . 348 |
-| Lần thử thứ nhất: Cụm Aggregate | Lớn (Large-Cluster Aggregate) . . . . . . . . . . . . 349 |
-| Lần thử thứ hai: Nhiều | Aggregates . . . . . . . . . . . . . 351 |
-| Quy tắc: Mô hình hóa các Bất biến Thực sự trong | Ranh giới Nhất quán (Consistency Boundaries) . . . . . 353 |
-| Quy tắc: Thiết kế các Aggregate Nhỏ . . | . . . . . . . . . . . . . . . . 355 |
-| Đừng vội Tin vào Mọi Use Case | . . . . . . . . . . . . . . . . . . 358 |
-| Quy tắc: Tham chiếu các Aggregate Khác thông qua | Định danh (Identity) . . . . . . . . . . 359 |
-| Phối hợp các Aggregate với nhau thông qua . . . . . . . | Tham chiếu |
-| Định danh (Identity References) . . . . . . . . . . . | . . . . . . . 361 |
-| Điều hướng | Mô hình (Model Navigation) . . . . . . . . . . . . . . . . . . . . . . . 362 |
-| Khả năng Mở rộng và Quy tắc Phân tán: Sử dụng Tính Nhất quán Cuối cùng Bên ngoài | . . . . . . . . . . . . . . . . . . 363 Ranh giới (Boundary) . . . . . 364 |
-| Hãy Hỏi Xem Đó là Trách nhiệm | của Ai (Whose Job It Is) . . . . . . . . . . . . . . . . . . . . . . 366 |
-
-| Những Lý do để Phá vỡ Quy tắc (Reasons to Break the Rules) . . . . . . . . . . . . . . . . . . . 367 |
-|---|
-| Lý do thứ nhất: Tiện ích cho Giao diện Người dùng . . . . . . . . . . . 367 |
-| Lý do thứ hai: Sự Thiếu hụt về Cơ chế Kỹ thuật . . . . . . . . . 368 |
-| Lý do thứ ba: Giao dịch Toàn cục (Global Transactions) . . . . . . . . . . . . . . 369 |
-| Lý do thứ tư: Hiệu năng Truy vấn . . . . . . . . . . . . . . . 369 |
-| Tuân thủ Quy tắc . . . . . . . . . . . . . . . . . . . . . 370 |
-| Tiếp nhận Thấu suốt qua Khám phá Đột phá (Gaining Insight through Discovery). . . . . . . . . . . . . . . . 370 |
-| Tư duy lại về Thiết kế, một Lần nữa . . . . . . . . . . . . . . . . . 370 |
-| Ước tính Chi phí Aggregate . . . . . . . . . . . . . . . . . . 372 |
-| Các Kịch bản Sử dụng Phổ biến . . . . . . . . . . . . . . . . . . 373 |
-| Mức Tiêu thụ Bộ nhớ . . . . . . . . . . . . . . . . . . . . 374 |
-| Khám phá một Thiết kế Thay thế Khác . . . . . . . . . . . . 375 |
-| Hiện thực hóa Tính Nhất quán Cuối cùng . . . . . . . . . . . . . . 376 |
-| Liệu Đó có Phải là Nhiệm vụ của Thành viên Nhóm? . . . . . . . . . . . . . . . . . 378 |
-| Thời điểm Đưa ra Quyết định . . . . . . . . . . . . . . . . . . . . . . 379 |
-| Hiện thực hóa . . . . . . . . . . . . . . . . . . . . . . . . . 380 Root Entity với Unique Identity . . . . . . . . . . 380 |
-| Tạo một |
-| Ưu tiên các Thành phần là Value Object . . . . . . . . . . . . . . . . . . . 382 |
-| Ứng dụng Định luật Demeter và Nguyên lý Tell, Don't Ask . . . . . . . . . . 382 |
-| Kiểm soát Đồng thời Lạc quan (Optimistic Concurrency) . . . . . . . . . . . . . . . . . . . . 385 |
-| Tránh Dependency Injection (Tiêm phụ thuộc) . . . . . . . . . . . . 387 Tổng kết . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 388 |
-| Chương 11 Factories (Chapter 11 Factories) . . . . . . . . . . . . . . . . . . . . . . . . . . . 389 |
-| Factories trong Domain Model . . . . . . . . . . . . . . . . . 389 |
-| Phương thức Factory (Factory Method) trên Aggregate Root . . . . . . . . . . . . . . . 391 |
-| Tạo các Thể hiện CalendarEntry . . . . . . . . . . . . . 392 |
-| Các Thể hiện Discussion . . . . . . . . . . . . . . . 395 |
-| Tạo Factory trên Service . . . . . . . . . . . . . . . . . . . . . . . . 397 |
-| . . . . . . . . . . . . . . . . . . . . . . . . . . . 400 |
-| Tổng kết . . |
-| Chương 12 Repositories (12 Repositories) . . . . . . . . . . . . . . . . . . . . . . . . . 401 Repositories Hướng Tập hợp (Collection-Oriented Repositories) . . . . . . . . . . . . . . |
-| . . 402 |
-| Hiện thực hóa bằng Hibernate . . . . . . . . . . . . . . . . . . 407 |
-| Những Cân nhắc khi Hiện thực hóa bằng TopLink . . . . . . . . 416 |
-
-| Repositories Hướng Lưu trữ Bền vững (Persistence-Oriented | Repositories) . . . . . . . . . . . . . . . . 418 |
-|---|---|
-| Hiện thực hóa | với Coherence . . . . . . . . . . . . . . . . . . 420 |
-| Hiện thực hóa với MongoDB . | . . . . . . . . . . . . . . . . . 425 |
-| Hành vi Bổ sung . | . . . . . . . . . . . . . . . . . . . . . . 430 |
-| Quản lý Giao dịch (Managing Transactions) . . . . | . . . . . . . . . . . . . . . . . 432 |
-| Một Lời cảnh báo . . . . . . . . | . . . . . . . . . . . . . . . . . . 437 |
-| Phân cấp Kiểu dữ liệu (Type Hierarchies) . . . . . . | . . . . . . . . . . . . . . . . . . . 437 |
-| So sánh giữa Repository và Data Access | Object (DAO) . . . . . . . . . . . . . . 440 |
-| Kiểm thử Repositories . . . . . | . . . . . . . . . . . . . . . . . . 441 |
-| Kiểm thử với các Hiện thực hóa | Trong Bộ nhớ (In-Memory) . . . . . . . . . . 445 |
-| Tổng kết . . . . . . . . . . . | . . . . . . . . . . . . . . . . . . 448 |
-| Chương 13 Tích hợp các Bounded Contexts . . . . . . . . | . . . . . . . . 449 |
-| Nền tảng | Tích hợp (Integration Basics) . . . . . . . . . . . . . . . . . . 450 |
-| Các Hệ thống Phân tán về Căn bản là | Hoàn toàn Khác biệt . . . . . . 451 |
-| Trao đổi Thông tin vượt qua | Ranh giới Hệ thống . . . . . . 452 |
-| Tích hợp Sử dụng các Tài nguyên RESTful (RESTful Resources) | . . . . . . . . . . . . . . 458 |
-| Hiện thực hóa Tài nguyên RESTful | . . . . . . . . . . . . . 459 |
-| Hiện thực hóa REST Client Sử dụng một Anticorruption Layer (Tầng Chống suy thoái / ACL) . . . . . . . . . . . . . . . . . . . . | . . . . . . . . 463 |
-| Tích hợp Sử dụng Hệ thống Tin nhắn (Messaging) . . . . . | . . . . . . . . . . . . . . 469 |
-| Luôn Cập nhật Thông tin về các Product Owner | và Thành viên Nhóm (and Team Members) . . . . . . . . . . . . . . 469 |
-| Bạn có Đảm đương nổi Trách nhiệm này? | . . . . . . . . . . . . . 476 |
-| Các Tiến trình Kéo dài, và | Cách Tránh Né Trách nhiệm . . . . 481 |
-| Máy Trạng thái Tiến trình | và Bộ Theo dõi Hết hạn (Time-out Trackers) . . . . . . . . 493 |
-| Thiết kế một Tiến trình | Tinh vi và Chặt chẽ hơn . . . . . . . . . . . 503 |
-| Khi Hệ thống Tin nhắn hoặc Hệ thống của Bạn Bị gián đoạn | . . . . . . . 507 |
-| Tổng kết . . . . . . . . . . . | . . . . . . . . . . . . . . . . . . 508 |
-| Chương 14 Tầng Ứng dụng (Chapter 14 Application). . . . . . . . . . . . | . . . . . . . . . . . . . . 509 |
-| Giao diện Người dùng (User Interface) . . . . . . . . | . . . . . . . . . . . . . . . . . . 512 |
-| | từ các Thể hiện Aggregate (from Aggregate Instances) . . . 513 |
-| Hiển thị Domain Objects Dựng hình Data Transfer | . . . . . . . . . . . . . . . . . . 512 Object |
-| Sử dụng Mediator để Phát hành Hiển thị các Thể hiện Aggregate từ một Domain | Trạng thái Nội bộ của Aggregate (Aggregate Internal State) . . . . . . 514 Object |
-| Payload (Tải trọng Dữ liệu) | 515 |
+| Mục lục / Nội dung | Trang |
+| --- | --- |
+| **Lời tựa (Foreword)** | **xvii** |
+| **Lời nói đầu (Preface)** | **xix** |
+| **Lời cảm ơn (Acknowledgments)** | **xxix** |
+| **Về tác giả (About the Author)** | **xxxiii** |
+| **Hướng dẫn đọc sách (Guide to This Book)** | **xxxv** |
+| **Chương 1: Bắt đầu với DDD (Chapter 1 Getting Started with DDD)** | **1** |
+| ├── Tôi có thể áp dụng DDD không? (Can I DDD?) | 2 |
+| ├── Vì sao bạn nên làm DDD (Why You Should Do DDD) | 6 |
+| ├── Cách triển khai DDD (How to Do DDD) | 20 |
+| ├── Giá trị Kinh doanh của việc Ứng dụng DDD (The Business Value of Using DDD) | 25 |
+| │ ├── 1. Doanh nghiệp Đạt được một Mô hình Hữu ích về Miền nghiệp vụ của mình (Its Domain) | 26 |
+| │ ├── 2. Định nghĩa và Hiểu biết Tinh tế, Chính xác về Nghiệp vụ Được Phát triển (the Business Is Developed) | 27 |
+| │ ├── 3. Các Chuyên gia Miền đóng góp vào Thiết kế Phần mềm (Software Design) | 27 |
+| │ ├── 4. Đạt được Trải nghiệm Người dùng Tốt hơn (A Better User Experience Is Gained) | 27 |
+| │ ├── 5. Thiết lập Ranh giới Rõ ràng bao quanh các Mô hình Thuần túy (Pure Models) | 28 |
+| │ ├── 6. Kiến trúc Doanh nghiệp Được Tổ chức Tốt hơn | 28 |
+| │ ├── 7. Mô hình hóa Linh hoạt, Lặp đi lặp lại và Liên tục Được Ứng dụng | 28 |
+| │ └── 8. Các Công cụ Mới, Cả Chiến lược lẫn Chiến thuật, Được Triển khai | 28 |
+| ├── Những Thách thức khi Áp dụng DDD | 29 |
+| ├── Tình huống Hư cấu đan xen Thực tế Phong phú | 38 |
+| └── Tổng kết (Wrap-Up) | 41 |
+| **Chương 2: Domains, Subdomains và Bounded Contexts** | **43** |
+| ├── Bức tranh Toàn cảnh (Big Picture) | 43 |
+| ├── Subdomains và Bounded Contexts trong Thực tế | 44 |
+| ├── Tập trung vào Core Domain (Miền Cốt lõi) | 50 |
+| ├── Vì sao Thiết kế Chiến lược lại Vô cùng Cần thiết | 53 |
+| ├── Các Miền và Miền con trong Thực tế | 56 |
+| ├── Hiểu đúng về Bounded Contexts | 62 |
+| ├── Không gian cho những thứ Ngoài Mô hình | 66 |
+| ├── Quy mô của Bounded Contexts | 68 |
+| ├── Điều chỉnh Khớp với các Thành phần Kỹ thuật | 71 |
+| ├── Các Ngữ cảnh Mẫu | 72 |
+| │ ├── Ngữ cảnh Cộng tác (Collaboration Context) | 73 |
+| │ ├── Ngữ cảnh Định danh và Truy cập (Identity and Access Context) | 80 |
+| │ └── Ngữ cảnh Quản lý Dự án Agile (Agile Project Management Context) | 82 |
+| └── Tổng kết | 84 |
+| **Chương 3: Context Maps** | **87** |
+| ├── Vì sao Context Maps lại Thiết yếu đến vậy | 87 |
+| ├── Vẽ Context Maps | 89 |
+| ├── Các Mối quan hệ Dự án và Tổ chức | 91 |
+| ├── Lập Bản đồ cho Ba Ngữ cảnh | 95 |
+| └── Tổng kết | 111 |
+| **Chương 4: Kiến trúc (Architecture)** | **113** |
+| ├── Phỏng vấn vị CIO Thành công | 114 |
+| ├── Các Tầng kiến trúc (Layers) | 119 |
+| ├── Nguyên lý Đảo ngược Phụ thuộc (Dependency Inversion Principle) | 123 |
+| ├── Kiến trúc Lục giác hoặc Cổng và Bộ điều hợp (Hexagonal or Ports and Adapters) | 125 |
+| ├── Hướng Dịch vụ (Service-Oriented) | 130 |
+| ├── Chuyển trạng thái đại diện REST (Representational State Transfer - REST) như một Phong cách Kiến trúc | 133 |
+| │ ├── Các Khía cạnh Cốt lõi của một RESTful HTTP Server | 135 |
+| │ ├── Các Khía cạnh Cốt lõi của một RESTful HTTP Client | 136 |
+| │ ├── REST và DDD | 136 |
+| │ └── Vì sao lại là REST? | 138 |
+| ├── Phân tách Trách nhiệm Lệnh - Truy vấn, hay CQRS (Command-Query Responsibility Segregation, or CQRS) | 138 |
+| │ ├── Khảo sát các Khía cạnh của CQRS | 140 |
+| │ └── Xử lý Mô hình Truy vấn Nhất quán Cuối cùng | 146 |
+| ├── Kiến trúc Hướng sự kiện (Event-Driven Architecture) | 147 |
+| │ ├── Đường ống và Bộ lọc (Pipes and Filters) | 149 |
+| │ ├── Các Tiến trình Kéo dài, hay còn gọi là Sagas (Long-Running Processes, aka Sagas) | 153 |
+| │ └── Event Sourcing | 160 |
+| ├── Data Fabric và Điện toán Phân tán trên nền Grid (Grid-Based Distributed Computing) | 163 |
+| │ ├── Sao chép Dữ liệu (Data Replication) | 164 |
+| │ ├── Fabric Hướng sự kiện và Domain Events | 165 |
+| │ ├── Truy vấn Liên tục (Continuous Queries) | 166 |
+| │ └── Xử lý Phân tán (Distributed Processing) | 167 |
+| └── Tổng kết | 168 |
+| **Chương 5: Entities (Chapter 5 Entities)** | **171** |
+| ├── Vì sao Chúng ta Sử dụng Entities | 171 |
+| ├── Định danh Duy nhất (Unique Identity) | 173 |
+| │ ├── Người dùng Cung cấp Định danh | 174 |
+| │ ├── Ứng dụng Tự sinh Định danh | 175 |
+| │ ├── Cơ chế Lưu trữ Dữ liệu Sinh Định danh | 179 |
+| │ ├── Một Bounded Context Khác Gán Định danh | 182 |
+| │ ├── Khi Thời điểm Sinh Định danh Trở nên Quan trọng | 184 |
+| │ ├── Định danh Thay thế (Surrogate Identity) | 186 |
+| │ └── Tính Bền vững của Định danh (Identity Stability) | 188 |
+| ├── Khám phá Entities và Đặc tính Bản chất của Chúng | 191 |
+| │ ├── Bóc tách Entities và Thuộc tính | 192 |
+| │ ├── Đi sâu Khám phá Hành vi Thiết yếu | 196 |
+| │ ├── Vai trò và Trách nhiệm | 200 |
+| │ ├── Khởi tạo (Construction) | 205 |
+| │ ├── Kiểm thực Dữ liệu (Validation) | 208 |
+| │ └── Theo dõi Biến động Dữ liệu (Change Tracking) | 216 |
+| └── Tổng kết | 217 |
+| **Chương 6: Value Objects (Chapter 6 Value Objects)** | **219** |
+| ├── Đặc tính của Value (Value Characteristics) | 221 |
+| │ ├── Đo lường, Định lượng hoặc Mô tả | 221 |
+| │ ├── Tính Bất biến (Immutable) | 221 |
+| │ ├── Tính Toàn vẹn Khái niệm (Conceptual Whole) | 223 |
+| │ ├── Khả năng Thay thế (Replaceability) | 226 |
+| │ ├── So sánh Bằng theo Giá trị (Value Equality) | 227 |
+| │ └── Hành vi Không gây Tác dụng phụ (Side-Effect-Free Behavior) | 228 |
+| ├── Tích hợp theo Phong cách Tối giản (Integrate with Minimalism) | 232 |
+| ├── Các Kiểu Chuẩn Thể hiện dưới dạng Values | 234 |
+| ├── Kiểm thử Value Objects | 239 |
+| ├── Hiện thực hóa (Implementation) | 243 |
+| ├── Lưu trữ Bền vững Value Objects | 248 |
+| │ ├── Khước từ Tác động Tiêu cực từ việc Rò rỉ Mô hình Dữ liệu (Data Model Leakage) | 249 |
+| │ ├── ORM và Single Value Objects | 251 |
+| │ ├── ORM và Nhiều Values Được Tuần tự hóa vào một Cột Đơn (a Single Column) | 253 |
+| │ ├── ORM và Nhiều Values Được Hỗ trợ bởi một Database Entity | 255 |
+| │ ├── ORM và Nhiều Values Được Hỗ trợ bởi một Join Table | 260 |
+| │ └── ORM và các Đối tượng Enum Đóng vai trò Trạng thái (Enum-as-State Objects) | 261 |
+| └── Tổng kết | 263 |
+| **Chương 7: Services (Chapter 7 Services)** | **265** |
+| ├── Bản chất của một Domain Service (nhưng Trước hết, Nó Không phải là gì) | 267 |
+| ├── Hãy Chắc chắn Rằng Bạn Cần một Service | 268 |
+| ├── Mô hình hóa một Service trong Miền | 272 |
+| │ ├── Tách riêng Interface có Phải là điều Bắt buộc? | 275 |
+| │ ├── Một Quy trình Tính toán | 277 |
+| │ └── Các Service Chuyển đổi (Transformation Services) | 280 |
+| ├── Sử dụng một Phân tầng Nhỏ chứa các Domain Services | 281 |
+| ├── Kiểm thử Services | 281 |
+| └── Tổng kết | 284 |
+| **Chương 8: Domain Events (Chapter 8 Domain Events)** | **285** |
+| ├── Thời điểm và Lý do Cần tới Domain Events | 285 |
+| ├── Mô hình hóa Events | 288 |
+| │ ├── Mang Đặc tính của Aggregate | 294 |
+| │ └── Định danh (Identity) | 295 |
+| ├── Phát hành Events từ Domain Model | 296 |
+| │ ├── Bên phát hành (Publisher) | 297 |
+| │ └── Bên nhận đăng ký (Subscribers) | 300 |
+| ├── Lan truyền Thông tin đến các Bounded Contexts ở Xa | 303 |
+| │ ├── Tính Nhất quán của Hạ tầng (Infrastructure Consistency) | 303 |
+| │ ├── Các Dịch vụ và Hệ thống Tự trị | 305 |
+| │ └── Mức Độ trễ Chấp nhận được | 306 |
+| ├── Kho Lưu trữ Sự kiện (Event Store) | 307 |
+| ├── Các Phong cách Kiến trúc để Chuyển tiếp Sự kiện Đã lưu (Stored Events) | 312 |
+| │ ├── Phát hành Thông báo dưới dạng Tài nguyên RESTful (RESTful Resources) | 312 |
+| │ └── Phát hành Thông báo qua Phần mềm Trung gian Tin nhắn (Messaging Middleware) | 317 |
+| ├── Hiện thực hóa | 318 |
+| │ ├── Phát hành NotificationLog | 319 |
+| │ └── Thông báo Dựa trên Tin nhắn | 324 |
+| └── Tổng kết | 331 |
+| **Chương 9: Modules** | **333** |
+| ├── Thiết kế với Modules | 333 |
+| ├── Các Quy ước Đặt tên Module Cơ bản | 336 |
+| ├── Quy ước Đặt tên Module cho Mô hình (the Model) | 337 |
+| ├── Các Module thuộc Ngữ cảnh Quản lý Dự án Agile (Agile Project Management Context) | 340 |
+| ├── Các Module trong các Tầng khác | 343 |
+| ├── Module trước Bounded Context | 344 |
+| └── Tổng kết | 345 |
+| **Chương 10: Aggregates** | **347** |
+| ├── Sử dụng Aggregates trong Scrum Core Domain | 348 |
+| │ ├── Lần thử thứ nhất: Cụm Aggregate Lớn (Large-Cluster Aggregate) | 349 |
+| │ └── Lần thử thứ hai: Nhiều Aggregates | 351 |
+| ├── Quy tắc: Mô hình hóa các Bất biến Thực sự trong Ranh giới Nhất quán (Consistency Boundaries) | 353 |
+| ├── Quy tắc: Thiết kế các Aggregate Nhỏ | 355 |
+| │ └── Đừng vội Tin vào Mọi Use Case | 358 |
+| ├── Quy tắc: Tham chiếu các Aggregate Khác thông qua Định danh (Identity) | 359 |
+| │ ├── Phối hợp các Aggregate với nhau thông qua Tham chiếu Định danh (Identity References) | 361 |
+| │ ├── Điều hướng Mô hình (Model Navigation) | 362 |
+| │ └── Khả năng Mở rộng và Quy tắc Phân tán | 363 |
+| ├── Quy tắc: Sử dụng Tính Nhất quán Cuối cùng Bên ngoài Ranh giới (Boundary) | 364 |
+| │ └── Hãy Hỏi Xem Đó là Trách nhiệm của Ai (Whose Job It Is) | 366 |
+| ├── Những Lý do để Phá vỡ Quy tắc (Reasons to Break the Rules) | 367 |
+| │ ├── Lý do thứ nhất: Tiện ích cho Giao diện Người dùng | 367 |
+| │ ├── Lý do thứ hai: Sự Thiếu hụt về Cơ chế Kỹ thuật | 368 |
+| │ ├── Lý do thứ ba: Giao dịch Toàn cục (Global Transactions) | 369 |
+| │ ├── Lý do thứ tư: Hiệu năng Truy vấn | 369 |
+| │ └── Tuân thủ Quy tắc | 370 |
+| ├── Tiếp nhận Thấu suốt qua Khám phá Đột phá (Gaining Insight through Discovery) | 370 |
+| │ ├── Tư duy lại về Thiết kế, một Lần nữa | 370 |
+| │ ├── Ước tính Chi phí Aggregate | 372 |
+| │ ├── Các Kịch bản Sử dụng Phổ biến | 373 |
+| │ ├── Mức Tiêu thụ Bộ nhớ | 374 |
+| │ ├── Khám phá một Thiết kế Thay thế Khác | 375 |
+| │ ├── Hiện thực hóa Tính Nhất quán Cuối cùng | 376 |
+| │ ├── Liệu Đó có Phải là Nhiệm vụ của Thành viên Nhóm? | 378 |
+| │ └── Thời điểm Đưa ra Quyết định | 379 |
+| ├── Hiện thực hóa | 380 |
+| │ ├── Tạo một Root Entity với Unique Identity | 380 |
+| │ ├── Ưu tiên các Thành phần là Value Object | 382 |
+| │ ├── Ứng dụng Định luật Demeter và Nguyên lý Tell, Don't Ask | 382 |
+| │ ├── Kiểm soát Đồng thời Lạc quan (Optimistic Concurrency) | 385 |
+| │ └── Tránh Dependency Injection (Tiêm phụ thuộc) | 387 |
+| └── Tổng kết | 388 |
+| **Chương 11: Factories (Chapter 11 Factories)** | **389** |
+| ├── Factories trong Domain Model | 389 |
+| ├── Phương thức Factory (Factory Method) trên Aggregate Root | 391 |
+| │ ├── Tạo các Thể hiện CalendarEntry | 392 |
+| │ └── Các Thể hiện Discussion | 395 |
+| ├── Tạo Factory trên Service | 397 |
+| └── Tổng kết | 400 |
+| **Chương 12: Repositories (12 Repositories)** | **401** |
+| ├── Repositories Hướng Tập hợp (Collection-Oriented Repositories) | 402 |
+| │ ├── Hiện thực hóa bằng Hibernate | 407 |
+| │ └── Những Cân nhắc khi Hiện thực hóa bằng TopLink | 416 |
+| ├── Repositories Hướng Lưu trữ Bền vững (Persistence-Oriented Repositories) | 418 |
+| │ ├── Hiện thực hóa với Coherence | 420 |
+| │ └── Hiện thực hóa với MongoDB | 425 |
+| ├── Hành vi Bổ sung | 430 |
+| ├── Quản lý Giao dịch (Managing Transactions) | 432 |
+| │ └── Một Lời cảnh báo | 437 |
+| ├── Phân cấp Kiểu dữ liệu (Type Hierarchies) | 437 |
+| ├── So sánh giữa Repository và Data Access Object (DAO) | 440 |
+| ├── Kiểm thử Repositories | 441 |
+| │ └── Kiểm thử với các Hiện thực hóa Trong Bộ nhớ (In-Memory) | 445 |
+| └── Tổng kết | 448 |
+| **Chương 13: Tích hợp các Bounded Contexts** | **449** |
+| ├── Nền tảng Tích hợp (Integration Basics) | 450 |
+| │ ├── Các Hệ thống Phân tán về Căn bản là Hoàn toàn Khác biệt | 451 |
+| │ └── Trao đổi Thông tin vượt qua Ranh giới Hệ thống | 452 |
+| ├── Tích hợp Sử dụng các Tài nguyên RESTful (RESTful Resources) | 458 |
+| │ ├── Hiện thực hóa Tài nguyên RESTful | 459 |
+| │ └── Hiện thực hóa REST Client Sử dụng một Anticorruption Layer (Tầng Chống suy thoái / ACL) | 463 |
+| ├── Tích hợp Sử dụng Hệ thống Tin nhắn (Messaging) | 469 |
+| │ ├── Luôn Cập nhật Thông tin về các Product Owner và Thành viên Nhóm (and Team Members) | 469 |
+| │ ├── Bạn có Đảm đương nổi Trách nhiệm này? | 476 |
+| │ ├── Các Tiến trình Kéo dài, và Cách Tránh Né Trách nhiệm | 481 |
+| │ ├── Máy Trạng thái Tiến trình và Bộ Theo dõi Hết hạn (Time-out Trackers) | 493 |
+| │ ├── Thiết kế một Tiến trình Tinh vi và Chặt chẽ hơn | 503 |
+| │ └── Khi Hệ thống Tin nhắn hoặc Hệ thống của Bạn Bị gián đoạn | 507 |
+| └── Tổng kết | 508 |
+| **Chương 14: Tầng Ứng dụng (Chapter 14 Application)** | **509** |
+| └── Giao diện Người dùng (User Interface) | 512 |
+|   ├── Hiển thị Domain Objects | 512 |
+|   ├── Dựng hình Data Transfer Object từ các Thể hiện Aggregate (from Aggregate Instances) | 513 |
+|   ├── Sử dụng Mediator để Phát hành Trạng thái Nội bộ của Aggregate (Aggregate Internal State) | 514 |
+|   └── Hiển thị các Thể hiện Aggregate từ một Domain Object Payload (Tải trọng Dữ liệu) | 515 |

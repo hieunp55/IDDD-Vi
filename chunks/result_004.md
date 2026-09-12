@@ -8,18 +8,45 @@ Hầu như mọi framework trên thị trường ngày nay đều đòi hỏi, v
 
 Được rồi, hãy giả sử chúng ta đều đồng ý rằng điều này vừa là sự thật vừa gây phiền toái lớn cho chúng ta. Vậy tình trạng thiếu máu khắp mọi nơi thì có liên quan gì đến chứng mất trí nhớ (memory loss)? Khi bạn đọc qua mã nguồn client của một Anemic Domain Model (Mô hình Miền Thiếu máu) — ví dụ như một Application Service (Dịch vụ Ứng dụng) (4, 14) mạo danh, vận hành theo phong cách Transaction Script (Kịch bản Giao dịch) — chúng ta thường thấy những gì? Dưới đây là một ví dụ sơ đẳng:
 
+```java
+@Transactional
+public void saveCustomer(
+        String customerId,
+        String customerFirstName,
+        String customerLastName,
+        String streetAddress1,
+        String streetAddress2,
+        String city,
+        String stateOrProvince,
+        String postalCode,
+        String country,
+        String homePhone,
+        String mobilePhone,
+        String primaryEmailAddress,
+        String secondaryEmailAddress) {
 
-```
+    Customer customer = customerDao.readCustomer(customerId);
 
-@Transactional public void saveCustomer( String customerId, String customerFirstName, String customerLastName, String streetAddress1, String streetAddress2, String city, String stateOrProvince, String postalCode, String country, String homePhone, String mobilePhone, String primaryEmailAddress, String secondaryEmailAddress) { Customer customer = customerDao.readCustomer(customerId); if (customer == null) { customer = new Customer(); customer.setCustomerId(customerId); } customer.setCustomerFirstName(customerFirstName); customer.setCustomerLastName(customerLastName); customer.setStreetAddress1(streetAddress1); customer.setStreetAddress2(streetAddress2); customer.setCity(city); customer.setStateOrProvince(stateOrProvince); customer.setPostalCode(postalCode); customer.setCountry(country); customer.setHomePhone(homePhone); customer.setMobilePhone(mobilePhone);
+    if (customer == null) {
+        customer = new Customer();
+        customer.setCustomerId(customerId);
+    }
 
-```
+    customer.setCustomerFirstName(customerFirstName);
+    customer.setCustomerLastName(customerLastName);
+    customer.setStreetAddress1(streetAddress1);
+    customer.setStreetAddress2(streetAddress2);
+    customer.setCity(city);
+    customer.setStateOrProvince(stateOrProvince);
+    customer.setPostalCode(postalCode);
+    customer.setCountry(country);
+    customer.setHomePhone(homePhone);
+    customer.setMobilePhone(mobilePhone);
+    customer.setPrimaryEmailAddress(primaryEmailAddress);
+    customer.setSecondaryEmailAddress(secondaryEmailAddress);
 
-
-```
-
-customer.setPrimaryEmailAddress(primaryEmailAddress); customer.setSecondaryEmailAddress (secondaryEmailAddress); customerDao.saveCustomer(customer); }
-
+    customerDao.saveCustomer(customer);
+}
 ```
 
 ## Ví dụ Được Chủ ý Giữ ở Mức Đơn giản (Example Purposely Kept Simple)
@@ -30,22 +57,75 @@ Phải thừa nhận rằng ví dụ này không bắt nguồn từ một miền
 
 Hay thực ra không phải vậy? Thực tế là, chúng ta hoàn toàn không biết phương thức saveCustomer() này được sử dụng trong những tình huống nghiệp vụ nào — ít nhất là không thể biết một cách chính xác. Tại sao phương thức này lại được tạo ra ngay từ đầu? Liệu có ai còn nhớ ý đồ ban đầu của nó, cùng toàn bộ những động cơ thúc đẩy việc thay đổi nó để phục vụ cho hàng loạt mục tiêu kinh doanh khác nhau không? Những ký ức đó rất có thể đã bị lãng quên chỉ vài tuần hoặc vài tháng sau khi phương thức này được tạo ra và liên tục bị chắp vá sửa đổi. Và mọi chuyện thậm chí còn tồi tệ hơn thế. Bạn không tin tôi ư? Hãy nhìn vào phiên bản tiếp theo của chính phương thức này:
 
+```java
+@Transactional
+public void saveCustomer(
+        String customerId,
+        String customerFirstName,
+        String customerLastName,
+        String streetAddress1,
+        String streetAddress2,
+        String city,
+        String stateOrProvince,
+        String postalCode,
+        String country,
+        String homePhone,
+        String mobilePhone,
+        String primaryEmailAddress,
+        String secondaryEmailAddress) {
 
-```
+    Customer customer = customerDao.readCustomer(customerId);
 
-@Transactional public void saveCustomer( String customerId, String customerFirstName, String customerLastName, String streetAddress1, String streetAddress2, String city, String stateOrProvince, String postalCode, String country, String homePhone, String mobilePhone, String primaryEmailAddress, String secondaryEmailAddress) { Customer customer = customerDao.readCustomer(customerId); if (customer == null) { customer = new Customer(); customer.setCustomerId(customerId); }
-
+    if (customer == null) {
+        customer = new Customer();
+        customer.setCustomerId(customerId);
+    }
 ```
 
 ![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000011_3c278de4902b4c455f72af13e274d5a21452e69ef8eb37ec0d8528a9be4e07c0.png)
 
 ![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000012_71c1d3da411602291a52df6a625bf692a358f41178cd87dfae5034535d2d53e3.png)
 
+```java
+    if (customerFirstName != null) {
+        customer.setCustomerFirstName(customerFirstName);
+    }
+    if (customerLastName != null) {
+        customer.setCustomerLastName(customerLastName);
+    }
+    if (streetAddress1 != null) {
+        customer.setStreetAddress1(streetAddress1);
+    }
+    if (streetAddress2 != null) {
+        customer.setStreetAddress2(streetAddress2);
+    }
+    if (city != null) {
+        customer.setCity(city);
+    }
+    if (stateOrProvince != null) {
+        customer.setStateOrProvince(stateOrProvince);
+    }
+    if (postalCode != null) {
+        customer.setPostalCode(postalCode);
+    }
+    if (country != null) {
+        customer.setCountry(country);
+    }
+    if (homePhone != null) {
+        customer.setHomePhone(homePhone);
+    }
+    if (mobilePhone != null) {
+        customer.setMobilePhone(mobilePhone);
+    }
+    if (primaryEmailAddress != null) {
+        customer.setPrimaryEmailAddress(primaryEmailAddress);
+    }
+    if (secondaryEmailAddress != null) {
+        customer.setSecondaryEmailAddress(secondaryEmailAddress);
+    }
 
-```
-
-if (customerFirstName != null) { customer.setCustomerFirstName(customerFirstName); } if (customerLastName != null) { customer.setCustomerLastName(customerLastName); } if (streetAddress1 != null) { customer.setStreetAddress1(streetAddress1); } if (streetAddress2 != null) { customer.setStreetAddress2(streetAddress2); } if (city != null) { customer.setCity(city); } if (stateOrProvince != null) { customer.setStateOrProvince(stateOrProvince); } if (postalCode != null) { customer.setPostalCode(postalCode); } if (country != null) { customer.setCountry(country); } if (homePhone != null) { customer.setHomePhone(homePhone); } if (mobilePhone != null) { customer.setMobilePhone(mobilePhone); } if (primaryEmailAddress != null) { customer.setPrimaryEmailAddress(primaryEmailAddress); } if (secondaryEmailAddress != null) { customer.setSecondaryEmailAddress (secondaryEmailAddress); } customerDao.saveCustomer(customer); }
-
+    customerDao.saveCustomer(customer);
+}
 ```
 
 Tôi phải lưu ý tại đây rằng ví dụ này vẫn chưa phải là tình huống tồi tệ nhất. Rất nhiều lần mã nguồn ánh xạ dữ liệu (data-mapping code) trở nên cực kỳ phức tạp, và hàng tá logic nghiệp vụ bị nhồi nhét, che giấu bên trong đó. Tôi đã lược bớt những phần tệ hại nhất trong ví dụ này, nhưng có lẽ chính bạn cũng đã từng tận mắt chứng kiến điều đó rồi.
@@ -150,11 +230,18 @@ Vì lời nói của cả nhóm và mã nguồn sẽ là biểu đạt trường
 
 Với hiểu biết này, chúng ta có thể thiết kế lại ví dụ saveCustomer(). Sẽ ra sao nếu chúng ta chọn cách biến Customer phản ánh trọn vẹn từng mục tiêu kinh doanh khả dĩ mà nó bắt buộc phải hỗ trợ?
 
-
-```
-
-public interface Customer { public void changePersonalName( String firstName, String lastName); public void postalAddress(PostalAddress postalAddress); public void relocateTo(PostalAddress changedPostalAddress); public void changeHomeTelephone(Telephone telephone); public void disconnectHomeTelephone(); public void changeMobileTelephone(Telephone telephone); public void disconnectMobileTelephone(); public void primaryEmailAddress(EmailAddress emailAddress); public void secondaryEmailAddress(EmailAddress emailAddress); }
-
+```java
+public interface Customer {
+    public void changePersonalName(String firstName, String lastName);
+    public void postalAddress(PostalAddress postalAddress);
+    public void relocateTo(PostalAddress changedPostalAddress);
+    public void changeHomeTelephone(Telephone telephone);
+    public void disconnectHomeTelephone();
+    public void changeMobileTelephone(Telephone telephone);
+    public void disconnectMobileTelephone();
+    public void primaryEmailAddress(EmailAddress emailAddress);
+    public void secondaryEmailAddress(EmailAddress emailAddress);
+}
 ```
 
 Chúng ta có thể tranh luận rằng đây chưa phải là mô hình tối ưu nhất cho một Customer, nhưng khi triển khai DDD, việc hoài nghi và đặt dấu hỏi về thiết kế là điều luôn được mong đợi. Với tư cách là một đội ngũ, chúng ta có toàn quyền giằng co, tranh luận xem đâu là mô hình tốt nhất và chỉ chốt lại sau khi đã khám phá ra một Ubiquitous Language nhận được sự đồng thuận. Dẫu sao, giao diện ở trên đã phản ánh một cách tường minh các mục tiêu nghiệp vụ khác nhau mà một Customer bắt buộc phải hỗ trợ, ngay cả khi Ngôn ngữ đó hoàn toàn có thể được cải tiến thông qua việc tinh chỉnh lặp đi lặp lại nhiều lần.
@@ -165,11 +252,21 @@ Chúng ta có thể tranh luận rằng đây chưa phải là mô hình tối �
 
 Một điều quan trọng nữa cần hiểu là bản thân Application Service cũng sẽ được tái cấu trúc để phản ánh các chủ đích tường minh của những mục tiêu nghiệp vụ trước mắt. Mỗi phương thức của Application Service sẽ được sửa đổi để chỉ xử lý một luồng trường hợp sử dụng (use case flow) hoặc một câu chuyện người dùng (user story) duy nhất:
 
+```java
+@Transactional
+public void changeCustomerPersonalName(
+        String customerId,
+        String customerFirstName,
+        String customerLastName) {
 
-```
+    Customer customer = customerRepository.customerOfId(customerId);
 
-@Transactional public void changeCustomerPersonalName( String customerId, String customerFirstName, String customerLastName) { Customer customer = customerRepository.customerOfId(customerId); if (customer == null) { throw new IllegalStateException("Customer does not exist."); } customer.changePersonalName(customerFirstName, customerLastName); }
+    if (customer == null) {
+        throw new IllegalStateException("Customer does not exist.");
+    }
 
+    customer.changePersonalName(customerFirstName, customerLastName);
+}
 ```
 
 Cách làm này hoàn toàn khác biệt so với ví dụ ban đầu, bởi trong đoạn mã cũ đó, một phương thức đơn lẻ bị đem ra để xử lý quá nhiều luồng use case hoặc user story khác nhau. Trong ví dụ mới, chúng ta đã giới hạn một phương thức Application Service duy nhất chỉ phục vụ cho việc đổi tên cá nhân của Customer, và không làm gì khác ngoài việc đó. Do vậy, khi áp dụng DDD, nhiệm vụ của chúng ta là tinh chỉnh các Application Services theo đúng tinh thần đó. Điều này ngụ ý rằng giao diện người dùng tương ứng cũng sẽ phản ánh một mục tiêu hẹp hơn của người dùng — điều mà trước đây có thể đã đúng. Tuy nhiên, giờ đây phương thức Application Service cụ thể này không còn bắt client của nó phải truyền vào mười giá trị null đằng sau hai tham số họ và tên nữa.
@@ -321,20 +418,30 @@ Một lần nữa, điều gì sẽ xảy ra nếu chúng ta chỉ đơn thuần
 
 Ví dụ đầu tiên, như cách người ta vẫn thường làm phổ biến ngày nay, sử dụng các bộ truy cập thuộc tính:
 
+```java
+public class BacklogItem extends Entity {
+    private SprintId sprintId;
+    private BacklogItemStatusType status;
+    ...
 
-```
+    public void setSprintId(SprintId sprintId) {
+        this.sprintId = sprintId;
+    }
 
-public class BacklogItem extends Entity { private SprintId sprintId; private BacklogItemStatusType status; ... public void setSprintId(SprintId sprintId) { this.sprintId = sprintId; } public void setStatus(BacklogItemStatusType status) { this.status = status; } ... }
-
+    public void setStatus(BacklogItemStatusType status) {
+        this.status = status;
+    }
+    ...
+}
 ```
 
 ## Về phía client của mô hình này: (As for the client of this model:)
 
-
-```
-
-// client commit backlog item vào một sprint // bằng cách thiết lập sprintId và status của nó backlogItem.setSprintId(sprintId); backlogItem.setStatus(BacklogItemStatusType.COMMITTED);
-
+```java
+// client commit backlog item vào một sprint
+// bằng cách thiết lập sprintId và status của nó
+backlogItem.setSprintId(sprintId);
+backlogItem.setStatus(BacklogItemStatusType.COMMITTED);
 ```
 
 Ví dụ thứ hai sử dụng một hành vi của đối tượng miền thể hiện đúng Ubiquitous Language của miền nghiệp vụ:
@@ -343,20 +450,43 @@ Ví dụ thứ hai sử dụng một hành vi của đối tượng miền thể
 
 ![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000023_0419b355ecddc49d3bd5201f0db34656b7710722b281496279f0e20a4def5de9.png)
 
+```java
+public class BacklogItem extends Entity {
+    private SprintId sprintId;
+    private BacklogItemStatusType status;
+    ...
 
-```
+    public void commitTo(Sprint aSprint) {
+        if (!this.isScheduledForRelease()) {
+            throw new IllegalStateException("Must be scheduled for release to commit to sprint.");
+        }
 
-public class BacklogItem extends Entity { private SprintId sprintId; private BacklogItemStatusType status; ... public void commitTo(Sprint aSprint) { if (!this.isScheduledForRelease()) { throw new IllegalStateException( "Must be scheduled for release to commit to sprint."); } if (this.isCommittedToSprint()) { if (!aSprint.sprintId().equals(this.sprintId())) { this.uncommitFromSprint(); } } this.elevateStatusWith(BacklogItemStatus.COMMITTED); this.setSprintId(aSprint.sprintId()); DomainEventPublisher .instance() .publish(new BacklogItemCommitted( this.tenant(), this.backlogItemId(), this.sprintId())); } ... }
+        if (this.isCommittedToSprint()) {
+            if (!aSprint.sprintId().equals(this.sprintId())) {
+                this.uncommitFromSprint();
+            }
+        }
 
+        this.elevateStatusWith(BacklogItemStatus.COMMITTED);
+        this.setSprintId(aSprint.sprintId());
+
+        DomainEventPublisher
+            .instance()
+            .publish(new BacklogItemCommitted(
+                this.tenant(),
+                this.backlogItemId(),
+                this.sprintId()));
+    }
+    ...
+}
 ```
 
 Client của mô hình tường minh này dường như đang hoạt động trên một vùng đất an toàn hơn rất nhiều:
 
-
-```
-
-// client commit backlog item vào một sprint // bằng cách sử dụng hành vi đặc thù của miền backlogItem.commitTo(sprint);
-
+```java
+// client commit backlog item vào một sprint
+// bằng cách sử dụng hành vi đặc thù của miền
+backlogItem.commitTo(sprint);
 ```
 
 Ví dụ đầu tiên sử dụng một cách tiếp cận mang nặng tính hướng dữ liệu (data-centric). Trọng trách lúc này bị đẩy hoàn toàn về phía client trong việc phải biết làm thế nào để commit backlog item vào sprint một cách chuẩn xác. Mô hình này — vốn không thực sự là một domain model — hoàn toàn không giúp ích được gì. Sẽ ra sao nếu client sơ suất chỉ thay đổi mỗi sprintId mà quên cập nhật status, hoặc ngược lại? Hay điều gì sẽ xảy ra nếu trong tương lai có thêm một thuộc tính khác bắt buộc phải được thiết lập? Mã nguồn của client sẽ phải được phân tích kỹ lưỡng để đảm bảo ánh xạ chuẩn xác các giá trị dữ liệu vào các thuộc tính thích hợp trên BacklogItem.
@@ -416,4 +546,4 @@ Bản thân loại hình của miền nghiệp vụ không tự động trở th
 - Liệu việc phát triển có thực sự đơn giản hơn và đòi hỏi ít mã nguồn hơn nếu bạn sử dụng Transaction Script hay không? (Kinh nghiệm thực tế với cả hai cách tiếp cận chứng minh rằng rất nhiều lần Transaction Script đòi hỏi lượng mã nguồn tương đương hoặc thậm chí nhiều hơn. Điều này có lẽ là do độ phức tạp của miền và tính đổi mới của mô hình chưa được thấu hiểu thấu đáo trong giai đoạn lập kế hoạch dự án. Việc đánh giá thấp độ phức tạp của miền và tính đột phá liên quan là điều diễn ra rất thường xuyên.)
 - Liệu đường găng (critical path) và tiến độ thời gian của dự án có cho phép dành ra những chi phí gián tiếp (overhead) cần thiết cho khoản đầu tư chiến thuật hay không?
 
-[1]: Ở đây tôi đang khái quát hóa các thuật ngữ. Trong danh sách này, tôi sử dụng Transaction Script để đại diện cho một số cách tiếp cận không sử dụng mô hình miền (non-domain-model approaches).
+[^1]: Ở đây tôi đang khái quát hóa các thuật ngữ. Trong danh sách này, tôi sử dụng Transaction Script để đại diện cho một số cách tiếp cận không sử dụng mô hình miền (non-domain-model approaches).

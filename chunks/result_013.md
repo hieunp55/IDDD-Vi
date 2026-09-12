@@ -30,6 +30,10 @@ Ngay cả khi chúng ta có một Entity với các thuộc tính/đặc tính h
 
 Trong ngôn ngữ mẫu (pattern language) Checks của mình, Ward Cunningham [Cunningham, Checks] đã đề cập đến một số phương pháp tiếp cận việc xác thực. Một phương pháp hữu ích cho toàn bộ đối tượng là Xác thực Trì hoãn (Deferred Validation). Ward cho biết đây là "một loại kiểm tra nên được trì hoãn cho đến thời điểm muộn nhất có thể." Nó bị trì hoãn vì đây là một loại xác thực rất chi tiết, một quy trình mà chúng ta sẽ chạy trên ít nhất một đối tượng phức tạp, hoặc thậm chí là một tổ hợp các đối tượng. Vì lý do đó, chúng ta sẽ thảo luận về Deferred Validation ở phần sau như một phương tiện để giải quyết các cấu trúc tổng hợp đối tượng lớn hơn. Trong tiểu mục này, tôi giới hạn phạm vi xác thực trong những gì Ward gọi là "các bước kiểm tra của những hoạt động đơn giản hơn."
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000219_b01e809077de1fbadacdb993273e3017912d4efad6056a734696da01d292c345.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000220_5f2e2c9d51eecfcec8a10d1a19b4d268eb1e4949a2bfcfb2bea77322a23979c9.png)
+
 Bởi vì toàn bộ trạng thái của Entity phải sẵn sàng cho quá trình xác thực, một số người có thể xem đây là thời điểm thích hợp để nhúng trực tiếp logic xử lý xác thực vào bên trong chính Entity đó. Hãy hết sức thận trọng ở điểm này. Nhiều khi, logic xác thực của một đối tượng miền thay đổi thường xuyên hơn chính bản thân đối tượng miền đó. Việc nhúng logic xác thực vào bên trong một Entity cũng gán cho nó quá nhiều trách nhiệm. Bản thân nó vốn đã gánh vác trách nhiệm xử lý hành vi nghiệp vụ của miền trong khi duy trì trạng thái của chính mình.
 
 Một thành phần xác thực có trách nhiệm xác định xem trạng thái của Entity có hợp lệ hay không. Khi thiết kế một lớp xác thực riêng biệt bằng Java, hãy đặt nó trong cùng một Module (gói/package) với Entity. Giả sử sử dụng Java, hãy khai báo các phương thức đọc (read accessor) của thuộc tính/đặc tính với phạm vi tối thiểu là protected/package, và public cũng hoàn toàn ổn. Phạm vi private sẽ không cho phép lớp xác thực đọc được trạng thái cần thiết. Nếu lớp xác thực không được đặt trong cùng một Module với Entity, mọi phương thức truy xuất thuộc tính/đặc tính bắt buộc phải là public, điều vốn không mong muốn trong nhiều trường hợp.
@@ -104,6 +108,10 @@ class WarbleValidator extends Validator {
 }
 
 ```
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000221_8b3d290d9fc45d0a8fd7864eeabe45e0b0c34d37af36530cb2c88e2d2b449a7c.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000222_09160f4047ba47845d9b9e844147bc4de020d0fe3b2f2e4cc70c73144dc4b443.png)
 
 Cách này có ưu điểm là không làm ràng buộc (coupling) các thông điệp lỗi, hoặc các khóa thuộc tính thông điệp (message property key), hay bất kỳ điều gì mang tính đặc thù của việc thông báo, vào tiến trình xác thực. Tuyệt vời hơn nữa, hãy đặt việc xử lý thông báo vào bên trong phương thức kiểm tra:
 
@@ -185,6 +193,10 @@ Chúng ta có thể sử dụng Deferred Validation cho những trường hợp 
 
 Hãy quyết định xem liệu việc xác thực có phù hợp ở mọi thời điểm hay không. Đôi khi, một Aggregate hoặc một tập hợp các Aggregate lại đang nằm ở một trạng thái trung gian, tạm thời. Có lẽ chúng ta có thể mô hình hóa một trường trạng thái (status) trên một Aggregate để biểu thị điều này, nhằm ngăn chặn việc kích hoạt xác thực vào những thời điểm không thích hợp. Khi các điều kiện đã chín muồi cho việc xác thực, mô hình có thể thông báo cho các client bằng cách phát đi một Domain Event (sự kiện miền):
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000223_0dc27fb0ec7477d03cf4337a4e986def079973bf72204ed71f080ff9a37e64fc.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000224_c8edd9e43ed4b6f60724dfe5ce9ee15ea9161eeef1207cbf682d2bf170039e9b.png)
+
 ```java
 public class SomeApplicationService ... {
     ...
@@ -220,6 +232,8 @@ Cách thiết thực nhất để đạt được khả năng theo dõi thay đ�
 
 Các chuyên gia nghiệp vụ có thể không bận tâm đến từng thay đổi nhỏ nhặt trong mô hình, nhưng đội ngũ kỹ thuật có thể vẫn quan tâm. Điều này thường xuất phát từ các lý do kỹ thuật, bằng cách áp dụng một mẫu thiết kế có tên là Event Sourcing (nguồn sự kiện) (4).
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000225_9b7f540b04fd2edf533187b7e9cb8462332c8ea87054dc0b8e7fe0921046c116.png)
+
 ## Tổng kết (Wrap-Up)
 
 Chúng ta đã đi qua toàn bộ các chủ đề liên quan đến Entity. Dưới đây là phần tóm lược những gì bạn đã tìm hiểu:
@@ -232,6 +246,8 @@ Chúng ta đã đi qua toàn bộ các chủ đề liên quan đến Entity. Dư
 * Cuối cùng, bạn đã đi sâu vào chi tiết cách khởi tạo Entity, cách xác thực chúng, và cách theo dõi các thay đổi của chúng khi cần thiết.
 
 Tiếp theo, chúng ta sẽ cùng tìm hiểu về một khối xây dựng vô cùng quan trọng trong số các công cụ mô hình hóa chiến thuật (tactical modeling tools): Value Object (đối tượng giá trị).
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000226_6fc599744fe7b80c45c6d61300c97101eed47f1ba5ad743d54fcd6378f32f56b.png)
 
 Trang này được chủ ý để trống
 
@@ -258,7 +274,11 @@ Có thể bạn sẽ ngạc nhiên khi biết rằng chúng ta nên cố gắng 
 * Xem xét bài học mà SaaSOvation đã rút ra về tầm quan trọng của Value.
 * Tìm hiểu cách các đội ngũ tại SaaSOvation kiểm thử, triển khai và lưu trữ bền vững (persist) các kiểu Value của họ.
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000227_8e14e581e74a097a1e3188bb68d845786497a999bf601d499ca7f290c72f92bd.png)
+
 Ban đầu, các đội ngũ tại SaaSOvation đã lạm dụng quá mức việc sử dụng Entity. Tình trạng này thực tế đã bắt đầu diễn ra từ rất lâu trước khi các khái niệm `User` và `Permission` bị đan xen chằng chéo với hoạt động cộng tác (collaboration). Ngay từ khi dự án mới khởi động, họ đã đi theo lối tư duy phổ biến cho rằng mọi thành phần trong domain model của họ đều cần phải được ánh xạ sang một bảng cơ sở dữ liệu riêng, và rằng tất cả các thuộc tính đều phải dễ dàng
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000228_6bd5cbdf9579874520827d0a7a503f698fc50e069c8af67b393b68582fa505a6.png)
 
 được thiết lập và truy xuất thông qua các phương thức accessor công khai (public). Vì mỗi đối tượng đều sở hữu một khóa chính (primary key) trong cơ sở dữ liệu, mô hình đã bị khâu chặt lại với nhau thành một đồ thị đối tượng khổng lồ và phức tạp. Ý niệm đó chủ yếu xuất phát từ góc nhìn mô hình hóa dữ liệu mà hầu hết các nhà phát triển thường mắc phải khi bị chi phối quá mức bởi các cơ sở dữ liệu quan hệ, nơi mọi thứ đều được chuẩn hóa (normalized) và tham chiếu thông qua các khóa ngoại (foreign key). Như sau này họ đã nhận ra, việc bị cuốn theo làn sóng tư duy thiên về thực thể không chỉ không cần thiết, mà còn gây tốn kém nhiều thời gian và công sức phát triển hơn.
 
@@ -298,6 +318,10 @@ Khi bạn có một Value Object thực thụ trong mô hình của mình, dù b
 Một đối tượng là một Value thì không thể thay đổi được sau khi nó đã được tạo ra. 1 Khi lập trình bằng Java hoặc C#, chẳng hạn, bạn sử dụng một trong các hàm khởi tạo (constructor) của lớp Value để tạo ra một thể hiện, truyền vào dưới dạng tham số tất cả các đối tượng mà trạng thái của nó sẽ dựa vào. Các tham số này có thể là các đối tượng sẽ trực tiếp đóng vai trò làm thuộc tính của Value, hoặc chúng có thể là các đối tượng được sử dụng để suy ra một hoặc nhiều thuộc tính mới được cấu thành trong quá trình khởi tạo. Dưới đây là một ví dụ về một kiểu Value Object giữ một tham chiếu tới một Value Object khác:
 
 1. Đôi khi một Value Object có thể được thiết kế ở dạng có thể biến đổi (mutable), nhưng nhu cầu này thường rất hiếm gặp. Tôi không đi sâu vào các Value khả biến ở đây. Nếu bạn quan tâm đến thời điểm nên sử dụng một kiểu Value khả biến, vui lòng xem khung ghi chú ở trang 101 của cuốn sách [Evans].
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000229_90b985c96e17dc6d4ed8b7e8e2b18e0c512137c5d5cc880d9da95a6586ab9b3c.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000230_c3d05f5625e41601eeff02ff5fcf1fe1c9b86eda96d3dba20818470a0219846a.png)
 
 ```java
 package com.saasovation.agilepm.domain.model.product;
@@ -347,6 +371,10 @@ public class ThingOfWorth {
 Trong ví dụ này, mô hình và các client của nó phải tự biết khi nào và làm thế nào để sử dụng kết hợp `amount` và `currency` với nhau, bởi vì chúng không tạo thành một chỉnh thể khái niệm. Điều này đòi hỏi một cách tiếp cận tốt hơn.
 
 3. Còn được gọi là Meaningful Whole (Chỉnh thể Có ý nghĩa).
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000231_04a99fda6f30e063a579d0decaa370e00800aea36b395050ad3077497dbf7c27.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000232_d901a99aa225e365c7e0fd8695e27dbd7feabadf3438bbfb205b93681ea4a30d.png)
 
 Để mô tả đúng đắn giá trị của một sự vật, nó không được xem như hai thuộc tính tách rời, mà phải được đối xử như một giá trị toàn vẹn: `{50.000.000 đô la}`. Dưới đây là cách nó được mô hình hóa dưới dạng một Whole Value:
 
@@ -400,6 +428,10 @@ Dưới đây là một góc nhìn khác về việc lạm dụng các kiểu d�
 > 💡 **Giải thích thêm:** Tác giả sử dụng thuật ngữ ẩn dụ từ môn bóng chày: *"Strike one... Strike two... Big swing and a miss. Strike three"* (Lần đánh bóng trượt thứ nhất, thứ hai, và thứ ba — dẫn đến việc cầu thủ bị loại khỏi lượt đánh / "strike out"). Ẩn dụ này nhằm nhấn mạnh rằng việc monkey-patch (vá nóng mã nguồn) kiểu `Double` để xử lý tiền tệ mắc phải 3 sai lầm chết người liên tiếp, và đến sai lầm thứ 3 (không phản ánh Ubiquitous Language) thì thiết kế này hoàn toàn thất bại.
 > Nguồn tham khảo: (Không có nguồn trích dẫn xác thực — cần tự kiểm chứng thêm)
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000233_ae5150a89533fb1e5d096776baedc5ab826ebb5a37ca36f398fc7c8818baf8a5.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000234_1bd6c303c6f0a30a2109e60f5d4359c36b051334057f299440fd941c358d06f1.png)
+
 ## Thách thức các giả định của bạn (Challenge Your Assumptions)
 
 Nếu bạn đang bị cám dỗ bởi việc đặt nhiều thuộc tính lên một Entity mà kết quả là làm suy yếu mối liên kết giữa các thuộc tính đó với nhau, thì rất có khả năng các thuộc tính đó nên được gom lại thành một kiểu Value duy nhất, hoặc nhiều kiểu Value. Mỗi kiểu Value nên tạo thành một chỉnh thể khái niệm phản ánh tính gắn kết cao, được đặt tên một cách thích hợp theo Ubiquitous Language của bạn. Nếu dù chỉ một thuộc tính gắn liền với một khái niệm mang tính mô tả, rất có thể việc tập trung hóa tất cả các mối bận tâm của khái niệm này sẽ nâng cao sức mạnh cho mô hình. Nếu một hoặc nhiều thuộc tính buộc phải thay đổi theo thời gian, hãy cân nhắc việc hoán đổi toàn bộ Whole Value thay vì duy trì một Entity xuyên suốt một vòng đời dài đằng đẵng.
@@ -451,6 +483,10 @@ public boolean equals(Object anObject) {
         FullName typedObject = (FullName) anObject;
 
 ```
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000235_6d3ccc114eb64b1d476acc9a6456245b572c0d3c5a23259ddbc9c12bfafb1e2d.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000236_1f6a9ede83f6d2d479cca3cd306d8f2b776dbcf63cec9487d2fd868e51a429d8.png)
 
 ```java
         equalObjects =
@@ -518,6 +554,10 @@ public FullName withMiddleInitial(String aMiddleNameOrInitial) {
 
 ```
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000237_fa2ffaaf1d0ae4e561537c8a5ac8b1c566b8d506ab356c78393980bcbc051160.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000238_f54a2018a99c1b85611719095d4dbc8da4eda0f7ac4eabde34dc6a799bc426df.png)
+
 Trong ví dụ này, phương thức `withMiddleInitial()` không hề làm biến đổi trạng thái của chính bản thân thể hiện Value của nó, và do đó, nó hoàn toàn không gây tác dụng phụ. Thay vào đó, nó khởi tạo một thể hiện Value mới được cấu thành từ một số thành phần sẵn có của chính nó kết hợp với chữ cái đầu của tên đệm được cung cấp. Phương thức này đã đóng gói logic nghiệp vụ quan trọng của miền vào ngay bên trong mô hình thay vì để nó bị rò rỉ ra ngoài mã nguồn của client, điều vốn rất dễ xảy ra như trong ví dụ trước đó.
 
 ## Khi một Value tham chiếu tới một Entity (When a Value References an Entity)
@@ -555,6 +595,10 @@ Nếu bạn nghĩ rằng một phương thức cụ thể không thể không g�
 
 Một khi các đội ngũ tại SaaSOvation đọc được những chỉ dẫn của [Evans] về các Hàm Không Gây Tác dụng phụ, cùng các tài liệu khác về Whole Value, họ đã nhận ra rằng mình nên sử dụng các Value Object thường xuyên hơn rất nhiều. Các đội ngũ kể từ đó đã nhận thức được rằng việc thấu hiểu các đặc tính của Value nêu trên đã thực sự giúp họ khám phá ra nhiều kiểu Value tự nhiên hơn trong miền nghiệp vụ của mình.
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000239_3a8a0b8e557326f6c989bd4872bc989a1c75de11feeff96c5f24a006c2bf7cd6.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000240_9fd2a4909f97db32464d607e69828ec0288bbc14f41a744be39940c169081f09.png)
+
 ## Có phải mọi thứ đều là Value Object? (Is Everything a Value Object?)
 
 Đến lúc này, có thể bạn đã bắt đầu nghĩ rằng mọi thứ trông đều giống như một Value Object. Suy nghĩ đó vẫn tốt hơn là việc nghĩ rằng mọi thứ trông đều giống như một Entity. Nơi bạn có thể cần một chút thận trọng là khi gặp phải những thuộc tính thực sự đơn giản mà hoàn toàn không cần bất kỳ sự xử lý đặc biệt nào. Có lẽ đó là các biến kiểu Boolean hoặc bất kỳ giá trị số nào thực sự độc lập, không cần thêm sự hỗ trợ chức năng nào, và không liên quan đến bất kỳ thuộc tính nào khác trong cùng một Entity. Đứng một mình, các thuộc tính đơn giản đó đã là một Meaningful Whole. Dẫu vậy, bạn hoàn toàn có thể phạm phải "sai lầm" khi bao bọc không cần thiết một thuộc tính đơn lẻ vào trong một kiểu Value mà không có chức năng đặc biệt nào, và bạn vẫn ở vị thế tốt hơn nhiều so với những người không bao giờ thèm đoái hoài đến việc thiết kế Value. Nếu nhận thấy mình đã làm hơi quá tay một chút, bạn luôn có thể tái cấu trúc lại đôi chút.
@@ -570,3 +614,5 @@ Việc sử dụng các Value bất biến đồng nghĩa với việc bạn gá
 Sử dụng lại một ví dụ từ chương Bounded Contexts (2), hãy nhớ lại rằng hai Aggregate trong *Identity and Access Context* ở thượng nguồn có tác động tới *Collaboration Context* ở hạ nguồn, như được minh họa trong Hình 6.1. Trong Identity and Access Context, hai Aggregate đó là `User` và `Role`. Collaboration Context quan tâm đến việc liệu một `User` cụ thể có đóng một `Role` cụ thể hay không, cụ thể là Moderator (Điều hành viên). Collaboration Context sử dụng Anticorruption Layer (Lớp Chống Tha hóa) (3) của mình để truy vấn Open Host Service (Dịch vụ Máy chủ Mở) (3) của Identity and Access Context. Nếu truy vấn tích hợp cho thấy vai trò Moderator đang được đảm nhiệm bởi người dùng cụ thể đó, Collaboration Context sẽ tạo ra một đối tượng đại diện, cụ thể là một `Moderator`.
 
 Hình 6.1 Đối tượng Moderator trong Context của nó dựa trên trạng thái của một User và Role trong một Context khác. User và Role là các Aggregate, nhưng Moderator lại là một Value Object.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000241_d04333eb041a7f254606b5537a7bc24752c7c3c121b68aeebeda48e912bc80a9.png)

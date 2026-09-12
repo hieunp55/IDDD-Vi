@@ -56,8 +56,11 @@ public enum GroupMemberType {
         return false;
     }
 }
-
 ```
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000245_0304db097907f8889611c813ca4b13a525d05ae30c34fbf88d2b09031397ad5d.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000246_6a8aeb6e1091a7b30f479b6703a8221851e93d6104f9c0925985320da681978b.png)
 
 Một thể hiện Value của GroupMember được khởi tạo với một GroupMemberType cụ thể. Để minh họa, khi một User hoặc một Group được gán vào một Group, Aggregate được gán sẽ được yêu cầu tạo ra một GroupMember tương ứng với chính nó. Dưới đây là phần hiện thực phương thức `toGroupMember()` của lớp User:
 
@@ -70,7 +73,6 @@ protected GroupMember toGroupMember() {
 
     return groupMember;
 }
-
 ```
 
 Việc sử dụng một enum trong Java là một cách rất đơn giản để hỗ trợ một Standard Type. Enum cung cấp một số lượng hữu hạn các Value được định nghĩa rõ ràng (trong trường hợp này là hai), rất nhẹ và theo quy ước nó sở hữu Side-Effect-Free Behavior (hành vi không gây tác dụng phụ). Nhưng phần mô tả bằng văn bản của Value nằm ở đâu? Có hai câu trả lời khả dĩ. Thông thường, không cần thiết phải cung cấp mô tả cho kiểu, mà chỉ cần tên của nó là đủ. Tại sao? Các mô tả bằng văn bản thường chỉ hợp lệ ở Tầng Giao diện Người dùng (User Interface Layer) (14) và có thể được cung cấp bằng cách ánh xạ tên kiểu với một thuộc tính hướng giao diện (view-centric property). Nhiều khi thuộc tính hướng giao diện này phải được bản địa hóa (như trong điện toán đa ngôn ngữ), khiến việc hỗ trợ nó trong mô hình trở nên không phù hợp. Thông thường, chỉ riêng tên của Standard Type đã là thuộc tính tốt nhất để sử dụng trong mô hình. Câu trả lời thứ hai là có các mô tả giới hạn được tích hợp ngay trong tên trạng thái enum là `GROUP` và `USER`. Bạn có thể xuất ra các tên mô tả bằng hành vi `toString()` của từng kiểu. Tuy nhiên, nếu cần thiết, văn bản mô tả của từng kiểu cũng có thể được mô hình hóa cùng.
@@ -91,6 +93,10 @@ Nếu bạn quyết định không thích dùng enum trong Java để hỗ trợ
 
 Như một giải pháp thay thế, bạn có thể sử dụng một Aggregate làm một Standard Type với một thể hiện của Aggregate cho mỗi kiểu. Hãy nghĩ kỹ trước khi vội vã làm theo cách này. Các kiểu chuẩn nhìn chung không nên được duy trì bên trong chính Bounded Context tiêu thụ chúng. Các Standard Type được sử dụng rộng rãi thông thường nên được duy trì trong một Context tách biệt với các bản cập nhật được lên kế hoạch rất cẩn thận gửi tới các bên tiêu thụ. Thay vào đó, bạn có thể chọn hiển thị các Aggregate Standard Type dưới dạng bất biến (immutable) trong các Context tiêu thụ. Nhưng hãy tự hỏi liệu một Entity bất biến thì theo định nghĩa có thực sự là một Entity hay không. Nếu bạn nghĩ là không, bạn nên cân nhắc mô hình hóa nó thành một Value Object bất biến dùng chung.
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000247_a20d3af92c177f7e2a09ea8d2fd08fb2338f1d39be3e04d20da22d56be8ef567.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000248_3bbc330703b1ab772ed61cf71814cbe8d2e0ec868f691edb4485a5ba88769042.png)
+
 Một Value Object bất biến dùng chung có thể được lấy từ một kho lưu trữ bền vững (persistence store) ẩn. Đây là một lựa chọn khả thi nếu được lấy từ một Standard Type Service (Dịch vụ Kiểu Chuẩn) (7) hoặc Factory (Nhà máy) (11). Nếu áp dụng, bạn có thể nên có một Service hoặc Factory provider cho mỗi tập hợp Standard Type (một cho các loại số điện thoại, một cái khác cho các loại địa chỉ bưu điện, một cho các loại tiền tệ), như được mô tả trong Hình 6.3. Trong cả hai trường hợp, các hiện thực cụ thể của một Service hoặc Factory sẽ truy cập kho lưu trữ bền vững để lấy các Value dùng chung khi cần, nhưng các client sẽ không bao giờ biết rằng các Value đó được lưu trữ trong một cơ sở dữ liệu chuẩn. Việc sử dụng Service hoặc Factory để cung cấp các kiểu cũng cho phép bạn áp dụng một số chiến lược bộ nhớ đệm (caching) khả thi một cách dễ dàng và an toàn vì các Value là chỉ đọc (read-only) từ kho lưu trữ và bất biến trong hệ thống.
 
 Sau cùng, tôi nghĩ tốt nhất là nên ưu tiên dùng enum cho Standard Types dù bạn có thực sự xem nó là một State hay không. Nếu bạn có nhiều thể hiện Standard Type khả dĩ trong một danh mục duy nhất, hãy xem xét việc sinh mã (code generation) để tạo ra enum. Chẳng hạn, một cách tiếp cận sinh mã có thể đọc qua tất cả các Standard Type hiện có trong kho lưu trữ bền vững tương ứng của chúng (system of record - hệ thống nguồn chân lý) và tạo ra một kiểu/trạng thái duy nhất cho mỗi dòng dữ liệu.
@@ -98,6 +104,8 @@ Sau cùng, tôi nghĩ tốt nhất là nên ưu tiên dùng enum cho Standard Ty
 Nếu bạn quyết định sử dụng các Value Object kinh điển làm Standard Types, bạn có thể thấy hữu ích khi giới thiệu một Service hoặc Factory để tạo các thể hiện tĩnh khi cần. Điều này cũng có các động lực tương tự như đã thảo luận trước đó nhưng sẽ khác biệt trong cách hiện thực so với những cơ chế tạo ra các Value dùng chung. Trong trường hợp này, Service hoặc Factory của bạn sẽ cung cấp các thể hiện Value bất biến được tạo tĩnh của từng Standard Type riêng lẻ. Bất kỳ thay đổi nào đối với các thực thể cơ sở dữ liệu Standard Type bên dưới trong hệ thống nguồn chân lý sẽ không tự động được phản ánh trong các thể hiện biểu diễn đã được tạo tĩnh từ trước. Nếu bạn muốn giữ cho các thể hiện Value được tạo tĩnh như vậy đồng bộ với hệ thống nguồn chân lý, bạn sẽ cần cung cấp một giải pháp tùy chỉnh để tìm kiếm và cập nhật trạng thái của chúng trong mô hình của mình. Điều này có thể triệt tiêu tính hữu ích tiềm năng của cách tiếp cận này. ⁴ Do đó, ngay từ khi bắt đầu thiết kế, bạn có thể xác định rằng tất cả các Value Standard Type được tạo tĩnh như vậy sẽ không bao giờ được cập nhật trong Bounded Context tiêu thụ. Mọi yếu tố cạnh tranh (competing forces) đều phải được cân nhắc kỹ lưỡng.
 
 Hình 6.3 Một Domain Service có thể được sử dụng để cung cấp các Standard Type. Trong trường hợp này, Service đi tới cơ sở dữ liệu để đọc trạng thái của một CurrencyType được yêu cầu.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000249_b03ac73335b984f96922d50bb5a492b2a2856df64d4bb2cf95de891bb7697307.png)
 
 ## Testing Value Objects
 
@@ -115,7 +123,13 @@ Value Object được chọn là một ví dụ đại diện toàn diện tốt
 
 ⁴. Đây sẽ là thời điểm thích hợp để mô hình hóa một Aggregate ở Context thượng nguồn cũng thành một Aggregate ở Context hạ nguồn. Chúng sẽ không cùng một lớp hoặc nhất thiết phải chứa tất cả các thuộc tính giống nhau, nhưng việc mô hình hóa khái niệm hạ nguồn dưới dạng một Aggregate sẽ cho phép đạt được tính nhất quán cuối cùng và các cập nhật tại một điểm duy nhất.
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000250_46cfbf8f47960c971bbe7e887423b1e650fb0772f114066b3c6733fa3f4a4905.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000251_4a18c9aa6fbfb1d06a31b2bccbb423059e7c0fe2d9fad30f2418fafabafa4869.png)
+
 Trong Bounded Context này, các chuyên gia nghiệp vụ nhắc đến 'mức độ ưu tiên nghiệp vụ của các hạng mục tồn đọng' (business priority of backlog items). Để đáp ứng phần này của Ubiquitous Language, chúng tôi mô hình hóa khái niệm này thành một `BusinessPriority`. Nó cung cấp đầu ra đã được tính toán phù hợp để hỗ trợ phân tích kinh doanh về giá trị của việc phát triển từng hạng mục tồn đọng của sản phẩm (product backlog item) [Wiegers]. Các đầu ra bao gồm tỷ lệ phần trăm chi phí (cost percentage) — tức là chi phí phát triển một hạng mục tồn đọng cụ thể so với chi phí phát triển tất cả các hạng mục khác; tổng giá trị (total value) — tức là tổng giá trị thu được bằng cách phát triển một hạng mục tồn đọng cụ thể; và phần trăm giá
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000252_0441b5b8050dc196d3f3e6fc5de4cfb8c00975ba517e848967dc2dbc6d692bb7.png)
 
 trị (value percentage) — tức là giá trị phát triển một hạng mục tồn đọng cụ thể so với giá trị phát triển bất kỳ hạng mục nào khác; và mức độ ưu tiên (priority) — tức là mức độ ưu tiên đã tính toán mà nghiệp vụ nên cân nhắc dành cho hạng mục tồn đọng này khi so sánh với tất cả các hạng mục khác.
 
@@ -150,7 +164,6 @@ public class BusinessPriorityTest extends DomainTest {
         return fmt;
     }
 }
-
 ```
 
 Lớp này có một số hàm trợ giúp kiểm thử (fixture helpers). Vì nhóm cần kiểm tra độ chính xác của các phép tính toán khác nhau, họ đã viết các phương thức để cung cấp các thể hiện `NumberFormat` cho các giá trị phân số có một hoặc hai chữ số ở bên phải dấu thập phân. Bạn sẽ thấy ngay sau đây lý do tại sao chúng lại hữu ích:
@@ -174,7 +187,6 @@ public void testCostPercentageCalculation() throws Exception {
     assertEquals(this.oneDecimal().format(cost), "2.7");
     assertEquals(businessPriority, businessPriorityCopy);
 }
-
 ```
 
 Nhóm đã nảy ra một ý tưởng hay để kiểm thử tính bất biến (immutability). Mỗi bài kiểm thử trước tiên tạo ra một thể hiện của `BusinessPriority`, sau đó tạo ra một bản sao tương đương của nó bằng cách sử dụng copy constructor (hàm khởi tạo sao chép). Khẳng định kiểm thử (assertion) đầu tiên trong bài test đảm bảo rằng hàm khởi tạo sao chép tạo ra một bản sao bằng với bản gốc.
@@ -191,8 +203,11 @@ public void testPriorityCalculation() throws Exception {
 
     BusinessPriority businessPriorityCopy =
         new BusinessPriority(businessPriority);
-
 ```
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000253_aad1f479aafe499fa6c6e7d5e67f01b67ad51fca95e1a2fb0961eecdead7863e.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000254_735b5bedd14202d8150b3010d14b27e711da17bf17e4b0f985815af7fb6b9d5c.png)
 
 ## Chapter 6 VALUE OBJECTS
 
@@ -242,7 +257,6 @@ public void testValuePercentageCalculation() throws Exception {
     assertEquals("5.9", this.oneDecimal().format(valuePercentage));
     assertEquals(businessPriorityCopy, businessPriority);
 }
-
 ```
 
 ## Tests Should Have Domain Meaning
@@ -258,6 +272,8 @@ Quan trọng hơn, trạng thái của Value Object được đảm bảo là b�
 Tôi thích ví dụ về `BusinessPriority` này vì nó thể hiện tất cả các đặc tính của một Value và thậm chí còn nhiều hơn thế. Bên cạnh việc chỉ ra cách thiết kế hướng tới tính bất biến, tính toàn vẹn khái niệm (conceptual wholeness), tính có thể thay thế (replaceability), tính bằng nhau theo giá trị (Value equality) và Side-Effect-Free Behavior, nó còn chứng minh cách bạn có thể sử dụng một kiểu Value như một Strategy (chiến lược) [Gamma et al.] (còn gọi là Policy - chính sách).
 
 Khi từng phương thức kiểm thử được phát triển, nhóm đã hiểu rõ hơn về cách một client sẽ sử dụng một `BusinessPriority`, cho phép họ hiện thực hóa nó để hành xử đúng như những gì các bài kiểm thử đã khẳng định. Dưới đây là định nghĩa lớp cơ bản cùng với các hàm khởi tạo mà nhóm đã viết mã:
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000255_bd35ed753190c8be40cfc22ad26b788bdbbf9b55b0c83a8a78b3c703fd9e9430.png)
 
 ```java
 public final class BusinessPriority implements Serializable {
@@ -275,8 +291,11 @@ public final class BusinessPriority implements Serializable {
     public BusinessPriority(BusinessPriority aBusinessPriority) {
         this(aBusinessPriority.ratings());
     }
-
 ```
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000256_ace7b74e169d939d9047c1c81b5c59b1f8233110971375fa7bcef58265575753.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000257_f5e7b3c1b61ddcc280cc4b1d85e6ce6067f07d6f076e5bab9140eb0e206208a9.png)
 
 Nhóm đã quyết định khai báo các kiểu Value của họ có khả năng tuần tự hóa (`Serializable`). Có những thời điểm một thể hiện Value cần phải được tuần tự hóa, chẳng hạn như khi nó được truyền đến một hệ thống từ xa, và điều này cũng có thể hữu ích cho một số chiến lược lưu trữ bền vững.
 
@@ -319,7 +338,6 @@ public float valuePercentage(BusinessPriorityTotals aTotals) {
 public BusinessPriorityRatings ratings() {
     return this.ratings;
 }
-
 ```
 
 Một số hành vi tính toán yêu cầu một tham số thuộc kiểu `BusinessPriorityTotals`. Value này cung cấp một mô tả về tổng chi phí - rủi ro trên tất cả các hạng mục tồn đọng của sản phẩm. Các giá trị tổng là cần thiết khi tính toán tỷ lệ phần trăm và mức độ ưu tiên kinh doanh tổng thể so với tất cả các hạng mục tồn đọng khác. Không có hành vi nào trong số này sửa đổi trạng thái thể hiện của chính nó. Chúng ta khẳng định điều này từ bên ngoài trong các bài kiểm thử bằng cách so sánh trạng thái đã sao chép với trạng thái hiện tại sau khi thực thi mỗi hành vi.
@@ -327,6 +345,10 @@ Một số hành vi tính toán yêu cầu một tham số thuộc kiểu `Busin
 Hiện tại không có Separated Interface (Giao diện Tách biệt) [Fowler, P of EAA] cho Strategy vì hiện tại chỉ có một hiện thực duy nhất. Chắc chắn theo thời gian điều đó sẽ thay đổi, và khách hàng của sản phẩm Agile PM SaaS sẽ được cung cấp các tùy chọn tính toán mức độ ưu tiên kinh doanh khác, mỗi tùy chọn có một hiện thực Strategy riêng.
 
 Tên phương thức của các Side-Effect-Free Functions (hàm không gây tác dụng phụ) rất quan trọng. Mặc dù các phương thức này đều trả về các Value (vì chúng là các phương thức truy vấn CQS - Command-Query Separation / Phân tách Lệnh và Truy vấn), chúng cố tình tránh việc sử dụng quy ước đặt tên JavaBean với tiền tố `get-`. Cách tiếp cận đơn giản nhưng hiệu quả này trong thiết kế đối tượng giúp Value Object luôn trung thành với Ubiquitous Language. Việc sử dụng `getValuePercentage()` là một câu lệnh kỹ thuật của máy tính, nhưng `valuePercentage()` lại là một cách diễn đạt ngôn ngữ lưu loát, dễ đọc đối với con người.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000258_2283d74f9ea51abcc4dab0e529aaddee03899a578a47ffe7fa2a06f3965d3715.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000259_4a85423f605a809b7366dfeda368ef3bede354df0454846b9980a193583ad296.png)
 
 ## Where Did My Fluent Java Go?
 
@@ -367,7 +389,6 @@ public String toString() {
     return "BusinessPriority"
         + " ratings = " + this.ratings();
 }
-
 ```
 
 Phương thức `equals()` đáp ứng yêu cầu của Value Object về việc kiểm tra tính bằng nhau theo giá trị, một trong năm đặc tính của Value. Ở đây chúng tôi luôn loại bỏ các tham số `null` khỏi phép so sánh bằng. Lớp của tham số phải cùng một lớp với Value. Nếu chúng cùng lớp, từng thuộc tính sẽ được so sánh trong cả hai Value. Nếu từng thuộc tính được xác nhận là bằng với thuộc tính tương ứng của nó, thì Whole Values (toàn thể các giá trị) được coi là bằng nhau.
@@ -385,8 +406,11 @@ protected BusinessPriority() {
 
 private void setRatings(BusinessPriorityRatings aRatings) {
     if (aRatings == null) {
-
 ```
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000260_6f2ac0863d2d6136f41a6639acf565907a16742a83cab397e8301015c9b57890.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000261_938a779c42faaa5fc5a2c8936db040a92f1ec06f0fa41cc85462016253cb6bd0.png)
 
 ```java
         throw new IllegalArgumentException(
@@ -396,7 +420,6 @@ private void setRatings(BusinessPriorityRatings aRatings) {
     this.ratings = aRatings;
 }
 }
-
 ```
 
 Hàm khởi tạo không tham số (zero-argument constructor) được cung cấp vì lợi ích của các công cụ framework yêu cầu nó, chẳng hạn như Hibernate. Vì hàm khởi tạo không tham số luôn được ẩn đi, nên không có nguy cơ các client của mô hình tạo ra các thể hiện không hợp lệ. Hibernate hoạt động hoàn hảo với các hàm khởi tạo và các accessor bị ẩn. Hàm khởi tạo này cho phép Hibernate và các công cụ khác tạo ra các thể hiện của kiểu khi chúng đang được tái tạo (reconstituted) từ, ví dụ, kho lưu trữ bền vững. Các công cụ sử dụng hàm khởi tạo không tham số để tạo ra một thể hiện rỗng ban đầu và sau đó gọi từng setter của thuộc tính để nạp dữ liệu (hydrate) cho đối tượng. Tùy chọn khác là bạn có thể bảo Hibernate bỏ qua các phương thức setter và thiết lập trực tiếp các thuộc tính, như trường hợp của mô hình này vì nó không cung cấp một giao diện JavaBean hoàn chỉnh. Xin nhắc lại một lần nữa, các client của mô hình chỉ sử dụng các hàm khởi tạo công khai (public constructors), không bao giờ dùng hàm khởi tạo ẩn.
@@ -420,6 +443,8 @@ Có lẽ phần lớn các lần một Value Object được lưu trữ bền v�
 Tuy nhiên, có những lúc một Value Object trong mô hình bắt buộc phải được lưu trữ như một Entity xét theo góc độ của một kho lưu trữ bền vững quan hệ. Nói cách khác, khi được lưu trữ bền vững, một thể hiện của một kiểu Value Object cụ thể sẽ chiếm một hàng riêng trong một bảng cơ sở dữ liệu quan hệ tồn tại dành riêng cho kiểu của nó, và nó sẽ có cột khóa chính (primary key) cơ sở dữ liệu của riêng mình. Điều này xảy ra, ví dụ, khi hỗ trợ một tập hợp (collection) các thể hiện Value Object bằng ORM. Trong những trường hợp như vậy, dữ liệu lưu trữ bền vững của kiểu Value được mô hình hóa như một thực thể cơ sở dữ liệu.
 
 Liệu đây có phải là dấu hiệu cho thấy đối tượng mô hình miền nên phản ánh thiết kế của mô hình dữ liệu và trở thành một Entity thay vì một Value hay không? Không. Khi bạn đối mặt với hậu quả của sự bất đối xứng này (impedance mismatch - sự lệch pha giữa mô hình đối tượng và quan hệ), điều quan trọng là phải duy trì góc nhìn của mô hình miền thay vì góc nhìn của việc lưu trữ bền vững. Để giữ vững góc nhìn của bạn trên mô hình miền, bạn có thể tự hỏi bản thân những câu hỏi sau:
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000262_b2414d293177091a8f848981a22a472fca674629a493391fb5701f709d8563f7.png)
 
 1. Khái niệm tôi đang mô hình hóa là một sự vật trong miền nghiệp vụ hay nó đo lường, định lượng hoặc mô tả một sự vật như một trong những thuộc tính của sự vật đó?
 2. Nếu được mô hình hóa chính xác để mô tả một phần tử của miền nghiệp vụ, khái niệm mô hình này có phải sở hữu tất cả hoặc hầu hết các đặc tính của giá trị đã được nêu ra trước đây không?
@@ -449,8 +474,11 @@ Khi sử dụng Hibernate để lưu trữ bền vững một thể hiện đơn
     <component name="ratings" class="com.saasovation.agilepm.domain.model.product.BusinessPriorityRatings">
         <property name="benefit" column="business_priority_ratings_benefit" type="int" update="true" insert="true" lazy="false" />
         <property name="cost" column="business_priority_ratings_cost"
-
 ```
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000263_6f5a92af5ddb99d5162510c774085bb6e2120f82a19b444d80998d90885c2c12.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000264_749f5ca0e92f7eb39e6c504ed59569d4213420dd1ceccf348f704731ff9aecda.png)
 
 ```xml
                   type="int" update="true" insert="true" lazy="false" />
@@ -458,7 +486,6 @@ Khi sử dụng Hibernate để lưu trữ bền vững một thể hiện đơn
         <property name="risk" column="business_priority_ratings_risk" type="int" update="true" insert="true" lazy="false" />
     </component>
 </component>
-
 ```
 
 Đây là một ví dụ điển hình vì nó thể hiện một cấu hình ánh xạ Value Object đơn giản, nhưng lại chứa một thể hiện Value Object con bên trong. Hãy nhớ lại rằng `BusinessPriority` có một thuộc tính Value duy nhất là `ratings` và không có thêm thuộc tính nào khác. Do đó, trong phần mô tả ánh xạ, phần tử `component` bên ngoài có một phần tử `component` lồng bên trong. Điều này được sử dụng để phi chuẩn hóa thuộc tính Value `ratings` chứa bên trong thuộc kiểu `BusinessPriorityRatings`. Vì `BusinessPriority` không có thuộc tính nào của riêng nó, nên không có thuộc tính nào được ánh xạ trong `component` bên ngoài. Thay vào đó, chúng tôi lồng ngay phần ánh xạ thuộc tính Value `ratings` của nó. Cuối cùng, chúng tôi thực sự chỉ lưu trữ bốn thuộc tính số nguyên của thể hiện `BusinessPriorityRatings` vào bốn cột riêng biệt của bảng `tbl_backlog_item`. Vì vậy, chúng tôi ánh xạ hai Value Object phần tử `component`: một đối tượng không có thuộc tính riêng và một Value bên trong có bốn thuộc tính.
@@ -467,7 +494,6 @@ Lưu ý cách sử dụng quy ước đặt tên cột chuẩn cho từng phần
 
 ```
 businessPriority.ratings.benefit
-
 ```
 
 Để biểu diễn đường dẫn điều hướng này thành một tên cột quan hệ duy nhất, tôi sử dụng như sau:
@@ -489,14 +515,12 @@ CREATE TABLE `tbl_backlog_item` (
     `business_priority_ratings_risk` int NOT NULL,
     ...
 ) ENGINE=InnoDB;
-
 ```
 
 Cùng với nhau, cấu hình ánh xạ Hibernate và định nghĩa bảng cơ sở dữ liệu quan hệ cung cấp một đối tượng lưu trữ bền vững vừa tối ưu vừa có thể truy vấn được. Bởi vì các thuộc tính của Value được phi chuẩn hóa vào hàng trong bảng của Entity cha của chúng, cơ sở dữ liệu không cần sử dụng các phép kết nối bảng (join) để truy xuất ngay cả một thể hiện Value lồng nhau sâu. Khi bạn chỉ định một truy vấn HQL (Hibernate Query Language), Hibernate có thể dễ dàng ánh xạ từ biểu thức đối tượng của một thuộc tính đối tượng thành một biểu thức truy vấn SQL tối ưu sử dụng một cột, nơi:
 
 ```
 businessPriority.ratings.benefit trở thành business_priority_ratings_benefit
-
 ```
 
 Do đó, mặc dù có sự bất đối xứng rõ rệt giữa các đối tượng và cơ sở dữ liệu quan hệ (impedance mismatch), chúng ta đã hiện thực hóa được một trong những phương thức ánh xạ hiệu quả và tối ưu nhất có thể.
@@ -504,3 +528,7 @@ Do đó, mặc dù có sự bất đối xứng rõ rệt giữa các đối tư
 ## ORM and Many Values Serialized into a Single Column
 
 Có những thách thức đặc thù liên quan đến việc ánh xạ một tập hợp (collection) gồm nhiều Value Object vào một cơ sở dữ liệu quan hệ bằng ORM. Nói cho rõ ràng, khi tôi nói tập hợp nghĩa là tôi đang đề cập đến một `List` hoặc `Set` được giữ bởi một Entity và chứa không, một, hoặc nhiều thể hiện Value. Những thách thức này không phải là không thể vượt qua, nhưng sự bất đối xứng đối tượng - quan hệ (object-relational impedance mismatch) trở nên hiển hiện rõ mồn một ở đây.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000265_dac50871ad69e8af7e8af8b3e31cadb73497acbfc05ceadf865833b8300714d8.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000266_d03acfdb385e3d7d7784d0fcfa8f1facea37b62bd3c19e894505616b72a30b6c.png)

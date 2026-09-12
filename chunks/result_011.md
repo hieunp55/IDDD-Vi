@@ -15,7 +15,6 @@ byte[] value = Serializer.serialize(product);
 
 // region (đối với GemFire) hoặc cache (đối với Coherence)
 region.put(key, value);
-
 ```
 
 Do đó, việc sử dụng một Data Fabric với các tính năng gắn liền mật thiết với các khía cạnh kỹ thuật của một domain model mang lại một hệ quả tích cực: khả năng rút ngắn đáng kể chu kỳ phát triển phần mềm. 15
@@ -44,6 +43,10 @@ Dẫu vậy, với một Fabric hỗ trợ kiến trúc mở, chắc chắn ph�
 
 Vậy trên thực tế, bạn sẽ sử dụng các Domain Event trong một Fabric như thế nào? Như đã thảo luận trong chương Domain Events (8), các Aggregate của bạn sẽ sử dụng một component (thành phần) `DomainEventPublisher` đơn giản. Trong bộ nhớ đệm của Fabric, bộ xuất bản này có thể chỉ cần đẩy các Event đã phát vào một cache/region chuyên biệt. Các Event được lưu tạm này sau đó sẽ được phân phối tới những đối tượng đăng ký (subscriber / listener), theo hình thức đồng bộ hoặc bất đồng bộ. Để tránh lãng phí dung lượng bộ nhớ quý giá trong vùng cache/region dành riêng cho Event này, khi mỗi Event đã được tất cả các subscriber xác nhận xử lý thành công (fully acknowledged), bản ghi của nó sẽ bị xóa khỏi map. Dĩ nhiên, một Event chỉ được coi là đã xác nhận hoàn tất khi nó đã được một hoặc nhiều subscriber đẩy lên một message queue (hàng đợi thông điệp) hoặc bus, và/hoặc được sử dụng để làm mới query model (mô hình truy vấn) của CQRS.
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000161_5d4a3099a7c6d1544b963ac05f8ae06d43c13db9ce7a28f187967894f4ff845e.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000162_c2662666f1892bf86d2ae00e39d2bcb5eaadeb487b37c00424d7d52339ba0363.png)
+
 Vì các bên đăng ký Domain Event cũng có thể sử dụng những sự kiện này để thực hiện việc đồng bộ hóa các Aggregate phụ thuộc khác, nên tính nhất quán sau cùng (eventual consistency) hoàn toàn được đảm bảo thông qua cấu trúc kiến trúc.
 
 ## Truy vấn liên tục (Continuous Queries)
@@ -63,7 +66,6 @@ String query = "select * from /queryModelBacklogItem qmbli " +
 
 CqQuery backlogItemWatcher =
     queryService.newCq(continuousQueryName, query, factory.create());
-
 ```
 
 Giờ đây, Data Fabric sẽ phân phối các cập nhật của CQRS query model (dựa trên các sửa đổi ở Aggregate) tới đối tượng callback phía client do `CqListener` cung cấp, kèm theo các metadata (siêu dữ liệu) về những dữ liệu đã được thêm, cập nhật hoặc xóa bỏ khi các tiêu chí so khớp được thỏa mãn.
@@ -97,15 +99,17 @@ public class PhoneNumberCountSaga extends FunctionAdapter {
         //   một kết quả tổng hợp duy nhất cho client.
     }
 }
-
 ```
 
 Dưới đây là đoạn mã mẫu cho một client thực thi một Long-Running Process song song trên vùng cache phân tán đã được sao chép:
 
 ```java
 PhoneNumberCountProcess phoneNumberCountProcess = new PhoneNumberCountProcess();
-
 ```
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000163_9c36e3a97cc3a50024a7243898f9f9392bfbdd6ec166ecbc220f2fa7c3b0b214.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000164_000d2d4541e993a0a84cd1baafed8288e84e0d087999af4aa960a241eefe2107.png)
 
 ```java
 String phoneNumberFilterQuery =
@@ -122,10 +126,11 @@ PhoneNumberCountResultCollector resultCollector =
     execution.execute(phoneNumberCountProcess);
 
 List allPhoneNumberCountResults = (List) resultsCollector.getResult();
-
 ```
 
 Dĩ nhiên, quy trình thực tế có thể phức tạp hơn rất nhiều hoặc đơn giản hơn ví dụ này. Điều này cũng chứng minh rằng một Process không nhất thiết phải là một khái niệm thuần túy hướng sự kiện, mà nó còn có thể tương thích với các cách tiếp cận xử lý đồng thời, phân tán khác. Để nắm được thảo luận toàn diện về việc xử lý song song và phân tán dựa trên Fabric, hãy xem [GemFire Functions].
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000165_b6c4234b4b3bf9ca85dcee3c132cf5c2a90cbf9a8c2422f6400660d99883be28.png)
 
 ## Tổng kết (Wrap-Up)
 
@@ -166,6 +171,8 @@ Các lập trình viên thường có xu hướng tập trung vào dữ liệu t
 
 Chúng ta thiết kế một khái niệm nghiệp vụ dưới dạng một Entity khi chúng ta quan tâm đến tính cá thể (individuality) của nó, tức là khi việc phân biệt nó với tất cả các đối tượng khác trong hệ thống là một ràng buộc bắt buộc. Một Entity là một thực thể độc nhất và có khả năng biến đổi liên tục trong suốt một khoảng thời gian dài. Những thay đổi có thể sâu rộng đến mức đối tượng trông dường như khác hoàn toàn so với trạng thái ban đầu của nó. Tuy nhiên, xét về mặt định danh, nó vẫn chính là đối tượng đó.
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000166_cd94ad58c7261f1e53b6375bcb0ceba093a83873750f2d3b913cd467b16ac5c8.png)
+
 Khi đối tượng thay đổi, chúng ta có thể quan tâm đến việc theo vết xem các thay đổi được thực hiện khi nào, như thế nào và bởi ai. Hoặc chúng ta có thể chỉ cần trạng thái hiện tại của nó phản ánh đủ về các bước chuyển trạng thái trước đó mà không cần theo dõi thay đổi một cách tường minh. Ngay cả khi không quyết định theo dõi từng chi tiết trong lịch sử thay đổi, chúng ta vẫn có thể lập luận và thảo luận về chuỗi các thay đổi hợp lệ có thể diễn ra với những đối tượng này trong suốt vòng đời của chúng. Chính định danh duy nhất và đặc tính có thể biến đổi (mutability) là những yếu tố phân biệt Entity với Value Object (đối tượng giá trị) (6).
 
 Có những thời điểm Entity không phải là công cụ mô hình hóa phù hợp để lựa chọn. Việc lạm dụng hoặc sử dụng sai mục đích xảy ra thường xuyên hơn nhiều so với những gì mọi người tưởng. Thông thường, một khái niệm nên được mô hình hóa dưới dạng một Value (Giá trị). Nếu bạn cảm thấy bất đồng với quan điểm này, rất có thể DDD không phù hợp với nhu cầu nghiệp vụ của bạn. Hoàn toàn có khả năng một hệ thống thuần CRUD (Create, Read, Update, Delete) sẽ thích hợp hơn. Nếu đúng như vậy, quyết định chọn CRUD sẽ tiết kiệm cho dự án của bạn cả thời gian lẫn tiền bạc. Vấn đề là việc theo đuổi các giải pháp thay thế dựa trên CRUD không phải lúc nào cũng bảo toàn được những nguồn tài nguyên quý giá đó.
@@ -184,14 +191,14 @@ Các doanh nghiệp thường xuyên dồn quá nhiều công sức vào việc 
 > 2. Chơi chữ từ **Cow pie**: Tiếng lóng chỉ bãi phân bò khô trên đồng cỏ có hình dạng tròn dẹt giống chiếc bánh nướng (pie).
 > 3. Thành ngữ *"Never kick a cow pie on a hot day"* (Đừng bao giờ đá vào bãi phân bò vào ngày trời nắng): Vào ngày nắng gắt, bãi phân bò se khô lớp vỏ bên ngoài nhưng bên trong vẫn ướt mềm; nếu đá vào, nó sẽ vỡ toang làm bẩn người đá. Trong kỹ thuật phần mềm, tác giả mượn ẩn dụ này để cảnh báo: Đừng vội vàng can thiệp hay "đụng chạm" vào một hệ thống mã nguồn legacy/CRUD trông có vẻ khô ráo, ổn định bên ngoài nhưng bên trong đầy rẫy rắc rối, nếu bạn chưa thực sự hiểu rõ bản chất.
 > Nguồn tham khảo: (Không có nguồn trích dẫn xác thực — cần tự kiểm chứng thêm)
-> 
-> 
 
 Mặt khác, nếu chúng ta áp dụng CRUD cho những hệ thống không phù hợp — những hệ thống phức tạp hơn, xứng đáng với sự chuẩn xác của DDD — chúng ta có thể sẽ phải hối hận. Khi độ phức tạp gia tăng, chúng ta sẽ nếm trải những hạn chế do việc chọn sai công cụ. Các hệ thống CRUD không thể tạo ra một mô hình nghiệp vụ tinh tế nếu chỉ đơn thuần ghi nhận dữ liệu.
 
 Nếu DDD là một khoản đầu tư chính đáng mang lại lợi ích thiết thực cho doanh nghiệp, chúng ta hãy sử dụng Entity đúng như mục đích vốn có của nó.
 
 Khi một đối tượng được phân biệt bởi định danh thay vì các thuộc tính của nó, hãy đặt điều này làm trọng tâm hàng đầu trong định nghĩa của đối tượng trong mô hình. Giữ cho định nghĩa lớp đơn giản và tập trung vào tính liên tục của vòng đời cùng định danh của nó. Hãy xác định một phương thức để phân biệt từng đối tượng bất kể hình thức hay lịch sử biến đổi của nó. . . . Mô hình phải định nghĩa rõ thế nào là hai đối tượng cùng là một thực thể. [Evans, tr. 92]
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000167_99352665b200b50d5211491a841c488b9096885f945c4a749a76a9b23e5303da.png)
 
 Chương này sẽ hướng dẫn cách đặt sự chú trọng đúng mực vào các Entity và chỉ cho bạn thấy những kỹ thuật thiết kế Entity khác nhau.
 
@@ -211,6 +218,10 @@ Hãy xem xét một số chiến lược tạo định danh phổ biến, từ n
 
 * Người dùng cung cấp một hoặc nhiều giá trị duy nhất ban đầu dưới dạng đầu vào cho ứng dụng. Ứng dụng phải đảm bảo rằng chúng là duy nhất.
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000168_d665ef5835a3397b6ac7f51e51587c05b76df0ca57a39ec1d530e97642ce9300.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000169_bb0537aec83db24add96306db598cb68efebb495a092e56ac00b3fc9aed3b871.png)
+
 * Ứng dụng tự sinh định danh nội bộ bằng một thuật toán đảm bảo tính độc nhất. Chúng ta có thể nhờ một thư viện hoặc framework làm việc này thay mình, nhưng bản thân ứng dụng hoàn toàn có thể tự xử lý.
 * Ứng dụng dựa vào một kho lưu trữ dữ liệu (persistence store), chẳng hạn như cơ sở dữ liệu, để sinh định danh duy nhất.
 * Một Bounded Context (ngữ cảnh giới hạn) (2) khác (hệ thống hoặc ứng dụng khác) đã xác định sẵn định danh duy nhất. Giá trị này được người dùng nhập vào hoặc lựa chọn từ một tập danh sách có sẵn.
@@ -227,6 +238,8 @@ Việc ngăn ngừa vấn đề này bắt đầu từ các cuộc thảo luận
 
 Hình 5.1 Tiêu đề diễn đàn bị sai chính tả và tiêu đề cuộc thảo luận chưa thực sự phù hợp.
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000170_9aaf076f861bd37ccd2003bb59b6183afe8fb423ead49fd950f48081cc74ef70.png)
+
 Chúng ta luôn có tùy chọn lưu giữ các giá trị do người dùng nhập dưới dạng các thuộc tính của Entity phục vụ mục đích tìm kiếm, đối soát, nhưng không dùng chúng làm định danh duy nhất. Các thuộc tính đơn giản sẽ dễ dàng chỉnh sửa hơn như một phần trạng thái vận hành bình thường của Entity vốn thay đổi theo thời gian. Trong trường hợp đó, chúng ta sẽ cần sử dụng phương thức khác để thu thập định danh duy nhất.
 
 ## Ứng dụng tự sinh định danh (Application Generates Identity)
@@ -240,23 +253,24 @@ Có những cách thức vô cùng tin cậy để tự động sinh định dan
 
 Cách này tạo ra một giá trị duy nhất 128-bit. Nó thường được biểu diễn dưới dạng một chuỗi văn bản mã hóa thập lục phân (hexadecimal) dài 32-byte hoặc 36-byte. Định dạng chuỗi văn bản sẽ dài 36 byte nếu bạn sử dụng dấu gạch nối thông thường để phân tách các đoạn theo định dạng `f36ab21c-67dc-5274-c642-1de2f4d5e72a`. Nếu không có dấu gạch nối, nó dài 32 byte. Dù theo cách nào, định danh này cũng có kích thước lớn và không được xem là thân thiện với con người.
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000171_c02b608d52908894e5f11b73641e86cad899e90d8a99d2ccfae552bcaca32235.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000172_4bd2baffd66d2551633e4fe41afe97c36107affd28f0c80420ee30a181f22d7a.png)
+
 Trong thế giới Java, công thức này đã được thay thế bằng bộ sinh UUID tiêu chuẩn có sẵn kể từ Java 1.5. Nó được cung cấp bởi lớp `java.util.UUID`. Bản triển khai này hỗ trợ bốn thuật toán sinh khác nhau dựa trên biến thể Leach-Salz. Sử dụng API tiêu chuẩn của Java, chúng ta có thể dễ dàng tạo ra một định danh duy nhất giả ngẫu nhiên:
 
 ```java
 String rawId = java.util.UUID.randomUUID().toString();
-
 ```
 
 Lệnh này sử dụng UUID loại 4 (type 4), vận dụng một bộ sinh số giả ngẫu nhiên mạnh về mặt mật mã học (cryptographically strong), dựa trên bộ sinh `java.security.SecureRandom`. Loại 3 (type 3) sử dụng phương pháp mã hóa theo tên, vận dụng `java.security.MessageDigest`. Chúng ta có thể tạo một UUID dựa trên tên như sau:
 
 ```java
 String rawId = java.util.UUID.nameUUIDFromBytes(
-
 ```
 
 ```java
     "Some text".getBytes()).toString();
-
 ```
 
 Chúng ta cũng có thể kết hợp việc sinh số giả ngẫu nhiên với mã hóa:
@@ -266,12 +280,10 @@ SecureRandom randomGenerator = new SecureRandom();
 int randomNumber = randomGenerator.nextInt();
 String randomDigits = new Integer(randomNumber).toString();
 MessageDigest encryptor = MessageDigest.getInstance("SHA-1");
-
 ```
 
 ```java
 byte[] rawIdBytes = encryptor.digest(randomDigits.getBytes());
-
 ```
 
 Bây giờ nhiệm vụ còn lại duy nhất là chuyển đổi mảng `rawIdBytes` thành dạng biểu diễn chuỗi văn bản thập lục phân. Chúng ta có thể tận dụng việc chuyển đổi này mà không tốn công sức. Sau khi sinh số ngẫu nhiên và chuyển nó thành một `String`, chúng ta truyền chuỗi văn bản đó vào phương thức Factory [Gamma et al.] `nameUUIDFromBytes()` của lớp `UUID`.
@@ -286,7 +298,6 @@ Xem xét ví dụ dưới đây, hoàn toàn dễ hiểu khi thông thường ch
 
 ```
 f36ab21c-67dc-5274-c642-1de2f4d5e72a
-
 ```
 
 Một chuỗi UUID đầy đủ thường chỉ phù hợp khi nó có thể được ẩn đi khỏi tầm mắt người dùng và thay thế bằng các kỹ thuật tham chiếu thân thiện với con người. Ví dụ, chúng ta có thể thiết kế các tài nguyên hypermedia (siêu phương tiện) với URI có thể gửi qua email hoặc chuyển tiếp qua các hình thức nhắn tin giữa người dùng với nhau. Phần văn bản liên kết có thể được dùng để ngụy trang cho chuỗi UUID trông có phần bí ẩn, tương tự như cách đoạn text trong thẻ `<a>text</a>` che đi các liên kết kỹ thuật trong HTML.
@@ -302,8 +313,11 @@ String rawId = "APM-P-08-14-2012-F36AB21C"; // sẽ được tự động sinh
 ProductId productId = new ProductId(rawId);
 ...
 Date productCreationDate = productId.creationDate();
-
 ```
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000173_16549b78b377a22a6191f79f0703d810960d15083b636dcf62323a1d2c38d09d.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000174_5b61f1b00459bbd21318c9bb3e4cc206699cb0e7efb7af1bdac57c0dbdd94fec.png)
 
 Client có thể truy vấn các thông tin chi tiết về định danh, chẳng hạn như ngày sản phẩm được tạo, và thông tin đó sẽ được cung cấp một cách tiện lợi. Phía client không cần phải hiểu định dạng chuỗi thô của định danh. Giờ đây, Aggregate Root `Product` có thể cung cấp ngày tạo của nó mà không cần để lộ cho client biết cách thức lấy thông tin đó ra sao:
 
@@ -316,7 +330,6 @@ public class Product extends Entity {
     }
     ...
 }
-
 ```
 
 Bạn có thể tìm thấy các cơ chế sinh định danh trong các thư viện và framework của bên thứ ba. Dự án Apache Commons có thành phần Commons Id (sandbox), cung cấp năm bộ sinh định danh khác nhau.
@@ -325,7 +338,6 @@ Một số kho lưu trữ persistence, chẳng hạn như các cơ sở dữ li�
 
 ```
 PUT /riak/bucket/key [object serialization]
-
 ```
 
 Thay vào đó, bạn có thể dùng `POST` mà không cần cung cấp key, buộc Riak phải tự tạo một định danh duy nhất. Dẫu vậy, chúng ta vẫn cần phải cân nhắc giữa việc sinh định danh sớm (early) hay sinh định danh muộn (late), như sẽ được thảo luận ở phần sau của chương này.
@@ -341,7 +353,6 @@ public class HibernateProductRepository implements ProductRepository {
     }
     ...
 }
-
 ```
 
 Đây có vẻ là một vị trí hoàn toàn tự nhiên để thực hiện việc sinh định danh.
@@ -362,7 +373,6 @@ Việc phân bổ trước và lưu cache sẽ không thành vấn đề nếu m
         <param name="sequence">product_seq</param>
     </generator>
 </id>
-
 ```
 
 Dưới đây là ví dụ về cách tiếp cận tương tự, nhưng sử dụng cột tự tăng (auto-increment) của MySQL:
@@ -371,10 +381,13 @@ Dưới đây là ví dụ về cách tiếp cận tương tự, nhưng sử d�
 <id name="id" type="long" column="product_id">
     <generator class="native"/>
 </id>
-
 ```
 
 Cách này mang lại hiệu năng tốt và khá dễ cấu hình trong định nghĩa ánh xạ của Hibernate. Vấn đề có thể nằm ở thời điểm sinh định danh, điều sẽ được thảo luận ngay sau đây. Phần còn lại của mục này sẽ bàn về yêu cầu sinh định danh sớm (early identity generation).
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000175_75fd8026263adc91d2b698c321dfcb1fb2ac87dbbf2d3789473042cb869a28f6.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000176_250a2b2b4bd31103e6678f2bc4e4e34c6fd62d702a3bdbb73a497977e02a517c.png)
 
 ## Thứ tự sinh định danh có thể mang tính quyết định (Order May Matter)
 
@@ -395,7 +408,6 @@ public ProductId nextIdentity() {
 
     return new ProductId(rawProductId);
 }
-
 ```
 
 Vì Oracle trả về các giá trị sequence mà Hibernate mặc định ánh xạ thành các thể hiện `BigDecimal`, nên chúng ta phải thông báo cho Hibernate biết rằng chúng ta muốn kết quả `product_id` được chuyển đổi sang kiểu `Long`.
@@ -420,7 +432,6 @@ mysql> SELECT LAST_INSERT_ID();
 |                1 |
 +------------------+
 1 row in set (0.06 sec)
-
 ```
 
 ```sql
@@ -431,7 +442,6 @@ mysql> SELECT * FROM product_seq;
 |       1 |
 +---------+
 1 row in set (0.00 sec)
-
 ```
 
 Chúng ta đã tạo một bảng trong cơ sở dữ liệu MySQL có tên là `product_seq`. Tiếp theo, chúng ta chèn một dòng duy nhất vào bảng, khởi tạo giá trị của cột duy nhất, `nextval`, về `0`. Hai bước đầu tiên này thiết lập bộ giả lập sequence cho Entity `Product`. Hai câu lệnh tiếp theo minh họa việc sinh ra một giá trị sequence đơn lẻ. Chúng ta cập nhật dòng duy nhất này bằng cách tăng giá trị cột `nextval` lên `1`. Câu lệnh update sử dụng hàm `LAST_INSERT_ID()` của MySQL để tăng giá trị `INT` của cột. Biểu thức tham số được thực thi trước, sau đó kết quả được gán cho cột `nextval`. Kết quả của biểu thức tham số `nextval + 1` được giữ ổn định trong hàm `LAST_INSERT_ID()`, sao cho khi câu lệnh `SELECT LAST_INSERT_ID()` tiếp theo được đánh giá, giá trị của `nextval` sinh ra từ chính lần thực thi đó sẽ được trả về trong tập kết quả. Cuối cùng, để kiểm tra, chúng ta có thể thực thi `SELECT * FROM product_seq` nhằm chứng minh rằng giá trị hiện tại của `nextval` khớp đúng với kết quả hàm trả về.
@@ -454,8 +464,11 @@ public ProductId nextIdentity() {
         } finally {
             try {
                 rs.close();
-
 ```
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000177_1886d9ba13e21827658e9f15eaee2932b766067d0eb878a103e4e02eab2a2d90.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000178_94098a344b12e6c3890dfd190702d46bbeab8d9708a9bb6589dd71f714c20654.png)
 
 ```java
             } catch(Throwable t) {
@@ -469,7 +482,6 @@ public ProductId nextIdentity() {
 
     return new ProductId(rawId);
 }
-
 ```
 
 Khi sử dụng JDBC, không cần thiết phải thực thi câu truy vấn thứ hai lên cơ sở dữ liệu để lấy kết quả của hàm `LAST_INSERT_ID()`. Câu truy vấn update đã đảm đương toàn bộ. Chúng ta lấy giá trị kiểu `long` từ `ResultSet` và sử dụng nó để khởi tạo `ProductId`.
@@ -483,7 +495,6 @@ private Connection connection() {
     ConnectionProvider cp = sfi.getConnectionProvider();
     return cp.getConnection();
 }
-
 ```
 
 Nếu không có đối tượng `Connection`, chúng ta không thể thu được `ResultSet` bằng cách thực thi `PreparedStatement`. Và nếu thiếu điều đó, việc sử dụng một portable sequence là bất khả thi.
@@ -500,11 +511,17 @@ Thông thường, quá trình đối soát đòi hỏi việc tìm kiếm mờ (
 
 Hình 5.2 Kết quả tìm kiếm từ việc so khớp với một hệ thống bên ngoài để tìm định danh. Giao diện người dùng cho bước lựa chọn có thể hiển thị hoặc không hiển thị định danh. Ví dụ này có hiển thị định danh.
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000179_0b2bf6fb7c4c2e268b7a52921e8e24f46654ba647f484c49ad9fa1768ea960ab.png)
+
 Điều này kéo theo những hệ lụy về mặt đồng bộ hóa. Điều gì sẽ xảy ra nếu các đối tượng được tham chiếu từ bên ngoài chuyển đổi trạng thái theo cách gây ảnh hưởng tới các Entity cục bộ? Làm sao chúng ta biết được đối tượng liên quan đã thay đổi? Vấn đề này có thể được giải quyết bằng cách sử dụng Event-Driven Architecture (4) kết hợp với Domain Event (8). Bounded Context cục bộ của chúng ta sẽ đăng ký nhận các Domain Event được xuất bản bởi các hệ thống bên ngoài. Khi nhận được một thông báo phù hợp, hệ thống cục bộ sẽ chuyển đổi trạng thái của các Aggregate Entity của chính nó để phản ánh trạng thái của đối tượng trong hệ thống bên ngoài. Đôi khi, việc đồng bộ hóa phải do chính Bounded Context cục bộ khởi xướng bằng cách đẩy các thay đổi ngược trở lại hệ thống bên ngoài gốc.
 
 Việc này hiếm khi dễ thực hiện, nhưng nó giúp hệ thống đạt được tính tự chủ (autonomous) cao hơn. Khi đã đạt được tính tự chủ, phạm vi tìm kiếm trên thực tế có thể thu hẹp vào các đối tượng cục bộ. Đây không đơn thuần là việc lưu tạm (cache) các đối tượng ngoại lai ở cục bộ, mà nó bao gồm việc diễn dịch các khái niệm ngoại lai sang các khái niệm của Bounded Context cục bộ, như đã được giải thích trong phần Context Mapping (3).
 
 Đây là chiến lược tạo định danh phức tạp nhất. Việc duy trì Entity cục bộ không chỉ phụ thuộc vào các bước chuyển trạng thái do hành vi nghiệp vụ cục bộ gây ra, mà còn có thể phụ thuộc vào những biến động diễn ra trong một hoặc nhiều hệ thống bên ngoài. Hãy áp dụng phương pháp này một cách thận trọng và chừng mực nhất có thể.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000180_8c58557b258afbe52714989c8a6f0188a16bc9c43be01b34015e2568f2faebfe.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000181_4094bb2fb0e11d4174d38b6519daccaea88682a59b69a71add920f1d0a2b507a.png)
 
 ## Khi thời điểm sinh định danh mang tính quyết định (When the Timing of Identity Generation Matters)
 
@@ -516,7 +533,11 @@ Vậy tại sao thời điểm sinh định danh lại có thể mang tính quy�
 
 Hình 5.3 Cách đơn giản nhất để phân bổ định danh duy nhất là để kho dữ liệu tự sinh ra nó vào lần đầu tiên đối tượng được lưu trữ.
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000182_509a7440c296f0593aa85d5fd52dd316673f81838e5f474b5bc9bf024e2bdce2.png)
+
 Hình 5.4 Ở đây, định danh duy nhất được truy vấn từ Repository và được gán ngay trong quá trình khởi tạo đối tượng. Sự phức tạp của việc sinh định danh được ẩn giấu đằng sau bản triển khai của Repository.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000183_962a18d37ed703410fcdc1e9532df9977933c18e61cf92c2fc401b8f5273bc20.png)
 
 Còn một vấn đề khác có thể nảy sinh khi việc sinh định danh bị trì hoãn cho đến khi Entity được lưu trữ. Nó xuất hiện khi hai hoặc nhiều Entity mới phải được thêm vào một tập hợp `java.util.Set`, nhưng định danh của chúng vẫn chưa được gán, khiến chúng bị coi là bằng nhau giống như các đối tượng mới khác (ví dụ: giá trị định danh đều là `null`, `0`, hoặc `-1`). Nếu phương thức `equals()` của Entity so sánh dựa trên định danh, thì những đối tượng mới được thêm vào `Set` sẽ trông giống hệt như cùng một đối tượng. Kết quả là chỉ có đối tượng đầu tiên được thêm vào được giữ lại, còn tất cả các đối tượng khác sẽ bị loại trừ. Điều này gây ra một lỗi rất khó hiểu (dubious bug) mà nguyên nhân gốc rễ ban đầu rất khó phát hiện và sửa chữa.
 
@@ -533,8 +554,11 @@ public class User extends Entity {
             User typedObject = (User) anObject;
             equalObjects =
                 this.tenantId().equals(typedObject.tenantId()) &&
-
 ```
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000184_8c2ea5c27239a876cd3c66a0ad3f6c0252fe264d6a218d6d507eaf0f8bef1f1e.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000185_3e66cd0b6cee43eaab3c95389733f8928d785e30b5445681d54f1e5da7acb1ec.png)
 
 ```java
                 this.username().equals(typedObject.username()));
@@ -554,7 +578,6 @@ public class User extends Entity {
     }
     ...
 }
-
 ```
 
 Trong trường hợp môi trường đa người thuê (multitenancy), thể hiện `TenantId` cũng được xem là một phần của định danh duy nhất. Không thể có hai đối tượng `User` thuộc hai khách thuê `Tenant` khác nhau mà lại bị coi là bằng nhau.
@@ -587,7 +610,6 @@ public abstract class IdentifiedDomainObject implements Serializable {
         this.id = anId;
     }
 }
-
 ```
 
 Layer Supertype này chính là `IdentifiedDomainObject`, một abstract base class (lớp cơ sở trừu tượng) giúp che giấu khóa chính thay thế khỏi tầm nhìn của các client thông qua các phương thức truy xuất có phạm vi `protected`. Phía client sẽ không bao giờ phải băn khoăn liệu những phương thức đó có dành cho mình sử dụng hay không, bởi chúng không hiển thị bên ngoài Module (9) của Entity kế thừa lớp cơ sở này. Thậm chí chúng ta có thể khai báo phạm vi `private`. Hibernate hoàn toàn không gặp bất kỳ trở ngại nào khi sử dụng cơ chế phản xạ (reflection) trên phương thức hoặc trường dữ liệu ở bất kỳ mức độ hiển thị nào, từ `public` cho tới `private`. Các Layer Supertype bổ sung khác cũng có thể mang lại nhiều giá trị, chẳng hạn như hỗ trợ cơ chế khóa lạc quan (optimistic concurrency), như được đề cập trong chương Aggregates (10).
@@ -598,8 +620,11 @@ Chúng ta cần ánh xạ thuộc tính surrogate `id` vào cột cơ sở dữ 
 <hibernate-mapping default-cascade="all">
     <class name="com.saasovation.identityaccess.domain.model.identity.User" table="tbl_user" lazy="true">
         <id name="id" type="long" column="id" unsaved-value="-1">
-
 ```
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000186_3ddccc27a91779bdc6ae8caac63628a3880c4ae664ba9cf3cf4263726fcde58c.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000187_0e3202f19d45f1f9afcdda9ef914331ec91682d985cf5ef2df05b0b466bc56c1.png)
 
 ```xml
             <generator class="native"/>
@@ -607,7 +632,6 @@ Chúng ta cần ánh xạ thuộc tính surrogate `id` vào cột cơ sở dữ 
         ...
     </class>
 </hibernate-mapping>
-
 ```
 
 Dưới đây là định nghĩa bảng MySQL dùng để lưu trữ các đối tượng `User`:
@@ -625,7 +649,6 @@ CREATE TABLE `tbl_user` (
     UNIQUE KEY `k_tenant_id_username` (`tenant_id_id`,`username`),
     PRIMARY KEY (`id`)
 ) ENGINE=InnoDB;
-
 ```
 
 Cột đầu tiên, `id`, chính là surrogate identity. Dòng định nghĩa cột cuối cùng khai báo `id` là khóa chính của bảng. Chúng ta hoàn toàn có thể phân biệt rạch ròi giữa surrogate identity và định danh của miền nghiệp vụ. Có hai cột, `tenant_id_id` và `username`, cùng cung cấp định danh duy nhất cho miền nghiệp vụ. Chúng được kết hợp lại để tạo thành một khóa duy nhất có tên là `k_tenant_id_username`.

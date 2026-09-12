@@ -20,7 +20,6 @@ public class User extends Entity {
     }
     ...
 }
-
 ```
 
 Trong ví dụ này, thuộc tính `username`, đóng vai trò là domain identity (định danh miền) của Entity `User`, chỉ có thể thay đổi duy nhất một lần, và chỉ từ nội bộ. Setter, phương thức `setUsername()`, cung cấp tính tự đóng gói (self-encapsulation) được ẩn giấu khỏi các client. Khi một hành vi công khai của Entity tự ủy quyền tới setter, phương thức này sẽ kiểm tra thuộc tính `username` xem nó đã mang giá trị khác null (`nonnull`) hay chưa. Nếu nó đã là nonnull, biểu thị một trạng thái invariant (bất biến nghiệp vụ - quy tắc nghiệp vụ luôn phải đúng trong suốt vòng đời của đối tượng) không thể thay đổi, ngoại lệ `IllegalStateException` sẽ được ném ra. Ngoại lệ này chỉ ra rằng `username` bắt buộc phải được duy trì như một trạng thái chỉ sửa đổi một lần (modify-once).
@@ -32,6 +31,10 @@ Trong ví dụ này, thuộc tính `username`, đóng vai trò là domain identi
 Unique identity của chúng là gì, xét cả domain identity lẫn surrogate identity? Liệu có bất kỳ định danh nào sẽ được phục vụ tốt hơn bằng một phương thức sinh định danh khác, hoặc thời điểm gán định danh khác hay không?
 
 * Hãy ghi chú bên cạnh mỗi Entity xem bạn có nên sử dụng một phương thức gán định danh khác — người dùng tự nhập, ứng dụng sinh ra, cơ sở dữ liệu sinh ra, hay do Bounded Context (Ngữ cảnh Ranh giới) khác cung cấp — và giải thích lý do tại sao (ngay cả khi bạn không thể thay đổi nó vào lúc này).
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000188_60b97247a0414ea8a79610e0ef9079e73c93315ca2d430eeed6faab942b3cb1f.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000189_817d87867f10e263a063dceed0d82b34cc4e8cedbe3ec752bc84ad64c87b4b3e.png)
 
 * Hãy lưu ý bên cạnh mỗi Entity xem nó cần cơ chế sinh định danh sớm (early identity generation) hay có thể đáp ứng tốt với cơ chế sinh định danh muộn (late identity generation), và giải thích lý do.
 
@@ -55,7 +58,6 @@ public class UserTest extends IdentityTest {
     }
     ...
 }
-
 ```
 
 Bài kiểm thử mẫu mực này chứng minh cách thức mô hình vận hành. Khi hoàn thành thành công, nó chứng minh rằng phương thức `setUsername()` bảo vệ định danh nonnull hiện có không bị thay đổi. (Chúng ta sẽ thảo luận kỹ lưỡng hơn về các guard và các bài kiểm thử Entity trong phần xác thực - validation).
@@ -66,11 +68,17 @@ Bây giờ hãy cùng xem xét một số bài học kinh nghiệm từ các nh�
 
 Ban đầu, nhóm CollabOvation đã sa vào cái bẫy mô hình hóa thực thể - quan hệ (ER - entity-relationship modeling) quá nhiều ngay trong mã nguồn Java. Họ đặt quá nhiều sự tập trung vào cơ sở dữ liệu, các bảng, các cột, và cách chúng được phản ánh vào các đối tượng. Điều đó đã dẫn tới một Anemic Domain Model (Mô hình Miền Suy dinh dưỡng - mô hình chỉ chứa các thuộc tính và getter/setter mà không có hành vi nghiệp vụ) [Fowler, Anemic] bao gồm rất nhiều getter và setter. Đáng lẽ họ phải tư duy nhiều hơn về DDD (Domain-Driven Design - Thiết kế Hướng Miền). Đến
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000190_bfb3bdd24ad92638c7a2cc1d076cde1de438b2f031954d99268e7e34e830d46b.png)
+
 thời điểm họ cần phải bóc tách mớ bòng bong bảo mật phức tạp ra, như đã mô tả trong Bounded Contexts (Chương 2), họ đã học được cách tập trung nhiều hơn vào việc mô hình hóa Ubiquitous Language (Ngôn ngữ Toàn diện - ngôn ngữ chung thống nhất giữa chuyên gia nghiệp vụ và đội ngũ phát triển). Điều đó đã mang lại những kết quả tích cực. Trong phần này, chúng ta sẽ thấy nhóm phát triển mới của Identity and Access Context đã hưởng lợi như thế nào từ những bài học kinh nghiệm đó.
 
 Ubiquitous Language trong một Bounded Context được phân tách rõ ràng cung cấp cho chúng ta các khái niệm và thuật ngữ cần thiết để thiết kế mô hình miền. Ngôn ngữ không tự nhiên xuất hiện. Nó phải được bồi đắp thông qua các cuộc thảo luận kỹ lưỡng với các domain expert (chuyên gia miền) và thông qua việc khai phá các yêu cầu. Một số thuật ngữ được phát hiện sẽ là các danh từ gọi tên các sự vật, tính từ mô tả chúng, và động từ biểu thị những gì sự vật đó thực hiện. Sẽ là một sai lầm nếu nghĩ rằng các đối tượng chỉ đơn thuần chắt lọc thành một tập hợp các danh từ để đặt tên cho các class và động từ để đặt tên cho các thao tác nổi bật, và rằng chúng ta có thể nắm bắt được tri thức sâu sắc mà không cần bận tâm đến điều gì khác. Việc tự giới hạn bản thân theo cách đó có thể bóp nghẹt sự mượt mà và phong phú mà mô hình xứng đáng có được. Đầu tư nhiều thời gian vào các cuộc thảo luận và rà soát các đặc tả yêu cầu sẽ giúp phát triển một Ngôn ngữ phản ánh sự suy ngẫm, nỗ lực, đồng thuận và thỏa hiệp đáng kể. Cuối cùng, cả nhóm sẽ nói Ngôn ngữ đó bằng những câu hoàn chỉnh, và mô hình sẽ phản ánh rõ ràng Ngôn ngữ được sử dụng.
 
 Nếu điều quan trọng là các kịch bản miền đặc biệt này phải được lưu giữ lâu dài sau các cuộc thảo luận nhóm, hãy ghi lại chúng trong một tài liệu mỏng nhẹ. Ở dạng sơ khai, Ubiquitous Language của bạn có thể mang hình thức của một bảng thuật ngữ (glossary) và một tập hợp các kịch bản sử dụng đơn giản. Dẫu vậy, sẽ lại là một sai lầm nữa nếu chỉ coi Ngôn ngữ đơn thuần là bảng thuật ngữ và các kịch bản. Sau cùng, Ngôn ngữ được mô hình hóa bởi chính mã nguồn của bạn, và việc giữ cho tài liệu luôn đồng bộ với mã nguồn có thể là điều rất khó khăn hoặc thậm chí bất khả thi.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000191_59f1248ddbb5587d5d35a6587ff9ccf952ef7b50041a0768e247a725f80fb0b5.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000192_b942e5c077731e7c32548ffa655a29c8e8e856667a43d00590b1c5afa7192236.png)
 
 ## Uncovering Entities and Properties
 
@@ -83,6 +91,8 @@ Dưới đây là những gì nhóm đã nắm được về `User` thông qua c
 * Người dùng sở hữu thông tin cá nhân, bao gồm tên và thông tin liên hệ.
 * Thông tin cá nhân của người dùng có thể được thay đổi bởi chính họ hoặc bởi một người quản lý.
 * Thông tin xác thực bảo mật của người dùng (mật khẩu) có thể được thay đổi.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000193_397c03340c8af5f117d89629553bb3b4442a482a3639ab7b2ef355b8247b2ddd.png)
 
 Nhóm đã phải đọc và lắng nghe rất cẩn thận. Ngay khi họ nhìn thấy/nghe thấy các biến thể của từ "thay đổi" (change) được sử dụng, họ khá chắc chắn rằng mình đang xử lý ít nhất một Entity. Đúng là từ "thay đổi" cũng có thể mang nghĩa "thay thế Giá trị" (replace the Value) thay vì "thay đổi Thực thể" (change the Entity). Liệu có điều gì khác củng cố thêm lựa chọn của nhóm về việc sử dụng building block (khối xây dựng) nào hay không? Có đấy. Thuật ngữ then chốt ở đây là "được xác thực" (authenticated), đây là một chỉ dấu mạnh mẽ cho nhóm thấy rằng một cơ chế tìm kiếm phân giải nào đó cần phải được cung cấp. Nếu bạn có một tập hợp nhiều đối tượng, và một trong số các đối tượng đó cần phải được tìm ra từ số đông, bạn cần unique identity để phân biệt đối tượng đó với tất cả các đối tượng còn lại. Một lượt tìm kiếm sẽ cần phải giải quyết từ nhiều người dùng thuộc một tenant (khách thuê/đơn vị thuê bao) để chọn ra chính xác một người dùng duy nhất.
 
@@ -111,6 +121,10 @@ Họ đã xác định được một cặp Entity đã biết, như được th
 
 Hình 5.5 Hai Entity, Tenant và User, sau quá trình khám phá ban đầu
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000194_c521c2412ce55428f4c750c3b44361a57060bc97aa0f2bd7edc9ec5e1b6636dc.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000195_441886947d92dfac1c51795ae09ae3524ef9cfc5faee1d0487b85733757e6414.png)
+
 Nhóm đã quyết định rằng họ sẽ sử dụng một chuỗi UUID đầy đủ để định danh duy nhất cho mỗi `Tenant`, đây là trường hợp ứng dụng tự sinh định danh. Giá trị chuỗi văn bản dài này hoàn toàn có lý do chính đáng để sử dụng, không chỉ vì tính duy nhất được đảm bảo, mà còn vì nó bổ sung thêm một mức độ bảo mật tốt cho mỗi khách hàng thuê bao. Sẽ rất khó để bất kỳ ai có thể đoán ngẫu nhiên ra một UUID để xâm nhập trái phép ở cấp độ đầu tiên vào dữ liệu độc quyền. Họ cũng nhận thấy sự cần thiết phải phân tách rạch ròi các Entity thuộc về từng `Tenant` với các Entity thuộc về tất cả các tenant khác. Một yêu cầu như thế này được đưa ra để giải quyết các vấn đề bảo mật bổ sung mà các khách hàng thuê bao — vốn là các doanh nghiệp cạnh tranh với nhau — quan ngại đối với các ứng dụng và dịch vụ được lưu trữ tập trung (hosted). Do đó, mọi Entity trong toàn bộ các hệ thống sẽ được "đánh dấu phân vùng" (striped) bằng định danh duy nhất này, và mọi truy vấn sẽ bắt buộc phải có định danh duy nhất đó để tìm thấy bất kỳ Entity nào, bất kể trường hợp nào.
 
 Định danh tenant duy nhất không phải là một Entity. Nó là một loại Value (Đối tượng Giá trị). Câu hỏi đặt ra là: Định danh này nên có một kiểu chuyên biệt (specialized type), hay nó có thể chỉ là một `String` đơn giản?
@@ -123,6 +137,8 @@ Các thuộc tính khác có thể gắn liền với mỗi khách hàng thuê b
 
 Hình 5.6 Sau khi một Entity được khám phá và đặt tên, hãy tìm ra các thuộc tính/đặc tính giúp định danh duy nhất cho nó và cho phép nó được tìm thấy.
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000196_9ddcbeb6dff8d16514ad636f16ffcfb7992fa3f8144bf5ff2cd18e9de67b5e45.png)
+
 Hỗ trợ kỹ thuật sẽ được quản lý bởi một Context khác. Sau khi tìm thấy tenant theo tên, phần mềm có thể sử dụng `TenantId` duy nhất của nó. `TenantId` sau đó sẽ được sử dụng để truy cập vào Support Context (Ngữ cảnh Hỗ trợ), ví dụ như vậy, hoặc Billing Context (Ngữ cảnh Thanh toán), hoặc Customer Relationship Management Context (Ngữ cảnh Quản trị Quan hệ Khách hàng). Các hợp đồng hỗ trợ, địa điểm kinh doanh, và thông tin liên hệ khách hàng hầu như không có hoặc có rất ít mối liên hệ với bảo mật. Dẫu vậy, việc liên kết tên của khách hàng thuê bao với `Tenant` sẽ giúp nhân viên hỗ trợ nhanh chóng cung cấp sự trợ giúp cần thiết. Tên gọi này hoàn toàn thuộc về nơi đây.
 
 Sau khi đã hoàn thành những gì dường như là bản chất cốt lõi của `Tenant`, nhóm đã chuyển sự chú ý sang Entity `User` trong một khoảng thời gian. Điều gì sẽ đóng vai trò là unique identity của nó? Hầu hết các hệ thống định danh đều hỗ trợ một username duy nhất. Việc username bao gồm những gì không quá quan trọng, miễn là nó duy nhất trong phạm vi tenant. (Username không nhất thiết phải duy nhất xuyên biên giới giữa các tenant khác nhau.) Việc xác định username của chính mình sẽ được trao quyền cho người dùng tự quyết định. Nếu doanh nghiệp thuê bao có các tiêu chí chính sách nhất định cho username, hoặc nếu tên sẽ được xác định bởi một tích hợp bảo mật liên kết (federated security), việc tuân thủ sẽ thuộc trách nhiệm của người dùng đăng ký. Nhóm chỉ đơn giản khai báo một thuộc tính `username` trên lớp `User`.
@@ -134,6 +150,10 @@ Một yêu cầu chỉ rõ rằng phải tồn tại một thông tin xác thự
 * Encryption Service: Cung cấp phương tiện để mã hóa mật khẩu và các dữ liệu khác không thể lưu trữ và sử dụng dưới dạng văn bản rõ.
 
 Một câu hỏi vẫn còn bỏ ngỏ: Liệu mật khẩu có nên được coi là một phần của unique identity của `User` hay không? Suy cho cùng, nó được sử dụng để tìm một `User`. Nếu đúng như vậy, có lẽ chúng ta sẽ muốn kết hợp cả hai thuộc tính thành một Whole Value (Giá trị Hoàn chỉnh - mẫu thiết kế gom cụm các trường dữ liệu liên quan thành một đối tượng giá trị duy nhất), đặt tên cho nó đại loại như `SecurityPrincipal`. Điều đó sẽ làm cho khái niệm này trở nên tường minh hơn nhiều. Đó là một ý tưởng thú vị, nhưng nó đã bỏ sót một yêu cầu quan trọng: Mật khẩu có thể được thay đổi. Cũng có những thời điểm các dịch vụ sẽ cần tìm một `User` mà không được cung cấp mật khẩu. Việc này không phải để phục vụ xác thực. (Hãy xem xét kịch bản chúng ta cần kiểm tra xem một `User` có đang đảm nhận một Role bảo mật nào đó hay không. Chúng ta không thể yêu cầu mật khẩu để tìm một `User` mỗi lần chúng ta cần kiểm tra quyền truy cập). Mật khẩu không phải là định danh. Chúng ta vẫn có thể đưa cả username và password vào trong một truy vấn xác thực duy nhất.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000197_1dbd509b1d32781c660c1317bee8d199d1046582cda0610840b98b06f61c44b3.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000198_9aa0e5df966d34e4f8f392f9a6e1a4cfdfdc81530bce28a1413de74d3b51c34f.png)
 
 Ý tưởng về việc tạo ra một Value type `SecurityPrincipal` đã đưa ra một đề xuất mô hình hóa đầy hấp dẫn. Nó đã được ghi lại để xem xét sau. Cũng có một số khái niệm khác chưa được khám phá, chẳng hạn như các thư mời đăng ký sẽ được cung cấp như thế nào, cùng các chi tiết về tên cá nhân và thông tin liên hệ. Nhóm sẽ giải quyết những điều đó trong vòng lặp phát triển nhanh tiếp theo.
 
@@ -149,19 +169,19 @@ Khi chúng ta nghĩ về việc kích hoạt và vô hiệu hóa một `Tenant`,
 
 ```java
 public class Tenant extends Entity {
-
 ```
 
 ```java
     ...
     private boolean active;
     ...
-
 ```
 
 Có lẽ là không hoàn toàn. Và ban đầu chúng ta chỉ muốn tập trung duy nhất vào các thuộc tính giúp cung cấp định danh và cho phép khớp nối trên các truy vấn. Chúng ta sẽ bổ sung các chi tiết hỗ trợ như vậy sau.
 
 Nhóm có thể đã nghiêng về quyết định khai báo phương thức `setActive(boolean)`, mặc dù điều đó sẽ không thực sự giải quyết được thuật ngữ của yêu cầu. Không phải là các phương thức setter công khai không bao giờ phù hợp, nhưng chúng chỉ nên được sử dụng khi Ngôn ngữ cho phép
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000199_5b7d848709e04b47faf02d1d200684088c399f0c8f3c4069a54f889064c3ef73.png)
 
 ## DISCOVERING ENTITIES AND THEIR INTRINSIC CHARACTERISTICS
 
@@ -182,7 +202,6 @@ public class Tenant extends Entity {
         // TODO: implement
     }
     ...
-
 ```
 
 Để hiện thực hóa các ý tưởng của mình, trước tiên nhóm đã phát triển một bài kiểm thử để cảm nhận xem việc sử dụng các hành vi mới này sẽ như thế nào:
@@ -198,7 +217,6 @@ public class TenantTest ... {
         assertTrue(tenant.isActive());
     }
 }
-
 ```
 
 Sau bài kiểm thử này, nhóm cảm thấy tự tin vào chất lượng của interface. Việc viết bài kiểm thử đã giúp họ nhận ra rằng một phương thức khác, `isActive()`, là cần thiết. Họ đã thống nhất với ba phương thức mới này, như được thấy trong Hình 5.7. Bảng thuật ngữ của Ubiquitous Language cũng phong phú thêm:
@@ -206,7 +224,13 @@ Sau bài kiểm thử này, nhóm cảm thấy tự tin vào chất lượng c�
 * Kích hoạt tenant (Activate tenant): Tạo điều kiện thuận lợi cho việc kích hoạt một tenant bằng thao tác này, và trạng thái hiện tại có thể được xác nhận.
 * Vô hiệu hóa tenant (Deactivate tenant): Tạo điều kiện thuận lợi cho việc vô hiệu hóa một tenant bằng thao tác này. Người dùng không thể được xác thực khi tenant bị vô hiệu hóa.
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000200_ce3caa429250fe072b90930e21472713db76911bfad574c2c0c71e03b16176c0.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000201_7264c29c74a58c20ce84397a0d0e433f7b5b91813818561869e93b10b60725f9.png)
+
 Hình 5.7 Hành vi không thể thiếu được gán cho Tenant trong vòng lặp phát triển nhanh đầu tiên. Một số hành vi bị lược bỏ do tính phức tạp nhưng có thể được thêm vào sớm.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000202_8b7e87c8903e80403d0f4280a1372182b611b57a75bffc0c2d777a17fa6ae298.png)
 
 * Authentication Service: Điều phối việc xác thực người dùng, trước tiên đảm bảo rằng tenant sở hữu người dùng đó đang hoạt động.
 
@@ -242,7 +266,13 @@ Thay vào đó, nếu họ mô hình hóa hành vi cá nhân ngay trên `User`, 
 
 Hình 5.8 Hành vi nền tảng của User thúc đẩy thêm nhiều liên kết. Không cần quá chi tiết, nhóm đã mô hình hóa thêm một vài đối tượng cùng các thao tác.
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000203_70261ed7a63e99ad08fda95e6afed7a9af39aeefc08df4d498c92538bb474c97.png)
+
 [^1]: Xem các mẫu thiết kế đã xuất bản của tôi: http://vaughnvernon.co/.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000204_ff5ff04953f29a3c66dd5fd2b8d6e5092883124e53f36760cd3d9129a6a4539c.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000205_50966df4e42821bf65119a8fb7188973a495a5bc210d30328457c6ad6bade57d.png)
 
 Còn có những cân nhắc khác. Liệu nhóm có nên phơi bày `Person` ra ngoài hay không, hay ẩn giấu nó khỏi tất cả các client? Hiện tại họ quyết định giữ cho `Person` được hiển thị cho mục đích truy vấn thông tin. Phương thức truy cập (accessor) sau đó có thể được thiết kế lại để phục vụ một interface `Principal`, trong đó `Person` và `System` mỗi bên sẽ là một `Principal` chuyên biệt. Nhóm sẽ có thể tái cấu trúc điều này khi họ đạt được sự hiểu biết sâu sắc hơn.
 
@@ -282,7 +312,6 @@ public interface Person {
 public class HumanUser implements User, Person {
     ...
 }
-
 ```
 
 Điều này có hợp lý không? Có thể, nhưng nó cũng có thể làm phức tạp hóa mọi thứ. Nếu cả hai interface đều phức tạp, có thể sẽ rất khó để triển khai cả hai trong một đối tượng duy nhất. Ngoài ra, một `User` có thể là một hệ thống, điều này sẽ làm tăng số lượng interface cần thiết lên con số ba. Việc thiết kế một đối tượng đơn lẻ đảm nhận các vai trò của `User`, `Person`, và `System` sẽ còn khó khăn hơn nữa. Có lẽ chúng ta có thể đơn giản hóa điều này bằng cách tạo ra một `Principal` đa năng:
@@ -299,8 +328,11 @@ public interface Principal {
 public class UserPrincipal implements User, Principal {
     ...
 }
-
 ```
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000206_f44974492ab6da283e5b6e049bf4048ad19970a7406e36cfad0539fe522f5295.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000207_b5e91bf490cfce394d4feca730beecbb2415df379e4b8d8c50a146dfd1f84cf9.png)
 
 Với thiết kế này, chúng ta đang cố gắng xác định kiểu chủ thể thực tế tại thời điểm thực thi (late binding - liên kết muộn). Một chủ thể dạng con người và một chủ thể dạng hệ thống có các cách triển khai khác nhau. Các hệ thống không cần loại thông tin liên hệ giống như một con người có. Dẫu vậy, chúng ta vẫn có thể thử, bằng cách thiết kế một triển khai ủy quyền chuyển tiếp (forwarding delegation). Để làm được điều đó, chúng ta sẽ kiểm tra sự tồn tại của kiểu này hay kiểu kia tại thời điểm thực thi và ủy quyền cho đối tượng đang tồn tại:
 
@@ -337,7 +369,6 @@ public class UserPrincipal implements User, Principal {
     }
     ...
 }
-
 ```
 
 Thiết kế này làm phát sinh nhiều vấn đề khác nhau. Thứ nhất, nó mắc phải hội chứng gọi là object schizophrenia (tâm thần phân liệt đối tượng) [^2]. Hành vi được ủy quyền bằng một kỹ thuật gọi là chuyển tiếp (forwarding) hoặc điều phối (dispatching). Cả `personPrincipal` lẫn `systemPrincipal` đều không mang định danh của Entity `UserPrincipal` — nơi mà hành vi ban đầu được thực thi trên đó. Thuật ngữ object schizophrenia mô tả tình huống trong đó các đối tượng được ủy quyền không hề biết định danh của đối tượng gốc khởi tạo ra chúng. Có sự hoang mang rối loạn bên trong các đối tượng được ủy quyền về việc thực chất chúng là ai. Không phải mọi phương thức ủy quyền trong hai lớp cụ thể đều bắt buộc phải tiếp nhận định danh của đối tượng cơ sở, nhưng một số phương thức có thể sẽ cần tới nó. Chúng ta có thể truyền vào một tham chiếu tới `UserPrincipal`. Nhưng điều đó làm phức tạp thiết kế và thực tế đòi hỏi interface `Principal` phải thay đổi. Điều đó không tốt chút nào. Như [Gamma et al.] khẳng định: "Ủy quyền chỉ là một lựa chọn thiết kế tốt khi nó mang lại sự đơn giản nhiều hơn là sự phức tạp."
@@ -360,6 +391,12 @@ Như đã thảo luận trong Aggregates (Chương 10), thông thường chúng 
 
 Hình 5.9 Sử dụng quy ước đặt tên của C#.NET, Entity Customer triển khai hai vai trò đối tượng, IAddOrdersToCustomer và IMakeCustomerPreferred.
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000208_d9029a33f34b68be216eff942aae8228ee830b2987dbc6a09080a62b5b53d07e.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000209_61893e1943aae9949550da58904bb25b04a328e068eb57d1ecb879fc1715f586.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000210_c92d1e7a64410d7bba0f52f3cc87a3753e3269f9469e7fb6fe374d0a52fa9513.png)
+
 Tiền tố `I` trong tên interface là một quy ước được sử dụng rộng rãi trong lập trình .NET. Bên cạnh việc tuân theo cách tiếp cận của .NET nói chung, một số người cho rằng nó làm tăng khả năng đọc hiểu: "Tôi thêm đơn hàng vào khách hàng" (I add orders to customer) và "Tôi biến khách hàng thành khách hàng ưu đãi" (I make customer preferred). Nếu không có tiền tố `I`, các tên gọi dựa trên động từ thu được có thể kém hấp dẫn hơn: `AddOrdersToCustomer` và `MakeCustomerPreferred`. Chúng ta có thể đã quen hơn với việc đặt tên interface bằng các danh từ hoặc tính từ, và tiêu chuẩn đó chắc chắn hoàn toàn có thể được áp dụng ở đây thay thế.
 
 Hãy xem xét một số ưu điểm mà phong cách này thúc đẩy. Vai trò của một Entity có thể thay đổi từ use case này sang use case khác. Khi một client cần thêm một thực thể `Order` mới vào một `Customer`, vai trò đó khác biệt so với khi họ muốn biến `Customer` đó thành khách hàng ưu tiên. Ngoài ra còn có một lợi thế kỹ thuật. Các use case khác nhau có thể yêu cầu các chiến lược nạp dữ liệu (fetching strategies) chuyên biệt:
@@ -370,7 +407,6 @@ customer.MakePreferred();
 ...
 IAddOrdersToCustomer customer = session.Get<IAddOrdersToCustomer>(customerId);
 customer.AddOrder(order);
-
 ```
 
 Cơ chế lưu trữ dữ liệu bền vững sẽ truy vấn tên kiểu tham số hóa `T` của phương thức `Get<T>()`. Nó sử dụng kiểu này để tra cứu một chiến lược nạp dữ liệu liên quan đã được đăng ký với hạ tầng. Nếu interface tình cờ không có chiến lược nạp dữ liệu đặc biệt nào, chiến lược mặc định sẽ được sử dụng. Bằng cách thực thi chiến lược nạp dữ liệu, đối tượng `Customer` được xác định sẽ được tải lên theo đúng hình dạng cấu trúc cần thiết cho use case cụ thể đó.
@@ -385,6 +421,8 @@ Hoàn toàn công bằng khi đặt câu hỏi liệu có lợi thế mô hình 
 
 Hình 5.10 Ở đây Customer được mô hình hóa với các thao tác trước đây nằm trên các interface khác nhau nay được gộp chung lại vào interface duy nhất của lớp Entity.
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000211_507534f56eb61d6185c92a1ac22985bc9f190f5cc0e96aec1d8c3512dbb84ba5.png)
+
 một client vô tình gọi nhầm phương thức `AddOrder()` khi đáng lẽ nó phải gọi `MakePreferred()` hay không? Có lẽ là không. Nhưng chúng ta không nên chỉ đánh giá cách tiếp cận này dựa trên mỗi yếu tố đó.
 
 Có lẽ cách sử dụng thực tế nhất của các interface vai trò cũng chính là cách đơn giản nhất. Chúng ta có thể tận dụng các interface để che giấu các chi tiết triển khai mà chúng ta không muốn bị rò rỉ ra ngoài mô hình tới các client. Hãy thiết kế một interface để phơi bày chính xác những gì chúng ta muốn cho phép các client sử dụng, và không gì khác ngoài điều đó. Lớp triển khai có thể phức tạp hơn rất nhiều so với interface. Nó có thể có đủ loại thuộc tính hỗ trợ với các getter và setter, cùng hành vi triển khai mà các client sẽ không bao giờ có cơ hội nhìn thấy. Ví dụ, có thể một công cụ hoặc framework bắt buộc phải tạo ra các phương thức công khai mà chúng ta không hề muốn các client sử dụng. Ngay cả như vậy, interface của mô hình miền cũng không hề bị chi phối bởi các chi tiết triển khai kỹ thuật khó chịu vốn bắt buộc phải có. Điều này mang lại một lợi thế rõ rệt cho việc mô hình hóa miền.
@@ -396,6 +434,10 @@ Cùng với bất kỳ lựa chọn thiết kế nào, hãy đảm bảo rằng 
 Khi chúng ta khởi tạo mới một Entity, chúng ta muốn sử dụng một constructor nắm bắt đủ trạng thái để định danh đầy đủ cho nó và cho phép các client có thể tìm thấy nó. Khi sử dụng cơ chế sinh định danh sớm, một constructor được thiết kế đúng đắn sẽ nhận ít nhất là unique identity làm tham số. Nếu Entity được truy vấn bằng các phương tiện khác, chẳng hạn như bằng tên hoặc phần mô tả, chúng ta cũng sẽ đưa tất cả những thông tin đó vào làm tham số constructor.
 
 Đôi khi một Entity duy trì một hoặc nhiều invariant. Một invariant là một trạng thái bắt buộc phải duy trì tính nhất quán về mặt giao dịch xuyên suốt vòng đời của Entity. Invariant là mối bận tâm của các Aggregate, nhưng vì Aggregate Root luôn luôn là một Entity, nên nó được đề cập ở đây. Nếu một Entity có một invariant được thỏa mãn bởi trạng thái nonnull của một đối tượng chứa bên trong, hoặc được tính toán bằng cách sử dụng một trạng thái nào đó khác, thì trạng thái đó bắt buộc phải được cung cấp thông qua một hoặc nhiều tham số constructor.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000212_f743ee2ca8f413c80933330b73ec31ead2e233216cf12af29d22873034dca8a7.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000213_2505faadf37f4651818540fcc895591951449b850c10e368c7f8580323c704b1.png)
 
 Mỗi đối tượng `User` bắt buộc phải chứa một `tenantId`, `username`, `password`, và `person`. Nói cách khác, sau khi khởi tạo thành công, các tham chiếu tới các biến thực thể (instance variables) được khai báo này tuyệt đối không bao giờ được phép mang giá trị `null`. Constructor của `User` cùng các setter của biến thực thể của nó đảm bảo điều này:
 
@@ -443,7 +485,6 @@ public class User extends Entity {
         if (aUsername == null) {
             throw new IllegalArgumentException("The username may not be set to null.");
         }
-
 ```
 
 ```java
@@ -451,7 +492,6 @@ public class User extends Entity {
     }
     ...
 }
-
 ```
 
 Thiết kế của lớp `User` thể hiện sức mạnh của tính tự đóng gói (self-encapsulation). Constructor ủy quyền việc gán biến thực thể cho chính các setter thuộc tính nội bộ của nó, vốn cung cấp cơ chế tự đóng gói cho các biến. Tính tự đóng gói cho phép mỗi setter xác định các điều kiện hợp đồng thích hợp cho việc thiết lập một phần của trạng thái. Từng setter riêng lẻ sẽ xác nhận một ràng buộc nonnull thay mặt cho Entity, từ đó thực thi hợp đồng của thực thể. Các xác nhận này được gọi là các guard (xem phần 'Validation'). Như đã chỉ ra trước đây trong phần 'Identity Stability', các kỹ thuật tự đóng gói của các phương thức setter này có thể phức tạp hơn tùy theo nhu cầu.
@@ -475,10 +515,13 @@ public class Tenant extends Entity {
     }
     ...
 }
-
 ```
 
 Ở đây, phương thức `registerUser()` chính là Factory. Factory này đơn giản hóa việc khởi tạo trạng thái mặc định của `User` và đảm bảo rằng `TenantId` cho cả hai Entity `User` và `Person` luôn luôn chính xác. Tất cả điều này diễn ra dưới sự kiểm soát của một phương thức Factory đáp ứng Ubiquitous Language.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000214_e04640c225b04998fe28c0649546d00bb19e7d30d7baca37230f147340c8eab3.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000215_eec8397c98458f7659b8757e212d390d543ac8b50e1b8b0bea3dcaf4e6caf0a1.png)
 
 ## Validation
 
@@ -524,7 +567,6 @@ public final class EmailAddress {
     }
     ...
 }
-
 ```
 
 Có bốn precondition đối với hợp đồng phương thức của `setAddress()`. Tất cả các guard của precondition đều xác nhận một điều kiện của đối số `anAddress`:
@@ -538,9 +580,15 @@ Nếu tất cả các precondition này đều vượt qua, thuộc tính `addre
 
 Lớp `EmailAddress` không phải là một Entity. Nó là một Value Object. Chúng ta sử dụng nó ở đây vì một vài lý do. Thứ nhất, nó là một ví dụ điển hình về việc triển khai các mức độ khác nhau của các guard precondition, từ kiểm tra null cho đến định dạng giá trị (sẽ nói thêm về điều này tiếp theo). Thứ hai, Value này được nắm giữ bởi Entity `Person` như một trong những thuộc tính của nó, một cách gián tiếp thông qua Value `ContactInformation`. Vì vậy, thực chất, đây là một phần của một Entity theo cùng một cách mà một thuộc tính đơn giản được khai báo trên một lớp Entity cũng là một phần của nó. Chúng ta sử dụng chính xác cùng một loại guard precondition khi triển khai các setter cho các thuộc tính đơn giản. Khi một Whole Value được gán cho một thuộc tính của Entity, không có cách nào để bảo vệ khỏi việc thiết lập trạng thái bất hợp lý (insane state) trừ khi các thuộc tính nhỏ hơn bên trong Value đó được bảo vệ cẩn mật.
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000216_4e626eb269613487384a36d7998a8b2f57665684634e8c201a861cb3f94f264d.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000217_8f7b5db14b31d20e9c1116591f1e71de76474299b1242e4332866d9a883d0392.png)
+
 ## Cowboy Logic
 
 * LB: 'Tôi cứ tưởng mình có một lập luận xác đáng (valid argument) khi tranh luận với bà xã, nhưng rồi đột nhiên bà ấy ném ngay một ngoại lệ đối số không hợp lệ (illegal argument exception) vào mặt tôi.'
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000218_d6b405e58716e872f15a058ff9116bd56bac3e082c795e6b21f56c4ea495369d.png)
 
 > 💡 **Giải thích thêm:** Đây là một câu đùa chơi chữ kinh điển trong lập trình. Từ "argument" trong tiếng Anh vừa có nghĩa là "lập luận/lý lẽ trong một cuộc tranh cãi", vừa có nghĩa là "đối số truyền vào hàm". LB tưởng mình có "valid argument" (lập luận có lý / đối số hợp lệ), nhưng bà vợ lại ném ra một "illegal argument exception" (sự phản đối quyết liệt vô lý / ngoại lệ `IllegalArgumentException` trong Java khi đối số không thỏa mãn điều kiện).
 > (Không có nguồn trích dẫn xác thực — cần tự kiểm chứng thêm)
