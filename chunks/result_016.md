@@ -1,4 +1,4 @@
-﻿Đối với toàn bộ các hạng mục tồn đọng (outstanding items) của một sản phẩm nhất định, chúng ta sẽ duyệt lặp qua từng mục và tính tổng từng xếp hạng trong thuộc tính `BusinessPriority` (Độ ưu tiên nghiệp vụ) của chúng. Các giá trị tổng thu được từ quá trình tính toán lặp này được dùng để khởi tạo một đối tượng `BusinessPriorityTotals` (Tổng các chỉ số ưu tiên nghiệp vụ) mới rồi trả về cho phía client (phía gọi dịch vụ). Bản thân quy trình tính toán của một Service (Dịch vụ miền / Domain Service) không nhất thiết phải luôn phức tạp, dù trong một số trường hợp sự phức tạp là điều bắt buộc. Trường hợp cụ thể này tình cờ lại khá đơn giản.
+Đối với toàn bộ các hạng mục tồn đọng (outstanding items) của một sản phẩm nhất định, chúng ta sẽ duyệt lặp qua từng mục và tính tổng từng xếp hạng trong thuộc tính `BusinessPriority` (Độ ưu tiên nghiệp vụ) của chúng. Các giá trị tổng thu được từ quá trình tính toán lặp này được dùng để khởi tạo một đối tượng `BusinessPriorityTotals` (Tổng các chỉ số ưu tiên nghiệp vụ) mới rồi trả về cho phía client (phía gọi dịch vụ). Bản thân quy trình tính toán của một Service (Dịch vụ miền / Domain Service) không nhất thiết phải luôn phức tạp, dù trong một số trường hợp sự phức tạp là điều bắt buộc. Trường hợp cụ thể này tình cờ lại khá đơn giản.
 
 Hãy lưu ý từ ví dụ này rằng bạn hoàn toàn không muốn logic này nằm trong một Application Service (Dịch vụ ứng dụng). Ngay cả khi bạn coi phép tính tổng trong vòng lặp `for` là tầm thường, nó vẫn là business logic (logic nghiệp vụ). Nhưng vẫn còn một lý do khác:
 
@@ -7,14 +7,16 @@ BusinessPriorityTotals businessPriorityTotals =
     new BusinessPriorityTotals(
         totalBenefit,
         totalPenalty,
-
 ```
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000295_44cac771d4321797eed28b1139ae74acba7a2b8b1cee068eff909797c7a5835d.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000296_f2f4e5cecb5eca5f10867d33a291e2e8104b3b3c96948780e1880d7626e4755e.png)
 
 ```java
         totalBenefit + totalPenalty,
         totalCost,
         totalRisk);
-
 ```
 
 Khi `BusinessPriorityTotals` được khởi tạo, thuộc tính `totalValue` của nó được tính suy biến từ tổng của `totalBenefit` và `totalPenalty`. Logic này mang tính đặc thù của miền nghiệp vụ (domain-specific) và tuyệt đối không được phép rò rỉ sang Application Layer (Tầng ứng dụng). Chúng ta có thể lập luận rằng bản thân constructor (hàm khởi tạo) của `BusinessPriorityTotals` nên tự đảm nhận việc suy biến giá trị này từ hai tham số truyền vào. Dù đó có thể là một cách cải thiện mô hình, nhưng việc làm đó cũng không thể biện minh cho việc chuyển các phép tính còn lại sang một Application Service.
@@ -38,7 +40,6 @@ public class ProductService ... {
         return productBusinessPriority;
     }
 }
-
 ```
 
 Trong trường hợp này, một phương thức private trong Application Service chịu trách nhiệm yêu cầu tính tổng độ ưu tiên nghiệp vụ cho sản phẩm. Tại đây, phương thức có thể chỉ đang cung cấp một phần payload (dữ liệu truyền tải) trả về cho client của `ProductService`, chẳng hạn như giao diện người dùng (User Interface).
@@ -74,8 +75,11 @@ public class AuthenticationServiceTest extends IdentityTest {
         DomainRegistry
             .userRepository()
             .add(user);
-
 ```
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000297_457ae7e640b9b99aa017da56207a4c63fcc8a56ba7326f9c69c421e974748249.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000298_4ad6166238006aabe5202cf55a69ec170dca2a4007b5f1a6def9132b9d8f3f7e.png)
 
 ```java
         UserDescriptor userDescriptor =
@@ -92,7 +96,6 @@ public class AuthenticationServiceTest extends IdentityTest {
         assertEquals(user.person().emailAddress(), userDescriptor.emailAddress());
     }
     ...
-
 ```
 
 Ví dụ này cho thấy cách `AuthenticationService` được client thuộc Application Service sử dụng. Đây là một happy path (kịch bản lý tưởng / luồng chạy chuẩn không phát sinh lỗi), nơi client xác thực thành công người dùng bằng cách truyền vào các tham số đúng như kỳ vọng.
@@ -121,7 +124,6 @@ Tiếp theo, chúng ta minh họa kịch bản xác thực thất bại:
 
         assertNull(userDescriptor);
     }
-
 ```
 
 Bài test xác thực này thất bại vì chúng ta cố ý truyền vào một `TenantId` khác với `TenantId` mà `User` được tạo ra. Tiếp theo là minh họa trường hợp tên đăng nhập không hợp lệ:
@@ -144,7 +146,6 @@ Bài test xác thực này thất bại vì chúng ta cố ý truyền vào mộ
 
         assertNull(userDescriptor);
     }
-
 ```
 
 Kịch bản kiểm thử xác thực này thất bại vì chúng ta truyền sai tên đăng nhập. Còn một kịch bản thất bại cuối cùng được minh họa trong các bài test này:
@@ -168,12 +169,17 @@ Kịch bản kiểm thử xác thực này thất bại vì chúng ta truyền s
         assertNull(userDescriptor);
     }
 }
-
 ```
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000299_1b101a0479ae3fea3924b17e0763fd5c7963fc59f1d153ac42c46ecf9809dc05.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000300_01b9985beec547c8ec23cd8e0209d691e5df19c82ffd6f40ec9da4d2beec6c0a.png)
 
 Bài test này cung cấp mật khẩu sai, dẫn đến việc xác thực thất bại. Trong mọi trường hợp minh họa kịch bản thất bại, `UserDescriptor` đều được trả về dưới dạng `null`. Đây là một chi tiết mà các client cần lưu ý, vì nó cho biết điều gì client nên mong đợi khi người dùng không được xác thực. Nó cũng chỉ ra rằng xác thực thất bại không phải là một lỗi ngoại lệ (exceptional error), mà chỉ là một khả năng diễn ra bình thường trong domain này. Nếu không, nếu việc xác thực thất bại bị coi là ngoại lệ, chúng ta đã bắt Service ném ra ngoại lệ `AuthenticationFailedException`.
 
 Trên thực tế vẫn còn thiếu một vài bài test. Tôi sẽ để bạn tự viết test cho các kịch bản miền nghiệp vụ bao gồm: khi một `Tenant` (Bên thuê / Đơn vị thuê hệ thống) không còn hoạt động, và khi một `User` bị vô hiệu hóa. Sau đó, bạn có thể tạo các bài test cho `BusinessPriorityCalculator`.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000301_9dda28262153b1955567b5408cb28a5615abde6c626337004497b6a09d255c32.png)
 
 ## Wrap-Up
 
@@ -215,6 +221,8 @@ Tra cứu tài liệu của [Evans], bạn sẽ không tìm thấy định nghĩ
 
 Điều gì đó đã xảy ra mà các chuyên gia nghiệp vụ (domain experts) quan tâm.
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000302_408553df1886616960677931e15e4f6b4d8c29ea7b16b28f2ff218aa521cfe4b.png)
+
 Hãy mô hình hóa thông tin về hoạt động trong domain thành một chuỗi các sự kiện rời rạc. Đại diện cho mỗi sự kiện bằng một đối tượng miền (domain object). . . . Một sự kiện miền là một phần đầy đủ của mô hình miền, một đại diện cho điều gì đó đã xảy ra trong miền. [Evans, Ref, trang 20]
 
 Làm thế nào để chúng ta xác định được liệu điều gì đó xảy ra trong miền có quan trọng đối với các chuyên gia nghiệp vụ hay không? Khi trao đổi với họ, chúng ta phải lắng nghe cẩn thận từng manh mối. Hãy lưu ý một vài cụm từ then chốt cần lắng nghe khi các chuyên gia nghiệp vụ nói chuyện:
@@ -230,11 +238,13 @@ Dĩ nhiên, với các cách diễn đạt 'Báo cho tôi nếu . . .' và 'Thô
 
 AJ: 'Trong trường hợp tôi cần ngựa [chơi chữ: Trong sự kiện tôi cần ngựa], tôi chỉ việc hét lên: 'Lại đây nào, Trigger!' là nó phi tới ngay. Dĩ nhiên, việc cho nó biết tôi đang cầm một viên đường cũng chẳng hại gì.'
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000303_26c332a76a614679971a2c2675288649bdd479c732440953476fcef2e9c52526.png)
+
 > 💡 **Giải thích thêm:** Tác giả sử dụng góc hài hước "Cowboy Logic" (Lô-gíc cao bồi) qua các nhân vật miền Tây để chơi chữ với các khái niệm Domain-Driven Design:
 > * Cụm từ *"In the event that"* vừa mang nghĩa đời thường là "trong trường hợp / khi", vừa ám chỉ khái niệm "Event" (Sự kiện miền).
 > * "Trigger" vừa là tên con ngựa nổi tiếng của chàng cao bồi huyền thoại Roy Rogers trong văn hóa Mỹ, vừa là thuật ngữ kỹ thuật chỉ hành động "kích hoạt" (trigger).
 > * "Viên đường" (cube of sugar) tượng trưng cho thông tin/dữ liệu đính kèm (payload) thúc đẩy hành động phản hồi tức thì.
-> Nguồn tham khảo: https://en.wikipedia.org/wiki/Trigger_(horse)
+> Nguồn tham khảo: [https://en.wikipedia.org/wiki/Trigger_(horse](https://en.wikipedia.org/wiki/Trigger_(horse))
 > 
 > 
 
@@ -250,6 +260,12 @@ Hình 8.1 minh họa cách các Event có thể bắt nguồn, cách chúng đư
 
 Hình 8.1 Các Aggregate tạo ra các Event và phát hành chúng. Các subscriber có thể lưu trữ Event rồi chuyển tiếp chúng tới các subscriber ở xa, hoặc chỉ chuyển tiếp mà không lưu trữ. Việc chuyển tiếp tức thời đòi hỏi chuẩn XA (tiêu chuẩn giao dịch phân tán hai pha) trừ khi middleware nhắn tin chia sẻ chung kho lưu trữ dữ liệu với mô hình.
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000304_92adbef44ec5e466e174225c3907ece6830a4357abd9162743455f0964f7f619.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000305_ea443ff303707d0cc0e2f3529c14d0938bef936c77ac7ce481a8b4fbf68422c0.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000306_ce424a29adfa43de0572b51feef985247cd90d0a6d0252ffcf0648bd5c8dd0ef.png)
+
 Ngoài ra, hãy nghĩ đến những thời điểm hệ thống của bạn thường phải thực hiện batch processing (xử lý theo lô). Có thể vào các khung giờ thấp điểm (thường là ban đêm), hệ thống của bạn thực hiện một số hoạt động bảo trì hàng ngày nào đó: xóa các đối tượng đã lỗi thời, tạo mới các đối tượng cần thiết để đáp ứng các tình huống nghiệp vụ mới hình thành, đồng bộ trạng thái giữa các đối tượng với nhau, và thậm chí thông báo cho một số người dùng nhất định rằng những điều quan trọng đã diễn ra. Thường thì việc thực hiện các quy trình batch như vậy đòi hỏi bạn phải chạy những câu truy vấn phức tạp nhằm xác định các tình huống nghiệp vụ cần xử lý. Các phép tính toán và thủ tục để giải quyết chúng rất tốn kém tài nguyên, đồng thời việc đồng bộ hóa tất cả các thay đổi đòi hỏi những giao dịch có quy mô lớn. Sẽ ra sao nếu những quy trình batch phiền toái đó có thể trở nên thừa thãi và bị loại bỏ?
 
 Bây giờ, hãy nghĩ về những sự việc thực tế đã diễn ra trong suốt ngày hôm trước dẫn đến nhu cầu phải "chạy đuổi theo để bù đắp" (play catch-up) vào ban đêm. Nếu mỗi sự việc rời rạc đó đều được ghi nhận bằng một Event duy nhất, rồi phát hành tới các listener (bộ lắng nghe sự kiện) trong chính hệ thống của bạn, liệu điều đó có giúp đơn giản hóa mọi thứ không? Thực tế là có, nó sẽ loại bỏ các câu truy vấn phức tạp bởi vì bạn sẽ biết chính xác điều gì đã xảy ra và xảy ra khi nào, cung cấp đầy đủ ngữ cảnh về những gì cần phải diễn ra tiếp theo như một hệ quả tất yếu. Bạn chỉ việc thực thi khi nhận được thông báo của từng Event. Khối lượng xử lý vốn đang ngốn nhiều tài nguyên I/O và vi xử lý trong các đợt batch nặng nề sẽ được dàn trải thành từng đợt ngắn (short spurts) xuyên suốt cả ngày; nhờ đó, các tình huống nghiệp vụ của bạn sẽ đạt trạng thái hài hòa nhanh hơn rất nhiều, luôn sẵn sàng cho người dùng thực hiện các bước kế tiếp.
@@ -263,6 +279,8 @@ Tôi sẽ để dành một phần nội dung này cho Chương 13: Integrating 
 Hãy lấy một yêu cầu từ Agile Project Management Context. Các chuyên gia nghiệp vụ đã nêu lên nhu cầu về một Event theo cách như sau (phần in nghiêng được thêm vào để nhấn mạnh):
 
 *Cho phép mỗi hạng mục tồn đọng (backlog item) được cam kết vào một sprint (chu kỳ phát triển ngắn). Nó chỉ có thể được cam kết nếu nó đã được lên lịch phát hành (scheduled for release). Nếu nó đã được cam kết vào một sprint khác, trước hết nó phải được hủy cam kết (uncommitted). Khi hạng mục tồn đọng được cam kết, hãy thông báo cho sprint đó và các bên quan tâm khác.*
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000307_29c52eecb3916289686460b82c727a0ffcfaaaff7d3c1f995d72d1c597b684b0.png)
 
 Khi mô hình hóa các Event, hãy đặt tên cho chúng và các thuộc tính của chúng theo Ubiquitous Language trong chính Bounded Context nơi chúng bắt nguồn. Nếu một Event là kết quả của việc thực thi một thao tác command (lệnh) trên một Aggregate, thì tên của nó thường được bắt nguồn từ chính command đã được thực thi đó. Command là nguyên nhân tạo ra Event, và do đó, tên của Event được diễn đạt chuẩn xác theo dạng command đó đã xảy ra trong quá khứ. Theo kịch bản ví dụ, khi chúng ta cam kết một backlog item vào một sprint, chúng ta phát hành một Event mô hình hóa tường minh điều đã diễn ra trong domain:
 
@@ -280,6 +298,10 @@ Khi phát hành các Event từ các Aggregate, điều quan trọng là tên c�
 
 Sau khi đã tìm được tên gọi phù hợp, Event nên có những thuộc tính nào? Trước hết, chúng ta cần một timestamp (dấu thời gian) biểu thị thời điểm Event diễn ra. Trong Java, chúng ta có thể biểu diễn nó bằng kiểu `java.util.Date`:
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000308_e35f39c89a05944bc84ef98a43e6a38fb2699ce40f7129a7fa204740c2048da2.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000309_6bdcc7577ad8dddf5c6e4aaae00fab42c723ec9f94f26fc0e8a949b271d15227.png)
+
 ```java
 package com.saasovation.agilepm.domain.model.product;
 
@@ -287,7 +309,6 @@ public class BacklogItemCommitted implements DomainEvent {
     private Date occurredOn;
     ...
 }
-
 ```
 
 Interface tối thiểu `DomainEvent`, được cài đặt bởi tất cả các Event, đảm bảo hỗ trợ phương thức truy xuất `occurredOn()`. Nó áp đặt một contract (hợp đồng giao diện) cơ bản cho mọi Event:
@@ -300,7 +321,6 @@ import java.util.Date;
 public interface DomainEvent {
     public Date occurredOn();
 }
-
 ```
 
 Ngoài thuộc tính này, nhóm phát triển sẽ xác định những thuộc tính nào khác là cần thiết để đại diện cho một sự việc có ý nghĩa về những gì đã diễn ra. Hãy cân nhắc đưa vào bất cứ thông tin nào cần thiết để tái hiện (trigger lại) Event đó. Thông thường, điều này bao gồm định danh (identity) của thực thể Aggregate nơi sự việc diễn ra, hoặc bất kỳ thực thể Aggregate nào có liên quan. Áp dụng hướng dẫn này, chúng ta có thể tạo các thuộc tính từ bất kỳ tham số nào gây ra Event, nếu qua thảo luận thấy chúng thực sự hữu ích. Cũng có khả năng một số giá trị chuyển đổi trạng thái (state transition) của Aggregate sau sự kiện sẽ rất hữu ích cho các subscriber.
@@ -317,10 +337,11 @@ public class BacklogItemCommitted implements DomainEvent {
     private TenantId tenantId;
     ...
 }
-
 ```
 
 Nhóm đã quyết định rằng định danh của `BacklogItem` và của `Sprint` là thiết yếu. `BacklogItem` chính là đối tượng mà Event xảy ra trên đó, và `Sprint` là đối tượng mà Event xảy ra cùng. Nhưng quyết định này còn bắt nguồn từ một lý do sâu xa hơn: yêu cầu nghiệp vụ dẫn đến sự cần thiết của Event này đã chỉ rõ rằng `Sprint` phải được thông báo khi một `BacklogItem` cụ thể được cam kết vào nó. Do đó, một subscriber nhận Event trong cùng Bounded Context cuối cùng sẽ phải thông báo cho `Sprint`, và nó chỉ có thể làm được điều đó nếu `BacklogItemCommitted` mang theo thuộc tính `SprintId`.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000310_e5757b288894bfb85d1e66bac677a9c15ce862f667c88c4f72e32bfcdb282520.png)
 
 Ngoài ra, trong môi trường multitenancy (đa người thuê / kiến trúc đa người dùng), việc ghi nhận `TenantId` luôn là điều bắt buộc, ngay cả khi nó không được truyền vào dưới dạng tham số của command. Nó cần thiết cho cả Bounded Context nội bộ lẫn Bounded Context ngoại vi. Ở phạm vi nội bộ, nhóm phát triển sẽ cần `TenantId` để truy vấn `BacklogItem` và `Sprint` từ các Repository (Chương 12) tương ứng của chúng. Tương tự như vậy, bất kỳ hệ thống từ xa ở bên ngoài nào lắng nghe bản phát quảng bá của Event này cũng sẽ cần biết Event đó áp dụng cho `TenantId` nào.
 
@@ -349,8 +370,11 @@ public class BacklogItemCommitted implements DomainEvent {
     @Override
     public Date occurredOn() {
         return this.occurredOn;
-
 ```
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000311_0dc1d935324a038deb7c75d64a29ce164ed0fb5b03baee8b0d0a48852a8feec3.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000312_3d15c3b73417ff76d08d73abe01a06a6645e71b0ffc6ba0c2339a6637fd68bb2.png)
 
 ## Chapter 8 DOMAIN EVENTS
 
@@ -370,7 +394,6 @@ public class BacklogItemCommitted implements DomainEvent {
     }
     ...
 }
-
 ```
 
 Khi Event này được phát hành, một subscriber trong Bounded Context nội bộ có thể sử dụng nó để thông báo cho `Sprint` biết rằng một `BacklogItem` cụ thể vừa mới được cam kết vào nó:
@@ -404,12 +427,13 @@ MessageConsumer.instance(messageSource, false)
                 sprint.commit(backlogItem);
             }
         });
-
 ```
 
 Theo các yêu cầu của hệ thống, sau khi xử lý thông điệp "BacklogItemCommitted" cụ thể này, `Sprint` sẽ đạt trạng thái nhất quán với `BacklogItem` vừa mới được cam kết vào nó. Cách thức subscriber nhận được Event này sẽ được thảo luận ở phần sau của chương.
 
 Nhóm phát triển nhận ra rằng có thể có một chút vấn đề ở đây: Giao dịch cập nhật `Sprint` được quản lý như thế nào? Chúng ta có thể để message handler (trình xử lý thông điệp) làm việc đó, nhưng dù thế nào đi nữa thì đoạn code trong handler cũng cần được tái cấu trúc (refactoring). Cách tốt nhất là ủy quyền (delegate) xử lý cho một
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000313_2718662afb1ef4afc32db4cea0956b56e32226812e1e5af23a64f43dad226081.png)
 
 Application Service (Chương 14) để hài hòa với Hexagonal Architecture (Kiến trúc lục giác, Chương 4). Làm như vậy sẽ cho phép Application Service quản lý giao dịch—vốn là một mối quan tâm tự nhiên của tầng ứng dụng. Khi đó, đoạn code handler sẽ trông như thế này:
 
@@ -440,10 +464,13 @@ MessageConsumer.instance(messageSource, false)
                         backlogItemId);
             }
         });
-
 ```
 
 Trong ví dụ này, việc de-duplication (khử trùng lặp) Event là không cần thiết vì thao tác cam kết một `BacklogItem` vào một `Sprint` là một thao tác mang tính idempotent (lũy đẳng - thực thi nhiều lần cho cùng một kết quả mà không làm sai lệch trạng thái). Nếu một `BacklogItem` cụ thể đã được cam kết vào `Sprint` rồi, thì yêu cầu cam kết lại hiện tại sẽ bị bỏ qua.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000314_ba748acfc381b9e0c1b64fc885208964e593a1569921c7cb5d92060b33e96402.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000315_7b3ad5e504d97f15c8b942abcd665f53bfb4d9c03f33adb6a0a37fffb33b50f2.png)
 
 Có thể sẽ cần cung cấp thêm trạng thái và hành vi bổ sung nếu các subscriber đòi hỏi nhiều thông tin hơn là chỉ đơn thuần biết nguyên nhân gây ra Event. Điều này có thể được truyền tải thông qua trạng thái được làm giàu (enriched state - nhiều thuộc tính hơn) hoặc các thao tác suy biến ra trạng thái phong phú hơn. Nhờ đó, các subscriber tránh được việc phải truy vấn ngược lại Aggregate phát hành Event—vốn là việc khó khăn hoặc tốn kém tài nguyên một cách không cần thiết. Event enrichment (Làm giàu sự kiện) có thể phổ biến hơn khi sử dụng Event Sourcing, bởi vì một Event dùng để lưu trữ dữ liệu (persistence) có thể cần thêm trạng thái bổ sung khi được phát hành ra bên ngoài Bounded Context. Các ví dụ về Event enrichment được cung cấp trong Phụ lục A.
 
@@ -477,6 +504,10 @@ Có thể chỉ cần để định danh của Event được đại diện bở
 Trong những trường hợp Event được mô hình hóa như một Aggregate, hoặc trong các trường hợp khác khi các Event bắt buộc phải được so sánh nhưng các thuộc tính kết hợp của chúng không đủ để phân biệt, chúng ta có thể gán cho Event một định danh duy nhất chính thức. Tuy nhiên, vẫn còn những lý do khác để gán định danh duy nhất.
 
 1. Xem mô hình Actor Model về xử lý đồng thời của Erlang và Scala. Đặc biệt, Akka rất đáng để cân nhắc nếu bạn sử dụng Scala hoặc Java.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000316_36919591dffe6f80b50e8f12a5c6a93a9cf43989effa899b0a13978100b5dfce.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000317_0e400839f9aa8d8dec6e6e559cd2afdff19913083d20abc511aca16a83c8ebbd.png)
 
 Định danh duy nhất có thể cần thiết khi các Event được phát hành ra bên ngoài Bounded Context cục bộ nơi chúng diễn ra, khi mà cơ sở hạ tầng nhắn tin chuyển tiếp chúng đi. Trong một số tình huống, các thông điệp riêng lẻ có thể bị phân phối nhiều hơn một lần (delivered more than once). Điều này xảy ra nếu phía gửi thông điệp bị sự cố (crash) trước khi messaging infrastructure kịp xác nhận rằng thông điệp đã được gửi.
 
@@ -534,8 +565,11 @@ public class DomainEventPublisher {
 
             List<DomainEventSubscriber<T>> registeredSubscribers =
                 subscribers.get();
-
 ```
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000318_f02214f7e152fac0e7f907197f0b3c9edb423c0ed6bc38ce4c6fc58c000638ed.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000319_4ce5f747b74a6c706a87943e4c84a11615ef718f02693a45109e41669ee7f425.png)
 
 ```java
             if (registeredSubscribers != null) {
@@ -578,14 +612,17 @@ public class DomainEventPublisher {
         registeredSubscribers.add(aSubscriber);
     }
 }
-
 ```
 
 Vì mọi yêu cầu gửi đến từ người dùng hệ thống đều được xử lý trên một luồng (thread) chuyên dụng riêng biệt, chúng ta phân chia các subscriber theo thread. Do đó, hai biến `ThreadLocal` (biến cục bộ theo luồng), `subscribers` và `publishing`, được cấp phát riêng cho từng thread. Khi các bên quan tâm sử dụng phương thức `subscribe()` để tự đăng ký, tham chiếu đối tượng subscriber sẽ được thêm vào `List` gắn liền với luồng (thread-bound List) đó. Có thể đăng ký số lượng tùy ý các subscriber trên mỗi thread.
 
 Tùy thuộc vào application server (máy chủ ứng dụng), các thread có thể được gom vào pool (thread pool) và tái sử dụng qua từng request. Chúng ta không muốn các subscriber đã đăng ký trên thread cho request trước đó vẫn còn tồn tại trong request tiếp theo tái sử dụng chính thread này. Khi một request mới của người dùng được hệ thống tiếp nhận, nó nên sử dụng thao tác `reset()` để xóa sạch các subscriber đã đăng ký trước đó. Điều này đảm bảo rằng các subscriber sẽ chỉ giới hạn ở những đối tượng được đăng ký kể từ thời điểm đó trở đi. Chẳng hạn, trên tầng trình diễn (presentation tier, tức 'User Interface' trong Hình 8.2), chúng ta có thể chặn (intercept) từng request bằng một filter (bộ lọc). Thành phần đánh chặn này sẽ bằng cách nào đó gọi thao tác `reset()`:
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000320_64f02c76aaf054b990599f13408e7953ea1a987c5c70e0d39f561d3b78da3d5c.png)
+
 Hình 8.2 Góc nhìn trừu tượng về trình tự tương tác (sequence interactions) giữa Observer dạng lightweight, Giao diện Người dùng (User Interface, Chương 14), các Application Service, và Domain Model (Chương 1)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000321_9a734be4d53889025de39d556015991208af3cc37b4fe6a26fa79d4a4ea8c790.png)
 
 ```java
 // trong một thành phần Web filter khi nhận request của người dùng
@@ -593,10 +630,11 @@ DomainEventPublisher.instance().reset();
 ...
 // sau đó trong một Application Service thuộc cùng request đó
 DomainEventPublisher.instance().subscribe(subscriber);
-
 ```
 
 Tiếp nối quá trình thực thi đoạn mã này—bởi hai thành phần riêng biệt, như thấy ở Hình 8.2—sẽ chỉ có đúng một subscriber được đăng ký cho luồng đó. Từ phần triển khai của phương thức `subscribe()`, bạn có thể thấy rằng các subscriber chỉ có thể được đăng ký khi publisher không trong quá trình đang phát hành Event. Điều này ngăn chặn các sự cố như ngoại lệ sửa đổi đồng thời (concurrent modification exception) trên `List`.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000322_8dc5b947f3b6084aa4e4dd8180a9464e4a1e87a2528de8a7c6b4f22864175fb5.png)
 
 Vấn đề này sẽ phát sinh rõ rệt nếu các subscriber gọi ngược lại publisher để đăng ký thêm các subscriber mới nhằm phản hồi lại một Event đang được xử lý.
 
@@ -616,7 +654,6 @@ public class BacklogItem extends ConcurrencySafeEntity {
     }
     ...
 }
-
 ```
 
 Khi `publish()` được thực thi trên `DomainEventPublisher`, nó sẽ lặp qua tất cả các subscriber đã đăng ký. Việc gọi phương thức `subscribedToEventType()` trên từng subscriber cho phép nó lọc bỏ tất cả những subscriber không đăng ký loại Event cụ thể đó. Những subscriber phản hồi `DomainEvent.class` cho truy vấn lọc này sẽ nhận được toàn bộ các Event. Tất cả các subscriber đủ điều kiện sẽ được gửi Event vừa phát hành thông qua phương thức `handleEvent()` của chúng. Sau khi tất cả các subscriber đã được lọc hoặc đã được thông báo, publisher hoàn tất quá trình phát hành.
@@ -633,11 +670,13 @@ Những thành phần nào sẽ đăng ký subscriber để lắng nghe các Dom
 
 * LB: 'Tôi muốn mua một gói đặt báo dài hạn [chơi chữ: subscription] cho tờ The Fence Post để có thể tìm thêm nhiều trò đùa quê mùa, sến súa [corny] hơn nữa mà đưa vào cuốn sách này.'
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000323_00e04e9401efcb502cf154f6eac47c1f8134c2ea1304126aab962b2f9e97d9a1.png)
+
 > 💡 **Giải thích thêm:** Đoạn thoại mang tính tự trào hài hước tiếp tục áp dụng lối chơi chữ:
 > * Từ *"subscription"* vừa có nghĩa đời thường là việc "đặt mua báo dài hạn", vừa là thuật ngữ kỹ thuật chỉ việc "đăng ký nhận sự kiện" (subscription) trong mẫu Publish-Subscribe.
 > * *"The Fence Post"* là một tuần báo thông tin nông nghiệp - chăn nuôi có thật rất phổ biến ở vùng nông thôn miền Tây nước Mỹ, đồng thời nghĩa đen là "cọc hàng rào".
 > * *"Corny"* vừa mang nghĩa lóng là "quê mùa, sến súa, nhạt nhẽo", vừa gợi liên tưởng đến cây ngô/bắp (corn) của vùng đồng quê.
-> Nguồn tham khảo: https://www.thefencepost.com/
+> Nguồn tham khảo: [https://www.thefencepost.com/](https://www.thefencepost.com/)
 > 
 > 
 
@@ -677,8 +716,11 @@ public class BacklogItemApplicationService ... {
         backlogItem.commitTo(sprint);
     }
 }
-
 ```
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000324_76297fc9a25f0e5bc4ba1bbf08bd6d5e04bfb8d3ee9fcbf5dd29f33433b47038.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000325_1cc2e735a0ed605d6d886bdd1746c54f7bc99f15d96dee9713a385f2f0f796c5.png)
 
 Trong ví dụ (mang tính dàn dựng có chủ ý) này, `BacklogItemApplicationService` là một Application Service, với một phương thức dịch vụ là `commitBacklogItem()`. Phương thức này khởi tạo một thực thể của lớp ẩn danh `DomainEventSubscriber`. Điều phối viên tác vụ của Application Service sau đó sẽ đăng ký subscriber này với `DomainEventPublisher`. Cuối cùng, phương thức dịch vụ sử dụng các Repository để lấy các thực thể của `BacklogItem` và `Sprint`, rồi thực thi hành vi `commitTo()` của backlog item. Khi hoàn thành, phương thức `commitTo()` sẽ phát hành một Event có kiểu `BacklogItemCommitted`.
 
@@ -707,3 +749,7 @@ Việc sử dụng bất kỳ cơ chế nhắn tin nào như vậy giữa các B
 Giữa tất cả những bàn luận sôi nổi về eventual consistency, bạn có thể sẽ ngạc nhiên khi biết rằng có ít nhất hai cơ chế trong một giải pháp nhắn tin bắt buộc phải luôn luôn nhất quán với nhau: kho dữ liệu lưu trữ (persistence store) được sử dụng bởi domain model, và kho dữ liệu lưu trữ làm nền tảng cho messaging infrastructure dùng để chuyển tiếp các Event do mô hình phát hành. Điều này là bắt buộc để đảm bảo rằng khi các thay đổi của mô hình được lưu bền vững (persisted), việc phân phối Event cũng được bảo đảm; đồng thời, nếu một Event được phân phối qua hệ thống nhắn tin, nó biểu thị một sự việc có thật được phản ánh chính xác bởi mô hình đã phát hành ra nó. Nếu một trong hai cơ chế này lệch nhịp (out of lockstep) với cơ chế còn lại, nó sẽ dẫn đến các trạng thái sai lệch trong một hoặc nhiều mô hình phụ thuộc lẫn nhau.
 
 Tính nhất quán trong việc lưu trữ dữ liệu giữa mô hình và Event được hoàn thành như thế nào? Có ba cách cơ bản:
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000326_2e57ff9363e5d08853d7c0f016a40178b43d17ab28adc133260a4a668a1817be.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000327_e36f250563416c85d1d55fa1ed45b0164dec5dfb64228e957a7754dc0200b783.png)
