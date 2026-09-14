@@ -44,6 +44,10 @@ Khả năng này cũng xảy ra khi xuất bản dữ liệu lấy từ một Ev
 2. Broker của RabbitMQ tiếp nhận cả 3 thông điệp và chuẩn bị gửi chúng tới tất cả subscriber.
 3. Tuy nhiên, do một điều kiện ngoại lệ nào đó trên máy chủ ứng dụng, `NotificationService` gặp sự cố. Thay đổi cập nhật trên `PublishedMessageTracker` không được commit (lưu thành công).
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000356_c8c4ed71d45091fb490a6b8c76b9dc4e5b4f4e939f280a166f31f4dde4499a5c.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000357_d2196bfb09410aeeaa6df29e9bbe141fdf6330fb6f65471e1b0c8735eea77dd7.png)
+
 4. RabbitMQ phân phối các thông điệp mới gửi tới các subscriber.
 5. Sự cố ngoại lệ trên application server được khắc phục. Tiến trình xuất bản bắt đầu lại từ đầu và `NotificationService` gửi thành công các thông điệp cho toàn bộ Event chưa được xuất bản. Điều này đồng nghĩa với việc gửi lại (thêm một lần nữa!) thông điệp cho tất cả Event đã từng được xuất bản trước đó nhưng chưa được ghi nhận vào `PublishedMessageTracker`.
 6. RabbitMQ phân phối các thông điệp mới gửi tới các subscriber, trong đó có ít nhất 3 thông điệp bị phân phối lặp lại.
@@ -64,6 +68,8 @@ Khi áp dụng phương thức thông báo dựa trên REST (`REST-based notific
 
 Trong cả hai trường hợp — dù là subscriber dùng messaging middleware hay client nhận thông báo qua REST — điều quan trọng là việc lưu vết định danh thông điệp đã xử lý phải được commit đồng thời cùng mọi thay đổi về trạng thái của domain model cục bộ. Nếu không làm vậy, bạn sẽ không thể duy trì được tính nhất quán trong việc theo dõi đồng hành với những sửa đổi được thực hiện để phản hồi lại các Event.
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000358_dcad87dabef9071360d42f585d236ea13d461cd11feb026a6c7cf934f8503225.png)
+
 ## Wrap-Up
 
 Trong chương này, chúng ta đã xem xét định nghĩa về Domain Event và cách chúng giúp xác định thời điểm việc mô hình hóa một Event sẽ mang lại lợi thế cho thiết kế của bạn.
@@ -72,6 +78,10 @@ Trong chương này, chúng ta đã xem xét định nghĩa về Domain Event v�
 * Bạn đã tìm hiểu cách mô hình hóa các Event dưới dạng đối tượng, và trường hợp nào chúng bắt buộc phải được định danh duy nhất.
 * Bạn đã cân nhắc khi nào một Event nên mang các đặc tính của một Aggregate (`Aggregate` - cụm đối tượng gồm các Entity và Value Object có cùng ranh giới nhất quán), và khi nào một Event đơn giản dạng Value Object lại phát huy hiệu quả tốt nhất.
 * Bạn đã thấy cách các thành phần Xuất bản - Đăng ký (`Publish-Subscribe`) gọn nhẹ được vận dụng bên trong mô hình.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000359_a9f1ad7f2ff3d428797411c68143e9ea2b848d8c2655ce781a7b7514b9768d50.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000360_ccf760d818b12d9d505ee1501884a76e8528e0432fb4bdee421f6543c6c3b94f.png)
 
 * Bạn đã khám phá những thành phần nào đóng vai trò xuất bản Event và những thành phần nào đăng ký nhận chúng.
 * Bạn đã hiểu lý do tại sao cần xây dựng một Event Store, cách triển khai cũng như cách thức vận hành của nó trong thực tế.
@@ -99,6 +109,8 @@ Nếu đang làm việc với Java hoặc C#, bạn ắt hẳn đã quá quen th
 ## Designing with Modules
 
 Trong ngữ cảnh DDD, các Module trong mô hình đóng vai trò là những thùng chứa có tên gọi dành cho các lớp đối tượng miền có tính gắn kết nội tại cao (`high cohesion`) với nhau. Mục tiêu hướng tới là giảm thiểu tối đa mức độ phụ thuộc (`low coupling`) giữa các lớp nằm ở các Module khác nhau. Vì Module trong DDD không phải là những ngăn chứa đồ chung chung hay vô hồn, nên việc đặt tên chuẩn xác cho chúng là cực kỳ quan trọng. Tên của chúng là một khía cạnh trọng yếu cấu thành nên Ubiquitous Language.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000361_0916a594a4d2894f53d7a273107c66c407421c11635f3987d9929a33424348ad.png)
 
 > Hãy lựa chọn các Module sao cho chúng kể được câu chuyện của hệ thống và chứa đựng một tập hợp các khái niệm có tính gắn kết chặt chẽ. Cách tiếp cận này thường mang lại mức độ phụ thuộc thấp giữa các Module, nhưng nếu không đạt được điều đó, hãy tìm cách thay đổi mô hình để tách bạch các khái niệm... Hãy đặt cho các Module những cái tên trở thành một phần của Ubiquitous Language. Module và tên gọi của chúng phải phản ánh được sự thấu hiểu sâu sắc đối với miền nghiệp vụ. [Evans, tr. 110, 111]
 
@@ -129,6 +141,10 @@ Ngược lại, hãy hình dung một ngăn kéo nhà bếp nơi dao kéo ăn u�
 
 Mặt khác, có lẽ chúng ta sẽ không sắp xếp đồ đạc trong bếp theo lối máy móc, chẳng hạn như dồn tất cả những đồ bền chắc vào một ngăn kéo và tống tất cả những món dễ vỡ lên chiếc tủ trên cao. Chúng ta không hề muốn phải ghi nhớ rằng bình hoa được cất chung với những chiếc tách trà sứ cao cấp chỉ vì cả hai đều có phần mong manh. Chúng ta cũng chẳng muốn phải nhớ rằng cây búa giã thịt bằng thép không gỉ được để cùng với dao kéo cao cấp chỉ vì cả hai món đồ bền bỉ này ít có nguy cơ làm hỏng nhau.
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000362_f8063b832e379449cc5a12b36cf27782e8c095556033148995cdeb05375a5072.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000363_c7251880e0a900cd0079d7f9df17e0af0b97350d0bff6f053fdd17800e034b15.png)
+
 Nếu chúng ta mô hình hóa một căn bếp, việc xuất hiện một Module có tên `placesettings` (bộ đồ ăn) là hoàn toàn tự nhiên, và trong đó chúng ta sẽ thấy các đối tượng như `Fork` (nĩa), `Spoon` (thìa), và `Knife` (dao). Thậm chí, chúng ta có thể quyết định đặt cả `Serviette` (khăn ăn) vào đó, chứng minh rằng không phải cứ làm bằng kim loại thì mới đủ tiêu chuẩn trở thành một phần của Module `placesettings`. Mặt khác, việc mô hình hóa các bộ đồ ăn sẽ trở nên kém hữu ích nếu chúng ta lại chia thành các Module riêng biệt mang tên `pronged` (vật có răng cào), `scooping` (vật để múc), và `blunt` (vật có đầu tù).
 
 Lưu ý rằng những tiến bộ gần đây trong việc mô-đun hóa phần mềm đã mang lại một cấp độ mô-đun hóa phần mềm khác biệt. Cách tiếp cận này liên quan đến việc đóng gói các phân đoạn phần mềm liên kết lỏng lẻo nhưng gắn kết chặt chẽ về mặt logic thành một đơn vị triển khai (`deployment unit`) theo từng phiên bản. Trong hệ sinh thái Java, chúng ta vẫn thường nghĩ về các tệp JAR, nhưng giờ đây chúng được lắp ráp theo phiên bản thông qua việc sử dụng các `OSGi bundle` hoặc các `module Java 8 Jigsaw`. Theo đó, nhiều module cấp cao, các phiên bản và mối phụ thuộc của chúng có thể được quản lý dưới dạng các bundle/module. Các loại module/bundle này có đôi chút khác biệt so với Module trong DDD, nhưng chúng có thể bổ trợ cho nhau. Rõ ràng, việc đóng gói các phần kết nối lỏng lẻo của một domain model vào các module có độ chi tiết thô hơn (`larger-grained modules`) dựa theo Module DDD là hoàn toàn hợp lý. Xét cho cùng, chính thiết kế liên kết lỏng lẻo của các Module DDD sẽ đóng góp trực tiếp vào khả năng đóng gói bằng OSGi hoặc mô-đun hóa sang Jigsaw của bạn.
@@ -137,6 +153,8 @@ Lưu ý rằng những tiến bộ gần đây trong việc mô-đun hóa phần
 
 * LB: "Cậu phải tự hỏi làm sao mà cái trạm xăng này giữ được nhà vệ sinh của họ sạch sẽ và tinh tươm đến thế."
 * AJ: "Này LB, một cơn lốc xoáy mà quét qua cái nhà vệ sinh đó thì khéo còn giúp nâng cấp thêm được 10.000 đô la ấy chứ."
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000364_53c5f98965b44ad997aeb1ba9157d143ce755a1bf858c622f260bfb0febc779c.png)
 
 > 💡 **Giải thích thêm:** "Cowboy logic" là một dạng đối thoại châm biếm bình dân kiểu Mỹ, dùng sự mỉa mai cường điệu để nói về một thực tế phũ phàng. Ở đây, LB nói mỉa (khen phòng vệ sinh sạch nhưng thực chất rất bẩn thỉu), còn AJ đáp lại bằng một câu đùa thậm xưng: nhà vệ sinh đó tồi tàn đến mức nếu có một trận bão quét sạch nó đi thì tài sản thiệt hại bằng không, trái lại còn "lãi" thêm 10.000 USD chi phí cải tạo vì hiện trạng ban đầu còn tệ hại hơn đống đổ nát. Tác giả mượn câu chuyện này để châm biếm cấu trúc phần mềm: nếu mã nguồn bị sắp đặt lộn xộn, tệ hại như "nhà vệ sinh trạm xăng", thì một sự xáo trộn hoặc việc đập đi làm lại từ đầu có khi còn là một sự cải tiến tốt hơn là cố gắng chắp vá.
 > Nguồn tham khảo: (Không có nguồn trích dẫn xác thực — cần tự kiểm chứng thêm)
@@ -172,6 +190,8 @@ com.saasovation.agilepm
 
 ```
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000365_ca1f1f9577b7624f850cdfc2cc1978cca0cfaa84fc86bb590b7a9dd1a821d9cf.png)
+
 Họ từng cân nhắc sử dụng các tên sau, nhưng chúng mang lại rất ít giá trị gia tăng so với các tên Module phía trên, nếu không muốn nói là chẳng có gì. Dù chúng phản ánh chính xác từng chữ tên Context, chúng lại có khả năng tạo ra sự rườm rà không cần thiết:
 
 ```
@@ -182,7 +202,11 @@ com.saasovation.agileprojectmanagement
 
 Một chi tiết thú vị nữa là họ không sử dụng tên sản phẩm thương mại (thương hiệu) của mình trong tên Module. Tên thương hiệu có thể thay đổi, và đôi khi tên sản phẩm có rất ít hoặc không có mối liên hệ trực tiếp nào với các Bounded Context nền tảng bên dưới. Điều quan trọng hơn là phải nhận diện Context bằng đúng tên gọi chuyên môn mà đội ngũ phát triển cùng nhau thảo luận. Mục tiêu là phản ánh chân thực Ubiquitous Language. Nếu nhóm sử dụng các tên sau đây, nó sẽ không giúp họ đạt được mục tiêu đó:
 
-2. http://java.sun.com/docs/books/jls/second_edition/html/packages.doc.html#26639.
+2. [http://java.sun.com/docs/books/jls/second_edition/html/packages.doc.html#26639](http://java.sun.com/docs/books/jls/second_edition/html/packages.doc.html#26639).
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000366_46d362292089e0bd3ce607b22b4b5e2124515a1132efa349710f8914d334460e.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000367_22306d80eac89a889c0a7063c901084ba767f3b60b5069feb50bbe61e221760f.png)
 
 ```
 com.saasovation.idovation
@@ -250,6 +274,10 @@ com.saasovation.identityaccess.domain.conceptname
 Cách này loại bỏ được một cấp package có vẻ thừa thãi. Thế nhưng, điều gì sẽ xảy ra nếu sau này bạn quyết định đưa một vài Domain Service vào một sub-Module `domain.service`? Khi đó, rất có thể bạn sẽ cảm thấy vô cùng tiếc nuối vì trước đó đã không tạo sẵn sub-Module `domain.model`.
 
 Nhưng còn có một yếu tố ảnh hưởng đến việc đặt tên thậm chí còn quan trọng hơn cần phải cân nhắc. Hãy nhớ rằng chúng ta không phát triển một domain. Bản thân Miền (`Domain` (2)) là toàn bộ lĩnh vực tri thức/chuyên môn nghiệp vụ thực tế của doanh nghiệp nơi chúng ta đang làm việc. Thứ chúng ta thiết kế và lập trình triển khai là *mô hình của một miền* (`a model of a domain`). Do đó, khi đặt tên cho Module tối thượng chứa mô hình, `domain.model` tỏ ra là lựa chọn thỏa đáng nhất. Dẫu vậy, quyền quyết định cuối cùng vẫn thuộc về đội ngũ của bạn.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000368_f31c0dfefb55d5a686fb49706aae3d44369ee16b50d840f79daa2c77039012df.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000369_195b0b93d51a6826464e58192a3ec884b67aded5c1e12a5a19b7440438239f7f.png)
 
 ## Modules of the Agile Project Management Context
 
@@ -320,9 +348,15 @@ Nhóm rất thích cách các Module này được đọc lên một cách tự 
 
 Với số lượng ít ỏi các Aggregate có quan hệ mật thiết như vậy — chỉ có 4 — tại sao nhóm không gom cả 4 vào chung Module `product`? Phần hiển thị ở trên chưa liệt kê toàn bộ các thành phần khác của Aggregate, chẳng hạn như Entity `ProductBacklogItem` chứa bên trong `Product`, Entity `Task` chứa bên trong `BacklogItem`, `ScheduledBacklogItem` chứa bên trong `Release`, và `CommittedBacklogItem` được chứa
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000370_260034cd13e62b305a962092185839abc25700665f1e52a00bedaeb679bad438.png)
+
 bên trong `Sprint`. Còn có các Entity và Value Object khác được nắm giữ bởi từng loại Aggregate. Ngoài ra, còn có một lượng lớn Domain Event được xuất bản bởi một số Aggregate. Tổng cộng lại, việc nhồi nhét gần 60 class và interface vào trong một Module duy nhất sẽ khiến nó trở nên vô cùng đông đúc, ngột ngạt, tạo ra ấn tượng rõ rệt về sự thiếu tổ chức. Nhóm đã lựa chọn tính ngăn nắp, có tổ chức thay vì quá bận tâm đến các lo ngại về liên kết chéo Module (`cross-Module coupling`).
 
 Tương tự như `ProductOwner`, `Team`, và `TeamMember`, toàn bộ các kiểu Aggregate `Product`, `BacklogItem`, `Release`, và `Sprint` đều tham chiếu tới `TenantId`. Đồng thời còn xuất hiện thêm các mối phụ thuộc bổ sung. Hãy xem xét `Product`:
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000371_3cfce97f819351817e09092d64bfe91dfda2651ae235a6358787b47ddac32c41.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000372_b1a26a6e88a1774097d12f9367f65429cd24fea1d4dcae5032137432344afac8.png)
 
 ```java
 package com.saasovation.agilepm.domain.model.product;
@@ -389,6 +423,10 @@ com.saasovation.agilepm.resources.view
 
 Các tài nguyên RESTful được duy trì trong package `resources`. Các mối quan tâm thuần túy về mặt trình bày (`presentation`) được cung cấp bởi các thành phần trong sub-package `view` (hoặc `presentation`, nếu bạn thích). Tùy thuộc vào số lượng tài nguyên dựa trên REST mà hệ thống yêu cầu, bạn có thể có một số sub-Module bên dưới mỗi Module chính. Lưu ý rằng một class cung cấp tài nguyên (`resource provider class`) có thể hỗ trợ nhiều URI, vì vậy bạn có thể có đủ ít các class cung cấp tài nguyên để gom tất cả chúng trong Module chính. Việc có cần mô-đun hóa chúng sâu hơn nữa hay không là một quyết định rất dễ dàng một khi bạn đã xác định được các yêu cầu tài nguyên thực tế của mình.
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000373_c3fa4b9e0205600c1646fcdf49f8e3fff6822f81523d2ddfb2ed5850ad8b8e13.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000374_46f59606d155402ded4f58523edde1bf9903250795137aa43c216a8a04e5c6e8.png)
+
 Tầng Ứng dụng (`Application Layer`) có thể có các Module khác, có thể bao gồm một Module cho mỗi loại service:
 
 ```
@@ -427,6 +465,10 @@ Chúng ta vừa xem xét quá trình mô-đun hóa domain model, lý do tại sa
 
 Tiếp theo, chúng ta sẽ đi sâu một cách thực sự toàn diện vào một trong những công cụ mô hình hóa ít được hiểu đúng nhất của DDD: Aggregates.
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000375_763821da2dc668f93e792c38b9e2f181e31501452a0d9e3833f3d1b92d5e65d6.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000376_425e08a840af2fe7df4def915ac6f32484ec78f838acc23d47d37712a24133b3.png)
+
 Trang này được cố ý để trống
 
 ## Chapter 10
@@ -451,6 +493,8 @@ Việc gom cụm các Entity (5) và Value Object (6) thành một Aggregate v�
 
 Để bắt đầu, việc xem xét một số câu hỏi phổ biến có thể sẽ rất hữu ích. Liệu Aggregate có đơn thuần chỉ là một cách để gom cụm một đồ thị các đối tượng có quan hệ mật thiết dưới một đối tượng cha chung? Nếu đúng như vậy, liệu có giới hạn thực tế nào đối với số lượng đối tượng được phép cư ngụ trong đồ thị đó không? Vì một thể hiện Aggregate có thể tham chiếu tới các thể hiện Aggregate khác, liệu các mối liên kết có thể được điều hướng sâu (`navigated deeply`), sửa đổi nhiều đối tượng khác nhau dọc đường đi hay không? Và khái niệm về các invariant cùng ranh giới tính nhất quán thực chất là gì? Chính câu trả lời cho câu hỏi cuối cùng này sẽ tác động sâu sắc nhất tới câu trả lời cho tất cả các câu hỏi còn lại.
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000377_ec36483e386e60c3b9b4febd99dafda9da428658ae3b7530ac8af28c4f567a04.png)
+
 Có nhiều cách dẫn tới việc mô hình hóa Aggregate sai lầm. Chúng ta có thể rơi vào cái bẫy thiết kế theo hướng thuận tiện cho việc ghép nối thành phần (`compositional convenience`) và biến chúng thành những cụm quá lớn. Ở đầu kia của thái cực, chúng ta lại có thể bóc trần trụi mọi Aggregate, và kết quả là thất bại trong việc bảo vệ các invariant đích thực. Như chúng ta sẽ thấy, điều tối quan trọng là chúng ta phải tránh cả hai thái cực này, và thay vào đó hãy chú tâm vào các quy tắc nghiệp vụ.
 
 ## Using Aggregates in the Scrum Core Domain
@@ -458,6 +502,8 @@ Có nhiều cách dẫn tới việc mô hình hóa Aggregate sai lầm. Chúng 
 Chúng ta sẽ xem xét kỹ lưỡng cách thức Aggregate được sử dụng bởi SaaSOvation, và cụ thể là bên trong ứng dụng mang tên ProjectOvation thuộc `Agile Project Management Context`. Ứng dụng này tuân theo mô hình quản lý dự án Scrum truyền thống, bao gồm đầy đủ sản phẩm (`product`), chủ sản phẩm (`product owner`), đội ngũ (`team`), các hạng mục tồn đọng (`backlog items`), các đợt phát hành theo kế hoạch (`planned releases`), và các chu kỳ nước rút (`sprints`). Nếu bạn hình dung về Scrum ở trạng thái phong phú nhất, thì đó chính là đích đến của ProjectOvation; đây là một miền nghiệp vụ rất đỗi quen thuộc với đa số chúng ta. Các thuật ngữ của Scrum tạo nên điểm khởi đầu cho Ubiquitous Language (1). Vì đây là một ứng dụng dạng thuê bao trả phí được lưu trữ theo mô hình phần mềm dưới dạng dịch vụ (`SaaS`), mỗi tổ chức đăng ký sử dụng sẽ được ghi nhận là một tenant, thêm một thuật ngữ nữa trong Ubiquitous Language của chúng ta.
 
 Công ty đã quy tụ được một đội ngũ gồm các chuyên gia Scrum và các lập trình viên đầy tài năng. Tuy nhiên, vì kinh nghiệm của họ với DDD còn khá hạn chế, nhóm sẽ vấp phải một số sai lầm với DDD khi phải leo lên một đường cong học tập (`learning curve`) đầy gian nan. Họ sẽ trưởng thành dần bằng cách rút ra bài học từ chính những trải nghiệm
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000378_1addc503bd048bb890433d96cc99a2c2de481c34c43a3567135700b99a20252d.png)
 
 với Aggregate, và chúng ta cũng có thể học hỏi từ đó. Những khó khăn chật vật của họ có thể giúp chúng ta nhận diện và thay đổi những tình huống bất lợi tương tự mà chính chúng ta từng tạo ra trong phần mềm của mình.
 
@@ -505,3 +551,7 @@ public class Product extends ConcurrencySafeEntity {
     private Set<Release> releases;
 
 ```
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000379_2d2cf5ce183abe12922d408bf280cd7b7ed9f2cca89d3cd879a57f76dbdd93dd.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000380_a2e6fe3939aa16f74607213f1e55362f4f9c6e6c50615c5e82203efa91411749.png)

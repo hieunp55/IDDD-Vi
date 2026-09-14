@@ -100,6 +100,10 @@ public class CoherenceProductRepositoryTest extends DomainTest {
 
 ```
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000491_7197cb8c9ea745059992848ae6de6b2f78f543ca816969eb8b1dde2e0f9edd3a.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000492_ff9a91d7fb0312764133f571d8a18078436c0792d1028276151d0835bb13858f.png)
+
 ## Chapter 12 REPOSITORIES
 
 ```java
@@ -151,6 +155,8 @@ public class CoherenceProductRepositoryTest extends DomainTest {
 > 💡 **Giải thích thêm:** Câu chuyện ngụ ngôn hài hước của cao bồi AJ vừa là lời châm biếm hóm hỉnh, vừa ẩn dụ cho việc dọn dẹp sạch sẽ kho lưu trữ/cache (tear-down) sau mỗi bài test: nếu không dọn dẹp dữ liệu cũ sau khi xong việc, mớ đồ đạc tồn đọng sẽ rơi vào tay kẻ khác (tiến trình test tiếp theo) và gây ra những rắc rối không lường trước.
 > (Không có nguồn trích dẫn xác thực — cần tự kiểm chứng thêm)
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000493_44efe1f03378dba8abe145ffca793e2ecdfa2fafaa5ee3d5f6ef2a6502f2f984.png)
+
 Còn một phương thức của Repository là `allProductsOfTenant()` vẫn chưa được kiểm thử. Vì bộ nhớ cache của Repository hoàn toàn trống khi bài test bắt đầu, chúng ta phải đọc thành công ba thể hiện `Product` từ đó. Do đó, chúng ta sẽ cố gắng tìm kiếm tất cả chúng. `Collection` được trả về không bao giờ được phép null, ngay cả khi bạn không tìm thấy những gì mình mong đợi. Vì vậy, bước cuối cùng trong bài test là khẳng định rằng toàn bộ số lượng thể hiện `Product` kỳ vọng — tức là ba — trên thực tế đã được tìm thấy.
 
 Bây giờ khi đã có một bài test chứng minh cách các client có thể sử dụng Repository và xác thực tính đúng đắn của nó, chúng ta có thể xem xét cách kiểm thử tối ưu hơn cho các client sử dụng Repository.
@@ -184,6 +190,10 @@ public class InMemoryProductRepository implements ProductRepository {
         }
 
 ```
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000494_4ec904ecec8e97759df9d01a22b5c5ba9191703d0ef23b05b264a9a5663a9308.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000495_f46c8eb048150362af38081c3581ecf69d198f73c1d2ee27b66cbd87ff3426e6.png)
 
 ```java
         return entries;
@@ -262,6 +272,12 @@ Những thách thức khó khăn có thể phát sinh thường liên quan đế
 
 Một ưu điểm khác của việc triển khai các phiên bản in-memory cho Repository là khi bạn cần kiểm thử việc sử dụng đúng đắn phương thức `save()` với một interface định hướng lưu trữ bền vững (persistence-oriented interface). Bạn có thể triển khai các phương thức `save()` để đếm số lần được gọi. Sau khi mỗi bài test chạy xong, bạn có thể assert xem số lần gọi có khớp với số lượng mà client của Repository cụ thể đó yêu cầu hay không. Thông thường, bạn có thể áp dụng cách tiếp cận này khi kiểm thử các Application Service (dịch vụ tầng ứng dụng) vốn phải thực hiện thao tác `save()` tường minh các thay đổi vào một Aggregate.
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000496_b030eabea36541d9d0570e573d7f3eb86fe5c8683d746afe1177a9d8e3e40624.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000497_14db21ce1e00be49fe18c10709838b49eee9a14826f145ab6853020e91b4fa29.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000498_881f4be078c88636ccf75d6188bb37bf260a529a9e182bae5152961d266c9f28.png)
+
 ## Wrap-Up
 
 Trong chương này, chúng ta đã xem xét chuyên sâu về việc triển khai các Repository.
@@ -296,6 +312,8 @@ Như đã thảo luận trước đây, Context Map có hai dạng thức chính
 * Thấu hiểu những thách thức bạn sẽ phải đối mặt khi quyết định sao chép trùng lặp thông tin giữa các Bounded Context.
 * Nghiên cứu các ví dụ mang lại mức độ trưởng thành ngày càng cao trong các phương pháp tiếp cận thiết kế.
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000499_eb8a30e0d6511c27aaf1966ed0cfe3f3684eb481f4b8076927190947e8013e48.png)
+
 ## Integration Basics
 
 Khi hai Bounded Context cần tích hợp, có một vài cách tương đối rõ ràng để thực hiện điều này trong mã nguồn.
@@ -314,6 +332,8 @@ AJ: "Tốt nhất là anh nên ngồi vững trên yên ngựa đi. Con ngựa �
 
 > 💡 **Giải thích thêm:** Thành ngữ "make you old before your time" (khiến bạn già trước tuổi) ý chỉ sự kiệt sức và căng thẳng tột độ. AJ dùng hình ảnh cưỡi ngựa bất kham ("take a low seat in your saddle" - hạ thấp trọng tâm trên yên ngựa) để cảnh báo: nếu chọn các phương thức tích hợp cổ hủ và nhiều cạm bẫy như dùng chung database hay chia sẻ file, bạn sẽ phải trả giá bằng vô số đêm mất ngủ để sửa lỗi và bảo trì.
 > (Không có nguồn trích dẫn xác thực — cần tự kiểm chứng thêm)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000500_a5f3fd6d6c2c83d45eec67e12f7ad36e463df16f4131adb4d0251c5abc9ae45a.png)
 
 Mặc dù tôi đã nêu bật ba cách phổ biến được sử dụng để tích hợp các Bounded Context, chúng ta thực tế sẽ chỉ tập trung vào hai cách trong số đó xuyên suốt chương này. Chúng ta sẽ chủ yếu tập trung vào việc tích hợp với các cơ chế messaging, nhưng cũng sẽ xem xét cách sử dụng RESTful HTTP. Chúng ta sẽ tránh các ví dụ sử dụng RPC vì bạn có thể dễ dàng hình dung việc tạo ra các API thủ tục thay thế cho hai hướng tiếp cận còn lại. Ngoài ra, RPC có tính kiên cường (resilience) kém hơn khi mục tiêu của chúng ta là hỗ trợ các autonomous service (dịch vụ tự trị, hay còn gọi là các ứng dụng tự trị). Một hệ thống gặp sự cố mà thông thường vốn cung cấp API dựa trên RPC sẽ khiến các hệ thống phụ thuộc vào nó không thể hoàn thành các thao tác của chính chúng.
 
@@ -336,6 +356,8 @@ Những điều này được chủ ý phát biểu khác đi so với "Các ng�
 
 > 💡 **Giải thích thêm:** "8 Ngụy biện của Tính toán Phân tán" (Fallacies of Distributed Computing) là danh sách kinh điển do kiến trúc sư L. Peter Deutsch cùng các đồng nghiệp tại Sun Microsystems tổng kết từ năm 1994, cảnh báo các giả định sai lầm tai hại mà giới lập trình thường mắc phải khi chuyển từ hệ thống đơn khối (monolith) sang hệ thống phân tán.
 > Nguồn tham khảo: https://en.wikipedia.org/wiki/Fallacies_of_distributed_computing
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000501_d6987f0a2a350cff2c29be3e63cfd359d01da7bf49ab00adb72e581fb790e5d4.png)
 
 ## Exchanging Information across System Boundaries
 
@@ -361,6 +383,10 @@ Sẽ ra sao nếu chúng ta có thể định nghĩa một bản hợp đồng g
 Điều này đòi hỏi một số sự đánh đổi, như thường lệ. Bạn sẽ không thể điều hướng bằng cách sử dụng các hàm truy xuất thuộc tính (accessor) như khi sở hữu các interface/class cho từng đối tượng cùng với tính an toàn kiểu dữ liệu đi kèm. Bạn cũng sẽ thiếu đi sự hỗ trợ từ IDE, chẳng hạn như khả năng tự động hoàn thành mã nguồn (code completion). Đây thực ra không phải là một nhược điểm quá lớn. Hơn nữa, bạn sẽ không nhận được sự hỗ trợ từ các function/method vận hành mà một class Event có thể cung cấp. Tuy nhiên, tôi không nhìn nhận việc thiếu vắng các function/method vận hành của Event là một nhược điểm, mà coi đó là một cơ chế bảo vệ. Bounded Context tiêu thụ chỉ nên quan tâm đến các thuộc tính dữ liệu và tuyệt đối không bao giờ được phép bị cám dỗ sử dụng các chức năng vốn là một phần của một mô hình khác. Các Port and Adapter (Cổng và Bộ điều hợp) (4) của bên tiêu thụ cần phải che chắn cho mô hình miền của nó khỏi bất kỳ sự phụ thuộc nào như vậy, và thay vào đó phải truyền dữ liệu Event cần thiết dưới dạng các tham số phù hợp với các kiểu dữ liệu chỉ được định nghĩa bên trong chính Bounded Context của nó. Mọi tính toán hoặc xử lý cần thiết phải do Bounded Context sản xuất thực hiện và cung cấp dưới dạng các thuộc tính dữ liệu Event được làm giàu thêm.
 
 Hãy xem xét một ví dụ. SaaSOvation cần trao đổi dữ liệu media giữa các Bounded Context khác nhau của mình. Hệ thống sẽ thực hiện điều đó bằng cách sử dụng các tài nguyên RESTful và gửi các thông điệp chứa các Event (sự kiện miền nghiệp vụ) (8) giữa các service. Trên thực tế, một dạng tài nguyên RESTful là một notification (thông báo), và các thông điệp dựa trên Event cũng được gửi tới các subscriber dưới dạng các đối tượng `Notification`. Nói cách khác, trong cả hai trường hợp, `Notification` đều chứa một Event, và cả hai được định dạng thành một cấu trúc duy nhất. Bản đặc tả custom media type cho các notification và Event có thể chỉ ra một bản hợp đồng bao gồm:
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000502_24dd1392ad540226212087ebe394b17889360101e61373d0264d429016acfe74.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000503_c7014e1c3c80c99f2da039ee66c9bcfbf814e71a18e6cf199ea2a441d691b300.png)
 
 ## Chapter 13 INTEGRATING BOUNDED CONTEXTS
 
@@ -432,6 +458,10 @@ assertEquals(domainEvent.nestedEvent().eventVersion(),
 
 ```
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000504_7e725652c1b3475c823675ebde63e4dd41ea716dd57eb5a9fa73333dd7f0a0fb.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000505_72406629a965acf3b815941d345e1fc8c4d87ed5f94a372f031c427ac2c1085b.png)
+
 ```java
 assertEquals("" + domainEvent.nestedEvent().id(),
     reader.eventStringValue("nestedEvent", "id"));
@@ -494,7 +524,13 @@ Hãy hiểu rằng đây chỉ đơn thuần là một tùy chọn để xử l�
 > 💡 **Giải thích thêm:** Câu danh ngôn hài hước của cao bồi LB mượn ý từ câu châm ngôn nổi tiếng của François de La Rochefoucauld: "Người già thích đưa ra những lời khuyên hay để tự an ủi cho việc mình không còn đủ sức làm những tấm gương xấu". Tác giả Vernon tự trào rằng sau bao phen trả giá và vấp ngã với các kiến trúc phần mềm trong quá khứ, giờ đây ông đúc kết lại thành những bài học kinh nghiệm chân thực nhất cho các thế hệ kỹ sư đi sau.
 > (Không có nguồn trích dẫn xác thực — cần tự kiểm chứng thêm)
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000506_20361ea20e681a853f54acb8a2efd65fdd912d68a26d1abd2ea1208580eb5433.png)
+
 Hoàn toàn có khả năng mỗi hướng tiếp cận — deploy các class để trao đổi dữ liệu tuần tự hóa so với việc định nghĩa một hợp đồng media type — đều có ưu thế riêng ở các giai đoạn khác nhau của một dự án. Ví dụ, tùy thuộc vào số lượng nhóm, số lượng Bounded Context, tần suất thay đổi, và các yếu tố khác, việc chia sẻ các class và interface có thể phát huy hiệu quả khi dự án của bạn mới bắt đầu, nhưng việc chuyển sang sử dụng hợp đồng custom media type lỏng lẻo hơn (decoupled) có thể sẽ tốt hơn ở giai đoạn production. Trong thực tế, điều này có thể phù hợp hoặc không phù hợp đối với một nhóm hoặc một tập hợp các nhóm cụ thể. Đôi khi, những gì một nhóm bắt đầu sử dụng lại chính là những gì họ gắn bó lâu dài, và họ không bao giờ dành thời gian để thực hiện một sự thay đổi 180 độ.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000507_e75df7d5f79c88386309623c7d189bd5e11faefbd02ac8078bedd2ff2e8e8c9a.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000508_a8077e07c0b57a3a80e015a5c7533372a64ff909905e5dc09edc94bb12ad68a1.png)
 
 Để giữ cho các ví dụ xuyên suốt của chúng ta luôn đơn giản và dễ hiểu, trong phần còn lại của chương này tôi sẽ sử dụng `NotificationReader` nhất quán. Việc có sử dụng hợp đồng custom media type và `NotificationReader` trong các Bounded Context của bạn hay không hoàn toàn là quyền quyết định của bạn.
 
@@ -512,6 +548,8 @@ Tuy nhiên, chúng ta có thể khắc phục điều này ở một mức độ
 
 Khi nhóm SaaSOvation phát triển Identity and Access Context cần tạo ra một phương thức để các bên tích hợp sử dụng Bounded Context của họ, họ đã xác định rằng RESTful HTTP sẽ là một trong những cách tốt nhất để mở rộng hệ thống phục vụ tích hợp mà không làm lộ trực tiếp
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000509_36dfc5ca8d8f7c13d5ed0d1f8da7d39a5a95fcbe8f8b29d4a6c0cc983a3a76ee.png)
+
 các chi tiết cấu trúc và hành vi trong mô hình miền của họ. Đối với họ, điều này đồng nghĩa với việc thiết kế một tập hợp các tài nguyên RESTful nhằm cung cấp các biểu diễn về các khái niệm định danh (identity) và truy cập (access) theo từng tenant riêng biệt.
 
 Phần lớn thiết kế của họ sẽ cho phép các Bounded Context tích hợp thực hiện thao tác `GET` các tài nguyên truyền tải định danh người dùng (user) và nhóm (group), đồng thời biểu thị các quyền bảo mật dựa trên vai trò (role-based security permissions) cho các kiểu định danh đó. Ví dụ, nếu một integration client cần biết liệu một người dùng trong một tenant nhất định có thể đảm nhận một vai trò truy cập cụ thể hay không, client đó sẽ thực hiện `GET` một tài nguyên bằng cách sử dụng định dạng URI sau:
@@ -527,6 +565,10 @@ Hãy cùng xem cách nhóm công bố các tài nguyên truy cập và cách cá
 Khi SaaSOvation bắt đầu áp dụng các nguyên lý REST vào một trong các Bounded Context của mình, họ đã rút ra được một số bài học quan trọng. Hãy cùng theo dõi hành trình của họ.
 
 Khi nhóm SaaSOvation làm việc trong Identity and Access Context cân nhắc cách cung cấp một Open Host Service cho các bên tích hợp, ban đầu họ đã xem xét việc đơn giản là phơi bày mô hình miền của mình dưới dạng một tập hợp các tài nguyên RESTful có liên kết với nhau. Điều đó đồng nghĩa với việc cho phép các HTTP client thực hiện `GET` một tài nguyên tenant duy nhất và điều hướng xuyên suốt qua các user, group, và role của nó. Liệu đó có phải là một ý tưởng hay? Thoạt đầu nó có vẻ rất tự nhiên. Rốt cuộc, điều đó sẽ mang lại cho các client sự linh hoạt tối đa: các client có thể biết mọi thứ về mô hình miền và tự đưa ra quyết định ngay trong chính Bounded Context của mình.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000510_fa61f694303fda7703e7edb6f1ca513796eed22387f50e9dcc9fb0de4337c023.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000511_3528c564b29ddac058ba50072b358922eff4ab03934606b4c3cd3f3cec8fa3f6.png)
 
 Pattern Context Mapping nào của DDD mô tả chính xác nhất cách tiếp cận thiết kế này? Trong thực tế, đó hoàn toàn không phải là một Open Host Service, mà tùy thuộc vào quy mô của mô hình được chia sẻ, nó sẽ là một Shared Kernel hoặc một Conformist (mô hình tuân thủ) (3). Việc phát hành một Shared Kernel hoặc chấp nhận một mối quan hệ Conformist sẽ đẩy các bên tiêu thụ vào một mối liên kết tích hợp chặt chẽ (tightly coupled) với mô hình miền được tiêu thụ. Những kiểu quan hệ đó nên tránh bằng mọi giá nếu có thể, vì chúng có xu hướng đi ngược lại những mục tiêu cơ bản nhất của DDD.
 
@@ -619,7 +661,13 @@ public class AccessService {
                 }
             }
         }
+```
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000512_b55b07dca5999c928b94abf0ac7e286c796c4ee05e3566e2b71399102a2774eb.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000513_6945cbd271b398578411a0f345407e1f70b8ac7ae8bf567462a23eba48a01d8e.png)
+
+```java
         return userInRole;
     }
 
@@ -674,5 +722,11 @@ Mặc dù biểu diễn JSON do Identity and Access Context tạo ra rất hữu
 Vậy làm thế nào để biến biểu diễn user-in-role này phục vụ cho các mục đích cộng tác cụ thể của chúng ta? Hãy cùng nhìn lại một Context Map đã vẽ trước đó, lần này xuất hiện trong Hình 13.1. Các thành phần quan trọng của Adapter `UserResource` đã được hiển thị trong tiểu mục trước. Phần còn lại là các interface và class cần được phát triển chuyên biệt cho Collaboration Context. Đó là `CollaboratorService`, `UserInRoleAdapter`, và `CollaboratorTranslator`. Ngoài ra còn có `HttpClient`, nhưng thành phần đó được cung cấp sẵn bởi triển khai JAX-RS thông qua các lớp `ClientRequest` và `ClientResponse`.
 
 Hình 13.1 Open Host Service của Identity and Access Context và Anticorruption Layer của Collaboration Context được sử dụng để tích hợp giữa hai ngữ cảnh
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000514_97321952459d2dfcea1b81e48ee0555894ff95b1a681487ee74ffd44f68d8b0e.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000515_c33f0bbd075d9bb1151c266cd37576921c0807394fdf1732a4be75b92d804fe6.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000516_0e2b5f7c7140df584509d10cf3f45ad8fc985f5197a60a0835c51b999b023ae7.png)
 
 Bộ ba gồm `CollaboratorService`, `UserInRoleAdapter`, và `CollaboratorTranslator` được sử dụng để hình thành nên một Anticorruption Layer (tầng chống làm hỏng mô hình) (3), đây là phương tiện giúp Collaboration Context tương tác với Identity and Access Context và chuyển đổi biểu diễn user-in-role thành một Value Object đại diện cho một loại `Collaborator` cụ thể.

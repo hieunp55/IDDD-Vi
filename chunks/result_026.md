@@ -54,6 +54,10 @@ return response;
 
 ```
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000571_f099e576693bd497e7c98d2be192e526a74be5abf81ac5316f7a94022ad95bee.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000572_51cbeb5c0690c3f296e8af32bd772400cf4f4d85355a242926e9c42eee456820.png)
+
 Phương thức `calendarWeek()` của `CalendarApplicationService` tiếp nhận một `Date` nằm trong một tuần nhất định và một bản cài đặt của interface `CalendarWeekDataTransformer`. Lớp triển khai được chọn là `CalendarWeekXMLDataTransformer`, có nhiệm vụ tạo ra một tài liệu XML đóng vai trò là biểu diễn trạng thái của `CalendarWeekData`. Phương thức `value()` trên `CalendarWeekData` sẽ trả về kiểu dữ liệu ưu tiên của định dạng dữ liệu đã cho, trong trường hợp này là một `String` chứa tài liệu XML.
 
 Phải thừa nhận rằng ví dụ này sẽ tốt hơn nếu thể hiện của Data Transformer được dependency injected (tiêm phụ thuộc). Ở đây nó được hard-code nhằm giúp ví dụ trở nên dễ hiểu hơn.
@@ -96,6 +100,10 @@ public class BacklogItemPresentationModel extends AbstractPresentationModel {
     }
 
 ```
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000573_a6883d379f29a1e6ed6ad7ca8ffc8415c3359a55a0a85dc126fa0892167b7d1c.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000574_b1e481bda89b70c21cc7d5d70f1a543c9ad34af9a669659d6561147db4feaab3.png)
 
 ```java
     public String getSummary() {
@@ -151,6 +159,10 @@ Trong một số trường hợp, giao diện người dùng của bạn sẽ t�
 Các Application Service là client trực tiếp của mô hình miền. Để nắm được các tùy chọn về vị trí logic của Application Service, hãy xem phần Architecture (4). Chúng chịu trách nhiệm điều phối tác vụ cho các luồng use case, mỗi phương thức dịch vụ tương ứng với một luồng. Khi sử dụng cơ sở dữ liệu tuân thủ ACID, các Application Service cũng kiểm soát các transaction, đảm bảo rằng các chuyển đổi trạng thái của mô hình được lưu trữ bền vững một cách nguyên tử (atomically). Tôi sẽ thảo luận ngắn gọn về việc kiểm soát transaction ở đây, nhưng hãy xem phần Repositories (12) để có góc nhìn rộng hơn. Vấn đề bảo mật (security) cũng thường được đảm nhiệm bởi các Application Service.
 
 Sẽ là một sai lầm nếu coi Application Service cũng giống như Domain Service (7) (dịch vụ miền). Chúng hoàn toàn không giống nhau. Sự tương phản giữa chúng phải thật rõ ràng, điều sẽ được chứng minh cụ thể trong phần tiếp theo. Chúng ta nên cố gắng đưa toàn bộ logic nghiệp vụ miền (business domain logic) vào trong chính mô hình miền, cho dù đó là trong Aggregate, Value Object, hay Domain Service. Hãy giữ cho các Application Service luôn mỏng (thin), chỉ sử dụng chúng để điều phối các tác vụ trên mô hình.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000575_40fca54897b0d8e39137eb49764c4d5483f0d12096396ff9265964d81237082d.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000576_089dd30025463200d53e4de44fbcfe29daeb9db78ce68584342399eac2fc40ca.png)
 
 ## Sample Application Service
 
@@ -227,6 +239,10 @@ Hiện tại, tôi sẽ tiếp tục với việc để lộ các đối tượn
 
 Hãy xem xét cách mà interface của Application Service được triển khai. Việc nhìn vào một vài phương thức đơn giản hơn để triển khai nó sẽ giúp làm nổi bật một số điểm cơ bản. Lưu ý rằng có thể việc áp dụng Separated Interface [Fowler, P of EAA] (interface tách biệt) không mang lại lợi thế nào. Dưới đây là một ví dụ mà chúng ta sẽ chỉ cần định nghĩa interface cùng với class triển khai:
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000577_11c810bc211d4a241c43fccea074ac44e00e4ac78068875ef243af5cabc58cb9.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000578_3db29ffd7c23835326eef2548124d0b1fd6d07e798d703a076e4aada5446c431.png)
+
 ```java
 package com.saasovation.identityaccess.application;
 
@@ -297,6 +313,10 @@ public class TenantIdentityService {
         return this.tenantProvisioningService
 
 ```
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000579_1d2da959d8e1bf0b77039b9871c97e37dcde932eb9872b3f6971f46ccdd88f4c.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000580_36b4382d95c31e4ee2889abe95320a5efc384af13ae7975c27400904efc97ae2.png)
 
 ```java
             .provisionTenant(
@@ -370,6 +390,10 @@ public class ProvisionTenantCommand {
 
 5. Xem Chương 7.
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000581_2c777950f1aa3f0c68a7305ece829a6a525fc0f6efe10025e8ba26d7ba1333ff.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000582_9d77ba2482ffd0f1bba8bbf929a0d8efa9065c406b0f1bfd692e5546cfd44dc4.png)
+
 `ProvisionTenantCommand` không sử dụng các đối tượng mô hình mà chỉ dùng các kiểu dữ liệu cơ bản. Nó có constructor nhiều tham số và cả constructor không tham số. Cùng với constructor không tham số, việc có các setter công khai cho phép Command được nạp dữ liệu bởi các bộ ánh xạ từ trường của form trên UI sang đối tượng (ví dụ: giả sử theo chuẩn JavaBean, hoặc các thuộc tính .NET CLR). Bạn có thể nghĩ Command tương tự như một DTO, nhưng thực sự nó mang nhiều ý nghĩa hơn thế. Vì đối tượng Command được đặt tên theo đúng thao tác chuẩn bị được thực thi, nên nó mang tính tường minh cao hơn. Thể hiện Command có thể được truyền trực tiếp vào một phương thức của Application Service:
 
 ```java
@@ -442,6 +466,10 @@ public class TenantIdentityService {
 
 Port đầu ra ở đây là một Port được đặt tên cụ thể nằm ở biên của ứng dụng. Khi sử dụng Spring, nó sẽ là một bean được tiêm vào trong dịch vụ. Điều duy nhất mà `provisionTenant()` cần biết là nó phải gọi `write()` vào Port thể hiện `Tenant` mà nó nhận được từ Domain Service. Port này sẽ có nhiều reader (bộ đọc), các reader này tự đăng ký trước khi sử dụng Application Service. Khi thao tác `write()` diễn ra, từng reader đã đăng ký sẽ nhận tín hiệu để đọc dữ liệu đầu ra này làm dữ liệu đầu vào của mình. Tại thời điểm đó, các reader có thể chuyển đổi dữ liệu đầu ra bằng cơ chế đã được thiết lập, chẳng hạn như một Data Transformer.
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000583_6a541b0353c8a1f050501a8bc6ce87f4bab59933db71c25fb31d5bdef4c4c5ad.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000584_6c85145667f90dabc83278c0a89c2501800eb29072136ebab0c81f8b9b220128.png)
+
 Đây không phải là một sự ngụy tạo cầu kỳ nhằm thêm thắt độ phức tạp vào kiến trúc của bạn. Sức mạnh của nó cũng giống như bất kỳ kiến trúc Ports and Adapters nào khác, cho dù là dành cho hệ thống phần mềm hay thiết bị phần cứng. Mỗi thành phần chỉ cần hiểu dữ liệu đầu vào mà nó đọc, hành vi nội tại của chính nó, và Port mà nó ghi dữ liệu đầu ra.
 
 Việc ghi vào một Port về cơ bản khá tương đồng với những gì một phương thức command thuần túy của Aggregate thực hiện khi nó không tạo ra giá trị trả về, nhưng nó lại phát đi một Domain Event (8) (sự kiện miền). Trong trường hợp của Aggregate, bộ phát Domain Event Publisher (8) đóng vai trò là một Port đầu ra của Aggregate. Xa hơn nữa, nếu chúng ta giải quyết bài toán truy vấn trạng thái của một Aggregate bằng cách sử dụng Double-Dispatch trên một Mediator, thì cách làm đó cũng tương tự như việc áp dụng Ports and Adapters.
@@ -477,7 +505,11 @@ Vì Application Layer quản lý các use case, nên cách dễ nhất có thể
 
 Hình 14.3 Có những thời điểm một UI phải kết hợp nhiều mô hình. Ở đây ba mô hình được kết hợp bằng cách sử dụng một Application Layer duy nhất.
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000585_c97652607ef3d8c79cdc089afe9f0c2081066e88b961b34bfef509b95d510b34.png)
+
 531
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000586_121b39b3bc3d2713bb6029f4a9749aa3da1200b628648c4924e3c4e5ad2f12cc.png)
 
 đặt tên các Module trong User Interface và Application Layer theo mục đích của sự kết hợp này, thành một ngữ cảnh có tên cụ thể:
 
@@ -508,6 +540,8 @@ Nhiệm vụ của tầng Infrastructure (hạ tầng) là cung cấp các khả
 
 Hình 14.4 Application Service phụ thuộc vào interface Repository từ mô hình miền nhưng sử dụng class triển khai từ hạ tầng. Các package đóng gói những trách nhiệm trên diện rộng.
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000587_8178be62f88d7f60e8ca7f404ca4b79c7c75a100f9f2d254251cfd489da6a785.png)
+
 Việc tra cứu có thể diễn ra ngầm định thông qua Dependency Injection [Fowler, DI] hoặc sử dụng một Service Factory (nhà máy dịch vụ). Phần cuối của chương này, 'Enterprise Component Containers,' sẽ thảo luận về các tùy chọn này. Lặp lại một phần của Application Service được dùng làm ví dụ xuyên suốt, bạn có thể thấy lại ở đây cách mà Service Factory được dùng để tra cứu Repository:
 
 ```java
@@ -526,6 +560,10 @@ public class TenantIdentityService {
             .tenantOfId(aTenantId);
 
 ```
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000588_ffe6c9773b73f2add2edb82305a5572f54d33fa79bed14ce518f876a1b8a446b.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000589_5078b7c8e273d7df483d194bda1a538df44ea0102a80d16ae8620bf6c7dc3983.png)
 
 ```java
         return tenant;
@@ -592,6 +630,10 @@ Chúng ta có thể làm như vậy bởi vì bản thân nó đã được tiê
 
 Một loại registry bean tương tự cũng được cung cấp để truy cập vào các thành phần của mô hình miền, chẳng hạn như các Repository và Domain Service. Dưới đây là cấu hình bean cho Registry, Repository và Domain Service của mô hình miền:
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000590_870e36d1131aa2e69f054735df693c29fc79378ad16571ce6f5dfa0d51ba649f.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000591_c0791247533eb60d1078b0027fe801dd04493c8678035771e1e686f92d12c45f.png)
+
 ```xml
 <beans ...>
     ...
@@ -637,6 +679,8 @@ Một loại registry bean tương tự cũng được cung cấp để truy c�
 
 Bằng cách sử dụng `DomainRegistry`, chúng ta có thể truy cập vào bất kỳ bean nào trong số các bean đã được đăng ký này của Spring. Tất cả các bean cũng đều sẵn sàng để được tiêm phụ thuộc vào các bean Spring khác. Như vậy, các Application Service có thể chọn sử dụng Service Factory hoặc Dependency Injection. Hãy xem phần Services (7) để có cuộc thảo luận chuyên sâu hơn về việc sử dụng hai cách tiếp cận này so với thiết lập phụ thuộc dựa trên constructor.
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000592_0d9f6ec47c8ff53e2f858123a8efe6c992bf27c96898845ef00a82c2b0f2c31e.png)
+
 ## Wrap-Up
 
 Trong chương này, chúng ta đã tìm hiểu cách thức ứng dụng hoạt động bên ngoài mô hình miền.
@@ -647,6 +691,10 @@ Trong chương này, chúng ta đã tìm hiểu cách thức ứng dụng hoạt
 * Bạn đã tìm hiểu sâu về các Application Service và những gì chúng chịu trách nhiệm.
 * Bạn đã được giới thiệu một tùy chọn để phân tách đầu ra khỏi các loại client cụ thể.
 * Bạn đã học được những cách sử dụng tầng hạ tầng để tách rời các phần triển khai kỹ thuật ra khỏi mô hình miền.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000593_96181ade65db01f8f753a8f22462aa64173e9a807024c804cb44db87e704a3f3.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000594_9d733b2da579f3f9a927812ddd1bba5242f52f4c5134cc27886ac79a2ce95077.png)
 
 * Bạn đã xem xét cách áp dụng DIP để làm cho các client ở mọi khía cạnh của ứng dụng đều phụ thuộc vào các trừu tượng thay vì các chi tiết triển khai, giúp thúc đẩy tính liên kết lỏng.
 * Cuối cùng, bạn đã thấy cách mà các máy chủ ứng dụng phổ thông và các enterprise component container có thể tiếp thêm sức mạnh vận hành thực tế cho các ứng dụng của bạn (give legs to your applications).
@@ -677,3 +725,5 @@ Một số lợi ích chính của A+ES là:
 * Event Sourcing đảm bảo rằng lý do đằng sau mỗi thay đổi đối với một thể hiện Aggregate sẽ không bao giờ bị mất đi. Khi sử dụng cách tiếp cận truyền thống là
 
 Hình A.1 Một Event Stream chứa các Domain Event theo thứ tự xảy ra
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000595_bccd4b99bab0f4e986bfc210f14faf8c3a511752400f32c016a0e1444ae3fa9c.png)

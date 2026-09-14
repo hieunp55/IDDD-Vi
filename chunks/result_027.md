@@ -101,7 +101,6 @@ public class CustomerApplicationService
     // other methods on this application service
     // (các phương thức khác trên application service này)
 }
-
 ```
 
 `CustomerApplicationService` được khởi tạo cùng hai phụ thuộc (dependencies) thông qua constructor: `IEventStore` và `IPricingService`.
@@ -110,7 +109,7 @@ Khởi tạo thông qua constructor là một cách thức hợp lý để đáp
 
 ## Tôi Có Thể Tìm Mã Nguồn Mẫu Ở Đâu?
 
-Toàn bộ mã nguồn cho các ví dụ về A+ES có sẵn để tải về tại đây: http://lokad.github.com/lokad-iddd-sample/.
+Toàn bộ mã nguồn cho các ví dụ về A+ES có sẵn để tải về tại đây: [http://lokad.github.com/lokad-iddd-sample/](http://lokad.github.com/lokad-iddd-sample/).
 
 Giao diện `IEventStore` của chúng ta có thể có một định nghĩa đơn giản, và `EventStream` cũng tương tự như vậy:
 
@@ -138,7 +137,6 @@ public class EventStream
     // (toàn bộ các sự kiện trong stream)
     public List<IEvent> Events; 
 }
-
 ```
 
 Event Store này có thể được triển khai khá dễ dàng bằng một cơ sở dữ liệu quan hệ (Microsoft SQL, Oracle, hoặc MySQL) hoặc bằng một kho lưu trữ NoSQL có đảm bảo tính nhất quán mạnh (strong consistency) như hệ thống tệp tin (file system), MongoDB, RavenDB, hoặc Azure Blob storage.
@@ -150,8 +148,11 @@ Chúng ta cần tải các Event thuộc về đối tượng `Customer` cụ th
 ```csharp
 var eventStream = _eventStore.LoadEventStream(customerId); 
 var customer = new Customer(eventStream.Events);
-
 ```
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000599_b70fcf59682b141b2128077102152245d4e4a1873b701ed66b2e4e634a00ae4a.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000600_f5df346d084f1830f5b93fd384daf57b9499d5e66a2aa5f0220e1bb7349b75d6.png)
 
 Như minh họa trong Hình A.3, Aggregate áp dụng các Event bằng cách phát lại (replaying) chúng qua phương thức `Mutate()`. Cách thức hoạt động như sau:
 
@@ -188,10 +189,11 @@ public partial class Customer
         ConsumptionLocked = false; 
     } 
     // etc.
-
 ```
 
 Hình A.3 Trạng thái của Aggregate được tái tạo lại bằng cách áp dụng các Event theo đúng thứ tự xảy ra.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000601_5d2ff394ec4c10c5da22cf6374a078176a1f1b84061b1e139cd1e7777f2d9fe6.png)
 
 Phương thức `Mutate()` chỉ đơn thuần xác định (thông qua tính năng dynamic của .NET) phương thức nạp chồng `When()` tương ứng với kiểu tham số Event cụ thể, sau đó thực thi phương thức bằng cách truyền Event đó vào. Sau khi `Mutate()` hoàn tất, đối tượng `Customer` sẽ có trạng thái được hoàn nguyên hoàn toàn.
 
@@ -204,7 +206,6 @@ public Customer LoadCustomerById(CustomerId id)
     var customer = new Customer(eventStream.Events); 
     return customer; 
 }
-
 ```
 
 Sau khi xem xét cách một thực thể Aggregate có thể được hoàn nguyên từ một Luồng các Event trong lịch sử, chúng ta rất dễ hình dung ra các ứng dụng khác của bản ghi lịch sử này. Chúng ta có thể dùng chúng để nhìn lại quá khứ nhằm xem điều gì đã xảy ra và vào thời điểm nào. Khả năng quan sát này thậm chí còn trở nên mạnh mẽ hơn khi tính đến nhu cầu gỡ lỗi trên các hệ thống đang chạy thực tế (production deployments).
@@ -212,6 +213,12 @@ Sau khi xem xét cách một thực thể Aggregate có thể được hoàn ngu
 Các hoạt động nghiệp vụ được thực hiện như thế nào? Một khi Aggregate đã được tái tạo từ Event Store, Application Service sẽ ủy quyền cho một thao tác xử lý lệnh (command operation) trên thực thể Aggregate. Aggregate sẽ sử dụng trạng thái hiện tại cùng bất kỳ Domain Service nào mà hợp đồng (contract) yêu cầu để tiến hành thao tác. Khi một hành vi được thực thi, các thay đổi đối với trạng thái sẽ được biểu diễn dưới dạng các Event mới. Mỗi Event mới sẽ được chuyển tới phương thức `Apply()` của Aggregate, như được minh họa trong Hình A.4.
 
 Hình A.4 Trạng thái của Aggregate dựa trên các Event trong quá khứ, và kết quả của hành vi sẽ sinh ra các Event mới.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000602_f96055058dda20b56a83ed7ce562d105519733dea2785c1204780db4f21b0f6e.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000603_03e6e5e165d9e25a80f5f8e96f058aab516f75f8a6914c61b6deda5d01f1c217.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000604_5290d2660c83c7637865d07ca178e1f4d3baed9c88b97d9f096b369af1df4bfe.png)
 
 Như thấy trong đoạn mã sau, các Event mới được tích lũy vào tập hợp `Changes`, rồi sau đó được sử dụng để biến đổi (mutate) trạng thái hiện tại của Aggregate:
 
@@ -231,7 +238,6 @@ public partial class Customer
     } 
     ... 
 }
-
 ```
 
 Tất cả các Event được thêm vào tập hợp `Changes` sẽ được lưu trữ dưới dạng các bản ghi mới được ghi thêm vào cuối luồng. Vì mỗi Event cũng được dùng để thay đổi ngay lập tức trạng thái của Aggregate, nên nếu một hành vi có nhiều bước xử lý, mỗi bước tiếp theo đều có sẵn trạng thái mới nhất để thực hiện thao tác.
@@ -266,7 +272,6 @@ public partial class Customer
             Apply(new CustomerLocked(_state.Id, reason)); 
         } 
     }
-
 ```
 
 ```csharp
@@ -279,7 +284,6 @@ public partial class Customer
         Mutate(e); 
     } 
 }
-
 ```
 
 ## Cân Nhắc Sử Dụng Hai Lớp Triển Khai
@@ -294,7 +298,15 @@ Cách triển khai đơn giản này có thể được thay thế bằng các p
 
 Hình A.5 Các Event mới được ghi thêm — kết quả từ hành vi của Aggregate — được xuất bản tới các bên đăng ký nhận tin.
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000605_5f3ae5cc9e4968990a3c3cf3a3c557b666d1da997ef74abe27f4f8f844a471e8.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000606_4873fc09d644b76fc9cf04c2f42e517e26a07a6352f6b5a39530ada02d2aca89.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000607_c0059bfd8dbe314924dc1a55372fd921d891752fb9055aabdc58c6c106ff498b.png)
+
 Hình A.6 Write-through: Một Master Event Store sao chép ngay lập tức tất cả các Event mới được thêm vào sang một Clone Event Store.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000608_7e3596ee153a1e4df67012123b447b5f235bdf6fe587395d92b9116b0fd9359f.png)
 
 Trong trường hợp này, Master Event Store chỉ coi các Event của chính nó là đã được lưu sau khi nó sao chép thành công chúng sang Clone Event Store — đây chính là chiến lược ghi đồng bộ xuyên suốt (write-through).
 
@@ -303,9 +315,7 @@ Một giải pháp thay thế là sao chép các Event sang Clone sau khi các t
 > 💡 **Giải thích thêm về chiến lược "Write-through" và "Write-behind":**
 > * **Write-through (Ghi đồng bộ):** Dữ liệu được ghi đồng thời vào cả bộ lưu trữ chính (Master) và bản sao dự phòng (Clone) trong cùng một giao dịch. Thao tác ghi chỉ được coi là thành công khi cả hai nơi đều đã ghi xong. Ưu điểm: Đảm bảo tính nhất quán dữ liệu cao và không bị mất mát khi có sự cố. Nhược điểm: Độ trễ (latency) của thao tác ghi cao hơn vì phụ thuộc vào tốc độ mạng và tốc độ ghi của node chậm nhất.
 > * **Write-behind (Ghi hoãn lại / Bất đồng bộ):** Dữ liệu được xác nhận là ghi thành công ngay sau khi Master ghi xong; một tiến trình ngầm (asynchronous) sẽ chuyển tiếp dữ liệu đến Clone sau. Ưu điểm: Tốc độ phản hồi cực nhanh. Nhược điểm: Nguy cơ mất dữ liệu (data loss) hoặc dữ liệu bản sao bị cũ (stale) nếu Master bị sập trước khi kịp đồng bộ sang Clone.
-> (Nguồn tham khảo: https://en.wikipedia.org/wiki/Cache_(computing)#Writing_policies)
-> 
-> 
+> (Nguồn tham khảo: [https://en.wikipedia.org/wiki/Cache_(computing)#Writing_policies](https://en.wikipedia.org/wiki/Cache_(computing)#Writing_policies))
 
 Để tóm tắt lại những gì đã được thảo luận từ đầu đến giờ, chúng ta hãy cùng điểm qua trình tự thực thi bắt đầu từ việc gọi một thao tác trên Application Service:
 
@@ -314,6 +324,8 @@ Một giải pháp thay thế là sao chép các Event sang Clone sau khi các t
 3. Dựa vào định danh thực thể Aggregate do client cung cấp, truy xuất Event Stream tương ứng của nó.
 
 Hình A.7 Write-behind: Một Master Event Store sao chép bất đồng bộ (eventually) tất cả các Event mới được thêm vào sang một Clone Event Store.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000609_3289aac377534916406fac995ee565d7e1463a6fa7f95f1e535010b1952cf4e4.png)
 
 4. Tái tạo thực thể Aggregate bằng cách áp dụng toàn bộ các Event từ Stream vào nó.
 5. Thực thi thao tác nghiệp vụ do Aggregate cung cấp, truyền vào tất cả các tham số theo yêu cầu từ hợp đồng của giao diện.
@@ -340,8 +352,11 @@ public class CustomerApplicationService
     } 
     ... 
 }
-
 ```
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000610_0ed900a11f595d83511fd499e681920a7753acb952fed9f36078356e85a503e7.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000611_48cabef86fc7a316b27858b9d159cbacc357d0e6f58cbf1dc4d526b7e0c01cb8.png)
 
 Giờ hãy hình dung việc tạo ra một biểu diễn tuần tự hóa (serialized representation) của tên phương thức và các tham số của nó. Trông nó sẽ như thế nào? Chúng ta có thể tạo một lớp được đặt tên theo thao tác của ứng dụng và tạo các thuộc tính thực thể (instance properties) khớp với các tham số của phương thức dịch vụ. Lớp này sẽ tạo thành một Command:
 
@@ -351,7 +366,6 @@ public sealed class LockCustomerCommand
     public CustomerId { get; set; } 
     public string Reason { get; set; } 
 }
-
 ```
 
 Các hợp đồng Command tuân theo cùng ngữ nghĩa như Event và có thể được chia sẻ giữa các hệ thống theo cách thức tương tự. Command này sau đó có thể được truyền vào một phương thức trên Application Service:
@@ -372,7 +386,6 @@ public class CustomerApplicationService
     } 
     ... 
 }
-
 ```
 
 Lần tái cấu trúc (refactoring) đơn giản này có thể mang lại một vài lợi ích lâu dài cho hệ thống. Hãy xem chúng hoạt động ra sao.
@@ -380,6 +393,8 @@ Lần tái cấu trúc (refactoring) đơn giản này có thể mang lại mộ
 Vì các đối tượng Command có thể được tuần tự hóa, chúng ta có thể gửi các biểu diễn dạng văn bản hoặc nhị phân dưới dạng thông điệp (messages) qua một hàng đợi thông điệp (message queue). Đối tượng mà thông điệp được chuyển tới là một bộ xử lý thông điệp (message handler) và đối với chúng ta, đó chính là một Command Handler. Command Handler về mặt hiệu quả sẽ thay thế phương thức của Application Service, dù về cơ bản chúng tương đương nhau và vẫn có thể được gọi bằng tên đó. Dù sao đi nữa, việc tách rời (decoupling) client khỏi Service có thể tăng cường cân bằng tải (load balancing), kích hoạt mô hình các bên tiêu thụ cạnh tranh (competing consumers), và hỗ trợ phân vùng hệ thống (system partitioning). Lấy ví dụ về cân bằng tải: Chúng ta có thể san sẻ tải bằng cách khởi chạy cùng một Command Handler (về mặt ngữ nghĩa là một Application Service) trên bao nhiêu máy chủ tùy ý. Khi các Command được đưa vào message queue, các thông điệp Command có thể được phân phối tới một trong số nhiều Command Handler đang lắng nghe chúng. Điều này được mô tả trong Hình A.8. (Trong phụ lục này, các Command được thể hiện dưới dạng các đối tượng hình tròn.) Việc phân phối thực tế có thể được thực hiện bằng giải thuật round-robin (xoay vòng lần lượt) đơn giản hoặc một giải thuật phân phối phức tạp hơn, vốn đều được cung cấp sẵn bởi hạ tầng truyền thông điệp.
 
 Hình A.8 Các Command của ứng dụng được phân phối tới nhiều Command Handler tùy ý
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000612_da7b1aa54501fb4645a7f72d7071557a3f66d78e55057f558ad89b256b4247b9.png)
 
 Phương pháp này tạo ra sự tách rời về mặt thời gian (temporal decoupling) giữa các client và Application Service, hướng tới các hệ thống có tính bền bỉ cao hơn. Trước hết, client sẽ không còn bị nghẽn (blocked) nếu Application Service tạm thời không khả dụng trong một khoảng thời gian ngắn (ví dụ: để bảo trì hoặc nâng cấp). Thay vào đó, các Command sẽ được đưa vào một hàng đợi bền vững (persistent queue), nơi chúng sẽ được các Command Handler (Application Service) xử lý khi máy chủ của nó hoạt động trở lại, như được chỉ ra trong Hình A.9.
 
@@ -390,6 +405,12 @@ Phương pháp này tạo ra sự tách rời về mặt thời gian (temporal d
 Một ưu điểm khác là khả năng xâu chuỗi (chain) các khía cạnh bổ sung (aspects) trước khi điều phối (dispatching) Command khi cần thiết. Chẳng hạn, chúng ta có thể dễ dàng gắn thêm (patch in) các tính năng như kiểm toán (auditing), ghi log (logging), ủy quyền (authorization), và xác thực dữ liệu (validation).
 
 Hình A.9 Đặc tính tách rời về thời gian của các Command dựa trên thông điệp và Command Handler của chúng mang lại các tùy chọn sẵn sàng linh hoạt cho hệ thống.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000613_13fe37f9401b81f34e3d4d68ca9c6d89763d1d4c495822e483185773d21f4b99.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000614_0a726b9e95a6ad00e00946d08fe5e8b01861e5891c064f03f16343e0294eafe8.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000615_fcdb4a18a9fd9e62fda63d6d29b6cc85db0550ba57d7a0d3c21f26186f8dc33f.png)
 
 Hãy xem xét cách chúng ta có thể gắn thêm tính năng ghi log. Trước tiên, chúng ta định nghĩa một giao diện chuẩn và triển khai giao diện đó trong một lớp Application Service:
 
@@ -409,7 +430,6 @@ public partial class CustomerApplicationService : IApplicationService
         ((dynamic)this).When((dynamic)command); 
     } 
 }
-
 ```
 
 ## Execute và Mutate Có Cách Triển Khai Tương Tự Nhau
@@ -438,7 +458,6 @@ public class LoggingWrapper : IApplicationService
             var ms = watch.ElapsedMilliseconds; 
             Console.WriteLine("  Completed in {0} ms", ms); 
         }
-
 ```
 
 ```csharp
@@ -448,26 +467,23 @@ public class LoggingWrapper : IApplicationService
         } 
     } 
 }
-
 ```
 
 Nhờ việc tất cả các Application Service đều tuân theo một giao diện chuẩn, chúng ta có thể gắn thêm bao nhiêu tiện ích chung tùy ý để chúng hoạt động trước và/hoặc sau các hàm xử lý thực tế của Command Handler. Dưới đây là cách khởi tạo `CustomerApplicationService` cùng với bộ ghi log trước và sau thực thi:
 
 ```csharp
 var customerService = new CustomerApplicationService(eventStore, pricingService);
-
 ```
 
 ```csharp
 var customerServiceWithLogging = new LoggingWrapper(customerService);
-
 ```
 
 Tất nhiên, việc các Command là các đối tượng được tuần tự hóa và điều phối tới các Command Handler cho phép chúng ta xử lý nhiều sự cố và tình trạng lỗi khác nhau tại một vị trí duy nhất. Khi gặp một phân loại lỗi nhất định, chẳng hạn như tranh chấp tài nguyên do vấn đề đồng thời, chúng ta có thể lựa chọn một hành động phục hồi tiêu chuẩn, ví dụ thử lại (retry) thao tác đó X lần. Các lần thử lại có thể dựa trên chiến lược Capped Exponential Back-off (Độ trễ số mũ có giới hạn chặn trên), giúp cho tất cả các thao tác thử lại trở nên đồng nhất, đáng tin cậy và được duy trì bên trong một lớp duy nhất.
 
 > 💡 **Giải thích thêm về "Capped Exponential Back-off":**
 > Exponential Back-off là thuật toán giãn cách thời gian thử lại: sau mỗi lần thất bại, thời gian chờ sẽ tăng theo cấp số nhân (ví dụ: 100ms, 200ms, 400ms, 800ms...) để giảm áp lực dồn dập lên hệ thống đang quá tải. "Capped" nghĩa là đặt một giới hạn trần (ví dụ tối đa không quá 5 giây), tránh việc thời gian chờ tăng lên vô hạn khiến tiến trình bị treo quá lâu.
-> (Nguồn tham khảo: https://en.wikipedia.org/wiki/Exponential_backoff)
+> (Nguồn tham khảo: [https://en.wikipedia.org/wiki/Exponential_backoff](https://en.wikipedia.org/wiki/Exponential_backoff))
 
 ## Cú Pháp Lambda
 
@@ -489,8 +505,11 @@ public class CustomerApplicationService
     } 
     ... 
 }
-
 ```
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000616_1af63ebe06b924a8984d09872b2b495c261f602140ebb52e5dbb54e80ac52902.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000617_8d350d2b841aa23046cf90426f1481153959f5028ac7c289eaa4fded04779f59.png)
 
 Trong phương thức này, tham số `Action<Customer> execute` tham chiếu tới một hàm ẩn danh (anonymous function - trong C# là một delegate) có thể thao tác trên bất kỳ thực thể `Customer` nào. Sự súc tích của biểu thức lambda có thể được nhận thấy qua tham số được truyền vào hàm `Update()`:
 
@@ -504,7 +523,6 @@ public class CustomerApplicationService
     } 
     ... 
 }
-
 ```
 
 Trên thực tế, trình biên dịch C# sẽ tạo ra một đoạn mã tương tự như sau để hiện thực hóa ý đồ của biểu thức lambda:
@@ -527,7 +545,6 @@ public void When(LockCustomer c)
     x.Reason = c.Reason; 
     Update(c.Id, new Action<Customer>(customer => x.Execute(customer))); 
 }
-
 ```
 
 Vì hàm được sinh ra này nhận một thực thể `Customer` làm đối số, nó thực sự có thể được dùng để nắm bắt hành vi trong mã nguồn và thực thi hành vi đó nhiều lần trên các thực thể `Customer` khác nhau. Sức mạnh của việc sử dụng lambda sẽ được làm nổi bật trong phần tiếp theo.
@@ -538,6 +555,8 @@ Các Event Stream của Aggregate có thể được truy cập và đọc bởi
 
 Hình A.10 Hai luồng tranh chấp cùng một thực thể của một Aggregate được thiết kế theo mô hình A+ES
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000618_88a375d4c9350c1717bf158ee8fae90c52e759bc76a9032edebf6f9610531737.png)
+
 Cách giải quyết đơn giản nhất cho tình huống này là ném ra ngoại lệ `EventStoreConcurrencyException` ở bước 4, cho phép nó lan truyền (propagate) ngược lên đến tận client cuối cùng:
 
 ```csharp
@@ -546,7 +565,6 @@ public class EventStoreConcurrencyException : Exception
     public List<IEvent> StoreEvents { get; set; } 
     public long StoreVersion { get; set; } 
 }
-
 ```
 
 Khi bắt được ngoại lệ này ở client cuối cùng, người dùng có thể sẽ được hướng dẫn thử lại thao tác theo cách thủ công.
@@ -558,8 +576,11 @@ void Update(CustomerId id, Action<Customer> execute)
 { 
     while(true) 
     {
-
 ```
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000619_f8ba902a45a166fd4ae62c4acd7e79b0f57d9c3f5d7739d3b1840ce3f214f95c.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000620_e690f53bb5dc6673d35dbe1e3f92e3d4668556a46140a52cc45445c3a99b30aa.png)
 
 ```csharp
         EventStream eventStream = _eventStore.LoadEventStream(c.Id); 
@@ -580,7 +601,6 @@ void Update(CustomerId id, Action<Customer> execute)
         } 
     } 
 }
-
 ```
 
 Trong trường hợp xung đột đồng thời xảy ra, chúng ta sẽ thêm các bước bổ sung sau để khắc phục vấn đề:
@@ -593,6 +613,8 @@ Nếu việc thực thi lại hành vi của Aggregate quá tốn kém hoặc v�
 Như được minh họa trong Hình A.11, một chiến lược như vậy là giải quyết xung đột Event (Event conflict resolution), vốn được sử dụng để giảm bớt số lượng ngoại lệ đồng thời thực tế. Dưới đây là cách hoạt động của một trường hợp giải quyết xung đột rất đơn giản:
 
 Hình A.11 Sử dụng giải quyết xung đột Event trên Event Stream của một Aggregate
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000621_8286799c0249226699ca660a20d068e566b3f76d18fe9368e15dc0e8effccf4e.png)
 
 ```csharp
 void UpdateWithSimpleConflictResolution( 
@@ -637,7 +659,6 @@ void UpdateWithSimpleConflictResolution(
         } 
     } 
 }
-
 ```
 
 Trong trường hợp này, phương thức phát hiện xung đột `ConflictsWith()` được sử dụng để so sánh từng Event của Aggregate nhằm tìm kiếm xung đột với các Event đã được ghi đồng thời vào Event Store (như được báo cáo trong ngoại lệ).
@@ -649,8 +670,11 @@ bool ConflictsWith(IEvent event1, IEvent event2)
 { 
     return event1.GetType() == event2.GetType(); 
 }
-
 ```
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000622_1775c96bbfcb852b779a53440ad8e86c5660237239438741aa5d9bc016a3a1fc.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000623_97633ffc504f95f5da96cd70f5e98ace5b27e7d65327ac873737a399f1091105.png)
 
 Việc giải quyết xung đột cho phần lớn các trường hợp này dựa trên một quy tắc đơn giản: Các Event cùng loại luôn xung đột với nhau, nhưng các Event khác loại thì không.
 
@@ -672,6 +696,8 @@ Dưới đây là ba ưu điểm lớn của việc lưu trữ theo A+ES, đặc
 
 Hình A.12 Một Event Stream của Aggregate với một bản chụp nhanh (snapshot) trạng thái của nó, theo sau là hai Event xảy ra sau khi bản chụp nhanh được tạo
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000624_a1d047024c5530ed257b5fa2cdd33b3d275c3f4ca99cb278431cd0c63fb16671.png)
+
 * Lưu bộ nhớ đệm (cache) các Event Stream trong bộ nhớ máy chủ (server memory), tận dụng lợi thế rằng các Event là bất biến (immutable) một khi đã được ghi vào Event Store. Khi truy vấn Event Store để tìm bất kỳ thay đổi nào, chúng ta có thể cung cấp phiên bản của Event được biết gần nhất và chỉ yêu cầu lấy những Event xảy ra kể từ thời điểm đó (nếu có). Cách này có thể cải thiện hiệu năng nhưng sẽ phải đánh đổi bằng mức tiêu tốn dung lượng bộ nhớ.
 * Tránh việc phải tải và phát lại một phần lớn của Event Stream bằng cách chụp nhanh (snapshot) từng thực thể Aggregate. Bằng cách này, khi tải bất kỳ thực thể Aggregate nào, bạn chỉ cần tìm bản chụp nhanh mới nhất của nó, sau đó chỉ phát lại các Event đã được ghi thêm vào Event Stream kể từ khi bản chụp nhanh đó được tạo.
 
@@ -689,10 +715,13 @@ public interface ISnapshotRepository
         TAggregate snapshot, 
         int version); 
 }
-
 ```
 
 Chúng ta phải lưu lại phiên bản của Stream cùng với mỗi snapshot. Dựa vào số phiên bản này, chúng ta có thể tải snapshot cùng với chỉ những Event xảy ra kể từ thời điểm snapshot đó được ghi nhận. Ban đầu, chúng ta lấy snapshot làm trạng thái cơ sở (base state) của thực thể Aggregate, sau đó tải và phát lại toàn bộ các Event phát sinh kể từ khi snapshot được chụp:
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000625_226cb2f4aa366aa76e3837434853cc1624dcecfffc42f8e0c21e9d2273d5477a.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000626_a7881cb4993b908e83eb8d9b123907baf1974ba60deca459eb5ec9c4fe3cd0f0.png)
 
 ```csharp
 // our event store
@@ -727,7 +756,6 @@ public Customer LoadCustomerAggregateById(CustomerId id)
         return new Customer(stream.Events); 
     } 
 }
-
 ```
 
 Phương thức `ReplayEvents()` phải được sử dụng để đưa trạng thái thực thể Aggregate về phiên bản mới nhất với các Event xảy ra kể từ snapshot gần nhất. Hãy nhớ rằng trạng thái thực thể Aggregate được làm thay đổi tính từ thời điểm snapshot mới nhất trở đi. Do đó, chúng ta sẽ không khởi tạo `Customer` (trong ví dụ này) chỉ bằng Event Stream đơn thuần. Chúng ta cũng không thể chỉ sử dụng `Apply()`, bởi vì nó không những làm thay đổi trạng thái hiện tại với Event được đưa vào mà còn lưu từng Event mà nó nhận được vào tập hợp `Changes`. Việc lưu vào `Changes` những Event vốn đã tồn tại sẵn trong Event Stream sẽ gây ra các lỗi nghiêm trọng. Vì vậy, chúng ta chỉ cần triển khai thêm phương thức mới `ReplayEvents()`:
@@ -745,10 +773,11 @@ public partial class Customer
     } 
     ... 
 }
-
 ```
 
 Hình A.13 Bản chụp nhanh của một Aggregate được sinh ra sau khi một số lượng Event mới nhất định xuất hiện.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000627_f1642dde88e77562ec3f7f7639413f8a31bc06a3f27e382db72ec13aa8110a71.png)
 
 Dưới đây là đoạn mã đơn giản để sinh các snapshot cho `Customer`:
 
@@ -761,7 +790,6 @@ public void GenerateSnapshotForCustomer(IIdentity id)
     Customer customer = new Customer(stream.Events); 
     _snapshots.SaveSnapshot(id, customer, stream.Version); 
 }
-
 ```
 
 Việc sinh và lưu trữ snapshot có thể được ủy thác cho một luồng chạy nền (background thread). Các snapshot mới sẽ chỉ được tạo ra sau khi một số lượng Event định trước xuất hiện tính từ snapshot mới nhất. Các bước này được biểu thị trong Hình A.13. Vì đặc tính của từng loại Aggregate có thể rất khác nhau, nên ngưỡng kích hoạt chụp snapshot cho từng loại có thể được tinh chỉnh để đáp ứng các nhu cầu hiệu năng cụ thể.
@@ -773,6 +801,10 @@ Một cách bổ sung khác để xử lý các mối lo ngại về hiệu năn
 Bây giờ, chúng ta hãy cùng bắt tay vào triển khai một vài Event Store khác nhau phù hợp để sử dụng với A+ES. Các Store ở đây tương đối đơn giản và không được thiết kế cho hiệu năng cực cao, nhưng chúng sẽ đủ tốt cho hầu hết các miền nghiệp vụ.
 
 Mặc dù phần triển khai chi tiết cho từng Event Store có sự khác nhau, nhưng các hợp đồng (contracts/interfaces) của chúng là như nhau:
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000628_f34dca0caf247209acf40ec1d0c2f1db0e8181497ee32dc7cf0d900ad5a840ef.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000629_94b53b1e1b481cddb8ca2337076a146311f0104690f33bf7ed1991134571bcab.png)
 
 ```csharp
 public interface IEventStore 
@@ -810,16 +842,17 @@ public class EventStream
     // (toàn bộ các sự kiện trong stream)
     public IList<IEvent> Events = new List<IEvent>(); 
 }
-
 ```
 
 Như minh họa trong Hình A.14, lớp triển khai `IEventStore` là một vỏ bọc (wrapper) mang tính đặc thù của dự án bao quanh `IAppendOnlyStore` vốn mang tính tổng quát và có khả năng tái sử dụng cao hơn. Trong khi việc triển khai `IEventStore` xử lý việc tuần tự hóa và định kiểu dữ liệu mạnh (strong typing), thì các triển khai của `IAppendOnlyStore` lại cung cấp quyền truy cập cấp thấp (low-level) tới nhiều cơ chế lưu trữ (storage engines) khác nhau.
 
 Hình A.14 Các đặc tính của IEventStore cấp cao hơn và IAppendOnlyStore cấp thấp hơn
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000630_dce6a5f79a6c6a48a1c1a9b200a6ad3a8dd892e77e9b7631e74082a8a2aa0979.png)
+
 ## Mã Nguồn Của Event Store
 
-Mã nguồn đầy đủ cho nhiều loại Event Store với các phương án lưu trữ khác nhau có sẵn để tải về dưới dạng một phần của dự án mẫu A+ES: http://lokad.github.com/lokad-iddd-sample/.
+Mã nguồn đầy đủ cho nhiều loại Event Store với các phương án lưu trữ khác nhau có sẵn để tải về dưới dạng một phần của dự án mẫu A+ES: [http://lokad.github.com/lokad-iddd-sample/](http://lokad.github.com/lokad-iddd-sample/).
 
 Dưới đây là giao diện `IAppendOnlyStore` ở cấp thấp hơn:
 
@@ -848,7 +881,6 @@ public sealed class DataWithName
     public string Name; 
     public byte[] Data; 
 }
-
 ```
 
 Như bạn có thể thấy, `IAppendOnlyStore` làm việc với các mảng byte thay vì các tập hợp Event, và sử dụng chuỗi tên (string names) thay vì các định danh có định kiểu mạnh. Lớp `EventStore` sẽ đảm nhận việc chuyển đổi qua lại giữa hai dạng dữ liệu này.
@@ -857,9 +889,13 @@ Như bạn có thể thấy, `IAppendOnlyStore` làm việc với các mảng by
 
 > 💡 **Giải thích thêm về "Two-phase commit (2PC)":**
 > Giao thức commit hai pha (2PC) là một thuật toán đồng thuận trong hệ thống phân tán, dùng để đảm bảo tính toàn vẹn nguyên tử (atomic) khi ghi dữ liệu đồng thời vào nhiều hệ thống khác nhau (ví dụ: vừa ghi vào DB vừa đẩy message vào Message Queue). 2PC thường có độ trễ cao và dễ gây tắc nghẽn (blocking). Bằng cách lưu Event vào Store trước rồi dùng một tiến trình riêng đọc Event ra để publish (mẫu hình Transactional Outbox / Event Tailing), hệ thống tránh hoàn toàn được sự phức tạp và chậm chạp của 2PC.
-> (Nguồn tham khảo: https://en.wikipedia.org/wiki/Two-phase_commit_protocol)
+> (Nguồn tham khảo: [https://en.wikipedia.org/wiki/Two-phase_commit_protocol](https://en.wikipedia.org/wiki/Two-phase_commit_protocol))
 
 Một cách tiếp cận đơn giản cho việc tuần tự hóa (serialization) và giải tuần tự hóa (deserialization) — tức chuyển đổi giữa các mảng byte và các đối tượng Event được định kiểu mạnh — là sử dụng `BinaryFormatter` của .NET:
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000631_2f4c110a279283394e29d0e5c681c311e76534f4c5b0cc4a50923dd84a608a7f.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000632_20711ff671186f0a26e480b9dd408611f40ab4a12dc25f7292f7e0aaf3b460fd.png)
 
 ## Phụ lục A AGGREGATE VÀ EVENT SOURCING: A+ES
 
@@ -885,7 +921,6 @@ public class EventStore : IEventStore
         } 
     } 
 }
-
 ```
 
 Dưới đây là cách chúng ta có thể sử dụng tuần tự hóa và giải tuần tự hóa để tải một Event Stream:
@@ -912,7 +947,6 @@ string IdentityToString(IIdentity id)
     // (trong dự án này tất cả các identity đều tạo ra tên phù hợp)
     return id.ToString(); 
 }
-
 ```
 
 Ở đây chúng ta thấy cách ghi thêm các Event mới vào Event Store thông qua `IAppendOnlyStore`:
@@ -946,7 +980,6 @@ public void AppendToStream(
             server.Events); 
     } 
 }
-
 ```
 
 ## Lưu Trữ Dưới Dạng Quan Hệ
@@ -963,6 +996,10 @@ CREATE TABLE IF NOT EXISTS `ES_Events` (
     `Name` nvarchar(50) NOT NULL,            -- name of the stream (tên của stream)
 
 ```
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000633_bc2fdc23683ea0679ed80544250ec0b1d9107f0db867b929320a136e1c2e12c5.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000634_72389723e94b72ffd55a0b07f6d03c303706ae41dbda0ad94dbd511a9fa20077.png)
 
 `Version` int NOT NULL,                  -- incrementing stream version (phiên bản tăng dần của stream)
 
@@ -1012,7 +1049,6 @@ public void Append(string name, byte[] data, int expectedVersion)
             using (var cmd = new MySqlCommand(txt, conn, tx)) 
             { 
                 cmd.Parameters.AddWithValue("?name", name);
-
 ```
 
 ## LƯU TRỮ DƯỚI DẠNG QUAN HỆ
@@ -1026,7 +1062,6 @@ public void Append(string name, byte[] data, int expectedVersion)
         } 
     } 
 }
-
 ```
 
 Việc đọc dữ liệu từ `IAppendOnlyStore` khá đơn giản, chỉ đòi hỏi một câu truy vấn cơ bản. Ví dụ, dưới đây là cách chúng ta lấy danh sách các bản ghi cho một Event Stream của Aggregate:
@@ -1058,10 +1093,13 @@ public IEnumerable<DataWithVersion> ReadRecords(
         } 
     } 
 }
-
 ```
 
 Bạn sẽ tìm thấy mã nguồn đầy đủ cho Event Store dựa trên MySQL này cùng phần mã nguồn mẫu còn lại. Một bản triển khai tương tự cũng được cung cấp cho Microsoft SQL Server.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000635_a32bf8d4905e6a5d08ec052a79fffdacba255fa87ce5c827b081f03c8339c51f.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000636_851aa746a06530da8c2af365e49bdab5cf8ff788f51d1d5a7e176360a614e155.png)
 
 ## Lưu Trữ Dưới Dạng BLOB
 
@@ -1077,14 +1115,16 @@ Hãy cùng xem xét một số chỉ dẫn thiết kế để xây dựng một 
 
 Hình A.15 Lưu trữ BLOB dựa trên hệ thống tệp tin sử dụng chiến lược mỗi thực thể Aggregate là một tệp riêng, chứa một bản ghi cho mỗi Event
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000637_8e1fb061c337e86f5355ee23869cc27dc8095676e782fed0a1a7f2899debe977.png)
+
 4. Bất kể chiến lược lưu trữ BLOB nào được sử dụng, toàn bộ các Event mới đều được ghi nối tiếp vào phần cuối. Mỗi bản ghi bao gồm các trường: tên (name), phiên bản (version), và dữ liệu nhị phân (binary data). Điều này tương tự như cách chúng ta lưu các bản ghi Event vào một cơ sở dữ liệu quan hệ. Tuy nhiên, với một kho lưu trữ BLOB, chúng ta phải thêm tiền tố độ dài byte vào trước các trường có độ dài thay đổi (variable-length fields), đồng thời gắn thêm một mã băm (hash code) hoặc kiểm tra dư thừa vòng (CRC - Cyclic Redundancy Check) để xác minh tính toàn vẹn của dữ liệu khi đọc các bản ghi.
 5. Bộ lưu trữ chỉ ghi thêm dựa trên BLOB cho phép liệt kê toàn bộ các Event trên tất cả các Event Stream đơn giản bằng cách duyệt qua toàn bộ các tệp tin và nội dung của chúng. Để tăng tốc độ tìm kiếm trên đĩa (disk seeks) và việc đọc các Event cho một Stream cụ thể, chúng ta sẽ cần duy trì một chỉ mục riêng trong bộ nhớ (in-memory index) và/hoặc lưu bộ đệm các Event Stream trong bộ nhớ. Nếu sử dụng cơ chế lưu đệm trong bộ nhớ, mỗi lần ghi thêm sẽ đòi hỏi bộ nhớ đệm phải được làm mới (refreshed). Hơn nữa, việc chụp snapshot trạng thái Aggregate và chống phân mảnh tập tin (file defragmentation) cũng có thể giúp cải thiện hiệu năng.
 6. Đương nhiên, chúng ta có thể tránh được nhiều vấn đề phân mảnh ổ đĩa của hệ thống tệp tin bằng cách cấp phát trước (preallocating) các vùng dung lượng lớn của tệp BLOB ngay khi từng Event Stream dạng tệp tin được tạo ra.
 
-Thiết kế này được lấy cảm hứng từ mô hình Bitcask của Riak. Bạn có thể đọc thêm chi tiết và giải thích trong tài liệu kiến trúc Riak Bitcask: http://downloads.basho.com/papers/bitcask-intro.pdf.
+Thiết kế này được lấy cảm hứng từ mô hình Bitcask của Riak. Bạn có thể đọc thêm chi tiết và giải thích trong tài liệu kiến trúc Riak Bitcask: [http://downloads.basho.com/papers/bitcask-intro.pdf](http://downloads.basho.com/papers/bitcask-intro.pdf).
 
 > 💡 **Giải thích thêm về "Riak Bitcask model":**
 > Bitcask là một bộ máy lưu trữ (storage engine) log-structured key/value do Basho phát triển cho cơ sở dữ liệu Riak. Ý tưởng cốt lõi của nó là chỉ ghi dữ liệu tuần tự nối tiếp vào cuối tệp (append-only log files), đồng thời duy trì một bảng băm chỉ mục trong RAM (Keydir) trỏ trực tiếp đến vị trí offset của dữ liệu trên đĩa. Kiến trúc này mang lại thông lượng ghi cực cao, độ trễ đọc rất thấp (chỉ mất đúng một lần tìm kiếm trên đĩa), và khả năng phục hồi dữ liệu sau sự cố rất đơn giản.
-> (Nguồn tham khảo: https://riak.com/assets/bitcask-intro.pdf)
+> (Nguồn tham khảo: [https://riak.com/assets/bitcask-intro.pdf](https://riak.com/assets/bitcask-intro.pdf))
 
 ## Các Aggregate Tập Trung

@@ -37,6 +37,10 @@ product = cache.get(productId);
 
 4. Nó cũng giới hạn các client của Coherence chỉ ở môi trường Java, trong khi các client .NET và C++ cũng có thể sử dụng dữ liệu trên lưới nếu bạn cung cấp cơ chế tuần tự hóa Portable Object Format (POF).
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000468_4bbf2dc7f3fa247784dfb0f49457a1aa5dee8fa46d15fc5081281fab9c513a5f.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000469_e6ba2fe09183ddd25cd8bd21ab744006358bfe9d75db5a6bfc53d1cb0b7dae11.png)
+
 dạng tài liệu (document) của chúng và sau đó chuyển đổi ngược lại về dạng đối tượng. Dĩ nhiên, việc giải quyết các thách thức này không quá khó khăn. Chẳng hạn, việc tạo ra một cơ chế tuần tự hóa tối ưu cho một Aggregate được lưu trữ bởi GemFire hoặc Coherence không hề phức tạp hơn việc tạo các mô tả ánh xạ cho một bộ ORM. Nhưng nó cũng không đơn giản đến mức chỉ việc sử dụng `put()` và `get()` trên một `Map`.
 
 Tiếp theo, tôi sẽ minh họa cách tạo một Repository hướng lưu trữ cho Coherence, và sau đó tôi sẽ nêu bật một số kỹ thuật để thực hiện điều tương tự cho MongoDB.
@@ -117,6 +121,10 @@ Trong trường hợp của Agile Project Management Context, đội ngũ phát 
 
 Cùng với một hàm khởi tạo (constructor) không tham số đơn giản, điểm mấu chốt của Coherence chính là `NamedCache`. Trong số các gói import, hãy lưu ý những lớp đặc thù dùng để tạo hoặc kết nối và sử dụng một cache: `CacheFactory` và `NamedCache`. Cả hai lớp này đều nằm trong package `com.tangosol.net`.
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000470_36f7b93c0d24ab60e8eb94f45fc305d017776d7d15ac36a1c57e25a7306b5912.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000471_575f17c251c853cc3081a18d918e1ee0ad189f280ec99b425fe81527b2339c5e.png)
+
 Phương thức `private` `cache()` là phương tiện để lấy được một `NamedCache`. Phương thức này sẽ lấy cache theo cơ chế lazy (nạp lười / trì hoãn nạp) trong lần đầu tiên Repository cố gắng sử dụng nó. Nguyên nhân chủ yếu là vì mỗi cache được đặt tên theo từng Tenant (người thuê / tổ chức thuê bao) cụ thể và Repository phải đợi cho đến khi một phương thức `public` được gọi thì mới có quyền truy cập vào `TenantId`. Có rất nhiều chiến lược đặt tên cho cache trong Coherence có thể được thiết kế. Trong trường hợp này, đội ngũ phát triển đã chọn lưu cache bằng cách sử dụng namespace (không gian tên) sau:
 
 1. Cấp thứ nhất theo tên viết tắt của Bounded Context: `agilepm`
@@ -189,6 +197,10 @@ public class CoherenceProductRepository implements ProductRepository {
 
 Để lưu một instance `Product` mới hoặc đã bị sửa đổi vào data grid, hãy sử dụng `save()`. Phương thức `save()` sử dụng `cache()` để lấy instance `NamedCache` ứng với `TenantId` của `Product`. Sau đó, nó đưa instance `Product` vào `NamedCache`. Lưu ý việc sử dụng phương thức `idOf()`, vốn có hai phiên bản nạp chồng (overload), một cho `Product` và một cho `ProductId`. Trong cả hai trường hợp, các phương thức này đều trả về định dạng `String` của định danh duy nhất của `Product`, tức là `ProductId`. Do đó, phương thức `put()` của `NamedCache` (lớp triển khai `java.util.Map`) sẽ nhận một key dạng chuỗi `String` và instance `Product` làm value (giá trị).
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000472_8585416f22c378b30bb02854d913b24abc78d85db3cef30402db918b07b6a5bb.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000473_64783ffba79c8ab075725f6b42c5615a9ddb826905059c683f2e886cbae4e9ee.png)
+
 Phương thức `saveAll()` có thể phức tạp hơn đôi chút so với những gì bạn mong đợi. Tại sao không đơn giản là lặp qua `aProductCollection` rồi gọi `save()` cho từng phần tử? Chúng ta hoàn toàn có thể làm như vậy. Tuy nhiên, tùy thuộc vào loại cache Coherence cụ thể đang sử dụng, mỗi lần gọi `put()` đều yêu cầu một network request (yêu cầu mạng). Vì vậy, cách tốt nhất là gom lô (batch) tất cả các instance `Product` cần lưu vào một `HashMap` cục bộ đơn giản rồi gửi chúng đi bằng `putAll()`. Điều này giúp giảm thiểu độ trễ mạng xuống mức thấp nhất có thể bằng cách chỉ sử dụng một request duy nhất, vốn là giải pháp tối ưu nhất.
 
 ```java
@@ -256,6 +268,10 @@ Tương tự như các triển khai Repository khác, có một số cân nhắc
 
 1. Một phương tiện để serialize các instance của Aggregate sang định dạng của MongoDB, sau đó deserialize (giải tuần tự hóa) từ định dạng đó và tái lập (reconstitute) lại instance của Aggregate.
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000474_1a19679e704869de44fd4b3f06f03c1301d4301cd151711660d9915cb06e7781.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000475_3cf0552f611c0f249d3cec3add49da65f48fc264e03d76ca52490156d56998be.png)
+
 MongoDB sử dụng một định dạng JSON đặc biệt gọi là BSON, tức là định dạng JSON nhị phân (binary JSON).
 
 2. Một định danh duy nhất do MongoDB sinh ra và gán cho Aggregate.
@@ -322,6 +338,10 @@ public class MongoProductRepository
 ```
 
 Chúng ta vẫn sử dụng phương thức `nextIdentity()`, nhưng trong triển khai này, chúng ta khởi tạo `ProductId` bằng giá trị `String` của một `ObjectId` mới. Lý do chính là vì chúng ta muốn MongoDB sử dụng cùng một định danh duy nhất mà chúng ta đang nắm giữ ngay trong chính instance của Aggregate. Do đó, khi serialize một `Product` (hoặc một kiểu khác trong một triển khai Repository khác), chúng ta có thể yêu cầu `BSONSerializer` ánh xạ định danh đó vào khóa đặc biệt `_id` của MongoDB:
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000476_61a25509c389f271a9f938ff0ac85648f2457882701da9e7aa4ae71ccffbe47e.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000477_dc5f2d6c40a3696bd28cec97e6e7256c7f29c958e58c17cca5e3ed257e1c9a2b.png)
 
 ```java
 public class BSONSerializer<T> {
@@ -429,6 +449,10 @@ public class MongoProductRepository
 
 ```
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000478_5473d439f5c87bdf8830d4eac77355702a294051918cc617399210df7cf3ca31.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000479_0144b7a809eb373faa153167b50143f15a221a6c05d82394b371c54d53b9dff1.png)
+
 ```java
         while (cursor.hasNext()) {
             DBObject dbObject = cursor.next();
@@ -499,6 +523,10 @@ Có thể có các phép tính toán khác bắt buộc phải thực hiện nga
 
 Đôi khi, việc truy vấn các phần thành phần của Aggregate từ Repository mà không cần truy cập trực tiếp vào chính Root (thực thể gốc) có thể mang lại nhiều lợi thế. Điều này có thể xảy ra nếu một Aggregate nắm giữ một collection lớn gồm một kiểu Entity (thực thể) nào đó, và bạn chỉ cần truy cập vào các instance thỏa mãn một tiêu chí nhất định. Tất nhiên, điều này chỉ hợp lý nếu Aggregate cho phép truy cập như vậy thông qua việc điều hướng từ Root. Bạn sẽ không thiết kế một Repository để cung cấp quyền truy cập vào các phần thành phần mà Aggregate Root bình thường không cho phép truy cập qua đường điều hướng. Làm như vậy sẽ vi phạm giao ước của Aggregate. Tôi cũng khuyên bạn không nên thiết kế Repository cung cấp kiểu truy cập này chỉ như một lối tắt đơn thuần vì sự thuận tiện của client. Tôi cho rằng điều này chỉ nên được sử dụng chủ yếu để giải quyết các mối lo ngại về hiệu năng trong những điều kiện mà việc điều hướng qua Root sẽ gây ra điểm nghẽn cổ chai không thể chấp nhận được. Các phương thức phục vụ việc truy cập tối ưu đó sẽ có các đặc tính cơ bản giống như những phương thức tìm kiếm khác (xem phần trước của chương này), nhưng sẽ trả về các instance của những phần thành phần bên trong thay vì trả về Root Entity. Xin nhắc lại, hãy sử dụng kỹ thuật này một cách thận trọng.
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000480_ca380a929f6766a90c584a95c44aac34726b078d6fc593d7e5602431a50025d0.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000481_6fb3354108e6776e7d4115dd2804b31237b9a7f089529539241acbd5887fd078.png)
+
 Một lý do khác cũng có thể thôi thúc bạn thiết kế các phương thức tìm kiếm đặc biệt. Một số use case (trường hợp sử dụng) nhất định trong hệ thống của bạn có thể không tuân theo đúng đường ranh giới của một kiểu Aggregate đơn lẻ khi kết xuất view hiển thị dữ liệu miền. Thay vào đó, chúng có thể cắt ngang qua nhiều kiểu, có khả năng chỉ tổng hợp một số phần nhất định của một hoặc nhiều Aggregate. Trong những tình huống như thế này, bạn có thể chọn không thực hiện việc tìm kiếm toàn bộ các instance Aggregate của nhiều kiểu khác nhau trong một transaction đơn lẻ rồi lập trình ghép nối chúng vào một container duy nhất để trả container dữ liệu đó cho client. Thay vào đó, bạn có thể sử dụng giải pháp gọi là use case optimal query (truy vấn tối ưu hóa theo trường hợp sử dụng). Đây là kỹ thuật mà bạn chỉ định một câu truy vấn phức tạp trực tiếp tới cơ chế lưu trữ, rồi nạp động các kết quả vào một Value Object (6) (đối tượng giá trị) được thiết kế chuyên biệt để đáp ứng nhu cầu của use case đó.
 
 Việc một Repository trong một số trường hợp trả về một Value Object thay vì một instance Aggregate là điều không có gì xa lạ. Một Repository cung cấp phương thức `size()` vốn đã trả về một Giá trị rất đơn giản dưới dạng một số nguyên đếm tổng số instance Aggregate mà nó nắm giữ. Một use case optimal query chỉ đơn thuần là mở rộng khái niệm này thêm một chút để cung cấp một Giá trị phức tạp hơn, đáp ứng những yêu cầu phức tạp hơn từ phía client.
@@ -542,6 +570,10 @@ public class SomeApplicationServiceFacade {
 ```
 
 6. Còn có các mối quan tâm khác do Application Layer quản lý, chẳng hạn như bảo mật, nhưng tôi không thảo luận về chúng ở đây.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000482_ab393c4687879fe3eb075bf8c2a7afc53f9bf09f43ebb893eb7030601faf1f5a.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000483_685cea97d401023c9645ccd352e80c1dae6ec0c337a1019ea1c5bbbc39012db8.png)
 
 Để đưa các thay đổi đối với domain model vào trong một transaction, hãy đảm bảo rằng các triển khai Repository có quyền truy cập vào cùng một `Session` hoặc Unit of Work ứng với transaction mà Application Layer đã khởi tạo. Bằng cách đó, các sửa đổi được thực hiện trong Domain Layer sẽ được commit hợp lệ xuống cơ sở dữ liệu bên dưới hoặc được rollback khi có sự cố.
 
@@ -618,6 +650,10 @@ import org.hibernate.SessionFactory;
 
 ```
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000484_8c693037731e9973e998e0c77ef04045d293cbddcae43e97541f53af7194c84b.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000485_423d6e0e72f24fa80d1019d51e70690e7527936b8fcf308c8f6a65ff75cb6bf2.png)
+
 ## Chương 12: REPOSITORY
 
 ```java
@@ -693,6 +729,10 @@ Tôi thấy có trách nhiệm phải đưa ra một lời cảnh báo sau cùng
 
 Khi sử dụng một ngôn ngữ hướng đối tượng để phát triển một domain model, việc tận dụng tính kế thừa (inheritance) để tạo ra các cây phân cấp kiểu (type hierarchy) có thể là một cám dỗ khó cưỡng. Chúng ta có thể coi đây là cơ hội để đặt trạng thái và hành vi mặc định vào một lớp cơ sở (base class) rồi sau đó mở rộng bằng các lớp con (subclass). Và tại sao lại không chứ? Nó có vẻ là một cách hoàn hảo để tránh lặp lại chính mình.
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000486_906f36b7dda152adfed3757b26a2429e619040e872646572c3598bf8b28a363b.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000487_4a414d95d46f0d7d15cfbc981b10812d7bb8f57019605a85710f62f2cb250c40.png)
+
 Việc tạo ra các Aggregate có chung tổ tiên nhưng lại đứng tách biệt khỏi các họ hàng của chúng bằng một Repository riêng biệt là một cách sử dụng tính kế thừa hoàn toàn khác so với việc tạo ra các Aggregate có cùng tổ tiên nhưng lại dùng chung một Repository duy nhất. Vì vậy, phần này không thảo luận về tình huống mà tất cả các kiểu Aggregate trong một domain model đơn lẻ cùng kế thừa một Layer Supertype (siêu kiểu tầng) [Fowler, P of EAA] để cung cấp trạng thái và/hoặc hành vi chung trên toàn bộ domain. 7
 
 Đúng hơn, ở đây tôi đang đề cập đến việc tạo ra một số lượng tương đối nhỏ các kiểu Aggregate kế thừa từ một siêu lớp (superclass) chung đặc thù của miền. Chúng được thiết kế nhằm tạo thành một cây phân cấp các kiểu có quan hệ mật thiết với nhau, mang các đặc tính đa hình (polymorphic) và có thể thay thế lẫn nhau. Các loại phân cấp này sử dụng một Repository duy nhất để lưu trữ và truy xuất các instance của những kiểu riêng biệt đó, bởi vì client nên sử dụng các instance này thay thế cho nhau được, và client hiếm khi hoặc hầu như không bao giờ phải bận tâm đến lớp con cụ thể nào mà họ đang thao tác tại bất kỳ thời điểm nào — điều này phản ánh Nguyên lý Thay thế Liskov (Liskov Substitution Principle - LSP) [Liskov].
@@ -732,6 +772,10 @@ if (id.identifiesWarble()) {
 Nếu kiểu tương tác này trở thành quy chuẩn phổ biến thay vì là trường hợp ngoại lệ, nó báo hiệu một code smell. Đồng ý rằng, nếu những lợi ích thu được từ việc tạo ra cây phân cấp là quá lớn, thì một trường hợp sử dụng cá biệt hiếm hoi như thế này có thể là một sự đánh đổi đáng giá. Tuy nhiên, trong ví dụ giả định này, một thiết kế thấu đáo hơn về kiểu ngầm định `ServiceDescription` cùng triển khai nội bộ của `scheduleService()` có lẽ là đã đủ. Nếu không, tôi nghĩ chúng ta sẽ phải tự hỏi liệu mình có thể thu được lợi ích nào từ việc sử dụng tính kế thừa trong khi vẫn gán cho mỗi kiểu một Repository riêng biệt hay không. Trong trường hợp chỉ cần hai hoặc một vài lớp con cụ thể như vậy, tốt nhất là nên tạo các Repository riêng biệt. Khi số lượng các lớp con cụ thể tăng lên nhiều, và hầu hết chúng đều có thể được sử dụng thay thế hoàn toàn cho nhau (tuân thủ LSP), thì việc để chúng dùng chung một Repository duy nhất mới thực sự đáng giá.
 
 Phần lớn thời gian, loại tình huống này hoàn toàn có thể tránh được bằng cách thiết kế thông tin mô tả kiểu dưới dạng một thuộc tính của Aggregate (chứ không phải trong định danh ID). Hãy xem phần thảo luận về Standard Types (các kiểu chuẩn) trong chương Value Objects (6). Bằng cách này, một kiểu Aggregate đơn lẻ có thể triển khai nội bộ các hành vi khác nhau dựa trên một Standard Type được xác định tường minh. Khi sử dụng một Standard Type tường minh, chúng ta có thể có một Aggregate cụ thể duy nhất là `ServiceProvider` và thiết kế phương thức `scheduleService()` của nó để điều phối (dispatch) hành vi dựa trên kiểu. Để bảo vệ client khỏi các quyết định dựa trên kiểu đó, chúng ta phải đảm bảo rằng logic phân nhánh kiểu không bị rò rỉ ra phía ngoài client. Thay vào đó, `scheduleService()` và các phương thức khác của `ServiceProvider` sẽ đóng gói trọn vẹn những quyết định mang tính đặc thù miền đó, như có thể thấy ở đây:
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000488_e338712d1825045958205f08f02033c694523d0a23102cc452318305771d201f.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000489_83f1b7ecf76f170dc179d9fb69961844ba64aa1e6294c72397b6a6a83ef8028b.png)
 
 ```java
 this.scheduleWarbleService(aDate, aDescription);

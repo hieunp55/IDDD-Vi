@@ -82,6 +82,10 @@ public class ProductService ... {
 
 ```
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000543_be9c11ba540e1a6947d4b8fec26e9d47359160d3daad55460ebd9772a2ebe1c5.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000544_172148f205c2df89b7c7d09ecfa39454fed8753fc21d1743a981fcab9a1f3d38.png)
+
 ## Chapter 13 INTEGRATING BOUNDED CONTEXTS
 
 ```java
@@ -145,6 +149,10 @@ Chúng ta có thể làm cho tiến trình này trưởng thành hơn bằng cá
 Để làm rõ, tracker không phải là một phần của Core Domain (miền nghiệp vụ cốt lõi). Nó là một phần của một Technical Subdomain (phân miền kỹ thuật phụ trợ) mà bất kỳ dự án nào của SaaSOvation cũng có thể tái sử dụng. Điều này đồng nghĩa rằng trong một số trường hợp, chúng ta không cần quá bận tâm đến các quy tắc của Aggregate khi lưu trữ (persist) tracker và sửa đổi chúng sau đó. Các tracker tương đối biệt lập và thường không phải đối mặt với xung đột tương tranh (concurrency conflicts) do chúng có mối quan hệ một-một với tiến trình liên quan. Tuy nhiên, nếu xung đột xảy ra, chúng ta có thể dựa vào cơ chế thử lại của hệ thống truyền thông điệp để giải quyết. Mọi ngoại lệ xảy ra trong quá trình chuyển phát thông báo sẽ khiến listener gửi phản hồi NAK (Negative Acknowledgment - tín hiệu báo nhận thất bại / từ chối nhận thông điệp), từ đó kích hoạt RabbitMQ (hệ thống hàng đợi thông điệp) gửi lại thông điệp đó. Dẫu vậy, chúng ta không dự đoán rằng sẽ cần đến một số lượng lớn các lần thử lại.
 
 Chính `Product` là đối tượng nắm giữ trạng thái hiện tại của tiến trình, và trong ngữ cảnh đó, một tracker sẽ xuất bản Sự kiện sau khi chạm đến khoảng thời gian thử lại, hoặc khi tiến trình được giám sát bị quá hạn hoàn toàn:
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000545_436c231303bd619dbd78795591a0abb663d437c08b12ed65db4085189b5e5b41.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000546_86405122465c975e9f88fa6514cbbed2b2c045c089272f14b8efec4ee0f0c575.png)
 
 ```java
 package com.saasovation.agilepm.domain.model.product;
@@ -234,6 +242,10 @@ public class ProductService ... {
 
 ```
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000547_8f7ed333237bdb070b571b71e73fee7f95fea64800af3be8fb90ce04e6b1caae.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000548_e8238cb61588df39ad37e3d6e0e1278ca7dd1ab7d414e24b5bb11448a91d75c9.png)
+
 ```java
         product.setDiscussionInitiationId(
                 tracker.processId().id());
@@ -322,6 +334,10 @@ public class ProductDiscussionRetryListener extends ExchangeListener {
 
 Listener này chỉ quan tâm đến các Sự kiện `ProductDiscussionRequestTimedOut` và được thiết kế để hoạt động với mọi hoán vị số lần thử lại và hết hạn thời gian. Chính tiến trình và tracker sẽ xác định số lần nó có thể nhận thông báo. Các Sự kiện sẽ được gửi theo một trong hai điều kiện: Tiến trình có thể đã hết thời gian hoàn toàn, hoặc đó có thể là một thông báo yêu cầu thử lại thao tác. Trong cả hai trường hợp, listener đều điều phối (dispatch) lời gọi tới `ProductService`. Nếu xảy ra tình trạng hết thời gian hoàn toàn, Application Service sẽ xử lý tình huống này:
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000549_cc2c1065cfc6be3dfd753d23a8cf8d931e7ea2f104f68949ff02c4bd4cfe9ab5.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000550_9ec25067def09a43e27ba540ae4ab5285ea0f4bac79e22ae8135ef0f5d8bbefb.png)
+
 ```java
 package com.saasovation.agilepm.application;
 ...
@@ -401,6 +417,10 @@ public class ProductService ... {
 
 ```
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000551_e8fb0ea87c0751a5392997fa981470443db63263ed8dd77615f7a17c53f6ecb1.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000552_815c8b6d554b1fba849d1fd6a0e57c8b05d63d8f21429320ac63551066695213.png)
+
 ## Chapter 13 INTEGRATING BOUNDED CONTEXTS
 
 ```java
@@ -462,6 +482,10 @@ Mặc dù chúng ta có thể đang cảm thấy hài lòng với kết quả n�
 * Do cơ chế chuyển phát thông điệp được đảm bảo ít nhất một lần (at-least-once delivery) đang được áp dụng, nên ngay khi một thông điệp được gửi tới exchange, chắc chắn nó sẽ đến được (các) listener trong một khoảng thời gian nhất định. Nếu có sự chậm trễ trong việc tạo các đối tượng cộng tác mới và điều này dẫn đến dù chỉ một lần thử lại, thì lần thử lại đó sẽ kéo theo việc gửi nhiều lần cùng một lệnh `CreateExclusiveDiscussion`. Tất cả các lệnh như vậy cuối cùng đều sẽ được chuyển phát. Do đó, bất kỳ lần thử lại nào cũng sẽ khiến Collaboration Context cố gắng tạo cùng một `Forum` và `Discussion` nhiều lần. Trên thực tế, chúng ta sẽ không gặp phải tình trạng trùng lặp dữ liệu vì các ràng buộc tính duy nhất (uniqueness constraints) đã được áp đặt trên các thuộc tính của `Forum` và `Discussion`. Vì vậy, các lỗi phát sinh do cố gắng tạo nhiều lần rốt cuộc sẽ là lành tính (benign). Tuy nhiên, dưới góc độ của nhật ký lỗi (error logs), những lần thử thất bại này sẽ trông như thể xuất phát từ lỗi phần mềm (bugs). Câu hỏi đặt ra là: Trong khi chúng ta vẫn muốn quy định thời gian chờ kết thúc toàn bộ tiến trình (complete process time-out), liệu có nên vô hiệu hóa các lần thử lại định kỳ hay không?
 * Mặc dù có vẻ như giải pháp là vô hiệu hóa việc thử lại trong Agile Project Management Context, nhưng mấu chốt vấn đề là chúng ta cần phải làm cho các thao tác của Collaboration Context trở nên có tính lũy đẳng (idempotent). Hãy nhớ rằng RabbitMQ đảm bảo chuyển phát ít nhất một lần và do đó có thể chuyển phát cùng một thông điệp lệnh nhiều lần, ngay cả khi nó chỉ được gửi một lần duy nhất. Việc làm cho các thao tác cộng tác có tính lũy đẳng sẽ ngăn chặn mọi nỗ lực tạo cùng một `Forum` và `Discussion` nhiều lần, đồng thời dập tắt việc ghi nhật ký các lỗi lành tính không đáng có.
 * Agile Project Management Context hoàn toàn có thể gặp lỗi khi cố gắng gửi lệnh `CreateExclusiveDiscussion`. Nếu việc gửi thông điệp gặp sự cố, cần phải hết sức cẩn trọng để đảm bảo
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000553_df649eb286bab05854dbbf978ffcf5e8f3f6a3433ff194c6b3079148074db942.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000554_c5146acf5004433dfe6c40058f3e79d91219e12e96499d5ee218c3e2476e0d0c.png)
 
 rằng việc gửi lại sẽ được thử cho đến khi thành công. Nếu không, yêu cầu tạo `Forum` và `Discussion` sẽ không bao giờ được thực hiện. Chúng ta có thể đảm bảo các nỗ lực gửi lại lệnh theo một vài cách. Nếu việc gửi thông điệp thất bại, chúng ta có thể ném ra một ngoại lệ từ `filteredDispatch()`, điều này sẽ khiến thông điệp bị phản hồi NAK. Kết quả là RabbitMQ sẽ nhận thấy cần phải chuyển phát lại thông báo Sự kiện `ProductCreated` hoặc `ProductDiscussionRequested`, và `ProductDiscussionRequestedListener` của chúng ta sẽ nhận lại thông báo đó. Cách khác để xử lý việc này là chỉ đơn giản thử gửi lại cho đến khi thành công, có thể kết hợp sử dụng thuật toán Capped Exponential Back-off (thuật toán lùi theo cấp số nhân có giới hạn trần). Trong trường hợp RabbitMQ bị ngoại tuyến (offline), các lần thử lại có thể thất bại trong một khoảng thời gian khá dài. Do đó, việc kết hợp giữa NAK thông điệp và thử lại có thể là cách tiếp cận tốt nhất. Dẫu vậy, nếu tiến trình của chúng ta thử lại ba lần, mỗi lần cách nhau năm phút, thì đó có thể đã là tất cả những gì chúng ta cần. Rốt cuộc, một khi tiến trình bị hết hạn thời gian hoàn toàn, nó sẽ gửi một email yêu cầu sự can thiệp của con người.
 
@@ -535,6 +559,10 @@ import java.util.Date;
 public interface Process {
 
 ```
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000555_3e8a8495f351b88a105cad4ae2a83c7d2534f22770ea2db2c770709ccc199c41.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000556_240c7d050dc6ab8f438a94a406e717b0601581305a8be6df556149d332e00d34.png)
 
 ```java
     public enum ProcessCompletionType {
@@ -612,6 +640,10 @@ public class TestableTimeConstrainedProcess extends AbstractProcess {
 
 ```
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000557_87c268d244d9ee933faf5edb28812e6a372126aa080c85aa4d5d458484205010.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000558_9e55f4f152c0506cfc6cee656873f826eccd4c52891e3fbc458a449f1af0f8ac.png)
+
 ```java
         this.completeProcess(ProcessCompletionType.CompletedNormally);
     }
@@ -656,6 +688,12 @@ Chắc chắn rằng các listener sẽ không nhận được các thông báo 
 
 Không phải lúc nào cơ chế truyền thông điệp cũng là nguồn cơn của các vấn đề liên quan đến thông điệp. Hãy xem xét tình huống này: Bounded Context của bạn không thể truy cập được trong một khoảng thời gian dài. Khi nó khả dụng trở lại, các durable exchanges/queues (hàng đợi / bộ trao đổi thông điệp bền vững) mà nó đăng ký đã tích lũy rất nhiều thông điệp chưa được chuyển phát. Một khi Bounded Context của bạn khởi động lại và đăng ký các consumer của nó, hệ thống có thể cần một lượng thời gian đáng kể để tiếp nhận và xử lý toàn bộ các thông báo đang tồn đọng đó. Có thể bạn không làm được gì nhiều trước tình huống này ngoài việc kiên trì theo đuổi các mục tiêu giới hạn thời gian chết (limited downtime), xây dựng cơ chế triển khai không gián đoạn ("live" deployment), và thiết kế hệ thống với các node dự phòng (cluster - cụm máy chủ) để việc mất một node không làm toàn bộ hệ thống ngừng hoạt động. Tuy nhiên, vẫn có những thời điểm bạn không thể tránh khỏi một khoảng thời gian chết (downtime). Ví dụ: nếu việc thay đổi mã nguồn ứng dụng đòi hỏi phải thay đổi cơ sở dữ liệu và bạn không thể vá lỗi (patch) các thay đổi này mà không gây ra sự cố, bạn sẽ cần hệ thống có một khoảng thời gian chết. Trong những trường hợp như vậy, tiến trình tiêu thụ thông điệp của bạn đơn giản là sẽ phải "chạy đuổi theo" để bắt kịp lượng tồn đọng. Rõ ràng đây là tình huống chúng ta cần nhận thức được và lên kế hoạch phòng tránh hoặc giải quyết nếu nó trở thành một vấn đề.
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000559_2c0aa5e14e4dc2deaf241c37bd3ef9d22dd0867e8f4ca56bc005e1ad38c2bf68.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000560_29d0ece12241199822e87c83c9613960f0ea2b37accde6bd0c31acf99640eba3.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000561_24854c064f7c827fa52b38b85f939f78952a91dfd5320d4cd4eadcaf7bf965fe.png)
+
 ## Wrap-Up
 
 Trong chương này, chúng ta đã xem xét các cách khác nhau để tích hợp thành công nhiều Bounded Context.
@@ -686,6 +724,8 @@ Một domain model thường nằm ở trung tâm của một ứng dụng. Ứn
 
 Đôi khi chúng ta làm việc trên các mô hình tồn tại nhằm mục đích hỗ trợ các ứng dụng. Điều này đúng với Identity and Access Context. SaaSOvation nhận thấy cần phải tách riêng các mối quan tâm về quản lý định danh và truy cập, từ đó hình thành nên một mô hình hỗ trợ mà bản thân nó cũng sẽ đóng vai trò như một sản phẩm độc lập hoạt động theo mô hình thuê bao (subscription-based). Ngay cả trong trường hợp của IdOvation, chắc chắn nó cũng sẽ có giao diện người dùng quản trị và tự phục vụ (self-service) riêng. Đúng là các Generic Subdomain (phân miền dùng chung) và Supporting Subdomain (phân miền hỗ trợ) (Chương 2) đôi khi sẽ thiếu vắng tất cả các thành phần bổ trợ đi kèm với một ứng dụng hoàn chỉnh, và điều đó hoàn toàn bình thường. Khi một mô hình tồn tại chỉ để hỗ trợ một mô hình khác, mô hình hỗ trợ đó có thể đơn giản chỉ là một tập hợp các lớp trong một Module (Chương 9) riêng biệt nhằm giải quyết một khái niệm chuyên biệt và cung cấp một số thuật toán. 1 Những mô hình khác sẽ đòi hỏi ít nhất một số trải nghiệm người dùng tương tác thực tế và các thành phần ứng dụng. Chương này tập trung vào dạng mô hình thứ hai - tức là dạng mô hình phức tạp hơn.
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000562_a7e1154b53f39692d81c1d83d17c59c2e9caa74a101f98a3a0c2219f32dbc80b.png)
+
 Ở đây, chúng tôi sử dụng thuật ngữ application gần như có thể hoán đổi cho nhau với system (hệ thống) và business service (dịch vụ nghiệp vụ). Tôi sẽ không cố gắng phân tích một cách hình thức xem tại thời điểm nào một ứng dụng trở thành một hệ thống, nhưng tôi cho rằng khi một ứng dụng phụ thuộc vào các ứng dụng hoặc dịch vụ khác thông qua việc tích hợp, thì toàn bộ giải pháp đó có thể được gọi là một hệ thống. Đôi khi các thuật ngữ application và system được sử dụng thay thế cho nhau để chỉ cùng một đối tượng, trong đó system thực chất mô tả những gì chúng ta thường gọi là một ứng dụng. Và một dịch vụ nghiệp vụ đơn lẻ cung cấp một vài hoặc nhiều điểm cuối dịch vụ kỹ thuật (endpoints) cũng có thể được gọi là một hệ thống theo nghĩa rộng. Mặc dù tôi không muốn làm rối rắm ranh giới phân biệt giữa ba khái niệm này, nhưng tôi muốn dùng một thuật ngữ thống nhất để có thể thảo luận về những mối quan tâm và trách nhiệm chung của cả ba.
 
 ## What's an Application?
@@ -700,6 +740,8 @@ Khi một ứng dụng mở các dịch vụ của mình ra ngoài thông qua l�
 
 Figure 14.1 The primary application areas of concern, but without ties to any one architecture. These areas still emphasize the DIP with infrastructure dependent on abstractions of every other area.
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000563_91cef0c3bad33346458e717649afed02c6afb3f8f008fd1b5262f779ab92e018.png)
+
 Mặc dù không thể tránh khỏi việc sẽ có sự trùng lặp nhất định với một số phong cách kiến trúc, nhưng trọng tâm quan tâm của chúng ta trong chương này là những gì mà hầu như bất kỳ kiến trúc nào cũng cần phải thực hiện để duy trì các mục tiêu của ứng dụng. Ở những chỗ mà một kiến trúc cụ thể xuất hiện, tôi sẽ có phần ghi nhận rõ ràng.
 
 Thật khó để không sử dụng thuật ngữ layer (tầng/lớp), như trong Layers Architecture (Kiến trúc phân lớp, Chương 4). Đó là một thuật ngữ hữu ích bất kể phong cách kiến trúc nào đang được thảo luận. Ví dụ, hãy xem xét nơi cư trú của các Application Service. Cho dù bạn coi Application Services nằm trong một chiếc vòng bao quanh domain model, trong một hình lục giác bao bọc mô hình, trong một khoang nối với bus thông điệp, hay trong một tầng nằm dưới giao diện người dùng và nằm trên mô hình, thì việc sử dụng thuật ngữ Application Layer để mô tả vị trí mang tính khái niệm đó hoàn toàn có thể chấp nhận được. Mặc dù tôi cố gắng hạn chế lạm dụng thuật ngữ này trong chương, nhưng layer rất hữu ích trong việc gán nhãn nơi các thành phần cư trú. Điều này chắc chắn không hàm ý rằng DDD chỉ giới hạn tồn tại duy nhất trong một Layers Architecture. 2
@@ -709,6 +751,8 @@ Tôi sẽ bắt đầu với giao diện người dùng, sau đó chuyển sang 
 2. Xem Chương 4 để biết thêm chi tiết.
 
 511
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000564_89adefa4ace322dc945cac8c9cc88eec2ce1a3f7f080811abb6e06cae02a60ca.png)
 
 ## User Interface
 
@@ -731,11 +775,17 @@ Có khá nhiều tranh cãi và bất đồng quan điểm về cách tốt nh�
 
 Figure 14.2 The user interface may need to render properties of multiple Aggregate instances but submit a request to modify only a single instance at a time.
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000565_e23c78cd43286762a80039d854b9f148d1dcd1d569853819f536a3f17e542d09.png)
+
 ## Render Data Transfer Object from Aggregate Instances
 
 Một phương pháp phổ biến để giải quyết bài toán kết xuất nhiều thực thể Aggregate vào một view duy nhất là sử dụng Data Transfer Object [Fowler, P of EAA], hay DTO (đối tượng truyền dữ liệu). DTO được thiết kế để chứa toàn bộ các thuộc tính cần hiển thị trong một view. Application Service (xem phần 'Application Services') sẽ sử dụng các Repository (Chương 12) để đọc các thực thể Aggregate cần thiết, sau đó ủy quyền cho một DTO Assembler [Fowler, P of EAA] (bộ lắp ráp DTO) để ánh xạ các thuộc tính vào DTO. Như vậy, DTO mang đầy đủ lượng thông tin cần kết xuất. Thành phần giao diện người dùng chỉ việc truy cập từng thuộc tính riêng lẻ của DTO và kết xuất nó lên view.
 
 Với cách tiếp cận này, cả thao tác đọc và ghi đều được thực hiện thông qua Repository. Nó có ưu điểm là giải quyết được bất kỳ tập hợp dữ liệu nào được nạp trễ (lazy-loaded), bởi vì DTO Assembler sẽ truy cập trực tiếp vào mọi phần của Aggregate mà nó cần để tạo nên DTO. Nó cũng giải quyết được vấn đề cụ thể khi tầng trình diễn (presentation tier) bị tách rời về mặt vật lý khỏi tầng nghiệp vụ (business tier), và bạn cần tuần tự hóa (serialize) các vật chứa dữ liệu để truyền qua mạng tới tầng khác.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000566_c88a0275203207a3159155583fd849718f5c14288998f19d15cd33c13930e1bd.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000567_d438d414936d6f1c87e8beb59435ad7c8244bb97ab39ed71e2000ccae1339e37.png)
 
 Thú vị thay, mẫu thiết kế DTO ban đầu được tạo ra để xử lý trường hợp tầng trình diễn nằm từ xa (remote presentation tier) tiếp nhận các thực thể DTO. DTO được xây dựng ở tầng nghiệp vụ, tuần tự hóa, gửi qua đường truyền mạng, và giải tuần tự hóa ở tầng trình diễn. Nếu tầng trình diễn của bạn không nằm ở xa, mẫu thiết kế này nhiều khi lại dẫn đến độ phức tạp ngẫu nhiên (accidental complexity) trong thiết kế ứng dụng, vi phạm nguyên lý YAGNI ("You Ain't Gonna Need It" - bạn sẽ không cần đến nó đâu). Nhược điểm này bao gồm việc đòi hỏi phải tạo ra các lớp mà đôi khi có hình thái rất giống với các đối tượng miền nhưng lại không hoàn toàn tương đồng. Nó cũng có mặt bất lợi là phải khởi tạo thêm các đối tượng tiềm ẩn kích thước lớn cần được quản lý bởi máy ảo (ví dụ JVM), trong khi thực tế chúng lại không hề phù hợp cho một kiến trúc ứng dụng chạy trên một máy ảo đơn lẻ.
 

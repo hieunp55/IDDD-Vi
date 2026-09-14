@@ -18,9 +18,13 @@ Các cơ chế lưu trữ (persistence mechanism) thường được sử dụng
 
 Hình 10.1 Product được mô hình hóa dưới dạng một Aggregate kích thước rất lớn
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000381_ae8579f2a1111e995514297ae1a650737b1068bfa0f846747666c69798d809e8.png)
+
 1. Chẳng hạn, Hibernate cung cấp cơ chế kiểm soát đồng thời lạc quan theo cách này. Điều tương tự cũng có thể đúng với một kho lưu trữ dạng key-value, bởi vì toàn bộ Aggregate thường được tuần tự hóa (serialize) thành một giá trị duy nhất, trừ khi được thiết kế để lưu riêng từng phần cấu thành.
 
 Hình 10.2 Product và các khái niệm liên quan được mô hình hóa thành các kiểu Aggregate riêng biệt.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000382_7a79ea50bb7eeca7b7dae1c7ec94c037d1efeb9267c18bd614d6d7cc84b49f8d.png)
 
 Các vấn đề về tính nhất quán này xuất hiện chỉ với hai người dùng. Nếu có thêm nhiều người dùng hơn, bạn sẽ đối mặt với một vấn đề thực sự nghiêm trọng. Với Scrum (khung làm việc phát triển linh hoạt), nhiều người dùng thường xuyên thực hiện các thao tác sửa đổi chồng chéo như vậy trong suốt phiên họp sprint planning (lập kế hoạch sprint - chu kỳ phát triển lặp ngắn) và quá trình thực thi sprint. Việc liên tục từ chối tất cả các yêu cầu ngoại trừ một yêu cầu duy nhất là điều hoàn toàn không thể chấp nhận được.
 
@@ -52,6 +56,10 @@ public class Product ... {
         String aDescription,
 
 ```
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000383_852bbaa50e8db77a5b875f52b0ef136c7ed9ee36b74c3ffc71c43f2ff0d95e7a.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000384_54e6d51b092db67d246b69fd2b98d5a835aae8e1e44d4b68c2e726d95e44de47.png)
 
 ## Chương 10: AGGREGATE
 
@@ -153,6 +161,10 @@ Khi tìm cách xác định các Aggregate trong một Bounded Context (2) (ng�
 
 Một invariant là một quy tắc nghiệp vụ luôn luôn phải được đảm bảo nhất quán. Có nhiều loại nhất quán khác nhau. Một là transactional consistency (tính nhất quán cấp giao dịch), vốn được coi là mang tính tức thời và nguyên tử (atomic). Ngoài ra còn có eventual consistency (tính nhất quán sau cùng / nhất quán cuối cùng). Khi bàn về các invariant, chúng ta đang đề cập đến tính nhất quán cấp giao dịch. Giả sử chúng ta có quy tắc invariant sau:
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000385_9876f6e57d60f93c539bf944d4d32362b0407e5e6f41bff84f45ed2494bac713.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000386_4e83569f8648925e7a926977a6ab922e5b24517bd43865f42663424d67baa06f.png)
+
 ```
 c = a + b
 
@@ -195,6 +207,10 @@ Giờ đây chúng ta có thể giải quyết thấu đáo câu hỏi này: Cá
 
 Đặt hiệu năng và khả năng mở rộng lên hàng đầu, điều gì sẽ xảy ra khi một người dùng thuộc một tenant muốn thêm một backlog item đơn lẻ vào một product đã tồn tại nhiều năm và có sẵn hàng nghìn backlog item? Giả sử cơ chế lưu trữ có khả năng lazy loading (nạp lười / trì hoãn nạp dữ liệu) như Hibernate. Chúng ta gần như không bao giờ nạp toàn bộ các backlog item, release và sprint cùng một lúc. Thế nhưng, hàng nghìn backlog item vẫn sẽ bị nạp vào bộ nhớ chỉ để thêm một phần tử mới vào collection vốn đã rất lớn. Tình hình sẽ tồi tệ hơn nhiều nếu cơ chế lưu trữ không hỗ trợ lazy loading. Thậm chí dù đã lưu tâm đến vấn đề bộ nhớ, đôi khi chúng ta vẫn buộc phải nạp nhiều collection cùng lúc, chẳng hạn như khi xếp lịch một backlog item vào release hoặc gán nó vào sprint; khi đó toàn bộ backlog item, và hoặc là toàn bộ release hoặc toàn bộ sprint, đều sẽ bị nạp vào bộ nhớ.
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000387_5cda185f6718b1cc7653facb9b1af60c18b0d830ed3b086c4cb2aca143c61d29.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000388_eccdd0f99f8173d117fab5d39e6e229d54a0556d26900f2474084fcf85076c1b.png)
+
 Để thấy rõ điều này, hãy nhìn vào sơ đồ ở Hình 10.3 chứa phần cấu thành được phóng to. Đừng để con số biểu thị quan hệ `0..*` đánh lừa bạn; số lượng các liên kết hầu như không bao giờ bằng 0 và sẽ liên tục tăng dần theo thời gian. Chúng ta rất có thể sẽ phải nạp hàng nghìn, hàng vạn đối tượng vào bộ nhớ cùng một lúc chỉ để thực hiện một thao tác lẽ ra là tương đối cơ bản. Đó mới chỉ tính cho một thành viên duy nhất thuộc một tenant duy nhất trên một product duy nhất. Chúng ta phải luôn nhớ rằng tình huống này có thể diễn ra đồng thời với hàng trăm hoặc hàng nghìn tenant, mỗi tenant lại có nhiều đội ngũ và nhiều product. Và theo thời gian, tình trạng này sẽ chỉ ngày một trầm trọng hơn.
 
 Aggregate dạng cụm lớn này sẽ không bao giờ đạt được hiệu năng tốt hay mở rộng hiệu quả. Nó nhiều khả năng sẽ trở thành một cơn ác mộng chỉ dẫn đến thất bại. Nó đã khiếm khuyết ngay từ đầu bởi vì chính các bất biến giả cùng mong muốn thuận tiện trong cấu thành đối tượng đã định hình nên thiết kế, gây tổn hại trực tiếp đến tỷ lệ thành công của giao dịch, hiệu năng và khả năng mở rộng.
@@ -202,6 +218,8 @@ Aggregate dạng cụm lớn này sẽ không bao giờ đạt được hiệu n
 Nếu chúng ta dự định thiết kế các Aggregate nhỏ, thì từ "nhỏ" ở đây có nghĩa là gì? Trường hợp cực đoan nhất là một Aggregate chỉ có định danh duy nhất toàn cục và một thuộc tính bổ sung — đây không phải là điều được khuyến khích (trừ khi đó thực sự là những gì mà một Aggregate cụ thể đòi hỏi). Thay vào đó, hãy giới hạn Aggregate chỉ gồm Root Entity (thực thể gốc) cùng một số lượng tối thiểu các thuộc tính hoặc các thuộc tính có kiểu Value Object (đối tượng giá trị). 3 Mức tối thiểu chuẩn xác là đúng bằng những gì thực sự cần thiết, không thừa không thiếu.
 
 Hình 10.3 Với mô hình Product này, nhiều collection lớn bị nạp vào bộ nhớ trong quá trình thực hiện nhiều thao tác cơ bản.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000389_007bf73e92a97a1c697d83dbc1ac8665b268663497bffe4bfe5ca498ca110a6c.png)
 
 Những thuộc tính nào là cần thiết? Câu trả lời đơn giản là: những thuộc tính bắt buộc phải nhất quán với nhau, ngay cả khi các domain expert (chuyên gia nghiệp vụ) không nêu rõ chúng dưới dạng các quy tắc. Ví dụ, `Product` có các thuộc tính `name` (tên) và `description` (mô tả). Chúng ta không thể tưởng tượng được việc `name` và `description` lại không nhất quán với nhau khi bị mô hình hóa thành các Aggregate riêng biệt. Khi bạn thay đổi `name`, nhiều khả năng bạn cũng sẽ thay đổi `description`. Nếu bạn chỉ thay đổi một thuộc tính mà không thay đổi thuộc tính kia, có thể là do bạn đang sửa một lỗi chính tả hoặc điều chỉnh lại phần mô tả sao cho phù hợp hơn với tên gọi. Mặc dù các chuyên gia nghiệp vụ có thể không coi đây là một quy tắc nghiệp vụ tường minh, nhưng nó là một quy tắc ngầm định.
 
@@ -213,6 +231,10 @@ Trong một dự án thuộc lĩnh vực công cụ tài chính phái sinh sử 
 
 3. Thuộc tính có kiểu Value Object là thuộc tính nắm giữ một tham chiếu đến một Value Object. Tôi phân biệt điều này với một thuộc tính đơn giản như kiểu chuỗi hay kiểu số, tương tự như cách Ward Cunningham mô tả về Whole Value (mẫu giá trị hoàn chỉnh) [Cunningham, Whole Value].
 4. Xem thêm tại www.jroller.com/niclas/
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000390_535f82a381a980b509aa6320abbd4ab09754d85ea3f63798e0632b1a03e8e66b.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000391_bbc584492205d0a1b22d161e8893d530c27ac50017bbe1aabed3402834dffbc1.png)
 
 Phần thảo luận về Aggregate của [Evans] đã đưa ra một ví dụ cho thấy việc có nhiều Entity là hoàn toàn hợp lý. Một đơn đặt hàng (purchase order) được gán một hạn mức tổng tiền tối đa cho phép, và tổng giá trị của tất cả các dòng sản phẩm (line item) không được vượt quá hạn mức đó. Quy tắc này trở nên rất phức tạp để thực thi khi nhiều người dùng cùng thêm các line item vào đồng thời. Một lượt thêm đơn lẻ có thể không vượt quá giới hạn, nhưng các thao tác thêm diễn ra đồng thời bởi nhiều người dùng khi gộp lại có thể cùng nhau vượt quá hạn mức. Tôi sẽ không lặp lại giải pháp ở đây, nhưng tôi muốn nhấn mạnh rằng trong phần lớn thời gian, các invariant của mô hình nghiệp vụ thường đơn giản hơn nhiều để quản lý so với ví dụ đó. Việc nhận thức được điều này giúp chúng ta mô hình hóa các Aggregate với càng ít thuộc tính càng tốt.
 
@@ -228,6 +250,8 @@ Giả định rằng các ranh giới Aggregate của bạn đã khớp với c�
 
 Hình 10.4 Hiện tượng tranh chấp đồng thời xảy ra giữa ba người dùng cùng cố gắng truy cập vào hai instance của Aggregate giống nhau, dẫn đến số lượng lớn các lỗi thất bại giao dịch.
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000392_a178e10579c9b58c1f21851ddacb4b107ecb09872b8b36d538170ac86e7c8bdd.png)
+
 Như vậy, một use case mới có thể đem lại những hiểu biết sâu sắc thôi thúc chúng ta tái mô hình hóa Aggregate, nhưng ở đây cũng cần phải giữ thái độ hoài nghi. Việc gom nhiều Aggregate thành một có thể làm lộ ra một khái niệm hoàn toàn mới với tên gọi mới, tuy nhiên nếu việc mô hình hóa khái niệm mới này lại dẫn dắt bạn tới việc thiết kế một Aggregate dạng cụm lớn, thì cuối cùng nó vẫn sẽ vướng phải tất cả các vấn đề cố hữu của hướng tiếp cận đó. Vậy có hướng tiếp cận nào khác có thể giúp ích?
 
 Chỉ vì bạn được giao một use case đòi hỏi phải duy trì tính nhất quán trong một giao dịch duy nhất không có nghĩa là bạn bắt buộc phải làm như vậy. Thường thì trong những trường hợp như thế này, mục tiêu nghiệp vụ hoàn toàn có thể đạt được thông qua tính nhất quán sau cùng (eventual consistency) giữa các Aggregate. Đội ngũ phát triển cần phải xem xét các use case một cách có tư duy phản biện và chất vấn lại các giả định ban đầu, đặc biệt là khi việc làm theo đúng nguyên văn bản đặc tả sẽ dẫn tới những thiết kế cồng kềnh, khó quản lý. Đội ngũ có thể phải viết lại use case (hoặc ít nhất là hình dung lại nó nếu gặp phải một chuyên viên phân tích nghiệp vụ bất hợp tác). Use case mới sẽ đặc tả rõ tính nhất quán sau cùng cùng với độ trễ cập nhật được chấp nhận (acceptable update delay). Đây là một trong những vấn đề sẽ được đề cập sâu hơn ở phần sau của chương này.
@@ -235,6 +259,10 @@ Chỉ vì bạn được giao một use case đòi hỏi phải duy trì tính n
 ## Quy tắc: Tham chiếu các Aggregate khác thông qua danh tính
 
 Khi thiết kế Aggregate, chúng ta có thể mong muốn một cấu trúc cấu thành cho phép duyệt qua các đồ thị đối tượng có độ sâu lớn, nhưng đó hoàn toàn không phải là mục đích của pattern (mẫu hình thiết kế) này. [Evans] đã chỉ ra rằng một Aggregate có thể giữ các tham chiếu đến Root của các Aggregate khác. Tuy nhiên, chúng ta phải luôn ghi nhớ rằng điều này không hề đặt Aggregate được tham chiếu vào bên trong ranh giới nhất quán của Aggregate đang tham chiếu tới nó. Tham chiếu đó không tạo ra một Aggregate tổng thể duy nhất. Chúng vẫn là hai (hoặc nhiều hơn) Aggregate độc lập, như minh họa trong Hình 10.5.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000393_4b367da0877fe6e84bad43f90c41a3586daf9c3d5dd09b6281f6f242d3393b7b.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000394_054f0c4f2ebbb748f5b2cae947ff63d0d5c62d53f304e5854295967f745fb1de.png)
 
 Trong Java, liên kết này sẽ được mô hình hóa như sau:
 
@@ -256,6 +284,8 @@ Kết hợp với những gì đã thảo luận và những nội dung tiếp t
 
 Hình 10.5 Có hai Aggregate riêng biệt, chứ không phải một.
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000395_2181c1030d9fd31109c59a9c05d53556f70515e4a70c9fc9b1871e7379db3056.png)
+
 3. Nếu bạn cố gắng áp dụng điểm 2 và việc đó lại dẫn tới một Aggregate dạng cụm lớn với toàn bộ những cảnh báo đã nêu trước đây, thì đó có thể là dấu hiệu cho thấy bạn cần sử dụng tính nhất quán sau cùng (xem phần sau của chương này) thay vì tính nhất quán nguyên tử (atomic consistency).
 
 Nếu bạn không giữ bất kỳ tham chiếu nào, bạn không thể sửa đổi một Aggregate khác. Vì vậy, sự cám dỗ muốn sửa đổi nhiều Aggregate trong cùng một giao dịch có thể bị dập tắt ngay từ đầu bằng cách tránh tạo ra tình huống này. Tuy nhiên, điều đó lại quá hạn chế vì các mô hình miền luôn đòi hỏi một số mối liên kết nhất định. Vậy chúng ta có thể làm gì để vừa tạo thuận lợi cho các liên kết cần thiết, vừa phòng ngừa việc lạm dụng giao dịch hay các lỗi thất bại quá mức, đồng thời cho phép mô hình đạt hiệu năng cao và mở rộng tốt?
@@ -266,7 +296,11 @@ Hãy ưu tiên việc chỉ tham chiếu tới các Aggregate bên ngoài thông
 
 Hình 10.6 Aggregate BacklogItem suy luận các liên kết ngoài ranh giới của nó thông qua danh tính
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000396_4deed4044cec30ece3d7e13534c8014aea279f6eb93db7a1aabea1b3bcc6bf01.png)
+
 361
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000397_73d69aece5001aef089b96bad8acbd7c321df5c694b4a2428c97414f5aab6492.png)
 
 Chúng ta sẽ tái cấu trúc mã nguồn thành:
 
@@ -328,6 +362,8 @@ Việc để một Application Service giải quyết các quan hệ phụ thu�
 
 * LB: "Tôi có hai điểm tham chiếu khi định hướng đường đi vào ban đêm. Nếu ngửi thấy mùi thịt bò còn sống trên móng guốc, tôi biết mình đang đi về phía đàn bò. Còn nếu ngửi thấy mùi thịt bò đang nướng trên vỉ than, tôi biết mình đang đi về nhà."
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000398_f0602e08044d8dc749009cb98266b0e6849ae5c454a984ad7c9bcb637e2f9b81.png)
+
 > 💡 **Giải thích thêm:** "Beef on the hoof" (thịt bò còn trên móng guốc) là thành ngữ chỉ đàn bò sống đang đi lại ngoài đồng cỏ; còn "beef on the grill" (thịt bò trên vỉ nướng) chỉ món ăn đã sẵn sàng trên bàn ăn gia đình. Câu nói hóm hỉnh này ẩn dụ về **Model Navigation** và điểm tham chiếu trong kiến trúc phần mềm: bạn chỉ cần các điểm mốc tham chiếu rõ ràng, tối giản (ở đây là ID của Aggregate) để định hướng và biết chính xác mình đang thao tác với cái gì, thay vì phải tải và ôm đồm toàn bộ cả đàn bò (cả đồ thị đối tượng phức tạp).
 > (Không có nguồn trích dẫn xác thực — cần tự kiểm chứng thêm)
 
@@ -338,6 +374,10 @@ Nếu tất cả những lời khuyên này dường như dẫn tới một mô 
 ## Khả năng mở rộng và Kiến trúc phân tán
 
 Vì các Aggregate không sử dụng tham chiếu trực tiếp đến các Aggregate khác mà tham chiếu qua danh tính, trạng thái lưu trữ của chúng có thể được dịch chuyển linh hoạt giữa các phân vùng lưu trữ để đạt tới quy mô rất lớn. Khả năng mở rộng gần như vô hạn có thể đạt được bằng cách cho phép liên tục tái phân vùng (repartitioning) kho lưu trữ dữ liệu của Aggregate, như đã được Pat Helland (thuộc Amazon.com) giải thích trong bài tham luận "Life beyond Distributed Transactions: An Apostate's Opinion" [Helland]. Khái niệm mà chúng ta gọi là Aggregate thì ông gọi là entity. Nhưng dù gọi dưới cái tên nào, điều ông mô tả thực chất vẫn là một Aggregate: một đơn vị cấu thành sở hữu tính nhất quán cấp giao dịch. Một số cơ chế lưu trữ NoSQL hỗ trợ dạng lưu trữ phân tán lấy cảm hứng từ Amazon này. Chúng cung cấp phần lớn những gì mà [Helland] gọi là tầng dưới có nhận thức về khả năng mở rộng (scale-aware layer). Khi triển khai một kho lưu trữ phân tán, hoặc ngay cả khi sử dụng một cơ sở dữ liệu SQL với mục đích tương tự, việc tham chiếu qua danh tính đóng vai trò vô cùng trọng yếu.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000399_ac307a3e5d561f0fa425106d2888d177dfd28a8c468a66dc4f5f7ea4f1513690.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000400_7bb3f2f682405dfc06931273c7f4b6e50edb1b5e7432823cb993e3e6bce09f17.png)
 
 Tính phân tán không chỉ dừng lại ở phạm vi lưu trữ. Do luôn có nhiều Bounded Context cùng tham gia vận hành trong một sáng kiến Core Domain (miền cốt lõi), việc tham chiếu theo danh tính cho phép các mô hình miền phân tán duy trì các liên kết từ xa. Khi áp dụng phương pháp tiếp cận hướng sự kiện (Event-Driven), các Domain Event (8) (sự kiện miền) dựa trên tin nhắn có chứa định danh của Aggregate sẽ được phát đi khắp hệ thống doanh nghiệp. Các bên đăng ký nhận tin (message subscriber) trong các Bounded Context bên ngoài sẽ sử dụng các định danh này để thực thi các nghiệp vụ trong mô hình miền của riêng họ. Tham chiếu theo danh tính thiết lập nên các liên kết từ xa hay các đối tác cộng tác (partners). Các thao tác phân tán được quản lý thông qua những gì mà [Helland] gọi là "hoạt động hai bên" (two-party activities), nhưng theo thuật ngữ của mẫu hình Publish-Subscribe [Buschmann et al.] hoặc Observer [Gamma et al.], đó là hoạt động đa bên (từ hai bên trở lên). Các giao dịch trải rộng trên các hệ thống phân tán không mang tính nguyên tử (non-atomic). Các hệ thống khác nhau sẽ dần dần đưa nhiều Aggregate về trạng thái nhất quán sau cùng.
 
@@ -382,6 +422,10 @@ Việc phát hành Domain Event `BacklogItemCommitted` trong ví dụ cụ thể
 
 6. Hãy cân nhắc thực hiện thử lại bằng thuật toán Capped Exponential Back-off (thử lại lùi số mũ có giới hạn trần). Thay vì mặc định thử lại sau mỗi N giây cố định, hãy tăng thời gian chờ thử lại theo cấp số nhân kết hợp đặt một mức trần giới hạn trên cho thời gian chờ. Ví dụ: bắt đầu ở mức 1 giây và lùi dần theo cấp số nhân, nhân đôi thời gian chờ cho đến khi thành công hoặc chạm mức trần 32 giây chờ và thử lại.
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000401_f147817898df881e02a25877c18653575ece843a08f44490f6252d0f73bba3ca.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000402_349cee9cc8a01558ac6eb1c2f28b4c3055bfa0561eba5de24549e7d5a0f4d047.png)
+
 ## Giờ thực hành trên bảng trắng
 
 * Hãy quay trở lại danh sách các Aggregate dạng cụm lớn và những trường hợp từ hai Aggregate trở lên bị sửa đổi trong một giao dịch đơn lẻ.
@@ -397,6 +441,8 @@ Một số kịch bản nghiệp vụ có thể khiến việc xác định nên
 ## Tư duy cao bồi
 
 * LB: "Con trai tôi bảo nó vừa tìm thấy trên mạng Internet cách làm cho đàn bò cái nhà tôi mắn đẻ hơn. Tôi bảo nó: 'Đấy là việc của con bò đực'."
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000403_53775a4132130e38981219bf60d616e22de192813703273f3d39a98350874ad8.png)
 
 > 💡 **Giải thích thêm:** Câu chuyện ngụ ngôn hóm hỉnh nhấn mạnh nguyên lý **Separation of Concerns (phân tách trách nhiệm)** và **Role Responsibility**: trong thiết kế phần mềm, đừng để một thành phần cố làm thay công việc vốn thuộc về bản chất của đối tượng hoặc hệ thống khác. Khi phân vân giữa Transactional Consistency và Eventual Consistency, hãy tự hỏi: "Đó là nhiệm vụ của ai?" — nếu đó là nhiệm vụ trực tiếp của người dùng đang thao tác, hãy đảm bảo bằng giao dịch; còn nếu là nhiệm vụ của người khác hoặc của hệ thống xử lý ngầm, hãy để dữ liệu đạt trạng thái nhất quán sau cùng (eventual consistency).
 > (Không có nguồn trích dẫn xác thực — cần tự kiểm chứng thêm)
@@ -429,6 +475,10 @@ public class ProductBacklogItemService ... {
 
 ```
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000404_ca8aeae62a54b0a28852e04b84f6a54835fb86e2e7e142b3f86d4997335fee47.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000405_8633574c7adeb3292757973ddafd395145f53f1863e502bd2bddb828bbb9a4f1.png)
+
 ```java
     for (BacklogItemDescription desc : aDescriptions) {
         BacklogItem plannedBacklogItem =
@@ -460,6 +510,8 @@ Nếu không cẩn thận, tình huống này có thể kéo chúng ta quay tr�
 
 AJ: "Nếu bạn nghĩ rằng luật lệ sinh ra là để bị phá vỡ, tốt hơn hết bạn nên quen biết một thợ sửa chữa lành nghề."
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000406_648960dd520450d39b3a1e289c5434b3819c6e9b8390c9ba972dc49abf89e8f8.png)
+
 > 💡 **Giải thích thêm:** Câu nói này là lời cảnh tỉnh sắc sảo về việc thỏa hiệp kiến trúc: việc phá vỡ nguyên tắc thiết kế (như sửa đổi nhiều Aggregate trong cùng một transaction) luôn để lại những khoản nợ kỹ thuật (technical debt) và rủi ro tranh chấp tài nguyên nghiêm trọng. Nếu quyết định phá lệ, bạn bắt buộc phải có kiến thức chuyên sâu và phương án phòng ngừa sự cố vững chắc ("thợ sửa chữa giỏi") để khắc phục hậu quả.
 > (Không có nguồn trích dẫn xác thực — cần tự kiểm chứng thêm)
 
@@ -475,13 +527,17 @@ Ngay cả khi bắt buộc phải sử dụng một giao dịch toàn cục, b�
 
 Có những thời điểm mà việc nắm giữ các tham chiếu đối tượng trực tiếp tới các Aggregate khác lại là giải pháp tốt nhất. Điều này có thể được sử dụng để giảm thiểu các vấn đề về hiệu năng truy vấn của Repository. Những trường hợp này phải được cân nhắc hết sức cẩn trọng dưới lăng kính về kích thước tiềm ẩn và sự đánh đổi hiệu năng tổng thể. Một ví dụ về việc phá vỡ quy tắc tham chiếu theo định danh sẽ được trình bày ở phần sau của chương này.
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000407_d9c3a51731145a3a507b4e290f01bf255e216fb4d14b8848982098c85d671351.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000408_7c8496648f52f347486b98a6b31d45febe1ed58acdc373585c0e134a4c125990.png)
+
 ## Tuân thủ các quy tắc
 
 Bạn có thể gặp phải các quyết định thiết kế giao diện người dùng, các giới hạn kỹ thuật, các chính sách cứng nhắc, hoặc những yếu tố khác trong môi trường doanh nghiệp buộc bạn phải đưa ra một số thỏa hiệp. Chắc chắn chúng ta không chủ động đi tìm kiếm những cái cớ để phá vỡ bộ "Nguyên tắc kinh nghiệm cho Aggregate". Xét về lâu dài, việc tuân thủ các quy tắc sẽ mang lại lợi ích to lớn cho các dự án của chúng ta. Chúng ta sẽ có được tính nhất quán ở những nơi thực sự cần thiết, đồng thời nâng đỡ cho những hệ thống đạt hiệu năng tối ưu và khả năng mở rộng vượt trội.
 
 ## Thu nhận hiểu biết sâu sắc thông qua quá trình khám phá
 
-Khi các quy tắc của Aggregate được đưa vào áp dụng, chúng ta sẽ thấy việc tuân thủ chúng tác động như thế nào đến thiết kế của mô hình SaaSOvation Scrum. Chúng ta sẽ thấy đội ngũ dự án tư duy lại thiết kế của họ một lần nữa, áp dụng những kỹ thuật mới vừa được khám phá. Nỗ lực đó dẫn đến việc khám phá ra những góc nhìn sâu sắc mới về mô hình. Nhiều ý tưởng khác nhau của họ lần lượt được thử nghiệm và sau đó được thay thế bởi những giải pháp tối ưu hơn.
+Khi các quy tắc của Aggregate được đưa vào áp dụng, chúng ta sẽ thấy việc tuân thủ chúng tác động như thế nào đến thiết kế của mô hình SaaSOvation Scrum. Chúng a sẽ thấy đội ngũ dự án tư duy lại thiết kế của họ một lần nữa, áp dụng những kỹ thuật mới vừa được khám phá. Nỗ lực đó dẫn đến việc khám phá ra những góc nhìn sâu sắc mới về mô hình. Nhiều ý tưởng khác nhau của họ lần lượt được thử nghiệm và sau đó được thay thế bởi những giải pháp tối ưu hơn.
 
 ## Tái tư duy thiết kế, một lần nữa
 
@@ -491,7 +547,11 @@ Với việc đội ngũ hiện đang vô cùng hào hứng với việc thiết
 
 Bất chấp cảm giác tích cực có được từ vòng lặp trước đó, vẫn còn một số mối lo ngại tồn tại. Ví dụ, thuộc tính `story` cho phép chứa một lượng văn bản khá lớn. Các nhóm phát triển user story theo Agile sẽ không viết những đoạn văn dài dòng. Dẫu vậy, hệ thống lại có một thành phần soạn thảo tùy chọn hỗ trợ việc viết các định nghĩa use case phong phú. Những văn bản đó có thể lên tới nhiều nghìn byte. Đây là điều rất đáng để cân nhắc về chi phí phụ trội tiềm ẩn.
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000409_6ae7c0d90c9240f5723997479803fe98dbdfef24bf0a807b2b1f0f0d8629541a.png)
+
 Hình 10.7 Aggregate BacklogItem cấu thành hoàn chỉnh
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000410_f8ce209eeb7eab5440938b6b1c13f6e44f197567cebb886c3cf281ee921357e5.png)
 
 Trước chi phí phụ trội tiềm tàng này cùng với những sai lầm đã gặp phải khi thiết kế cụm `Product` khổng lồ trong Hình 10.1 và Hình 10.3, đội ngũ dự án lúc này đặt ra sứ mệnh phải cắt giảm kích thước của mọi Aggregate trong Bounded Context. Những câu hỏi cốt tử bắt đầu xuất hiện. Liệu có tồn tại một invariant thực sự giữa `BacklogItem` và `Task` mà mối quan hệ này bắt buộc phải duy trì hay không? Hay đây lại là một trường hợp khác mà mối liên kết có thể tiếp tục được phân tách sâu hơn, để hình thành nên hai Aggregate riêng biệt một cách an toàn? Tổng cái giá phải trả nếu giữ nguyên thiết kế hiện tại sẽ là bao nhiêu?
 
@@ -502,6 +562,10 @@ Chìa khóa giúp họ đưa ra quyết định đúng đắn nằm ở chính U
 * Khi một thành viên ước tính rằng vẫn còn một hoặc nhiều giờ trên một task cụ thể trong khi trạng thái của backlog item vốn đã là done, trạng thái đó sẽ tự động bị thụt lùi (regressed).
 
 Điều này chắc chắn có vẻ như là một invariant thực sự. Trạng thái chính xác của backlog item được tự động điều chỉnh và hoàn toàn phụ thuộc vào tổng số giờ còn lại trên tất cả các task của nó. Nếu tổng số giờ task và trạng thái của backlog item phải luôn nhất quán với nhau, dường như Hình 10.7 đã quy định đúng ranh giới nhất quán của Aggregate. Tuy nhiên, đội ngũ phát triển vẫn nên xác định xem cụm hiện tại có thể phải trả giá những gì xét về mặt hiệu năng và khả năng mở rộng. Chi phí đó sẽ được đặt lên bàn cân so sánh với những gì họ có thể tiết kiệm được nếu trạng thái của backlog item có thể đạt tính nhất quán sau cùng với tổng số giờ task còn lại.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000411_fcf1f3f6e61c4ea65b29364a1d3133b24b607eb8c0c6ab1eb9ef0598a2570cac.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000412_9fcbf7e5d698d47c32176a32dc675079c7a40116c3d74b32b382b900d7ce4f74.png)
 
 Một số người sẽ xem đây là cơ hội kinh điển để áp dụng tính nhất quán sau cùng, nhưng chúng ta sẽ không vội vàng nhảy ngay tới kết luận đó. Hãy cùng phân tích cách tiếp cận dựa trên tính nhất quán giao dịch, sau đó khảo sát những gì có thể đạt được nếu sử dụng tính nhất quán sau cùng. Khi đó, chúng ta có thể tự rút ra kết luận xem phương pháp tiếp cận nào được ưu tiên hơn.
 

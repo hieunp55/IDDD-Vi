@@ -42,6 +42,10 @@ Bây giờ, hãy cùng xem xét thêm một ví dụ nữa từ Collaboration Co
 
 Hãy xem Factory Method trên Forum. Nó có cùng động lực thúc đẩy và cách triển khai rất tương đồng với phương thức trên Calendar, vì vậy không cần đi quá sâu vào chi tiết. Tuy nhiên, việc áp dụng Factory Method ở đây còn mang lại một lợi thế bổ sung, như nhóm phát triển sẽ chứng minh dưới đây.
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000442_abd792d011686ccbcb09024e2151f1b6e5e047e7d7d6da9f725698de573b0a1c.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000443_a47bb1a29c7a5258b6c0ec0eec5bd9aadb0fedaaec6377c8ad81a224031be8bd.png)
+
 Hãy xem xét Factory Method startDiscussion() thể hiện rõ ngôn ngữ nghiệp vụ trên Forum:
 
 ```java
@@ -109,6 +113,8 @@ Vì phần lớn cách thức tôi sử dụng Service (dịch vụ miền) dư�
 
 Nhóm phát triển tiếp tục đưa ra một ví dụ khác từ Collaboration Context. Đó là một Factory dưới dạng CollaboratorService, có nhiệm vụ sản sinh các instance Collaborator từ định danh của tenant và user:
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000444_93f5c875d6583d2ce9917c0e95f209f59f539df36d4e438974d9ed80d4ef80d6.png)
+
 ```java
 package com.saasovation.collaboration.domain.model.collaborator;
 
@@ -121,6 +127,10 @@ public interface CollaboratorService {
     public Owner ownerFrom(Tenant aTenant, String anIdentity);
 
 ```
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000445_698ea59a34095cf245c7e800321bf39a7de6d460c20b64c7c3890481ce16697c.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000446_5f9abdf557dafda7bd7547cbcae90c27b7ea4fa6492c1198d34de9099d35961a.png)
 
 ```java
     public Participant participantFrom(
@@ -201,6 +211,10 @@ Collaboration Context sử dụng username làm thuộc tính định danh cho C
 
 Có một mức độ phức tạp nhất định bên trong UserInRoleAdapter và CollaboratorTranslator. Tóm lại, UserInRoleAdapter chỉ chịu trách nhiệm giao tiếp với Context bên ngoài. Trong khi đó, CollaboratorTranslator chỉ chịu trách nhiệm cho tác vụ chuyển dịch dẫn đến việc tạo mới đối tượng. Xem Chương 13: Integrating Bounded Contexts để biết thêm chi tiết.
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000447_deb9acc0c0c1986b8fe6fb538526a37403256821a141e77bc76cab74177d5178.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000448_c3db6fa3ee46c007e76dbc2d6990a1cd63604edbd8b7b079c238fe6c28d927db.png)
+
 ## Tổng kết (Wrap-Up)
 
 Chúng ta đã xem xét lý do tại sao nên sử dụng Factory trong DDD và cách chúng hòa nhập vào mô hình nghiệp vụ:
@@ -211,6 +225,8 @@ Chúng ta đã xem xét lý do tại sao nên sử dụng Factory trong DDD và 
 * Bạn cũng đã học được cách thiết kế Domain Service dưới dạng các Factory, thậm chí tương tác với các Bounded Context khác và chuyển đổi các đối tượng ngoại lai thành kiểu cục bộ.
 
 Tiếp theo, chúng ta sẽ tìm hiểu cách thiết kế Repository (kho lưu trữ đối tượng) theo hai phong cách lưu trữ chính, cùng các lựa chọn triển khai khác cần được xem xét.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000449_881f4be078c88636ccf75d6188bb37bf260a529a9e182bae5152961d266c9f28.png)
 
 ## Chương 12
 
@@ -235,6 +251,8 @@ Các đối tượng giống như collection này hoàn toàn phục vụ cho m�
 * Tìm hiểu cách hiện thực hóa Repository cho Hibernate, TopLink, Coherence và MongoDB.
 
 còn tiếp
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000450_de0f697474ee6cce68ff4560c2f3ac954be4c803161e825d45953d5a9d2f72aa.png)
 
 * Hiểu lý do tại sao bạn có thể cần thêm các hành vi bổ sung trên interface của Repository. Cân nhắc xem transaction (giao dịch) tương tác thế nào trong quá trình sử dụng Repository.
 * Làm quen với các thách thức khi thiết kế Repository cho hệ thống phân cấp kiểu (type hierarchies).
@@ -279,6 +297,10 @@ assertEquals(0, calendarCollection.size());
 ```
 
 Khá đơn giản. Có một loại collection đặc biệt, `java.util.Set`, cùng lớp hiện thực `java.util.HashSet`, cung cấp đúng kiểu collection mà một Repository mô phỏng. Mọi đối tượng được thêm vào một Set phải là duy nhất. Nếu bạn cố thêm một đối tượng vốn đã tồn tại trong Set, nó sẽ không được thêm vào vì nó đã có sẵn. Vì vậy, bạn không bao giờ cần phải thêm cùng một đối tượng hai lần, như thể việc thêm lại lần nữa bằng cách nào đó sẽ lưu các thay đổi mà bạn đã yêu cầu đối tượng tự thực hiện. Các câu lệnh assertion trong bài test dưới đây chứng minh rằng việc thêm cùng một đối tượng nhiều hơn một lần không gây ra bất kỳ hiệu ứng nào, dù tích cực hay tiêu cực:
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000451_f6a365de93ecc053d6d0e8946c0306ef63d958851245d85f463bbb283bca7495.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000452_8b248cb111f086a9ee01c0292660dde7d5794723dbfa6a8e5df1d9f366c8d515.png)
 
 ```java
 Set<Calendar> calendarSet = new HashSet<Calendar>();
@@ -350,6 +372,10 @@ assertEquals("CollabOvation Project Calendar", calendarThatWasRenamed.name());
 
 Lưu ý rằng instance của Calendar, được tham chiếu bởi calendarToRename, được sửa đổi bằng cách yêu cầu nó tự đổi tên. Rất lâu sau đó, sau khi tác vụ đổi tên hoàn tất, tên của nó vẫn giữ đúng giá trị đã được thay đổi. Điều này đạt được mà không cần phải yêu cầu lớp con của HashSet là CalendarRepository lưu các thay đổi cho instance Calendar — việc làm vốn dĩ hoàn toàn vô nghĩa. CalendarRepository không hề có phương thức save() vì không có nhu cầu đó. Không có lý do gì phải lưu các thay đổi của instance Calendar mà calendarToRename tham chiếu tới, bởi vì collection vẫn đang giữ tham chiếu đến đối tượng bị sửa đổi, và các sửa đổi được thực hiện trực tiếp trên chính đối tượng đó.
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000453_0477e8766f27eeea35c1e91cce7dcc48b034bc1b0b69b8c1ed0c9d808ef339e9.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000454_143fd8b34576924506264826107efd54789b1474c601db7f645e0efc1d5a299e.png)
+
 Điểm mấu chốt ở đây là: một collection-oriented Repository truyền thống thực sự bắt chước một collection ở chỗ không có bất kỳ thành phần nào của cơ chế lưu trữ bị lộ ra ngoài cho client thông qua public interface. Do đó, mục tiêu của chúng ta là thiết kế và triển khai một collection-oriented Repository mang đầy đủ các đặc tính được thể hiện bởi một HashSet, nhưng thay vào đó lại kết nối tới một kho lưu trữ dữ liệu bền vững.
 
 Như bạn có thể hình dung, điều này đòi hỏi một số năng lực đặc thù từ cơ chế lưu trữ phía sau. Cơ chế lưu trữ phải hỗ trợ khả năng theo dõi ngầm (implicitly track) các thay đổi được thực hiện trên từng đối tượng bền vững mà nó quản lý theo một cách nào đó. Điều này có thể được thực hiện thông qua nhiều giải pháp khác nhau, bao gồm hai phương pháp sau:
@@ -367,6 +393,8 @@ Mặc dù vậy, ngay cả khi bạn có quyền tự do sử dụng một cơ c
 
 LB: "Khi con chó của tôi bị nhiễm giun, bác sĩ thú y đã kê cho nó vài cái repository."
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000455_e8145a59ef1cf67de7034260a9cdd713317f9cd892d3433ecaf26bb0124b2125.png)
+
 > 💡 **Giải thích thêm:** Đây là một câu chơi chữ (pun) bắt nguồn từ sự phát âm gần giống nhau trong tiếng Anh giữa "repository" (kho lưu trữ) và "suppository" (thuốc đặt hậu môn / thuốc đạn — dạng thuốc thú y thường dùng để trị bệnh đường ruột/giun sán cho vật nuôi). Người nói đã nghe nhầm chỉ định "suppositories" của bác sĩ thành "repositories". Tác giả lồng ghép mẩu chuyện vui dân gian này để chuyển tiếp sang chủ đề công cụ kỹ thuật kế tiếp.
 > Nguồn tham khảo: (Không có nguồn trích dẫn xác thực — cần tự kiểm chứng thêm)
 
@@ -377,6 +405,10 @@ LB: "Khi con chó của tôi bị nhiễm giun, bác sĩ thú y đã kê cho nó
 Có hai bước chính để tạo Repository theo bất kỳ định hướng nào. Bạn cần định nghĩa một public interface và ít nhất một lớp triển khai (implementation).
 
 Cụ thể trong trường hợp thiết kế hướng tập hợp, ở bước đầu tiên bạn định nghĩa một interface mô phỏng một collection. Bước thứ hai cung cấp một lớp triển khai giải quyết việc sử dụng cơ chế lưu trữ chính bên dưới, chẳng hạn như Hibernate. Giống như một collection, interface sẽ thường có các phương thức phổ biến như trong ví dụ sau:
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000456_e987bf3d894cc6474618aef7572620aa191b763df90cd5a0b1d35812bf43f203.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000457_0fe1d5595a373329dac73f84a9905fc88e7b195182ff73a2697d83ee3fa33c1e.png)
 
 ```java
 package com.saasovation.collaboration.domain.model.calendar;
@@ -423,6 +455,10 @@ public interface CalendarEntryRepository {
 ```
 
 Định nghĩa phương thức đầu tiên, `calendarEntryOfId()`, cho phép bạn truy xuất một instance cụ thể của Aggregate CalendarEntry theo định danh duy nhất. Kiểu này sử dụng một kiểu định danh tường minh, cụ thể là CalendarEntryId. Định nghĩa phương thức thứ hai, `calendarEntriesOfCalendar()`, cho phép bạn truy xuất một collection gồm tất cả các instance CalendarEntry của một Calendar cụ thể dựa theo định danh duy nhất của nó. Cuối cùng, định nghĩa phương thức tìm kiếm thứ ba, `overlappingCalendarEntries()`, cung cấp một collection chứa tất cả các instance CalendarEntry cho một Calendar cụ thể nằm trong một khoảng thời gian TimeSpan xác định. Cụ thể, phương thức này hỗ trợ truy xuất các mục đã được lên lịch trong một khoảng thời gian và ngày tháng liên tục xác định.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000458_b32d158b210d7f3a3e685f8928329ddb7e49e063a229dfaff64d450d419d9b79.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000459_fe6ec392070984d965591c220c3c58f34a5d839a3e1bfd0c2819d01d0fa98193.png)
 
 Cuối cùng, bạn có thể tự hỏi làm thế nào một CalendarEntry được gán định danh duy nhất toàn cục. Điều này cũng có thể được Repository cung cấp một cách tiện lợi:
 
@@ -502,6 +538,10 @@ public class HibernateCalendarEntryRepository implements CalendarEntryRepository
 ```
 
 Lớp SpringHibernateSessionProvider cũng được đặt trong Infrastructure Layer thuộc Module `com.saasovation.collaboration.infrastructure.persistence` và được inject vào từng Repository dựa trên Hibernate. Mỗi phương thức sử dụng đối tượng Session của Hibernate sẽ tự gọi phương thức `session()` để lấy nó. Phương thức `session()` sử dụng instance `sessionProvider` được inject để lấy instance Session gắn với luồng hiện tại (thread-bound Session, sẽ được trình bày sau trong chương này).
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000460_d4fd90a144d6791dd46ca35fbacaa4f13d71b9f6e940a06408270292165e1047.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000461_fae62a7e5d356f41afa7bc1276dfc05d9a2d55c5ddfd97a1a20d56aa57d376a3.png)
 
 Các phương thức `add()`, `addAll()`, `remove()` và `removeAll()` được triển khai như sau:
 
@@ -665,6 +705,10 @@ public class HibernateCalendarEntryRepository implements CalendarEntryRepository
 ```
 
 Cách triển khai cụ thể này không sử dụng cơ chế lưu trữ hay kho dữ liệu để sinh ra định danh duy nhất. Thay vào đó, nó sử dụng bộ tạo UUID tương đối nhanh và rất đáng tin cậy.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000464_35f800c2d8dd7696df0bccb436c38a49c10c16132adc973a63a20211693b7175.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000465_fa7832da024de91c37cfac355750883683217bfc86bf0f54e23cbbe26f1b2041.png)
 
 ## Các cân nhắc khi hiện thực hóa với TopLink (Considerations for a TopLink Implementation)
 

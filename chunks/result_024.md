@@ -75,6 +75,10 @@ public class UserInRoleAdapter {
 
 ```
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000517_9e3619a449c0f694ea7110c63a6edd307e04dcb8baa07d6e9adbc1a4a75e362b.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000518_554d2e43cacf0d75f8db46f943906478a14545a12aef8e016fb6fc5239d37c8c.png)
+
 ## Chapter 13 INTEGRATING BOUNDED CONTEXTS
 
 ```java
@@ -175,6 +179,10 @@ public final class Author extends Collaborator {
 
 ```
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000519_f865d9271ca5689467937b8180871f28593a409b05dcdf996bc8c015748989e9.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000520_a2b9df4c473cda7bd11e4c88ab64bd42de4e58a82d9ac32149f890659f744e79.png)
+
 ## Chapter 13 INTEGRATING BOUNDED CONTEXTS
 
 ```java
@@ -245,6 +253,10 @@ Một trong những cách mà Domain-Driven Design (DDD) có thể được khai
 Agile Project Management Context cần quản lý danh sách các Scrum product owner và team member cho mỗi tenant (khách thuê hệ thống) đăng ký sử dụng dịch vụ. Tại bất kỳ thời điểm nào, một product owner đều có thể tạo một sản phẩm mới và sau đó phân công các thành viên vào nhóm. Làm thế nào để ứng dụng quản lý dự án Scrum biết được ai đang đảm nhận từng vai trò này? Câu trả lời là ứng dụng sẽ không tự thân gánh vác toàn bộ việc đó.
 
 Thực tế, Agile Project Management Context sẽ để các vai trò đó được quản lý bởi Identity and Access Context — một lựa chọn hết sức tự nhiên và phù hợp. Trong hệ thống đó, mỗi tenant đăng ký dịch vụ Scrum sẽ có hai instance `Role` được tạo: `ScrumProductOwner` và `ScrumTeamMember`. Mỗi `User` cần đảm nhận một trong các vai trò đó sẽ được gán vào Role tương ứng. Dưới đây là phương thức Application Service trong Identity and Access Context chịu trách nhiệm gán một `User` vào một `Role`:
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000521_8e5737ca953eb32b39ca2b7c46e394a818cfe28f4bfb8a9e8da414f119f4f61d.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000522_b7dc3dfd3d3d9c997ee07bbcb7ad4ec4451157289af1fa27189cc695fe5f4700.png)
 
 ```java
 package com.saasovation.identityaccess.application;
@@ -332,6 +344,10 @@ public abstract class ExchangeListener {
         this.attachToQueue();
 
 ```
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000523_8f88c6060c25a9c59d63274a1a290fc89ee54ccd910a268666c62cb84efdfd13.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000524_eb13b9a2f295ea7ab12309eb3f47541e3650760c881d3675c9dfddb0133d7aa8.png)
 
 ## Chapter 13 INTEGRATING BOUNDED CONTEXTS
 
@@ -421,6 +437,10 @@ public class TeamMemberEnablerListener extends ExchangeListener {
 
 ```
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000525_06ce568e29b354572ed1ccb65dcc75c4265c771f733769f0876ca2892deadee5.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000526_5b59cdc89173b0b13f3f8046b1a13ac3f2f9777bacaf308d52ac86ee6710c33d.png)
+
 ```java
         String emailAddress = reader.eventStringValue("emailAddress");
         String firstName = reader.eventStringValue("firstName");
@@ -498,12 +518,15 @@ public class TeamService ... {
 
 ```
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000527_6826e8a9aed28f3336bf5000742eb95baca92aa10a3e2e05997101ba72ffaa42.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000528_994a28f9aef145326b7da96b9d063a3f91eb014a698acfc79d76888610b66eb7.png)
+
 ```java
             this.productOwnerRepository.add(productOwner);
         }
     }
 }
-
 ```
 
 Ví dụ, phương thức Service `enableProductOwner()` xử lý khả năng `ProductOwner` cụ thể đó đã tồn tại. Nếu đối tượng đã tồn tại, chúng ta giả định rằng nó có thể cần được kích hoạt lại, do đó chúng ta điều phối tới thao tác lệnh tương ứng. Nếu `ProductOwner` chưa tồn tại, chúng ta khởi tạo một Aggregate mới và thêm nó vào Repository của nó. Trên thực tế, chúng ta xử lý `TeamMember` theo cách tương tự, vì vậy `enableTeamMember()` cũng được hiện thực hóa tương tự.
@@ -542,6 +565,10 @@ public class TeamService ... {
 }
 
 ```
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000529_ef82fcd88f9aa2be1af402658a4566b5e984d99d967618bf28fba6edbd278326.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000530_daa365a0add029c87cce405becf50e44669feef372a97bd74a354bbd1100808c.png)
 
 Lưu ý rằng khi điều phối tới phương thức lệnh `disable()` của `TeamMember`, chúng ta bắt buộc phải truyền giá trị `occurredOn` từ command object. Bản thân `TeamMember` sẽ sử dụng giá trị này trong nội bộ để đảm bảo rằng việc vô hiệu hóa chỉ diễn ra khi nó thực sự hợp lệ:
 
@@ -634,6 +661,10 @@ public abstract class Member extends Entity {
 
 Chúng ta có thể phản biện rằng việc đưa `MemberChangeTracker` vào thiết kế Aggregate là một sai lầm, và kết luận rằng điều này chẳng liên quan gì đến Ubiquitous Language của các nhóm làm việc theo Scrum. Điều đó đúng. Tuy nhiên, chúng ta không bao giờ để lộ `MemberChangeTracker` ra bên ngoài ranh giới của Aggregate. Nó hoàn toàn là một chi tiết triển khai kỹ thuật, và các client sẽ không bao giờ biết đến sự tồn tại của nó. Chi tiết duy nhất mà client nhận biết được là họ phải cung cấp giá trị `occurredOn` ghi nhận thời điểm mà sự kiện sửa đổi tương ứng thực sự diễn ra. Hơn nữa, đây chính xác là loại chi tiết kỹ thuật mà Pat Helland đã khuyến nghị khi ông mô tả cách quản lý các mối quan hệ đối tác (partner relationships) trong tài liệu nghiên cứu về các hệ thống phân tán, có khả năng mở rộng và đạt tính nhất quán sau cùng (eventual consistency). Trong bài báo đó [Helland], hãy xem cụ thể mục 5, "Activities: Coping with Messy Messages" (Các hoạt động: Đối phó với các thông điệp lộn xộn).
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000531_7f11e54a6fd149f93974afb84b9bf002be3d0147ceb4f994347e1e5997a27558.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000532_56f8c025af31ee629e325b8b2eee41ba39806079b13cec6cbb0d4a87f11bd3a7.png)
+
 Bây giờ, hãy quay trở lại với việc giải quyết các trách nhiệm mới của chúng ta . . .
 
 Mặc dù đây chỉ là một ví dụ rất cơ bản về việc duy trì các thay đổi đối với thông tin trùng lặp bắt nguồn từ một Bounded Context ngoại lai, nhưng đây không phải là một trách nhiệm đơn giản, ít nhất là khi bạn đang sử dụng một cơ chế gửi thông điệp có khả năng phân phối thông điệp sai thứ tự và lặp lại nhiều lần. 1 Hơn nữa, khi nhận thức được tất cả các thao tác có thể xảy ra trong Identity and Access Context gây ảnh hưởng tới chỉ một vài thuộc tính mà chúng ta duy trì trong `Member`, đó thực sự là một hồi chuông cảnh tỉnh:
@@ -674,6 +705,10 @@ Tiền điều kiện: Tính năng cộng tác đã được kích hoạt (tùy 
 
 1. Người dùng cung cấp thông tin mô tả Sản phẩm (Product).
 2. Người dùng biểu thị mong muốn tạo một cuộc thảo luận nhóm.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000533_a715d92a3c54be29f137fe32d88e09476e99465ac801e126f497e737c278d6ce.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000534_7320670893408e8b18fefc4434f8736339a3398f011a38c7803a5883e2a22cc2.png)
 
 3. Người dùng yêu cầu tạo Sản phẩm đã định nghĩa.
 4. Hệ thống tạo Sản phẩm đi kèm một Diễn đàn (Forum) và Cuộc thảo luận (Discussion).
@@ -745,6 +780,10 @@ public class Product extends ConcurrencySafeEntity {
                 aDiscussionAvailability));
 
 ```
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000535_7f8b2ca436011af05f26868a0b283b30b28a0aaa3864aebb8acc96e6e28fcfea.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000536_01c4b4223f698c0f99d7d666b32ac205f0e21b292d8c3edf03252a1a6bc00681.png)
 
 ## Chapter 13 INTEGRATING BOUNDED CONTEXTS
 
@@ -830,6 +869,10 @@ public class Product extends ConcurrencySafeEntity {
 
 ```
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000537_ce65e5145ba7493d78b7075f785000f46ed5b7532db7656090e624ab4dafca0d.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000538_c04c376f856c3ce2429edde3df4152f2409ebad88bcaf2c2f9a1a0a30977c8b1.png)
+
 ```java
         if (!this.discussion().availability().isReady()) {
             this.setDiscussion(
@@ -914,6 +957,10 @@ public class DiscussionStartedListener extends ExchangeListener {
 
 ```
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000539_6a1a4b6ec38f5b794173079ae64541bae49d7d1b68c48d707fa0e5878a497763.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000540_19c597b835e176d636227ff7365d4a0bd02804e0c4026e14dec3d6dd104b2745.png)
+
 ## Chapter 13 INTEGRATING BOUNDED CONTEXTS
 
 ```java
@@ -983,3 +1030,5 @@ public class ProductDiscussionRequestedListener extends ExchangeListener {
 Liệu việc một Bounded Context thượng nguồn (upstream) lại đi lắng nghe các Event do một Context hạ nguồn (downstream) phát hành có hợp lý không? Hoặc giả, trong một Event-Driven Architecture (kiến trúc hướng sự kiện) (4), các hệ thống có thực sự bị phân định rạch ròi theo quan hệ upstream và downstream hay không? Liệu chúng có nhất thiết phải bị đóng khung vào khuôn mẫu đó? Có lẽ yếu tố quan trọng hơn cần xem xét là: liệu có đúng đắn không khi một Event `ProductCreated` lại được diễn giải bên trong Collaboration Context như một chỉ thị báo hiệu rằng một `Forum` và `Discussion` độc quyền cần phải được tạo ra? Trên thực tế, liệu `ProductCreated` có mang bất kỳ ý nghĩa nghiệp vụ nào đối với Collaboration Context hay không? Sẽ có thêm bao nhiêu Context khác trong tương lai cũng muốn nhận được sự hỗ trợ tự động tương tự cho chính tính năng này dựa trên các kiểu Event đặc thù của riêng họ? Liệu có nên đặt gánh nặng phải hỗ trợ vô số Event ngoại lai dưới dạng các lệnh khởi tạo lên vai Collaboration Context hay không? Tuy nhiên, vẫn còn một yếu tố khác cần xem xét, đòi hỏi chúng ta phải quản lý sự thành công của các Long-Running Process một cách cẩn trọng hơn. Chủ đề này, được thảo luận ngay sau đây, có thể sẽ giúp làm sáng tỏ lý do tại sao chúng tôi lại tiếp cận theo cách thức cụ thể này.
 
 Bây giờ, hãy quay trở lại với ví dụ . . . Sau khi được tiếp nhận trong Collaboration Context, command sẽ được điều chỉnh để chuyển tiếp tới `ForumService`, một Application Service. Lưu ý rằng API này chưa được thiết kế để sử dụng các tham số dạng command mà vẫn nhận các tham số thuộc tính riêng lẻ:
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000541_142a5a93476594cb7b0d17bd99a8a0ac3426cac02449e2c99ce1e191a5eaf374.png)

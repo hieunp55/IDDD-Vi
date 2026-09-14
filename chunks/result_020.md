@@ -3,7 +3,7 @@
 Vấn đề đặt ra là: Cần bao nhiêu task cho mỗi backlog item (hạng mục công việc tồn đọng)? Đây cũng là một câu hỏi không dễ trả lời. Sẽ ra sao nếu ta tư duy theo hướng cần từ 2 đến 3 task cho mỗi Layer (tầng kiến trúc) (4) hoặc Hexagonal Port-Adapter (kiến trúc lục giác Cổng - Bộ điều hợp) (4) trên một lát cắt tính năng (feature slice) cụ thể? Chẳng hạn, ta có thể tính 3 task cho User Interface Layer (Tầng giao diện người dùng) (14), 2 task cho Application Layer (Tầng ứng dụng) (14), 3 task cho Domain Layer (Tầng miền nghiệp vụ), và 3 task cho Infrastructure Layer (Tầng hạ tầng) (14). Cách phân bổ này đưa tổng số lên 11 task. Con số này có thể vừa vặn hoặc hơi ít, nhưng vì chúng ta đã chủ ý chọn con số ước lượng task tương đối dồi dào, hãy nâng con số này lên 12 task cho mỗi backlog item để dự trù thoải mái hơn. Như vậy, chúng ta có 12 task, mỗi task có 12 nhật ký ước lượng (estimation log), tương đương tổng cộng 144 đối tượng được thu thập cho mỗi backlog item. Dù con số này có thể cao hơn mức thông thường, nó cung cấp cho chúng ta một phép tính BOTE calculation đủ cụ thể để làm việc.
 
 > 💡 **Giải thích thêm:** BOTE (viết tắt của *Back-Of-The-Envelope calculation*) là thuật ngữ chỉ các phép tính nhẩm nhanh, ước lượng thô sơ mang tính phác thảo (như tính vội trên mặt sau của phong bì thư) nhằm định lượng quy mô vấn đề kỹ thuật trước khi bắt tay đo đạc chi tiết.
-> Nguồn tham khảo: https://en.wikipedia.org/wiki/Back-of-the-envelope_calculation
+> Nguồn tham khảo: [https://en.wikipedia.org/wiki/Back-of-the-envelope_calculation](https://en.wikipedia.org/wiki/Back-of-the-envelope_calculation)
 
 Vẫn còn một biến số khác cần cân nhắc. Nếu khuyến nghị của chuyên gia Scrum về việc chia nhỏ các task được tuân thủ phổ biến, cục diện sẽ thay đổi đôi chút. Việc tăng gấp đôi số lượng task (24) và giảm một nửa số lượng mục nhật ký ước lượng (6) vẫn tạo ra tổng cộng 144 đối tượng. Tuy nhiên, điều này sẽ khiến nhiều task bị tải lên bộ nhớ hơn (24 thay vì 12) trong suốt tất cả các yêu cầu ước lượng, làm tiêu tốn nhiều bộ nhớ hơn cho mỗi yêu cầu. Nhóm phát triển sẽ thử nghiệm nhiều phương án kết hợp khác nhau để xem liệu có bất kỳ tác động đáng kể nào đến các bài kiểm thử hiệu năng hay không. Nhưng trước mắt, họ sẽ bắt đầu với mô hình 12 task, mỗi task 12 giờ.
 
@@ -74,7 +74,6 @@ public class TaskHoursRemainingEstimated implements DomainEvent {
     private int hoursRemaining;
     ...
 }
-
 ```
 
 Một subscriber chuyên trách giờ đây sẽ lắng nghe các sự kiện này và ủy quyền cho một Domain Service (dịch vụ miền) để điều phối quá trình xử lý tính nhất quán. Service này sẽ:
@@ -98,10 +97,13 @@ public class HibernateTaskRepository implements TaskRepository {
         ...
     }
 }
-
 ```
 
 Eventual consistency làm giao diện người dùng trở nên phức tạp hơn đôi chút. Trừ phi việc chuyển đổi trạng thái có thể hoàn tất trong vòng vài trăm mili-giây, nếu không thì giao diện người dùng sẽ hiển thị trạng thái mới như thế nào? Liệu họ có nên đặt logic nghiệp vụ vào view để tự xác định trạng thái hiện tại? Cách làm đó sẽ tạo thành một smart UI anti-pattern (phản mẫu thiết kế đặt logic nghiệp vụ trực tiếp vào giao diện người dùng). Hay có lẽ view sẽ chỉ hiển thị trạng thái cũ (stale status) và để mặc người dùng tự xử lý sự không nhất quán về mặt thị giác đó? Điều này rất dễ bị nhìn nhận là một lỗi phần mềm (bug), hoặc chí ít cũng gây khó chịu lớn cho người dùng.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000419_81afdb9b6f72ed0c9d7b1fbd6fc004d74bdfef1f1c95fbbf6db81b0d1d4f5fde.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000420_f30405abc72177639065d61b2218dfb9699a5ff34eaf2539501a7a689a07080d.png)
 
 View có thể sử dụng một yêu cầu Ajax polling chạy ngầm, nhưng điều đó có thể rất kém hiệu quả. Vì thành phần view không thể dễ dàng xác định chính xác khi nào việc kiểm tra cập nhật trạng thái là cần thiết, phần lớn các yêu cầu ping Ajax sẽ trở nên dư thừa. Nếu áp dụng số liệu BOTE của chúng ta, 143 trên 144 lần ước lượng lại sẽ không làm thay đổi trạng thái, dẫn đến một lượng lớn yêu cầu thừa thãi đổ dồn vào Web tier. Nếu có sự hỗ trợ phù hợp từ phía server, các client thay vào đó có thể dựa vào Comet (còn gọi là Ajax Push). Dù đây là một thử thách thú vị, nó lại đưa vào một công nghệ hoàn toàn mới mà nhóm chưa từng có kinh nghiệm sử dụng.
 
@@ -127,6 +129,12 @@ Dựa trên tất cả những phân tích này, hiện tại nhóm đang nghiê
 
 Lựa chọn tách đôi vẫn được giữ lại làm phương án dự phòng. Sau khi tiến hành thêm các thử nghiệm với thiết kế hiện tại, cho chạy qua các bài kiểm thử hiệu năng và chịu tải, cũng như khảo sát sự chấp nhận của người dùng đối với trạng thái eventual consistency, câu trả lời về hướng tiếp cận nào tốt hơn sẽ trở nên rõ ràng hơn. Các con số BOTE hoàn toàn có thể sai nếu trên môi trường production kích thước Aggregate lớn hơn hình dung. Nếu rơi vào trường hợp đó, nhóm chắc chắn sẽ tách nó làm đôi.
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000421_f992ed9e93e67e9c8c36abe27f14bd967f9c41ce6bf752a7118663a27546c208.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000422_0617db6b16d520274c31ff8485b24b5228b9eebabffd3dcb7807870bc320f8be.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000423_d79e38c22eb4d65eb67f04897e06b5e3ed5ad1619d04dab796ebb3b151b3a9d3.png)
+
 Nếu là một thành viên của nhóm ProjectOvation, bạn sẽ chọn phương án mô hình hóa nào? Đừng ngần ngại tham gia các buổi khám phá nghiệp vụ như đã được minh họa trong tình huống thực tế này. Toàn bộ nỗ lực đó chỉ mất khoảng 30 phút, hoặc trong trường hợp xấu nhất là 60 phút. Khoảng thời gian đó là hoàn toàn xứng đáng để có được sự thấu hiểu sâu sắc hơn về Core Domain (miền nghiệp vụ cốt lõi) của bạn.
 
 ## Implementation
@@ -149,7 +157,6 @@ public class Product extends ConcurrencySafeEntity {
     private TenantId tenantId;
     ...
 }
-
 ```
 
 Lớp `ConcurrencySafeEntity` là một Layer Supertype (siêu kiểu theo tầng — lớp cha chung cho các thực thể trong cùng một tầng kiến trúc) [Fowler, P of EAA] được sử dụng để quản lý surrogate identity (danh tính đại diện / khóa nhân tạo) và kiểm soát phiên bản optimistic concurrency, như đã được giải thích trong chương Entities (5).
@@ -167,7 +174,6 @@ public class HibernateProductRepository implements ProductRepository {
     }
     ...
 }
-
 ```
 
 Bằng cách sử dụng `nextIdentity()`, một Application Service (dịch vụ tầng ứng dụng) phía client có thể khởi tạo một `Product` với định danh duy nhất toàn cầu của nó:
@@ -193,8 +199,11 @@ public class ProductService ... {
     }
     ...
 }
-
 ```
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000424_bd64014cfa7fc78c120d694929aa98ffb5ecd83b5298a5b583d45db35acce2fc.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000425_befb1ff97a111fc41500573170e3d787dda115f8d9718523584022c9675aeab9.png)
 
 Application Service sử dụng `ProductRepository` để vừa tạo ra một định danh, vừa tiến hành lưu trữ bền vững (persist) thể hiện `Product` mới đó. Nó trả về biểu diễn dạng `String` thuần túy của `ProductId` mới.
 
@@ -232,8 +241,11 @@ public class Product extends ConcurrencySafeEntity {
     }
     ...
 }
-
 ```
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000426_d43800d4796694fa9b384ddc67f10ac1a4d4d2bafc670704015146f66f88d5d2.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000427_848c188c07fab64cd2e1024e5b9155344c34cd92e2982c92a970ecdf77c28e8a.png)
 
 `Product` yêu cầu các client phải sử dụng phương thức `reorderFrom()` của nó để thực thi một command làm thay đổi trạng thái bên trong tập hợp `backlogItems` trực thuộc. Đó là một sự áp dụng chuẩn mực các hướng dẫn trên. Tuy nhiên, phương thức `backlogItems()` cũng có phạm vi `public`. Liệu điều này có phá vỡ các nguyên lý mà chúng ta đang cố gắng tuân thủ bằng cách làm lộ các thể hiện `ProductBacklogItem` ra cho client không? Đúng là nó làm lộ tập hợp, nhưng các client chỉ có thể sử dụng các thể hiện đó để truy vấn thông tin từ chúng. Do public interface của `ProductBacklogItem` bị giới hạn, client không thể nắm bắt được cấu trúc hình thái của `Product` thông qua việc điều hướng sâu vào bên trong. Client chỉ được cung cấp tri thức tối thiểu (least knowledge). Xét theo góc độ của client, các thể hiện tập hợp được trả về có thể chỉ được tạo ra cho một thao tác duy nhất đó và có thể không đại diện cho bất kỳ trạng thái xác định nào của `Product`. Client không bao giờ có thể thực thi các command làm thay đổi trạng thái trên các thể hiện của `ProductBacklogItem`, đúng như phần triển khai của nó đã chỉ rõ:
 
@@ -249,7 +261,6 @@ public class ProductBacklogItem extends ConcurrencySafeEntity {
     }
     ...
 }
-
 ```
 
 Hành vi làm thay đổi trạng thái duy nhất của nó được khai báo dưới dạng một phương thức ẩn, có phạm vi truy cập `protected`. Nhờ đó, các client không thể nhìn thấy hay chạm tới command này. Xét trên mọi phương diện thực tế, chỉ có `Product` mới có thể nhìn thấy và thực thi command đó. Client chỉ có thể sử dụng phương thức command public `reorderFrom()` của `Product`. Khi được gọi, `Product` sẽ ủy quyền cho tất cả các thể hiện `ProductBacklogItem` nội bộ bên trong nó thực hiện các sửa đổi bên trong.
@@ -275,10 +286,13 @@ public class Product extends ConcurrencySafeEntity {
     }
     ...
 }
-
 ```
 
 Một vấn đề là đoạn mã này luôn luôn làm dirty `Product`, ngay cả khi command sắp xếp lại thứ tự thực tế không tạo ra bất kỳ thay đổi nào. Hơn nữa, đoạn mã này làm rò rỉ các mối bận tâm về mặt hạ tầng vào trong mô hình, vốn là một lựa chọn mô hình hóa miền kém mong muốn nếu có thể tránh được. Chúng ta còn có thể làm gì khác?
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000428_cbfcdd791b890e42de17eda351205802241631d66facede7d6377defdc4adb52.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000429_d75e53208804c29f78cbf4ff2e1d1cf1db00458f66058c2dc9986209cab002ca.png)
 
 ## Cowboy Logic
 
@@ -286,6 +300,8 @@ AJ: "Tôi đang nghĩ hôn nhân cũng là một dạng optimistic concurrency. 
 
 > 💡 **Giải thích thêm:** "Cowboy Logic" là các mẩu đối thoại trào phúng, hài hước mang phong cách miền viễn Tây được Vaughn Vernon lồng ghép vào sách. Ở đây, tác giả ví von hôn nhân với cơ chế "kiểm soát đồng thời lạc quan" (optimistic concurrency): cả hai bên đều hành động dựa trên giả định lạc quan rằng phía bên kia sẽ vận hành theo kỳ vọng của mình mà không xung đột, nhưng thực tế khi commit thì va chạm thường xuyên xảy ra.
 > (Không có nguồn trích dẫn xác thực — cần tự kiểm chứng thêm)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000430_bee728976b7499f5aa2eee8b9cc02b405deacad14bc8360004923b1029d063ac.png)
 
 Trên thực tế, trong trường hợp của `Product` và các thể hiện `ProductBacklogItem` của nó, rất có thể chúng ta không cần phải chỉnh sửa version của Root khi có bất kỳ `backlogItems` nào bị sửa đổi. Do các thể hiện trong tập hợp bản thân chúng đã là các Entity, chúng hoàn toàn có thể tự mang thuộc tính version optimistic concurrency của riêng mình. Nếu hai client cùng sắp xếp lại bất kỳ thể hiện `ProductBacklogItem` nào trùng nhau, client commit thay đổi sau cùng sẽ bị thất bại. Phải thừa nhận rằng việc sắp xếp lại thứ tự bị trùng lặp này hiếm khi, thậm chí không bao giờ xảy ra, bởi vì thông thường chỉ có product owner mới là người sắp xếp lại các hạng mục trong product backlog.
 
@@ -304,6 +320,12 @@ Việc tiêm phụ thuộc (Dependency Injection) một Repository hoặc Domain
 Ngoài ra, trong một domain có lưu lượng truy cập cực cao, khối lượng dữ liệu khổng lồ và đòi hỏi hiệu năng tối đa, nơi bộ nhớ và chu kỳ thu gom rác (garbage collection) bị quá tải nặng nề, hãy nghĩ đến chi phí tiềm tàng của việc inject các thể hiện Repository và Domain Service vào các Aggregate. Việc đó sẽ đòi hỏi thêm bao nhiêu tham chiếu đối tượng dư thừa? Một số người có thể lập luận rằng mức độ đó chưa đủ để làm quá tải môi trường vận hành của họ, nhưng môi trường của họ có lẽ không thuộc dạng domain đang được mô tả ở đây. Dù vậy, hãy hết sức cẩn trọng để không bổ sung thêm các chi phí không cần thiết vốn có thể dễ dàng tránh được bằng cách áp dụng các nguyên lý thiết kế khác — chẳng hạn như tra cứu các dependency trước khi gọi phương thức command của Aggregate rồi truyền chúng vào.
 
 Khuyến cáo này chỉ nhằm cảnh báo việc inject Repository và Domain Service vào các thể hiện Aggregate. Dĩ nhiên, Dependency Injection hoàn toàn phù hợp cho rất nhiều tình huống thiết kế khác. Chẳng hạn, việc inject các tham chiếu Repository và Domain Service vào các Application Service là vô cùng hữu ích.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000431_93befbcf4af5074dfde9741a907868f34cd1428c666390a46b258648de7872cb.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000432_3b343d32c3bec45b486c52f13787787d2508f29dc61472bd81c3344e3db0a93a.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000433_881f4be078c88636ccf75d6188bb37bf260a529a9e182bae5152961d266c9f28.png)
 
 ## Wrap-Up
 
@@ -325,7 +347,7 @@ Nếu chúng ta tuân thủ nghiêm ngặt các quy tắc này, chúng ta sẽ c
 "Tôi không thể chịu nổi sự xấu xí trong các nhà máy! Nào, chúng ta vào trong thôi! Nhưng hãy cẩn thận đấy, các cô cậu bé yêu quý của tôi! Đừng có mất bình tĩnh! Đừng quá phấn khích! Phải hết sức bình tĩnh!" - Willy Wonka
 
 > 💡 **Giải thích thêm:** Câu trích dẫn kinh điển của nhân vật Willy Wonka trong tác phẩm thiếu nhi nổi tiếng *Charlie and the Chocolate Factory* (Charlie và nhà máy sô-cô-la) của Roald Dahl. Tác giả mượn hình ảnh "nhà máy" đầy nhiệm màu nhưng đòi hỏi sự trật tự, sạch sẽ của Wonka để chơi chữ với mẫu thiết kế "Factory" (nhà máy khởi tạo đối tượng) trong kỹ thuật phần mềm: việc tạo đối tượng phải gọn gàng, tránh sự lộn xộn, xấu xí (ugliness) và cần kiểm soát tốt sự phức tạp.
-> Nguồn tham khảo: https://en.wikipedia.org/wiki/Charlie_and_the_Chocolate_Factory
+> Nguồn tham khảo: [https://en.wikipedia.org/wiki/Charlie_and_the_Chocolate_Factory](https://en.wikipedia.org/wiki/Charlie_and_the_Chocolate_Factory)
 
 Trong số tất cả các pattern được sử dụng trong DDD, Factory (nhà máy khởi tạo đối tượng) có lẽ là một trong những pattern được biết đến nhiều nhất. Những mẫu thiết kế được quảng bá rộng rãi trong cuốn *Design Patterns* [Gamma et al.] gồm có Abstract Factory (nhà máy trừu tượng), Factory Method (phương thức nhà máy), và Builder (mẫu xây dựng từng bước). Tôi hoàn toàn không có ý định làm lu mờ những lời khuyên đã được đưa ra trong tài liệu đó, cũng như những chỉ dẫn do [Evans] cung cấp. Trọng tâm ở đây là mang đến cho bạn các ví dụ về cách thức ứng dụng Factory trong mô hình miền (domain model).
 
@@ -342,6 +364,8 @@ Hãy xem xét những động lực chính thôi thúc việc sử dụng Factor
 
 > Chuyển giao trách nhiệm khởi tạo các thể hiện của các đối tượng phức tạp và các AGGREGATE cho một đối tượng riêng biệt; bản thân đối tượng này có thể không mang trách nhiệm nghiệp vụ nào trong mô hình miền nhưng vẫn là một phần của thiết kế miền. Cung cấp một interface đóng gói toàn bộ quá trình lắp ráp phức tạp mà không đòi hỏi client phải tham chiếu đến các lớp cụ thể của đối tượng đang được khởi tạo. Tạo ra toàn bộ các AGGREGATE như một khối hoàn chỉnh, đồng thời thực thi nghiêm ngặt các invariant của chúng. [Evans, tr. 138]
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000434_ad0475f3b890075af21606c2b3d7a70cc1ab352b68c4bee07849a1851c7eac1a.png)
+
 Một Factory có thể có hoặc không có các trách nhiệm bổ sung khác trong mô hình miền ngoài việc khởi tạo đối tượng. Một đối tượng chỉ có mục đích duy nhất là khởi tạo một kiểu Aggregate cụ thể sẽ không có trách nhiệm nào khác và thậm chí sẽ không được coi là một công dân hạng nhất (first-class citizen) của mô hình. Nó chỉ đơn thuần là một Factory. Một Aggregate Root cung cấp một Factory Method để sản sinh ra các thể hiện của một kiểu Aggregate khác (hoặc các thành phần nội bộ) sẽ mang trách nhiệm chính là cung cấp các hành vi cốt lõi của Aggregate đó, và Factory Method chỉ là một trong số các hành vi đó mà thôi.
 
 Trường hợp thứ hai chính là tình huống xuất hiện thường xuyên hơn trong các ví dụ của tôi. Các Aggregate mà tôi minh họa phần lớn đều có cấu trúc khởi tạo không quá phức tạp. Tuy nhiên, một số chi tiết quan trọng trong quá trình khởi tạo Aggregate vẫn phải được bảo vệ cẩn mật để tránh tạo ra trạng thái sai lệch. Hãy xem xét các yêu cầu của một môi trường multitenancy (kiến trúc đa người thuê / đa khách hàng). Nếu một thể hiện Aggregate bị tạo nhầm dưới một tenant khác, bị gán sai `TenantId`, hậu quả có thể sẽ rất thảm khốc. Chúng ta phải chịu trách nhiệm rất cao trong việc giữ cho dữ liệu của từng tenant được phân tách biệt lập và an toàn tuyệt đối trước mọi tenant khác. Việc đặt một Factory Method được thiết kế cẩn trọng trên các Aggregate Root cụ thể có thể đảm bảo rằng thông tin tenant và các định danh liên kết khác luôn được tạo ra một cách chính xác. Nó đơn giản hóa phía client, chỉ yêu cầu client truyền vào các tham số cơ bản — thường chỉ là các Value Objects (6) — bằng cách che giấu hoàn toàn các chi tiết khởi tạo phức tạp khỏi tầm mắt của client.
@@ -354,6 +378,8 @@ Hơn nữa, các Factory Method đặt trên các Aggregate cho phép bạn bi�
 
 > 💡 **Giải thích thêm:** Đây là một câu đùa chơi chữ đặc trưng của văn hóa Mỹ: "fire hydrant" (trụ nước cứu hỏa trên vỉa hè) là khu vực bị pháp luật cấm đỗ xe tuyệt đối trong bán kính quy định. Vì vậy, một nhà máy sản xuất toàn trụ cứu hỏa thì hiển nhiên xung quanh sẽ cấm đỗ xe trên mọi nẻo đường.
 > (Không có nguồn trích dẫn xác thực — cần tự kiểm chứng thêm)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000435_b6e7ec98335670b6f93ec9ed379a0b8611f84eef38591e46b54b36e20ac0ab2c.png)
 
 Các Bounded Context mẫu trong một số trường hợp quả thực đòi hỏi việc khởi tạo phức tạp. Những tình huống này xuất hiện khi chúng ta Tích hợp các Bounded Context (Integrating Bounded Contexts) (13). Vào những thời điểm đó, các Services (7) sẽ đóng vai trò là các Factory tạo ra các Aggregate hoặc Value Object thuộc nhiều kiểu khác nhau.
 
@@ -382,11 +408,17 @@ Bảng 11.1 Các vị trí đặt Factory Method trên Aggregate
 |  |  | scheduleRelease() |
 |  |  | scheduleSprint() |
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000436_9f07ce6fc76bfa8f080e993c3323b2b4437e5f9faed6a5c725b54c0a145cb0f7.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000437_abd9ecb1c83d77499a59d18f31b4ab7e74a1d5747f0f096b8e4a50b231dbaa1b.png)
+
 ## Creating CalendarEntry Instances
 
 Hãy cùng nhìn vào thiết kế. Factory mà chúng ta đang xem xét hiện tại được đặt trực tiếp trên `Calendar` và được sử dụng để tạo ra các thể hiện `CalendarEntry`. Nhóm CollabOvation sẽ dẫn dắt chúng ta đi qua phần triển khai cụ thể.
 
 Dưới đây là một bài kiểm thử được phát triển để chứng minh cách thức Factory Method của `Calendar` nên được sử dụng như thế nào:
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000438_9820ee3c01fceb15a1b13ffa79afe5d61c385954d66ba4029c37b798a66d5b84.png)
 
 ```java
 public class CalendarTest extends DomainTest {
@@ -411,7 +443,6 @@ public class CalendarTest extends DomainTest {
             DomainRegistry
                 .calendarEntryRepository()
                 .nextIdentity(),
-
 ```
 
 ## FACTORY METHOD ON AGGREGATE ROOT
@@ -431,7 +462,6 @@ public class CalendarTest extends DomainTest {
         ...
     }
 }
-
 ```
 
 Có 9 tham số được truyền vào cho phương thức `scheduleCalendarEntry()`. Tuy nhiên, như bạn sẽ thấy ngay sau đây, constructor của `CalendarEntry` lại đòi hỏi tổng cộng tới 11 tham số. Chúng ta sẽ xem xét các lợi ích của việc này trong giây lát. Sau khi một `CalendarEntry` mới được tạo thành công, client bắt buộc phải thêm nó vào Repository của nó. Nếu không làm điều đó, thể hiện mới này sẽ bị bỏ trôi và bị dọn dẹp bởi bộ thu gom rác (garbage collector).
@@ -457,8 +487,11 @@ public class Calendar extends Entity {
             Repetition aRepetition,
             String aLocation,
             Set<Invitee> anInvitees) {
-
 ```
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000439_289cf1689893e8b280c39213c336e1074a390c382ee888a45c25dda22c7dd456.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000440_9d0afe2c8825ef859421822ac7f089df170974514fdbdf3b87cc446897926d08.png)
 
 ## Chapter 11 FACTORIES
 
@@ -482,5 +515,4 @@ public class Calendar extends Entity {
     }
     ...
 }
-
 ```

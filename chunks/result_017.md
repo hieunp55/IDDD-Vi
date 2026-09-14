@@ -93,6 +93,8 @@ public class IdentityAccessEventProcessor {
 
 ```
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000336_2a5863dde76eb74ff5b080a78784e0d80ecff971d94e23593d204c83dd4b7c81.png)
+
 ```java
                 public Class<DomainEvent> subscribedToEventType() {
                     return DomainEvent.class; // tất cả các domain event
@@ -175,6 +177,10 @@ CREATE TABLE `tbl_stored_event` (
 
 Phần trên đã điểm qua ở mức tổng quan một số thành phần cần thiết để xây dựng Event Store chứa toàn bộ các thể hiện Event được xuất bản bởi các Aggregate trong domain model. Chúng ta sẽ tìm hiểu chi tiết hơn sau. Tiếp theo, hãy xem cách các hệ thống khác có thể tiêu thụ (consume) những bản ghi đã lưu trữ về các sự kiện phát sinh trong mô hình.
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000337_fd774d9e54e26b34cc9f08a2dc240ad58c08fa55498f7d5d8161445258ce8ea5.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000338_e7d5ab1d8c0eaa081a679490c77bfd86519b134dea22d54f59718b6fefe6d8d1.png)
+
 ## Architectural Styles for Forwarding Stored Events
 
 Một khi Event Store đã được đổ dữ liệu, nó sẵn sàng cung cấp các Event để chuyển tiếp dưới dạng thông báo đến các bên quan tâm. Chúng ta sẽ xem xét hai phong cách kiến trúc để phân phối các Event này. Một phong cách là thông qua các tài nguyên RESTful được client truy vấn, và phong cách thứ hai là gửi tin nhắn qua một topic/exchange của một sản phẩm phần mềm truyền tin nhắn trung gian (messaging middleware).
@@ -210,6 +216,10 @@ Các Event đã được thêm vào bất kỳ log nào trước đó tuyệt đ
 
 Do đó, current log không phải lúc nào cũng chứa thông báo mới nhất hoặc cũ nhất chưa được áp dụng ở phía client. Event cũ nhất như vậy có thể đang nằm ở bản log ngay trước current log, hoặc thậm chí ở các log trước đó nữa. Tất cả phụ thuộc vào tần suất các Event lấp đầy một bản log hữu hạn (trong trường hợp này chỉ có 20 mục) và tần suất client thực hiện thao tác pull log. Hình 8.4 minh họa cách các notification log liên kết với nhau tạo thành một mảng ảo chứa các thông báo riêng lẻ.
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000339_d6abd2126edead0c2f781e0a59df2b3563361f86e244ff54bb286b2d03d4f44b.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000340_bd583a708dd74f2ab9df9c66fcf31410b0143070a52ee5cb0667e03dfe47c4cf.png)
+
 Giả định trạng thái log như mô tả trong Hình 8.4, giả sử các thông báo từ 1 đến 58 đã được xử lý cục bộ. Điều này đồng nghĩa các thông báo từ 59 đến 65 vẫn chưa được áp dụng. Nếu client thực hiện pull từ URI sau, nó sẽ nhận được current log:
 
 //iam/notifications
@@ -227,6 +237,8 @@ Link: <http://iam/notifications/41,60>; rel=previous
 ```
 
 Hình 8.4 Current log cùng với một chuỗi các archived log được liên kết tạo thành một mảng ảo chứa tất cả các Event từ Event gần nhất ngược về Event đầu tiên. Ở đây thể hiện các thông báo từ 1 đến 65. Mỗi archived log chứa đủ giới hạn 20 thông báo. Current log hiện chưa đầy và mới chỉ chứa tổng cộng 5 thông báo.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000341_1a2bbeb1c918cdcb46b2b1433f76ee694d125ae8464a64d0821ee5078229054c.png)
 
 ## Why Doesn't the URI Reflect What's Actually in the Current Log?
 
@@ -264,6 +276,10 @@ Trong log này, client tìm thấy các thông báo mang định danh 61, 62, 63
 Một thời gian sau, quy trình này lặp lại. Current log lại được yêu cầu qua URI. Có thể lúc này hoạt động trong Bounded Context nguồn đã tạo ra các bản log mới đáng kể bằng việc sinh thêm nhiều thông báo mới. Khi current log được yêu cầu ở thời điểm này, nó có thể mang thêm nhiều thông báo mới. Phía client có thể phải duyệt ngược lại một, hai hoặc thậm chí nhiều archived log hơn để định vị được thông báo đã xử lý gần nhất — hiện tại là thông báo mang định danh 65. Tương tự như trước, khi client tìm thấy thông báo 65, nó sẽ áp dụng tất cả các thông báo mới hơn theo thứ tự thời gian.
 
 Bất kỳ Bounded Context client nào cũng có thể yêu cầu các notification log này. Trên thực tế, bất kỳ Bounded Context nào cần nắm bắt các Event được sinh ra bởi một Bounded Context khác có cung cấp cơ chế xuất bản thông báo này đều có thể vươn tới để lấy thông báo ngược về tận "thuở ban đầu". Dĩ nhiên, mỗi Bounded Context chỉ có thể thực sự đóng vai trò client nếu nó có quyền truy cập hợp lệ vào hệ thống nguồn (chẳng hạn như quyền bảo mật).
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000342_45a7a6759c225e1a95ffcbe069167b869523d1435b78f9322c5877d9ceb49533.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000343_677019af49e7a09a047ac8578ee7795d31a21c13bc1edc42746155088e06f5f2.png)
 
 Nhưng liệu việc client liên tục polling các tài nguyên thông báo có tạo ra lượng truy cập khổng lồ ngoài ý muốn lên máy chủ Web của bạn hay không? Sẽ không thành vấn đề nếu các tài nguyên RESTful của bạn tận dụng hiệu quả cơ chế caching. Ví dụ, current log có thể được cache ngay tại chính client trong khoảng thời gian khoảng một phút:
 
@@ -305,6 +321,8 @@ Hãy xem xét các yêu cầu đối với việc xuất bản các Event từ E
 
 Chúng ta không cần chờ đợi xem các subscriber đã xác nhận việc nhận tin hay chưa. Thậm chí các hệ thống subscriber có thể còn chưa khởi chạy khi publisher gửi tin nhắn qua exchange. Mỗi subscriber chịu trách nhiệm xử lý các tin nhắn theo khung thời gian riêng của mình, đảm bảo thực thi đúng các hành vi nghiệp vụ cần thiết trên mô hình của chính nó. Chúng ta chỉ đơn giản dựa vào cơ chế tin nhắn để đảm bảo việc phân phối (delivery guarantee).
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000344_201a334dfc9bcf73afeab8ebee83d9632585da4ec0d673dd2e65c9274c75d786.png)
+
 ## Whiteboard Time
 
 * Hãy vẽ một Context Map (bản đồ ngữ cảnh) thể hiện Bounded Context bạn đang phụ trách cùng các Context khác mà bạn đang tích hợp cùng. Hãy đảm bảo thể hiện rõ các kết nối giữa những Context có tương tác với nhau.
@@ -320,6 +338,8 @@ Sau khi đã thống nhất về các phong cách kiến trúc dùng để xuấ
 Cốt lõi của hành vi xuất bản thông báo được đặt sau một Application Service: `NotificationService`. Thiết kế này cho phép đội ngũ quản lý phạm vi giao dịch (transactional scope) của các thay đổi trong chính nguồn dữ liệu của mình. Nó cũng nhấn mạnh rằng việc thông báo là một mối bận tâm thuộc tầng ứng dụng (application concern), không phải của tầng nghiệp vụ (domain concern), mặc dù các Event được xuất bản dưới dạng thông báo vốn bắt nguồn từ chính domain model.
 
 Ở thời điểm này, `NotificationService` chưa cần phải áp dụng mô hình Separated Interface (tách rời giao diện) [Fowler, P of EAA]. Hiện tại chỉ có duy nhất một implementation của
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000345_25eeb2f3bcc849c5a062a042b9b327c4265bbee51692928e20020a03d06ad6aa.png)
 
 Application Service, vì vậy cả đội giữ cho mọi thứ thật đơn giản. Dù vậy, mọi lớp học cơ bản đều sở hữu một giao diện public, và dưới đây là khung phương thức (stubbed-out methods) ban đầu:
 
@@ -381,6 +401,10 @@ public class NotificationService {
 }
 
 ```
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000346_48de86d0bb4006291849a16a580d1d8b5ca05ddf5aeaf72ca955cdb572bfc48e.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000347_4fc094f216ec53b12f670431bbda848466d2641dcebdc0bfc4b105edbba8b696.png)
 
 Về bản chất, cả hai phương thức này đều phải "tìm kiếm" một `NotificationLog`. Điều đó thực chất là việc tìm ra một phân đoạn các thể hiện `DomainEvent` đã được tuần tự hóa trong Event Store, bọc từng sự kiện bằng một `Notification`, và gom tất cả lại thành một `NotificationLog`. Khi một thể hiện `NotificationLog` được tạo ra, nó có thể được biểu diễn dưới dạng một tài nguyên RESTful và gửi về cho client yêu cầu.
 
@@ -481,6 +505,10 @@ public class NotificationService {
 
 ```
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000348_147caa3e4c6546f8d2a7aaf537d76e86812b59903e4e19ce7f26b3ddfae05adb.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000349_f1955e6df91518ce2e7d3b1a67d990e6fddb08d941a1918711a9223ab6aff648.png)
+
 ```java
         return notifications;
     }
@@ -576,6 +604,10 @@ public class NotificationResource {
 
 Phần trên đã bao quát các mắt xích trọng yếu dùng để xuất bản cả current log lẫn archived notification log tới các RESTful client.
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000350_6e97741faa5f6f15039d0b07fec86f720a9451a70a58e9e2234d0e99b5f805ae.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000351_ced0f267ab7f1eb7c5e5cc0d0700013f25259a02c04a973aaf13743ca9b685a6.png)
+
 ## Publishing Message-Based Notifications
 
 `NotificationService` cung cấp một phương thức duy nhất để xuất bản các thể hiện `DomainEvent` qua hạ tầng tin nhắn. Dưới đây là phương thức service đó:
@@ -659,6 +691,10 @@ Việc xuất bản đa kênh (multichannel) hiện chưa được hỗ trợ, n
 
 Tiếp theo, phương thức `listUnpublishedNotifications()` chịu trách nhiệm truy vấn danh sách đã sắp xếp của tất cả các thể hiện `Notification` chưa được xuất bản:
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000352_bcbccff962b758c2159f9b997567ec20584ce5799acf6c6b6b692f9da9130c53.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000353_00247b63c5a0fc3332aa963f8436c56a8f8d39354bddb9a55d6fb17f83ababa0.png)
+
 ```java
 public class NotificationService {
     ...
@@ -709,6 +745,8 @@ public class NotificationService {
                 aNotification.occurredOn());
 
 ```
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000354_429e4939cc48031a5356e2ee538e57006ff5a94c9fc87bb2af94fe48d3f50617.png)
 
 ```java
         String notification =

@@ -19,7 +19,7 @@ Dĩ nhiên, Aggregate không bao giờ nên bị thu nhỏ một cách tùy ti�
 Trên thực tế, đôi khi việc bắt đầu mô hình hóa miền nghiệp vụ (domain modeling) bằng cách xác định phần cốt lõi của Ubiquitous Language (ngôn ngữ chung / ngôn ngữ toàn hiện) thông qua các Commands (lệnh thực thi) gửi đến và các Events (sự kiện) phát sinh ra, cũng như các hành vi được thực thi, lại rất hữu ích. Chỉ ở giai đoạn sau đó, chúng ta mới thực sự nhóm một số khái niệm lại thành Aggregate, dựa trên sự tương đồng, tính liên quan và các quy tắc nghiệp vụ. Cách tiếp cận này—ngay cả khi nó chỉ là một development spike (bước thử nghiệm kỹ thuật ngắn hạn) tạm thời dùng trong bài tập mô hình hóa miền nghiệp vụ—cũng có thể mang lại sự hiểu biết sâu sắc hơn về các khái niệm nghiệp vụ cốt lõi của chúng ta.
 
 > 💡 **Giải thích thêm:** Trong phát triển phần mềm (đặc biệt là Extreme Programming và Agile), "spike" (hay "development spike") là một thử nghiệm kỹ thuật ngắn hạn nhằm mục đích nghiên cứu, trả lời một câu hỏi kỹ thuật cụ thể hoặc giảm thiểu rủi ro kiến trúc trước khi triển khai chính thức, không nhằm tạo ra mã nguồn hoàn chỉnh cho sản phẩm.  
-> Nguồn tham khảo: https://en.wikipedia.org/wiki/Spike_(software_development)
+> Nguồn tham khảo: [https://en.wikipedia.org/wiki/Spike_(software_development](https://en.wikipedia.org/wiki/Spike_(software_development))
 
 ## Read Model Projections
 
@@ -31,7 +31,7 @@ Tóm lại, một Projection rất tương đồng với một phiên bản Aggr
 
 ## Projection Samples Are Available
 
-Thông tin chi tiết hơn về việc sử dụng Projection, bao gồm mã nguồn cho các kịch bản lưu trữ dữ liệu khác nhau và cơ chế tự động xây dựng lại Read Model, hiện có sẵn trong dự án mẫu tại: http://lokad.github.com/lokad-cqrs/.
+Thông tin chi tiết hơn về việc sử dụng Projection, bao gồm mã nguồn cho các kịch bản lưu trữ dữ liệu khác nhau và cơ chế tự động xây dựng lại Read Model, hiện có sẵn trong dự án mẫu tại: [http://lokad.github.com/lokad-cqrs/](http://lokad.github.com/lokad-cqrs/).
 
 Dưới đây là cách chúng ta có thể định nghĩa một Projection để ghi nhận toàn bộ các giao dịch cho từng Customer:
 
@@ -55,10 +55,13 @@ public class CustomerTransactionsProjection {
         _store.UpdateOrThrow(e.Id, v => v.AddTx(e.PaymentName, e.Payment, e.NewBalance, e.TimeUtc));
     }
 }
-
 ```
 
 Lớp Projection này tương tự như một Application Service (dịch vụ ứng dụng) được thiết kế cho A+ES có sử dụng biểu thức lambda. Tuy nhiên, Projection của chúng ta phản ứng với Event thay vì Command và cập nhật tài liệu (document) thông qua IDocumentWriter, thay vì cập nhật các phiên bản Aggregate.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000640_1365b7b0b7075d536b21fc8ab77670e944da48b03dc9e9d93a0386e6f332d4e3.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000641_9d297339e70d73a9d68337522d9fd199b005ddb002fffc236404ab24613d03d7.png)
 
 Read Model bên dưới thực chất chỉ là một Data Transfer Object (DTO - đối tượng truyền dữ liệu) [Fowler] đơn giản, có thể được tuần tự hóa (serialized) và lưu trữ bền vững vào một kho lưu trữ nền tảng nào đó bằng IDocumentWriter:
 
@@ -88,7 +91,6 @@ public class CustomerTransaction {
     public string Name;
     public DateTime TimeUtc;
 }
-
 ```
 
 Việc lưu trữ các Read Model trong cơ sở dữ liệu dạng tài liệu (document database) là một thực hành phổ biến, mặc dù vẫn có thể áp dụng các phương án khác. Chúng ta có thể lưu tạm (cache) Read Model trong bộ nhớ (ví dụ: một phiên bản memcached), đẩy chúng dưới dạng tài liệu vào mạng phân phối nội dung (CDN - Content Delivery Network), hoặc lưu trữ chúng trong các bảng cơ sở dữ liệu quan hệ.
@@ -114,10 +116,15 @@ public class ProjectArchived {
     public DateTime ArchivedUtc { get; set; }
     public string OptionalComment { get; set; }
 }
-
 ```
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000642_c63b6b969620845ba2a97b13bd32a36897d78098d3c481e1a568e479d49d9cc7.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000643_03e0a97de841a4bb5d486a436efb1038a7b4defa594b887563ecb6e72d97070b.png)
+
 Figure A.16 Nhiều Domain Event được một Projection tiếp nhận và sử dụng để xây dựng một khung nhìn (view) của Read Model.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000644_f28b2fa883eb0f361467c8b6308f1abee66713dafaa27d807da92c1908d07ed6.png)
 
 Thông tin này đủ phong phú để tái tạo một Project đã lưu trữ bằng A+ES. Tuy nhiên, nếu được thiết kế theo cách này, Event của chúng ta có thể gây ra nhiều trở ngại cho các bên tiêu thụ.
 
@@ -136,7 +143,6 @@ public class ProjectArchived {
     public string ProjectName { get; set; }
     public UserId ChangeAuthorId { get; set; }
     public DateTime ArchivedUtc { get; set; }
-
 ```
 
 ```csharp
@@ -144,7 +150,6 @@ public class ProjectArchived {
     public CustomerId Customer { get; set; }
     public string CustomerName { get; set; }
 }
-
 ```
 
 Nhờ Event mới được bổ sung dữ liệu này, ArchivedProjectsPerCustomerView do Projection tạo ra có thể được đơn giản hóa như thể hiện trong Hình A.17.
@@ -157,6 +162,12 @@ Một nguyên tắc kinh nghiệm về Domain Event là hãy thiết kế chúng
 Đây là các khuyến nghị, không phải quy tắc cứng nhắc. Chúng thường phát huy hiệu quả tốt cho các doanh nghiệp có nhiều Bounded Context khác nhau. Các Bounded Context nguyên khối (monolithic) nhận được ít lợi ích hơn từ các gợi ý này, vì chúng thường có xu hướng duy trì các bảng tra cứu phụ và các ánh xạ Entity. Dĩ nhiên, bạn là người hiểu rõ nhất những thuộc tính nào nên được đưa vào các Event của mình. Đôi khi, việc xác định những thuộc tính nào thuộc về một loại Event nhất định là hết sức hiển nhiên, và với những trường hợp đó, chúng ta hiếm khi cần phải tái cấu trúc (refactoring).
 
 Figure A.17 Các Domain Event như ProjectArchived có thể được tiếp nhận bởi các bộ xử lý Projection để sinh ra các Read Model phục vụ riêng cho khung nhìn và báo cáo.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000645_f2245c46135b90b225e08955b9b0a6da45060c5377fadcb04457e30b8e88fa41.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000646_9ba04f28f3cf9811ffee6c4158814dbed75c341b70814fcaa986a649629b2aec.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000647_618c7536faf3e224885cdabb1ddccf1e99c00b39a727c16ad3fc51887a333e47.png)
 
 ## Supporting Tools and Patterns
 
@@ -175,7 +186,6 @@ public class ProjectClosed {
     [DataMember(Order = 2)]
     public DateTime Closed { get; set; }
 }
-
 ```
 
 Bây giờ, nếu chúng ta tuần tự hóa ProjectClosed bằng DataContractSerializer hoặc JsonSerializer thay vì Protocol Buffers, bất kỳ thành viên nào bị đổi tên đều có thể dễ dàng làm gián đoạn hoặc hỏng (break) các bên tiêu thụ phụ thuộc. Ví dụ, giả sử bạn đổi tên thuộc tính Closed thành ClosedUtc. Trừ khi bạn đặc biệt chú ý ánh xạ thuộc tính đã đổi tên này trong Bounded Context tiêu thụ, nếu không bạn sẽ gây ra một lỗi rất khó hiểu hoặc sinh ra dữ liệu sai lệch:
@@ -189,7 +199,6 @@ public class ProjectClosed {
     [DataMember(Name = "Closed")]
     public DateTime ClosedUtc { get; set; }
 }
-
 ```
 
 Protocol Buffers đáp ứng tốt các tình huống tuần tự hóa liên tục biến đổi vì nó theo dõi các thành viên trong hợp đồng bằng các thẻ số nguyên (integral tags), chứ không phải bằng tên gọi. Như có thể thấy trong đoạn mã sau, các client có thể sử dụng thành công Close hoặc CloseUtc làm tên thuộc tính. Nó tuần tự hóa các đối tượng cực kỳ nhanh và tạo ra biểu diễn nhị phân rất nhỏ gọn. Nhờ sử dụng Protocol Buffers, chúng ta có thể đổi tên các thuộc tính của Event mà không phải lo lắng về tính tương thích ngược (backward compatibility), từ đó giảm thiểu trở ngại phát triển trong một mô hình miền đang trên đà tiến hóa.
@@ -205,7 +214,6 @@ public class ProjectClosed {
     [DataMember(Order = 2)]
     public DateTime ClosedUtc { get; set; }
 }
-
 ```
 
 Một số công cụ tuần tự hóa đa nền tảng bổ sung bao gồm Apache Thrift, Avro và MessagePack, mang đến nhiều sự lựa chọn rất đáng cân nhắc.
@@ -228,7 +236,6 @@ public class ProjectClosed {
         ClosedUtc = closedUtc;
     }
 }
-
 ```
 
 ## Value Objects
@@ -240,21 +247,22 @@ public struct ProjectId {
     public ProjectId(long id) {
         Id = id;
     }
-
 ```
 
 ```csharp
     public readonly long Id { get; private set; }
 }
-
 ```
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000648_2dc72a73392d2bb3f0c0e4c2c9d42d84fc449f347519991f0c3a999596146b57.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000649_c78ba36c119882e952f2b99172c8a80bfb668bd06f38ecdc9ea8b12c800ae2ad.png)
 
 ```csharp
     public override string ToString() {
         return string.Format("Project-{0}", Id);
     }
 }
-
 ```
 
 Chúng ta vẫn sử dụng kiểu `long` để chứa giá trị số định danh thực tế, nhưng dùng kiểu `ProjectId` để phân biệt nó với tất cả các kiểu dữ liệu khác. Kiểu giá trị dĩ nhiên không chỉ giới hạn ở các định danh duy nhất. Những kiểu giá trị phù hợp khác có thể kể đến như các đối tượng tiền tệ (đặc biệt trong các hệ thống đa tiền tệ), địa chỉ, email, các đơn vị đo lường, v.v.
@@ -265,7 +273,6 @@ Ngoài việc làm giàu thông tin và tăng tính biểu đạt cho các hợp
 long customerId = ...;
 long projectId = ...;
 var event = new ProjectAssignedToCustomer(customerId, projectId);
-
 ```
 
 Đây là một lỗi mà trình biên dịch sẽ không thể phát hiện ra, và có thể chỉ được tìm thấy sau rất nhiều công sức gỡ lỗi (debug) cùng sự ức chế. Tuy nhiên, nếu bạn sử dụng các Value Object làm định danh, trình biên dịch (và do đó là trình soạn thảo IDE) sẽ bắt được lỗi khi truyền CustomerId trước và ProjectId sau:
@@ -274,7 +281,6 @@ var event = new ProjectAssignedToCustomer(customerId, projectId);
 CustomerId customerId = ...;
 ProjectId projectId = ...;
 var event = new ProjectAssignedToCustomer(customerId, projectId);
-
 ```
 
 Các lợi ích thậm chí còn trở nên rõ ràng hơn khi bạn có các lớp hợp đồng dạng phẳng (flat) chứa một lượng lớn các trường dữ liệu. Chẳng hạn, hãy xem xét Event sau (đã được đơn giản hóa từ phiên bản thực tế trên môi trường production):
@@ -289,7 +295,6 @@ public class CustomerInvoiceWritten {
     public CustomerId Customer { get; private set; }
     public string CustomerName { get; private set; }
     public string CustomerBillingAddress { get; private set; }
-
 ```
 
 ```csharp
@@ -298,7 +303,6 @@ public class CustomerInvoiceWritten {
     public decimal VatTax { get; private set; }
     public decimal Total { get; private set; }
 }
-
 ```
 
 Như bạn có thể hình dung, việc làm việc với một lớp có quá nhiều thuộc tính 2 có thể khá phức tạp. Chúng ta có thể tái cấu trúc Event cồng kềnh này để trở nên tường minh và dễ đọc hơn bằng cách tinh chỉnh mô hình của nó theo các khái niệm nghiệp vụ sẵn có:
@@ -310,7 +314,6 @@ public class CustomerInvoiceWritten {
     public InvoiceLine[] Lines { get; private set; }
     public InvoiceFooter Footer { get; private set; }
 }
-
 ```
 
 InvoiceHeader và InvoiceFooter cấu thành các nhóm thuộc tính có tính gắn kết cao:
@@ -329,7 +332,6 @@ public class InvoiceFooter {
     public CurrencyAmount VarAmount { get; private set; }
     public CurrencyAmount Total { get; private set; }
 }
-
 ```
 
 Chúng ta đã thay thế các thuộc tính riêng rẽ là `CurrencyType Currency` và `decimal SubTotal` bằng một Value Object `CurrencyAmount`. Một lợi ích bổ sung là lớp này có thể được tăng cường thêm logic kiểm tra tính hợp lệ (sanity check) nhằm ngăn chặn các phép tính toán giữa các số tiền khác đơn vị tiền tệ cũng như những thao tác không hợp lệ khác. Tương tự, thông tin thuế VAT cũng được gộp vào một Value Object riêng biệt rồi được ghép vào `InvoiceFooter` cùng với các tổng tiền khác của hóa đơn.
@@ -337,6 +339,10 @@ Chúng ta đã thay thế các thuộc tính riêng rẽ là `CurrencyType Curre
 Bất cứ khi nào có thể, chúng ta nên nỗ lực áp dụng các Value Object, cho dù là đối với các đối tượng Command, Event hay các thành phần của Aggregate.
 
 2. Dữ liệu thực nghiệm chứng minh một nguyên tắc kinh nghiệm phù hợp: Mỗi lớp không nên có quá từ 5 đến 7 thuộc tính thành viên.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000650_2f247caa7445b1814eff353ed0b64437149eee46d8daa44392a7c8bbba7f6bba.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000651_860ac12ddc9695003b832d9341d99019bccb992ebb9f945b6495b5cef6a5e6d4.png)
 
 Rõ ràng, việc sử dụng Value Object trong Command và/hoặc Event sẽ đòi hỏi phải triển khai (deploy) chúng cùng nhau, hoặc thậm chí là tạo ra một Shared Kernel (hạt nhân chia sẻ) (3). Tuy nhiên, một số miền nghiệp vụ cực kỳ phức tạp có thể yêu cầu thiết kế các Value Object chứa logic nghiệp vụ hết sức rối rắm. Trong những trường hợp như vậy, việc đưa các Value Object đó vào một Shared Kernel chỉ nhằm mục đích giải tuần tự hóa an toàn kiểu (type-safe deserialization) rất có thể sẽ dẫn đến một thiết kế mỏng manh, dễ gãy (brittle). Việc phân biệt giữa các lớp chia sẻ đơn giản dùng để giải tuần tự hóa dữ liệu Command và Event theo cách an toàn kiểu với các lớp phức tạp hơn do Core Domain (miền nghiệp vụ cốt lõi) (2) đòi hỏi có thể sẽ mang lại hiệu quả. Điều đó đồng nghĩa với việc tạo ra hai bộ lớp Value Object: một bộ dành riêng cho Core Domain và một bộ được triển khai cùng các lớp Command và Event. Dữ liệu do hai bộ này nắm giữ sẽ được chuyển đổi qua lại khi cần thiết.
 
@@ -381,7 +387,6 @@ public sealed class CustomerInvoiceWritten : IDomainEvent {
         Lines = new InvoiceLine[0];
     }
 }
-
 ```
 
 Điều này mang lại những lợi ích thực tế sau:
@@ -392,6 +397,10 @@ public sealed class CustomerInvoiceWritten : IDomainEvent {
 * Chúng ta có thể quản lý phiên bản và phân phối các hợp đồng Event dưới dạng các định nghĩa cô đọng thay vì đòi hỏi mã nguồn hoặc mã nhị phân (binary code). Điều này thậm chí có thể giúp nâng cao khả năng cộng tác giữa các đội ngũ khác nhau.
 
 Cách làm tương tự cũng có thể áp dụng cho các hợp đồng Command. Bản triển khai mã nguồn mở của công cụ sinh mã dựa trên DSL cùng với các ví dụ hiện có sẵn trong dự án mẫu.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000652_849b8fdc64dccce41ad7d043d22b7d8c5dcf275918a11d6f14a455ce783ba55c.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000653_4234db078317150de0b9c580c0f9d7335f9c06de96bd78c46a68c1232611740f.png)
 
 ## Unit Testing and Specifications
 
@@ -413,7 +422,6 @@ Dưới đây là một bản đặc tả đơn giản được định nghĩa b
 
 ```text
 [Passed] Use case 'Add Customer Payment - Unlock On Payment'.
-
 ```
 
 ```text
@@ -425,7 +433,6 @@ When:
 Expectations:
   [ok] Tx 1: payment 10 EUR 'unlock' (none)
   [ok] Customer unlocked
-
 ```
 
 Nếu bạn quan tâm đến cách tiếp cận này, việc tìm kiếm trên web với từ khóa 'Event Sourcing Specifications' sẽ mang lại những hướng dẫn chi tiết.
@@ -438,55 +445,57 @@ Dưới đây là một số đặc thù khi chuyển từ phương pháp tiếp
 
 * Chúng ta phải chuyển từ việc dùng một đối tượng trạng thái Aggregate có thể biến đổi (mutable) trong hướng đối tượng sang việc thiết kế một bản ghi trạng thái bất biến (immutable state record) đơn giản cùng một tập hợp các hàm biến đổi. Các hàm biến đổi này chỉ đơn giản nhận vào một bản ghi trạng thái và các đối số Event, rồi trả về một bản ghi trạng thái mới dưới dạng kết quả. Điều này rất giống với thiết kế của một Value Object bất biến, nơi mà các Side-Effect-Free Functions (hàm không gây tác dụng phụ) chỉ tạo ra các Giá trị mới dựa trên trạng thái của chính nó và các đối số của hàm. Những hàm như vậy có dạng `Func<State, Event, State>`.
 * Trạng thái hiện tại của Aggregate có thể được định nghĩa như một phép left fold (phép gập trái / tích lũy từ trái sang phải) của tất cả các Event trong quá khứ được truyền vào các hàm biến đổi.
-* Các phương thức Aggregate cũng có thể được biến đổi thành một tập hợp các hàm không lưu trạng thái (stateless functions), nhận vào các tham số Command, Domain Services và một trạng thái. Các hàm như vậy trả về không hoặc nhiều Event và có dạng `Func<TArg1, TArg2..., State, Event[]>`.
+* Các phương thức Aggregate cũng có thể được biến đổi thành một tập hợp các hàm không lưu trạng thái (stateless functions), nhận vào các tham số Command, Domain Services và một trạng thái. Các hàm như vậy trả về không hoặc nhiều Event và có dạng `Func<TArg1, Event[] State, TArg2...,>`.
 * Một Event Store có thể được nhìn nhận và diễn đạt như một cơ sở dữ liệu hàm (functional database), bởi vì nó lưu trữ bền vững các đối số truyền vào các hàm có nhiệm vụ làm biến đổi trạng thái của Aggregate. Việc hỗ trợ snapshot (ảnh chụp trạng thái nhanh) trong một Event Store dạng hàm là khái niệm quen thuộc đối với các lập trình viên hàm dưới tên gọi memoization (kỹ thuật ghi nhớ kết quả tính toán).
 
 > 💡 **Giải thích thêm:** "Left fold" (hay `foldl`/`reduce`) trong lập trình hàm là phép toán duyệt tuần tự một danh sách từ trái qua phải, áp dụng một hàm tích lũy lên giá trị tích lũy hiện tại và từng phần tử để sinh ra giá trị kết quả duy nhất. Trong ngữ cảnh Event Sourcing, toàn bộ lịch sử các sự kiện trong quá khứ chính là một danh sách: bắt đầu từ trạng thái khởi tạo rỗng (`initial state`), mỗi sự kiện được áp dụng tuần tự qua hàm biến đổi để "tích lũy" và tái tạo chính xác trạng thái hiện tại của Aggregate.
-> Nguồn tham khảo: https://en.wikipedia.org/wiki/Fold_(higher-order_function)
+> Nguồn tham khảo: [https://en.wikipedia.org/wiki/Fold_(higher-order_function](https://en.wikipedia.org/wiki/Fold_(higher-order_function))
 
 Một development spike nhằm nắm bắt các khái niệm nghiệp vụ cốt lõi bằng A+ES trong một ngôn ngữ lập trình hàm có thể thúc đẩy nhanh chóng những nỗ lực mô hình hóa miền của chúng ta. Hơn thế nữa, nó buộc chúng ta phải chuyển trọng tâm khám phá miền từ cấu trúc của Aggregate sang việc phản ánh chặt chẽ Ubiquitous Language của miền được thể hiện thông qua các hành vi của nó. Bất kỳ điều gì có thể giúp chúng ta chú trọng nhiều hơn vào Core Domain và ít phụ thuộc hơn vào công nghệ đều có khả năng mang lại nhiều giá trị hơn cho doanh nghiệp và giúp doanh nghiệp đạt được lợi thế cạnh tranh lớn hơn nữa.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000654_a4c499d1fb3c0225991851444f0350d6ec11ff1645c2b28f22386b5313ec52d9.png)
 
 This page intentionally left blank
 
 ## Bibliography
 
-[Appleton, LoD] Appleton, Brad. n.d. 'Introducing Demeter and Its Laws.' www.bradapp.com/docs/demeter-intro.html.
+[Appleton, LoD] Appleton, Brad. n.d. 'Introducing Demeter and Its Laws.' [www.bradapp.com/docs/demeter-intro.html](https://www.bradapp.com/docs/demeter-intro.html).
 
 [Bentley] Bentley, Jon. 2000. Programming Pearls, Second Edition. Boston, MA: Addison-Wesley.
 
-http://cs.bell-labs.com/cm/cs/pearls/bote.html.
+[http://cs.bell-labs.com/cm/cs/pearls/bote.html](http://cs.bell-labs.com/cm/cs/pearls/bote.html).
 
 [Brandolini] Brandolini, Alberto. 2009. 'Strategic Domain-Driven Design with Context Mapping.'
 
-www.infoq.com/articles/ddd-contextmapping.
+[www.infoq.com/articles/ddd-contextmapping](https://www.infoq.com/articles/ddd-contextmapping).
 
 [Buschmann et al.] Buschmann, Frank, et al. 1996. Pattern-Oriented Software Architecture, Volume 1: A System of Patterns . New York: Wiley.
 
 [Cockburn] Cockburn, Alastair. 2012. 'Hexagonal Architecture.'
 
-http://alistair.cockburn.us/Hexagonal+architecture.
+[http://alistair.cockburn.us/Hexagonal+architecture](http://alistair.cockburn.us/Hexagonal+architecture).
 
 [Crupi et al.] Crupi, John, et al. n.d. 'Core J2EE Patterns.'
 
-http://corej2eepatterns.com/Patterns2ndEd/DataAccessObject.htm.
+[http://corej2eepatterns.com/Patterns2ndEd/DataAccessObject.htm](http://corej2eepatterns.com/Patterns2ndEd/DataAccessObject.htm).
 
 [Cunningham, Checks] Cunningham, Ward. 1994. 'The CHECKS Pattern Language of Information Integrity.'
 
-http://c2.com/ppr/checks.html.
+[http://c2.com/ppr/checks.html](http://c2.com/ppr/checks.html).
 
-[Cunningham, Whole Value] Cunningham, Ward. 1994. '1. Whole Value.' http://c2.com/ppr/checks.html#1.
+[Cunningham, Whole Value] Cunningham, Ward. 1994. '1. Whole Value.' [http://c2.com/ppr/checks.html#1](http://c2.com/ppr/checks.html#1).
 
 [Cunningham, Whole Value aka Value Object] Cunningham, Ward. 2005. 'Whole Value.'
 
-http://fit.c2.com/wiki.cgi?WholeValue.
+[http://fit.c2.com/wiki.cgi?WholeValue](http://fit.c2.com/wiki.cgi?WholeValue).
 
 [Dahan, CQRS] Dahan, Udi. 2009. 'Clarified CQRS.'
 
-www.udidahan.com/2009/12/09/clarified-cqrs/.
+[www.udidahan.com/2009/12/09/clarified-cqrs/](https://www.udidahan.com/2009/12/09/clarified-cqrs/).
 
-[Dahan, Roles] Dahan, Udi. 2009. 'Making Roles Explicit.' www.infoq.com/presentations/Making-Roles-Explicit-Udi-Dahan.
+[Dahan, Roles] Dahan, Udi. 2009. 'Making Roles Explicit.' [www.infoq.com/presentations/Making-Roles-Explicit-Udi-Dahan](https://www.infoq.com/presentations/Making-Roles-Explicit-Udi-Dahan).
 
-[Deutsch] Deutsch, Peter. 2012. 'Fallacies of Distributed Computing.' http://en.wikipedia.org/wiki/Fallacies_of_Distributed_Computing.
+[Deutsch] Deutsch, Peter. 2012. 'Fallacies of Distributed Computing.' [http://en.wikipedia.org/wiki/Fallacies_of_Distributed_Computing](http://en.wikipedia.org/wiki/Fallacies_of_Distributed_Computing).
 
 [Dolphin] Object Arts. 2000. 'Dolphin Smalltalk; Twisting the Triad.' www.object-arts.com/downloads/papers/TwistingTheTriad.PDF.
 
@@ -494,31 +503,33 @@ www.udidahan.com/2009/12/09/clarified-cqrs/.
 
 http://serviceorientation.com/index.php/serviceorientation/index.
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000655_44bcba716db59404b9452a911fb1bed4a8b47a3c32dd572eaa3ba6fbb575a0ad.png)
+
 [Evans] Evans, Eric. 2004. Domain-Driven Design: Tackling the Complexity in the Heart of Software. Boston, MA: Addison-Wesley.
 
-[Evans, Ref] Evans, Eric. 2012. 'Domain-Driven Design Reference.' http://domainlanguage.com/ddd/patterns/DDD_Reference_2011-01-31.pdf.
+[Evans, Ref] Evans, Eric. 2012. 'Domain-Driven Design Reference.' [http://domainlanguage.com/ddd/patterns/DDD_Reference_2011-01-31.pdf](http://domainlanguage.com/ddd/patterns/DDD_Reference_2011-01-31.pdf).
 
-[Evans & Fowler, Spec] Evans, Eric, and Martin Fowler. 2012. 'Specifications.' http://martinfowler.com/apsupp/spec.pdf.
+[Evans & Fowler, Spec] Evans, Eric, and Martin Fowler. 2012. 'Specifications.' [http://martinfowler.com/apsupp/spec.pdf](http://martinfowler.com/apsupp/spec.pdf).
 
 [Fairbanks] Fairbanks, George. 2011. Just Enough Software Architecture . Marshall & Brainerd.
 
-[Fowler, Anemic] Fowler, Martin. 2003. 'AnemicDomainModel.' http://martinfowler.com/bliki/AnemicDomainModel.html.
+[Fowler, Anemic] Fowler, Martin. 2003. 'AnemicDomainModel.' [http://martinfowler.com/bliki/AnemicDomainModel.html](http://martinfowler.com/bliki/AnemicDomainModel.html).
 
-[Fowler, CQS] Fowler, Martin. 2005. 'CommandQuerySeparation.' http://martinfowler.com/bliki/CommandQuerySeparation.html.
+[Fowler, CQS] Fowler, Martin. 2005. 'CommandQuerySeparation.' [http://martinfowler.com/bliki/CommandQuerySeparation.html](http://martinfowler.com/bliki/CommandQuerySeparation.html).
 
 [Fowler, DI] Fowler, Martin. 2004. 'Inversion of Control Containers and the Dependency Injection Pattern.'
 
-http://martinfowler.com/articles/injection.html.
+[http://martinfowler.com/articles/injection.html](http://martinfowler.com/articles/injection.html).
 
 [Fowler, P of EAA] Fowler, Martin. 2003. Patterns of Enterprise Application Architecture . Boston, MA: Addison-Wesley.
 
 [[Fowler, PM] Fowler, Martin. 2004. 'Presentation Model.'](http://martinfowler.com/eaaDev/PresentationModel.html)
 
-http://martinfowler.com/eaaDev/PresentationModel.html.
+[http://martinfowler.com/eaaDev/PresentationModel.html](http://martinfowler.com/eaaDev/PresentationModel.html).
 
-[Fowler, Self Encap] Fowler, Martin. 2012. 'SelfEncapsulation.' http://martinfowler.com/bliki/SelfEncapsulation.html.
+[Fowler, Self Encap] Fowler, Martin. 2012. 'SelfEncapsulation.' [http://martinfowler.com/bliki/SelfEncapsulation.html](http://martinfowler.com/bliki/SelfEncapsulation.html).
 
-[Fowler, SOA] Fowler, Martin. 2005. 'ServiceOrientedAmbiguity.' http://martinfowler.com/bliki/ServiceOrientedAmbiguity.html.
+[Fowler, SOA] Fowler, Martin. 2005. 'ServiceOrientedAmbiguity.' [http://martinfowler.com/bliki/ServiceOrientedAmbiguity.html](http://martinfowler.com/bliki/ServiceOrientedAmbiguity.html).
 
 [Freeman et al.] Freeman, Eric, Elisabeth Robson, Bert Bates, and Kathy Sierra. 2004. Head First Design Patterns . Sebastopol, CA: O'Reilly Media.
 
@@ -530,7 +541,7 @@ www.amundsen.com/downloads/sagas.pdf.
 
 [[GemFire Functions] 2012. VMware vFabric 5 Documentation Center. http://pubs.vmware.com/vfabric5/index.jsp?topic=/com.vmware.vfabric .gemfire.6.6/developing/function_exec/chapter_overview.html.](http://pubs.vmware.com/vfabric5/index.jsp?topic=/com.vmware.vfabric.gemfire.6.6/developing/function_exec/chapter_overview.html)
 
-[Gson] 2012. A Java JSON library hosted on Google Code. http://code.google.com/p/google-gson/.
+[Gson] 2012. A Java JSON library hosted on Google Code. [http://code.google.com/p/google-gson/](http://code.google.com/p/google-gson/).
 
 [Helland] Helland, Pat. 2007. 'Life beyond Distributed Transactions: An Apostate's Opinion.' Third Biennial Conference on Innovative DataSystems Research (CIDR), January 7-10, Asilomar, CA.
 
@@ -538,29 +549,29 @@ www.ics.uci.edu/~cs223/papers/cidr07p15.pdf.
 
 [Hohpe & Woolf] Hohpe, Gregor, and Bobby Woolf. 2004. Enterprise Integration Patterns: Designing, Building, and Deploying Messaging Systems . Boston, MA: Addison-Wesley.
 
-[Inductive UI] 2001. Microsoft Inductive User Interface Guidelines. http://msdn.microsoft.com/en-us/library/ms997506.aspx.
+[Inductive UI] 2001. Microsoft Inductive User Interface Guidelines. [http://msdn.microsoft.com/en-us/library/ms997506.aspx](http://msdn.microsoft.com/en-us/library/ms997506.aspx).
 
 [Jezequel et al.] Jezequel, Jean-Marc, Michael Train, and Christine Mingins. 2000. Design Patterns and Contract. Reading, MA: Addison-Wesley.
 
 [Keith & Stafford] Keith, Michael, and Randy Stafford. 2008. 'Exposing the ORM Cache.' ACM , May 1.
 
-http://queue.acm.org/detail.cfm?id=1394141.
+[http://queue.acm.org/detail.cfm?id=1394141](http://queue.acm.org/detail.cfm?id=1394141).
 
-[Liskov] Liskov, Barbara. 1987. Conference Keynote: 'Data Abstraction and Hierarchy.' http://en.wikipedia.org/wiki/Liskov_substitution_principle. 'The Liskov Substitution Principle.'
+[Liskov] Liskov, Barbara. 1987. Conference Keynote: 'Data Abstraction and Hierarchy.' [http://en.wikipedia.org/wiki/Liskov_substitution_principle](http://en.wikipedia.org/wiki/Liskov_substitution_principle). 'The Liskov Substitution Principle.'
 
-www.objectmentor.com/resources/articles/lsp.pdf.
+[www.objectmentor.com/resources/articles/lsp.pdf](https://www.objectmentor.com/resources/articles/lsp.pdf).
 
-[Martin, DIP] Martin, Robert. 1996. 'The Dependency Inversion Principle.' www.objectmentor.com/resources/articles/dip.pdf.
+[Martin, DIP] Martin, Robert. 1996. 'The Dependency Inversion Principle.' [www.objectmentor.com/resources/articles/dip.pdf](https://www.objectmentor.com/resources/articles/dip.pdf).
 
 [Martin, SRP] Martin, Robert. 2012. 'SRP: The Single Responsibility Principle.' www.objectmentor.com/resources/articles/srp.pdf.
 
 [[MassTransit] Patterson, Chris. 2008. 'Managing Long-Lived Transactions with MassTransit.Saga.'](http://lostechies.com/chrispatterson/2008/08/29/managing-long-lived-transactions-with-masstransit-saga/)
 
-http://lostechies.com/chrispatterson/2008/08/29/managing-long-livedtransactions-with-masstransit-saga/.
+[http://lostechies.com/chrispatterson/2008/08/29/managing-long-livedtransactions-with-masstransit-saga/](http://lostechies.com/chrispatterson/2008/08/29/managing-long-livedtransactions-with-masstransit-saga/).
 
 [[MSDN Assemblies] 2012.](http://msdn.microsoft.com/en-us/library/51ket42z%28v=vs.71%29.aspx)
 
-http://msdn.microsoft.com/en-us/library/51ket42z%28v=vs.71%29.aspx.
+[http://msdn.microsoft.com/en-us/library/51ket42z%28v=vs.71%29.aspx](http://msdn.microsoft.com/en-us/library/51ket42z%28v=vs.71%29.aspx).
 
 [Nilsson] Nilsson, Jimmy. 2006. Applying Domain-Driven Design and Patterns: With Examples in C# and .NET. Boston, MA: Addison-Wesley.
 
@@ -568,17 +579,21 @@ http://msdn.microsoft.com/en-us/library/51ket42z%28v=vs.71%29.aspx.
 
 [[NServiceBus] 2012.](http://www.nservicebus.com/)
 
-www.nservicebus.com/.
+[www.nservicebus.com/](https://www.nservicebus.com/).
 
 [Öberg] Öberg, Rickard. 2012. 'What Is Qi4j™?' http://qi4j.org/.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000656_d1a45bebf52125d042db60a906b5c7582d1dcaf27d88eb93c8b389f46d524437.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000657_a78bb5b47de16f21577abcd59c759edd7137786af64974b026fe11d1f0fe0f8a.png)
 
 [Parastatidis et al., RiP] Webber, Jim, Savas Parastatidis, and Ian Robinson. 2011. REST in Practice . Sebastopol, CA: O'Reilly Media.
 
 [[PragProg, TDA] The Pragmatic Programmer. 'Tell, Don't Ask.'](http://pragprog.com/articles/tell-dont-ask)
 
-http://pragprog.com/articles/tell-dont-ask.
+[http://pragprog.com/articles/tell-dont-ask](http://pragprog.com/articles/tell-dont-ask).
 
-[Quartz] 2012. Terracotta Quartz Scheduler. http://terracotta.org/products/quartz-scheduler.
+[Quartz] 2012. Terracotta Quartz Scheduler. [http://terracotta.org/products/quartz-scheduler](http://terracotta.org/products/quartz-scheduler).
 
 [Seovi þ ] Seovi þ , Aleksandar, Mark Falco, and Patrick Peralta. 2010. Oracle Coherence 3.5: Creating Internet-Scale Applications Using Oracle's High-Performance Data Grid . Birmingham, England: Packt Publishing.
 
@@ -588,183 +603,48 @@ www.soa-manifesto.org/.
 
 [[Sutherland] Sutherland, Jeff. 2010. 'Story Points: Why Are They Better than Hours?'](http://scrum.jeffsutherland.com/2010/04/story-points-why-are-they-better-than.html)
 
-http://scrum.jeffsutherland.com/2010/04/story-points-why-are-they-betterthan.html.
+[http://scrum.jeffsutherland.com/2010/04/story-points-why-are-they-betterthan.html](http://scrum.jeffsutherland.com/2010/04/story-points-why-are-they-betterthan.html).
 
-[Tilkov, Manifesto] Tilkov, Stefan. 2009. 'Comments on the SOA Manifesto.' www.innoq.com/blog/st/2009/10/comments_on_the_soa_manifesto.html.
+[Tilkov, Manifesto] Tilkov, Stefan. 2009. 'Comments on the SOA Manifesto.' [www.innoq.com/blog/st/2009/10/comments_on_the_soa_manifesto.html](https://www.innoq.com/blog/st/2009/10/comments_on_the_soa_manifesto.html).
 
-[Tilkov, RESTful Doubts] Tilkov, Stefan. 2012. 'Addressing Doubts about REST.' www.infoq.com/articles/tilkov-rest-doubts.
+[Tilkov, RESTful Doubts] Tilkov, Stefan. 2012. 'Addressing Doubts about REST.' [www.infoq.com/articles/tilkov-rest-doubts](https://www.infoq.com/articles/tilkov-rest-doubts).
 
-[Vernon, DDR] Vernon, Vaughn. n.d. 'Architecture and Domain-Driven Design.' http://vaughnvernon.co/?page_id=38.
+[Vernon, DDR] Vernon, Vaughn. n.d. 'Architecture and Domain-Driven Design.' [http://vaughnvernon.co/?page_id=38](http://vaughnvernon.co/?page_id=38).
 
-[Vernon, DPO] Vernon, Vaughn. n.d. 'Architecture and Domain-Driven Design.' http://vaughnvernon.co/?page_id=40.
+[Vernon, DPO] Vernon, Vaughn. n.d. 'Architecture and Domain-Driven Design.' [http://vaughnvernon.co/?page_id=40](http://vaughnvernon.co/?page_id=40).
 
 [Vernon, RESTful DDD] Vernon, Vaughn. 2010. 'RESTful SOA or DomainDriven Design-A Compromise?' QCon SF 2010. www.infoq.com/presentations/RESTful-SOA-DDD.
 
 [[Webber, REST & DDD] Webber, Jim. 'REST and DDD.'](http://skillsmatter.com/podcast/design-architecture/rest-and-ddd)
 
-http://skillsmatter.com/podcast/design-architecture/rest-and-ddd.
+[http://skillsmatter.com/podcast/design-architecture/rest-and-ddd](http://skillsmatter.com/podcast/design-architecture/rest-and-ddd).
 
 [Wiegers] Wiegers, Karl E. 2012. 'First Things First: Prioritizing Requirements.'
 
-www.processimpact.com/articles/prioritizing.html.
+[www.processimpact.com/articles/prioritizing.html](https://www.processimpact.com/articles/prioritizing.html).
 
 [Wikipedia, CQS] 2012. 'Command-Query Separation.' http://en.wikipedia.org/wiki/Command-query_separation.
 
 [[Wikipedia, EDA] 2012. 'Event-Driven Architecture.'](http://en.wikipedia.org/wiki/Event-driven_architecture)
 
-http://en.wikipedia.org/wiki/Event-driven_architecture.
+[http://en.wikipedia.org/wiki/Event-driven_architecture](http://en.wikipedia.org/wiki/Event-driven_architecture).
 
-[Young, ES] Young, Greg. 2010. 'Why Use Event Sourcing?' http://codebetter.com/gregyoung/2010/02/20/why-use-event-sourcing/.
+[Young, ES] Young, Greg. 2010. 'Why Use Event Sourcing?' [http://codebetter.com/gregyoung/2010/02/20/why-use-event-sourcing/](http://codebetter.com/gregyoung/2010/02/20/why-use-event-sourcing/).
 
 ## Index
 
 ## A
 
-| Abstract classes, in modules, 338<br>
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000658_9800c9ebb19ee7dd1c5c09ae76d0abbcadd88cb22700ebabee728c038eac96dd.png)
 
-<br>Abstract Factory pattern, 389<br>
-
-<br>Abstraction, Dependency Inversion Principle and, 123<br>
-
-<br>Access management, identity and, 91-92<br>
-
-<br>ACID databases, 521<br>
-
-<br>ACL. See Anticorruption Layer (ACL)<br>
-
-<br>Active Record, in Transaction Scripts, 441<br>
-
-<br>ActiveMQ, as messaging middleware, 303<br>
-
-<br>Actor Model, 295<br>
-
-<br>Adapters. See also Hexagonal Architecture<br>
-
-<br>Domain Services use for integration, 280<br>
-
-<br>handling client output types, 529-530<br>
-
-<br>Hexagonal Architecture and, 126-127<br>
-
-<br>Presentation Model as, 519<br>
-
-<br>for REST client implementation, 465-466<br>
-
-<br>Aggregate Root query interface, 516<br>
-
-<br>Aggregate Stores<br>
-
-<br>distributed caches of Data Fabrics as, 164<br>
-
-<br>persistence-oriented repositories and, 418<br>
-
-<br>Aggregate-Oriented Databases, 418<br>
-
-<br>Aggregates. See also A+ES (Aggregates and Event Sourcing)<br>
-
-<br>Application Services and, 120-121<br>
-
-<br>avoiding dependency Injection, 387<br>
-
-<br>behavioral focus of, 569-570<br>
-
-<br>Context Maps and, 90<br>
-
-<br>cost estimates of memory overhead, 372-373<br>
-
-<br>creating and publishing Events, 287<br>
-
-<br>decision process in designing, 379-380<br>
-
-<br>designing, 573<br>
-
-<br>designing based on usage scenarios, 375-376<br>
-
-<br>Domain Events with Aggregate characteristics, 294-295<br>
-
-<br>Event Sourcing and, 160-162, 539<br>
-
-<br>eventual consistency, 364-367, 376-378<br>
-
-<br>executives and trackers merged in, 156<br>
-
-<br>factories on Aggregate Root, 391-392<br>
-
-<br>global transactions as reason to break design rules, 369<br>
-
-<br>implementing, 380 | information hiding (Law of Demeter and Tell, Don't Ask), 382-384<br>
-
-<br>invariant determination in creating clusters, 353-355<br>
-
-<br>lack of technical mechanisms as reason to break design rules, 368-369<br>
-
-<br>local identity of Entities and, 177<br>
-
-<br>mediators publishing internal state of, 514-515<br>
-
-<br>memory consumption and, 374-375<br>
-
-<br>model navigation and, 362-363<br>
-
-<br>motivations for Factory use, 389<br>
-
-<br>as object collections, 203<br>
-
-<br>optimistic concurrency, 385-387<br>
-
-<br>organizing into large clusters, 349-351<br>
-
-<br>organizing into smaller units, 351-353<br>
-
-<br>overview of, 347-348<br>
-
-<br>placing in repository, 401<br>
-
-<br>query performance as reason to break design rules, 369-370<br>
-
-<br>querying repositories and, 138<br>
-
-<br>references between, 359-362<br>
-
-<br>removing from repository, 409<br>
-
-<br>rendering Data Transfer Objects, 513-514<br>
-
-<br>rendering Domain Payload Objects, 515-516<br>
-
-<br>rendering properties of multiple instances, 512-513<br>
-
-<br>rethinking design, 370-372<br>
-
-<br>review, 388<br>
-
-<br>Root Entity and, 380-382<br>
-
-<br>scalability and distribution of, 363-364<br>
-
-<br>in Scrum Core Domain, 348-349<br>
-
-<br>single-aggregate-instance-in-single- transaction rule of thumb, 302<br>
-
-<br>size of Bounded Contexts and, 68<br>
-
-<br>small Aggregate design, 355-358<br>
-
-<br>snapshots of, 559-561<br>
-
-<br>as Standard Type, 237<br>
-
-<br>state of, 516-517<br>
-
-<br>storing in Data Fabrics, 164<br>
-
-<br>synchronizing instances in local Bounded Context, 287 |
+| Abstract classes, in modules, 338<br><br>Abstract Factory pattern, 389<br><br>Abstraction, Dependency Inversion Principle and, 123<br><br>Access management, identity and, 91-92<br><br>ACID databases, 521<br><br>ACL. See Anticorruption Layer (ACL)<br><br>Active Record, in Transaction Scripts, 441<br><br>ActiveMQ, as messaging middleware, 303<br><br>Actor Model, 295<br><br>Adapters. See also Hexagonal Architecture<br><br>Domain Services use for integration, 280<br><br>handling client output types, 529-530<br><br>Hexagonal Architecture and, 126-127<br><br>Presentation Model as, 519<br><br>for REST client implementation, 465-466<br><br>Aggregate Root query interface, 516<br><br>Aggregate Stores<br><br>distributed caches of Data Fabrics as, 164<br><br>persistence-oriented repositories and, 418<br><br>Aggregate-Oriented Databases, 418<br><br>Aggregates. See also A+ES (Aggregates and Event Sourcing)<br><br>Application Services and, 120-121<br><br>avoiding dependency Injection, 387<br><br>behavioral focus of, 569-570<br><br>Context Maps and, 90<br><br>cost estimates of memory overhead, 372-373<br><br>creating and publishing Events, 287<br><br>decision process in designing, 379-380<br><br>designing, 573<br><br>designing based on usage scenarios, 375-376<br><br>Domain Events with Aggregate characteristics, 294-295<br><br>Event Sourcing and, 160-162, 539<br><br>eventual consistency, 364-367, 376-378<br><br>executives and trackers merged in, 156<br><br>factories on Aggregate Root, 391-392<br><br>global transactions as reason to break design rules, 369<br><br>implementing, 380 | information hiding (Law of Demeter and Tell, Don't Ask), 382-384<br><br>invariant determination in creating clusters, 353-355<br><br>lack of technical mechanisms as reason to break design rules, 368-369<br><br>local identity of Entities and, 177<br><br>mediators publishing internal state of, 514-515<br><br>memory consumption and, 374-375<br><br>model navigation and, 362-363<br><br>motivations for Factory use, 389<br><br>as object collections, 203<br><br>optimistic concurrency, 385-387<br><br>organizing into large clusters, 349-351<br><br>organizing into smaller units, 351-353<br><br>overview of, 347-348<br><br>placing in repository, 401<br><br>query performance as reason to break design rules, 369-370<br><br>querying repositories and, 138<br><br>references between, 359-362<br><br>removing from repository, 409<br><br>rendering Data Transfer Objects, 513-514<br><br>rendering Domain Payload Objects, 515-516<br><br>rendering properties of multiple instances, 512-513<br><br>rethinking design, 370-372<br><br>review, 388<br><br>Root Entity and, 380-382<br><br>scalability and distribution of, 363-364<br><br>in Scrum Core Domain, 348-349<br><br>single-aggregate-instance-in-single- transaction rule of thumb, 302<br><br>size of Bounded Contexts and, 68<br><br>small Aggregate design, 355-358<br><br>snapshots of, 559-561<br><br>as Standard Type, 237<br><br>state of, 516-517<br><br>storing in Data Fabrics, 164<br><br>synchronizing instances in local Bounded Context, 287 |
 | --- | --- |
+
 
 
 Aggregates (tiếp theo) tactical modeling tools, 29 results of asking whose job it is, 378-379 usage scenarios applied to designing, 373-374 use cases and, 358-359 user interface convenience as reason to break design rules, 367-368 Value Objects preferred over Entities when possible, 382 Aggregates and Event Sourcing (A+ES) advantages of, 539-540 Aggregate design, 573 BLOB persistence, 568-569 Command Handlers, 549-553 concurrency control, 554-558 contract generation and maintenance, 580-581 drawbacks of, 540 event enrichment, 573-575 event immutability, 577 event serializers, 576-577 event sourcing in functional languages, 583 focusing Aggregates on different behavioral aspects, 569-570 implementing event stores, 561-565 inside Application Services, 541-549 lambda syntax, 553-554 overview of, 539 performance issues, 558-561 Read Model Projections, 570-572 relational persistence, 565-567 structural freedom with, 558 tools and patterns supporting, 576 unit tests and specifications, 582-583 Value Objects and, 577-580 Agile Manifesto, 82 Agile modeling benefits of DDD, 28 design and, 55 Agile Project Management (APM), 177 Agile Project Management Context calculation process from, 277 Context Maps and, 104 as Core Domain, 98 integrating with Collaboration Context, 107-110 integrating with Identity and Access Context, 104-107 modeling Domain Event from, 288-289 modules, 340-343 overview of, 82-84
 
-ProjectOvation as example of, 92 Value Objects and, 239 Ajax Push (Comet), 147 Akka, as messaging middleware, 303 Anemia, 14-16 Anemia-induced memory loss, 16-20 Anemic Domain Model avoiding, 426 causes of, 14-15 determining health of Domain Model and, 13 DTOs mimicking, 532 overuse of services resulting in, 268 overview of, 13 presence of anemia everywhere, 15-16 what anemia does to your model, 16-17 Anticorruption Layer (ACL) Bounded Context relationships, 93-94 built-in, 532 defined, 101 implementing, 469 implementing REST clients and, 463-469 synchronizing team members with identities and roles, 340-341 APIs (application programming interfaces) creating products, 482-483 integration basics and, 450-451 opening services and, 510 APM (Agile Project Management), 177. See also Agile Project Management Context Application Layer composing multiple Bounded Contexts and, 531-532 creating and naming modules of nonmodel components, 343-344 DIP (Dependency Inversion Principle) and, 124 in Layers Architecture, 119-121 managing transactions in, 433-434 Application programming interfaces. See APIs (application programming interfaces) Application Services, 68 controlling access and use of Aggregates, 541-549 decoupling service output, 528-530 delegation of, 461-462 Domain Services compared with, 267 enterprise component containers, 534-537 example, 522-528 Hexagonal Architecture and, 126-128
+ProjectOvation as example of, 92 Value Objects and, 239 Ajax Push (Comet), 147 Akka, as messaging middleware, 303 Anemia, 14-16 Anemia-induced memory loss, 16-20 Anemic Domain Model avoiding, 426 causes of, 14-15 determining health of Domain Model and, 13 DTOs mimicking, 532 overuse of services resulting in, 268 overview of, 13 presence of anemia everywhere, 15-16 what anemia does to your model, 16-17 Anticorruption Layer (ACL) Bounded Context relationships, 93-94 built-in, 532 defined, 101 implementing, 469 implementing REST clients and, 463-469 synchronizing team members with identities and roles, 340-341 APIs (application programming interfaces) creating products, 482-483 integration basics and, 450-451 opening services and, 510 APM (Agile Project Management), 177. See also Agile Project Management Context Application Layer composing multiple Bounded Contexts and, 531-532 tạo và đặt tên các module cho các thành phần phi-model, 343-344 DIP (Dependency Inversion Principle) and, 124 in Layers Architecture, 119-121 managing transactions in, 433-434 Application programming interfaces. See APIs (application programming interfaces) Application Services, 68 controlling access and use of Aggregates, 541-549 decoupling service output, 528-530 delegation of, 461-462 Domain Services compared with, 267 enterprise component containers, 534-537 example, 522-528 Hexagonal Architecture and, 126-128
 
 infrastructure and, 509, 532-534
 

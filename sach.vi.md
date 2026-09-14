@@ -313,8 +313,7 @@ Trang này được chủ ý để trống
 |   ├── Dựng hình Data Transfer Object từ các Thể hiện Aggregate (from Aggregate Instances) | 513 |
 |   ├── Sử dụng Mediator để Phát hành Trạng thái Nội bộ của Aggregate (Aggregate Internal State) | 514 |
 |   └── Hiển thị các Thể hiện Aggregate từ một Domain Object Payload (Tải trọng Dữ liệu) | 515 |
-
-﻿| ├── Giao diện Người dùng (User Interface) |  |
+| ├── Giao diện Người dùng (User Interface) |  |
 | │ ├── Biểu diễn Trạng thái của các Thể hiện Aggregate (State Representations of Aggregate Instances) | 516 |
 | │ ├── Truy vấn Repository Tối ưu cho Từng Use Case (Use Case Optimal Repository Queries) | 517 |
 | │ ├── Xử lý Nhiều Loại Client Khác biệt (Dealing with Multiple, Disparate Clients) | 517 |
@@ -6880,7 +6879,7 @@ public class BusinessPriorityCalculator {
 
 `BacklogItemRepository` được sử dụng để lấy tất cả các thể hiện `BacklogItem` còn tồn đọng. Một `BacklogItem` còn tồn đọng là hạng mục có trạng thái thuộc kiểu `Planned`, `Scheduled`, hoặc `Committed`, chứ không phải là `Done` hay `Removed`. Một Service trong miền hoàn toàn có thể tự do sử dụng các Repository khi cần, nhưng việc truy cập Repository từ bên trong một thể hiện Aggregate lại là một thực hành không được khuyến khích.
 
-﻿Đối với toàn bộ các hạng mục tồn đọng (outstanding items) của một sản phẩm nhất định, chúng ta sẽ duyệt lặp qua từng mục và tính tổng từng xếp hạng trong thuộc tính `BusinessPriority` (Độ ưu tiên nghiệp vụ) của chúng. Các giá trị tổng thu được từ quá trình tính toán lặp này được dùng để khởi tạo một đối tượng `BusinessPriorityTotals` (Tổng các chỉ số ưu tiên nghiệp vụ) mới rồi trả về cho phía client (phía gọi dịch vụ). Bản thân quy trình tính toán của một Service (Dịch vụ miền / Domain Service) không nhất thiết phải luôn phức tạp, dù trong một số trường hợp sự phức tạp là điều bắt buộc. Trường hợp cụ thể này tình cờ lại khá đơn giản.
+Đối với toàn bộ các hạng mục tồn đọng (outstanding items) của một sản phẩm nhất định, chúng ta sẽ duyệt lặp qua từng mục và tính tổng từng xếp hạng trong thuộc tính `BusinessPriority` (Độ ưu tiên nghiệp vụ) của chúng. Các giá trị tổng thu được từ quá trình tính toán lặp này được dùng để khởi tạo một đối tượng `BusinessPriorityTotals` (Tổng các chỉ số ưu tiên nghiệp vụ) mới rồi trả về cho phía client (phía gọi dịch vụ). Bản thân quy trình tính toán của một Service (Dịch vụ miền / Domain Service) không nhất thiết phải luôn phức tạp, dù trong một số trường hợp sự phức tạp là điều bắt buộc. Trường hợp cụ thể này tình cờ lại khá đơn giản.
 
 Hãy lưu ý từ ví dụ này rằng bạn hoàn toàn không muốn logic này nằm trong một Application Service (Dịch vụ ứng dụng). Ngay cả khi bạn coi phép tính tổng trong vòng lặp `for` là tầm thường, nó vẫn là business logic (logic nghiệp vụ). Nhưng vẫn còn một lý do khác:
 
@@ -6889,14 +6888,16 @@ BusinessPriorityTotals businessPriorityTotals =
     new BusinessPriorityTotals(
         totalBenefit,
         totalPenalty,
-
 ```
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000295_44cac771d4321797eed28b1139ae74acba7a2b8b1cee068eff909797c7a5835d.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000296_f2f4e5cecb5eca5f10867d33a291e2e8104b3b3c96948780e1880d7626e4755e.png)
 
 ```java
         totalBenefit + totalPenalty,
         totalCost,
         totalRisk);
-
 ```
 
 Khi `BusinessPriorityTotals` được khởi tạo, thuộc tính `totalValue` của nó được tính suy biến từ tổng của `totalBenefit` và `totalPenalty`. Logic này mang tính đặc thù của miền nghiệp vụ (domain-specific) và tuyệt đối không được phép rò rỉ sang Application Layer (Tầng ứng dụng). Chúng ta có thể lập luận rằng bản thân constructor (hàm khởi tạo) của `BusinessPriorityTotals` nên tự đảm nhận việc suy biến giá trị này từ hai tham số truyền vào. Dù đó có thể là một cách cải thiện mô hình, nhưng việc làm đó cũng không thể biện minh cho việc chuyển các phép tính còn lại sang một Application Service.
@@ -6920,7 +6921,6 @@ public class ProductService ... {
         return productBusinessPriority;
     }
 }
-
 ```
 
 Trong trường hợp này, một phương thức private trong Application Service chịu trách nhiệm yêu cầu tính tổng độ ưu tiên nghiệp vụ cho sản phẩm. Tại đây, phương thức có thể chỉ đang cung cấp một phần payload (dữ liệu truyền tải) trả về cho client của `ProductService`, chẳng hạn như giao diện người dùng (User Interface).
@@ -6956,8 +6956,11 @@ public class AuthenticationServiceTest extends IdentityTest {
         DomainRegistry
             .userRepository()
             .add(user);
-
 ```
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000297_457ae7e640b9b99aa017da56207a4c63fcc8a56ba7326f9c69c421e974748249.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000298_4ad6166238006aabe5202cf55a69ec170dca2a4007b5f1a6def9132b9d8f3f7e.png)
 
 ```java
         UserDescriptor userDescriptor =
@@ -6974,7 +6977,6 @@ public class AuthenticationServiceTest extends IdentityTest {
         assertEquals(user.person().emailAddress(), userDescriptor.emailAddress());
     }
     ...
-
 ```
 
 Ví dụ này cho thấy cách `AuthenticationService` được client thuộc Application Service sử dụng. Đây là một happy path (kịch bản lý tưởng / luồng chạy chuẩn không phát sinh lỗi), nơi client xác thực thành công người dùng bằng cách truyền vào các tham số đúng như kỳ vọng.
@@ -7003,7 +7005,6 @@ Tiếp theo, chúng ta minh họa kịch bản xác thực thất bại:
 
         assertNull(userDescriptor);
     }
-
 ```
 
 Bài test xác thực này thất bại vì chúng ta cố ý truyền vào một `TenantId` khác với `TenantId` mà `User` được tạo ra. Tiếp theo là minh họa trường hợp tên đăng nhập không hợp lệ:
@@ -7026,7 +7027,6 @@ Bài test xác thực này thất bại vì chúng ta cố ý truyền vào mộ
 
         assertNull(userDescriptor);
     }
-
 ```
 
 Kịch bản kiểm thử xác thực này thất bại vì chúng ta truyền sai tên đăng nhập. Còn một kịch bản thất bại cuối cùng được minh họa trong các bài test này:
@@ -7050,12 +7050,17 @@ Kịch bản kiểm thử xác thực này thất bại vì chúng ta truyền s
         assertNull(userDescriptor);
     }
 }
-
 ```
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000299_1b101a0479ae3fea3924b17e0763fd5c7963fc59f1d153ac42c46ecf9809dc05.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000300_01b9985beec547c8ec23cd8e0209d691e5df19c82ffd6f40ec9da4d2beec6c0a.png)
 
 Bài test này cung cấp mật khẩu sai, dẫn đến việc xác thực thất bại. Trong mọi trường hợp minh họa kịch bản thất bại, `UserDescriptor` đều được trả về dưới dạng `null`. Đây là một chi tiết mà các client cần lưu ý, vì nó cho biết điều gì client nên mong đợi khi người dùng không được xác thực. Nó cũng chỉ ra rằng xác thực thất bại không phải là một lỗi ngoại lệ (exceptional error), mà chỉ là một khả năng diễn ra bình thường trong domain này. Nếu không, nếu việc xác thực thất bại bị coi là ngoại lệ, chúng ta đã bắt Service ném ra ngoại lệ `AuthenticationFailedException`.
 
 Trên thực tế vẫn còn thiếu một vài bài test. Tôi sẽ để bạn tự viết test cho các kịch bản miền nghiệp vụ bao gồm: khi một `Tenant` (Bên thuê / Đơn vị thuê hệ thống) không còn hoạt động, và khi một `User` bị vô hiệu hóa. Sau đó, bạn có thể tạo các bài test cho `BusinessPriorityCalculator`.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000301_9dda28262153b1955567b5408cb28a5615abde6c626337004497b6a09d255c32.png)
 
 ## Wrap-Up
 
@@ -7097,6 +7102,8 @@ Tra cứu tài liệu của [Evans], bạn sẽ không tìm thấy định nghĩ
 
 Điều gì đó đã xảy ra mà các chuyên gia nghiệp vụ (domain experts) quan tâm.
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000302_408553df1886616960677931e15e4f6b4d8c29ea7b16b28f2ff218aa521cfe4b.png)
+
 Hãy mô hình hóa thông tin về hoạt động trong domain thành một chuỗi các sự kiện rời rạc. Đại diện cho mỗi sự kiện bằng một đối tượng miền (domain object). . . . Một sự kiện miền là một phần đầy đủ của mô hình miền, một đại diện cho điều gì đó đã xảy ra trong miền. [Evans, Ref, trang 20]
 
 Làm thế nào để chúng ta xác định được liệu điều gì đó xảy ra trong miền có quan trọng đối với các chuyên gia nghiệp vụ hay không? Khi trao đổi với họ, chúng ta phải lắng nghe cẩn thận từng manh mối. Hãy lưu ý một vài cụm từ then chốt cần lắng nghe khi các chuyên gia nghiệp vụ nói chuyện:
@@ -7112,11 +7119,13 @@ Dĩ nhiên, với các cách diễn đạt 'Báo cho tôi nếu . . .' và 'Thô
 
 AJ: 'Trong trường hợp tôi cần ngựa [chơi chữ: Trong sự kiện tôi cần ngựa], tôi chỉ việc hét lên: 'Lại đây nào, Trigger!' là nó phi tới ngay. Dĩ nhiên, việc cho nó biết tôi đang cầm một viên đường cũng chẳng hại gì.'
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000303_26c332a76a614679971a2c2675288649bdd479c732440953476fcef2e9c52526.png)
+
 > 💡 **Giải thích thêm:** Tác giả sử dụng góc hài hước "Cowboy Logic" (Lô-gíc cao bồi) qua các nhân vật miền Tây để chơi chữ với các khái niệm Domain-Driven Design:
 > * Cụm từ *"In the event that"* vừa mang nghĩa đời thường là "trong trường hợp / khi", vừa ám chỉ khái niệm "Event" (Sự kiện miền).
 > * "Trigger" vừa là tên con ngựa nổi tiếng của chàng cao bồi huyền thoại Roy Rogers trong văn hóa Mỹ, vừa là thuật ngữ kỹ thuật chỉ hành động "kích hoạt" (trigger).
 > * "Viên đường" (cube of sugar) tượng trưng cho thông tin/dữ liệu đính kèm (payload) thúc đẩy hành động phản hồi tức thì.
-> Nguồn tham khảo: https://en.wikipedia.org/wiki/Trigger_(horse)
+> Nguồn tham khảo: [https://en.wikipedia.org/wiki/Trigger_(horse](https://en.wikipedia.org/wiki/Trigger_(horse))
 > 
 > 
 
@@ -7132,6 +7141,12 @@ Hình 8.1 minh họa cách các Event có thể bắt nguồn, cách chúng đư
 
 Hình 8.1 Các Aggregate tạo ra các Event và phát hành chúng. Các subscriber có thể lưu trữ Event rồi chuyển tiếp chúng tới các subscriber ở xa, hoặc chỉ chuyển tiếp mà không lưu trữ. Việc chuyển tiếp tức thời đòi hỏi chuẩn XA (tiêu chuẩn giao dịch phân tán hai pha) trừ khi middleware nhắn tin chia sẻ chung kho lưu trữ dữ liệu với mô hình.
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000304_92adbef44ec5e466e174225c3907ece6830a4357abd9162743455f0964f7f619.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000305_ea443ff303707d0cc0e2f3529c14d0938bef936c77ac7ce481a8b4fbf68422c0.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000306_ce424a29adfa43de0572b51feef985247cd90d0a6d0252ffcf0648bd5c8dd0ef.png)
+
 Ngoài ra, hãy nghĩ đến những thời điểm hệ thống của bạn thường phải thực hiện batch processing (xử lý theo lô). Có thể vào các khung giờ thấp điểm (thường là ban đêm), hệ thống của bạn thực hiện một số hoạt động bảo trì hàng ngày nào đó: xóa các đối tượng đã lỗi thời, tạo mới các đối tượng cần thiết để đáp ứng các tình huống nghiệp vụ mới hình thành, đồng bộ trạng thái giữa các đối tượng với nhau, và thậm chí thông báo cho một số người dùng nhất định rằng những điều quan trọng đã diễn ra. Thường thì việc thực hiện các quy trình batch như vậy đòi hỏi bạn phải chạy những câu truy vấn phức tạp nhằm xác định các tình huống nghiệp vụ cần xử lý. Các phép tính toán và thủ tục để giải quyết chúng rất tốn kém tài nguyên, đồng thời việc đồng bộ hóa tất cả các thay đổi đòi hỏi những giao dịch có quy mô lớn. Sẽ ra sao nếu những quy trình batch phiền toái đó có thể trở nên thừa thãi và bị loại bỏ?
 
 Bây giờ, hãy nghĩ về những sự việc thực tế đã diễn ra trong suốt ngày hôm trước dẫn đến nhu cầu phải "chạy đuổi theo để bù đắp" (play catch-up) vào ban đêm. Nếu mỗi sự việc rời rạc đó đều được ghi nhận bằng một Event duy nhất, rồi phát hành tới các listener (bộ lắng nghe sự kiện) trong chính hệ thống của bạn, liệu điều đó có giúp đơn giản hóa mọi thứ không? Thực tế là có, nó sẽ loại bỏ các câu truy vấn phức tạp bởi vì bạn sẽ biết chính xác điều gì đã xảy ra và xảy ra khi nào, cung cấp đầy đủ ngữ cảnh về những gì cần phải diễn ra tiếp theo như một hệ quả tất yếu. Bạn chỉ việc thực thi khi nhận được thông báo của từng Event. Khối lượng xử lý vốn đang ngốn nhiều tài nguyên I/O và vi xử lý trong các đợt batch nặng nề sẽ được dàn trải thành từng đợt ngắn (short spurts) xuyên suốt cả ngày; nhờ đó, các tình huống nghiệp vụ của bạn sẽ đạt trạng thái hài hòa nhanh hơn rất nhiều, luôn sẵn sàng cho người dùng thực hiện các bước kế tiếp.
@@ -7145,6 +7160,8 @@ Tôi sẽ để dành một phần nội dung này cho Chương 13: Integrating 
 Hãy lấy một yêu cầu từ Agile Project Management Context. Các chuyên gia nghiệp vụ đã nêu lên nhu cầu về một Event theo cách như sau (phần in nghiêng được thêm vào để nhấn mạnh):
 
 *Cho phép mỗi hạng mục tồn đọng (backlog item) được cam kết vào một sprint (chu kỳ phát triển ngắn). Nó chỉ có thể được cam kết nếu nó đã được lên lịch phát hành (scheduled for release). Nếu nó đã được cam kết vào một sprint khác, trước hết nó phải được hủy cam kết (uncommitted). Khi hạng mục tồn đọng được cam kết, hãy thông báo cho sprint đó và các bên quan tâm khác.*
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000307_29c52eecb3916289686460b82c727a0ffcfaaaff7d3c1f995d72d1c597b684b0.png)
 
 Khi mô hình hóa các Event, hãy đặt tên cho chúng và các thuộc tính của chúng theo Ubiquitous Language trong chính Bounded Context nơi chúng bắt nguồn. Nếu một Event là kết quả của việc thực thi một thao tác command (lệnh) trên một Aggregate, thì tên của nó thường được bắt nguồn từ chính command đã được thực thi đó. Command là nguyên nhân tạo ra Event, và do đó, tên của Event được diễn đạt chuẩn xác theo dạng command đó đã xảy ra trong quá khứ. Theo kịch bản ví dụ, khi chúng ta cam kết một backlog item vào một sprint, chúng ta phát hành một Event mô hình hóa tường minh điều đã diễn ra trong domain:
 
@@ -7162,6 +7179,10 @@ Khi phát hành các Event từ các Aggregate, điều quan trọng là tên c�
 
 Sau khi đã tìm được tên gọi phù hợp, Event nên có những thuộc tính nào? Trước hết, chúng ta cần một timestamp (dấu thời gian) biểu thị thời điểm Event diễn ra. Trong Java, chúng ta có thể biểu diễn nó bằng kiểu `java.util.Date`:
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000308_e35f39c89a05944bc84ef98a43e6a38fb2699ce40f7129a7fa204740c2048da2.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000309_6bdcc7577ad8dddf5c6e4aaae00fab42c723ec9f94f26fc0e8a949b271d15227.png)
+
 ```java
 package com.saasovation.agilepm.domain.model.product;
 
@@ -7169,7 +7190,6 @@ public class BacklogItemCommitted implements DomainEvent {
     private Date occurredOn;
     ...
 }
-
 ```
 
 Interface tối thiểu `DomainEvent`, được cài đặt bởi tất cả các Event, đảm bảo hỗ trợ phương thức truy xuất `occurredOn()`. Nó áp đặt một contract (hợp đồng giao diện) cơ bản cho mọi Event:
@@ -7182,7 +7202,6 @@ import java.util.Date;
 public interface DomainEvent {
     public Date occurredOn();
 }
-
 ```
 
 Ngoài thuộc tính này, nhóm phát triển sẽ xác định những thuộc tính nào khác là cần thiết để đại diện cho một sự việc có ý nghĩa về những gì đã diễn ra. Hãy cân nhắc đưa vào bất cứ thông tin nào cần thiết để tái hiện (trigger lại) Event đó. Thông thường, điều này bao gồm định danh (identity) của thực thể Aggregate nơi sự việc diễn ra, hoặc bất kỳ thực thể Aggregate nào có liên quan. Áp dụng hướng dẫn này, chúng ta có thể tạo các thuộc tính từ bất kỳ tham số nào gây ra Event, nếu qua thảo luận thấy chúng thực sự hữu ích. Cũng có khả năng một số giá trị chuyển đổi trạng thái (state transition) của Aggregate sau sự kiện sẽ rất hữu ích cho các subscriber.
@@ -7199,10 +7218,11 @@ public class BacklogItemCommitted implements DomainEvent {
     private TenantId tenantId;
     ...
 }
-
 ```
 
 Nhóm đã quyết định rằng định danh của `BacklogItem` và của `Sprint` là thiết yếu. `BacklogItem` chính là đối tượng mà Event xảy ra trên đó, và `Sprint` là đối tượng mà Event xảy ra cùng. Nhưng quyết định này còn bắt nguồn từ một lý do sâu xa hơn: yêu cầu nghiệp vụ dẫn đến sự cần thiết của Event này đã chỉ rõ rằng `Sprint` phải được thông báo khi một `BacklogItem` cụ thể được cam kết vào nó. Do đó, một subscriber nhận Event trong cùng Bounded Context cuối cùng sẽ phải thông báo cho `Sprint`, và nó chỉ có thể làm được điều đó nếu `BacklogItemCommitted` mang theo thuộc tính `SprintId`.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000310_e5757b288894bfb85d1e66bac677a9c15ce862f667c88c4f72e32bfcdb282520.png)
 
 Ngoài ra, trong môi trường multitenancy (đa người thuê / kiến trúc đa người dùng), việc ghi nhận `TenantId` luôn là điều bắt buộc, ngay cả khi nó không được truyền vào dưới dạng tham số của command. Nó cần thiết cho cả Bounded Context nội bộ lẫn Bounded Context ngoại vi. Ở phạm vi nội bộ, nhóm phát triển sẽ cần `TenantId` để truy vấn `BacklogItem` và `Sprint` từ các Repository (Chương 12) tương ứng của chúng. Tương tự như vậy, bất kỳ hệ thống từ xa ở bên ngoài nào lắng nghe bản phát quảng bá của Event này cũng sẽ cần biết Event đó áp dụng cho `TenantId` nào.
 
@@ -7231,8 +7251,11 @@ public class BacklogItemCommitted implements DomainEvent {
     @Override
     public Date occurredOn() {
         return this.occurredOn;
-
 ```
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000311_0dc1d935324a038deb7c75d64a29ce164ed0fb5b03baee8b0d0a48852a8feec3.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000312_3d15c3b73417ff76d08d73abe01a06a6645e71b0ffc6ba0c2339a6637fd68bb2.png)
 
 ## Chapter 8 DOMAIN EVENTS
 
@@ -7252,7 +7275,6 @@ public class BacklogItemCommitted implements DomainEvent {
     }
     ...
 }
-
 ```
 
 Khi Event này được phát hành, một subscriber trong Bounded Context nội bộ có thể sử dụng nó để thông báo cho `Sprint` biết rằng một `BacklogItem` cụ thể vừa mới được cam kết vào nó:
@@ -7286,12 +7308,13 @@ MessageConsumer.instance(messageSource, false)
                 sprint.commit(backlogItem);
             }
         });
-
 ```
 
 Theo các yêu cầu của hệ thống, sau khi xử lý thông điệp "BacklogItemCommitted" cụ thể này, `Sprint` sẽ đạt trạng thái nhất quán với `BacklogItem` vừa mới được cam kết vào nó. Cách thức subscriber nhận được Event này sẽ được thảo luận ở phần sau của chương.
 
 Nhóm phát triển nhận ra rằng có thể có một chút vấn đề ở đây: Giao dịch cập nhật `Sprint` được quản lý như thế nào? Chúng ta có thể để message handler (trình xử lý thông điệp) làm việc đó, nhưng dù thế nào đi nữa thì đoạn code trong handler cũng cần được tái cấu trúc (refactoring). Cách tốt nhất là ủy quyền (delegate) xử lý cho một
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000313_2718662afb1ef4afc32db4cea0956b56e32226812e1e5af23a64f43dad226081.png)
 
 Application Service (Chương 14) để hài hòa với Hexagonal Architecture (Kiến trúc lục giác, Chương 4). Làm như vậy sẽ cho phép Application Service quản lý giao dịch—vốn là một mối quan tâm tự nhiên của tầng ứng dụng. Khi đó, đoạn code handler sẽ trông như thế này:
 
@@ -7322,10 +7345,13 @@ MessageConsumer.instance(messageSource, false)
                         backlogItemId);
             }
         });
-
 ```
 
 Trong ví dụ này, việc de-duplication (khử trùng lặp) Event là không cần thiết vì thao tác cam kết một `BacklogItem` vào một `Sprint` là một thao tác mang tính idempotent (lũy đẳng - thực thi nhiều lần cho cùng một kết quả mà không làm sai lệch trạng thái). Nếu một `BacklogItem` cụ thể đã được cam kết vào `Sprint` rồi, thì yêu cầu cam kết lại hiện tại sẽ bị bỏ qua.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000314_ba748acfc381b9e0c1b64fc885208964e593a1569921c7cb5d92060b33e96402.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000315_7b3ad5e504d97f15c8b942abcd665f53bfb4d9c03f33adb6a0a37fffb33b50f2.png)
 
 Có thể sẽ cần cung cấp thêm trạng thái và hành vi bổ sung nếu các subscriber đòi hỏi nhiều thông tin hơn là chỉ đơn thuần biết nguyên nhân gây ra Event. Điều này có thể được truyền tải thông qua trạng thái được làm giàu (enriched state - nhiều thuộc tính hơn) hoặc các thao tác suy biến ra trạng thái phong phú hơn. Nhờ đó, các subscriber tránh được việc phải truy vấn ngược lại Aggregate phát hành Event—vốn là việc khó khăn hoặc tốn kém tài nguyên một cách không cần thiết. Event enrichment (Làm giàu sự kiện) có thể phổ biến hơn khi sử dụng Event Sourcing, bởi vì một Event dùng để lưu trữ dữ liệu (persistence) có thể cần thêm trạng thái bổ sung khi được phát hành ra bên ngoài Bounded Context. Các ví dụ về Event enrichment được cung cấp trong Phụ lục A.
 
@@ -7359,6 +7385,10 @@ Có thể chỉ cần để định danh của Event được đại diện bở
 Trong những trường hợp Event được mô hình hóa như một Aggregate, hoặc trong các trường hợp khác khi các Event bắt buộc phải được so sánh nhưng các thuộc tính kết hợp của chúng không đủ để phân biệt, chúng ta có thể gán cho Event một định danh duy nhất chính thức. Tuy nhiên, vẫn còn những lý do khác để gán định danh duy nhất.
 
 1. Xem mô hình Actor Model về xử lý đồng thời của Erlang và Scala. Đặc biệt, Akka rất đáng để cân nhắc nếu bạn sử dụng Scala hoặc Java.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000316_36919591dffe6f80b50e8f12a5c6a93a9cf43989effa899b0a13978100b5dfce.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000317_0e400839f9aa8d8dec6e6e559cd2afdff19913083d20abc511aca16a83c8ebbd.png)
 
 Định danh duy nhất có thể cần thiết khi các Event được phát hành ra bên ngoài Bounded Context cục bộ nơi chúng diễn ra, khi mà cơ sở hạ tầng nhắn tin chuyển tiếp chúng đi. Trong một số tình huống, các thông điệp riêng lẻ có thể bị phân phối nhiều hơn một lần (delivered more than once). Điều này xảy ra nếu phía gửi thông điệp bị sự cố (crash) trước khi messaging infrastructure kịp xác nhận rằng thông điệp đã được gửi.
 
@@ -7416,8 +7446,11 @@ public class DomainEventPublisher {
 
             List<DomainEventSubscriber<T>> registeredSubscribers =
                 subscribers.get();
-
 ```
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000318_f02214f7e152fac0e7f907197f0b3c9edb423c0ed6bc38ce4c6fc58c000638ed.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000319_4ce5f747b74a6c706a87943e4c84a11615ef718f02693a45109e41669ee7f425.png)
 
 ```java
             if (registeredSubscribers != null) {
@@ -7460,14 +7493,17 @@ public class DomainEventPublisher {
         registeredSubscribers.add(aSubscriber);
     }
 }
-
 ```
 
 Vì mọi yêu cầu gửi đến từ người dùng hệ thống đều được xử lý trên một luồng (thread) chuyên dụng riêng biệt, chúng ta phân chia các subscriber theo thread. Do đó, hai biến `ThreadLocal` (biến cục bộ theo luồng), `subscribers` và `publishing`, được cấp phát riêng cho từng thread. Khi các bên quan tâm sử dụng phương thức `subscribe()` để tự đăng ký, tham chiếu đối tượng subscriber sẽ được thêm vào `List` gắn liền với luồng (thread-bound List) đó. Có thể đăng ký số lượng tùy ý các subscriber trên mỗi thread.
 
 Tùy thuộc vào application server (máy chủ ứng dụng), các thread có thể được gom vào pool (thread pool) và tái sử dụng qua từng request. Chúng ta không muốn các subscriber đã đăng ký trên thread cho request trước đó vẫn còn tồn tại trong request tiếp theo tái sử dụng chính thread này. Khi một request mới của người dùng được hệ thống tiếp nhận, nó nên sử dụng thao tác `reset()` để xóa sạch các subscriber đã đăng ký trước đó. Điều này đảm bảo rằng các subscriber sẽ chỉ giới hạn ở những đối tượng được đăng ký kể từ thời điểm đó trở đi. Chẳng hạn, trên tầng trình diễn (presentation tier, tức 'User Interface' trong Hình 8.2), chúng ta có thể chặn (intercept) từng request bằng một filter (bộ lọc). Thành phần đánh chặn này sẽ bằng cách nào đó gọi thao tác `reset()`:
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000320_64f02c76aaf054b990599f13408e7953ea1a987c5c70e0d39f561d3b78da3d5c.png)
+
 Hình 8.2 Góc nhìn trừu tượng về trình tự tương tác (sequence interactions) giữa Observer dạng lightweight, Giao diện Người dùng (User Interface, Chương 14), các Application Service, và Domain Model (Chương 1)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000321_9a734be4d53889025de39d556015991208af3cc37b4fe6a26fa79d4a4ea8c790.png)
 
 ```java
 // trong một thành phần Web filter khi nhận request của người dùng
@@ -7475,10 +7511,11 @@ DomainEventPublisher.instance().reset();
 ...
 // sau đó trong một Application Service thuộc cùng request đó
 DomainEventPublisher.instance().subscribe(subscriber);
-
 ```
 
 Tiếp nối quá trình thực thi đoạn mã này—bởi hai thành phần riêng biệt, như thấy ở Hình 8.2—sẽ chỉ có đúng một subscriber được đăng ký cho luồng đó. Từ phần triển khai của phương thức `subscribe()`, bạn có thể thấy rằng các subscriber chỉ có thể được đăng ký khi publisher không trong quá trình đang phát hành Event. Điều này ngăn chặn các sự cố như ngoại lệ sửa đổi đồng thời (concurrent modification exception) trên `List`.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000322_8dc5b947f3b6084aa4e4dd8180a9464e4a1e87a2528de8a7c6b4f22864175fb5.png)
 
 Vấn đề này sẽ phát sinh rõ rệt nếu các subscriber gọi ngược lại publisher để đăng ký thêm các subscriber mới nhằm phản hồi lại một Event đang được xử lý.
 
@@ -7498,7 +7535,6 @@ public class BacklogItem extends ConcurrencySafeEntity {
     }
     ...
 }
-
 ```
 
 Khi `publish()` được thực thi trên `DomainEventPublisher`, nó sẽ lặp qua tất cả các subscriber đã đăng ký. Việc gọi phương thức `subscribedToEventType()` trên từng subscriber cho phép nó lọc bỏ tất cả những subscriber không đăng ký loại Event cụ thể đó. Những subscriber phản hồi `DomainEvent.class` cho truy vấn lọc này sẽ nhận được toàn bộ các Event. Tất cả các subscriber đủ điều kiện sẽ được gửi Event vừa phát hành thông qua phương thức `handleEvent()` của chúng. Sau khi tất cả các subscriber đã được lọc hoặc đã được thông báo, publisher hoàn tất quá trình phát hành.
@@ -7515,11 +7551,13 @@ Những thành phần nào sẽ đăng ký subscriber để lắng nghe các Dom
 
 * LB: 'Tôi muốn mua một gói đặt báo dài hạn [chơi chữ: subscription] cho tờ The Fence Post để có thể tìm thêm nhiều trò đùa quê mùa, sến súa [corny] hơn nữa mà đưa vào cuốn sách này.'
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000323_00e04e9401efcb502cf154f6eac47c1f8134c2ea1304126aab962b2f9e97d9a1.png)
+
 > 💡 **Giải thích thêm:** Đoạn thoại mang tính tự trào hài hước tiếp tục áp dụng lối chơi chữ:
 > * Từ *"subscription"* vừa có nghĩa đời thường là việc "đặt mua báo dài hạn", vừa là thuật ngữ kỹ thuật chỉ việc "đăng ký nhận sự kiện" (subscription) trong mẫu Publish-Subscribe.
 > * *"The Fence Post"* là một tuần báo thông tin nông nghiệp - chăn nuôi có thật rất phổ biến ở vùng nông thôn miền Tây nước Mỹ, đồng thời nghĩa đen là "cọc hàng rào".
 > * *"Corny"* vừa mang nghĩa lóng là "quê mùa, sến súa, nhạt nhẽo", vừa gợi liên tưởng đến cây ngô/bắp (corn) của vùng đồng quê.
-> Nguồn tham khảo: https://www.thefencepost.com/
+> Nguồn tham khảo: [https://www.thefencepost.com/](https://www.thefencepost.com/)
 > 
 > 
 
@@ -7559,8 +7597,11 @@ public class BacklogItemApplicationService ... {
         backlogItem.commitTo(sprint);
     }
 }
-
 ```
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000324_76297fc9a25f0e5bc4ba1bbf08bd6d5e04bfb8d3ee9fcbf5dd29f33433b47038.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000325_1cc2e735a0ed605d6d886bdd1746c54f7bc99f15d96dee9713a385f2f0f796c5.png)
 
 Trong ví dụ (mang tính dàn dựng có chủ ý) này, `BacklogItemApplicationService` là một Application Service, với một phương thức dịch vụ là `commitBacklogItem()`. Phương thức này khởi tạo một thực thể của lớp ẩn danh `DomainEventSubscriber`. Điều phối viên tác vụ của Application Service sau đó sẽ đăng ký subscriber này với `DomainEventPublisher`. Cuối cùng, phương thức dịch vụ sử dụng các Repository để lấy các thực thể của `BacklogItem` và `Sprint`, rồi thực thi hành vi `commitTo()` của backlog item. Khi hoàn thành, phương thức `commitTo()` sẽ phát hành một Event có kiểu `BacklogItemCommitted`.
 
@@ -7590,7 +7631,9 @@ Giữa tất cả những bàn luận sôi nổi về eventual consistency, bạ
 
 Tính nhất quán trong việc lưu trữ dữ liệu giữa mô hình và Event được hoàn thành như thế nào? Có ba cách cơ bản:
 
-<!-- ⚠️ CẢNH BÁO chunk 16: số ảnh/heading/code-block KHÔNG khớp bản gốc (gốc={'images': 33, 'headings': 23, 'fences': 40}, dịch={'images': 0, 'headings': 23, 'fences': 40}). Xem lại đoạn này bằng tay. -->
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000326_2e57ff9363e5d08853d7c0f016a40178b43d17ab28adc133260a4a668a1817be.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000327_e36f250563416c85d1d55fa1ed45b0164dec5dfb64228e957a7754dc0200b783.png)
 
 ﻿1. Domain model (mô hình miền) và hạ tầng messaging (truyền tin nhắn) của bạn dùng chung một persistence store (kho lưu trữ dữ liệu bền vững, chẳng hạn như cùng một data source). Cách tiếp cận này cho phép các thay đổi trên mô hình và thao tác ghi nhận tin nhắn mới được commit trong cùng một local transaction (giao dịch cục bộ). Ưu điểm của nó là hiệu năng tương đối tốt. Nhược điểm tiềm ẩn là các vùng lưu trữ của hệ thống tin nhắn (như các bảng cơ sở dữ liệu) phải nằm trong cùng một cơ sở dữ liệu (hoặc schema) với mô hình của bạn — điều này tùy thuộc vào gu thiết kế của từng đội ngũ. Dĩ nhiên, đây sẽ không phải là một lựa chọn khả thi nếu kho lưu trữ của mô hình và kho lưu trữ của cơ chế tin nhắn không thể chia sẻ chung với nhau.
 2. Persistence store của domain model và persistence store của hệ thống tin nhắn được kiểm soát dưới một global transaction chuẩn XA (giao dịch phân tán với cơ chế two-phase commit — cam kết hai pha). Ưu điểm ở đây là bạn có thể tách rời hoàn toàn nơi lưu trữ mô hình và nơi lưu trữ tin nhắn. Tuy nhiên, nhược điểm là các global transaction đòi hỏi sự hỗ trợ chuyên biệt từ hệ thống, điều mà không phải persistence store hay hệ thống tin nhắn nào cũng đáp ứng được. Các global transaction thường gây tốn kém tài nguyên và có hiệu năng kém. Ngoài ra, cũng có khả năng kho lưu trữ của mô hình hoặc kho lưu trữ của cơ chế tin nhắn (hoặc cả hai) không tương thích với chuẩn XA.
@@ -7687,6 +7730,8 @@ public class IdentityAccessEventProcessor {
 
 ```
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000336_2a5863dde76eb74ff5b080a78784e0d80ecff971d94e23593d204c83dd4b7c81.png)
+
 ```java
                 public Class<DomainEvent> subscribedToEventType() {
                     return DomainEvent.class; // tất cả các domain event
@@ -7769,6 +7814,10 @@ CREATE TABLE `tbl_stored_event` (
 
 Phần trên đã điểm qua ở mức tổng quan một số thành phần cần thiết để xây dựng Event Store chứa toàn bộ các thể hiện Event được xuất bản bởi các Aggregate trong domain model. Chúng ta sẽ tìm hiểu chi tiết hơn sau. Tiếp theo, hãy xem cách các hệ thống khác có thể tiêu thụ (consume) những bản ghi đã lưu trữ về các sự kiện phát sinh trong mô hình.
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000337_fd774d9e54e26b34cc9f08a2dc240ad58c08fa55498f7d5d8161445258ce8ea5.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000338_e7d5ab1d8c0eaa081a679490c77bfd86519b134dea22d54f59718b6fefe6d8d1.png)
+
 ## Architectural Styles for Forwarding Stored Events
 
 Một khi Event Store đã được đổ dữ liệu, nó sẵn sàng cung cấp các Event để chuyển tiếp dưới dạng thông báo đến các bên quan tâm. Chúng ta sẽ xem xét hai phong cách kiến trúc để phân phối các Event này. Một phong cách là thông qua các tài nguyên RESTful được client truy vấn, và phong cách thứ hai là gửi tin nhắn qua một topic/exchange của một sản phẩm phần mềm truyền tin nhắn trung gian (messaging middleware).
@@ -7804,6 +7853,10 @@ Các Event đã được thêm vào bất kỳ log nào trước đó tuyệt đ
 
 Do đó, current log không phải lúc nào cũng chứa thông báo mới nhất hoặc cũ nhất chưa được áp dụng ở phía client. Event cũ nhất như vậy có thể đang nằm ở bản log ngay trước current log, hoặc thậm chí ở các log trước đó nữa. Tất cả phụ thuộc vào tần suất các Event lấp đầy một bản log hữu hạn (trong trường hợp này chỉ có 20 mục) và tần suất client thực hiện thao tác pull log. Hình 8.4 minh họa cách các notification log liên kết với nhau tạo thành một mảng ảo chứa các thông báo riêng lẻ.
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000339_d6abd2126edead0c2f781e0a59df2b3563361f86e244ff54bb286b2d03d4f44b.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000340_bd583a708dd74f2ab9df9c66fcf31410b0143070a52ee5cb0667e03dfe47c4cf.png)
+
 Giả định trạng thái log như mô tả trong Hình 8.4, giả sử các thông báo từ 1 đến 58 đã được xử lý cục bộ. Điều này đồng nghĩa các thông báo từ 59 đến 65 vẫn chưa được áp dụng. Nếu client thực hiện pull từ URI sau, nó sẽ nhận được current log:
 
 //iam/notifications
@@ -7821,6 +7874,8 @@ Link: <http://iam/notifications/41,60>; rel=previous
 ```
 
 Hình 8.4 Current log cùng với một chuỗi các archived log được liên kết tạo thành một mảng ảo chứa tất cả các Event từ Event gần nhất ngược về Event đầu tiên. Ở đây thể hiện các thông báo từ 1 đến 65. Mỗi archived log chứa đủ giới hạn 20 thông báo. Current log hiện chưa đầy và mới chỉ chứa tổng cộng 5 thông báo.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000341_1a2bbeb1c918cdcb46b2b1433f76ee694d125ae8464a64d0821ee5078229054c.png)
 
 ## Why Doesn't the URI Reflect What's Actually in the Current Log?
 
@@ -7858,6 +7913,10 @@ Trong log này, client tìm thấy các thông báo mang định danh 61, 62, 63
 Một thời gian sau, quy trình này lặp lại. Current log lại được yêu cầu qua URI. Có thể lúc này hoạt động trong Bounded Context nguồn đã tạo ra các bản log mới đáng kể bằng việc sinh thêm nhiều thông báo mới. Khi current log được yêu cầu ở thời điểm này, nó có thể mang thêm nhiều thông báo mới. Phía client có thể phải duyệt ngược lại một, hai hoặc thậm chí nhiều archived log hơn để định vị được thông báo đã xử lý gần nhất — hiện tại là thông báo mang định danh 65. Tương tự như trước, khi client tìm thấy thông báo 65, nó sẽ áp dụng tất cả các thông báo mới hơn theo thứ tự thời gian.
 
 Bất kỳ Bounded Context client nào cũng có thể yêu cầu các notification log này. Trên thực tế, bất kỳ Bounded Context nào cần nắm bắt các Event được sinh ra bởi một Bounded Context khác có cung cấp cơ chế xuất bản thông báo này đều có thể vươn tới để lấy thông báo ngược về tận "thuở ban đầu". Dĩ nhiên, mỗi Bounded Context chỉ có thể thực sự đóng vai trò client nếu nó có quyền truy cập hợp lệ vào hệ thống nguồn (chẳng hạn như quyền bảo mật).
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000342_45a7a6759c225e1a95ffcbe069167b869523d1435b78f9322c5877d9ceb49533.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000343_677019af49e7a09a047ac8578ee7795d31a21c13bc1edc42746155088e06f5f2.png)
 
 Nhưng liệu việc client liên tục polling các tài nguyên thông báo có tạo ra lượng truy cập khổng lồ ngoài ý muốn lên máy chủ Web của bạn hay không? Sẽ không thành vấn đề nếu các tài nguyên RESTful của bạn tận dụng hiệu quả cơ chế caching. Ví dụ, current log có thể được cache ngay tại chính client trong khoảng thời gian khoảng một phút:
 
@@ -7899,6 +7958,8 @@ Hãy xem xét các yêu cầu đối với việc xuất bản các Event từ E
 
 Chúng ta không cần chờ đợi xem các subscriber đã xác nhận việc nhận tin hay chưa. Thậm chí các hệ thống subscriber có thể còn chưa khởi chạy khi publisher gửi tin nhắn qua exchange. Mỗi subscriber chịu trách nhiệm xử lý các tin nhắn theo khung thời gian riêng của mình, đảm bảo thực thi đúng các hành vi nghiệp vụ cần thiết trên mô hình của chính nó. Chúng ta chỉ đơn giản dựa vào cơ chế tin nhắn để đảm bảo việc phân phối (delivery guarantee).
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000344_201a334dfc9bcf73afeab8ebee83d9632585da4ec0d673dd2e65c9274c75d786.png)
+
 ## Whiteboard Time
 
 * Hãy vẽ một Context Map (bản đồ ngữ cảnh) thể hiện Bounded Context bạn đang phụ trách cùng các Context khác mà bạn đang tích hợp cùng. Hãy đảm bảo thể hiện rõ các kết nối giữa những Context có tương tác với nhau.
@@ -7914,6 +7975,8 @@ Sau khi đã thống nhất về các phong cách kiến trúc dùng để xuấ
 Cốt lõi của hành vi xuất bản thông báo được đặt sau một Application Service: `NotificationService`. Thiết kế này cho phép đội ngũ quản lý phạm vi giao dịch (transactional scope) của các thay đổi trong chính nguồn dữ liệu của mình. Nó cũng nhấn mạnh rằng việc thông báo là một mối bận tâm thuộc tầng ứng dụng (application concern), không phải của tầng nghiệp vụ (domain concern), mặc dù các Event được xuất bản dưới dạng thông báo vốn bắt nguồn từ chính domain model.
 
 Ở thời điểm này, `NotificationService` chưa cần phải áp dụng mô hình Separated Interface (tách rời giao diện) [Fowler, P of EAA]. Hiện tại chỉ có duy nhất một implementation của
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000345_25eeb2f3bcc849c5a062a042b9b327c4265bbee51692928e20020a03d06ad6aa.png)
 
 Application Service, vì vậy cả đội giữ cho mọi thứ thật đơn giản. Dù vậy, mọi lớp học cơ bản đều sở hữu một giao diện public, và dưới đây là khung phương thức (stubbed-out methods) ban đầu:
 
@@ -7975,6 +8038,10 @@ public class NotificationService {
 }
 
 ```
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000346_48de86d0bb4006291849a16a580d1d8b5ca05ddf5aeaf72ca955cdb572bfc48e.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000347_4fc094f216ec53b12f670431bbda848466d2641dcebdc0bfc4b105edbba8b696.png)
 
 Về bản chất, cả hai phương thức này đều phải "tìm kiếm" một `NotificationLog`. Điều đó thực chất là việc tìm ra một phân đoạn các thể hiện `DomainEvent` đã được tuần tự hóa trong Event Store, bọc từng sự kiện bằng một `Notification`, và gom tất cả lại thành một `NotificationLog`. Khi một thể hiện `NotificationLog` được tạo ra, nó có thể được biểu diễn dưới dạng một tài nguyên RESTful và gửi về cho client yêu cầu.
 
@@ -8075,6 +8142,10 @@ public class NotificationService {
 
 ```
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000348_147caa3e4c6546f8d2a7aaf537d76e86812b59903e4e19ce7f26b3ddfae05adb.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000349_f1955e6df91518ce2e7d3b1a67d990e6fddb08d941a1918711a9223ab6aff648.png)
+
 ```java
         return notifications;
     }
@@ -8170,6 +8241,10 @@ public class NotificationResource {
 
 Phần trên đã bao quát các mắt xích trọng yếu dùng để xuất bản cả current log lẫn archived notification log tới các RESTful client.
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000350_6e97741faa5f6f15039d0b07fec86f720a9451a70a58e9e2234d0e99b5f805ae.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000351_ced0f267ab7f1eb7c5e5cc0d0700013f25259a02c04a973aaf13743ca9b685a6.png)
+
 ## Publishing Message-Based Notifications
 
 `NotificationService` cung cấp một phương thức duy nhất để xuất bản các thể hiện `DomainEvent` qua hạ tầng tin nhắn. Dưới đây là phương thức service đó:
@@ -8253,6 +8328,10 @@ Việc xuất bản đa kênh (multichannel) hiện chưa được hỗ trợ, n
 
 Tiếp theo, phương thức `listUnpublishedNotifications()` chịu trách nhiệm truy vấn danh sách đã sắp xếp của tất cả các thể hiện `Notification` chưa được xuất bản:
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000352_bcbccff962b758c2159f9b997567ec20584ce5799acf6c6b6b692f9da9130c53.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000353_00247b63c5a0fc3332aa963f8436c56a8f8d39354bddb9a55d6fb17f83ababa0.png)
+
 ```java
 public class NotificationService {
     ...
@@ -8304,6 +8383,8 @@ public class NotificationService {
 
 ```
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000354_429e4939cc48031a5356e2ee538e57006ff5a94c9fc87bb2af94fe48d3f50617.png)
+
 ```java
         String notification =
             NotificationService
@@ -8344,8 +8425,6 @@ public class NotificationService {
 ```
 
 3. Các lớp `Exchange`, `ConnectionSettings`, `MessageProducer`, `MessageParameters` và các lớp khác nằm trong một thư viện đóng vai trò là một lớp trừu tượng (abstraction layer) bọc quanh RabbitMQ. Tôi cung cấp thư viện này — giúp việc sử dụng RabbitMQ trở nên thân thiện và mang tính hướng đối tượng hơn nhiều — kèm theo các đoạn mã nguồn mẫu khác của cuốn sách.
-
-<!-- ⚠️ CẢNH BÁO chunk 17: số ảnh/heading/code-block KHÔNG khớp bản gốc (gốc={'images': 27, 'headings': 13, 'fences': 58}, dịch={'images': 8, 'headings': 13, 'fences': 58}). Xem lại đoạn này bằng tay. -->
 
 ﻿![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000355_1cc3c05d39bf6fa98e195a4ec1966dc0716058e706674d93425c9d1d547342bd.png)
 
@@ -8393,6 +8472,10 @@ Khả năng này cũng xảy ra khi xuất bản dữ liệu lấy từ một Ev
 2. Broker của RabbitMQ tiếp nhận cả 3 thông điệp và chuẩn bị gửi chúng tới tất cả subscriber.
 3. Tuy nhiên, do một điều kiện ngoại lệ nào đó trên máy chủ ứng dụng, `NotificationService` gặp sự cố. Thay đổi cập nhật trên `PublishedMessageTracker` không được commit (lưu thành công).
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000356_c8c4ed71d45091fb490a6b8c76b9dc4e5b4f4e939f280a166f31f4dde4499a5c.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000357_d2196bfb09410aeeaa6df29e9bbe141fdf6330fb6f65471e1b0c8735eea77dd7.png)
+
 4. RabbitMQ phân phối các thông điệp mới gửi tới các subscriber.
 5. Sự cố ngoại lệ trên application server được khắc phục. Tiến trình xuất bản bắt đầu lại từ đầu và `NotificationService` gửi thành công các thông điệp cho toàn bộ Event chưa được xuất bản. Điều này đồng nghĩa với việc gửi lại (thêm một lần nữa!) thông điệp cho tất cả Event đã từng được xuất bản trước đó nhưng chưa được ghi nhận vào `PublishedMessageTracker`.
 6. RabbitMQ phân phối các thông điệp mới gửi tới các subscriber, trong đó có ít nhất 3 thông điệp bị phân phối lặp lại.
@@ -8413,6 +8496,8 @@ Khi áp dụng phương thức thông báo dựa trên REST (`REST-based notific
 
 Trong cả hai trường hợp — dù là subscriber dùng messaging middleware hay client nhận thông báo qua REST — điều quan trọng là việc lưu vết định danh thông điệp đã xử lý phải được commit đồng thời cùng mọi thay đổi về trạng thái của domain model cục bộ. Nếu không làm vậy, bạn sẽ không thể duy trì được tính nhất quán trong việc theo dõi đồng hành với những sửa đổi được thực hiện để phản hồi lại các Event.
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000358_dcad87dabef9071360d42f585d236ea13d461cd11feb026a6c7cf934f8503225.png)
+
 ## Wrap-Up
 
 Trong chương này, chúng ta đã xem xét định nghĩa về Domain Event và cách chúng giúp xác định thời điểm việc mô hình hóa một Event sẽ mang lại lợi thế cho thiết kế của bạn.
@@ -8421,6 +8506,10 @@ Trong chương này, chúng ta đã xem xét định nghĩa về Domain Event v�
 * Bạn đã tìm hiểu cách mô hình hóa các Event dưới dạng đối tượng, và trường hợp nào chúng bắt buộc phải được định danh duy nhất.
 * Bạn đã cân nhắc khi nào một Event nên mang các đặc tính của một Aggregate (`Aggregate` - cụm đối tượng gồm các Entity và Value Object có cùng ranh giới nhất quán), và khi nào một Event đơn giản dạng Value Object lại phát huy hiệu quả tốt nhất.
 * Bạn đã thấy cách các thành phần Xuất bản - Đăng ký (`Publish-Subscribe`) gọn nhẹ được vận dụng bên trong mô hình.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000359_a9f1ad7f2ff3d428797411c68143e9ea2b848d8c2655ce781a7b7514b9768d50.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000360_ccf760d818b12d9d505ee1501884a76e8528e0432fb4bdee421f6543c6c3b94f.png)
 
 * Bạn đã khám phá những thành phần nào đóng vai trò xuất bản Event và những thành phần nào đăng ký nhận chúng.
 * Bạn đã hiểu lý do tại sao cần xây dựng một Event Store, cách triển khai cũng như cách thức vận hành của nó trong thực tế.
@@ -8448,6 +8537,8 @@ Nếu đang làm việc với Java hoặc C#, bạn ắt hẳn đã quá quen th
 ## Designing with Modules
 
 Trong ngữ cảnh DDD, các Module trong mô hình đóng vai trò là những thùng chứa có tên gọi dành cho các lớp đối tượng miền có tính gắn kết nội tại cao (`high cohesion`) với nhau. Mục tiêu hướng tới là giảm thiểu tối đa mức độ phụ thuộc (`low coupling`) giữa các lớp nằm ở các Module khác nhau. Vì Module trong DDD không phải là những ngăn chứa đồ chung chung hay vô hồn, nên việc đặt tên chuẩn xác cho chúng là cực kỳ quan trọng. Tên của chúng là một khía cạnh trọng yếu cấu thành nên Ubiquitous Language.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000361_0916a594a4d2894f53d7a273107c66c407421c11635f3987d9929a33424348ad.png)
 
 > Hãy lựa chọn các Module sao cho chúng kể được câu chuyện của hệ thống và chứa đựng một tập hợp các khái niệm có tính gắn kết chặt chẽ. Cách tiếp cận này thường mang lại mức độ phụ thuộc thấp giữa các Module, nhưng nếu không đạt được điều đó, hãy tìm cách thay đổi mô hình để tách bạch các khái niệm... Hãy đặt cho các Module những cái tên trở thành một phần của Ubiquitous Language. Module và tên gọi của chúng phải phản ánh được sự thấu hiểu sâu sắc đối với miền nghiệp vụ. [Evans, tr. 110, 111]
 
@@ -8478,6 +8569,10 @@ Ngược lại, hãy hình dung một ngăn kéo nhà bếp nơi dao kéo ăn u�
 
 Mặt khác, có lẽ chúng ta sẽ không sắp xếp đồ đạc trong bếp theo lối máy móc, chẳng hạn như dồn tất cả những đồ bền chắc vào một ngăn kéo và tống tất cả những món dễ vỡ lên chiếc tủ trên cao. Chúng ta không hề muốn phải ghi nhớ rằng bình hoa được cất chung với những chiếc tách trà sứ cao cấp chỉ vì cả hai đều có phần mong manh. Chúng ta cũng chẳng muốn phải nhớ rằng cây búa giã thịt bằng thép không gỉ được để cùng với dao kéo cao cấp chỉ vì cả hai món đồ bền bỉ này ít có nguy cơ làm hỏng nhau.
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000362_f8063b832e379449cc5a12b36cf27782e8c095556033148995cdeb05375a5072.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000363_c7251880e0a900cd0079d7f9df17e0af0b97350d0bff6f053fdd17800e034b15.png)
+
 Nếu chúng ta mô hình hóa một căn bếp, việc xuất hiện một Module có tên `placesettings` (bộ đồ ăn) là hoàn toàn tự nhiên, và trong đó chúng ta sẽ thấy các đối tượng như `Fork` (nĩa), `Spoon` (thìa), và `Knife` (dao). Thậm chí, chúng ta có thể quyết định đặt cả `Serviette` (khăn ăn) vào đó, chứng minh rằng không phải cứ làm bằng kim loại thì mới đủ tiêu chuẩn trở thành một phần của Module `placesettings`. Mặt khác, việc mô hình hóa các bộ đồ ăn sẽ trở nên kém hữu ích nếu chúng ta lại chia thành các Module riêng biệt mang tên `pronged` (vật có răng cào), `scooping` (vật để múc), và `blunt` (vật có đầu tù).
 
 Lưu ý rằng những tiến bộ gần đây trong việc mô-đun hóa phần mềm đã mang lại một cấp độ mô-đun hóa phần mềm khác biệt. Cách tiếp cận này liên quan đến việc đóng gói các phân đoạn phần mềm liên kết lỏng lẻo nhưng gắn kết chặt chẽ về mặt logic thành một đơn vị triển khai (`deployment unit`) theo từng phiên bản. Trong hệ sinh thái Java, chúng ta vẫn thường nghĩ về các tệp JAR, nhưng giờ đây chúng được lắp ráp theo phiên bản thông qua việc sử dụng các `OSGi bundle` hoặc các `module Java 8 Jigsaw`. Theo đó, nhiều module cấp cao, các phiên bản và mối phụ thuộc của chúng có thể được quản lý dưới dạng các bundle/module. Các loại module/bundle này có đôi chút khác biệt so với Module trong DDD, nhưng chúng có thể bổ trợ cho nhau. Rõ ràng, việc đóng gói các phần kết nối lỏng lẻo của một domain model vào các module có độ chi tiết thô hơn (`larger-grained modules`) dựa theo Module DDD là hoàn toàn hợp lý. Xét cho cùng, chính thiết kế liên kết lỏng lẻo của các Module DDD sẽ đóng góp trực tiếp vào khả năng đóng gói bằng OSGi hoặc mô-đun hóa sang Jigsaw của bạn.
@@ -8486,6 +8581,8 @@ Lưu ý rằng những tiến bộ gần đây trong việc mô-đun hóa phần
 
 * LB: "Cậu phải tự hỏi làm sao mà cái trạm xăng này giữ được nhà vệ sinh của họ sạch sẽ và tinh tươm đến thế."
 * AJ: "Này LB, một cơn lốc xoáy mà quét qua cái nhà vệ sinh đó thì khéo còn giúp nâng cấp thêm được 10.000 đô la ấy chứ."
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000364_53c5f98965b44ad997aeb1ba9157d143ce755a1bf858c622f260bfb0febc779c.png)
 
 > 💡 **Giải thích thêm:** "Cowboy logic" là một dạng đối thoại châm biếm bình dân kiểu Mỹ, dùng sự mỉa mai cường điệu để nói về một thực tế phũ phàng. Ở đây, LB nói mỉa (khen phòng vệ sinh sạch nhưng thực chất rất bẩn thỉu), còn AJ đáp lại bằng một câu đùa thậm xưng: nhà vệ sinh đó tồi tàn đến mức nếu có một trận bão quét sạch nó đi thì tài sản thiệt hại bằng không, trái lại còn "lãi" thêm 10.000 USD chi phí cải tạo vì hiện trạng ban đầu còn tệ hại hơn đống đổ nát. Tác giả mượn câu chuyện này để châm biếm cấu trúc phần mềm: nếu mã nguồn bị sắp đặt lộn xộn, tệ hại như "nhà vệ sinh trạm xăng", thì một sự xáo trộn hoặc việc đập đi làm lại từ đầu có khi còn là một sự cải tiến tốt hơn là cố gắng chắp vá.
 > Nguồn tham khảo: (Không có nguồn trích dẫn xác thực — cần tự kiểm chứng thêm)
@@ -8521,6 +8618,8 @@ com.saasovation.agilepm
 
 ```
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000365_ca1f1f9577b7624f850cdfc2cc1978cca0cfaa84fc86bb590b7a9dd1a821d9cf.png)
+
 Họ từng cân nhắc sử dụng các tên sau, nhưng chúng mang lại rất ít giá trị gia tăng so với các tên Module phía trên, nếu không muốn nói là chẳng có gì. Dù chúng phản ánh chính xác từng chữ tên Context, chúng lại có khả năng tạo ra sự rườm rà không cần thiết:
 
 ```
@@ -8531,7 +8630,11 @@ com.saasovation.agileprojectmanagement
 
 Một chi tiết thú vị nữa là họ không sử dụng tên sản phẩm thương mại (thương hiệu) của mình trong tên Module. Tên thương hiệu có thể thay đổi, và đôi khi tên sản phẩm có rất ít hoặc không có mối liên hệ trực tiếp nào với các Bounded Context nền tảng bên dưới. Điều quan trọng hơn là phải nhận diện Context bằng đúng tên gọi chuyên môn mà đội ngũ phát triển cùng nhau thảo luận. Mục tiêu là phản ánh chân thực Ubiquitous Language. Nếu nhóm sử dụng các tên sau đây, nó sẽ không giúp họ đạt được mục tiêu đó:
 
-2. http://java.sun.com/docs/books/jls/second_edition/html/packages.doc.html#26639.
+2. [http://java.sun.com/docs/books/jls/second_edition/html/packages.doc.html#26639](http://java.sun.com/docs/books/jls/second_edition/html/packages.doc.html#26639).
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000366_46d362292089e0bd3ce607b22b4b5e2124515a1132efa349710f8914d334460e.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000367_22306d80eac89a889c0a7063c901084ba767f3b60b5069feb50bbe61e221760f.png)
 
 ```
 com.saasovation.idovation
@@ -8599,6 +8702,10 @@ com.saasovation.identityaccess.domain.conceptname
 Cách này loại bỏ được một cấp package có vẻ thừa thãi. Thế nhưng, điều gì sẽ xảy ra nếu sau này bạn quyết định đưa một vài Domain Service vào một sub-Module `domain.service`? Khi đó, rất có thể bạn sẽ cảm thấy vô cùng tiếc nuối vì trước đó đã không tạo sẵn sub-Module `domain.model`.
 
 Nhưng còn có một yếu tố ảnh hưởng đến việc đặt tên thậm chí còn quan trọng hơn cần phải cân nhắc. Hãy nhớ rằng chúng ta không phát triển một domain. Bản thân Miền (`Domain` (2)) là toàn bộ lĩnh vực tri thức/chuyên môn nghiệp vụ thực tế của doanh nghiệp nơi chúng ta đang làm việc. Thứ chúng ta thiết kế và lập trình triển khai là *mô hình của một miền* (`a model of a domain`). Do đó, khi đặt tên cho Module tối thượng chứa mô hình, `domain.model` tỏ ra là lựa chọn thỏa đáng nhất. Dẫu vậy, quyền quyết định cuối cùng vẫn thuộc về đội ngũ của bạn.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000368_f31c0dfefb55d5a686fb49706aae3d44369ee16b50d840f79daa2c77039012df.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000369_195b0b93d51a6826464e58192a3ec884b67aded5c1e12a5a19b7440438239f7f.png)
 
 ## Modules of the Agile Project Management Context
 
@@ -8669,9 +8776,15 @@ Nhóm rất thích cách các Module này được đọc lên một cách tự 
 
 Với số lượng ít ỏi các Aggregate có quan hệ mật thiết như vậy — chỉ có 4 — tại sao nhóm không gom cả 4 vào chung Module `product`? Phần hiển thị ở trên chưa liệt kê toàn bộ các thành phần khác của Aggregate, chẳng hạn như Entity `ProductBacklogItem` chứa bên trong `Product`, Entity `Task` chứa bên trong `BacklogItem`, `ScheduledBacklogItem` chứa bên trong `Release`, và `CommittedBacklogItem` được chứa
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000370_260034cd13e62b305a962092185839abc25700665f1e52a00bedaeb679bad438.png)
+
 bên trong `Sprint`. Còn có các Entity và Value Object khác được nắm giữ bởi từng loại Aggregate. Ngoài ra, còn có một lượng lớn Domain Event được xuất bản bởi một số Aggregate. Tổng cộng lại, việc nhồi nhét gần 60 class và interface vào trong một Module duy nhất sẽ khiến nó trở nên vô cùng đông đúc, ngột ngạt, tạo ra ấn tượng rõ rệt về sự thiếu tổ chức. Nhóm đã lựa chọn tính ngăn nắp, có tổ chức thay vì quá bận tâm đến các lo ngại về liên kết chéo Module (`cross-Module coupling`).
 
 Tương tự như `ProductOwner`, `Team`, và `TeamMember`, toàn bộ các kiểu Aggregate `Product`, `BacklogItem`, `Release`, và `Sprint` đều tham chiếu tới `TenantId`. Đồng thời còn xuất hiện thêm các mối phụ thuộc bổ sung. Hãy xem xét `Product`:
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000371_3cfce97f819351817e09092d64bfe91dfda2651ae235a6358787b47ddac32c41.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000372_b1a26a6e88a1774097d12f9367f65429cd24fea1d4dcae5032137432344afac8.png)
 
 ```java
 package com.saasovation.agilepm.domain.model.product;
@@ -8738,6 +8851,10 @@ com.saasovation.agilepm.resources.view
 
 Các tài nguyên RESTful được duy trì trong package `resources`. Các mối quan tâm thuần túy về mặt trình bày (`presentation`) được cung cấp bởi các thành phần trong sub-package `view` (hoặc `presentation`, nếu bạn thích). Tùy thuộc vào số lượng tài nguyên dựa trên REST mà hệ thống yêu cầu, bạn có thể có một số sub-Module bên dưới mỗi Module chính. Lưu ý rằng một class cung cấp tài nguyên (`resource provider class`) có thể hỗ trợ nhiều URI, vì vậy bạn có thể có đủ ít các class cung cấp tài nguyên để gom tất cả chúng trong Module chính. Việc có cần mô-đun hóa chúng sâu hơn nữa hay không là một quyết định rất dễ dàng một khi bạn đã xác định được các yêu cầu tài nguyên thực tế của mình.
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000373_c3fa4b9e0205600c1646fcdf49f8e3fff6822f81523d2ddfb2ed5850ad8b8e13.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000374_46f59606d155402ded4f58523edde1bf9903250795137aa43c216a8a04e5c6e8.png)
+
 Tầng Ứng dụng (`Application Layer`) có thể có các Module khác, có thể bao gồm một Module cho mỗi loại service:
 
 ```
@@ -8776,6 +8893,10 @@ Chúng ta vừa xem xét quá trình mô-đun hóa domain model, lý do tại sa
 
 Tiếp theo, chúng ta sẽ đi sâu một cách thực sự toàn diện vào một trong những công cụ mô hình hóa ít được hiểu đúng nhất của DDD: Aggregates.
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000375_763821da2dc668f93e792c38b9e2f181e31501452a0d9e3833f3d1b92d5e65d6.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000376_425e08a840af2fe7df4def915ac6f32484ec78f838acc23d47d37712a24133b3.png)
+
 Trang này được cố ý để trống
 
 ## Chapter 10
@@ -8800,6 +8921,8 @@ Việc gom cụm các Entity (5) và Value Object (6) thành một Aggregate v�
 
 Để bắt đầu, việc xem xét một số câu hỏi phổ biến có thể sẽ rất hữu ích. Liệu Aggregate có đơn thuần chỉ là một cách để gom cụm một đồ thị các đối tượng có quan hệ mật thiết dưới một đối tượng cha chung? Nếu đúng như vậy, liệu có giới hạn thực tế nào đối với số lượng đối tượng được phép cư ngụ trong đồ thị đó không? Vì một thể hiện Aggregate có thể tham chiếu tới các thể hiện Aggregate khác, liệu các mối liên kết có thể được điều hướng sâu (`navigated deeply`), sửa đổi nhiều đối tượng khác nhau dọc đường đi hay không? Và khái niệm về các invariant cùng ranh giới tính nhất quán thực chất là gì? Chính câu trả lời cho câu hỏi cuối cùng này sẽ tác động sâu sắc nhất tới câu trả lời cho tất cả các câu hỏi còn lại.
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000377_ec36483e386e60c3b9b4febd99dafda9da428658ae3b7530ac8af28c4f567a04.png)
+
 Có nhiều cách dẫn tới việc mô hình hóa Aggregate sai lầm. Chúng ta có thể rơi vào cái bẫy thiết kế theo hướng thuận tiện cho việc ghép nối thành phần (`compositional convenience`) và biến chúng thành những cụm quá lớn. Ở đầu kia của thái cực, chúng ta lại có thể bóc trần trụi mọi Aggregate, và kết quả là thất bại trong việc bảo vệ các invariant đích thực. Như chúng ta sẽ thấy, điều tối quan trọng là chúng ta phải tránh cả hai thái cực này, và thay vào đó hãy chú tâm vào các quy tắc nghiệp vụ.
 
 ## Using Aggregates in the Scrum Core Domain
@@ -8807,6 +8930,8 @@ Có nhiều cách dẫn tới việc mô hình hóa Aggregate sai lầm. Chúng 
 Chúng ta sẽ xem xét kỹ lưỡng cách thức Aggregate được sử dụng bởi SaaSOvation, và cụ thể là bên trong ứng dụng mang tên ProjectOvation thuộc `Agile Project Management Context`. Ứng dụng này tuân theo mô hình quản lý dự án Scrum truyền thống, bao gồm đầy đủ sản phẩm (`product`), chủ sản phẩm (`product owner`), đội ngũ (`team`), các hạng mục tồn đọng (`backlog items`), các đợt phát hành theo kế hoạch (`planned releases`), và các chu kỳ nước rút (`sprints`). Nếu bạn hình dung về Scrum ở trạng thái phong phú nhất, thì đó chính là đích đến của ProjectOvation; đây là một miền nghiệp vụ rất đỗi quen thuộc với đa số chúng ta. Các thuật ngữ của Scrum tạo nên điểm khởi đầu cho Ubiquitous Language (1). Vì đây là một ứng dụng dạng thuê bao trả phí được lưu trữ theo mô hình phần mềm dưới dạng dịch vụ (`SaaS`), mỗi tổ chức đăng ký sử dụng sẽ được ghi nhận là một tenant, thêm một thuật ngữ nữa trong Ubiquitous Language của chúng ta.
 
 Công ty đã quy tụ được một đội ngũ gồm các chuyên gia Scrum và các lập trình viên đầy tài năng. Tuy nhiên, vì kinh nghiệm của họ với DDD còn khá hạn chế, nhóm sẽ vấp phải một số sai lầm với DDD khi phải leo lên một đường cong học tập (`learning curve`) đầy gian nan. Họ sẽ trưởng thành dần bằng cách rút ra bài học từ chính những trải nghiệm
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000378_1addc503bd048bb890433d96cc99a2c2de481c34c43a3567135700b99a20252d.png)
 
 với Aggregate, và chúng ta cũng có thể học hỏi từ đó. Những khó khăn chật vật của họ có thể giúp chúng ta nhận diện và thay đổi những tình huống bất lợi tương tự mà chính chúng ta từng tạo ra trong phần mềm của mình.
 
@@ -8855,7 +8980,9 @@ public class Product extends ConcurrencySafeEntity {
 
 ```
 
-<!-- ⚠️ CẢNH BÁO chunk 18: số ảnh/heading/code-block KHÔNG khớp bản gốc (gốc={'images': 26, 'headings': 20, 'fences': 42}, dịch={'images': 1, 'headings': 20, 'fences': 42}). Xem lại đoạn này bằng tay. -->
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000379_2d2cf5ce183abe12922d408bf280cd7b7ed9f2cca89d3cd879a57f76dbdd93dd.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000380_a2e6fe3939aa16f74607213f1e55362f4f9c6e6c50615c5e82203efa91411749.png)
 
 ﻿```java
 private Set<Sprint> sprints;
@@ -8877,9 +9004,13 @@ Các cơ chế lưu trữ (persistence mechanism) thường được sử dụng
 
 Hình 10.1 Product được mô hình hóa dưới dạng một Aggregate kích thước rất lớn
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000381_ae8579f2a1111e995514297ae1a650737b1068bfa0f846747666c69798d809e8.png)
+
 1. Chẳng hạn, Hibernate cung cấp cơ chế kiểm soát đồng thời lạc quan theo cách này. Điều tương tự cũng có thể đúng với một kho lưu trữ dạng key-value, bởi vì toàn bộ Aggregate thường được tuần tự hóa (serialize) thành một giá trị duy nhất, trừ khi được thiết kế để lưu riêng từng phần cấu thành.
 
 Hình 10.2 Product và các khái niệm liên quan được mô hình hóa thành các kiểu Aggregate riêng biệt.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000382_7a79ea50bb7eeca7b7dae1c7ec94c037d1efeb9267c18bd614d6d7cc84b49f8d.png)
 
 Các vấn đề về tính nhất quán này xuất hiện chỉ với hai người dùng. Nếu có thêm nhiều người dùng hơn, bạn sẽ đối mặt với một vấn đề thực sự nghiêm trọng. Với Scrum (khung làm việc phát triển linh hoạt), nhiều người dùng thường xuyên thực hiện các thao tác sửa đổi chồng chéo như vậy trong suốt phiên họp sprint planning (lập kế hoạch sprint - chu kỳ phát triển lặp ngắn) và quá trình thực thi sprint. Việc liên tục từ chối tất cả các yêu cầu ngoại trừ một yêu cầu duy nhất là điều hoàn toàn không thể chấp nhận được.
 
@@ -8911,6 +9042,10 @@ public class Product ... {
         String aDescription,
 
 ```
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000383_852bbaa50e8db77a5b875f52b0ef136c7ed9ee36b74c3ffc71c43f2ff0d95e7a.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000384_54e6d51b092db67d246b69fd2b98d5a835aae8e1e44d4b68c2e726d95e44de47.png)
 
 ## Chương 10: AGGREGATE
 
@@ -9012,6 +9147,10 @@ Khi tìm cách xác định các Aggregate trong một Bounded Context (2) (ng�
 
 Một invariant là một quy tắc nghiệp vụ luôn luôn phải được đảm bảo nhất quán. Có nhiều loại nhất quán khác nhau. Một là transactional consistency (tính nhất quán cấp giao dịch), vốn được coi là mang tính tức thời và nguyên tử (atomic). Ngoài ra còn có eventual consistency (tính nhất quán sau cùng / nhất quán cuối cùng). Khi bàn về các invariant, chúng ta đang đề cập đến tính nhất quán cấp giao dịch. Giả sử chúng ta có quy tắc invariant sau:
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000385_9876f6e57d60f93c539bf944d4d32362b0407e5e6f41bff84f45ed2494bac713.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000386_4e83569f8648925e7a926977a6ab922e5b24517bd43865f42663424d67baa06f.png)
+
 ```
 c = a + b
 
@@ -9054,6 +9193,10 @@ Giờ đây chúng ta có thể giải quyết thấu đáo câu hỏi này: Cá
 
 Đặt hiệu năng và khả năng mở rộng lên hàng đầu, điều gì sẽ xảy ra khi một người dùng thuộc một tenant muốn thêm một backlog item đơn lẻ vào một product đã tồn tại nhiều năm và có sẵn hàng nghìn backlog item? Giả sử cơ chế lưu trữ có khả năng lazy loading (nạp lười / trì hoãn nạp dữ liệu) như Hibernate. Chúng ta gần như không bao giờ nạp toàn bộ các backlog item, release và sprint cùng một lúc. Thế nhưng, hàng nghìn backlog item vẫn sẽ bị nạp vào bộ nhớ chỉ để thêm một phần tử mới vào collection vốn đã rất lớn. Tình hình sẽ tồi tệ hơn nhiều nếu cơ chế lưu trữ không hỗ trợ lazy loading. Thậm chí dù đã lưu tâm đến vấn đề bộ nhớ, đôi khi chúng ta vẫn buộc phải nạp nhiều collection cùng lúc, chẳng hạn như khi xếp lịch một backlog item vào release hoặc gán nó vào sprint; khi đó toàn bộ backlog item, và hoặc là toàn bộ release hoặc toàn bộ sprint, đều sẽ bị nạp vào bộ nhớ.
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000387_5cda185f6718b1cc7653facb9b1af60c18b0d830ed3b086c4cb2aca143c61d29.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000388_eccdd0f99f8173d117fab5d39e6e229d54a0556d26900f2474084fcf85076c1b.png)
+
 Để thấy rõ điều này, hãy nhìn vào sơ đồ ở Hình 10.3 chứa phần cấu thành được phóng to. Đừng để con số biểu thị quan hệ `0..*` đánh lừa bạn; số lượng các liên kết hầu như không bao giờ bằng 0 và sẽ liên tục tăng dần theo thời gian. Chúng ta rất có thể sẽ phải nạp hàng nghìn, hàng vạn đối tượng vào bộ nhớ cùng một lúc chỉ để thực hiện một thao tác lẽ ra là tương đối cơ bản. Đó mới chỉ tính cho một thành viên duy nhất thuộc một tenant duy nhất trên một product duy nhất. Chúng ta phải luôn nhớ rằng tình huống này có thể diễn ra đồng thời với hàng trăm hoặc hàng nghìn tenant, mỗi tenant lại có nhiều đội ngũ và nhiều product. Và theo thời gian, tình trạng này sẽ chỉ ngày một trầm trọng hơn.
 
 Aggregate dạng cụm lớn này sẽ không bao giờ đạt được hiệu năng tốt hay mở rộng hiệu quả. Nó nhiều khả năng sẽ trở thành một cơn ác mộng chỉ dẫn đến thất bại. Nó đã khiếm khuyết ngay từ đầu bởi vì chính các bất biến giả cùng mong muốn thuận tiện trong cấu thành đối tượng đã định hình nên thiết kế, gây tổn hại trực tiếp đến tỷ lệ thành công của giao dịch, hiệu năng và khả năng mở rộng.
@@ -9061,6 +9204,8 @@ Aggregate dạng cụm lớn này sẽ không bao giờ đạt được hiệu n
 Nếu chúng ta dự định thiết kế các Aggregate nhỏ, thì từ "nhỏ" ở đây có nghĩa là gì? Trường hợp cực đoan nhất là một Aggregate chỉ có định danh duy nhất toàn cục và một thuộc tính bổ sung — đây không phải là điều được khuyến khích (trừ khi đó thực sự là những gì mà một Aggregate cụ thể đòi hỏi). Thay vào đó, hãy giới hạn Aggregate chỉ gồm Root Entity (thực thể gốc) cùng một số lượng tối thiểu các thuộc tính hoặc các thuộc tính có kiểu Value Object (đối tượng giá trị). 3 Mức tối thiểu chuẩn xác là đúng bằng những gì thực sự cần thiết, không thừa không thiếu.
 
 Hình 10.3 Với mô hình Product này, nhiều collection lớn bị nạp vào bộ nhớ trong quá trình thực hiện nhiều thao tác cơ bản.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000389_007bf73e92a97a1c697d83dbc1ac8665b268663497bffe4bfe5ca498ca110a6c.png)
 
 Những thuộc tính nào là cần thiết? Câu trả lời đơn giản là: những thuộc tính bắt buộc phải nhất quán với nhau, ngay cả khi các domain expert (chuyên gia nghiệp vụ) không nêu rõ chúng dưới dạng các quy tắc. Ví dụ, `Product` có các thuộc tính `name` (tên) và `description` (mô tả). Chúng ta không thể tưởng tượng được việc `name` và `description` lại không nhất quán với nhau khi bị mô hình hóa thành các Aggregate riêng biệt. Khi bạn thay đổi `name`, nhiều khả năng bạn cũng sẽ thay đổi `description`. Nếu bạn chỉ thay đổi một thuộc tính mà không thay đổi thuộc tính kia, có thể là do bạn đang sửa một lỗi chính tả hoặc điều chỉnh lại phần mô tả sao cho phù hợp hơn với tên gọi. Mặc dù các chuyên gia nghiệp vụ có thể không coi đây là một quy tắc nghiệp vụ tường minh, nhưng nó là một quy tắc ngầm định.
 
@@ -9072,6 +9217,10 @@ Trong một dự án thuộc lĩnh vực công cụ tài chính phái sinh sử 
 
 3. Thuộc tính có kiểu Value Object là thuộc tính nắm giữ một tham chiếu đến một Value Object. Tôi phân biệt điều này với một thuộc tính đơn giản như kiểu chuỗi hay kiểu số, tương tự như cách Ward Cunningham mô tả về Whole Value (mẫu giá trị hoàn chỉnh) [Cunningham, Whole Value].
 4. Xem thêm tại www.jroller.com/niclas/
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000390_535f82a381a980b509aa6320abbd4ab09754d85ea3f63798e0632b1a03e8e66b.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000391_bbc584492205d0a1b22d161e8893d530c27ac50017bbe1aabed3402834dffbc1.png)
 
 Phần thảo luận về Aggregate của [Evans] đã đưa ra một ví dụ cho thấy việc có nhiều Entity là hoàn toàn hợp lý. Một đơn đặt hàng (purchase order) được gán một hạn mức tổng tiền tối đa cho phép, và tổng giá trị của tất cả các dòng sản phẩm (line item) không được vượt quá hạn mức đó. Quy tắc này trở nên rất phức tạp để thực thi khi nhiều người dùng cùng thêm các line item vào đồng thời. Một lượt thêm đơn lẻ có thể không vượt quá giới hạn, nhưng các thao tác thêm diễn ra đồng thời bởi nhiều người dùng khi gộp lại có thể cùng nhau vượt quá hạn mức. Tôi sẽ không lặp lại giải pháp ở đây, nhưng tôi muốn nhấn mạnh rằng trong phần lớn thời gian, các invariant của mô hình nghiệp vụ thường đơn giản hơn nhiều để quản lý so với ví dụ đó. Việc nhận thức được điều này giúp chúng ta mô hình hóa các Aggregate với càng ít thuộc tính càng tốt.
 
@@ -9087,6 +9236,8 @@ Giả định rằng các ranh giới Aggregate của bạn đã khớp với c�
 
 Hình 10.4 Hiện tượng tranh chấp đồng thời xảy ra giữa ba người dùng cùng cố gắng truy cập vào hai instance của Aggregate giống nhau, dẫn đến số lượng lớn các lỗi thất bại giao dịch.
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000392_a178e10579c9b58c1f21851ddacb4b107ecb09872b8b36d538170ac86e7c8bdd.png)
+
 Như vậy, một use case mới có thể đem lại những hiểu biết sâu sắc thôi thúc chúng ta tái mô hình hóa Aggregate, nhưng ở đây cũng cần phải giữ thái độ hoài nghi. Việc gom nhiều Aggregate thành một có thể làm lộ ra một khái niệm hoàn toàn mới với tên gọi mới, tuy nhiên nếu việc mô hình hóa khái niệm mới này lại dẫn dắt bạn tới việc thiết kế một Aggregate dạng cụm lớn, thì cuối cùng nó vẫn sẽ vướng phải tất cả các vấn đề cố hữu của hướng tiếp cận đó. Vậy có hướng tiếp cận nào khác có thể giúp ích?
 
 Chỉ vì bạn được giao một use case đòi hỏi phải duy trì tính nhất quán trong một giao dịch duy nhất không có nghĩa là bạn bắt buộc phải làm như vậy. Thường thì trong những trường hợp như thế này, mục tiêu nghiệp vụ hoàn toàn có thể đạt được thông qua tính nhất quán sau cùng (eventual consistency) giữa các Aggregate. Đội ngũ phát triển cần phải xem xét các use case một cách có tư duy phản biện và chất vấn lại các giả định ban đầu, đặc biệt là khi việc làm theo đúng nguyên văn bản đặc tả sẽ dẫn tới những thiết kế cồng kềnh, khó quản lý. Đội ngũ có thể phải viết lại use case (hoặc ít nhất là hình dung lại nó nếu gặp phải một chuyên viên phân tích nghiệp vụ bất hợp tác). Use case mới sẽ đặc tả rõ tính nhất quán sau cùng cùng với độ trễ cập nhật được chấp nhận (acceptable update delay). Đây là một trong những vấn đề sẽ được đề cập sâu hơn ở phần sau của chương này.
@@ -9094,6 +9245,10 @@ Chỉ vì bạn được giao một use case đòi hỏi phải duy trì tính n
 ## Quy tắc: Tham chiếu các Aggregate khác thông qua danh tính
 
 Khi thiết kế Aggregate, chúng ta có thể mong muốn một cấu trúc cấu thành cho phép duyệt qua các đồ thị đối tượng có độ sâu lớn, nhưng đó hoàn toàn không phải là mục đích của pattern (mẫu hình thiết kế) này. [Evans] đã chỉ ra rằng một Aggregate có thể giữ các tham chiếu đến Root của các Aggregate khác. Tuy nhiên, chúng ta phải luôn ghi nhớ rằng điều này không hề đặt Aggregate được tham chiếu vào bên trong ranh giới nhất quán của Aggregate đang tham chiếu tới nó. Tham chiếu đó không tạo ra một Aggregate tổng thể duy nhất. Chúng vẫn là hai (hoặc nhiều hơn) Aggregate độc lập, như minh họa trong Hình 10.5.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000393_4b367da0877fe6e84bad43f90c41a3586daf9c3d5dd09b6281f6f242d3393b7b.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000394_054f0c4f2ebbb748f5b2cae947ff63d0d5c62d53f304e5854295967f745fb1de.png)
 
 Trong Java, liên kết này sẽ được mô hình hóa như sau:
 
@@ -9115,6 +9270,8 @@ Kết hợp với những gì đã thảo luận và những nội dung tiếp t
 
 Hình 10.5 Có hai Aggregate riêng biệt, chứ không phải một.
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000395_2181c1030d9fd31109c59a9c05d53556f70515e4a70c9fc9b1871e7379db3056.png)
+
 3. Nếu bạn cố gắng áp dụng điểm 2 và việc đó lại dẫn tới một Aggregate dạng cụm lớn với toàn bộ những cảnh báo đã nêu trước đây, thì đó có thể là dấu hiệu cho thấy bạn cần sử dụng tính nhất quán sau cùng (xem phần sau của chương này) thay vì tính nhất quán nguyên tử (atomic consistency).
 
 Nếu bạn không giữ bất kỳ tham chiếu nào, bạn không thể sửa đổi một Aggregate khác. Vì vậy, sự cám dỗ muốn sửa đổi nhiều Aggregate trong cùng một giao dịch có thể bị dập tắt ngay từ đầu bằng cách tránh tạo ra tình huống này. Tuy nhiên, điều đó lại quá hạn chế vì các mô hình miền luôn đòi hỏi một số mối liên kết nhất định. Vậy chúng ta có thể làm gì để vừa tạo thuận lợi cho các liên kết cần thiết, vừa phòng ngừa việc lạm dụng giao dịch hay các lỗi thất bại quá mức, đồng thời cho phép mô hình đạt hiệu năng cao và mở rộng tốt?
@@ -9125,7 +9282,11 @@ Hãy ưu tiên việc chỉ tham chiếu tới các Aggregate bên ngoài thông
 
 Hình 10.6 Aggregate BacklogItem suy luận các liên kết ngoài ranh giới của nó thông qua danh tính
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000396_4deed4044cec30ece3d7e13534c8014aea279f6eb93db7a1aabea1b3bcc6bf01.png)
+
 361
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000397_73d69aece5001aef089b96bad8acbd7c321df5c694b4a2428c97414f5aab6492.png)
 
 Chúng ta sẽ tái cấu trúc mã nguồn thành:
 
@@ -9187,6 +9348,8 @@ Việc để một Application Service giải quyết các quan hệ phụ thu�
 
 * LB: "Tôi có hai điểm tham chiếu khi định hướng đường đi vào ban đêm. Nếu ngửi thấy mùi thịt bò còn sống trên móng guốc, tôi biết mình đang đi về phía đàn bò. Còn nếu ngửi thấy mùi thịt bò đang nướng trên vỉ than, tôi biết mình đang đi về nhà."
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000398_f0602e08044d8dc749009cb98266b0e6849ae5c454a984ad7c9bcb637e2f9b81.png)
+
 > 💡 **Giải thích thêm:** "Beef on the hoof" (thịt bò còn trên móng guốc) là thành ngữ chỉ đàn bò sống đang đi lại ngoài đồng cỏ; còn "beef on the grill" (thịt bò trên vỉ nướng) chỉ món ăn đã sẵn sàng trên bàn ăn gia đình. Câu nói hóm hỉnh này ẩn dụ về **Model Navigation** và điểm tham chiếu trong kiến trúc phần mềm: bạn chỉ cần các điểm mốc tham chiếu rõ ràng, tối giản (ở đây là ID của Aggregate) để định hướng và biết chính xác mình đang thao tác với cái gì, thay vì phải tải và ôm đồm toàn bộ cả đàn bò (cả đồ thị đối tượng phức tạp).
 > (Không có nguồn trích dẫn xác thực — cần tự kiểm chứng thêm)
 
@@ -9197,6 +9360,10 @@ Nếu tất cả những lời khuyên này dường như dẫn tới một mô 
 ## Khả năng mở rộng và Kiến trúc phân tán
 
 Vì các Aggregate không sử dụng tham chiếu trực tiếp đến các Aggregate khác mà tham chiếu qua danh tính, trạng thái lưu trữ của chúng có thể được dịch chuyển linh hoạt giữa các phân vùng lưu trữ để đạt tới quy mô rất lớn. Khả năng mở rộng gần như vô hạn có thể đạt được bằng cách cho phép liên tục tái phân vùng (repartitioning) kho lưu trữ dữ liệu của Aggregate, như đã được Pat Helland (thuộc Amazon.com) giải thích trong bài tham luận "Life beyond Distributed Transactions: An Apostate's Opinion" [Helland]. Khái niệm mà chúng ta gọi là Aggregate thì ông gọi là entity. Nhưng dù gọi dưới cái tên nào, điều ông mô tả thực chất vẫn là một Aggregate: một đơn vị cấu thành sở hữu tính nhất quán cấp giao dịch. Một số cơ chế lưu trữ NoSQL hỗ trợ dạng lưu trữ phân tán lấy cảm hứng từ Amazon này. Chúng cung cấp phần lớn những gì mà [Helland] gọi là tầng dưới có nhận thức về khả năng mở rộng (scale-aware layer). Khi triển khai một kho lưu trữ phân tán, hoặc ngay cả khi sử dụng một cơ sở dữ liệu SQL với mục đích tương tự, việc tham chiếu qua danh tính đóng vai trò vô cùng trọng yếu.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000399_ac307a3e5d561f0fa425106d2888d177dfd28a8c468a66dc4f5f7ea4f1513690.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000400_7bb3f2f682405dfc06931273c7f4b6e50edb1b5e7432823cb993e3e6bce09f17.png)
 
 Tính phân tán không chỉ dừng lại ở phạm vi lưu trữ. Do luôn có nhiều Bounded Context cùng tham gia vận hành trong một sáng kiến Core Domain (miền cốt lõi), việc tham chiếu theo danh tính cho phép các mô hình miền phân tán duy trì các liên kết từ xa. Khi áp dụng phương pháp tiếp cận hướng sự kiện (Event-Driven), các Domain Event (8) (sự kiện miền) dựa trên tin nhắn có chứa định danh của Aggregate sẽ được phát đi khắp hệ thống doanh nghiệp. Các bên đăng ký nhận tin (message subscriber) trong các Bounded Context bên ngoài sẽ sử dụng các định danh này để thực thi các nghiệp vụ trong mô hình miền của riêng họ. Tham chiếu theo danh tính thiết lập nên các liên kết từ xa hay các đối tác cộng tác (partners). Các thao tác phân tán được quản lý thông qua những gì mà [Helland] gọi là "hoạt động hai bên" (two-party activities), nhưng theo thuật ngữ của mẫu hình Publish-Subscribe [Buschmann et al.] hoặc Observer [Gamma et al.], đó là hoạt động đa bên (từ hai bên trở lên). Các giao dịch trải rộng trên các hệ thống phân tán không mang tính nguyên tử (non-atomic). Các hệ thống khác nhau sẽ dần dần đưa nhiều Aggregate về trạng thái nhất quán sau cùng.
 
@@ -9241,6 +9408,10 @@ Việc phát hành Domain Event `BacklogItemCommitted` trong ví dụ cụ thể
 
 6. Hãy cân nhắc thực hiện thử lại bằng thuật toán Capped Exponential Back-off (thử lại lùi số mũ có giới hạn trần). Thay vì mặc định thử lại sau mỗi N giây cố định, hãy tăng thời gian chờ thử lại theo cấp số nhân kết hợp đặt một mức trần giới hạn trên cho thời gian chờ. Ví dụ: bắt đầu ở mức 1 giây và lùi dần theo cấp số nhân, nhân đôi thời gian chờ cho đến khi thành công hoặc chạm mức trần 32 giây chờ và thử lại.
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000401_f147817898df881e02a25877c18653575ece843a08f44490f6252d0f73bba3ca.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000402_349cee9cc8a01558ac6eb1c2f28b4c3055bfa0561eba5de24549e7d5a0f4d047.png)
+
 ## Giờ thực hành trên bảng trắng
 
 * Hãy quay trở lại danh sách các Aggregate dạng cụm lớn và những trường hợp từ hai Aggregate trở lên bị sửa đổi trong một giao dịch đơn lẻ.
@@ -9256,6 +9427,8 @@ Một số kịch bản nghiệp vụ có thể khiến việc xác định nên
 ## Tư duy cao bồi
 
 * LB: "Con trai tôi bảo nó vừa tìm thấy trên mạng Internet cách làm cho đàn bò cái nhà tôi mắn đẻ hơn. Tôi bảo nó: 'Đấy là việc của con bò đực'."
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000403_53775a4132130e38981219bf60d616e22de192813703273f3d39a98350874ad8.png)
 
 > 💡 **Giải thích thêm:** Câu chuyện ngụ ngôn hóm hỉnh nhấn mạnh nguyên lý **Separation of Concerns (phân tách trách nhiệm)** và **Role Responsibility**: trong thiết kế phần mềm, đừng để một thành phần cố làm thay công việc vốn thuộc về bản chất của đối tượng hoặc hệ thống khác. Khi phân vân giữa Transactional Consistency và Eventual Consistency, hãy tự hỏi: "Đó là nhiệm vụ của ai?" — nếu đó là nhiệm vụ trực tiếp của người dùng đang thao tác, hãy đảm bảo bằng giao dịch; còn nếu là nhiệm vụ của người khác hoặc của hệ thống xử lý ngầm, hãy để dữ liệu đạt trạng thái nhất quán sau cùng (eventual consistency).
 > (Không có nguồn trích dẫn xác thực — cần tự kiểm chứng thêm)
@@ -9288,6 +9461,10 @@ public class ProductBacklogItemService ... {
 
 ```
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000404_ca8aeae62a54b0a28852e04b84f6a54835fb86e2e7e142b3f86d4997335fee47.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000405_8633574c7adeb3292757973ddafd395145f53f1863e502bd2bddb828bbb9a4f1.png)
+
 ```java
     for (BacklogItemDescription desc : aDescriptions) {
         BacklogItem plannedBacklogItem =
@@ -9319,6 +9496,8 @@ Nếu không cẩn thận, tình huống này có thể kéo chúng ta quay tr�
 
 AJ: "Nếu bạn nghĩ rằng luật lệ sinh ra là để bị phá vỡ, tốt hơn hết bạn nên quen biết một thợ sửa chữa lành nghề."
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000406_648960dd520450d39b3a1e289c5434b3819c6e9b8390c9ba972dc49abf89e8f8.png)
+
 > 💡 **Giải thích thêm:** Câu nói này là lời cảnh tỉnh sắc sảo về việc thỏa hiệp kiến trúc: việc phá vỡ nguyên tắc thiết kế (như sửa đổi nhiều Aggregate trong cùng một transaction) luôn để lại những khoản nợ kỹ thuật (technical debt) và rủi ro tranh chấp tài nguyên nghiêm trọng. Nếu quyết định phá lệ, bạn bắt buộc phải có kiến thức chuyên sâu và phương án phòng ngừa sự cố vững chắc ("thợ sửa chữa giỏi") để khắc phục hậu quả.
 > (Không có nguồn trích dẫn xác thực — cần tự kiểm chứng thêm)
 
@@ -9334,13 +9513,17 @@ Ngay cả khi bắt buộc phải sử dụng một giao dịch toàn cục, b�
 
 Có những thời điểm mà việc nắm giữ các tham chiếu đối tượng trực tiếp tới các Aggregate khác lại là giải pháp tốt nhất. Điều này có thể được sử dụng để giảm thiểu các vấn đề về hiệu năng truy vấn của Repository. Những trường hợp này phải được cân nhắc hết sức cẩn trọng dưới lăng kính về kích thước tiềm ẩn và sự đánh đổi hiệu năng tổng thể. Một ví dụ về việc phá vỡ quy tắc tham chiếu theo định danh sẽ được trình bày ở phần sau của chương này.
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000407_d9c3a51731145a3a507b4e290f01bf255e216fb4d14b8848982098c85d671351.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000408_7c8496648f52f347486b98a6b31d45febe1ed58acdc373585c0e134a4c125990.png)
+
 ## Tuân thủ các quy tắc
 
 Bạn có thể gặp phải các quyết định thiết kế giao diện người dùng, các giới hạn kỹ thuật, các chính sách cứng nhắc, hoặc những yếu tố khác trong môi trường doanh nghiệp buộc bạn phải đưa ra một số thỏa hiệp. Chắc chắn chúng ta không chủ động đi tìm kiếm những cái cớ để phá vỡ bộ "Nguyên tắc kinh nghiệm cho Aggregate". Xét về lâu dài, việc tuân thủ các quy tắc sẽ mang lại lợi ích to lớn cho các dự án của chúng ta. Chúng ta sẽ có được tính nhất quán ở những nơi thực sự cần thiết, đồng thời nâng đỡ cho những hệ thống đạt hiệu năng tối ưu và khả năng mở rộng vượt trội.
 
 ## Thu nhận hiểu biết sâu sắc thông qua quá trình khám phá
 
-Khi các quy tắc của Aggregate được đưa vào áp dụng, chúng ta sẽ thấy việc tuân thủ chúng tác động như thế nào đến thiết kế của mô hình SaaSOvation Scrum. Chúng ta sẽ thấy đội ngũ dự án tư duy lại thiết kế của họ một lần nữa, áp dụng những kỹ thuật mới vừa được khám phá. Nỗ lực đó dẫn đến việc khám phá ra những góc nhìn sâu sắc mới về mô hình. Nhiều ý tưởng khác nhau của họ lần lượt được thử nghiệm và sau đó được thay thế bởi những giải pháp tối ưu hơn.
+Khi các quy tắc của Aggregate được đưa vào áp dụng, chúng ta sẽ thấy việc tuân thủ chúng tác động như thế nào đến thiết kế của mô hình SaaSOvation Scrum. Chúng a sẽ thấy đội ngũ dự án tư duy lại thiết kế của họ một lần nữa, áp dụng những kỹ thuật mới vừa được khám phá. Nỗ lực đó dẫn đến việc khám phá ra những góc nhìn sâu sắc mới về mô hình. Nhiều ý tưởng khác nhau của họ lần lượt được thử nghiệm và sau đó được thay thế bởi những giải pháp tối ưu hơn.
 
 ## Tái tư duy thiết kế, một lần nữa
 
@@ -9350,7 +9533,11 @@ Với việc đội ngũ hiện đang vô cùng hào hứng với việc thiết
 
 Bất chấp cảm giác tích cực có được từ vòng lặp trước đó, vẫn còn một số mối lo ngại tồn tại. Ví dụ, thuộc tính `story` cho phép chứa một lượng văn bản khá lớn. Các nhóm phát triển user story theo Agile sẽ không viết những đoạn văn dài dòng. Dẫu vậy, hệ thống lại có một thành phần soạn thảo tùy chọn hỗ trợ việc viết các định nghĩa use case phong phú. Những văn bản đó có thể lên tới nhiều nghìn byte. Đây là điều rất đáng để cân nhắc về chi phí phụ trội tiềm ẩn.
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000409_6ae7c0d90c9240f5723997479803fe98dbdfef24bf0a807b2b1f0f0d8629541a.png)
+
 Hình 10.7 Aggregate BacklogItem cấu thành hoàn chỉnh
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000410_f8ce209eeb7eab5440938b6b1c13f6e44f197567cebb886c3cf281ee921357e5.png)
 
 Trước chi phí phụ trội tiềm tàng này cùng với những sai lầm đã gặp phải khi thiết kế cụm `Product` khổng lồ trong Hình 10.1 và Hình 10.3, đội ngũ dự án lúc này đặt ra sứ mệnh phải cắt giảm kích thước của mọi Aggregate trong Bounded Context. Những câu hỏi cốt tử bắt đầu xuất hiện. Liệu có tồn tại một invariant thực sự giữa `BacklogItem` và `Task` mà mối quan hệ này bắt buộc phải duy trì hay không? Hay đây lại là một trường hợp khác mà mối liên kết có thể tiếp tục được phân tách sâu hơn, để hình thành nên hai Aggregate riêng biệt một cách an toàn? Tổng cái giá phải trả nếu giữ nguyên thiết kế hiện tại sẽ là bao nhiêu?
 
@@ -9362,6 +9549,10 @@ Chìa khóa giúp họ đưa ra quyết định đúng đắn nằm ở chính U
 
 Điều này chắc chắn có vẻ như là một invariant thực sự. Trạng thái chính xác của backlog item được tự động điều chỉnh và hoàn toàn phụ thuộc vào tổng số giờ còn lại trên tất cả các task của nó. Nếu tổng số giờ task và trạng thái của backlog item phải luôn nhất quán với nhau, dường như Hình 10.7 đã quy định đúng ranh giới nhất quán của Aggregate. Tuy nhiên, đội ngũ phát triển vẫn nên xác định xem cụm hiện tại có thể phải trả giá những gì xét về mặt hiệu năng và khả năng mở rộng. Chi phí đó sẽ được đặt lên bàn cân so sánh với những gì họ có thể tiết kiệm được nếu trạng thái của backlog item có thể đạt tính nhất quán sau cùng với tổng số giờ task còn lại.
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000411_fcf1f3f6e61c4ea65b29364a1d3133b24b607eb8c0c6ab1eb9ef0598a2570cac.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000412_9fcbf7e5d698d47c32176a32dc675079c7a40116c3d74b32b382b900d7ce4f74.png)
+
 Một số người sẽ xem đây là cơ hội kinh điển để áp dụng tính nhất quán sau cùng, nhưng chúng ta sẽ không vội vàng nhảy ngay tới kết luận đó. Hãy cùng phân tích cách tiếp cận dựa trên tính nhất quán giao dịch, sau đó khảo sát những gì có thể đạt được nếu sử dụng tính nhất quán sau cùng. Khi đó, chúng ta có thể tự rút ra kết luận xem phương pháp tiếp cận nào được ưu tiên hơn.
 
 ## Ước tính chi phí của Aggregate
@@ -9370,14 +9561,14 @@ Như Hình 10.7 minh họa, mỗi `Task` nắm giữ một tập hợp các inst
 
 Số giờ của task thường được ước tính lại mỗi ngày sau khi một thành viên trong nhóm hoàn thành công việc trên task đó. Giả sử rằng hầu hết các sprint đều kéo dài 2 hoặc 3 tuần. Sẽ có những sprint dài hơn, nhưng khoảng thời gian 2 đến 3 tuần là đủ phổ biến. Vì vậy, chúng ta hãy chọn một số ngày nằm trong khoảng từ 10 đến 15 ngày. Không cần phải quá chính xác, con số 12 ngày là một ước lượng phù hợp vì trên thực tế số lượng sprint 2 tuần có thể nhiều hơn số lượng sprint 3 tuần.
 
-<!-- ⚠️ CẢNH BÁO chunk 19: số ảnh/heading/code-block KHÔNG khớp bản gốc (gốc={'images': 32, 'headings': 25, 'fences': 34}, dịch={'images': 0, 'headings': 25, 'fences': 33}). Xem lại đoạn này bằng tay. -->
+<!-- ⚠️ CẢNH BÁO chunk 19: số ảnh/heading/code-block KHÔNG khớp bản gốc (gốc={'images': 32, 'headings': 25, 'fences': 34}, dịch={'images': 32, 'headings': 25, 'fences': 33}). Xem lại đoạn này bằng tay. -->
 
 ﻿Tiếp theo, hãy xem xét số giờ được phân bổ cho từng task (nhiệm vụ công việc). Cần ghi nhớ rằng các task phải được chia nhỏ thành những đơn vị khả thi để quản lý; thông thường chúng ta áp dụng khoảng thời gian từ 4 đến 16 giờ. Thông thường, nếu một task vượt quá mức ước lượng 12 giờ, các chuyên gia Scrum thường khuyến nghị nên chia nhỏ hơn nữa. Tuy nhiên, việc sử dụng mốc 12 giờ làm phép thử ban đầu sẽ giúp mô phỏng khối lượng công việc phân bổ đồng đều hơn. Ta có thể giả định rằng các task được triển khai 1 giờ mỗi ngày trong suốt 12 ngày của sprint (chu kỳ phát triển ngắn hạn trong Scrum). Cách làm này sẽ tạo điều kiện thuận lợi hơn cho các task phức tạp. Do đó, chúng ta sẽ tính toán 12 lần ước lượng lại (reestimation) cho mỗi task, với giả định ban đầu mỗi task được phân bổ 12 giờ.
 
 Vấn đề đặt ra là: Cần bao nhiêu task cho mỗi backlog item (hạng mục công việc tồn đọng)? Đây cũng là một câu hỏi không dễ trả lời. Sẽ ra sao nếu ta tư duy theo hướng cần từ 2 đến 3 task cho mỗi Layer (tầng kiến trúc) (4) hoặc Hexagonal Port-Adapter (kiến trúc lục giác Cổng - Bộ điều hợp) (4) trên một lát cắt tính năng (feature slice) cụ thể? Chẳng hạn, ta có thể tính 3 task cho User Interface Layer (Tầng giao diện người dùng) (14), 2 task cho Application Layer (Tầng ứng dụng) (14), 3 task cho Domain Layer (Tầng miền nghiệp vụ), và 3 task cho Infrastructure Layer (Tầng hạ tầng) (14). Cách phân bổ này đưa tổng số lên 11 task. Con số này có thể vừa vặn hoặc hơi ít, nhưng vì chúng ta đã chủ ý chọn con số ước lượng task tương đối dồi dào, hãy nâng con số này lên 12 task cho mỗi backlog item để dự trù thoải mái hơn. Như vậy, chúng ta có 12 task, mỗi task có 12 nhật ký ước lượng (estimation log), tương đương tổng cộng 144 đối tượng được thu thập cho mỗi backlog item. Dù con số này có thể cao hơn mức thông thường, nó cung cấp cho chúng ta một phép tính BOTE calculation đủ cụ thể để làm việc.
 
 > 💡 **Giải thích thêm:** BOTE (viết tắt của *Back-Of-The-Envelope calculation*) là thuật ngữ chỉ các phép tính nhẩm nhanh, ước lượng thô sơ mang tính phác thảo (như tính vội trên mặt sau của phong bì thư) nhằm định lượng quy mô vấn đề kỹ thuật trước khi bắt tay đo đạc chi tiết.
-> Nguồn tham khảo: https://en.wikipedia.org/wiki/Back-of-the-envelope_calculation
+> Nguồn tham khảo: [https://en.wikipedia.org/wiki/Back-of-the-envelope_calculation](https://en.wikipedia.org/wiki/Back-of-the-envelope_calculation)
 
 Vẫn còn một biến số khác cần cân nhắc. Nếu khuyến nghị của chuyên gia Scrum về việc chia nhỏ các task được tuân thủ phổ biến, cục diện sẽ thay đổi đôi chút. Việc tăng gấp đôi số lượng task (24) và giảm một nửa số lượng mục nhật ký ước lượng (6) vẫn tạo ra tổng cộng 144 đối tượng. Tuy nhiên, điều này sẽ khiến nhiều task bị tải lên bộ nhớ hơn (24 thay vì 12) trong suốt tất cả các yêu cầu ước lượng, làm tiêu tốn nhiều bộ nhớ hơn cho mỗi yêu cầu. Nhóm phát triển sẽ thử nghiệm nhiều phương án kết hợp khác nhau để xem liệu có bất kỳ tác động đáng kể nào đến các bài kiểm thử hiệu năng hay không. Nhưng trước mắt, họ sẽ bắt đầu với mô hình 12 task, mỗi task 12 giờ.
 
@@ -9448,7 +9639,6 @@ public class TaskHoursRemainingEstimated implements DomainEvent {
     private int hoursRemaining;
     ...
 }
-
 ```
 
 Một subscriber chuyên trách giờ đây sẽ lắng nghe các sự kiện này và ủy quyền cho một Domain Service (dịch vụ miền) để điều phối quá trình xử lý tính nhất quán. Service này sẽ:
@@ -9472,10 +9662,13 @@ public class HibernateTaskRepository implements TaskRepository {
         ...
     }
 }
-
 ```
 
 Eventual consistency làm giao diện người dùng trở nên phức tạp hơn đôi chút. Trừ phi việc chuyển đổi trạng thái có thể hoàn tất trong vòng vài trăm mili-giây, nếu không thì giao diện người dùng sẽ hiển thị trạng thái mới như thế nào? Liệu họ có nên đặt logic nghiệp vụ vào view để tự xác định trạng thái hiện tại? Cách làm đó sẽ tạo thành một smart UI anti-pattern (phản mẫu thiết kế đặt logic nghiệp vụ trực tiếp vào giao diện người dùng). Hay có lẽ view sẽ chỉ hiển thị trạng thái cũ (stale status) và để mặc người dùng tự xử lý sự không nhất quán về mặt thị giác đó? Điều này rất dễ bị nhìn nhận là một lỗi phần mềm (bug), hoặc chí ít cũng gây khó chịu lớn cho người dùng.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000419_81afdb9b6f72ed0c9d7b1fbd6fc004d74bdfef1f1c95fbbf6db81b0d1d4f5fde.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000420_f30405abc72177639065d61b2218dfb9699a5ff34eaf2539501a7a689a07080d.png)
 
 View có thể sử dụng một yêu cầu Ajax polling chạy ngầm, nhưng điều đó có thể rất kém hiệu quả. Vì thành phần view không thể dễ dàng xác định chính xác khi nào việc kiểm tra cập nhật trạng thái là cần thiết, phần lớn các yêu cầu ping Ajax sẽ trở nên dư thừa. Nếu áp dụng số liệu BOTE của chúng ta, 143 trên 144 lần ước lượng lại sẽ không làm thay đổi trạng thái, dẫn đến một lượng lớn yêu cầu thừa thãi đổ dồn vào Web tier. Nếu có sự hỗ trợ phù hợp từ phía server, các client thay vào đó có thể dựa vào Comet (còn gọi là Ajax Push). Dù đây là một thử thách thú vị, nó lại đưa vào một công nghệ hoàn toàn mới mà nhóm chưa từng có kinh nghiệm sử dụng.
 
@@ -9501,6 +9694,12 @@ Dựa trên tất cả những phân tích này, hiện tại nhóm đang nghiê
 
 Lựa chọn tách đôi vẫn được giữ lại làm phương án dự phòng. Sau khi tiến hành thêm các thử nghiệm với thiết kế hiện tại, cho chạy qua các bài kiểm thử hiệu năng và chịu tải, cũng như khảo sát sự chấp nhận của người dùng đối với trạng thái eventual consistency, câu trả lời về hướng tiếp cận nào tốt hơn sẽ trở nên rõ ràng hơn. Các con số BOTE hoàn toàn có thể sai nếu trên môi trường production kích thước Aggregate lớn hơn hình dung. Nếu rơi vào trường hợp đó, nhóm chắc chắn sẽ tách nó làm đôi.
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000421_f992ed9e93e67e9c8c36abe27f14bd967f9c41ce6bf752a7118663a27546c208.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000422_0617db6b16d520274c31ff8485b24b5228b9eebabffd3dcb7807870bc320f8be.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000423_d79e38c22eb4d65eb67f04897e06b5e3ed5ad1619d04dab796ebb3b151b3a9d3.png)
+
 Nếu là một thành viên của nhóm ProjectOvation, bạn sẽ chọn phương án mô hình hóa nào? Đừng ngần ngại tham gia các buổi khám phá nghiệp vụ như đã được minh họa trong tình huống thực tế này. Toàn bộ nỗ lực đó chỉ mất khoảng 30 phút, hoặc trong trường hợp xấu nhất là 60 phút. Khoảng thời gian đó là hoàn toàn xứng đáng để có được sự thấu hiểu sâu sắc hơn về Core Domain (miền nghiệp vụ cốt lõi) của bạn.
 
 ## Implementation
@@ -9523,7 +9722,6 @@ public class Product extends ConcurrencySafeEntity {
     private TenantId tenantId;
     ...
 }
-
 ```
 
 Lớp `ConcurrencySafeEntity` là một Layer Supertype (siêu kiểu theo tầng — lớp cha chung cho các thực thể trong cùng một tầng kiến trúc) [Fowler, P of EAA] được sử dụng để quản lý surrogate identity (danh tính đại diện / khóa nhân tạo) và kiểm soát phiên bản optimistic concurrency, như đã được giải thích trong chương Entities (5).
@@ -9541,7 +9739,6 @@ public class HibernateProductRepository implements ProductRepository {
     }
     ...
 }
-
 ```
 
 Bằng cách sử dụng `nextIdentity()`, một Application Service (dịch vụ tầng ứng dụng) phía client có thể khởi tạo một `Product` với định danh duy nhất toàn cầu của nó:
@@ -9567,8 +9764,11 @@ public class ProductService ... {
     }
     ...
 }
-
 ```
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000424_bd64014cfa7fc78c120d694929aa98ffb5ecd83b5298a5b583d45db35acce2fc.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000425_befb1ff97a111fc41500573170e3d787dda115f8d9718523584022c9675aeab9.png)
 
 Application Service sử dụng `ProductRepository` để vừa tạo ra một định danh, vừa tiến hành lưu trữ bền vững (persist) thể hiện `Product` mới đó. Nó trả về biểu diễn dạng `String` thuần túy của `ProductId` mới.
 
@@ -9606,8 +9806,11 @@ public class Product extends ConcurrencySafeEntity {
     }
     ...
 }
-
 ```
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000426_d43800d4796694fa9b384ddc67f10ac1a4d4d2bafc670704015146f66f88d5d2.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000427_848c188c07fab64cd2e1024e5b9155344c34cd92e2982c92a970ecdf77c28e8a.png)
 
 `Product` yêu cầu các client phải sử dụng phương thức `reorderFrom()` của nó để thực thi một command làm thay đổi trạng thái bên trong tập hợp `backlogItems` trực thuộc. Đó là một sự áp dụng chuẩn mực các hướng dẫn trên. Tuy nhiên, phương thức `backlogItems()` cũng có phạm vi `public`. Liệu điều này có phá vỡ các nguyên lý mà chúng ta đang cố gắng tuân thủ bằng cách làm lộ các thể hiện `ProductBacklogItem` ra cho client không? Đúng là nó làm lộ tập hợp, nhưng các client chỉ có thể sử dụng các thể hiện đó để truy vấn thông tin từ chúng. Do public interface của `ProductBacklogItem` bị giới hạn, client không thể nắm bắt được cấu trúc hình thái của `Product` thông qua việc điều hướng sâu vào bên trong. Client chỉ được cung cấp tri thức tối thiểu (least knowledge). Xét theo góc độ của client, các thể hiện tập hợp được trả về có thể chỉ được tạo ra cho một thao tác duy nhất đó và có thể không đại diện cho bất kỳ trạng thái xác định nào của `Product`. Client không bao giờ có thể thực thi các command làm thay đổi trạng thái trên các thể hiện của `ProductBacklogItem`, đúng như phần triển khai của nó đã chỉ rõ:
 
@@ -9623,7 +9826,6 @@ public class ProductBacklogItem extends ConcurrencySafeEntity {
     }
     ...
 }
-
 ```
 
 Hành vi làm thay đổi trạng thái duy nhất của nó được khai báo dưới dạng một phương thức ẩn, có phạm vi truy cập `protected`. Nhờ đó, các client không thể nhìn thấy hay chạm tới command này. Xét trên mọi phương diện thực tế, chỉ có `Product` mới có thể nhìn thấy và thực thi command đó. Client chỉ có thể sử dụng phương thức command public `reorderFrom()` của `Product`. Khi được gọi, `Product` sẽ ủy quyền cho tất cả các thể hiện `ProductBacklogItem` nội bộ bên trong nó thực hiện các sửa đổi bên trong.
@@ -9649,10 +9851,13 @@ public class Product extends ConcurrencySafeEntity {
     }
     ...
 }
-
 ```
 
 Một vấn đề là đoạn mã này luôn luôn làm dirty `Product`, ngay cả khi command sắp xếp lại thứ tự thực tế không tạo ra bất kỳ thay đổi nào. Hơn nữa, đoạn mã này làm rò rỉ các mối bận tâm về mặt hạ tầng vào trong mô hình, vốn là một lựa chọn mô hình hóa miền kém mong muốn nếu có thể tránh được. Chúng ta còn có thể làm gì khác?
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000428_cbfcdd791b890e42de17eda351205802241631d66facede7d6377defdc4adb52.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000429_d75e53208804c29f78cbf4ff2e1d1cf1db00458f66058c2dc9986209cab002ca.png)
 
 ## Cowboy Logic
 
@@ -9660,6 +9865,8 @@ AJ: "Tôi đang nghĩ hôn nhân cũng là một dạng optimistic concurrency. 
 
 > 💡 **Giải thích thêm:** "Cowboy Logic" là các mẩu đối thoại trào phúng, hài hước mang phong cách miền viễn Tây được Vaughn Vernon lồng ghép vào sách. Ở đây, tác giả ví von hôn nhân với cơ chế "kiểm soát đồng thời lạc quan" (optimistic concurrency): cả hai bên đều hành động dựa trên giả định lạc quan rằng phía bên kia sẽ vận hành theo kỳ vọng của mình mà không xung đột, nhưng thực tế khi commit thì va chạm thường xuyên xảy ra.
 > (Không có nguồn trích dẫn xác thực — cần tự kiểm chứng thêm)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000430_bee728976b7499f5aa2eee8b9cc02b405deacad14bc8360004923b1029d063ac.png)
 
 Trên thực tế, trong trường hợp của `Product` và các thể hiện `ProductBacklogItem` của nó, rất có thể chúng ta không cần phải chỉnh sửa version của Root khi có bất kỳ `backlogItems` nào bị sửa đổi. Do các thể hiện trong tập hợp bản thân chúng đã là các Entity, chúng hoàn toàn có thể tự mang thuộc tính version optimistic concurrency của riêng mình. Nếu hai client cùng sắp xếp lại bất kỳ thể hiện `ProductBacklogItem` nào trùng nhau, client commit thay đổi sau cùng sẽ bị thất bại. Phải thừa nhận rằng việc sắp xếp lại thứ tự bị trùng lặp này hiếm khi, thậm chí không bao giờ xảy ra, bởi vì thông thường chỉ có product owner mới là người sắp xếp lại các hạng mục trong product backlog.
 
@@ -9678,6 +9885,12 @@ Việc tiêm phụ thuộc (Dependency Injection) một Repository hoặc Domain
 Ngoài ra, trong một domain có lưu lượng truy cập cực cao, khối lượng dữ liệu khổng lồ và đòi hỏi hiệu năng tối đa, nơi bộ nhớ và chu kỳ thu gom rác (garbage collection) bị quá tải nặng nề, hãy nghĩ đến chi phí tiềm tàng của việc inject các thể hiện Repository và Domain Service vào các Aggregate. Việc đó sẽ đòi hỏi thêm bao nhiêu tham chiếu đối tượng dư thừa? Một số người có thể lập luận rằng mức độ đó chưa đủ để làm quá tải môi trường vận hành của họ, nhưng môi trường của họ có lẽ không thuộc dạng domain đang được mô tả ở đây. Dù vậy, hãy hết sức cẩn trọng để không bổ sung thêm các chi phí không cần thiết vốn có thể dễ dàng tránh được bằng cách áp dụng các nguyên lý thiết kế khác — chẳng hạn như tra cứu các dependency trước khi gọi phương thức command của Aggregate rồi truyền chúng vào.
 
 Khuyến cáo này chỉ nhằm cảnh báo việc inject Repository và Domain Service vào các thể hiện Aggregate. Dĩ nhiên, Dependency Injection hoàn toàn phù hợp cho rất nhiều tình huống thiết kế khác. Chẳng hạn, việc inject các tham chiếu Repository và Domain Service vào các Application Service là vô cùng hữu ích.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000431_93befbcf4af5074dfde9741a907868f34cd1428c666390a46b258648de7872cb.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000432_3b343d32c3bec45b486c52f13787787d2508f29dc61472bd81c3344e3db0a93a.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000433_881f4be078c88636ccf75d6188bb37bf260a529a9e182bae5152961d266c9f28.png)
 
 ## Wrap-Up
 
@@ -9699,7 +9912,7 @@ Nếu chúng ta tuân thủ nghiêm ngặt các quy tắc này, chúng ta sẽ c
 "Tôi không thể chịu nổi sự xấu xí trong các nhà máy! Nào, chúng ta vào trong thôi! Nhưng hãy cẩn thận đấy, các cô cậu bé yêu quý của tôi! Đừng có mất bình tĩnh! Đừng quá phấn khích! Phải hết sức bình tĩnh!" - Willy Wonka
 
 > 💡 **Giải thích thêm:** Câu trích dẫn kinh điển của nhân vật Willy Wonka trong tác phẩm thiếu nhi nổi tiếng *Charlie and the Chocolate Factory* (Charlie và nhà máy sô-cô-la) của Roald Dahl. Tác giả mượn hình ảnh "nhà máy" đầy nhiệm màu nhưng đòi hỏi sự trật tự, sạch sẽ của Wonka để chơi chữ với mẫu thiết kế "Factory" (nhà máy khởi tạo đối tượng) trong kỹ thuật phần mềm: việc tạo đối tượng phải gọn gàng, tránh sự lộn xộn, xấu xí (ugliness) và cần kiểm soát tốt sự phức tạp.
-> Nguồn tham khảo: https://en.wikipedia.org/wiki/Charlie_and_the_Chocolate_Factory
+> Nguồn tham khảo: [https://en.wikipedia.org/wiki/Charlie_and_the_Chocolate_Factory](https://en.wikipedia.org/wiki/Charlie_and_the_Chocolate_Factory)
 
 Trong số tất cả các pattern được sử dụng trong DDD, Factory (nhà máy khởi tạo đối tượng) có lẽ là một trong những pattern được biết đến nhiều nhất. Những mẫu thiết kế được quảng bá rộng rãi trong cuốn *Design Patterns* [Gamma et al.] gồm có Abstract Factory (nhà máy trừu tượng), Factory Method (phương thức nhà máy), và Builder (mẫu xây dựng từng bước). Tôi hoàn toàn không có ý định làm lu mờ những lời khuyên đã được đưa ra trong tài liệu đó, cũng như những chỉ dẫn do [Evans] cung cấp. Trọng tâm ở đây là mang đến cho bạn các ví dụ về cách thức ứng dụng Factory trong mô hình miền (domain model).
 
@@ -9716,6 +9929,8 @@ Hãy xem xét những động lực chính thôi thúc việc sử dụng Factor
 
 > Chuyển giao trách nhiệm khởi tạo các thể hiện của các đối tượng phức tạp và các AGGREGATE cho một đối tượng riêng biệt; bản thân đối tượng này có thể không mang trách nhiệm nghiệp vụ nào trong mô hình miền nhưng vẫn là một phần của thiết kế miền. Cung cấp một interface đóng gói toàn bộ quá trình lắp ráp phức tạp mà không đòi hỏi client phải tham chiếu đến các lớp cụ thể của đối tượng đang được khởi tạo. Tạo ra toàn bộ các AGGREGATE như một khối hoàn chỉnh, đồng thời thực thi nghiêm ngặt các invariant của chúng. [Evans, tr. 138]
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000434_ad0475f3b890075af21606c2b3d7a70cc1ab352b68c4bee07849a1851c7eac1a.png)
+
 Một Factory có thể có hoặc không có các trách nhiệm bổ sung khác trong mô hình miền ngoài việc khởi tạo đối tượng. Một đối tượng chỉ có mục đích duy nhất là khởi tạo một kiểu Aggregate cụ thể sẽ không có trách nhiệm nào khác và thậm chí sẽ không được coi là một công dân hạng nhất (first-class citizen) của mô hình. Nó chỉ đơn thuần là một Factory. Một Aggregate Root cung cấp một Factory Method để sản sinh ra các thể hiện của một kiểu Aggregate khác (hoặc các thành phần nội bộ) sẽ mang trách nhiệm chính là cung cấp các hành vi cốt lõi của Aggregate đó, và Factory Method chỉ là một trong số các hành vi đó mà thôi.
 
 Trường hợp thứ hai chính là tình huống xuất hiện thường xuyên hơn trong các ví dụ của tôi. Các Aggregate mà tôi minh họa phần lớn đều có cấu trúc khởi tạo không quá phức tạp. Tuy nhiên, một số chi tiết quan trọng trong quá trình khởi tạo Aggregate vẫn phải được bảo vệ cẩn mật để tránh tạo ra trạng thái sai lệch. Hãy xem xét các yêu cầu của một môi trường multitenancy (kiến trúc đa người thuê / đa khách hàng). Nếu một thể hiện Aggregate bị tạo nhầm dưới một tenant khác, bị gán sai `TenantId`, hậu quả có thể sẽ rất thảm khốc. Chúng ta phải chịu trách nhiệm rất cao trong việc giữ cho dữ liệu của từng tenant được phân tách biệt lập và an toàn tuyệt đối trước mọi tenant khác. Việc đặt một Factory Method được thiết kế cẩn trọng trên các Aggregate Root cụ thể có thể đảm bảo rằng thông tin tenant và các định danh liên kết khác luôn được tạo ra một cách chính xác. Nó đơn giản hóa phía client, chỉ yêu cầu client truyền vào các tham số cơ bản — thường chỉ là các Value Objects (6) — bằng cách che giấu hoàn toàn các chi tiết khởi tạo phức tạp khỏi tầm mắt của client.
@@ -9728,6 +9943,8 @@ Hơn nữa, các Factory Method đặt trên các Aggregate cho phép bạn bi�
 
 > 💡 **Giải thích thêm:** Đây là một câu đùa chơi chữ đặc trưng của văn hóa Mỹ: "fire hydrant" (trụ nước cứu hỏa trên vỉa hè) là khu vực bị pháp luật cấm đỗ xe tuyệt đối trong bán kính quy định. Vì vậy, một nhà máy sản xuất toàn trụ cứu hỏa thì hiển nhiên xung quanh sẽ cấm đỗ xe trên mọi nẻo đường.
 > (Không có nguồn trích dẫn xác thực — cần tự kiểm chứng thêm)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000435_b6e7ec98335670b6f93ec9ed379a0b8611f84eef38591e46b54b36e20ac0ab2c.png)
 
 Các Bounded Context mẫu trong một số trường hợp quả thực đòi hỏi việc khởi tạo phức tạp. Những tình huống này xuất hiện khi chúng ta Tích hợp các Bounded Context (Integrating Bounded Contexts) (13). Vào những thời điểm đó, các Services (7) sẽ đóng vai trò là các Factory tạo ra các Aggregate hoặc Value Object thuộc nhiều kiểu khác nhau.
 
@@ -9756,11 +9973,17 @@ Bảng 11.1 Các vị trí đặt Factory Method trên Aggregate
 |  |  | scheduleRelease() |
 |  |  | scheduleSprint() |
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000436_9f07ce6fc76bfa8f080e993c3323b2b4437e5f9faed6a5c725b54c0a145cb0f7.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000437_abd9ecb1c83d77499a59d18f31b4ab7e74a1d5747f0f096b8e4a50b231dbaa1b.png)
+
 ## Creating CalendarEntry Instances
 
 Hãy cùng nhìn vào thiết kế. Factory mà chúng ta đang xem xét hiện tại được đặt trực tiếp trên `Calendar` và được sử dụng để tạo ra các thể hiện `CalendarEntry`. Nhóm CollabOvation sẽ dẫn dắt chúng ta đi qua phần triển khai cụ thể.
 
 Dưới đây là một bài kiểm thử được phát triển để chứng minh cách thức Factory Method của `Calendar` nên được sử dụng như thế nào:
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000438_9820ee3c01fceb15a1b13ffa79afe5d61c385954d66ba4029c37b798a66d5b84.png)
 
 ```java
 public class CalendarTest extends DomainTest {
@@ -9785,7 +10008,6 @@ public class CalendarTest extends DomainTest {
             DomainRegistry
                 .calendarEntryRepository()
                 .nextIdentity(),
-
 ```
 
 ## FACTORY METHOD ON AGGREGATE ROOT
@@ -9805,7 +10027,6 @@ public class CalendarTest extends DomainTest {
         ...
     }
 }
-
 ```
 
 Có 9 tham số được truyền vào cho phương thức `scheduleCalendarEntry()`. Tuy nhiên, như bạn sẽ thấy ngay sau đây, constructor của `CalendarEntry` lại đòi hỏi tổng cộng tới 11 tham số. Chúng ta sẽ xem xét các lợi ích của việc này trong giây lát. Sau khi một `CalendarEntry` mới được tạo thành công, client bắt buộc phải thêm nó vào Repository của nó. Nếu không làm điều đó, thể hiện mới này sẽ bị bỏ trôi và bị dọn dẹp bởi bộ thu gom rác (garbage collector).
@@ -9831,8 +10052,11 @@ public class Calendar extends Entity {
             Repetition aRepetition,
             String aLocation,
             Set<Invitee> anInvitees) {
-
 ```
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000439_289cf1689893e8b280c39213c336e1074a390c382ee888a45c25dda22c7dd456.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000440_9d0afe2c8825ef859421822ac7f089df170974514fdbdf3b87cc446897926d08.png)
 
 ## Chapter 11 FACTORIES
 
@@ -9856,10 +10080,7 @@ public class Calendar extends Entity {
     }
     ...
 }
-
 ```
-
-<!-- ⚠️ CẢNH BÁO chunk 20: số ảnh/heading/code-block KHÔNG khớp bản gốc (gốc={'images': 28, 'headings': 23, 'fences': 24}, dịch={'images': 6, 'headings': 23, 'fences': 24}). Xem lại đoạn này bằng tay. -->
 
 ﻿Calendar sẽ khởi tạo một Aggregate (cụm đối tượng liên kết có ranh giới nhất quán) mới, cụ thể là CalendarEntry. Instance mới này sẽ được trả về cho client sau khi Event (sự kiện) CalendarEntryScheduled được phát hành (publish). (Chi tiết về Event được phát hành không mang nhiều ý nghĩa đối với nội dung thảo luận này.) Bạn có thể nhận thấy phương thức này không có các guard (điều kiện bảo vệ / kiểm tra tính hợp lệ trước khi thực thi) ở đầu hàm. Việc đặt guard cho chính Factory Method (phương thức khởi tạo đối tượng) là không cần thiết, bởi vì constructor của từng tham số Value Object (đối tượng giá trị) và constructor của CalendarEntry, cũng như các phương thức setter mà constructor tự ủy quyền (self-delegate) tới, đều đã cung cấp đầy đủ các guard cần thiết. (Xem Chương 5: Entities để biết thêm chi tiết về self-delegation và guard.) Nếu muốn cẩn thận hơn nữa, bạn vẫn có thể bổ sung thêm các guard tại đây.
 
@@ -9904,6 +10125,10 @@ Bây giờ, hãy cùng xem xét thêm một ví dụ nữa từ Collaboration Co
 ## Tạo các instance Discussion (Creating Discussion Instances)
 
 Hãy xem Factory Method trên Forum. Nó có cùng động lực thúc đẩy và cách triển khai rất tương đồng với phương thức trên Calendar, vì vậy không cần đi quá sâu vào chi tiết. Tuy nhiên, việc áp dụng Factory Method ở đây còn mang lại một lợi thế bổ sung, như nhóm phát triển sẽ chứng minh dưới đây.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000442_abd792d011686ccbcb09024e2151f1b6e5e047e7d7d6da9f725698de573b0a1c.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000443_a47bb1a29c7a5258b6c0ec0eec5bd9aadb0fedaaec6377c8ad81a224031be8bd.png)
 
 Hãy xem xét Factory Method startDiscussion() thể hiện rõ ngôn ngữ nghiệp vụ trên Forum:
 
@@ -9972,6 +10197,8 @@ Vì phần lớn cách thức tôi sử dụng Service (dịch vụ miền) dư�
 
 Nhóm phát triển tiếp tục đưa ra một ví dụ khác từ Collaboration Context. Đó là một Factory dưới dạng CollaboratorService, có nhiệm vụ sản sinh các instance Collaborator từ định danh của tenant và user:
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000444_93f5c875d6583d2ce9917c0e95f209f59f539df36d4e438974d9ed80d4ef80d6.png)
+
 ```java
 package com.saasovation.collaboration.domain.model.collaborator;
 
@@ -9984,6 +10211,10 @@ public interface CollaboratorService {
     public Owner ownerFrom(Tenant aTenant, String anIdentity);
 
 ```
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000445_698ea59a34095cf245c7e800321bf39a7de6d460c20b64c7c3890481ce16697c.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000446_5f9abdf557dafda7bd7547cbcae90c27b7ea4fa6492c1198d34de9099d35961a.png)
 
 ```java
     public Participant participantFrom(
@@ -10064,6 +10295,10 @@ Collaboration Context sử dụng username làm thuộc tính định danh cho C
 
 Có một mức độ phức tạp nhất định bên trong UserInRoleAdapter và CollaboratorTranslator. Tóm lại, UserInRoleAdapter chỉ chịu trách nhiệm giao tiếp với Context bên ngoài. Trong khi đó, CollaboratorTranslator chỉ chịu trách nhiệm cho tác vụ chuyển dịch dẫn đến việc tạo mới đối tượng. Xem Chương 13: Integrating Bounded Contexts để biết thêm chi tiết.
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000447_deb9acc0c0c1986b8fe6fb538526a37403256821a141e77bc76cab74177d5178.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000448_c3db6fa3ee46c007e76dbc2d6990a1cd63604edbd8b7b079c238fe6c28d927db.png)
+
 ## Tổng kết (Wrap-Up)
 
 Chúng ta đã xem xét lý do tại sao nên sử dụng Factory trong DDD và cách chúng hòa nhập vào mô hình nghiệp vụ:
@@ -10074,6 +10309,8 @@ Chúng ta đã xem xét lý do tại sao nên sử dụng Factory trong DDD và 
 * Bạn cũng đã học được cách thiết kế Domain Service dưới dạng các Factory, thậm chí tương tác với các Bounded Context khác và chuyển đổi các đối tượng ngoại lai thành kiểu cục bộ.
 
 Tiếp theo, chúng ta sẽ tìm hiểu cách thiết kế Repository (kho lưu trữ đối tượng) theo hai phong cách lưu trữ chính, cùng các lựa chọn triển khai khác cần được xem xét.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000449_881f4be078c88636ccf75d6188bb37bf260a529a9e182bae5152961d266c9f28.png)
 
 ## Chương 12
 
@@ -10098,6 +10335,8 @@ Các đối tượng giống như collection này hoàn toàn phục vụ cho m�
 * Tìm hiểu cách hiện thực hóa Repository cho Hibernate, TopLink, Coherence và MongoDB.
 
 còn tiếp
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000450_de0f697474ee6cce68ff4560c2f3ac954be4c803161e825d45953d5a9d2f72aa.png)
 
 * Hiểu lý do tại sao bạn có thể cần thêm các hành vi bổ sung trên interface của Repository. Cân nhắc xem transaction (giao dịch) tương tác thế nào trong quá trình sử dụng Repository.
 * Làm quen với các thách thức khi thiết kế Repository cho hệ thống phân cấp kiểu (type hierarchies).
@@ -10142,6 +10381,10 @@ assertEquals(0, calendarCollection.size());
 ```
 
 Khá đơn giản. Có một loại collection đặc biệt, `java.util.Set`, cùng lớp hiện thực `java.util.HashSet`, cung cấp đúng kiểu collection mà một Repository mô phỏng. Mọi đối tượng được thêm vào một Set phải là duy nhất. Nếu bạn cố thêm một đối tượng vốn đã tồn tại trong Set, nó sẽ không được thêm vào vì nó đã có sẵn. Vì vậy, bạn không bao giờ cần phải thêm cùng một đối tượng hai lần, như thể việc thêm lại lần nữa bằng cách nào đó sẽ lưu các thay đổi mà bạn đã yêu cầu đối tượng tự thực hiện. Các câu lệnh assertion trong bài test dưới đây chứng minh rằng việc thêm cùng một đối tượng nhiều hơn một lần không gây ra bất kỳ hiệu ứng nào, dù tích cực hay tiêu cực:
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000451_f6a365de93ecc053d6d0e8946c0306ef63d958851245d85f463bbb283bca7495.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000452_8b248cb111f086a9ee01c0292660dde7d5794723dbfa6a8e5df1d9f366c8d515.png)
 
 ```java
 Set<Calendar> calendarSet = new HashSet<Calendar>();
@@ -10213,6 +10456,10 @@ assertEquals("CollabOvation Project Calendar", calendarThatWasRenamed.name());
 
 Lưu ý rằng instance của Calendar, được tham chiếu bởi calendarToRename, được sửa đổi bằng cách yêu cầu nó tự đổi tên. Rất lâu sau đó, sau khi tác vụ đổi tên hoàn tất, tên của nó vẫn giữ đúng giá trị đã được thay đổi. Điều này đạt được mà không cần phải yêu cầu lớp con của HashSet là CalendarRepository lưu các thay đổi cho instance Calendar — việc làm vốn dĩ hoàn toàn vô nghĩa. CalendarRepository không hề có phương thức save() vì không có nhu cầu đó. Không có lý do gì phải lưu các thay đổi của instance Calendar mà calendarToRename tham chiếu tới, bởi vì collection vẫn đang giữ tham chiếu đến đối tượng bị sửa đổi, và các sửa đổi được thực hiện trực tiếp trên chính đối tượng đó.
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000453_0477e8766f27eeea35c1e91cce7dcc48b034bc1b0b69b8c1ed0c9d808ef339e9.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000454_143fd8b34576924506264826107efd54789b1474c601db7f645e0efc1d5a299e.png)
+
 Điểm mấu chốt ở đây là: một collection-oriented Repository truyền thống thực sự bắt chước một collection ở chỗ không có bất kỳ thành phần nào của cơ chế lưu trữ bị lộ ra ngoài cho client thông qua public interface. Do đó, mục tiêu của chúng ta là thiết kế và triển khai một collection-oriented Repository mang đầy đủ các đặc tính được thể hiện bởi một HashSet, nhưng thay vào đó lại kết nối tới một kho lưu trữ dữ liệu bền vững.
 
 Như bạn có thể hình dung, điều này đòi hỏi một số năng lực đặc thù từ cơ chế lưu trữ phía sau. Cơ chế lưu trữ phải hỗ trợ khả năng theo dõi ngầm (implicitly track) các thay đổi được thực hiện trên từng đối tượng bền vững mà nó quản lý theo một cách nào đó. Điều này có thể được thực hiện thông qua nhiều giải pháp khác nhau, bao gồm hai phương pháp sau:
@@ -10230,6 +10477,8 @@ Mặc dù vậy, ngay cả khi bạn có quyền tự do sử dụng một cơ c
 
 LB: "Khi con chó của tôi bị nhiễm giun, bác sĩ thú y đã kê cho nó vài cái repository."
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000455_e8145a59ef1cf67de7034260a9cdd713317f9cd892d3433ecaf26bb0124b2125.png)
+
 > 💡 **Giải thích thêm:** Đây là một câu chơi chữ (pun) bắt nguồn từ sự phát âm gần giống nhau trong tiếng Anh giữa "repository" (kho lưu trữ) và "suppository" (thuốc đặt hậu môn / thuốc đạn — dạng thuốc thú y thường dùng để trị bệnh đường ruột/giun sán cho vật nuôi). Người nói đã nghe nhầm chỉ định "suppositories" của bác sĩ thành "repositories". Tác giả lồng ghép mẩu chuyện vui dân gian này để chuyển tiếp sang chủ đề công cụ kỹ thuật kế tiếp.
 > Nguồn tham khảo: (Không có nguồn trích dẫn xác thực — cần tự kiểm chứng thêm)
 
@@ -10240,6 +10489,10 @@ LB: "Khi con chó của tôi bị nhiễm giun, bác sĩ thú y đã kê cho nó
 Có hai bước chính để tạo Repository theo bất kỳ định hướng nào. Bạn cần định nghĩa một public interface và ít nhất một lớp triển khai (implementation).
 
 Cụ thể trong trường hợp thiết kế hướng tập hợp, ở bước đầu tiên bạn định nghĩa một interface mô phỏng một collection. Bước thứ hai cung cấp một lớp triển khai giải quyết việc sử dụng cơ chế lưu trữ chính bên dưới, chẳng hạn như Hibernate. Giống như một collection, interface sẽ thường có các phương thức phổ biến như trong ví dụ sau:
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000456_e987bf3d894cc6474618aef7572620aa191b763df90cd5a0b1d35812bf43f203.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000457_0fe1d5595a373329dac73f84a9905fc88e7b195182ff73a2697d83ee3fa33c1e.png)
 
 ```java
 package com.saasovation.collaboration.domain.model.calendar;
@@ -10286,6 +10539,10 @@ public interface CalendarEntryRepository {
 ```
 
 Định nghĩa phương thức đầu tiên, `calendarEntryOfId()`, cho phép bạn truy xuất một instance cụ thể của Aggregate CalendarEntry theo định danh duy nhất. Kiểu này sử dụng một kiểu định danh tường minh, cụ thể là CalendarEntryId. Định nghĩa phương thức thứ hai, `calendarEntriesOfCalendar()`, cho phép bạn truy xuất một collection gồm tất cả các instance CalendarEntry của một Calendar cụ thể dựa theo định danh duy nhất của nó. Cuối cùng, định nghĩa phương thức tìm kiếm thứ ba, `overlappingCalendarEntries()`, cung cấp một collection chứa tất cả các instance CalendarEntry cho một Calendar cụ thể nằm trong một khoảng thời gian TimeSpan xác định. Cụ thể, phương thức này hỗ trợ truy xuất các mục đã được lên lịch trong một khoảng thời gian và ngày tháng liên tục xác định.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000458_b32d158b210d7f3a3e685f8928329ddb7e49e063a229dfaff64d450d419d9b79.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000459_fe6ec392070984d965591c220c3c58f34a5d839a3e1bfd0c2819d01d0fa98193.png)
 
 Cuối cùng, bạn có thể tự hỏi làm thế nào một CalendarEntry được gán định danh duy nhất toàn cục. Điều này cũng có thể được Repository cung cấp một cách tiện lợi:
 
@@ -10366,6 +10623,10 @@ public class HibernateCalendarEntryRepository implements CalendarEntryRepository
 
 Lớp SpringHibernateSessionProvider cũng được đặt trong Infrastructure Layer thuộc Module `com.saasovation.collaboration.infrastructure.persistence` và được inject vào từng Repository dựa trên Hibernate. Mỗi phương thức sử dụng đối tượng Session của Hibernate sẽ tự gọi phương thức `session()` để lấy nó. Phương thức `session()` sử dụng instance `sessionProvider` được inject để lấy instance Session gắn với luồng hiện tại (thread-bound Session, sẽ được trình bày sau trong chương này).
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000460_d4fd90a144d6791dd46ca35fbacaa4f13d71b9f6e940a06408270292165e1047.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000461_fae62a7e5d356f41afa7bc1276dfc05d9a2d55c5ddfd97a1a20d56aa57d376a3.png)
+
 Các phương thức `add()`, `addAll()`, `remove()` và `removeAll()` được triển khai như sau:
 
 ```java
@@ -10387,7 +10648,6 @@ public class HibernateCalendarEntryRepository implements CalendarEntryRepository
         try {
             for (CalendarEntry instance : aCalendarEntryCollection) {
                 this.session().saveOrUpdate(instance);
-            }
         } catch (ConstraintViolationException e) {
             throw new IllegalStateException("CalendarEntry is not unique.", e);
         }
@@ -10529,6 +10789,10 @@ public class HibernateCalendarEntryRepository implements CalendarEntryRepository
 
 Cách triển khai cụ thể này không sử dụng cơ chế lưu trữ hay kho dữ liệu để sinh ra định danh duy nhất. Thay vào đó, nó sử dụng bộ tạo UUID tương đối nhanh và rất đáng tin cậy.
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000464_35f800c2d8dd7696df0bccb436c38a49c10c16132adc973a63a20211693b7175.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000465_fa7832da024de91c37cfac355750883683217bfc86bf0f54e23cbbe26f1b2041.png)
+
 ## Các cân nhắc khi hiện thực hóa với TopLink (Considerations for a TopLink Implementation)
 
 TopLink sở hữu cả Session lẫn Unit of Work. Điều này có phần khác biệt so với Hibernate ở chỗ Session của Hibernate đồng thời cũng là một Unit of Work. 1 Hãy cùng xem xét góc nhìn về việc sử dụng Unit of Work tách biệt khỏi Session, sau đó dần chuyển sang cách ứng dụng chúng vào một lớp triển khai Repository.
@@ -10588,7 +10852,7 @@ Cách tiếp cận thứ hai là đưa Repository vào chế độ chỉnh sửa
 
 Có thể có những cách khác để thiết kế một collection-oriented repository cho TopLink, nhưng những giải pháp trên cung cấp một vài lựa chọn rất đáng để cân nhắc.
 
-<!-- ⚠️ CẢNH BÁO chunk 21: số ảnh/heading/code-block KHÔNG khớp bản gốc (gốc={'images': 25, 'headings': 12, 'fences': 64}, dịch={'images': 1, 'headings': 12, 'fences': 66}). Xem lại đoạn này bằng tay. -->
+<!-- ⚠️ CẢNH BÁO chunk 21: số ảnh/heading/code-block KHÔNG khớp bản gốc (gốc={'images': 25, 'headings': 12, 'fences': 64}, dịch={'images': 23, 'headings': 12, 'fences': 66}). Xem lại đoạn này bằng tay. -->
 
 ﻿![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000466_0852593b00852e5adb26dbeb3d4428f00137cc7fdb1062e98f1edcad5301b874.png)
 
@@ -10628,6 +10892,10 @@ product = cache.get(productId);
 Ở đây, instance của `Product` được tự động serialize (tuần tự hóa) vào `Map` bằng cơ chế tuần tự hóa chuẩn của Java. Tuy nhiên, giao diện có vẻ đơn giản này có thể gây hiểu nhầm đôi chút. Nếu muốn các domain (miền nghiệp vụ) đạt hiệu năng thực sự cao, bạn sẽ phải làm nhiều hơn thế. Coherence hỗ trợ tuần tự hóa chuẩn của Java khi không có một bộ cung cấp tuần tự hóa tùy chỉnh (custom serialization provider) nào được đăng ký. Nhìn chung, việc sử dụng cơ chế tuần tự hóa mặc định của Java không phải là lựa chọn tối ưu. Nó đòi hỏi một lượng byte phụ trội đáng kể để biểu diễn mỗi đối tượng, và hiệu năng tương đối kém. 4 Chắc hẳn bạn không muốn đầu tư mua một Data Fabric hiệu năng cao rồi lại tự trói chân mình bằng cách làm giảm số lượng đối tượng có thể lưu cache và hạ thấp thông lượng (throughput) tổng thể chỉ vì cơ chế tuần tự hóa chậm chạp. Vì vậy, hãy luôn nhớ rằng khi sử dụng Data Fabric chẳng hạn, tính chất phân tán sẽ được đưa vào hệ thống của bạn. Điều này thường kéo theo một áp lực thiết kế mới vào việc xây dựng domain model (mô hình miền), cụ thể là yêu cầu về cơ chế tuần tự hóa tùy chỉnh hoặc tối thiểu là chuyên biệt hóa. Điều đó có thể khiến bạn phải đưa ra những quyết định khác biệt, ít nhất là ở cấp độ triển khai.
 
 4. Nó cũng giới hạn các client của Coherence chỉ ở môi trường Java, trong khi các client .NET và C++ cũng có thể sử dụng dữ liệu trên lưới nếu bạn cung cấp cơ chế tuần tự hóa Portable Object Format (POF).
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000468_4bbf2dc7f3fa247784dfb0f49457a1aa5dee8fa46d15fc5081281fab9c513a5f.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000469_e6ba2fe09183ddd25cd8bd21ab744006358bfe9d75db5a6bfc53d1cb0b7dae11.png)
 
 dạng tài liệu (document) của chúng và sau đó chuyển đổi ngược lại về dạng đối tượng. Dĩ nhiên, việc giải quyết các thách thức này không quá khó khăn. Chẳng hạn, việc tạo ra một cơ chế tuần tự hóa tối ưu cho một Aggregate được lưu trữ bởi GemFire hoặc Coherence không hề phức tạp hơn việc tạo các mô tả ánh xạ cho một bộ ORM. Nhưng nó cũng không đơn giản đến mức chỉ việc sử dụng `put()` và `get()` trên một `Map`.
 
@@ -10709,6 +10977,10 @@ Trong trường hợp của Agile Project Management Context, đội ngũ phát 
 
 Cùng với một hàm khởi tạo (constructor) không tham số đơn giản, điểm mấu chốt của Coherence chính là `NamedCache`. Trong số các gói import, hãy lưu ý những lớp đặc thù dùng để tạo hoặc kết nối và sử dụng một cache: `CacheFactory` và `NamedCache`. Cả hai lớp này đều nằm trong package `com.tangosol.net`.
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000470_36f7b93c0d24ab60e8eb94f45fc305d017776d7d15ac36a1c57e25a7306b5912.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000471_575f17c251c853cc3081a18d918e1ee0ad189f280ec99b425fe81527b2339c5e.png)
+
 Phương thức `private` `cache()` là phương tiện để lấy được một `NamedCache`. Phương thức này sẽ lấy cache theo cơ chế lazy (nạp lười / trì hoãn nạp) trong lần đầu tiên Repository cố gắng sử dụng nó. Nguyên nhân chủ yếu là vì mỗi cache được đặt tên theo từng Tenant (người thuê / tổ chức thuê bao) cụ thể và Repository phải đợi cho đến khi một phương thức `public` được gọi thì mới có quyền truy cập vào `TenantId`. Có rất nhiều chiến lược đặt tên cho cache trong Coherence có thể được thiết kế. Trong trường hợp này, đội ngũ phát triển đã chọn lưu cache bằng cách sử dụng namespace (không gian tên) sau:
 
 1. Cấp thứ nhất theo tên viết tắt của Bounded Context: `agilepm`
@@ -10781,6 +11053,10 @@ public class CoherenceProductRepository implements ProductRepository {
 
 Để lưu một instance `Product` mới hoặc đã bị sửa đổi vào data grid, hãy sử dụng `save()`. Phương thức `save()` sử dụng `cache()` để lấy instance `NamedCache` ứng với `TenantId` của `Product`. Sau đó, nó đưa instance `Product` vào `NamedCache`. Lưu ý việc sử dụng phương thức `idOf()`, vốn có hai phiên bản nạp chồng (overload), một cho `Product` và một cho `ProductId`. Trong cả hai trường hợp, các phương thức này đều trả về định dạng `String` của định danh duy nhất của `Product`, tức là `ProductId`. Do đó, phương thức `put()` của `NamedCache` (lớp triển khai `java.util.Map`) sẽ nhận một key dạng chuỗi `String` và instance `Product` làm value (giá trị).
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000472_8585416f22c378b30bb02854d913b24abc78d85db3cef30402db918b07b6a5bb.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000473_64783ffba79c8ab075725f6b42c5615a9ddb826905059c683f2e886cbae4e9ee.png)
+
 Phương thức `saveAll()` có thể phức tạp hơn đôi chút so với những gì bạn mong đợi. Tại sao không đơn giản là lặp qua `aProductCollection` rồi gọi `save()` cho từng phần tử? Chúng ta hoàn toàn có thể làm như vậy. Tuy nhiên, tùy thuộc vào loại cache Coherence cụ thể đang sử dụng, mỗi lần gọi `put()` đều yêu cầu một network request (yêu cầu mạng). Vì vậy, cách tốt nhất là gom lô (batch) tất cả các instance `Product` cần lưu vào một `HashMap` cục bộ đơn giản rồi gửi chúng đi bằng `putAll()`. Điều này giúp giảm thiểu độ trễ mạng xuống mức thấp nhất có thể bằng cách chỉ sử dụng một request duy nhất, vốn là giải pháp tối ưu nhất.
 
 ```java
@@ -10848,6 +11124,10 @@ Tương tự như các triển khai Repository khác, có một số cân nhắc
 
 1. Một phương tiện để serialize các instance của Aggregate sang định dạng của MongoDB, sau đó deserialize (giải tuần tự hóa) từ định dạng đó và tái lập (reconstitute) lại instance của Aggregate.
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000474_1a19679e704869de44fd4b3f06f03c1301d4301cd151711660d9915cb06e7781.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000475_3cf0552f611c0f249d3cec3add49da65f48fc264e03d76ca52490156d56998be.png)
+
 MongoDB sử dụng một định dạng JSON đặc biệt gọi là BSON, tức là định dạng JSON nhị phân (binary JSON).
 
 2. Một định danh duy nhất do MongoDB sinh ra và gán cho Aggregate.
@@ -10914,6 +11194,10 @@ public class MongoProductRepository
 ```
 
 Chúng ta vẫn sử dụng phương thức `nextIdentity()`, nhưng trong triển khai này, chúng ta khởi tạo `ProductId` bằng giá trị `String` của một `ObjectId` mới. Lý do chính là vì chúng ta muốn MongoDB sử dụng cùng một định danh duy nhất mà chúng ta đang nắm giữ ngay trong chính instance của Aggregate. Do đó, khi serialize một `Product` (hoặc một kiểu khác trong một triển khai Repository khác), chúng ta có thể yêu cầu `BSONSerializer` ánh xạ định danh đó vào khóa đặc biệt `_id` của MongoDB:
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000476_61a25509c389f271a9f938ff0ac85648f2457882701da9e7aa4ae71ccffbe47e.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000477_dc5f2d6c40a3696bd28cec97e6e7256c7f29c958e58c17cca5e3ed257e1c9a2b.png)
 
 ```java
 public class BSONSerializer<T> {
@@ -11021,6 +11305,10 @@ public class MongoProductRepository
 
 ```
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000478_5473d439f5c87bdf8830d4eac77355702a294051918cc617399210df7cf3ca31.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000479_0144b7a809eb373faa153167b50143f15a221a6c05d82394b371c54d53b9dff1.png)
+
 ```java
         while (cursor.hasNext()) {
             DBObject dbObject = cursor.next();
@@ -11091,6 +11379,10 @@ Có thể có các phép tính toán khác bắt buộc phải thực hiện nga
 
 Đôi khi, việc truy vấn các phần thành phần của Aggregate từ Repository mà không cần truy cập trực tiếp vào chính Root (thực thể gốc) có thể mang lại nhiều lợi thế. Điều này có thể xảy ra nếu một Aggregate nắm giữ một collection lớn gồm một kiểu Entity (thực thể) nào đó, và bạn chỉ cần truy cập vào các instance thỏa mãn một tiêu chí nhất định. Tất nhiên, điều này chỉ hợp lý nếu Aggregate cho phép truy cập như vậy thông qua việc điều hướng từ Root. Bạn sẽ không thiết kế một Repository để cung cấp quyền truy cập vào các phần thành phần mà Aggregate Root bình thường không cho phép truy cập qua đường điều hướng. Làm như vậy sẽ vi phạm giao ước của Aggregate. Tôi cũng khuyên bạn không nên thiết kế Repository cung cấp kiểu truy cập này chỉ như một lối tắt đơn thuần vì sự thuận tiện của client. Tôi cho rằng điều này chỉ nên được sử dụng chủ yếu để giải quyết các mối lo ngại về hiệu năng trong những điều kiện mà việc điều hướng qua Root sẽ gây ra điểm nghẽn cổ chai không thể chấp nhận được. Các phương thức phục vụ việc truy cập tối ưu đó sẽ có các đặc tính cơ bản giống như những phương thức tìm kiếm khác (xem phần trước của chương này), nhưng sẽ trả về các instance của những phần thành phần bên trong thay vì trả về Root Entity. Xin nhắc lại, hãy sử dụng kỹ thuật này một cách thận trọng.
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000480_ca380a929f6766a90c584a95c44aac34726b078d6fc593d7e5602431a50025d0.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000481_6fb3354108e6776e7d4115dd2804b31237b9a7f089529539241acbd5887fd078.png)
+
 Một lý do khác cũng có thể thôi thúc bạn thiết kế các phương thức tìm kiếm đặc biệt. Một số use case (trường hợp sử dụng) nhất định trong hệ thống của bạn có thể không tuân theo đúng đường ranh giới của một kiểu Aggregate đơn lẻ khi kết xuất view hiển thị dữ liệu miền. Thay vào đó, chúng có thể cắt ngang qua nhiều kiểu, có khả năng chỉ tổng hợp một số phần nhất định của một hoặc nhiều Aggregate. Trong những tình huống như thế này, bạn có thể chọn không thực hiện việc tìm kiếm toàn bộ các instance Aggregate của nhiều kiểu khác nhau trong một transaction đơn lẻ rồi lập trình ghép nối chúng vào một container duy nhất để trả container dữ liệu đó cho client. Thay vào đó, bạn có thể sử dụng giải pháp gọi là use case optimal query (truy vấn tối ưu hóa theo trường hợp sử dụng). Đây là kỹ thuật mà bạn chỉ định một câu truy vấn phức tạp trực tiếp tới cơ chế lưu trữ, rồi nạp động các kết quả vào một Value Object (6) (đối tượng giá trị) được thiết kế chuyên biệt để đáp ứng nhu cầu của use case đó.
 
 Việc một Repository trong một số trường hợp trả về một Value Object thay vì một instance Aggregate là điều không có gì xa lạ. Một Repository cung cấp phương thức `size()` vốn đã trả về một Giá trị rất đơn giản dưới dạng một số nguyên đếm tổng số instance Aggregate mà nó nắm giữ. Một use case optimal query chỉ đơn thuần là mở rộng khái niệm này thêm một chút để cung cấp một Giá trị phức tạp hơn, đáp ứng những yêu cầu phức tạp hơn từ phía client.
@@ -11134,6 +11426,10 @@ public class SomeApplicationServiceFacade {
 ```
 
 6. Còn có các mối quan tâm khác do Application Layer quản lý, chẳng hạn như bảo mật, nhưng tôi không thảo luận về chúng ở đây.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000482_ab393c4687879fe3eb075bf8c2a7afc53f9bf09f43ebb893eb7030601faf1f5a.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000483_685cea97d401023c9645ccd352e80c1dae6ec0c337a1019ea1c5bbbc39012db8.png)
 
 Để đưa các thay đổi đối với domain model vào trong một transaction, hãy đảm bảo rằng các triển khai Repository có quyền truy cập vào cùng một `Session` hoặc Unit of Work ứng với transaction mà Application Layer đã khởi tạo. Bằng cách đó, các sửa đổi được thực hiện trong Domain Layer sẽ được commit hợp lệ xuống cơ sở dữ liệu bên dưới hoặc được rollback khi có sự cố.
 
@@ -11210,6 +11506,10 @@ import org.hibernate.SessionFactory;
 
 ```
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000484_8c693037731e9973e998e0c77ef04045d293cbddcae43e97541f53af7194c84b.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000485_423d6e0e72f24fa80d1019d51e70690e7527936b8fcf308c8f6a65ff75cb6bf2.png)
+
 ## Chương 12: REPOSITORY
 
 ```java
@@ -11217,7 +11517,7 @@ public class SpringHibernateSessionProvider {
     private static final ThreadLocal<Session> sessionHolder =
         new ThreadLocal<Session>();
 
-    private SessionFactory sessionFactory;
+    private sessionFactory sessionFactory;
 
     public SpringHibernateSessionProvider() {
         super();
@@ -11285,6 +11585,10 @@ Tôi thấy có trách nhiệm phải đưa ra một lời cảnh báo sau cùng
 
 Khi sử dụng một ngôn ngữ hướng đối tượng để phát triển một domain model, việc tận dụng tính kế thừa (inheritance) để tạo ra các cây phân cấp kiểu (type hierarchy) có thể là một cám dỗ khó cưỡng. Chúng ta có thể coi đây là cơ hội để đặt trạng thái và hành vi mặc định vào một lớp cơ sở (base class) rồi sau đó mở rộng bằng các lớp con (subclass). Và tại sao lại không chứ? Nó có vẻ là một cách hoàn hảo để tránh lặp lại chính mình.
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000486_906f36b7dda152adfed3757b26a2429e619040e872646572c3598bf8b28a363b.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000487_4a414d95d46f0d7d15cfbc981b10812d7bb8f57019605a85710f62f2cb250c40.png)
+
 Việc tạo ra các Aggregate có chung tổ tiên nhưng lại đứng tách biệt khỏi các họ hàng của chúng bằng một Repository riêng biệt là một cách sử dụng tính kế thừa hoàn toàn khác so với việc tạo ra các Aggregate có cùng tổ tiên nhưng lại dùng chung một Repository duy nhất. Vì vậy, phần này không thảo luận về tình huống mà tất cả các kiểu Aggregate trong một domain model đơn lẻ cùng kế thừa một Layer Supertype (siêu kiểu tầng) [Fowler, P of EAA] để cung cấp trạng thái và/hoặc hành vi chung trên toàn bộ domain. 7
 
 Đúng hơn, ở đây tôi đang đề cập đến việc tạo ra một số lượng tương đối nhỏ các kiểu Aggregate kế thừa từ một siêu lớp (superclass) chung đặc thù của miền. Chúng được thiết kế nhằm tạo thành một cây phân cấp các kiểu có quan hệ mật thiết với nhau, mang các đặc tính đa hình (polymorphic) và có thể thay thế lẫn nhau. Các loại phân cấp này sử dụng một Repository duy nhất để lưu trữ và truy xuất các instance của những kiểu riêng biệt đó, bởi vì client nên sử dụng các instance này thay thế cho nhau được, và client hiếm khi hoặc hầu như không bao giờ phải bận tâm đến lớp con cụ thể nào mà họ đang thao tác tại bất kỳ thời điểm nào — điều này phản ánh Nguyên lý Thay thế Liskov (Liskov Substitution Principle - LSP) [Liskov].
@@ -11325,6 +11629,10 @@ Nếu kiểu tương tác này trở thành quy chuẩn phổ biến thay vì l�
 
 Phần lớn thời gian, loại tình huống này hoàn toàn có thể tránh được bằng cách thiết kế thông tin mô tả kiểu dưới dạng một thuộc tính của Aggregate (chứ không phải trong định danh ID). Hãy xem phần thảo luận về Standard Types (các kiểu chuẩn) trong chương Value Objects (6). Bằng cách này, một kiểu Aggregate đơn lẻ có thể triển khai nội bộ các hành vi khác nhau dựa trên một Standard Type được xác định tường minh. Khi sử dụng một Standard Type tường minh, chúng ta có thể có một Aggregate cụ thể duy nhất là `ServiceProvider` và thiết kế phương thức `scheduleService()` của nó để điều phối (dispatch) hành vi dựa trên kiểu. Để bảo vệ client khỏi các quyết định dựa trên kiểu đó, chúng ta phải đảm bảo rằng logic phân nhánh kiểu không bị rò rỉ ra phía ngoài client. Thay vào đó, `scheduleService()` và các phương thức khác của `ServiceProvider` sẽ đóng gói trọn vẹn những quyết định mang tính đặc thù miền đó, như có thể thấy ở đây:
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000488_e338712d1825045958205f08f02033c694523d0a23102cc452318305771d201f.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000489_83f1b7ecf76f170dc179d9fb69961844ba64aa1e6294c72397b6a6a83ef8028b.png)
+
 ```java
 this.scheduleWarbleService(aDate, aDescription);
 this.scheduleWonkleService(aDate, aDescription);
@@ -11359,8 +11667,6 @@ Tình huống này cũng có thể được giải quyết khéo léo thông qua
 Đôi khi khái niệm Repository bị đánh đồng là đồng nghĩa với Data Access Object (đối tượng truy cập dữ liệu), hay DAO. Đúng là cả hai đều cung cấp một sự trừu tượng hóa trên cơ chế lưu trữ bền vững. Tuy nhiên, một công cụ ánh xạ đối tượng - quan hệ (ORM) cũng cung cấp một sự trừu tượng hóa trên cơ chế lưu trữ bền vững, nhưng nó không phải là Repository cũng chẳng phải là DAO. Vì vậy, chúng ta không thể gọi bừa bất kỳ sự trừu tượng hóa lưu trữ nào là DAO. Thay vào đó, chúng ta phải xác định xem liệu pattern DAO có thực sự đang được triển khai hay không.
 
 Tôi cho rằng nhìn chung có sự khác biệt rõ rệt giữa Repository và DAO. Về cơ bản, một DAO được thể hiện dựa trên các bảng cơ sở dữ liệu và cung cấp các interface CRUD (Create - Read - Update - Delete / Tạo - Đọc - Cập nhật - Xóa) thao tác trên các bảng đó. Martin Fowler trong cuốn [Fowler, P of EAA] đã phân tách việc sử dụng các cơ chế kiểu DAO khỏi những cơ chế được sử dụng cùng với domain model. Ông xác định Table Module (mô-đun bảng), Table Data Gateway (cổng dữ liệu bảng) và Active Record (bản ghi chủ động) là những pattern thường được sử dụng trong một ứng dụng viết theo Transaction Script (kịch bản giao dịch). Đó là bởi vì DAO và các pattern liên quan có xu hướng đóng vai trò như các lớp vỏ bọc (wrapper) bao quanh các bảng cơ sở dữ liệu. Ngược lại, Repository và Data Mapper (bộ ánh xạ dữ liệu), với đặc tính gắn kết chặt chẽ với đối tượng (object affinity), mới là những pattern điển hình được sử dụng với một domain model.
-
-<!-- ⚠️ CẢNH BÁO chunk 22: số ảnh/heading/code-block KHÔNG khớp bản gốc (gốc={'images': 24, 'headings': 10, 'fences': 76}, dịch={'images': 2, 'headings': 10, 'fences': 76}). Xem lại đoạn này bằng tay. -->
 
 ﻿Vì bạn có thể sử dụng DAO (Data Access Object - đối tượng truy cập dữ liệu) và các pattern (mẫu thiết kế) liên quan để thực hiện những thao tác CRUD (Create, Read, Update, Delete - các thao tác cơ bản: Tạo, Đọc, Cập nhật, Xóa) chi tiết ở mức tinh thể trên dữ liệu mà đáng lẽ ra phải được coi là các phần cấu thành của một Aggregate (tập hợp các đối tượng nghiệp vụ ràng buộc theo một ranh giới nhất quán), nên đây là một pattern cần tránh đối với một domain model (mô hình miền nghiệp vụ). Trong điều kiện bình thường, bạn luôn muốn chính Aggregate tự quản lý logic nghiệp vụ cùng các thành phần nội bộ của nó và ngăn chặn mọi sự can thiệp từ bên ngoài.
 
@@ -11464,6 +11770,10 @@ public class CoherenceProductRepositoryTest extends DomainTest {
 
 ```
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000491_7197cb8c9ea745059992848ae6de6b2f78f543ca816969eb8b1dde2e0f9edd3a.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000492_ff9a91d7fb0312764133f571d8a18078436c0792d1028276151d0835bb13858f.png)
+
 ## Chapter 12 REPOSITORIES
 
 ```java
@@ -11515,6 +11825,8 @@ public class CoherenceProductRepositoryTest extends DomainTest {
 > 💡 **Giải thích thêm:** Câu chuyện ngụ ngôn hài hước của cao bồi AJ vừa là lời châm biếm hóm hỉnh, vừa ẩn dụ cho việc dọn dẹp sạch sẽ kho lưu trữ/cache (tear-down) sau mỗi bài test: nếu không dọn dẹp dữ liệu cũ sau khi xong việc, mớ đồ đạc tồn đọng sẽ rơi vào tay kẻ khác (tiến trình test tiếp theo) và gây ra những rắc rối không lường trước.
 > (Không có nguồn trích dẫn xác thực — cần tự kiểm chứng thêm)
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000493_44efe1f03378dba8abe145ffca793e2ecdfa2fafaa5ee3d5f6ef2a6502f2f984.png)
+
 Còn một phương thức của Repository là `allProductsOfTenant()` vẫn chưa được kiểm thử. Vì bộ nhớ cache của Repository hoàn toàn trống khi bài test bắt đầu, chúng ta phải đọc thành công ba thể hiện `Product` từ đó. Do đó, chúng ta sẽ cố gắng tìm kiếm tất cả chúng. `Collection` được trả về không bao giờ được phép null, ngay cả khi bạn không tìm thấy những gì mình mong đợi. Vì vậy, bước cuối cùng trong bài test là khẳng định rằng toàn bộ số lượng thể hiện `Product` kỳ vọng — tức là ba — trên thực tế đã được tìm thấy.
 
 Bây giờ khi đã có một bài test chứng minh cách các client có thể sử dụng Repository và xác thực tính đúng đắn của nó, chúng ta có thể xem xét cách kiểm thử tối ưu hơn cho các client sử dụng Repository.
@@ -11534,7 +11846,7 @@ public class InMemoryProductRepository implements ProductRepository {
 
     public InMemoryProductRepository() {
         super();
-        this.store = new HashMap<ProductId, Product>();
+    this.store = new HashMap<ProductId, Product>();
     }
 
     @Override
@@ -11548,6 +11860,10 @@ public class InMemoryProductRepository implements ProductRepository {
         }
 
 ```
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000494_4ec904ecec8e97759df9d01a22b5c5ba9191703d0ef23b05b264a9a5663a9308.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000495_f46c8eb048150362af38081c3581ecf69d198f73c1d2ee27b66cbd87ff3426e6.png)
 
 ```java
         return entries;
@@ -11626,6 +11942,12 @@ Những thách thức khó khăn có thể phát sinh thường liên quan đế
 
 Một ưu điểm khác của việc triển khai các phiên bản in-memory cho Repository là khi bạn cần kiểm thử việc sử dụng đúng đắn phương thức `save()` với một interface định hướng lưu trữ bền vững (persistence-oriented interface). Bạn có thể triển khai các phương thức `save()` để đếm số lần được gọi. Sau khi mỗi bài test chạy xong, bạn có thể assert xem số lần gọi có khớp với số lượng mà client của Repository cụ thể đó yêu cầu hay không. Thông thường, bạn có thể áp dụng cách tiếp cận này khi kiểm thử các Application Service (dịch vụ tầng ứng dụng) vốn phải thực hiện thao tác `save()` tường minh các thay đổi vào một Aggregate.
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000496_b030eabea36541d9d0570e573d7f3eb86fe5c8683d746afe1177a9d8e3e40624.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000497_14db21ce1e00be49fe18c10709838b49eee9a14826f145ab6853020e91b4fa29.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000498_881f4be078c88636ccf75d6188bb37bf260a529a9e182bae5152961d266c9f28.png)
+
 ## Wrap-Up
 
 Trong chương này, chúng ta đã xem xét chuyên sâu về việc triển khai các Repository.
@@ -11660,6 +11982,8 @@ Như đã thảo luận trước đây, Context Map có hai dạng thức chính
 * Thấu hiểu những thách thức bạn sẽ phải đối mặt khi quyết định sao chép trùng lặp thông tin giữa các Bounded Context.
 * Nghiên cứu các ví dụ mang lại mức độ trưởng thành ngày càng cao trong các phương pháp tiếp cận thiết kế.
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000499_eb8a30e0d6511c27aaf1966ed0cfe3f3684eb481f4b8076927190947e8013e48.png)
+
 ## Integration Basics
 
 Khi hai Bounded Context cần tích hợp, có một vài cách tương đối rõ ràng để thực hiện điều này trong mã nguồn.
@@ -11678,6 +12002,8 @@ AJ: "Tốt nhất là anh nên ngồi vững trên yên ngựa đi. Con ngựa �
 
 > 💡 **Giải thích thêm:** Thành ngữ "make you old before your time" (khiến bạn già trước tuổi) ý chỉ sự kiệt sức và căng thẳng tột độ. AJ dùng hình ảnh cưỡi ngựa bất kham ("take a low seat in your saddle" - hạ thấp trọng tâm trên yên ngựa) để cảnh báo: nếu chọn các phương thức tích hợp cổ hủ và nhiều cạm bẫy như dùng chung database hay chia sẻ file, bạn sẽ phải trả giá bằng vô số đêm mất ngủ để sửa lỗi và bảo trì.
 > (Không có nguồn trích dẫn xác thực — cần tự kiểm chứng thêm)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000500_a5f3fd6d6c2c83d45eec67e12f7ad36e463df16f4131adb4d0251c5abc9ae45a.png)
 
 Mặc dù tôi đã nêu bật ba cách phổ biến được sử dụng để tích hợp các Bounded Context, chúng ta thực tế sẽ chỉ tập trung vào hai cách trong số đó xuyên suốt chương này. Chúng ta sẽ chủ yếu tập trung vào việc tích hợp với các cơ chế messaging, nhưng cũng sẽ xem xét cách sử dụng RESTful HTTP. Chúng ta sẽ tránh các ví dụ sử dụng RPC vì bạn có thể dễ dàng hình dung việc tạo ra các API thủ tục thay thế cho hai hướng tiếp cận còn lại. Ngoài ra, RPC có tính kiên cường (resilience) kém hơn khi mục tiêu của chúng ta là hỗ trợ các autonomous service (dịch vụ tự trị, hay còn gọi là các ứng dụng tự trị). Một hệ thống gặp sự cố mà thông thường vốn cung cấp API dựa trên RPC sẽ khiến các hệ thống phụ thuộc vào nó không thể hoàn thành các thao tác của chính chúng.
 
@@ -11700,6 +12026,8 @@ Những điều này được chủ ý phát biểu khác đi so với "Các ng�
 
 > 💡 **Giải thích thêm:** "8 Ngụy biện của Tính toán Phân tán" (Fallacies of Distributed Computing) là danh sách kinh điển do kiến trúc sư L. Peter Deutsch cùng các đồng nghiệp tại Sun Microsystems tổng kết từ năm 1994, cảnh báo các giả định sai lầm tai hại mà giới lập trình thường mắc phải khi chuyển từ hệ thống đơn khối (monolith) sang hệ thống phân tán.
 > Nguồn tham khảo: https://en.wikipedia.org/wiki/Fallacies_of_distributed_computing
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000501_d6987f0a2a350cff2c29be3e63cfd359d01da7bf49ab00adb72e581fb790e5d4.png)
 
 ## Exchanging Information across System Boundaries
 
@@ -11725,6 +12053,10 @@ Sẽ ra sao nếu chúng ta có thể định nghĩa một bản hợp đồng g
 Điều này đòi hỏi một số sự đánh đổi, như thường lệ. Bạn sẽ không thể điều hướng bằng cách sử dụng các hàm truy xuất thuộc tính (accessor) như khi sở hữu các interface/class cho từng đối tượng cùng với tính an toàn kiểu dữ liệu đi kèm. Bạn cũng sẽ thiếu đi sự hỗ trợ từ IDE, chẳng hạn như khả năng tự động hoàn thành mã nguồn (code completion). Đây thực ra không phải là một nhược điểm quá lớn. Hơn nữa, bạn sẽ không nhận được sự hỗ trợ từ các function/method vận hành mà một class Event có thể cung cấp. Tuy nhiên, tôi không nhìn nhận việc thiếu vắng các function/method vận hành của Event là một nhược điểm, mà coi đó là một cơ chế bảo vệ. Bounded Context tiêu thụ chỉ nên quan tâm đến các thuộc tính dữ liệu và tuyệt đối không bao giờ được phép bị cám dỗ sử dụng các chức năng vốn là một phần của một mô hình khác. Các Port and Adapter (Cổng và Bộ điều hợp) (4) của bên tiêu thụ cần phải che chắn cho mô hình miền của nó khỏi bất kỳ sự phụ thuộc nào như vậy, và thay vào đó phải truyền dữ liệu Event cần thiết dưới dạng các tham số phù hợp với các kiểu dữ liệu chỉ được định nghĩa bên trong chính Bounded Context của nó. Mọi tính toán hoặc xử lý cần thiết phải do Bounded Context sản xuất thực hiện và cung cấp dưới dạng các thuộc tính dữ liệu Event được làm giàu thêm.
 
 Hãy xem xét một ví dụ. SaaSOvation cần trao đổi dữ liệu media giữa các Bounded Context khác nhau của mình. Hệ thống sẽ thực hiện điều đó bằng cách sử dụng các tài nguyên RESTful và gửi các thông điệp chứa các Event (sự kiện miền nghiệp vụ) (8) giữa các service. Trên thực tế, một dạng tài nguyên RESTful là một notification (thông báo), và các thông điệp dựa trên Event cũng được gửi tới các subscriber dưới dạng các đối tượng `Notification`. Nói cách khác, trong cả hai trường hợp, `Notification` đều chứa một Event, và cả hai được định dạng thành một cấu trúc duy nhất. Bản đặc tả custom media type cho các notification và Event có thể chỉ ra một bản hợp đồng bao gồm:
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000502_24dd1392ad540226212087ebe394b17889360101e61373d0264d429016acfe74.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000503_c7014e1c3c80c99f2da039ee66c9bcfbf814e71a18e6cf199ea2a441d691b300.png)
 
 ## Chapter 13 INTEGRATING BOUNDED CONTEXTS
 
@@ -11796,6 +12128,10 @@ assertEquals(domainEvent.nestedEvent().eventVersion(),
 
 ```
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000504_7e725652c1b3475c823675ebde63e4dd41ea716dd57eb5a9fa73333dd7f0a0fb.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000505_72406629a965acf3b815941d345e1fc8c4d87ed5f94a372f031c427ac2c1085b.png)
+
 ```java
 assertEquals("" + domainEvent.nestedEvent().id(),
     reader.eventStringValue("nestedEvent", "id"));
@@ -11858,7 +12194,13 @@ Hãy hiểu rằng đây chỉ đơn thuần là một tùy chọn để xử l�
 > 💡 **Giải thích thêm:** Câu danh ngôn hài hước của cao bồi LB mượn ý từ câu châm ngôn nổi tiếng của François de La Rochefoucauld: "Người già thích đưa ra những lời khuyên hay để tự an ủi cho việc mình không còn đủ sức làm những tấm gương xấu". Tác giả Vernon tự trào rằng sau bao phen trả giá và vấp ngã với các kiến trúc phần mềm trong quá khứ, giờ đây ông đúc kết lại thành những bài học kinh nghiệm chân thực nhất cho các thế hệ kỹ sư đi sau.
 > (Không có nguồn trích dẫn xác thực — cần tự kiểm chứng thêm)
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000506_20361ea20e681a853f54acb8a2efd65fdd912d68a26d1abd2ea1208580eb5433.png)
+
 Hoàn toàn có khả năng mỗi hướng tiếp cận — deploy các class để trao đổi dữ liệu tuần tự hóa so với việc định nghĩa một hợp đồng media type — đều có ưu thế riêng ở các giai đoạn khác nhau của một dự án. Ví dụ, tùy thuộc vào số lượng nhóm, số lượng Bounded Context, tần suất thay đổi, và các yếu tố khác, việc chia sẻ các class và interface có thể phát huy hiệu quả khi dự án của bạn mới bắt đầu, nhưng việc chuyển sang sử dụng hợp đồng custom media type lỏng lẻo hơn (decoupled) có thể sẽ tốt hơn ở giai đoạn production. Trong thực tế, điều này có thể phù hợp hoặc không phù hợp đối với một nhóm hoặc một tập hợp các nhóm cụ thể. Đôi khi, những gì một nhóm bắt đầu sử dụng lại chính là những gì họ gắn bó lâu dài, và họ không bao giờ dành thời gian để thực hiện một sự thay đổi 180 độ.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000507_e75df7d5f79c88386309623c7d189bd5e11faefbd02ac8078bedd2ff2e8e8c9a.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000508_a8077e07c0b57a3a80e015a5c7533372a64ff909905e5dc09edc94bb12ad68a1.png)
 
 Để giữ cho các ví dụ xuyên suốt của chúng ta luôn đơn giản và dễ hiểu, trong phần còn lại của chương này tôi sẽ sử dụng `NotificationReader` nhất quán. Việc có sử dụng hợp đồng custom media type và `NotificationReader` trong các Bounded Context của bạn hay không hoàn toàn là quyền quyết định của bạn.
 
@@ -11876,6 +12218,8 @@ Tuy nhiên, chúng ta có thể khắc phục điều này ở một mức độ
 
 Khi nhóm SaaSOvation phát triển Identity and Access Context cần tạo ra một phương thức để các bên tích hợp sử dụng Bounded Context của họ, họ đã xác định rằng RESTful HTTP sẽ là một trong những cách tốt nhất để mở rộng hệ thống phục vụ tích hợp mà không làm lộ trực tiếp
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000509_36dfc5ca8d8f7c13d5ed0d1f8da7d39a5a95fcbe8f8b29d4a6c0cc983a3a76ee.png)
+
 các chi tiết cấu trúc và hành vi trong mô hình miền của họ. Đối với họ, điều này đồng nghĩa với việc thiết kế một tập hợp các tài nguyên RESTful nhằm cung cấp các biểu diễn về các khái niệm định danh (identity) và truy cập (access) theo từng tenant riêng biệt.
 
 Phần lớn thiết kế của họ sẽ cho phép các Bounded Context tích hợp thực hiện thao tác `GET` các tài nguyên truyền tải định danh người dùng (user) và nhóm (group), đồng thời biểu thị các quyền bảo mật dựa trên vai trò (role-based security permissions) cho các kiểu định danh đó. Ví dụ, nếu một integration client cần biết liệu một người dùng trong một tenant nhất định có thể đảm nhận một vai trò truy cập cụ thể hay không, client đó sẽ thực hiện `GET` một tài nguyên bằng cách sử dụng định dạng URI sau:
@@ -11891,6 +12235,10 @@ Hãy cùng xem cách nhóm công bố các tài nguyên truy cập và cách cá
 Khi SaaSOvation bắt đầu áp dụng các nguyên lý REST vào một trong các Bounded Context của mình, họ đã rút ra được một số bài học quan trọng. Hãy cùng theo dõi hành trình của họ.
 
 Khi nhóm SaaSOvation làm việc trong Identity and Access Context cân nhắc cách cung cấp một Open Host Service cho các bên tích hợp, ban đầu họ đã xem xét việc đơn giản là phơi bày mô hình miền của mình dưới dạng một tập hợp các tài nguyên RESTful có liên kết với nhau. Điều đó đồng nghĩa với việc cho phép các HTTP client thực hiện `GET` một tài nguyên tenant duy nhất và điều hướng xuyên suốt qua các user, group, và role của nó. Liệu đó có phải là một ý tưởng hay? Thoạt đầu nó có vẻ rất tự nhiên. Rốt cuộc, điều đó sẽ mang lại cho các client sự linh hoạt tối đa: các client có thể biết mọi thứ về mô hình miền và tự đưa ra quyết định ngay trong chính Bounded Context của mình.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000510_fa61f694303fda7703e7edb6f1ca513796eed22387f50e9dcc9fb0de4337c023.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000511_3528c564b29ddac058ba50072b358922eff4ab03934606b4c3cd3f3cec8fa3f6.png)
 
 Pattern Context Mapping nào của DDD mô tả chính xác nhất cách tiếp cận thiết kế này? Trong thực tế, đó hoàn toàn không phải là một Open Host Service, mà tùy thuộc vào quy mô của mô hình được chia sẻ, nó sẽ là một Shared Kernel hoặc một Conformist (mô hình tuân thủ) (3). Việc phát hành một Shared Kernel hoặc chấp nhận một mối quan hệ Conformist sẽ đẩy các bên tiêu thụ vào một mối liên kết tích hợp chặt chẽ (tightly coupled) với mô hình miền được tiêu thụ. Những kiểu quan hệ đó nên tránh bằng mọi giá nếu có thể, vì chúng có xu hướng đi ngược lại những mục tiêu cơ bản nhất của DDD.
 
@@ -11983,7 +12331,13 @@ public class AccessService {
                 }
             }
         }
+```
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000512_b55b07dca5999c928b94abf0ac7e286c796c4ee05e3566e2b71399102a2774eb.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000513_6945cbd271b398578411a0f345407e1f70b8ac7ae8bf567462a23eba48a01d8e.png)
+
+```java
         return userInRole;
     }
 
@@ -12039,9 +12393,15 @@ Vậy làm thế nào để biến biểu diễn user-in-role này phục vụ c
 
 Hình 13.1 Open Host Service của Identity and Access Context và Anticorruption Layer của Collaboration Context được sử dụng để tích hợp giữa hai ngữ cảnh
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000514_97321952459d2dfcea1b81e48ee0555894ff95b1a681487ee74ffd44f68d8b0e.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000515_c33f0bbd075d9bb1151c266cd37576921c0807394fdf1732a4be75b92d804fe6.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000516_0e2b5f7c7140df584509d10cf3f45ad8fc985f5197a60a0835c51b999b023ae7.png)
+
 Bộ ba gồm `CollaboratorService`, `UserInRoleAdapter`, và `CollaboratorTranslator` được sử dụng để hình thành nên một Anticorruption Layer (tầng chống làm hỏng mô hình) (3), đây là phương tiện giúp Collaboration Context tương tác với Identity and Access Context và chuyển đổi biểu diễn user-in-role thành một Value Object đại diện cho một loại `Collaborator` cụ thể.
 
-<!-- ⚠️ CẢNH BÁO chunk 23: số ảnh/heading/code-block KHÔNG khớp bản gốc (gốc={'images': 27, 'headings': 17, 'fences': 38}, dịch={'images': 1, 'headings': 17, 'fences': 34}). Xem lại đoạn này bằng tay. -->
+<!-- ⚠️ CẢNH BÁO chunk 23: số ảnh/heading/code-block KHÔNG khớp bản gốc (gốc={'images': 27, 'headings': 17, 'fences': 38}, dịch={'images': 27, 'headings': 17, 'fences': 36}). Xem lại đoạn này bằng tay. -->
 
 ﻿Dưới đây là interface `CollaboratorService`, định nghĩa các thao tác đơn giản của Anticorruption Layer (ACL - lớp chống tha hóa, giúp bảo vệ mô hình miền khỏi sự xâm nhập của mô hình ngoại lai):
 
@@ -12119,6 +12479,10 @@ public class UserInRoleAdapter {
                 collaborator = new CollaboratorTranslator()
 
 ```
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000517_9e3619a449c0f694ea7110c63a6edd307e04dcb8baa07d6e9adbc1a4a75e362b.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000518_554d2e43cacf0d75f8db46f943906478a14545a12aef8e016fb6fc5239d37c8c.png)
 
 ## Chapter 13 INTEGRATING BOUNDED CONTEXTS
 
@@ -12220,6 +12584,10 @@ public final class Author extends Collaborator {
 
 ```
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000519_f865d9271ca5689467937b8180871f28593a409b05dcdf996bc8c015748989e9.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000520_a2b9df4c473cda7bd11e4c88ab64bd42de4e58a82d9ac32149f890659f744e79.png)
+
 ## Chapter 13 INTEGRATING BOUNDED CONTEXTS
 
 ```java
@@ -12291,6 +12659,10 @@ Agile Project Management Context cần quản lý danh sách các Scrum product 
 
 Thực tế, Agile Project Management Context sẽ để các vai trò đó được quản lý bởi Identity and Access Context — một lựa chọn hết sức tự nhiên và phù hợp. Trong hệ thống đó, mỗi tenant đăng ký dịch vụ Scrum sẽ có hai instance `Role` được tạo: `ScrumProductOwner` và `ScrumTeamMember`. Mỗi `User` cần đảm nhận một trong các vai trò đó sẽ được gán vào Role tương ứng. Dưới đây là phương thức Application Service trong Identity and Access Context chịu trách nhiệm gán một `User` vào một `Role`:
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000521_8e5737ca953eb32b39ca2b7c46e394a818cfe28f4bfb8a9e8da414f119f4f61d.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000522_b7dc3dfd3d3d9c997ee07bbcb7ad4ec4451157289af1fa27189cc695fe5f4700.png)
+
 ```java
 package com.saasovation.identityaccess.application;
 ...
@@ -12311,12 +12683,12 @@ public class AccessService ... {
                     tenantId,
                     aCommand.getRoleName());
 
-            if (role != null) {
-                role.assignUser(user);
-            }
+        if (role != null) {
+            role.assignUser(user);
         }
     }
-    ...
+}
+...
 }
 
 ```
@@ -12377,6 +12749,10 @@ public abstract class ExchangeListener {
         this.attachToQueue();
 
 ```
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000523_8f88c6060c25a9c59d63274a1a290fc89ee54ccd910a268666c62cb84efdfd13.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000524_eb13b9a2f295ea7ab12309eb3f47541e3650760c881d3675c9dfddb0133d7aa8.png)
 
 ## Chapter 13 INTEGRATING BOUNDED CONTEXTS
 
@@ -12466,6 +12842,10 @@ public class TeamMemberEnablerListener extends ExchangeListener {
 
 ```
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000525_06ce568e29b354572ed1ccb65dcc75c4265c771f733769f0876ca2892deadee5.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000526_5b59cdc89173b0b13f3f8046b1a13ac3f2f9777bacaf308d52ac86ee6710c33d.png)
+
 ```java
         String emailAddress = reader.eventStringValue("emailAddress");
         String firstName = reader.eventStringValue("firstName");
@@ -12543,12 +12923,14 @@ public class TeamService ... {
 
 ```
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000527_6826e8a9aed28f3336bf5000742eb95baca92aa10a3e2e05997101ba72ffaa42.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000528_994a28f9aef145326b7da96b9d063a3f91eb014a698acfc79d76888610b66eb7.png)
+
 ```java
             this.productOwnerRepository.add(productOwner);
-        }
     }
 }
-
 ```
 
 Ví dụ, phương thức Service `enableProductOwner()` xử lý khả năng `ProductOwner` cụ thể đó đã tồn tại. Nếu đối tượng đã tồn tại, chúng ta giả định rằng nó có thể cần được kích hoạt lại, do đó chúng ta điều phối tới thao tác lệnh tương ứng. Nếu `ProductOwner` chưa tồn tại, chúng ta khởi tạo một Aggregate mới và thêm nó vào Repository của nó. Trên thực tế, chúng ta xử lý `TeamMember` theo cách tương tự, vì vậy `enableTeamMember()` cũng được hiện thực hóa tương tự.
@@ -12587,6 +12969,10 @@ public class TeamService ... {
 }
 
 ```
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000529_ef82fcd88f9aa2be1af402658a4566b5e984d99d967618bf28fba6edbd278326.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000530_daa365a0add029c87cce405becf50e44669feef372a97bd74a354bbd1100808c.png)
 
 Lưu ý rằng khi điều phối tới phương thức lệnh `disable()` của `TeamMember`, chúng ta bắt buộc phải truyền giá trị `occurredOn` từ command object. Bản thân `TeamMember` sẽ sử dụng giá trị này trong nội bộ để đảm bảo rằng việc vô hiệu hóa chỉ diễn ra khi nó thực sự hợp lệ:
 
@@ -12679,6 +13065,10 @@ public abstract class Member extends Entity {
 
 Chúng ta có thể phản biện rằng việc đưa `MemberChangeTracker` vào thiết kế Aggregate là một sai lầm, và kết luận rằng điều này chẳng liên quan gì đến Ubiquitous Language của các nhóm làm việc theo Scrum. Điều đó đúng. Tuy nhiên, chúng ta không bao giờ để lộ `MemberChangeTracker` ra bên ngoài ranh giới của Aggregate. Nó hoàn toàn là một chi tiết triển khai kỹ thuật, và các client sẽ không bao giờ biết đến sự tồn tại của nó. Chi tiết duy nhất mà client nhận biết được là họ phải cung cấp giá trị `occurredOn` ghi nhận thời điểm mà sự kiện sửa đổi tương ứng thực sự diễn ra. Hơn nữa, đây chính xác là loại chi tiết kỹ thuật mà Pat Helland đã khuyến nghị khi ông mô tả cách quản lý các mối quan hệ đối tác (partner relationships) trong tài liệu nghiên cứu về các hệ thống phân tán, có khả năng mở rộng và đạt tính nhất quán sau cùng (eventual consistency). Trong bài báo đó [Helland], hãy xem cụ thể mục 5, "Activities: Coping with Messy Messages" (Các hoạt động: Đối phó với các thông điệp lộn xộn).
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000531_7f11e54a6fd149f93974afb84b9bf002be3d0147ceb4f994347e1e5997a27558.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000532_56f8c025af31ee629e325b8b2eee41ba39806079b13cec6cbb0d4a87f11bd3a7.png)
+
 Bây giờ, hãy quay trở lại với việc giải quyết các trách nhiệm mới của chúng ta . . .
 
 Mặc dù đây chỉ là một ví dụ rất cơ bản về việc duy trì các thay đổi đối với thông tin trùng lặp bắt nguồn từ một Bounded Context ngoại lai, nhưng đây không phải là một trách nhiệm đơn giản, ít nhất là khi bạn đang sử dụng một cơ chế gửi thông điệp có khả năng phân phối thông điệp sai thứ tự và lặp lại nhiều lần. 1 Hơn nữa, khi nhận thức được tất cả các thao tác có thể xảy ra trong Identity and Access Context gây ảnh hưởng tới chỉ một vài thuộc tính mà chúng ta duy trì trong `Member`, đó thực sự là một hồi chuông cảnh tỉnh:
@@ -12719,6 +13109,10 @@ Tiền điều kiện: Tính năng cộng tác đã được kích hoạt (tùy 
 
 1. Người dùng cung cấp thông tin mô tả Sản phẩm (Product).
 2. Người dùng biểu thị mong muốn tạo một cuộc thảo luận nhóm.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000533_a715d92a3c54be29f137fe32d88e09476e99465ac801e126f497e737c278d6ce.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000534_7320670893408e8b18fefc4434f8736339a3398f011a38c7803a5883e2a22cc2.png)
 
 3. Người dùng yêu cầu tạo Sản phẩm đã định nghĩa.
 4. Hệ thống tạo Sản phẩm đi kèm một Diễn đàn (Forum) và Cuộc thảo luận (Discussion).
@@ -12790,6 +13184,10 @@ public class Product extends ConcurrencySafeEntity {
                 aDiscussionAvailability));
 
 ```
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000535_7f8b2ca436011af05f26868a0b283b30b28a0aaa3864aebb8acc96e6e28fcfea.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000536_01c4b4223f698c0f99d7d666b32ac205f0e21b292d8c3edf03252a1a6bc00681.png)
 
 ## Chapter 13 INTEGRATING BOUNDED CONTEXTS
 
@@ -12875,6 +13273,10 @@ public class Product extends ConcurrencySafeEntity {
 
 ```
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000537_ce65e5145ba7493d78b7075f785000f46ed5b7532db7656090e624ab4dafca0d.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000538_c04c376f856c3ce2429edde3df4152f2409ebad88bcaf2c2f9a1a0a30977c8b1.png)
+
 ```java
         if (!this.discussion().availability().isReady()) {
             this.setDiscussion(
@@ -12959,6 +13361,10 @@ public class DiscussionStartedListener extends ExchangeListener {
 
 ```
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000539_6a1a4b6ec38f5b794173079ae64541bae49d7d1b68c48d707fa0e5878a497763.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000540_19c597b835e176d636227ff7365d4a0bd02804e0c4026e14dec3d6dd104b2745.png)
+
 ## Chapter 13 INTEGRATING BOUNDED CONTEXTS
 
 ```java
@@ -13029,7 +13435,7 @@ Liệu việc một Bounded Context thượng nguồn (upstream) lại đi lắn
 
 Bây giờ, hãy quay trở lại với ví dụ . . . Sau khi được tiếp nhận trong Collaboration Context, command sẽ được điều chỉnh để chuyển tiếp tới `ForumService`, một Application Service. Lưu ý rằng API này chưa được thiết kế để sử dụng các tham số dạng command mà vẫn nhận các tham số thuộc tính riêng lẻ:
 
-<!-- ⚠️ CẢNH BÁO chunk 24: số ảnh/heading/code-block KHÔNG khớp bản gốc (gốc={'images': 25, 'headings': 11, 'fences': 76}, dịch={'images': 0, 'headings': 11, 'fences': 76}). Xem lại đoạn này bằng tay. -->
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000541_142a5a93476594cb7b0d17bd99a8a0ac3426cac02449e2c99ce1e191a5eaf374.png)
 
 ﻿![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000542_cb54814c38ab5233fe33f16971a406f3e6e012889ccc601fe7fedbb6cfcbd80c.png)
 
@@ -13115,6 +13521,10 @@ public class ProductService ... {
 
 ```
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000543_be9c11ba540e1a6947d4b8fec26e9d47359160d3daad55460ebd9772a2ebe1c5.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000544_172148f205c2df89b7c7d09ecfa39454fed8753fc21d1743a981fcab9a1f3d38.png)
+
 ## Chapter 13 INTEGRATING BOUNDED CONTEXTS
 
 ```java
@@ -13178,6 +13588,10 @@ Chúng ta có thể làm cho tiến trình này trưởng thành hơn bằng cá
 Để làm rõ, tracker không phải là một phần của Core Domain (miền nghiệp vụ cốt lõi). Nó là một phần của một Technical Subdomain (phân miền kỹ thuật phụ trợ) mà bất kỳ dự án nào của SaaSOvation cũng có thể tái sử dụng. Điều này đồng nghĩa rằng trong một số trường hợp, chúng ta không cần quá bận tâm đến các quy tắc của Aggregate khi lưu trữ (persist) tracker và sửa đổi chúng sau đó. Các tracker tương đối biệt lập và thường không phải đối mặt với xung đột tương tranh (concurrency conflicts) do chúng có mối quan hệ một-một với tiến trình liên quan. Tuy nhiên, nếu xung đột xảy ra, chúng ta có thể dựa vào cơ chế thử lại của hệ thống truyền thông điệp để giải quyết. Mọi ngoại lệ xảy ra trong quá trình chuyển phát thông báo sẽ khiến listener gửi phản hồi NAK (Negative Acknowledgment - tín hiệu báo nhận thất bại / từ chối nhận thông điệp), từ đó kích hoạt RabbitMQ (hệ thống hàng đợi thông điệp) gửi lại thông điệp đó. Dẫu vậy, chúng ta không dự đoán rằng sẽ cần đến một số lượng lớn các lần thử lại.
 
 Chính `Product` là đối tượng nắm giữ trạng thái hiện tại của tiến trình, và trong ngữ cảnh đó, một tracker sẽ xuất bản Sự kiện sau khi chạm đến khoảng thời gian thử lại, hoặc khi tiến trình được giám sát bị quá hạn hoàn toàn:
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000545_436c231303bd619dbd78795591a0abb663d437c08b12ed65db4085189b5e5b41.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000546_86405122465c975e9f88fa6514cbbed2b2c045c089272f14b8efec4ee0f0c575.png)
 
 ```java
 package com.saasovation.agilepm.domain.model.product;
@@ -13267,6 +13681,10 @@ public class ProductService ... {
 
 ```
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000547_8f7ed333237bdb070b571b71e73fee7f95fea64800af3be8fb90ce04e6b1caae.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000548_e8238cb61588df39ad37e3d6e0e1278ca7dd1ab7d414e24b5bb11448a91d75c9.png)
+
 ```java
         product.setDiscussionInitiationId(
                 tracker.processId().id());
@@ -13355,6 +13773,10 @@ public class ProductDiscussionRetryListener extends ExchangeListener {
 
 Listener này chỉ quan tâm đến các Sự kiện `ProductDiscussionRequestTimedOut` và được thiết kế để hoạt động với mọi hoán vị số lần thử lại và hết hạn thời gian. Chính tiến trình và tracker sẽ xác định số lần nó có thể nhận thông báo. Các Sự kiện sẽ được gửi theo một trong hai điều kiện: Tiến trình có thể đã hết thời gian hoàn toàn, hoặc đó có thể là một thông báo yêu cầu thử lại thao tác. Trong cả hai trường hợp, listener đều điều phối (dispatch) lời gọi tới `ProductService`. Nếu xảy ra tình trạng hết thời gian hoàn toàn, Application Service sẽ xử lý tình huống này:
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000549_cc2c1065cfc6be3dfd753d23a8cf8d931e7ea2f104f68949ff02c4bd4cfe9ab5.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000550_9ec25067def09a43e27ba540ae4ab5285ea0f4bac79e22ae8135ef0f5d8bbefb.png)
+
 ```java
 package com.saasovation.agilepm.application;
 ...
@@ -13371,7 +13793,7 @@ public class ProductService ... {
                         tenantId,
                         processId.id());
         this.sendEmailForTimedOutProcess(product);
-        product.failDiscussionInitiation();
+    product.failDiscussionInitiation();
     }
     ...
 }
@@ -13434,6 +13856,10 @@ public class ProductService ... {
 
 ```
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000551_e8fb0ea87c0751a5392997fa981470443db63263ed8dd77615f7a17c53f6ecb1.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000552_815c8b6d554b1fba849d1fd6a0e57c8b05d63d8f21429320ac63551066695213.png)
+
 ## Chapter 13 INTEGRATING BOUNDED CONTEXTS
 
 ```java
@@ -13495,6 +13921,10 @@ Mặc dù chúng ta có thể đang cảm thấy hài lòng với kết quả n�
 * Do cơ chế chuyển phát thông điệp được đảm bảo ít nhất một lần (at-least-once delivery) đang được áp dụng, nên ngay khi một thông điệp được gửi tới exchange, chắc chắn nó sẽ đến được (các) listener trong một khoảng thời gian nhất định. Nếu có sự chậm trễ trong việc tạo các đối tượng cộng tác mới và điều này dẫn đến dù chỉ một lần thử lại, thì lần thử lại đó sẽ kéo theo việc gửi nhiều lần cùng một lệnh `CreateExclusiveDiscussion`. Tất cả các lệnh như vậy cuối cùng đều sẽ được chuyển phát. Do đó, bất kỳ lần thử lại nào cũng sẽ khiến Collaboration Context cố gắng tạo cùng một `Forum` và `Discussion` nhiều lần. Trên thực tế, chúng ta sẽ không gặp phải tình trạng trùng lặp dữ liệu vì các ràng buộc tính duy nhất (uniqueness constraints) đã được áp đặt trên các thuộc tính của `Forum` và `Discussion`. Vì vậy, các lỗi phát sinh do cố gắng tạo nhiều lần rốt cuộc sẽ là lành tính (benign). Tuy nhiên, dưới góc độ của nhật ký lỗi (error logs), những lần thử thất bại này sẽ trông như thể xuất phát từ lỗi phần mềm (bugs). Câu hỏi đặt ra là: Trong khi chúng ta vẫn muốn quy định thời gian chờ kết thúc toàn bộ tiến trình (complete process time-out), liệu có nên vô hiệu hóa các lần thử lại định kỳ hay không?
 * Mặc dù có vẻ như giải pháp là vô hiệu hóa việc thử lại trong Agile Project Management Context, nhưng mấu chốt vấn đề là chúng ta cần phải làm cho các thao tác của Collaboration Context trở nên có tính lũy đẳng (idempotent). Hãy nhớ rằng RabbitMQ đảm bảo chuyển phát ít nhất một lần và do đó có thể chuyển phát cùng một thông điệp lệnh nhiều lần, ngay cả khi nó chỉ được gửi một lần duy nhất. Việc làm cho các thao tác cộng tác có tính lũy đẳng sẽ ngăn chặn mọi nỗ lực tạo cùng một `Forum` và `Discussion` nhiều lần, đồng thời dập tắt việc ghi nhật ký các lỗi lành tính không đáng có.
 * Agile Project Management Context hoàn toàn có thể gặp lỗi khi cố gắng gửi lệnh `CreateExclusiveDiscussion`. Nếu việc gửi thông điệp gặp sự cố, cần phải hết sức cẩn trọng để đảm bảo
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000553_df649eb286bab05854dbbf978ffcf5e8f3f6a3433ff194c6b3079148074db942.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000554_c5146acf5004433dfe6c40058f3e79d91219e12e96499d5ee218c3e2476e0d0c.png)
 
 rằng việc gửi lại sẽ được thử cho đến khi thành công. Nếu không, yêu cầu tạo `Forum` và `Discussion` sẽ không bao giờ được thực hiện. Chúng ta có thể đảm bảo các nỗ lực gửi lại lệnh theo một vài cách. Nếu việc gửi thông điệp thất bại, chúng ta có thể ném ra một ngoại lệ từ `filteredDispatch()`, điều này sẽ khiến thông điệp bị phản hồi NAK. Kết quả là RabbitMQ sẽ nhận thấy cần phải chuyển phát lại thông báo Sự kiện `ProductCreated` hoặc `ProductDiscussionRequested`, và `ProductDiscussionRequestedListener` của chúng ta sẽ nhận lại thông báo đó. Cách khác để xử lý việc này là chỉ đơn giản thử gửi lại cho đến khi thành công, có thể kết hợp sử dụng thuật toán Capped Exponential Back-off (thuật toán lùi theo cấp số nhân có giới hạn trần). Trong trường hợp RabbitMQ bị ngoại tuyến (offline), các lần thử lại có thể thất bại trong một khoảng thời gian khá dài. Do đó, việc kết hợp giữa NAK thông điệp và thử lại có thể là cách tiếp cận tốt nhất. Dẫu vậy, nếu tiến trình của chúng ta thử lại ba lần, mỗi lần cách nhau năm phút, thì đó có thể đã là tất cả những gì chúng ta cần. Rốt cuộc, một khi tiến trình bị hết hạn thời gian hoàn toàn, nó sẽ gửi một email yêu cầu sự can thiệp của con người.
 
@@ -13568,6 +13998,10 @@ import java.util.Date;
 public interface Process {
 
 ```
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000555_3e8a8495f351b88a105cad4ae2a83c7d2534f22770ea2db2c770709ccc199c41.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000556_240c7d050dc6ab8f438a94a406e717b0601581305a8be6df556149d332e00d34.png)
 
 ```java
     public enum ProcessCompletionType {
@@ -13645,6 +14079,10 @@ public class TestableTimeConstrainedProcess extends AbstractProcess {
 
 ```
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000557_87c268d244d9ee933faf5edb28812e6a372126aa080c85aa4d5d458484205010.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000558_9e55f4f152c0506cfc6cee656873f826eccd4c52891e3fbc458a449f1af0f8ac.png)
+
 ```java
         this.completeProcess(ProcessCompletionType.CompletedNormally);
     }
@@ -13689,6 +14127,12 @@ Chắc chắn rằng các listener sẽ không nhận được các thông báo 
 
 Không phải lúc nào cơ chế truyền thông điệp cũng là nguồn cơn của các vấn đề liên quan đến thông điệp. Hãy xem xét tình huống này: Bounded Context của bạn không thể truy cập được trong một khoảng thời gian dài. Khi nó khả dụng trở lại, các durable exchanges/queues (hàng đợi / bộ trao đổi thông điệp bền vững) mà nó đăng ký đã tích lũy rất nhiều thông điệp chưa được chuyển phát. Một khi Bounded Context của bạn khởi động lại và đăng ký các consumer của nó, hệ thống có thể cần một lượng thời gian đáng kể để tiếp nhận và xử lý toàn bộ các thông báo đang tồn đọng đó. Có thể bạn không làm được gì nhiều trước tình huống này ngoài việc kiên trì theo đuổi các mục tiêu giới hạn thời gian chết (limited downtime), xây dựng cơ chế triển khai không gián đoạn ("live" deployment), và thiết kế hệ thống với các node dự phòng (cluster - cụm máy chủ) để việc mất một node không làm toàn bộ hệ thống ngừng hoạt động. Tuy nhiên, vẫn có những thời điểm bạn không thể tránh khỏi một khoảng thời gian chết (downtime). Ví dụ: nếu việc thay đổi mã nguồn ứng dụng đòi hỏi phải thay đổi cơ sở dữ liệu và bạn không thể vá lỗi (patch) các thay đổi này mà không gây ra sự cố, bạn sẽ cần hệ thống có một khoảng thời gian chết. Trong những trường hợp như vậy, tiến trình tiêu thụ thông điệp của bạn đơn giản là sẽ phải "chạy đuổi theo" để bắt kịp lượng tồn đọng. Rõ ràng đây là tình huống chúng ta cần nhận thức được và lên kế hoạch phòng tránh hoặc giải quyết nếu nó trở thành một vấn đề.
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000559_2c0aa5e14e4dc2deaf241c37bd3ef9d22dd0867e8f4ca56bc005e1ad38c2bf68.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000560_29d0ece12241199822e87c83c9613960f0ea2b37accde6bd0c31acf99640eba3.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000561_24854c064f7c827fa52b38b85f939f78952a91dfd5320d4cd4eadcaf7bf965fe.png)
+
 ## Wrap-Up
 
 Trong chương này, chúng ta đã xem xét các cách khác nhau để tích hợp thành công nhiều Bounded Context.
@@ -13719,6 +14163,8 @@ Một domain model thường nằm ở trung tâm của một ứng dụng. Ứn
 
 Đôi khi chúng ta làm việc trên các mô hình tồn tại nhằm mục đích hỗ trợ các ứng dụng. Điều này đúng với Identity and Access Context. SaaSOvation nhận thấy cần phải tách riêng các mối quan tâm về quản lý định danh và truy cập, từ đó hình thành nên một mô hình hỗ trợ mà bản thân nó cũng sẽ đóng vai trò như một sản phẩm độc lập hoạt động theo mô hình thuê bao (subscription-based). Ngay cả trong trường hợp của IdOvation, chắc chắn nó cũng sẽ có giao diện người dùng quản trị và tự phục vụ (self-service) riêng. Đúng là các Generic Subdomain (phân miền dùng chung) và Supporting Subdomain (phân miền hỗ trợ) (Chương 2) đôi khi sẽ thiếu vắng tất cả các thành phần bổ trợ đi kèm với một ứng dụng hoàn chỉnh, và điều đó hoàn toàn bình thường. Khi một mô hình tồn tại chỉ để hỗ trợ một mô hình khác, mô hình hỗ trợ đó có thể đơn giản chỉ là một tập hợp các lớp trong một Module (Chương 9) riêng biệt nhằm giải quyết một khái niệm chuyên biệt và cung cấp một số thuật toán. 1 Những mô hình khác sẽ đòi hỏi ít nhất một số trải nghiệm người dùng tương tác thực tế và các thành phần ứng dụng. Chương này tập trung vào dạng mô hình thứ hai - tức là dạng mô hình phức tạp hơn.
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000562_a7e1154b53f39692d81c1d83d17c59c2e9caa74a101f98a3a0c2219f32dbc80b.png)
+
 Ở đây, chúng tôi sử dụng thuật ngữ application gần như có thể hoán đổi cho nhau với system (hệ thống) và business service (dịch vụ nghiệp vụ). Tôi sẽ không cố gắng phân tích một cách hình thức xem tại thời điểm nào một ứng dụng trở thành một hệ thống, nhưng tôi cho rằng khi một ứng dụng phụ thuộc vào các ứng dụng hoặc dịch vụ khác thông qua việc tích hợp, thì toàn bộ giải pháp đó có thể được gọi là một hệ thống. Đôi khi các thuật ngữ application và system được sử dụng thay thế cho nhau để chỉ cùng một đối tượng, trong đó system thực chất mô tả những gì chúng ta thường gọi là một ứng dụng. Và một dịch vụ nghiệp vụ đơn lẻ cung cấp một vài hoặc nhiều điểm cuối dịch vụ kỹ thuật (endpoints) cũng có thể được gọi là một hệ thống theo nghĩa rộng. Mặc dù tôi không muốn làm rối rắm ranh giới phân biệt giữa ba khái niệm này, nhưng tôi muốn dùng một thuật ngữ thống nhất để có thể thảo luận về những mối quan tâm và trách nhiệm chung của cả ba.
 
 ## What's an Application?
@@ -13733,6 +14179,8 @@ Khi một ứng dụng mở các dịch vụ của mình ra ngoài thông qua l�
 
 Figure 14.1 The primary application areas of concern, but without ties to any one architecture. These areas still emphasize the DIP with infrastructure dependent on abstractions of every other area.
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000563_91cef0c3bad33346458e717649afed02c6afb3f8f008fd1b5262f779ab92e018.png)
+
 Mặc dù không thể tránh khỏi việc sẽ có sự trùng lặp nhất định với một số phong cách kiến trúc, nhưng trọng tâm quan tâm của chúng ta trong chương này là những gì mà hầu như bất kỳ kiến trúc nào cũng cần phải thực hiện để duy trì các mục tiêu của ứng dụng. Ở những chỗ mà một kiến trúc cụ thể xuất hiện, tôi sẽ có phần ghi nhận rõ ràng.
 
 Thật khó để không sử dụng thuật ngữ layer (tầng/lớp), như trong Layers Architecture (Kiến trúc phân lớp, Chương 4). Đó là một thuật ngữ hữu ích bất kể phong cách kiến trúc nào đang được thảo luận. Ví dụ, hãy xem xét nơi cư trú của các Application Service. Cho dù bạn coi Application Services nằm trong một chiếc vòng bao quanh domain model, trong một hình lục giác bao bọc mô hình, trong một khoang nối với bus thông điệp, hay trong một tầng nằm dưới giao diện người dùng và nằm trên mô hình, thì việc sử dụng thuật ngữ Application Layer để mô tả vị trí mang tính khái niệm đó hoàn toàn có thể chấp nhận được. Mặc dù tôi cố gắng hạn chế lạm dụng thuật ngữ này trong chương, nhưng layer rất hữu ích trong việc gán nhãn nơi các thành phần cư trú. Điều này chắc chắn không hàm ý rằng DDD chỉ giới hạn tồn tại duy nhất trong một Layers Architecture. 2
@@ -13742,6 +14190,8 @@ Tôi sẽ bắt đầu với giao diện người dùng, sau đó chuyển sang 
 2. Xem Chương 4 để biết thêm chi tiết.
 
 511
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000564_89adefa4ace322dc945cac8c9cc88eec2ce1a3f7f080811abb6e06cae02a60ca.png)
 
 ## User Interface
 
@@ -13764,11 +14214,17 @@ Có khá nhiều tranh cãi và bất đồng quan điểm về cách tốt nh�
 
 Figure 14.2 The user interface may need to render properties of multiple Aggregate instances but submit a request to modify only a single instance at a time.
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000565_e23c78cd43286762a80039d854b9f148d1dcd1d569853819f536a3f17e542d09.png)
+
 ## Render Data Transfer Object from Aggregate Instances
 
 Một phương pháp phổ biến để giải quyết bài toán kết xuất nhiều thực thể Aggregate vào một view duy nhất là sử dụng Data Transfer Object [Fowler, P of EAA], hay DTO (đối tượng truyền dữ liệu). DTO được thiết kế để chứa toàn bộ các thuộc tính cần hiển thị trong một view. Application Service (xem phần 'Application Services') sẽ sử dụng các Repository (Chương 12) để đọc các thực thể Aggregate cần thiết, sau đó ủy quyền cho một DTO Assembler [Fowler, P of EAA] (bộ lắp ráp DTO) để ánh xạ các thuộc tính vào DTO. Như vậy, DTO mang đầy đủ lượng thông tin cần kết xuất. Thành phần giao diện người dùng chỉ việc truy cập từng thuộc tính riêng lẻ của DTO và kết xuất nó lên view.
 
 Với cách tiếp cận này, cả thao tác đọc và ghi đều được thực hiện thông qua Repository. Nó có ưu điểm là giải quyết được bất kỳ tập hợp dữ liệu nào được nạp trễ (lazy-loaded), bởi vì DTO Assembler sẽ truy cập trực tiếp vào mọi phần của Aggregate mà nó cần để tạo nên DTO. Nó cũng giải quyết được vấn đề cụ thể khi tầng trình diễn (presentation tier) bị tách rời về mặt vật lý khỏi tầng nghiệp vụ (business tier), và bạn cần tuần tự hóa (serialize) các vật chứa dữ liệu để truyền qua mạng tới tầng khác.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000566_c88a0275203207a3159155583fd849718f5c14288998f19d15cd33c13930e1bd.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000567_d438d414936d6f1c87e8beb59435ad7c8244bb97ab39ed71e2000ccae1339e37.png)
 
 Thú vị thay, mẫu thiết kế DTO ban đầu được tạo ra để xử lý trường hợp tầng trình diễn nằm từ xa (remote presentation tier) tiếp nhận các thực thể DTO. DTO được xây dựng ở tầng nghiệp vụ, tuần tự hóa, gửi qua đường truyền mạng, và giải tuần tự hóa ở tầng trình diễn. Nếu tầng trình diễn của bạn không nằm ở xa, mẫu thiết kế này nhiều khi lại dẫn đến độ phức tạp ngẫu nhiên (accidental complexity) trong thiết kế ứng dụng, vi phạm nguyên lý YAGNI ("You Ain't Gonna Need It" - bạn sẽ không cần đến nó đâu). Nhược điểm này bao gồm việc đòi hỏi phải tạo ra các lớp mà đôi khi có hình thái rất giống với các đối tượng miền nhưng lại không hoàn toàn tương đồng. Nó cũng có mặt bất lợi là phải khởi tạo thêm các đối tượng tiềm ẩn kích thước lớn cần được quản lý bởi máy ảo (ví dụ JVM), trong khi thực tế chúng lại không hề phù hợp cho một kiến trúc ứng dụng chạy trên một máy ảo đơn lẻ.
 
@@ -13812,8 +14268,6 @@ Các bên cung cấp mối quan tâm (interest providers) khác nhau có thể �
 Hãy lưu ý rằng một số người sẽ coi cách tiếp cận này hoàn toàn nằm ngoài phạm vi trách nhiệm của một Aggregate. Những người khác lại coi đó là một sự mở rộng hoàn toàn tự nhiên của một domain model được thiết kế tốt. Như mọi khi, những đánh đổi như vậy phải được các thành viên trong nhóm kỹ thuật của bạn thảo luận kỹ lưỡng.
 
 ## Render Aggregate Instances from a Domain Payload Object
-
-<!-- ⚠️ CẢNH BÁO chunk 25: số ảnh/heading/code-block KHÔNG khớp bản gốc (gốc={'images': 26, 'headings': 18, 'fences': 58}, dịch={'images': 1, 'headings': 18, 'fences': 58}). Xem lại đoạn này bằng tay. -->
 
 ﻿Có một cách tiếp cận mang lại cải tiến khả thi khi các DTO (Data Transfer Object - đối tượng truyền tải dữ liệu) trở nên không cần thiết. Cách này tập hợp toàn bộ các thể hiện (instance) của nhiều Aggregate (cụm đối tượng có tính toàn vẹn trong DDD) cho việc hiển thị khung nhìn (view) vào trong một Domain Payload Object [Vernon, DPO] (đối tượng tải trọng miền) duy nhất. DPO có động lực tương tự như DTO nhưng tận dụng được lợi thế của kiến trúc ứng dụng chạy trên một Virtual Machine (máy ảo) đơn lẻ. Nó được thiết kế để chứa các tham chiếu đến toàn bộ thể hiện Aggregate chứ không phải từng thuộc tính riêng lẻ. Các cụm thể hiện Aggregate có thể được luân chuyển giữa các tầng logic (tier hoặc layer) thông qua một đối tượng chứa Payload (tải trọng/dữ liệu thực tải) đơn giản. Application Service (xem mục 'Application Services') (dịch vụ ứng dụng) sử dụng các Repository (kho lưu trữ đối tượng miền) để truy xuất các thể hiện Aggregate cần thiết, sau đó khởi tạo DPO để nắm giữ tham chiếu tới từng thể hiện đó. Các thành phần ở tầng Presentation (hiển thị / trình diễn) sẽ yêu cầu đối tượng DPO cung cấp các tham chiếu thể hiện Aggregate, rồi sau đó yêu cầu chính các Aggregate này cung cấp các thuộc tính có thể hiển thị.
 
@@ -13871,6 +14325,10 @@ return response;
 
 ```
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000571_f099e576693bd497e7c98d2be192e526a74be5abf81ac5316f7a94022ad95bee.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000572_51cbeb5c0690c3f296e8af32bd772400cf4f4d85355a242926e9c42eee456820.png)
+
 Phương thức `calendarWeek()` của `CalendarApplicationService` tiếp nhận một `Date` nằm trong một tuần nhất định và một bản cài đặt của interface `CalendarWeekDataTransformer`. Lớp triển khai được chọn là `CalendarWeekXMLDataTransformer`, có nhiệm vụ tạo ra một tài liệu XML đóng vai trò là biểu diễn trạng thái của `CalendarWeekData`. Phương thức `value()` trên `CalendarWeekData` sẽ trả về kiểu dữ liệu ưu tiên của định dạng dữ liệu đã cho, trong trường hợp này là một `String` chứa tài liệu XML.
 
 Phải thừa nhận rằng ví dụ này sẽ tốt hơn nếu thể hiện của Data Transformer được dependency injected (tiêm phụ thuộc). Ở đây nó được hard-code nhằm giúp ví dụ trở nên dễ hiểu hơn.
@@ -13913,6 +14371,10 @@ public class BacklogItemPresentationModel extends AbstractPresentationModel {
     }
 
 ```
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000573_a6883d379f29a1e6ed6ad7ca8ffc8415c3359a55a0a85dc126fa0892167b7d1c.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000574_b1e481bda89b70c21cc7d5d70f1a543c9ad34af9a669659d6561147db4feaab3.png)
 
 ```java
     public String getSummary() {
@@ -13968,6 +14430,10 @@ Trong một số trường hợp, giao diện người dùng của bạn sẽ t�
 Các Application Service là client trực tiếp của mô hình miền. Để nắm được các tùy chọn về vị trí logic của Application Service, hãy xem phần Architecture (4). Chúng chịu trách nhiệm điều phối tác vụ cho các luồng use case, mỗi phương thức dịch vụ tương ứng với một luồng. Khi sử dụng cơ sở dữ liệu tuân thủ ACID, các Application Service cũng kiểm soát các transaction, đảm bảo rằng các chuyển đổi trạng thái của mô hình được lưu trữ bền vững một cách nguyên tử (atomically). Tôi sẽ thảo luận ngắn gọn về việc kiểm soát transaction ở đây, nhưng hãy xem phần Repositories (12) để có góc nhìn rộng hơn. Vấn đề bảo mật (security) cũng thường được đảm nhiệm bởi các Application Service.
 
 Sẽ là một sai lầm nếu coi Application Service cũng giống như Domain Service (7) (dịch vụ miền). Chúng hoàn toàn không giống nhau. Sự tương phản giữa chúng phải thật rõ ràng, điều sẽ được chứng minh cụ thể trong phần tiếp theo. Chúng ta nên cố gắng đưa toàn bộ logic nghiệp vụ miền (business domain logic) vào trong chính mô hình miền, cho dù đó là trong Aggregate, Value Object, hay Domain Service. Hãy giữ cho các Application Service luôn mỏng (thin), chỉ sử dụng chúng để điều phối các tác vụ trên mô hình.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000575_40fca54897b0d8e39137eb49764c4d5483f0d12096396ff9265964d81237082d.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000576_089dd30025463200d53e4de44fbcfe29daeb9db78ce68584342399eac2fc40ca.png)
 
 ## Sample Application Service
 
@@ -14044,6 +14510,10 @@ Hiện tại, tôi sẽ tiếp tục với việc để lộ các đối tượn
 
 Hãy xem xét cách mà interface của Application Service được triển khai. Việc nhìn vào một vài phương thức đơn giản hơn để triển khai nó sẽ giúp làm nổi bật một số điểm cơ bản. Lưu ý rằng có thể việc áp dụng Separated Interface [Fowler, P of EAA] (interface tách biệt) không mang lại lợi thế nào. Dưới đây là một ví dụ mà chúng ta sẽ chỉ cần định nghĩa interface cùng với class triển khai:
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000577_11c810bc211d4a241c43fccea074ac44e00e4ac78068875ef243af5cabc58cb9.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000578_3db29ffd7c23835326eef2548124d0b1fd6d07e798d703a076e4aada5446c431.png)
+
 ```java
 package com.saasovation.identityaccess.application;
 
@@ -14114,6 +14584,10 @@ public class TenantIdentityService {
         return this.tenantProvisioningService
 
 ```
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000579_1d2da959d8e1bf0b77039b9871c97e37dcde932eb9872b3f6971f46ccdd88f4c.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000580_36b4382d95c31e4ee2889abe95320a5efc384af13ae7975c27400904efc97ae2.png)
 
 ```java
             .provisionTenant(
@@ -14187,6 +14661,10 @@ public class ProvisionTenantCommand {
 
 5. Xem Chương 7.
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000581_2c777950f1aa3f0c68a7305ece829a6a525fc0f6efe10025e8ba26d7ba1333ff.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000582_9d77ba2482ffd0f1bba8bbf929a0d8efa9065c406b0f1bfd692e5546cfd44dc4.png)
+
 `ProvisionTenantCommand` không sử dụng các đối tượng mô hình mà chỉ dùng các kiểu dữ liệu cơ bản. Nó có constructor nhiều tham số và cả constructor không tham số. Cùng với constructor không tham số, việc có các setter công khai cho phép Command được nạp dữ liệu bởi các bộ ánh xạ từ trường của form trên UI sang đối tượng (ví dụ: giả sử theo chuẩn JavaBean, hoặc các thuộc tính .NET CLR). Bạn có thể nghĩ Command tương tự như một DTO, nhưng thực sự nó mang nhiều ý nghĩa hơn thế. Vì đối tượng Command được đặt tên theo đúng thao tác chuẩn bị được thực thi, nên nó mang tính tường minh cao hơn. Thể hiện Command có thể được truyền trực tiếp vào một phương thức của Application Service:
 
 ```java
@@ -14259,6 +14737,10 @@ public class TenantIdentityService {
 
 Port đầu ra ở đây là một Port được đặt tên cụ thể nằm ở biên của ứng dụng. Khi sử dụng Spring, nó sẽ là một bean được tiêm vào trong dịch vụ. Điều duy nhất mà `provisionTenant()` cần biết là nó phải gọi `write()` vào Port thể hiện `Tenant` mà nó nhận được từ Domain Service. Port này sẽ có nhiều reader (bộ đọc), các reader này tự đăng ký trước khi sử dụng Application Service. Khi thao tác `write()` diễn ra, từng reader đã đăng ký sẽ nhận tín hiệu để đọc dữ liệu đầu ra này làm dữ liệu đầu vào của mình. Tại thời điểm đó, các reader có thể chuyển đổi dữ liệu đầu ra bằng cơ chế đã được thiết lập, chẳng hạn như một Data Transformer.
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000583_6a541b0353c8a1f050501a8bc6ce87f4bab59933db71c25fb31d5bdef4c4c5ad.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000584_6c85145667f90dabc83278c0a89c2501800eb29072136ebab0c81f8b9b220128.png)
+
 Đây không phải là một sự ngụy tạo cầu kỳ nhằm thêm thắt độ phức tạp vào kiến trúc của bạn. Sức mạnh của nó cũng giống như bất kỳ kiến trúc Ports and Adapters nào khác, cho dù là dành cho hệ thống phần mềm hay thiết bị phần cứng. Mỗi thành phần chỉ cần hiểu dữ liệu đầu vào mà nó đọc, hành vi nội tại của chính nó, và Port mà nó ghi dữ liệu đầu ra.
 
 Việc ghi vào một Port về cơ bản khá tương đồng với những gì một phương thức command thuần túy của Aggregate thực hiện khi nó không tạo ra giá trị trả về, nhưng nó lại phát đi một Domain Event (8) (sự kiện miền). Trong trường hợp của Aggregate, bộ phát Domain Event Publisher (8) đóng vai trò là một Port đầu ra của Aggregate. Xa hơn nữa, nếu chúng ta giải quyết bài toán truy vấn trạng thái của một Aggregate bằng cách sử dụng Double-Dispatch trên một Mediator, thì cách làm đó cũng tương tự như việc áp dụng Ports and Adapters.
@@ -14294,7 +14776,11 @@ Vì Application Layer quản lý các use case, nên cách dễ nhất có thể
 
 Hình 14.3 Có những thời điểm một UI phải kết hợp nhiều mô hình. Ở đây ba mô hình được kết hợp bằng cách sử dụng một Application Layer duy nhất.
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000585_c97652607ef3d8c79cdc089afe9f0c2081066e88b961b34bfef509b95d510b34.png)
+
 531
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000586_121b39b3bc3d2713bb6029f4a9749aa3da1200b628648c4924e3c4e5ad2f12cc.png)
 
 đặt tên các Module trong User Interface và Application Layer theo mục đích của sự kết hợp này, thành một ngữ cảnh có tên cụ thể:
 
@@ -14325,6 +14811,8 @@ Nhiệm vụ của tầng Infrastructure (hạ tầng) là cung cấp các khả
 
 Hình 14.4 Application Service phụ thuộc vào interface Repository từ mô hình miền nhưng sử dụng class triển khai từ hạ tầng. Các package đóng gói những trách nhiệm trên diện rộng.
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000587_8178be62f88d7f60e8ca7f404ca4b79c7c75a100f9f2d254251cfd489da6a785.png)
+
 Việc tra cứu có thể diễn ra ngầm định thông qua Dependency Injection [Fowler, DI] hoặc sử dụng một Service Factory (nhà máy dịch vụ). Phần cuối của chương này, 'Enterprise Component Containers,' sẽ thảo luận về các tùy chọn này. Lặp lại một phần của Application Service được dùng làm ví dụ xuyên suốt, bạn có thể thấy lại ở đây cách mà Service Factory được dùng để tra cứu Repository:
 
 ```java
@@ -14343,6 +14831,10 @@ public class TenantIdentityService {
             .tenantOfId(aTenantId);
 
 ```
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000588_ffe6c9773b73f2add2edb82305a5572f54d33fa79bed14ce518f876a1b8a446b.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000589_5078b7c8e273d7df483d194bda1a538df44ea0102a80d16ae8620bf6c7dc3983.png)
 
 ```java
         return tenant;
@@ -14409,6 +14901,10 @@ Chúng ta có thể làm như vậy bởi vì bản thân nó đã được tiê
 
 Một loại registry bean tương tự cũng được cung cấp để truy cập vào các thành phần của mô hình miền, chẳng hạn như các Repository và Domain Service. Dưới đây là cấu hình bean cho Registry, Repository và Domain Service của mô hình miền:
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000590_870e36d1131aa2e69f054735df693c29fc79378ad16571ce6f5dfa0d51ba649f.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000591_c0791247533eb60d1078b0027fe801dd04493c8678035771e1e686f92d12c45f.png)
+
 ```xml
 <beans ...>
     ...
@@ -14454,6 +14950,8 @@ Một loại registry bean tương tự cũng được cung cấp để truy c�
 
 Bằng cách sử dụng `DomainRegistry`, chúng ta có thể truy cập vào bất kỳ bean nào trong số các bean đã được đăng ký này của Spring. Tất cả các bean cũng đều sẵn sàng để được tiêm phụ thuộc vào các bean Spring khác. Như vậy, các Application Service có thể chọn sử dụng Service Factory hoặc Dependency Injection. Hãy xem phần Services (7) để có cuộc thảo luận chuyên sâu hơn về việc sử dụng hai cách tiếp cận này so với thiết lập phụ thuộc dựa trên constructor.
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000592_0d9f6ec47c8ff53e2f858123a8efe6c992bf27c96898845ef00a82c2b0f2c31e.png)
+
 ## Wrap-Up
 
 Trong chương này, chúng ta đã tìm hiểu cách thức ứng dụng hoạt động bên ngoài mô hình miền.
@@ -14464,6 +14962,10 @@ Trong chương này, chúng ta đã tìm hiểu cách thức ứng dụng hoạt
 * Bạn đã tìm hiểu sâu về các Application Service và những gì chúng chịu trách nhiệm.
 * Bạn đã được giới thiệu một tùy chọn để phân tách đầu ra khỏi các loại client cụ thể.
 * Bạn đã học được những cách sử dụng tầng hạ tầng để tách rời các phần triển khai kỹ thuật ra khỏi mô hình miền.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000593_96181ade65db01f8f753a8f22462aa64173e9a807024c804cb44db87e704a3f3.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000594_9d733b2da579f3f9a927812ddd1bba5242f52f4c5134cc27886ac79a2ce95077.png)
 
 * Bạn đã xem xét cách áp dụng DIP để làm cho các client ở mọi khía cạnh của ứng dụng đều phụ thuộc vào các trừu tượng thay vì các chi tiết triển khai, giúp thúc đẩy tính liên kết lỏng.
 * Cuối cùng, bạn đã thấy cách mà các máy chủ ứng dụng phổ thông và các enterprise component container có thể tiếp thêm sức mạnh vận hành thực tế cho các ứng dụng của bạn (give legs to your applications).
@@ -14495,7 +14997,7 @@ Một số lợi ích chính của A+ES là:
 
 Hình A.1 Một Event Stream chứa các Domain Event theo thứ tự xảy ra
 
-<!-- ⚠️ CẢNH BÁO chunk 26: số ảnh/heading/code-block KHÔNG khớp bản gốc (gốc={'images': 28, 'headings': 16, 'fences': 48}, dịch={'images': 3, 'headings': 16, 'fences': 48}). Xem lại đoạn này bằng tay. -->
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000595_bccd4b99bab0f4e986bfc210f14faf8c3a511752400f32c016a0e1444ae3fa9c.png)
 
 ﻿![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000596_fdb9125e2dbe86ae3c0769de2ae2c7e08ea0023483afa9fcb94c63b044dfee06.png)
 
@@ -14600,7 +15102,6 @@ public class CustomerApplicationService
     // other methods on this application service
     // (các phương thức khác trên application service này)
 }
-
 ```
 
 `CustomerApplicationService` được khởi tạo cùng hai phụ thuộc (dependencies) thông qua constructor: `IEventStore` và `IPricingService`.
@@ -14609,7 +15110,7 @@ Khởi tạo thông qua constructor là một cách thức hợp lý để đáp
 
 ## Tôi Có Thể Tìm Mã Nguồn Mẫu Ở Đâu?
 
-Toàn bộ mã nguồn cho các ví dụ về A+ES có sẵn để tải về tại đây: http://lokad.github.com/lokad-iddd-sample/.
+Toàn bộ mã nguồn cho các ví dụ về A+ES có sẵn để tải về tại đây: [http://lokad.github.com/lokad-iddd-sample/](http://lokad.github.com/lokad-iddd-sample/).
 
 Giao diện `IEventStore` của chúng ta có thể có một định nghĩa đơn giản, và `EventStream` cũng tương tự như vậy:
 
@@ -14637,7 +15138,6 @@ public class EventStream
     // (toàn bộ các sự kiện trong stream)
     public List<IEvent> Events; 
 }
-
 ```
 
 Event Store này có thể được triển khai khá dễ dàng bằng một cơ sở dữ liệu quan hệ (Microsoft SQL, Oracle, hoặc MySQL) hoặc bằng một kho lưu trữ NoSQL có đảm bảo tính nhất quán mạnh (strong consistency) như hệ thống tệp tin (file system), MongoDB, RavenDB, hoặc Azure Blob storage.
@@ -14649,8 +15149,11 @@ Chúng ta cần tải các Event thuộc về đối tượng `Customer` cụ th
 ```csharp
 var eventStream = _eventStore.LoadEventStream(customerId); 
 var customer = new Customer(eventStream.Events);
-
 ```
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000599_b70fcf59682b141b2128077102152245d4e4a1873b701ed66b2e4e634a00ae4a.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000600_f5df346d084f1830f5b93fd384daf57b9499d5e66a2aa5f0220e1bb7349b75d6.png)
 
 Như minh họa trong Hình A.3, Aggregate áp dụng các Event bằng cách phát lại (replaying) chúng qua phương thức `Mutate()`. Cách thức hoạt động như sau:
 
@@ -14687,10 +15190,11 @@ public partial class Customer
         ConsumptionLocked = false; 
     } 
     // etc.
-
 ```
 
 Hình A.3 Trạng thái của Aggregate được tái tạo lại bằng cách áp dụng các Event theo đúng thứ tự xảy ra.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000601_5d2ff394ec4c10c5da22cf6374a078176a1f1b84061b1e139cd1e7777f2d9fe6.png)
 
 Phương thức `Mutate()` chỉ đơn thuần xác định (thông qua tính năng dynamic của .NET) phương thức nạp chồng `When()` tương ứng với kiểu tham số Event cụ thể, sau đó thực thi phương thức bằng cách truyền Event đó vào. Sau khi `Mutate()` hoàn tất, đối tượng `Customer` sẽ có trạng thái được hoàn nguyên hoàn toàn.
 
@@ -14703,7 +15207,6 @@ public Customer LoadCustomerById(CustomerId id)
     var customer = new Customer(eventStream.Events); 
     return customer; 
 }
-
 ```
 
 Sau khi xem xét cách một thực thể Aggregate có thể được hoàn nguyên từ một Luồng các Event trong lịch sử, chúng ta rất dễ hình dung ra các ứng dụng khác của bản ghi lịch sử này. Chúng ta có thể dùng chúng để nhìn lại quá khứ nhằm xem điều gì đã xảy ra và vào thời điểm nào. Khả năng quan sát này thậm chí còn trở nên mạnh mẽ hơn khi tính đến nhu cầu gỡ lỗi trên các hệ thống đang chạy thực tế (production deployments).
@@ -14711,6 +15214,12 @@ Sau khi xem xét cách một thực thể Aggregate có thể được hoàn ngu
 Các hoạt động nghiệp vụ được thực hiện như thế nào? Một khi Aggregate đã được tái tạo từ Event Store, Application Service sẽ ủy quyền cho một thao tác xử lý lệnh (command operation) trên thực thể Aggregate. Aggregate sẽ sử dụng trạng thái hiện tại cùng bất kỳ Domain Service nào mà hợp đồng (contract) yêu cầu để tiến hành thao tác. Khi một hành vi được thực thi, các thay đổi đối với trạng thái sẽ được biểu diễn dưới dạng các Event mới. Mỗi Event mới sẽ được chuyển tới phương thức `Apply()` của Aggregate, như được minh họa trong Hình A.4.
 
 Hình A.4 Trạng thái của Aggregate dựa trên các Event trong quá khứ, và kết quả của hành vi sẽ sinh ra các Event mới.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000602_f96055058dda20b56a83ed7ce562d105519733dea2785c1204780db4f21b0f6e.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000603_03e6e5e165d9e25a80f5f8e96f058aab516f75f8a6914c61b6deda5d01f1c217.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000604_5290d2660c83c7637865d07ca178e1f4d3baed9c88b97d9f096b369af1df4bfe.png)
 
 Như thấy trong đoạn mã sau, các Event mới được tích lũy vào tập hợp `Changes`, rồi sau đó được sử dụng để biến đổi (mutate) trạng thái hiện tại của Aggregate:
 
@@ -14730,7 +15239,6 @@ public partial class Customer
     } 
     ... 
 }
-
 ```
 
 Tất cả các Event được thêm vào tập hợp `Changes` sẽ được lưu trữ dưới dạng các bản ghi mới được ghi thêm vào cuối luồng. Vì mỗi Event cũng được dùng để thay đổi ngay lập tức trạng thái của Aggregate, nên nếu một hành vi có nhiều bước xử lý, mỗi bước tiếp theo đều có sẵn trạng thái mới nhất để thực hiện thao tác.
@@ -14765,7 +15273,6 @@ public partial class Customer
             Apply(new CustomerLocked(_state.Id, reason)); 
         } 
     }
-
 ```
 
 ```csharp
@@ -14778,7 +15285,6 @@ public partial class Customer
         Mutate(e); 
     } 
 }
-
 ```
 
 ## Cân Nhắc Sử Dụng Hai Lớp Triển Khai
@@ -14793,7 +15299,15 @@ Cách triển khai đơn giản này có thể được thay thế bằng các p
 
 Hình A.5 Các Event mới được ghi thêm — kết quả từ hành vi của Aggregate — được xuất bản tới các bên đăng ký nhận tin.
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000605_5f3ae5cc9e4968990a3c3cf3a3c557b666d1da997ef74abe27f4f8f844a471e8.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000606_4873fc09d644b76fc9cf04c2f42e517e26a07a6352f6b5a39530ada02d2aca89.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000607_c0059bfd8dbe314924dc1a55372fd921d891752fb9055aabdc58c6c106ff498b.png)
+
 Hình A.6 Write-through: Một Master Event Store sao chép ngay lập tức tất cả các Event mới được thêm vào sang một Clone Event Store.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000608_7e3596ee153a1e4df67012123b447b5f235bdf6fe587395d92b9116b0fd9359f.png)
 
 Trong trường hợp này, Master Event Store chỉ coi các Event của chính nó là đã được lưu sau khi nó sao chép thành công chúng sang Clone Event Store — đây chính là chiến lược ghi đồng bộ xuyên suốt (write-through).
 
@@ -14802,9 +15316,7 @@ Một giải pháp thay thế là sao chép các Event sang Clone sau khi các t
 > 💡 **Giải thích thêm về chiến lược "Write-through" và "Write-behind":**
 > * **Write-through (Ghi đồng bộ):** Dữ liệu được ghi đồng thời vào cả bộ lưu trữ chính (Master) và bản sao dự phòng (Clone) trong cùng một giao dịch. Thao tác ghi chỉ được coi là thành công khi cả hai nơi đều đã ghi xong. Ưu điểm: Đảm bảo tính nhất quán dữ liệu cao và không bị mất mát khi có sự cố. Nhược điểm: Độ trễ (latency) của thao tác ghi cao hơn vì phụ thuộc vào tốc độ mạng và tốc độ ghi của node chậm nhất.
 > * **Write-behind (Ghi hoãn lại / Bất đồng bộ):** Dữ liệu được xác nhận là ghi thành công ngay sau khi Master ghi xong; một tiến trình ngầm (asynchronous) sẽ chuyển tiếp dữ liệu đến Clone sau. Ưu điểm: Tốc độ phản hồi cực nhanh. Nhược điểm: Nguy cơ mất dữ liệu (data loss) hoặc dữ liệu bản sao bị cũ (stale) nếu Master bị sập trước khi kịp đồng bộ sang Clone.
-> (Nguồn tham khảo: https://en.wikipedia.org/wiki/Cache_(computing)#Writing_policies)
-> 
-> 
+> (Nguồn tham khảo: [https://en.wikipedia.org/wiki/Cache_(computing)#Writing_policies](https://en.wikipedia.org/wiki/Cache_(computing)#Writing_policies))
 
 Để tóm tắt lại những gì đã được thảo luận từ đầu đến giờ, chúng ta hãy cùng điểm qua trình tự thực thi bắt đầu từ việc gọi một thao tác trên Application Service:
 
@@ -14813,6 +15325,8 @@ Một giải pháp thay thế là sao chép các Event sang Clone sau khi các t
 3. Dựa vào định danh thực thể Aggregate do client cung cấp, truy xuất Event Stream tương ứng của nó.
 
 Hình A.7 Write-behind: Một Master Event Store sao chép bất đồng bộ (eventually) tất cả các Event mới được thêm vào sang một Clone Event Store.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000609_3289aac377534916406fac995ee565d7e1463a6fa7f95f1e535010b1952cf4e4.png)
 
 4. Tái tạo thực thể Aggregate bằng cách áp dụng toàn bộ các Event từ Stream vào nó.
 5. Thực thi thao tác nghiệp vụ do Aggregate cung cấp, truyền vào tất cả các tham số theo yêu cầu từ hợp đồng của giao diện.
@@ -14839,8 +15353,11 @@ public class CustomerApplicationService
     } 
     ... 
 }
-
 ```
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000610_0ed900a11f595d83511fd499e681920a7753acb952fed9f36078356e85a503e7.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000611_48cabef86fc7a316b27858b9d159cbacc357d0e6f58cbf1dc4d526b7e0c01cb8.png)
 
 Giờ hãy hình dung việc tạo ra một biểu diễn tuần tự hóa (serialized representation) của tên phương thức và các tham số của nó. Trông nó sẽ như thế nào? Chúng ta có thể tạo một lớp được đặt tên theo thao tác của ứng dụng và tạo các thuộc tính thực thể (instance properties) khớp với các tham số của phương thức dịch vụ. Lớp này sẽ tạo thành một Command:
 
@@ -14850,7 +15367,6 @@ public sealed class LockCustomerCommand
     public CustomerId { get; set; } 
     public string Reason { get; set; } 
 }
-
 ```
 
 Các hợp đồng Command tuân theo cùng ngữ nghĩa như Event và có thể được chia sẻ giữa các hệ thống theo cách thức tương tự. Command này sau đó có thể được truyền vào một phương thức trên Application Service:
@@ -14871,7 +15387,6 @@ public class CustomerApplicationService
     } 
     ... 
 }
-
 ```
 
 Lần tái cấu trúc (refactoring) đơn giản này có thể mang lại một vài lợi ích lâu dài cho hệ thống. Hãy xem chúng hoạt động ra sao.
@@ -14879,6 +15394,8 @@ Lần tái cấu trúc (refactoring) đơn giản này có thể mang lại mộ
 Vì các đối tượng Command có thể được tuần tự hóa, chúng ta có thể gửi các biểu diễn dạng văn bản hoặc nhị phân dưới dạng thông điệp (messages) qua một hàng đợi thông điệp (message queue). Đối tượng mà thông điệp được chuyển tới là một bộ xử lý thông điệp (message handler) và đối với chúng ta, đó chính là một Command Handler. Command Handler về mặt hiệu quả sẽ thay thế phương thức của Application Service, dù về cơ bản chúng tương đương nhau và vẫn có thể được gọi bằng tên đó. Dù sao đi nữa, việc tách rời (decoupling) client khỏi Service có thể tăng cường cân bằng tải (load balancing), kích hoạt mô hình các bên tiêu thụ cạnh tranh (competing consumers), và hỗ trợ phân vùng hệ thống (system partitioning). Lấy ví dụ về cân bằng tải: Chúng ta có thể san sẻ tải bằng cách khởi chạy cùng một Command Handler (về mặt ngữ nghĩa là một Application Service) trên bao nhiêu máy chủ tùy ý. Khi các Command được đưa vào message queue, các thông điệp Command có thể được phân phối tới một trong số nhiều Command Handler đang lắng nghe chúng. Điều này được mô tả trong Hình A.8. (Trong phụ lục này, các Command được thể hiện dưới dạng các đối tượng hình tròn.) Việc phân phối thực tế có thể được thực hiện bằng giải thuật round-robin (xoay vòng lần lượt) đơn giản hoặc một giải thuật phân phối phức tạp hơn, vốn đều được cung cấp sẵn bởi hạ tầng truyền thông điệp.
 
 Hình A.8 Các Command của ứng dụng được phân phối tới nhiều Command Handler tùy ý
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000612_da7b1aa54501fb4645a7f72d7071557a3f66d78e55057f558ad89b256b4247b9.png)
 
 Phương pháp này tạo ra sự tách rời về mặt thời gian (temporal decoupling) giữa các client và Application Service, hướng tới các hệ thống có tính bền bỉ cao hơn. Trước hết, client sẽ không còn bị nghẽn (blocked) nếu Application Service tạm thời không khả dụng trong một khoảng thời gian ngắn (ví dụ: để bảo trì hoặc nâng cấp). Thay vào đó, các Command sẽ được đưa vào một hàng đợi bền vững (persistent queue), nơi chúng sẽ được các Command Handler (Application Service) xử lý khi máy chủ của nó hoạt động trở lại, như được chỉ ra trong Hình A.9.
 
@@ -14889,6 +15406,12 @@ Phương pháp này tạo ra sự tách rời về mặt thời gian (temporal d
 Một ưu điểm khác là khả năng xâu chuỗi (chain) các khía cạnh bổ sung (aspects) trước khi điều phối (dispatching) Command khi cần thiết. Chẳng hạn, chúng ta có thể dễ dàng gắn thêm (patch in) các tính năng như kiểm toán (auditing), ghi log (logging), ủy quyền (authorization), và xác thực dữ liệu (validation).
 
 Hình A.9 Đặc tính tách rời về thời gian của các Command dựa trên thông điệp và Command Handler của chúng mang lại các tùy chọn sẵn sàng linh hoạt cho hệ thống.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000613_13fe37f9401b81f34e3d4d68ca9c6d89763d1d4c495822e483185773d21f4b99.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000614_0a726b9e95a6ad00e00946d08fe5e8b01861e5891c064f03f16343e0294eafe8.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000615_fcdb4a18a9fd9e62fda63d6d29b6cc85db0550ba57d7a0d3c21f26186f8dc33f.png)
 
 Hãy xem xét cách chúng ta có thể gắn thêm tính năng ghi log. Trước tiên, chúng ta định nghĩa một giao diện chuẩn và triển khai giao diện đó trong một lớp Application Service:
 
@@ -14908,7 +15431,6 @@ public partial class CustomerApplicationService : IApplicationService
         ((dynamic)this).When((dynamic)command); 
     } 
 }
-
 ```
 
 ## Execute và Mutate Có Cách Triển Khai Tương Tự Nhau
@@ -14937,7 +15459,6 @@ public class LoggingWrapper : IApplicationService
             var ms = watch.ElapsedMilliseconds; 
             Console.WriteLine("  Completed in {0} ms", ms); 
         }
-
 ```
 
 ```csharp
@@ -14947,26 +15468,23 @@ public class LoggingWrapper : IApplicationService
         } 
     } 
 }
-
 ```
 
 Nhờ việc tất cả các Application Service đều tuân theo một giao diện chuẩn, chúng ta có thể gắn thêm bao nhiêu tiện ích chung tùy ý để chúng hoạt động trước và/hoặc sau các hàm xử lý thực tế của Command Handler. Dưới đây là cách khởi tạo `CustomerApplicationService` cùng với bộ ghi log trước và sau thực thi:
 
 ```csharp
 var customerService = new CustomerApplicationService(eventStore, pricingService);
-
 ```
 
 ```csharp
 var customerServiceWithLogging = new LoggingWrapper(customerService);
-
 ```
 
 Tất nhiên, việc các Command là các đối tượng được tuần tự hóa và điều phối tới các Command Handler cho phép chúng ta xử lý nhiều sự cố và tình trạng lỗi khác nhau tại một vị trí duy nhất. Khi gặp một phân loại lỗi nhất định, chẳng hạn như tranh chấp tài nguyên do vấn đề đồng thời, chúng ta có thể lựa chọn một hành động phục hồi tiêu chuẩn, ví dụ thử lại (retry) thao tác đó X lần. Các lần thử lại có thể dựa trên chiến lược Capped Exponential Back-off (Độ trễ số mũ có giới hạn chặn trên), giúp cho tất cả các thao tác thử lại trở nên đồng nhất, đáng tin cậy và được duy trì bên trong một lớp duy nhất.
 
 > 💡 **Giải thích thêm về "Capped Exponential Back-off":**
 > Exponential Back-off là thuật toán giãn cách thời gian thử lại: sau mỗi lần thất bại, thời gian chờ sẽ tăng theo cấp số nhân (ví dụ: 100ms, 200ms, 400ms, 800ms...) để giảm áp lực dồn dập lên hệ thống đang quá tải. "Capped" nghĩa là đặt một giới hạn trần (ví dụ tối đa không quá 5 giây), tránh việc thời gian chờ tăng lên vô hạn khiến tiến trình bị treo quá lâu.
-> (Nguồn tham khảo: https://en.wikipedia.org/wiki/Exponential_backoff)
+> (Nguồn tham khảo: [https://en.wikipedia.org/wiki/Exponential_backoff](https://en.wikipedia.org/wiki/Exponential_backoff))
 
 ## Cú Pháp Lambda
 
@@ -14988,8 +15506,11 @@ public class CustomerApplicationService
     } 
     ... 
 }
-
 ```
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000616_1af63ebe06b924a8984d09872b2b495c261f602140ebb52e5dbb54e80ac52902.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000617_8d350d2b841aa23046cf90426f1481153959f5028ac7c289eaa4fded04779f59.png)
 
 Trong phương thức này, tham số `Action<Customer> execute` tham chiếu tới một hàm ẩn danh (anonymous function - trong C# là một delegate) có thể thao tác trên bất kỳ thực thể `Customer` nào. Sự súc tích của biểu thức lambda có thể được nhận thấy qua tham số được truyền vào hàm `Update()`:
 
@@ -15003,7 +15524,6 @@ public class CustomerApplicationService
     } 
     ... 
 }
-
 ```
 
 Trên thực tế, trình biên dịch C# sẽ tạo ra một đoạn mã tương tự như sau để hiện thực hóa ý đồ của biểu thức lambda:
@@ -15026,7 +15546,6 @@ public void When(LockCustomer c)
     x.Reason = c.Reason; 
     Update(c.Id, new Action<Customer>(customer => x.Execute(customer))); 
 }
-
 ```
 
 Vì hàm được sinh ra này nhận một thực thể `Customer` làm đối số, nó thực sự có thể được dùng để nắm bắt hành vi trong mã nguồn và thực thi hành vi đó nhiều lần trên các thực thể `Customer` khác nhau. Sức mạnh của việc sử dụng lambda sẽ được làm nổi bật trong phần tiếp theo.
@@ -15037,6 +15556,8 @@ Các Event Stream của Aggregate có thể được truy cập và đọc bởi
 
 Hình A.10 Hai luồng tranh chấp cùng một thực thể của một Aggregate được thiết kế theo mô hình A+ES
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000618_88a375d4c9350c1717bf158ee8fae90c52e759bc76a9032edebf6f9610531737.png)
+
 Cách giải quyết đơn giản nhất cho tình huống này là ném ra ngoại lệ `EventStoreConcurrencyException` ở bước 4, cho phép nó lan truyền (propagate) ngược lên đến tận client cuối cùng:
 
 ```csharp
@@ -15045,7 +15566,6 @@ public class EventStoreConcurrencyException : Exception
     public List<IEvent> StoreEvents { get; set; } 
     public long StoreVersion { get; set; } 
 }
-
 ```
 
 Khi bắt được ngoại lệ này ở client cuối cùng, người dùng có thể sẽ được hướng dẫn thử lại thao tác theo cách thủ công.
@@ -15057,8 +15577,11 @@ void Update(CustomerId id, Action<Customer> execute)
 { 
     while(true) 
     {
-
 ```
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000619_f8ba902a45a166fd4ae62c4acd7e79b0f57d9c3f5d7739d3b1840ce3f214f95c.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000620_e690f53bb5dc6673d35dbe1e3f92e3d4668556a46140a52cc45445c3a99b30aa.png)
 
 ```csharp
         EventStream eventStream = _eventStore.LoadEventStream(c.Id); 
@@ -15079,7 +15602,6 @@ void Update(CustomerId id, Action<Customer> execute)
         } 
     } 
 }
-
 ```
 
 Trong trường hợp xung đột đồng thời xảy ra, chúng ta sẽ thêm các bước bổ sung sau để khắc phục vấn đề:
@@ -15092,6 +15614,8 @@ Nếu việc thực thi lại hành vi của Aggregate quá tốn kém hoặc v�
 Như được minh họa trong Hình A.11, một chiến lược như vậy là giải quyết xung đột Event (Event conflict resolution), vốn được sử dụng để giảm bớt số lượng ngoại lệ đồng thời thực tế. Dưới đây là cách hoạt động của một trường hợp giải quyết xung đột rất đơn giản:
 
 Hình A.11 Sử dụng giải quyết xung đột Event trên Event Stream của một Aggregate
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000621_8286799c0249226699ca660a20d068e566b3f76d18fe9368e15dc0e8effccf4e.png)
 
 ```csharp
 void UpdateWithSimpleConflictResolution( 
@@ -15136,7 +15660,6 @@ void UpdateWithSimpleConflictResolution(
         } 
     } 
 }
-
 ```
 
 Trong trường hợp này, phương thức phát hiện xung đột `ConflictsWith()` được sử dụng để so sánh từng Event của Aggregate nhằm tìm kiếm xung đột với các Event đã được ghi đồng thời vào Event Store (như được báo cáo trong ngoại lệ).
@@ -15148,8 +15671,11 @@ bool ConflictsWith(IEvent event1, IEvent event2)
 { 
     return event1.GetType() == event2.GetType(); 
 }
-
 ```
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000622_1775c96bbfcb852b779a53440ad8e86c5660237239438741aa5d9bc016a3a1fc.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000623_97633ffc504f95f5da96cd70f5e98ace5b27e7d65327ac873737a399f1091105.png)
 
 Việc giải quyết xung đột cho phần lớn các trường hợp này dựa trên một quy tắc đơn giản: Các Event cùng loại luôn xung đột với nhau, nhưng các Event khác loại thì không.
 
@@ -15171,6 +15697,8 @@ Dưới đây là ba ưu điểm lớn của việc lưu trữ theo A+ES, đặc
 
 Hình A.12 Một Event Stream của Aggregate với một bản chụp nhanh (snapshot) trạng thái của nó, theo sau là hai Event xảy ra sau khi bản chụp nhanh được tạo
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000624_a1d047024c5530ed257b5fa2cdd33b3d275c3f4ca99cb278431cd0c63fb16671.png)
+
 * Lưu bộ nhớ đệm (cache) các Event Stream trong bộ nhớ máy chủ (server memory), tận dụng lợi thế rằng các Event là bất biến (immutable) một khi đã được ghi vào Event Store. Khi truy vấn Event Store để tìm bất kỳ thay đổi nào, chúng ta có thể cung cấp phiên bản của Event được biết gần nhất và chỉ yêu cầu lấy những Event xảy ra kể từ thời điểm đó (nếu có). Cách này có thể cải thiện hiệu năng nhưng sẽ phải đánh đổi bằng mức tiêu tốn dung lượng bộ nhớ.
 * Tránh việc phải tải và phát lại một phần lớn của Event Stream bằng cách chụp nhanh (snapshot) từng thực thể Aggregate. Bằng cách này, khi tải bất kỳ thực thể Aggregate nào, bạn chỉ cần tìm bản chụp nhanh mới nhất của nó, sau đó chỉ phát lại các Event đã được ghi thêm vào Event Stream kể từ khi bản chụp nhanh đó được tạo.
 
@@ -15188,10 +15716,13 @@ public interface ISnapshotRepository
         TAggregate snapshot, 
         int version); 
 }
-
 ```
 
 Chúng ta phải lưu lại phiên bản của Stream cùng với mỗi snapshot. Dựa vào số phiên bản này, chúng ta có thể tải snapshot cùng với chỉ những Event xảy ra kể từ thời điểm snapshot đó được ghi nhận. Ban đầu, chúng ta lấy snapshot làm trạng thái cơ sở (base state) của thực thể Aggregate, sau đó tải và phát lại toàn bộ các Event phát sinh kể từ khi snapshot được chụp:
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000625_226cb2f4aa366aa76e3837434853cc1624dcecfffc42f8e0c21e9d2273d5477a.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000626_a7881cb4993b908e83eb8d9b123907baf1974ba60deca459eb5ec9c4fe3cd0f0.png)
 
 ```csharp
 // our event store
@@ -15226,7 +15757,6 @@ public Customer LoadCustomerAggregateById(CustomerId id)
         return new Customer(stream.Events); 
     } 
 }
-
 ```
 
 Phương thức `ReplayEvents()` phải được sử dụng để đưa trạng thái thực thể Aggregate về phiên bản mới nhất với các Event xảy ra kể từ snapshot gần nhất. Hãy nhớ rằng trạng thái thực thể Aggregate được làm thay đổi tính từ thời điểm snapshot mới nhất trở đi. Do đó, chúng ta sẽ không khởi tạo `Customer` (trong ví dụ này) chỉ bằng Event Stream đơn thuần. Chúng ta cũng không thể chỉ sử dụng `Apply()`, bởi vì nó không những làm thay đổi trạng thái hiện tại với Event được đưa vào mà còn lưu từng Event mà nó nhận được vào tập hợp `Changes`. Việc lưu vào `Changes` những Event vốn đã tồn tại sẵn trong Event Stream sẽ gây ra các lỗi nghiêm trọng. Vì vậy, chúng ta chỉ cần triển khai thêm phương thức mới `ReplayEvents()`:
@@ -15244,10 +15774,11 @@ public partial class Customer
     } 
     ... 
 }
-
 ```
 
 Hình A.13 Bản chụp nhanh của một Aggregate được sinh ra sau khi một số lượng Event mới nhất định xuất hiện.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000627_f1642dde88e77562ec3f7f7639413f8a31bc06a3f27e382db72ec13aa8110a71.png)
 
 Dưới đây là đoạn mã đơn giản để sinh các snapshot cho `Customer`:
 
@@ -15260,7 +15791,6 @@ public void GenerateSnapshotForCustomer(IIdentity id)
     Customer customer = new Customer(stream.Events); 
     _snapshots.SaveSnapshot(id, customer, stream.Version); 
 }
-
 ```
 
 Việc sinh và lưu trữ snapshot có thể được ủy thác cho một luồng chạy nền (background thread). Các snapshot mới sẽ chỉ được tạo ra sau khi một số lượng Event định trước xuất hiện tính từ snapshot mới nhất. Các bước này được biểu thị trong Hình A.13. Vì đặc tính của từng loại Aggregate có thể rất khác nhau, nên ngưỡng kích hoạt chụp snapshot cho từng loại có thể được tinh chỉnh để đáp ứng các nhu cầu hiệu năng cụ thể.
@@ -15272,6 +15802,10 @@ Một cách bổ sung khác để xử lý các mối lo ngại về hiệu năn
 Bây giờ, chúng ta hãy cùng bắt tay vào triển khai một vài Event Store khác nhau phù hợp để sử dụng với A+ES. Các Store ở đây tương đối đơn giản và không được thiết kế cho hiệu năng cực cao, nhưng chúng sẽ đủ tốt cho hầu hết các miền nghiệp vụ.
 
 Mặc dù phần triển khai chi tiết cho từng Event Store có sự khác nhau, nhưng các hợp đồng (contracts/interfaces) của chúng là như nhau:
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000628_f34dca0caf247209acf40ec1d0c2f1db0e8181497ee32dc7cf0d900ad5a840ef.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000629_94b53b1e1b481cddb8ca2337076a146311f0104690f33bf7ed1991134571bcab.png)
 
 ```csharp
 public interface IEventStore 
@@ -15309,16 +15843,17 @@ public class EventStream
     // (toàn bộ các sự kiện trong stream)
     public IList<IEvent> Events = new List<IEvent>(); 
 }
-
 ```
 
 Như minh họa trong Hình A.14, lớp triển khai `IEventStore` là một vỏ bọc (wrapper) mang tính đặc thù của dự án bao quanh `IAppendOnlyStore` vốn mang tính tổng quát và có khả năng tái sử dụng cao hơn. Trong khi việc triển khai `IEventStore` xử lý việc tuần tự hóa và định kiểu dữ liệu mạnh (strong typing), thì các triển khai của `IAppendOnlyStore` lại cung cấp quyền truy cập cấp thấp (low-level) tới nhiều cơ chế lưu trữ (storage engines) khác nhau.
 
 Hình A.14 Các đặc tính của IEventStore cấp cao hơn và IAppendOnlyStore cấp thấp hơn
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000630_dce6a5f79a6c6a48a1c1a9b200a6ad3a8dd892e77e9b7631e74082a8a2aa0979.png)
+
 ## Mã Nguồn Của Event Store
 
-Mã nguồn đầy đủ cho nhiều loại Event Store với các phương án lưu trữ khác nhau có sẵn để tải về dưới dạng một phần của dự án mẫu A+ES: http://lokad.github.com/lokad-iddd-sample/.
+Mã nguồn đầy đủ cho nhiều loại Event Store với các phương án lưu trữ khác nhau có sẵn để tải về dưới dạng một phần của dự án mẫu A+ES: [http://lokad.github.com/lokad-iddd-sample/](http://lokad.github.com/lokad-iddd-sample/).
 
 Dưới đây là giao diện `IAppendOnlyStore` ở cấp thấp hơn:
 
@@ -15347,7 +15882,6 @@ public sealed class DataWithName
     public string Name; 
     public byte[] Data; 
 }
-
 ```
 
 Như bạn có thể thấy, `IAppendOnlyStore` làm việc với các mảng byte thay vì các tập hợp Event, và sử dụng chuỗi tên (string names) thay vì các định danh có định kiểu mạnh. Lớp `EventStore` sẽ đảm nhận việc chuyển đổi qua lại giữa hai dạng dữ liệu này.
@@ -15356,9 +15890,13 @@ Như bạn có thể thấy, `IAppendOnlyStore` làm việc với các mảng by
 
 > 💡 **Giải thích thêm về "Two-phase commit (2PC)":**
 > Giao thức commit hai pha (2PC) là một thuật toán đồng thuận trong hệ thống phân tán, dùng để đảm bảo tính toàn vẹn nguyên tử (atomic) khi ghi dữ liệu đồng thời vào nhiều hệ thống khác nhau (ví dụ: vừa ghi vào DB vừa đẩy message vào Message Queue). 2PC thường có độ trễ cao và dễ gây tắc nghẽn (blocking). Bằng cách lưu Event vào Store trước rồi dùng một tiến trình riêng đọc Event ra để publish (mẫu hình Transactional Outbox / Event Tailing), hệ thống tránh hoàn toàn được sự phức tạp và chậm chạp của 2PC.
-> (Nguồn tham khảo: https://en.wikipedia.org/wiki/Two-phase_commit_protocol)
+> (Nguồn tham khảo: [https://en.wikipedia.org/wiki/Two-phase_commit_protocol](https://en.wikipedia.org/wiki/Two-phase_commit_protocol))
 
 Một cách tiếp cận đơn giản cho việc tuần tự hóa (serialization) và giải tuần tự hóa (deserialization) — tức chuyển đổi giữa các mảng byte và các đối tượng Event được định kiểu mạnh — là sử dụng `BinaryFormatter` của .NET:
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000631_2f4c110a279283394e29d0e5c681c311e76534f4c5b0cc4a50923dd84a608a7f.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000632_20711ff671186f0a26e480b9dd408611f40ab4a12dc25f7292f7e0aaf3b460fd.png)
 
 ## Phụ lục A AGGREGATE VÀ EVENT SOURCING: A+ES
 
@@ -15384,7 +15922,6 @@ public class EventStore : IEventStore
         } 
     } 
 }
-
 ```
 
 Dưới đây là cách chúng ta có thể sử dụng tuần tự hóa và giải tuần tự hóa để tải một Event Stream:
@@ -15411,7 +15948,6 @@ string IdentityToString(IIdentity id)
     // (trong dự án này tất cả các identity đều tạo ra tên phù hợp)
     return id.ToString(); 
 }
-
 ```
 
 Ở đây chúng ta thấy cách ghi thêm các Event mới vào Event Store thông qua `IAppendOnlyStore`:
@@ -15445,7 +15981,6 @@ public void AppendToStream(
             server.Events); 
     } 
 }
-
 ```
 
 ## Lưu Trữ Dưới Dạng Quan Hệ
@@ -15462,6 +15997,10 @@ CREATE TABLE IF NOT EXISTS `ES_Events` (
     `Name` nvarchar(50) NOT NULL,            -- name of the stream (tên của stream)
 
 ```
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000633_bc2fdc23683ea0679ed80544250ec0b1d9107f0db867b929320a136e1c2e12c5.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000634_72389723e94b72ffd55a0b07f6d03c303706ae41dbda0ad94dbd511a9fa20077.png)
 
 `Version` int NOT NULL,                  -- incrementing stream version (phiên bản tăng dần của stream)
 
@@ -15511,7 +16050,6 @@ public void Append(string name, byte[] data, int expectedVersion)
             using (var cmd = new MySqlCommand(txt, conn, tx)) 
             { 
                 cmd.Parameters.AddWithValue("?name", name);
-
 ```
 
 ## LƯU TRỮ DƯỚI DẠNG QUAN HỆ
@@ -15525,7 +16063,6 @@ public void Append(string name, byte[] data, int expectedVersion)
         } 
     } 
 }
-
 ```
 
 Việc đọc dữ liệu từ `IAppendOnlyStore` khá đơn giản, chỉ đòi hỏi một câu truy vấn cơ bản. Ví dụ, dưới đây là cách chúng ta lấy danh sách các bản ghi cho một Event Stream của Aggregate:
@@ -15557,10 +16094,13 @@ public IEnumerable<DataWithVersion> ReadRecords(
         } 
     } 
 }
-
 ```
 
 Bạn sẽ tìm thấy mã nguồn đầy đủ cho Event Store dựa trên MySQL này cùng phần mã nguồn mẫu còn lại. Một bản triển khai tương tự cũng được cung cấp cho Microsoft SQL Server.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000635_a32bf8d4905e6a5d08ec052a79fffdacba255fa87ce5c827b081f03c8339c51f.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000636_851aa746a06530da8c2af365e49bdab5cf8ff788f51d1d5a7e176360a614e155.png)
 
 ## Lưu Trữ Dưới Dạng BLOB
 
@@ -15576,19 +16116,19 @@ Hãy cùng xem xét một số chỉ dẫn thiết kế để xây dựng một 
 
 Hình A.15 Lưu trữ BLOB dựa trên hệ thống tệp tin sử dụng chiến lược mỗi thực thể Aggregate là một tệp riêng, chứa một bản ghi cho mỗi Event
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000637_8e1fb061c337e86f5355ee23869cc27dc8095676e782fed0a1a7f2899debe977.png)
+
 4. Bất kể chiến lược lưu trữ BLOB nào được sử dụng, toàn bộ các Event mới đều được ghi nối tiếp vào phần cuối. Mỗi bản ghi bao gồm các trường: tên (name), phiên bản (version), và dữ liệu nhị phân (binary data). Điều này tương tự như cách chúng ta lưu các bản ghi Event vào một cơ sở dữ liệu quan hệ. Tuy nhiên, với một kho lưu trữ BLOB, chúng ta phải thêm tiền tố độ dài byte vào trước các trường có độ dài thay đổi (variable-length fields), đồng thời gắn thêm một mã băm (hash code) hoặc kiểm tra dư thừa vòng (CRC - Cyclic Redundancy Check) để xác minh tính toàn vẹn của dữ liệu khi đọc các bản ghi.
 5. Bộ lưu trữ chỉ ghi thêm dựa trên BLOB cho phép liệt kê toàn bộ các Event trên tất cả các Event Stream đơn giản bằng cách duyệt qua toàn bộ các tệp tin và nội dung của chúng. Để tăng tốc độ tìm kiếm trên đĩa (disk seeks) và việc đọc các Event cho một Stream cụ thể, chúng ta sẽ cần duy trì một chỉ mục riêng trong bộ nhớ (in-memory index) và/hoặc lưu bộ đệm các Event Stream trong bộ nhớ. Nếu sử dụng cơ chế lưu đệm trong bộ nhớ, mỗi lần ghi thêm sẽ đòi hỏi bộ nhớ đệm phải được làm mới (refreshed). Hơn nữa, việc chụp snapshot trạng thái Aggregate và chống phân mảnh tập tin (file defragmentation) cũng có thể giúp cải thiện hiệu năng.
 6. Đương nhiên, chúng ta có thể tránh được nhiều vấn đề phân mảnh ổ đĩa của hệ thống tệp tin bằng cách cấp phát trước (preallocating) các vùng dung lượng lớn của tệp BLOB ngay khi từng Event Stream dạng tệp tin được tạo ra.
 
-Thiết kế này được lấy cảm hứng từ mô hình Bitcask của Riak. Bạn có thể đọc thêm chi tiết và giải thích trong tài liệu kiến trúc Riak Bitcask: http://downloads.basho.com/papers/bitcask-intro.pdf.
+Thiết kế này được lấy cảm hứng từ mô hình Bitcask của Riak. Bạn có thể đọc thêm chi tiết và giải thích trong tài liệu kiến trúc Riak Bitcask: [http://downloads.basho.com/papers/bitcask-intro.pdf](http://downloads.basho.com/papers/bitcask-intro.pdf).
 
 > 💡 **Giải thích thêm về "Riak Bitcask model":**
 > Bitcask là một bộ máy lưu trữ (storage engine) log-structured key/value do Basho phát triển cho cơ sở dữ liệu Riak. Ý tưởng cốt lõi của nó là chỉ ghi dữ liệu tuần tự nối tiếp vào cuối tệp (append-only log files), đồng thời duy trì một bảng băm chỉ mục trong RAM (Keydir) trỏ trực tiếp đến vị trí offset của dữ liệu trên đĩa. Kiến trúc này mang lại thông lượng ghi cực cao, độ trễ đọc rất thấp (chỉ mất đúng một lần tìm kiếm trên đĩa), và khả năng phục hồi dữ liệu sau sự cố rất đơn giản.
-> (Nguồn tham khảo: https://riak.com/assets/bitcask-intro.pdf)
+> (Nguồn tham khảo: [https://riak.com/assets/bitcask-intro.pdf](https://riak.com/assets/bitcask-intro.pdf))
 
 ## Các Aggregate Tập Trung
-
-<!-- ⚠️ CẢNH BÁO chunk 27: số ảnh/heading/code-block KHÔNG khớp bản gốc (gốc={'images': 42, 'headings': 16, 'fences': 76}, dịch={'images': 3, 'headings': 16, 'fences': 76}). Xem lại đoạn này bằng tay. -->
 
 ﻿Khi phát triển các Aggregate (cụm thực thể / tập hợp đối tượng nhất quán trong DDD) với cơ chế persistence (lưu trữ dữ liệu bền vững) truyền thống (chẳng hạn như cơ sở dữ liệu quan hệ mà không sử dụng Event Sourcing - mô hình lưu trữ trạng thái dựa trên chuỗi sự kiện), sự trở ngại trong quá trình phát triển khi đưa một Entity (thực thể có định danh) mới vào hệ thống hoặc bổ sung dữ liệu cho một Entity sẵn có có thể thấy rất rõ ràng. Chúng ta cần phải tạo các bảng mới, định nghĩa các mapping schemata (lược đồ ánh xạ dữ liệu / ORM mapping) mới cùng các phương thức Repository (kho lưu trữ đối tượng nghiệp vụ) mới. Nếu xu hướng của chúng ta là ngại những chi phí phát sinh (overhead) phát triển như vậy, điều đó có thể khiến chúng ta làm phình to các Aggregate do dồn thêm nhiều cấu trúc trạng thái và hành vi vào từng Aggregate. Việc bổ sung thêm vào một Aggregate sẵn có thường dễ dàng hơn nhiều so với việc tạo ra một Aggregate mới.
 
@@ -15611,7 +16151,7 @@ Dĩ nhiên, Aggregate không bao giờ nên bị thu nhỏ một cách tùy ti�
 Trên thực tế, đôi khi việc bắt đầu mô hình hóa miền nghiệp vụ (domain modeling) bằng cách xác định phần cốt lõi của Ubiquitous Language (ngôn ngữ chung / ngôn ngữ toàn hiện) thông qua các Commands (lệnh thực thi) gửi đến và các Events (sự kiện) phát sinh ra, cũng như các hành vi được thực thi, lại rất hữu ích. Chỉ ở giai đoạn sau đó, chúng ta mới thực sự nhóm một số khái niệm lại thành Aggregate, dựa trên sự tương đồng, tính liên quan và các quy tắc nghiệp vụ. Cách tiếp cận này—ngay cả khi nó chỉ là một development spike (bước thử nghiệm kỹ thuật ngắn hạn) tạm thời dùng trong bài tập mô hình hóa miền nghiệp vụ—cũng có thể mang lại sự hiểu biết sâu sắc hơn về các khái niệm nghiệp vụ cốt lõi của chúng ta.
 
 > 💡 **Giải thích thêm:** Trong phát triển phần mềm (đặc biệt là Extreme Programming và Agile), "spike" (hay "development spike") là một thử nghiệm kỹ thuật ngắn hạn nhằm mục đích nghiên cứu, trả lời một câu hỏi kỹ thuật cụ thể hoặc giảm thiểu rủi ro kiến trúc trước khi triển khai chính thức, không nhằm tạo ra mã nguồn hoàn chỉnh cho sản phẩm.  
-> Nguồn tham khảo: https://en.wikipedia.org/wiki/Spike_(software_development)
+> Nguồn tham khảo: [https://en.wikipedia.org/wiki/Spike_(software_development](https://en.wikipedia.org/wiki/Spike_(software_development))
 
 ## Read Model Projections
 
@@ -15623,7 +16163,7 @@ Tóm lại, một Projection rất tương đồng với một phiên bản Aggr
 
 ## Projection Samples Are Available
 
-Thông tin chi tiết hơn về việc sử dụng Projection, bao gồm mã nguồn cho các kịch bản lưu trữ dữ liệu khác nhau và cơ chế tự động xây dựng lại Read Model, hiện có sẵn trong dự án mẫu tại: http://lokad.github.com/lokad-cqrs/.
+Thông tin chi tiết hơn về việc sử dụng Projection, bao gồm mã nguồn cho các kịch bản lưu trữ dữ liệu khác nhau và cơ chế tự động xây dựng lại Read Model, hiện có sẵn trong dự án mẫu tại: [http://lokad.github.com/lokad-cqrs/](http://lokad.github.com/lokad-cqrs/).
 
 Dưới đây là cách chúng ta có thể định nghĩa một Projection để ghi nhận toàn bộ các giao dịch cho từng Customer:
 
@@ -15647,10 +16187,13 @@ public class CustomerTransactionsProjection {
         _store.UpdateOrThrow(e.Id, v => v.AddTx(e.PaymentName, e.Payment, e.NewBalance, e.TimeUtc));
     }
 }
-
 ```
 
 Lớp Projection này tương tự như một Application Service (dịch vụ ứng dụng) được thiết kế cho A+ES có sử dụng biểu thức lambda. Tuy nhiên, Projection của chúng ta phản ứng với Event thay vì Command và cập nhật tài liệu (document) thông qua IDocumentWriter, thay vì cập nhật các phiên bản Aggregate.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000640_1365b7b0b7075d536b21fc8ab77670e944da48b03dc9e9d93a0386e6f332d4e3.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000641_9d297339e70d73a9d68337522d9fd199b005ddb002fffc236404ab24613d03d7.png)
 
 Read Model bên dưới thực chất chỉ là một Data Transfer Object (DTO - đối tượng truyền dữ liệu) [Fowler] đơn giản, có thể được tuần tự hóa (serialized) và lưu trữ bền vững vào một kho lưu trữ nền tảng nào đó bằng IDocumentWriter:
 
@@ -15680,7 +16223,6 @@ public class CustomerTransaction {
     public string Name;
     public DateTime TimeUtc;
 }
-
 ```
 
 Việc lưu trữ các Read Model trong cơ sở dữ liệu dạng tài liệu (document database) là một thực hành phổ biến, mặc dù vẫn có thể áp dụng các phương án khác. Chúng ta có thể lưu tạm (cache) Read Model trong bộ nhớ (ví dụ: một phiên bản memcached), đẩy chúng dưới dạng tài liệu vào mạng phân phối nội dung (CDN - Content Delivery Network), hoặc lưu trữ chúng trong các bảng cơ sở dữ liệu quan hệ.
@@ -15706,10 +16248,15 @@ public class ProjectArchived {
     public DateTime ArchivedUtc { get; set; }
     public string OptionalComment { get; set; }
 }
-
 ```
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000642_c63b6b969620845ba2a97b13bd32a36897d78098d3c481e1a568e479d49d9cc7.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000643_03e0a97de841a4bb5d486a436efb1038a7b4defa594b887563ecb6e72d97070b.png)
+
 Figure A.16 Nhiều Domain Event được một Projection tiếp nhận và sử dụng để xây dựng một khung nhìn (view) của Read Model.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000644_f28b2fa883eb0f361467c8b6308f1abee66713dafaa27d807da92c1908d07ed6.png)
 
 Thông tin này đủ phong phú để tái tạo một Project đã lưu trữ bằng A+ES. Tuy nhiên, nếu được thiết kế theo cách này, Event của chúng ta có thể gây ra nhiều trở ngại cho các bên tiêu thụ.
 
@@ -15728,7 +16275,6 @@ public class ProjectArchived {
     public string ProjectName { get; set; }
     public UserId ChangeAuthorId { get; set; }
     public DateTime ArchivedUtc { get; set; }
-
 ```
 
 ```csharp
@@ -15736,7 +16282,6 @@ public class ProjectArchived {
     public CustomerId Customer { get; set; }
     public string CustomerName { get; set; }
 }
-
 ```
 
 Nhờ Event mới được bổ sung dữ liệu này, ArchivedProjectsPerCustomerView do Projection tạo ra có thể được đơn giản hóa như thể hiện trong Hình A.17.
@@ -15749,6 +16294,12 @@ Một nguyên tắc kinh nghiệm về Domain Event là hãy thiết kế chúng
 Đây là các khuyến nghị, không phải quy tắc cứng nhắc. Chúng thường phát huy hiệu quả tốt cho các doanh nghiệp có nhiều Bounded Context khác nhau. Các Bounded Context nguyên khối (monolithic) nhận được ít lợi ích hơn từ các gợi ý này, vì chúng thường có xu hướng duy trì các bảng tra cứu phụ và các ánh xạ Entity. Dĩ nhiên, bạn là người hiểu rõ nhất những thuộc tính nào nên được đưa vào các Event của mình. Đôi khi, việc xác định những thuộc tính nào thuộc về một loại Event nhất định là hết sức hiển nhiên, và với những trường hợp đó, chúng ta hiếm khi cần phải tái cấu trúc (refactoring).
 
 Figure A.17 Các Domain Event như ProjectArchived có thể được tiếp nhận bởi các bộ xử lý Projection để sinh ra các Read Model phục vụ riêng cho khung nhìn và báo cáo.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000645_f2245c46135b90b225e08955b9b0a6da45060c5377fadcb04457e30b8e88fa41.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000646_9ba04f28f3cf9811ffee6c4158814dbed75c341b70814fcaa986a649629b2aec.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000647_618c7536faf3e224885cdabb1ddccf1e99c00b39a727c16ad3fc51887a333e47.png)
 
 ## Supporting Tools and Patterns
 
@@ -15767,7 +16318,6 @@ public class ProjectClosed {
     [DataMember(Order = 2)]
     public DateTime Closed { get; set; }
 }
-
 ```
 
 Bây giờ, nếu chúng ta tuần tự hóa ProjectClosed bằng DataContractSerializer hoặc JsonSerializer thay vì Protocol Buffers, bất kỳ thành viên nào bị đổi tên đều có thể dễ dàng làm gián đoạn hoặc hỏng (break) các bên tiêu thụ phụ thuộc. Ví dụ, giả sử bạn đổi tên thuộc tính Closed thành ClosedUtc. Trừ khi bạn đặc biệt chú ý ánh xạ thuộc tính đã đổi tên này trong Bounded Context tiêu thụ, nếu không bạn sẽ gây ra một lỗi rất khó hiểu hoặc sinh ra dữ liệu sai lệch:
@@ -15781,7 +16331,6 @@ public class ProjectClosed {
     [DataMember(Name = "Closed")]
     public DateTime ClosedUtc { get; set; }
 }
-
 ```
 
 Protocol Buffers đáp ứng tốt các tình huống tuần tự hóa liên tục biến đổi vì nó theo dõi các thành viên trong hợp đồng bằng các thẻ số nguyên (integral tags), chứ không phải bằng tên gọi. Như có thể thấy trong đoạn mã sau, các client có thể sử dụng thành công Close hoặc CloseUtc làm tên thuộc tính. Nó tuần tự hóa các đối tượng cực kỳ nhanh và tạo ra biểu diễn nhị phân rất nhỏ gọn. Nhờ sử dụng Protocol Buffers, chúng ta có thể đổi tên các thuộc tính của Event mà không phải lo lắng về tính tương thích ngược (backward compatibility), từ đó giảm thiểu trở ngại phát triển trong một mô hình miền đang trên đà tiến hóa.
@@ -15797,7 +16346,6 @@ public class ProjectClosed {
     [DataMember(Order = 2)]
     public DateTime ClosedUtc { get; set; }
 }
-
 ```
 
 Một số công cụ tuần tự hóa đa nền tảng bổ sung bao gồm Apache Thrift, Avro và MessagePack, mang đến nhiều sự lựa chọn rất đáng cân nhắc.
@@ -15820,7 +16368,6 @@ public class ProjectClosed {
         ClosedUtc = closedUtc;
     }
 }
-
 ```
 
 ## Value Objects
@@ -15832,21 +16379,22 @@ public struct ProjectId {
     public ProjectId(long id) {
         Id = id;
     }
-
 ```
 
 ```csharp
     public readonly long Id { get; private set; }
 }
-
 ```
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000648_2dc72a73392d2bb3f0c0e4c2c9d42d84fc449f347519991f0c3a999596146b57.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000649_c78ba36c119882e952f2b99172c8a80bfb668bd06f38ecdc9ea8b12c800ae2ad.png)
 
 ```csharp
     public override string ToString() {
         return string.Format("Project-{0}", Id);
     }
 }
-
 ```
 
 Chúng ta vẫn sử dụng kiểu `long` để chứa giá trị số định danh thực tế, nhưng dùng kiểu `ProjectId` để phân biệt nó với tất cả các kiểu dữ liệu khác. Kiểu giá trị dĩ nhiên không chỉ giới hạn ở các định danh duy nhất. Những kiểu giá trị phù hợp khác có thể kể đến như các đối tượng tiền tệ (đặc biệt trong các hệ thống đa tiền tệ), địa chỉ, email, các đơn vị đo lường, v.v.
@@ -15857,7 +16405,6 @@ Ngoài việc làm giàu thông tin và tăng tính biểu đạt cho các hợp
 long customerId = ...;
 long projectId = ...;
 var event = new ProjectAssignedToCustomer(customerId, projectId);
-
 ```
 
 Đây là một lỗi mà trình biên dịch sẽ không thể phát hiện ra, và có thể chỉ được tìm thấy sau rất nhiều công sức gỡ lỗi (debug) cùng sự ức chế. Tuy nhiên, nếu bạn sử dụng các Value Object làm định danh, trình biên dịch (và do đó là trình soạn thảo IDE) sẽ bắt được lỗi khi truyền CustomerId trước và ProjectId sau:
@@ -15866,7 +16413,6 @@ var event = new ProjectAssignedToCustomer(customerId, projectId);
 CustomerId customerId = ...;
 ProjectId projectId = ...;
 var event = new ProjectAssignedToCustomer(customerId, projectId);
-
 ```
 
 Các lợi ích thậm chí còn trở nên rõ ràng hơn khi bạn có các lớp hợp đồng dạng phẳng (flat) chứa một lượng lớn các trường dữ liệu. Chẳng hạn, hãy xem xét Event sau (đã được đơn giản hóa từ phiên bản thực tế trên môi trường production):
@@ -15881,7 +16427,6 @@ public class CustomerInvoiceWritten {
     public CustomerId Customer { get; private set; }
     public string CustomerName { get; private set; }
     public string CustomerBillingAddress { get; private set; }
-
 ```
 
 ```csharp
@@ -15890,7 +16435,6 @@ public class CustomerInvoiceWritten {
     public decimal VatTax { get; private set; }
     public decimal Total { get; private set; }
 }
-
 ```
 
 Như bạn có thể hình dung, việc làm việc với một lớp có quá nhiều thuộc tính 2 có thể khá phức tạp. Chúng ta có thể tái cấu trúc Event cồng kềnh này để trở nên tường minh và dễ đọc hơn bằng cách tinh chỉnh mô hình của nó theo các khái niệm nghiệp vụ sẵn có:
@@ -15902,7 +16446,6 @@ public class CustomerInvoiceWritten {
     public InvoiceLine[] Lines { get; private set; }
     public InvoiceFooter Footer { get; private set; }
 }
-
 ```
 
 InvoiceHeader và InvoiceFooter cấu thành các nhóm thuộc tính có tính gắn kết cao:
@@ -15921,7 +16464,6 @@ public class InvoiceFooter {
     public CurrencyAmount VarAmount { get; private set; }
     public CurrencyAmount Total { get; private set; }
 }
-
 ```
 
 Chúng ta đã thay thế các thuộc tính riêng rẽ là `CurrencyType Currency` và `decimal SubTotal` bằng một Value Object `CurrencyAmount`. Một lợi ích bổ sung là lớp này có thể được tăng cường thêm logic kiểm tra tính hợp lệ (sanity check) nhằm ngăn chặn các phép tính toán giữa các số tiền khác đơn vị tiền tệ cũng như những thao tác không hợp lệ khác. Tương tự, thông tin thuế VAT cũng được gộp vào một Value Object riêng biệt rồi được ghép vào `InvoiceFooter` cùng với các tổng tiền khác của hóa đơn.
@@ -15929,6 +16471,10 @@ Chúng ta đã thay thế các thuộc tính riêng rẽ là `CurrencyType Curre
 Bất cứ khi nào có thể, chúng ta nên nỗ lực áp dụng các Value Object, cho dù là đối với các đối tượng Command, Event hay các thành phần của Aggregate.
 
 2. Dữ liệu thực nghiệm chứng minh một nguyên tắc kinh nghiệm phù hợp: Mỗi lớp không nên có quá từ 5 đến 7 thuộc tính thành viên.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000650_2f247caa7445b1814eff353ed0b64437149eee46d8daa44392a7c8bbba7f6bba.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000651_860ac12ddc9695003b832d9341d99019bccb992ebb9f945b6495b5cef6a5e6d4.png)
 
 Rõ ràng, việc sử dụng Value Object trong Command và/hoặc Event sẽ đòi hỏi phải triển khai (deploy) chúng cùng nhau, hoặc thậm chí là tạo ra một Shared Kernel (hạt nhân chia sẻ) (3). Tuy nhiên, một số miền nghiệp vụ cực kỳ phức tạp có thể yêu cầu thiết kế các Value Object chứa logic nghiệp vụ hết sức rối rắm. Trong những trường hợp như vậy, việc đưa các Value Object đó vào một Shared Kernel chỉ nhằm mục đích giải tuần tự hóa an toàn kiểu (type-safe deserialization) rất có thể sẽ dẫn đến một thiết kế mỏng manh, dễ gãy (brittle). Việc phân biệt giữa các lớp chia sẻ đơn giản dùng để giải tuần tự hóa dữ liệu Command và Event theo cách an toàn kiểu với các lớp phức tạp hơn do Core Domain (miền nghiệp vụ cốt lõi) (2) đòi hỏi có thể sẽ mang lại hiệu quả. Điều đó đồng nghĩa với việc tạo ra hai bộ lớp Value Object: một bộ dành riêng cho Core Domain và một bộ được triển khai cùng các lớp Command và Event. Dữ liệu do hai bộ này nắm giữ sẽ được chuyển đổi qua lại khi cần thiết.
 
@@ -15973,7 +16519,6 @@ public sealed class CustomerInvoiceWritten : IDomainEvent {
         Lines = new InvoiceLine[0];
     }
 }
-
 ```
 
 Điều này mang lại những lợi ích thực tế sau:
@@ -15984,6 +16529,10 @@ public sealed class CustomerInvoiceWritten : IDomainEvent {
 * Chúng ta có thể quản lý phiên bản và phân phối các hợp đồng Event dưới dạng các định nghĩa cô đọng thay vì đòi hỏi mã nguồn hoặc mã nhị phân (binary code). Điều này thậm chí có thể giúp nâng cao khả năng cộng tác giữa các đội ngũ khác nhau.
 
 Cách làm tương tự cũng có thể áp dụng cho các hợp đồng Command. Bản triển khai mã nguồn mở của công cụ sinh mã dựa trên DSL cùng với các ví dụ hiện có sẵn trong dự án mẫu.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000652_849b8fdc64dccce41ad7d043d22b7d8c5dcf275918a11d6f14a455ce783ba55c.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000653_4234db078317150de0b9c580c0f9d7335f9c06de96bd78c46a68c1232611740f.png)
 
 ## Unit Testing and Specifications
 
@@ -16005,7 +16554,6 @@ Dưới đây là một bản đặc tả đơn giản được định nghĩa b
 
 ```text
 [Passed] Use case 'Add Customer Payment - Unlock On Payment'.
-
 ```
 
 ```text
@@ -16017,7 +16565,6 @@ When:
 Expectations:
   [ok] Tx 1: payment 10 EUR 'unlock' (none)
   [ok] Customer unlocked
-
 ```
 
 Nếu bạn quan tâm đến cách tiếp cận này, việc tìm kiếm trên web với từ khóa 'Event Sourcing Specifications' sẽ mang lại những hướng dẫn chi tiết.
@@ -16030,55 +16577,57 @@ Dưới đây là một số đặc thù khi chuyển từ phương pháp tiếp
 
 * Chúng ta phải chuyển từ việc dùng một đối tượng trạng thái Aggregate có thể biến đổi (mutable) trong hướng đối tượng sang việc thiết kế một bản ghi trạng thái bất biến (immutable state record) đơn giản cùng một tập hợp các hàm biến đổi. Các hàm biến đổi này chỉ đơn giản nhận vào một bản ghi trạng thái và các đối số Event, rồi trả về một bản ghi trạng thái mới dưới dạng kết quả. Điều này rất giống với thiết kế của một Value Object bất biến, nơi mà các Side-Effect-Free Functions (hàm không gây tác dụng phụ) chỉ tạo ra các Giá trị mới dựa trên trạng thái của chính nó và các đối số của hàm. Những hàm như vậy có dạng `Func<State, Event, State>`.
 * Trạng thái hiện tại của Aggregate có thể được định nghĩa như một phép left fold (phép gập trái / tích lũy từ trái sang phải) của tất cả các Event trong quá khứ được truyền vào các hàm biến đổi.
-* Các phương thức Aggregate cũng có thể được biến đổi thành một tập hợp các hàm không lưu trạng thái (stateless functions), nhận vào các tham số Command, Domain Services và một trạng thái. Các hàm như vậy trả về không hoặc nhiều Event và có dạng `Func<TArg1, TArg2..., State, Event[]>`.
+* Các phương thức Aggregate cũng có thể được biến đổi thành một tập hợp các hàm không lưu trạng thái (stateless functions), nhận vào các tham số Command, Domain Services và một trạng thái. Các hàm như vậy trả về không hoặc nhiều Event và có dạng `Func<TArg1, Event[] State, TArg2...,>`.
 * Một Event Store có thể được nhìn nhận và diễn đạt như một cơ sở dữ liệu hàm (functional database), bởi vì nó lưu trữ bền vững các đối số truyền vào các hàm có nhiệm vụ làm biến đổi trạng thái của Aggregate. Việc hỗ trợ snapshot (ảnh chụp trạng thái nhanh) trong một Event Store dạng hàm là khái niệm quen thuộc đối với các lập trình viên hàm dưới tên gọi memoization (kỹ thuật ghi nhớ kết quả tính toán).
 
 > 💡 **Giải thích thêm:** "Left fold" (hay `foldl`/`reduce`) trong lập trình hàm là phép toán duyệt tuần tự một danh sách từ trái qua phải, áp dụng một hàm tích lũy lên giá trị tích lũy hiện tại và từng phần tử để sinh ra giá trị kết quả duy nhất. Trong ngữ cảnh Event Sourcing, toàn bộ lịch sử các sự kiện trong quá khứ chính là một danh sách: bắt đầu từ trạng thái khởi tạo rỗng (`initial state`), mỗi sự kiện được áp dụng tuần tự qua hàm biến đổi để "tích lũy" và tái tạo chính xác trạng thái hiện tại của Aggregate.
-> Nguồn tham khảo: https://en.wikipedia.org/wiki/Fold_(higher-order_function)
+> Nguồn tham khảo: [https://en.wikipedia.org/wiki/Fold_(higher-order_function](https://en.wikipedia.org/wiki/Fold_(higher-order_function))
 
 Một development spike nhằm nắm bắt các khái niệm nghiệp vụ cốt lõi bằng A+ES trong một ngôn ngữ lập trình hàm có thể thúc đẩy nhanh chóng những nỗ lực mô hình hóa miền của chúng ta. Hơn thế nữa, nó buộc chúng ta phải chuyển trọng tâm khám phá miền từ cấu trúc của Aggregate sang việc phản ánh chặt chẽ Ubiquitous Language của miền được thể hiện thông qua các hành vi của nó. Bất kỳ điều gì có thể giúp chúng ta chú trọng nhiều hơn vào Core Domain và ít phụ thuộc hơn vào công nghệ đều có khả năng mang lại nhiều giá trị hơn cho doanh nghiệp và giúp doanh nghiệp đạt được lợi thế cạnh tranh lớn hơn nữa.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000654_a4c499d1fb3c0225991851444f0350d6ec11ff1645c2b28f22386b5313ec52d9.png)
 
 This page intentionally left blank
 
 ## Bibliography
 
-[Appleton, LoD] Appleton, Brad. n.d. 'Introducing Demeter and Its Laws.' www.bradapp.com/docs/demeter-intro.html.
+[Appleton, LoD] Appleton, Brad. n.d. 'Introducing Demeter and Its Laws.' [www.bradapp.com/docs/demeter-intro.html](https://www.bradapp.com/docs/demeter-intro.html).
 
 [Bentley] Bentley, Jon. 2000. Programming Pearls, Second Edition. Boston, MA: Addison-Wesley.
 
-http://cs.bell-labs.com/cm/cs/pearls/bote.html.
+[http://cs.bell-labs.com/cm/cs/pearls/bote.html](http://cs.bell-labs.com/cm/cs/pearls/bote.html).
 
 [Brandolini] Brandolini, Alberto. 2009. 'Strategic Domain-Driven Design with Context Mapping.'
 
-www.infoq.com/articles/ddd-contextmapping.
+[www.infoq.com/articles/ddd-contextmapping](https://www.infoq.com/articles/ddd-contextmapping).
 
 [Buschmann et al.] Buschmann, Frank, et al. 1996. Pattern-Oriented Software Architecture, Volume 1: A System of Patterns . New York: Wiley.
 
 [Cockburn] Cockburn, Alastair. 2012. 'Hexagonal Architecture.'
 
-http://alistair.cockburn.us/Hexagonal+architecture.
+[http://alistair.cockburn.us/Hexagonal+architecture](http://alistair.cockburn.us/Hexagonal+architecture).
 
 [Crupi et al.] Crupi, John, et al. n.d. 'Core J2EE Patterns.'
 
-http://corej2eepatterns.com/Patterns2ndEd/DataAccessObject.htm.
+[http://corej2eepatterns.com/Patterns2ndEd/DataAccessObject.htm](http://corej2eepatterns.com/Patterns2ndEd/DataAccessObject.htm).
 
 [Cunningham, Checks] Cunningham, Ward. 1994. 'The CHECKS Pattern Language of Information Integrity.'
 
-http://c2.com/ppr/checks.html.
+[http://c2.com/ppr/checks.html](http://c2.com/ppr/checks.html).
 
-[Cunningham, Whole Value] Cunningham, Ward. 1994. '1. Whole Value.' http://c2.com/ppr/checks.html#1.
+[Cunningham, Whole Value] Cunningham, Ward. 1994. '1. Whole Value.' [http://c2.com/ppr/checks.html#1](http://c2.com/ppr/checks.html#1).
 
 [Cunningham, Whole Value aka Value Object] Cunningham, Ward. 2005. 'Whole Value.'
 
-http://fit.c2.com/wiki.cgi?WholeValue.
+[http://fit.c2.com/wiki.cgi?WholeValue](http://fit.c2.com/wiki.cgi?WholeValue).
 
 [Dahan, CQRS] Dahan, Udi. 2009. 'Clarified CQRS.'
 
-www.udidahan.com/2009/12/09/clarified-cqrs/.
+[www.udidahan.com/2009/12/09/clarified-cqrs/](https://www.udidahan.com/2009/12/09/clarified-cqrs/).
 
-[Dahan, Roles] Dahan, Udi. 2009. 'Making Roles Explicit.' www.infoq.com/presentations/Making-Roles-Explicit-Udi-Dahan.
+[Dahan, Roles] Dahan, Udi. 2009. 'Making Roles Explicit.' [www.infoq.com/presentations/Making-Roles-Explicit-Udi-Dahan](https://www.infoq.com/presentations/Making-Roles-Explicit-Udi-Dahan).
 
-[Deutsch] Deutsch, Peter. 2012. 'Fallacies of Distributed Computing.' http://en.wikipedia.org/wiki/Fallacies_of_Distributed_Computing.
+[Deutsch] Deutsch, Peter. 2012. 'Fallacies of Distributed Computing.' [http://en.wikipedia.org/wiki/Fallacies_of_Distributed_Computing](http://en.wikipedia.org/wiki/Fallacies_of_Distributed_Computing).
 
 [Dolphin] Object Arts. 2000. 'Dolphin Smalltalk; Twisting the Triad.' www.object-arts.com/downloads/papers/TwistingTheTriad.PDF.
 
@@ -16086,31 +16635,33 @@ www.udidahan.com/2009/12/09/clarified-cqrs/.
 
 http://serviceorientation.com/index.php/serviceorientation/index.
 
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000655_44bcba716db59404b9452a911fb1bed4a8b47a3c32dd572eaa3ba6fbb575a0ad.png)
+
 [Evans] Evans, Eric. 2004. Domain-Driven Design: Tackling the Complexity in the Heart of Software. Boston, MA: Addison-Wesley.
 
-[Evans, Ref] Evans, Eric. 2012. 'Domain-Driven Design Reference.' http://domainlanguage.com/ddd/patterns/DDD_Reference_2011-01-31.pdf.
+[Evans, Ref] Evans, Eric. 2012. 'Domain-Driven Design Reference.' [http://domainlanguage.com/ddd/patterns/DDD_Reference_2011-01-31.pdf](http://domainlanguage.com/ddd/patterns/DDD_Reference_2011-01-31.pdf).
 
-[Evans & Fowler, Spec] Evans, Eric, and Martin Fowler. 2012. 'Specifications.' http://martinfowler.com/apsupp/spec.pdf.
+[Evans & Fowler, Spec] Evans, Eric, and Martin Fowler. 2012. 'Specifications.' [http://martinfowler.com/apsupp/spec.pdf](http://martinfowler.com/apsupp/spec.pdf).
 
 [Fairbanks] Fairbanks, George. 2011. Just Enough Software Architecture . Marshall & Brainerd.
 
-[Fowler, Anemic] Fowler, Martin. 2003. 'AnemicDomainModel.' http://martinfowler.com/bliki/AnemicDomainModel.html.
+[Fowler, Anemic] Fowler, Martin. 2003. 'AnemicDomainModel.' [http://martinfowler.com/bliki/AnemicDomainModel.html](http://martinfowler.com/bliki/AnemicDomainModel.html).
 
-[Fowler, CQS] Fowler, Martin. 2005. 'CommandQuerySeparation.' http://martinfowler.com/bliki/CommandQuerySeparation.html.
+[Fowler, CQS] Fowler, Martin. 2005. 'CommandQuerySeparation.' [http://martinfowler.com/bliki/CommandQuerySeparation.html](http://martinfowler.com/bliki/CommandQuerySeparation.html).
 
 [Fowler, DI] Fowler, Martin. 2004. 'Inversion of Control Containers and the Dependency Injection Pattern.'
 
-http://martinfowler.com/articles/injection.html.
+[http://martinfowler.com/articles/injection.html](http://martinfowler.com/articles/injection.html).
 
 [Fowler, P of EAA] Fowler, Martin. 2003. Patterns of Enterprise Application Architecture . Boston, MA: Addison-Wesley.
 
 [[Fowler, PM] Fowler, Martin. 2004. 'Presentation Model.'](http://martinfowler.com/eaaDev/PresentationModel.html)
 
-http://martinfowler.com/eaaDev/PresentationModel.html.
+[http://martinfowler.com/eaaDev/PresentationModel.html](http://martinfowler.com/eaaDev/PresentationModel.html).
 
-[Fowler, Self Encap] Fowler, Martin. 2012. 'SelfEncapsulation.' http://martinfowler.com/bliki/SelfEncapsulation.html.
+[Fowler, Self Encap] Fowler, Martin. 2012. 'SelfEncapsulation.' [http://martinfowler.com/bliki/SelfEncapsulation.html](http://martinfowler.com/bliki/SelfEncapsulation.html).
 
-[Fowler, SOA] Fowler, Martin. 2005. 'ServiceOrientedAmbiguity.' http://martinfowler.com/bliki/ServiceOrientedAmbiguity.html.
+[Fowler, SOA] Fowler, Martin. 2005. 'ServiceOrientedAmbiguity.' [http://martinfowler.com/bliki/ServiceOrientedAmbiguity.html](http://martinfowler.com/bliki/ServiceOrientedAmbiguity.html).
 
 [Freeman et al.] Freeman, Eric, Elisabeth Robson, Bert Bates, and Kathy Sierra. 2004. Head First Design Patterns . Sebastopol, CA: O'Reilly Media.
 
@@ -16122,7 +16673,7 @@ www.amundsen.com/downloads/sagas.pdf.
 
 [[GemFire Functions] 2012. VMware vFabric 5 Documentation Center. http://pubs.vmware.com/vfabric5/index.jsp?topic=/com.vmware.vfabric .gemfire.6.6/developing/function_exec/chapter_overview.html.](http://pubs.vmware.com/vfabric5/index.jsp?topic=/com.vmware.vfabric.gemfire.6.6/developing/function_exec/chapter_overview.html)
 
-[Gson] 2012. A Java JSON library hosted on Google Code. http://code.google.com/p/google-gson/.
+[Gson] 2012. A Java JSON library hosted on Google Code. [http://code.google.com/p/google-gson/](http://code.google.com/p/google-gson/).
 
 [Helland] Helland, Pat. 2007. 'Life beyond Distributed Transactions: An Apostate's Opinion.' Third Biennial Conference on Innovative DataSystems Research (CIDR), January 7-10, Asilomar, CA.
 
@@ -16130,29 +16681,29 @@ www.ics.uci.edu/~cs223/papers/cidr07p15.pdf.
 
 [Hohpe & Woolf] Hohpe, Gregor, and Bobby Woolf. 2004. Enterprise Integration Patterns: Designing, Building, and Deploying Messaging Systems . Boston, MA: Addison-Wesley.
 
-[Inductive UI] 2001. Microsoft Inductive User Interface Guidelines. http://msdn.microsoft.com/en-us/library/ms997506.aspx.
+[Inductive UI] 2001. Microsoft Inductive User Interface Guidelines. [http://msdn.microsoft.com/en-us/library/ms997506.aspx](http://msdn.microsoft.com/en-us/library/ms997506.aspx).
 
 [Jezequel et al.] Jezequel, Jean-Marc, Michael Train, and Christine Mingins. 2000. Design Patterns and Contract. Reading, MA: Addison-Wesley.
 
 [Keith & Stafford] Keith, Michael, and Randy Stafford. 2008. 'Exposing the ORM Cache.' ACM , May 1.
 
-http://queue.acm.org/detail.cfm?id=1394141.
+[http://queue.acm.org/detail.cfm?id=1394141](http://queue.acm.org/detail.cfm?id=1394141).
 
-[Liskov] Liskov, Barbara. 1987. Conference Keynote: 'Data Abstraction and Hierarchy.' http://en.wikipedia.org/wiki/Liskov_substitution_principle. 'The Liskov Substitution Principle.'
+[Liskov] Liskov, Barbara. 1987. Conference Keynote: 'Data Abstraction and Hierarchy.' [http://en.wikipedia.org/wiki/Liskov_substitution_principle](http://en.wikipedia.org/wiki/Liskov_substitution_principle). 'The Liskov Substitution Principle.'
 
-www.objectmentor.com/resources/articles/lsp.pdf.
+[www.objectmentor.com/resources/articles/lsp.pdf](https://www.objectmentor.com/resources/articles/lsp.pdf).
 
-[Martin, DIP] Martin, Robert. 1996. 'The Dependency Inversion Principle.' www.objectmentor.com/resources/articles/dip.pdf.
+[Martin, DIP] Martin, Robert. 1996. 'The Dependency Inversion Principle.' [www.objectmentor.com/resources/articles/dip.pdf](https://www.objectmentor.com/resources/articles/dip.pdf).
 
 [Martin, SRP] Martin, Robert. 2012. 'SRP: The Single Responsibility Principle.' www.objectmentor.com/resources/articles/srp.pdf.
 
 [[MassTransit] Patterson, Chris. 2008. 'Managing Long-Lived Transactions with MassTransit.Saga.'](http://lostechies.com/chrispatterson/2008/08/29/managing-long-lived-transactions-with-masstransit-saga/)
 
-http://lostechies.com/chrispatterson/2008/08/29/managing-long-livedtransactions-with-masstransit-saga/.
+[http://lostechies.com/chrispatterson/2008/08/29/managing-long-livedtransactions-with-masstransit-saga/](http://lostechies.com/chrispatterson/2008/08/29/managing-long-livedtransactions-with-masstransit-saga/).
 
 [[MSDN Assemblies] 2012.](http://msdn.microsoft.com/en-us/library/51ket42z%28v=vs.71%29.aspx)
 
-http://msdn.microsoft.com/en-us/library/51ket42z%28v=vs.71%29.aspx.
+[http://msdn.microsoft.com/en-us/library/51ket42z%28v=vs.71%29.aspx](http://msdn.microsoft.com/en-us/library/51ket42z%28v=vs.71%29.aspx).
 
 [Nilsson] Nilsson, Jimmy. 2006. Applying Domain-Driven Design and Patterns: With Examples in C# and .NET. Boston, MA: Addison-Wesley.
 
@@ -16160,17 +16711,21 @@ http://msdn.microsoft.com/en-us/library/51ket42z%28v=vs.71%29.aspx.
 
 [[NServiceBus] 2012.](http://www.nservicebus.com/)
 
-www.nservicebus.com/.
+[www.nservicebus.com/](https://www.nservicebus.com/).
 
 [Öberg] Öberg, Rickard. 2012. 'What Is Qi4j™?' http://qi4j.org/.
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000656_d1a45bebf52125d042db60a906b5c7582d1dcaf27d88eb93c8b389f46d524437.png)
+
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000657_a78bb5b47de16f21577abcd59c759edd7137786af64974b026fe11d1f0fe0f8a.png)
 
 [Parastatidis et al., RiP] Webber, Jim, Savas Parastatidis, and Ian Robinson. 2011. REST in Practice . Sebastopol, CA: O'Reilly Media.
 
 [[PragProg, TDA] The Pragmatic Programmer. 'Tell, Don't Ask.'](http://pragprog.com/articles/tell-dont-ask)
 
-http://pragprog.com/articles/tell-dont-ask.
+[http://pragprog.com/articles/tell-dont-ask](http://pragprog.com/articles/tell-dont-ask).
 
-[Quartz] 2012. Terracotta Quartz Scheduler. http://terracotta.org/products/quartz-scheduler.
+[Quartz] 2012. Terracotta Quartz Scheduler. [http://terracotta.org/products/quartz-scheduler](http://terracotta.org/products/quartz-scheduler).
 
 [Seovi þ ] Seovi þ , Aleksandar, Mark Falco, and Patrick Peralta. 2010. Oracle Coherence 3.5: Creating Internet-Scale Applications Using Oracle's High-Performance Data Grid . Birmingham, England: Packt Publishing.
 
@@ -16180,183 +16735,48 @@ www.soa-manifesto.org/.
 
 [[Sutherland] Sutherland, Jeff. 2010. 'Story Points: Why Are They Better than Hours?'](http://scrum.jeffsutherland.com/2010/04/story-points-why-are-they-better-than.html)
 
-http://scrum.jeffsutherland.com/2010/04/story-points-why-are-they-betterthan.html.
+[http://scrum.jeffsutherland.com/2010/04/story-points-why-are-they-betterthan.html](http://scrum.jeffsutherland.com/2010/04/story-points-why-are-they-betterthan.html).
 
-[Tilkov, Manifesto] Tilkov, Stefan. 2009. 'Comments on the SOA Manifesto.' www.innoq.com/blog/st/2009/10/comments_on_the_soa_manifesto.html.
+[Tilkov, Manifesto] Tilkov, Stefan. 2009. 'Comments on the SOA Manifesto.' [www.innoq.com/blog/st/2009/10/comments_on_the_soa_manifesto.html](https://www.innoq.com/blog/st/2009/10/comments_on_the_soa_manifesto.html).
 
-[Tilkov, RESTful Doubts] Tilkov, Stefan. 2012. 'Addressing Doubts about REST.' www.infoq.com/articles/tilkov-rest-doubts.
+[Tilkov, RESTful Doubts] Tilkov, Stefan. 2012. 'Addressing Doubts about REST.' [www.infoq.com/articles/tilkov-rest-doubts](https://www.infoq.com/articles/tilkov-rest-doubts).
 
-[Vernon, DDR] Vernon, Vaughn. n.d. 'Architecture and Domain-Driven Design.' http://vaughnvernon.co/?page_id=38.
+[Vernon, DDR] Vernon, Vaughn. n.d. 'Architecture and Domain-Driven Design.' [http://vaughnvernon.co/?page_id=38](http://vaughnvernon.co/?page_id=38).
 
-[Vernon, DPO] Vernon, Vaughn. n.d. 'Architecture and Domain-Driven Design.' http://vaughnvernon.co/?page_id=40.
+[Vernon, DPO] Vernon, Vaughn. n.d. 'Architecture and Domain-Driven Design.' [http://vaughnvernon.co/?page_id=40](http://vaughnvernon.co/?page_id=40).
 
 [Vernon, RESTful DDD] Vernon, Vaughn. 2010. 'RESTful SOA or DomainDriven Design-A Compromise?' QCon SF 2010. www.infoq.com/presentations/RESTful-SOA-DDD.
 
 [[Webber, REST & DDD] Webber, Jim. 'REST and DDD.'](http://skillsmatter.com/podcast/design-architecture/rest-and-ddd)
 
-http://skillsmatter.com/podcast/design-architecture/rest-and-ddd.
+[http://skillsmatter.com/podcast/design-architecture/rest-and-ddd](http://skillsmatter.com/podcast/design-architecture/rest-and-ddd).
 
 [Wiegers] Wiegers, Karl E. 2012. 'First Things First: Prioritizing Requirements.'
 
-www.processimpact.com/articles/prioritizing.html.
+[www.processimpact.com/articles/prioritizing.html](https://www.processimpact.com/articles/prioritizing.html).
 
 [Wikipedia, CQS] 2012. 'Command-Query Separation.' http://en.wikipedia.org/wiki/Command-query_separation.
 
 [[Wikipedia, EDA] 2012. 'Event-Driven Architecture.'](http://en.wikipedia.org/wiki/Event-driven_architecture)
 
-http://en.wikipedia.org/wiki/Event-driven_architecture.
+[http://en.wikipedia.org/wiki/Event-driven_architecture](http://en.wikipedia.org/wiki/Event-driven_architecture).
 
-[Young, ES] Young, Greg. 2010. 'Why Use Event Sourcing?' http://codebetter.com/gregyoung/2010/02/20/why-use-event-sourcing/.
+[Young, ES] Young, Greg. 2010. 'Why Use Event Sourcing?' [http://codebetter.com/gregyoung/2010/02/20/why-use-event-sourcing/](http://codebetter.com/gregyoung/2010/02/20/why-use-event-sourcing/).
 
 ## Index
 
 ## A
 
-| Abstract classes, in modules, 338<br>
+![Image](output/2013-Vaughn-Implementing%20Domain%20Driven%20Design_artifacts/image_000658_9800c9ebb19ee7dd1c5c09ae76d0abbcadd88cb22700ebabee728c038eac96dd.png)
 
-<br>Abstract Factory pattern, 389<br>
-
-<br>Abstraction, Dependency Inversion Principle and, 123<br>
-
-<br>Access management, identity and, 91-92<br>
-
-<br>ACID databases, 521<br>
-
-<br>ACL. See Anticorruption Layer (ACL)<br>
-
-<br>Active Record, in Transaction Scripts, 441<br>
-
-<br>ActiveMQ, as messaging middleware, 303<br>
-
-<br>Actor Model, 295<br>
-
-<br>Adapters. See also Hexagonal Architecture<br>
-
-<br>Domain Services use for integration, 280<br>
-
-<br>handling client output types, 529-530<br>
-
-<br>Hexagonal Architecture and, 126-127<br>
-
-<br>Presentation Model as, 519<br>
-
-<br>for REST client implementation, 465-466<br>
-
-<br>Aggregate Root query interface, 516<br>
-
-<br>Aggregate Stores<br>
-
-<br>distributed caches of Data Fabrics as, 164<br>
-
-<br>persistence-oriented repositories and, 418<br>
-
-<br>Aggregate-Oriented Databases, 418<br>
-
-<br>Aggregates. See also A+ES (Aggregates and Event Sourcing)<br>
-
-<br>Application Services and, 120-121<br>
-
-<br>avoiding dependency Injection, 387<br>
-
-<br>behavioral focus of, 569-570<br>
-
-<br>Context Maps and, 90<br>
-
-<br>cost estimates of memory overhead, 372-373<br>
-
-<br>creating and publishing Events, 287<br>
-
-<br>decision process in designing, 379-380<br>
-
-<br>designing, 573<br>
-
-<br>designing based on usage scenarios, 375-376<br>
-
-<br>Domain Events with Aggregate characteristics, 294-295<br>
-
-<br>Event Sourcing and, 160-162, 539<br>
-
-<br>eventual consistency, 364-367, 376-378<br>
-
-<br>executives and trackers merged in, 156<br>
-
-<br>factories on Aggregate Root, 391-392<br>
-
-<br>global transactions as reason to break design rules, 369<br>
-
-<br>implementing, 380 | information hiding (Law of Demeter and Tell, Don't Ask), 382-384<br>
-
-<br>invariant determination in creating clusters, 353-355<br>
-
-<br>lack of technical mechanisms as reason to break design rules, 368-369<br>
-
-<br>local identity of Entities and, 177<br>
-
-<br>mediators publishing internal state of, 514-515<br>
-
-<br>memory consumption and, 374-375<br>
-
-<br>model navigation and, 362-363<br>
-
-<br>motivations for Factory use, 389<br>
-
-<br>as object collections, 203<br>
-
-<br>optimistic concurrency, 385-387<br>
-
-<br>organizing into large clusters, 349-351<br>
-
-<br>organizing into smaller units, 351-353<br>
-
-<br>overview of, 347-348<br>
-
-<br>placing in repository, 401<br>
-
-<br>query performance as reason to break design rules, 369-370<br>
-
-<br>querying repositories and, 138<br>
-
-<br>references between, 359-362<br>
-
-<br>removing from repository, 409<br>
-
-<br>rendering Data Transfer Objects, 513-514<br>
-
-<br>rendering Domain Payload Objects, 515-516<br>
-
-<br>rendering properties of multiple instances, 512-513<br>
-
-<br>rethinking design, 370-372<br>
-
-<br>review, 388<br>
-
-<br>Root Entity and, 380-382<br>
-
-<br>scalability and distribution of, 363-364<br>
-
-<br>in Scrum Core Domain, 348-349<br>
-
-<br>single-aggregate-instance-in-single- transaction rule of thumb, 302<br>
-
-<br>size of Bounded Contexts and, 68<br>
-
-<br>small Aggregate design, 355-358<br>
-
-<br>snapshots of, 559-561<br>
-
-<br>as Standard Type, 237<br>
-
-<br>state of, 516-517<br>
-
-<br>storing in Data Fabrics, 164<br>
-
-<br>synchronizing instances in local Bounded Context, 287 |
+| Abstract classes, in modules, 338<br><br>Abstract Factory pattern, 389<br><br>Abstraction, Dependency Inversion Principle and, 123<br><br>Access management, identity and, 91-92<br><br>ACID databases, 521<br><br>ACL. See Anticorruption Layer (ACL)<br><br>Active Record, in Transaction Scripts, 441<br><br>ActiveMQ, as messaging middleware, 303<br><br>Actor Model, 295<br><br>Adapters. See also Hexagonal Architecture<br><br>Domain Services use for integration, 280<br><br>handling client output types, 529-530<br><br>Hexagonal Architecture and, 126-127<br><br>Presentation Model as, 519<br><br>for REST client implementation, 465-466<br><br>Aggregate Root query interface, 516<br><br>Aggregate Stores<br><br>distributed caches of Data Fabrics as, 164<br><br>persistence-oriented repositories and, 418<br><br>Aggregate-Oriented Databases, 418<br><br>Aggregates. See also A+ES (Aggregates and Event Sourcing)<br><br>Application Services and, 120-121<br><br>avoiding dependency Injection, 387<br><br>behavioral focus of, 569-570<br><br>Context Maps and, 90<br><br>cost estimates of memory overhead, 372-373<br><br>creating and publishing Events, 287<br><br>decision process in designing, 379-380<br><br>designing, 573<br><br>designing based on usage scenarios, 375-376<br><br>Domain Events with Aggregate characteristics, 294-295<br><br>Event Sourcing and, 160-162, 539<br><br>eventual consistency, 364-367, 376-378<br><br>executives and trackers merged in, 156<br><br>factories on Aggregate Root, 391-392<br><br>global transactions as reason to break design rules, 369<br><br>implementing, 380 | information hiding (Law of Demeter and Tell, Don't Ask), 382-384<br><br>invariant determination in creating clusters, 353-355<br><br>lack of technical mechanisms as reason to break design rules, 368-369<br><br>local identity of Entities and, 177<br><br>mediators publishing internal state of, 514-515<br><br>memory consumption and, 374-375<br><br>model navigation and, 362-363<br><br>motivations for Factory use, 389<br><br>as object collections, 203<br><br>optimistic concurrency, 385-387<br><br>organizing into large clusters, 349-351<br><br>organizing into smaller units, 351-353<br><br>overview of, 347-348<br><br>placing in repository, 401<br><br>query performance as reason to break design rules, 369-370<br><br>querying repositories and, 138<br><br>references between, 359-362<br><br>removing from repository, 409<br><br>rendering Data Transfer Objects, 513-514<br><br>rendering Domain Payload Objects, 515-516<br><br>rendering properties of multiple instances, 512-513<br><br>rethinking design, 370-372<br><br>review, 388<br><br>Root Entity and, 380-382<br><br>scalability and distribution of, 363-364<br><br>in Scrum Core Domain, 348-349<br><br>single-aggregate-instance-in-single- transaction rule of thumb, 302<br><br>size of Bounded Contexts and, 68<br><br>small Aggregate design, 355-358<br><br>snapshots of, 559-561<br><br>as Standard Type, 237<br><br>state of, 516-517<br><br>storing in Data Fabrics, 164<br><br>synchronizing instances in local Bounded Context, 287 |
 | --- | --- |
+
 
 
 Aggregates (tiếp theo) tactical modeling tools, 29 results of asking whose job it is, 378-379 usage scenarios applied to designing, 373-374 use cases and, 358-359 user interface convenience as reason to break design rules, 367-368 Value Objects preferred over Entities when possible, 382 Aggregates and Event Sourcing (A+ES) advantages of, 539-540 Aggregate design, 573 BLOB persistence, 568-569 Command Handlers, 549-553 concurrency control, 554-558 contract generation and maintenance, 580-581 drawbacks of, 540 event enrichment, 573-575 event immutability, 577 event serializers, 576-577 event sourcing in functional languages, 583 focusing Aggregates on different behavioral aspects, 569-570 implementing event stores, 561-565 inside Application Services, 541-549 lambda syntax, 553-554 overview of, 539 performance issues, 558-561 Read Model Projections, 570-572 relational persistence, 565-567 structural freedom with, 558 tools and patterns supporting, 576 unit tests and specifications, 582-583 Value Objects and, 577-580 Agile Manifesto, 82 Agile modeling benefits of DDD, 28 design and, 55 Agile Project Management (APM), 177 Agile Project Management Context calculation process from, 277 Context Maps and, 104 as Core Domain, 98 integrating with Collaboration Context, 107-110 integrating with Identity and Access Context, 104-107 modeling Domain Event from, 288-289 modules, 340-343 overview of, 82-84
 
-ProjectOvation as example of, 92 Value Objects and, 239 Ajax Push (Comet), 147 Akka, as messaging middleware, 303 Anemia, 14-16 Anemia-induced memory loss, 16-20 Anemic Domain Model avoiding, 426 causes of, 14-15 determining health of Domain Model and, 13 DTOs mimicking, 532 overuse of services resulting in, 268 overview of, 13 presence of anemia everywhere, 15-16 what anemia does to your model, 16-17 Anticorruption Layer (ACL) Bounded Context relationships, 93-94 built-in, 532 defined, 101 implementing, 469 implementing REST clients and, 463-469 synchronizing team members with identities and roles, 340-341 APIs (application programming interfaces) creating products, 482-483 integration basics and, 450-451 opening services and, 510 APM (Agile Project Management), 177. See also Agile Project Management Context Application Layer composing multiple Bounded Contexts and, 531-532 creating and naming modules of nonmodel components, 343-344 DIP (Dependency Inversion Principle) and, 124 in Layers Architecture, 119-121 managing transactions in, 433-434 Application programming interfaces. See APIs (application programming interfaces) Application Services, 68 controlling access and use of Aggregates, 541-549 decoupling service output, 528-530 delegation of, 461-462 Domain Services compared with, 267 enterprise component containers, 534-537 example, 522-528 Hexagonal Architecture and, 126-128
+ProjectOvation as example of, 92 Value Objects and, 239 Ajax Push (Comet), 147 Akka, as messaging middleware, 303 Anemia, 14-16 Anemia-induced memory loss, 16-20 Anemic Domain Model avoiding, 426 causes of, 14-15 determining health of Domain Model and, 13 DTOs mimicking, 532 overuse of services resulting in, 268 overview of, 13 presence of anemia everywhere, 15-16 what anemia does to your model, 16-17 Anticorruption Layer (ACL) Bounded Context relationships, 93-94 built-in, 532 defined, 101 implementing, 469 implementing REST clients and, 463-469 synchronizing team members with identities and roles, 340-341 APIs (application programming interfaces) creating products, 482-483 integration basics and, 450-451 opening services and, 510 APM (Agile Project Management), 177. See also Agile Project Management Context Application Layer composing multiple Bounded Contexts and, 531-532 tạo và đặt tên các module cho các thành phần phi-model, 343-344 DIP (Dependency Inversion Principle) and, 124 in Layers Architecture, 119-121 managing transactions in, 433-434 Application programming interfaces. See APIs (application programming interfaces) Application Services, 68 controlling access and use of Aggregates, 541-549 decoupling service output, 528-530 delegation of, 461-462 Domain Services compared with, 267 enterprise component containers, 534-537 example, 522-528 Hexagonal Architecture and, 126-128
 
 infrastructure and, 509, 532-534
 
@@ -16505,8 +16925,6 @@ exchanging information across system
 boundaries, 452-458
 
 modules and, 344
-
-<!-- ⚠️ CẢNH BÁO chunk 28: số ảnh/heading/code-block KHÔNG khớp bản gốc (gốc={'images': 21, 'headings': 16, 'fences': 42}, dịch={'images': 2, 'headings': 16, 'fences': 42}). Xem lại đoạn này bằng tay. -->
 
 ﻿
 
